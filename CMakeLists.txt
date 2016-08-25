@@ -1,20 +1,12 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.0.2)
 
+include(GNUInstallDirs)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/QEverCloud/cmake/modules")
 include(QEverCloudCMakePolicies)
 SET_POLICIES()
 
-if("${CMAKE_MAJOR_VERSION}" GREATER "2")
-  project(QEverCloud
-          VERSION 3.0.1)
-else()
-  project(QEverCloud)
-  set(PROJECT_VERSION_MAJOR "3")
-  set(PROJECT_VERSION_MINOR "0")
-  set(PROJECT_VERSION_PATCH "1")
-  set(PROJECT_VERSION_COUNT 3)
-  set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
-endif()
+project(QEverCloud
+        VERSION 3.0.1)
 
 set(PROJECT_VENDOR "Dmitry Ivanov")
 set(PROJECT_COPYRIGHT_YEAR "2015-2016")
