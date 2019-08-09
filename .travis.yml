@@ -104,7 +104,7 @@ script:
     - make check
     - make install
     - |
-      if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${QT_BASE}" = "5123" ] && [ "${COMPILER}" = "g++-4.8" ] && [ "${TRAVIS_BRANCH}" = "development" ]; then
+      if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${QT_BASE}" = "5123" ] && [ "${COMPILER}" = "g++-5.4" ] && [ "${TRAVIS_BRANCH}" = "development" ]; then
         echo "Triggering build at OpenSUSE build service for development branch" &&
         curl -X POST -H "Authorization: Token $OSC_TOKEN" https://api.opensuse.org/trigger/runservice?project=home%3Ad1vanov%3Aquentier-development&package=qevercloud-development
       fi
