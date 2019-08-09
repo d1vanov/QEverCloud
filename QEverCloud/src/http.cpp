@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -66,8 +66,12 @@ void ReplyFetcher::onDownloadProgress(qint64, qint64)
 
 void ReplyFetcher::checkForTimeout()
 {
-    const int connectionTimeout = 30*1000;
-    if ((m_lastNetworkTime - QDateTime::currentMSecsSinceEpoch()) > connectionTimeout) {
+    const int timeout = connectionTimeout();
+    if (timeout < 0) {
+        return;
+    }
+
+    if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > timeout) {
         setError(QStringLiteral("Connection timeout."));
     }
 }

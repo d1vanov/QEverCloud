@@ -20,7 +20,7 @@ your copy of Qt Creator to have context-sensitive help. See below for more detai
 
 ## How to contribute
 
-Please see the [contribution guide](CONTRIBUTING.md) for detailed info. 
+Please see the [contribution guide](CONTRIBUTING.md) for detailed info.
 
 ## Downloads
 
@@ -43,7 +43,7 @@ Prebuilt versions of the library can be downloaded from the following locations:
 
 ## How to build
 
-The project can be built and shipped as either static library or shared library. Dll export/import symbols necessary for Windows platform are supported.
+The project can be built and shipped either as a static library or a shared library. Dll export/import symbols necessary for Windows platform are supported.
 
 Dependencies include the following Qt components:
  * For Qt4: QtCore, QtGui, QtNetwork and, if the library is built with OAuth support, QtWebKit
@@ -94,9 +94,15 @@ If *MAJOR_VERSION_DEV_HEADERS_FOLDER_NAME_SUFFIX* is on, `make install` would in
 
 The two latter options are intended to allow for easier installation of multiple major versions of QEverCloud.
 
+Since QEverCloud 4.1.0 it is possible to build the library with enabled sanitizers using additional CMake options:
+ * `-DSANITIZE_ADDRESS=ON` to enable address sanitizer
+ * `-DSANITIZE_MEMORY=ON` to enable memory sanitizer
+ * `-DSANITIZE_THREAD=ON` to enable thread sanitizer
+ * `-DSANITIZE_UNDEFINED=ON` to enable undefined behaviour sanitizer
+
 ## Compatibility
 
-The library can be built with both Qt4 and Qt5 versions of the framework. By default Qt4 is used, if found. If you'd like to force finding the Qt5 version no matter whether Qt4 is found, pass `-DUSE_QT5=1` option to CMake.
+The library can be built with both Qt4 and Qt5 versions of the framework. Since QEverCloud 4.1.0 the default one is Qt5. In order to force building with Qt4 version pass `-DBUILD_WITH_QT4=ON` option to CMake. Prior to QEverCloud 4.1.0 version of Qt used by default was Qt4. For those old versions in order to force building with Qt5 one needs to pass `-DUSE_QT5=1` option to CMake.
 
 ### API breaks from 2.x to 3.0
 
