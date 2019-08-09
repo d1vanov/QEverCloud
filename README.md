@@ -20,7 +20,7 @@ your copy of Qt Creator to have context-sensitive help. See below for more detai
 
 ## How to contribute
 
-Please see the [contribution guide](CONTRIBUTING.md) for detailed info. 
+Please see the [contribution guide](CONTRIBUTING.md) for detailed info.
 
 ## Downloads
 
@@ -43,7 +43,7 @@ Prebuilt versions of the library can be downloaded from the following locations:
 
 ## How to build
 
-The project can be built and shipped as either static library or shared library. Dll export/import symbols necessary for Windows platform are supported.
+The project can be built and shipped either as a static library or a shared library. Dll export/import symbols necessary for Windows platform are supported.
 
 Dependencies include the following Qt components:
  * For Qt4: QtCore, QtGui, QtNetwork and, if the library is built with OAuth support, QtWebKit
@@ -93,6 +93,12 @@ If *MAJOR_VERSION_LIB_NAME_SUFFIX* is on, `make install` would add the major ver
 If *MAJOR_VERSION_DEV_HEADERS_FOLDER_NAME_SUFFIX* is on, `make install` would install the development headers into the folder which name would end with the major version of QEverCloud.
 
 The two latter options are intended to allow for easier installation of multiple major versions of QEverCloud.
+
+Since QEverCloud 4.1.0 it is possible to build the library with enabled sanitizers using additional CMake options:
+ * `-DSANITIZE_ADDRESS=ON` to enable address sanitizer
+ * `-DSANITIZE_MEMORY=ON` to enable memory sanitizer
+ * `-DSANITIZE_THREAD=ON` to enable thread sanitizer
+ * `-DSANITIZE_UNDEFINED=ON` to enable undefined behaviour sanitizer
 
 ## Compatibility
 
