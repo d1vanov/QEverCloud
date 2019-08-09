@@ -1,7 +1,7 @@
 # Changelog
 
 ## 4.1.0
-  * Migrate to Evernote API 1.29 to 1.28. The changes are incremental and API is not broken. ABI is changed though,
+  * Migrate to Evernote API 1.29 from 1.28. The changes are incremental and API is not broken. ABI is changed though,
     hence minor version number increase. The changes in API include:
      * Extension of `EDAMErrorCode` enumeration with new error codes
      * Extension of `NoteFilter`, `NoteList`, `NotesMetadataList`, `RelatedResult`, `RelatedResultSpec`, `UserAttributes`,
