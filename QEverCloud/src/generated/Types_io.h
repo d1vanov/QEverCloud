@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -8,21 +8,14 @@
  * This file was generated from Evernote Thrift API
  */
 
+#ifndef QEVERCLOUD_GENERATED_TYPES_IO_H
+#define QEVERCLOUD_GENERATED_TYPES_IO_H
 
-#ifndef QEVERCLOUD_GENERATED_TYPES_IMPL_H
-#define QEVERCLOUD_GENERATED_TYPES_IMPL_H
 
+
+#include <generated/Types.h>
+#include "../Impl.h"
 #include <Optional.h>
-#include <generated/types.h>
-#include "../impl.h"
-#include <QMap>
-#include <QList>
-#include <QSet>
-#include <QString>
-#include <QStringList>
-#include <QByteArray>
-#include <QDateTime>
-#include <QMetaType>
 
 namespace qevercloud {
 
@@ -185,31 +178,31 @@ void readEDAMNotFoundException(ThriftBinaryBufferReader & r, EDAMNotFoundExcepti
 void writeEDAMInvalidContactsException(ThriftBinaryBufferWriter & w, const EDAMInvalidContactsException & s);
 void readEDAMInvalidContactsException(ThriftBinaryBufferReader & r, EDAMInvalidContactsException & s);
 
-void readEnumEDAMErrorCode(ThriftBinaryBufferReader & r, EDAMErrorCode::type & e);
-void readEnumEDAMInvalidContactReason(ThriftBinaryBufferReader & r, EDAMInvalidContactReason::type & e);
-void readEnumShareRelationshipPrivilegeLevel(ThriftBinaryBufferReader & r, ShareRelationshipPrivilegeLevel::type & e);
-void readEnumPrivilegeLevel(ThriftBinaryBufferReader & r, PrivilegeLevel::type & e);
-void readEnumServiceLevel(ThriftBinaryBufferReader & r, ServiceLevel::type & e);
-void readEnumQueryFormat(ThriftBinaryBufferReader & r, QueryFormat::type & e);
-void readEnumNoteSortOrder(ThriftBinaryBufferReader & r, NoteSortOrder::type & e);
-void readEnumPremiumOrderStatus(ThriftBinaryBufferReader & r, PremiumOrderStatus::type & e);
-void readEnumSharedNotebookPrivilegeLevel(ThriftBinaryBufferReader & r, SharedNotebookPrivilegeLevel::type & e);
-void readEnumSharedNotePrivilegeLevel(ThriftBinaryBufferReader & r, SharedNotePrivilegeLevel::type & e);
-void readEnumSponsoredGroupRole(ThriftBinaryBufferReader & r, SponsoredGroupRole::type & e);
-void readEnumBusinessUserRole(ThriftBinaryBufferReader & r, BusinessUserRole::type & e);
-void readEnumBusinessUserStatus(ThriftBinaryBufferReader & r, BusinessUserStatus::type & e);
-void readEnumSharedNotebookInstanceRestrictions(ThriftBinaryBufferReader & r, SharedNotebookInstanceRestrictions::type & e);
-void readEnumReminderEmailConfig(ThriftBinaryBufferReader & r, ReminderEmailConfig::type & e);
-void readEnumBusinessInvitationStatus(ThriftBinaryBufferReader & r, BusinessInvitationStatus::type & e);
-void readEnumContactType(ThriftBinaryBufferReader & r, ContactType::type & e);
-void readEnumEntityType(ThriftBinaryBufferReader & r, EntityType::type & e);
-void readEnumRecipientStatus(ThriftBinaryBufferReader & r, RecipientStatus::type & e);
-void readEnumCanMoveToContainerStatus(ThriftBinaryBufferReader & r, CanMoveToContainerStatus::type & e);
-void readEnumRelatedContentType(ThriftBinaryBufferReader & r, RelatedContentType::type & e);
-void readEnumRelatedContentAccess(ThriftBinaryBufferReader & r, RelatedContentAccess::type & e);
-void readEnumUserIdentityType(ThriftBinaryBufferReader & r, UserIdentityType::type & e);
+void readEnumEDAMErrorCode(ThriftBinaryBufferReader & r, EDAMErrorCode & e);
+void readEnumEDAMInvalidContactReason(ThriftBinaryBufferReader & r, EDAMInvalidContactReason & e);
+void readEnumShareRelationshipPrivilegeLevel(ThriftBinaryBufferReader & r, ShareRelationshipPrivilegeLevel & e);
+void readEnumPrivilegeLevel(ThriftBinaryBufferReader & r, PrivilegeLevel & e);
+void readEnumServiceLevel(ThriftBinaryBufferReader & r, ServiceLevel & e);
+void readEnumQueryFormat(ThriftBinaryBufferReader & r, QueryFormat & e);
+void readEnumNoteSortOrder(ThriftBinaryBufferReader & r, NoteSortOrder & e);
+void readEnumPremiumOrderStatus(ThriftBinaryBufferReader & r, PremiumOrderStatus & e);
+void readEnumSharedNotebookPrivilegeLevel(ThriftBinaryBufferReader & r, SharedNotebookPrivilegeLevel & e);
+void readEnumSharedNotePrivilegeLevel(ThriftBinaryBufferReader & r, SharedNotePrivilegeLevel & e);
+void readEnumSponsoredGroupRole(ThriftBinaryBufferReader & r, SponsoredGroupRole & e);
+void readEnumBusinessUserRole(ThriftBinaryBufferReader & r, BusinessUserRole & e);
+void readEnumBusinessUserStatus(ThriftBinaryBufferReader & r, BusinessUserStatus & e);
+void readEnumSharedNotebookInstanceRestrictions(ThriftBinaryBufferReader & r, SharedNotebookInstanceRestrictions & e);
+void readEnumReminderEmailConfig(ThriftBinaryBufferReader & r, ReminderEmailConfig & e);
+void readEnumBusinessInvitationStatus(ThriftBinaryBufferReader & r, BusinessInvitationStatus & e);
+void readEnumContactType(ThriftBinaryBufferReader & r, ContactType & e);
+void readEnumEntityType(ThriftBinaryBufferReader & r, EntityType & e);
+void readEnumRecipientStatus(ThriftBinaryBufferReader & r, RecipientStatus & e);
+void readEnumCanMoveToContainerStatus(ThriftBinaryBufferReader & r, CanMoveToContainerStatus & e);
+void readEnumRelatedContentType(ThriftBinaryBufferReader & r, RelatedContentType & e);
+void readEnumRelatedContentAccess(ThriftBinaryBufferReader & r, RelatedContentAccess & e);
+void readEnumUserIdentityType(ThriftBinaryBufferReader & r, UserIdentityType & e);
 
 /** @endcond */
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_TYPES_IMPL_H
+#endif // QEVERCLOUD_GENERATED_TYPES_IO_H

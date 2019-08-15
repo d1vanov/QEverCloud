@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -14,11 +14,12 @@
 #define QT_NO_UNICODE_LITERAL
 #endif
 
-#include "generated/types.h"
-#include "export.h"
-#include "qt4helpers.h"
-#include <QString>
+#include "Export.h"
+#include "Helpers.h"
+#include "generated/Types.h"
+
 #include <QDialog>
+#include <QString>
 
 #if defined(_MSC_VER) && _MSC_VER <= 1600 // MSVC <= 2010
 // VS2010 is supposed to be C++11 but does not fulfull the entire standard.

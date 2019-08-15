@@ -1,16 +1,19 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
-#include <oauth.h>
-#include <qt4helpers.h>
-#include "http.h"
-#include <QVBoxLayout>
+#include "Http.h"
+
+#include <Helpers.h>
+#include <OAuth.h>
+
 #include <QNetworkReply>
+#include <QVBoxLayout>
+#include <QUuid>
 
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
 #include <QWebEngineView>
@@ -21,7 +24,6 @@
 #include <QWebHistory>
 #endif
 
-#include <QUuid>
 #include <cstring>
 
 /** @cond HIDDEN_SYMBOLS  */
@@ -116,12 +118,12 @@ EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
     QWidget(parent),
     d_ptr(new EvernoteOAuthWebViewPrivate(this))
 {
-    QObject::connect(d_ptr, QEC_SIGNAL(EvernoteOAuthWebViewPrivate,authenticationFinished,bool),
-                     this, QEC_SIGNAL(EvernoteOAuthWebView,authenticationFinished,bool));
-    QObject::connect(d_ptr, QEC_SIGNAL(EvernoteOAuthWebViewPrivate,authenticationSuceeded),
-                     this, QEC_SIGNAL(EvernoteOAuthWebView,authenticationSuceeded));
-    QObject::connect(d_ptr, QEC_SIGNAL(EvernoteOAuthWebViewPrivate,authenticationFailed),
-                     this, QEC_SIGNAL(EvernoteOAuthWebView,authenticationFailed));
+    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFinished,
+                     this, &EvernoteOAuthWebView::authenticationFinished);
+    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationSuceeded,
+                     this, &EvernoteOAuthWebView::authenticationSuceeded);
+    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFailed,
+                     this, &EvernoteOAuthWebView::authenticationFailed);
 
     QVBoxLayout * pLayout = new QVBoxLayout(this);
     pLayout->addWidget(d_ptr);
@@ -143,8 +145,8 @@ void EvernoteOAuthWebView::authenticate(QString host, QString consumerKey, QStri
 
     // step 1: acquire temporary token
     ReplyFetcher * replyFetcher = new ReplyFetcher();
-    QObject::connect(replyFetcher, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
-                     d, QEC_SLOT(EvernoteOAuthWebViewPrivate,temporaryFinished,QObject*));
+    QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
+                     d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
     QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
     replyFetcher->start(evernoteNetworkAccessManager(), url);
@@ -198,8 +200,8 @@ void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
         QString token = reply.left(index);
 
         // step 2: directing a user to the login page
-        QObject::connect(this, QEC_SIGNAL(EvernoteOAuthWebViewPrivate,urlChanged,QUrl),
-                         this, QEC_SLOT(EvernoteOAuthWebViewPrivate,onUrlChanged,QUrl));
+        QObject::connect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
+                         this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
         QUrl loginUrl(QStringLiteral("https://%1//OAuth.action?%2").arg(m_host, token));
         setUrl(loginUrl);
     }
@@ -220,8 +222,8 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
 
             // step 4: acquire permanent token
             ReplyFetcher * replyFetcher = new ReplyFetcher();
-            QObject::connect(replyFetcher, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
-                             this, QEC_SLOT(EvernoteOAuthWebViewPrivate,permanentFinished,QObject*));
+            QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
+                             this, &EvernoteOAuthWebViewPrivate::permanentFinished);
             QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
             replyFetcher->start(evernoteNetworkAccessManager(), url);
@@ -234,8 +236,8 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
             setError(QStringLiteral("Authentification failed."));
         }
 
-        QObject::disconnect(this, QEC_SIGNAL(EvernoteOAuthWebViewPrivate,urlChanged,QUrl),
-                            this, QEC_SLOT(EvernoteOAuthWebViewPrivate,onUrlChanged,QUrl));
+        QObject::disconnect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
+                            this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
         QMetaObject::invokeMethod(this, "clearHtml", Qt::QueuedConnection);
     }
 }
@@ -303,10 +305,10 @@ EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey, QString consumerSe
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     d_ptr->m_pWebView = new EvernoteOAuthWebView(this);
 
-    QObject::connect(d_ptr->m_pWebView, QEC_SIGNAL(EvernoteOAuthWebView,authenticationSuceeded),
-                     this, QEC_SLOT(EvernoteOAuthDialog,accept), Qt::QueuedConnection);
-    QObject::connect(d_ptr->m_pWebView, QEC_SIGNAL(EvernoteOAuthWebView,authenticationFailed),
-                     this, QEC_SLOT(EvernoteOAuthDialog,reject), Qt::QueuedConnection);
+    QObject::connect(d_ptr->m_pWebView, &EvernoteOAuthWebView::authenticationSuceeded,
+                     this, &EvernoteOAuthDialog::accept, Qt::QueuedConnection);
+    QObject::connect(d_ptr->m_pWebView, &EvernoteOAuthWebView::authenticationFailed,
+                     this, &EvernoteOAuthDialog::reject, Qt::QueuedConnection);
 
     QVBoxLayout * pLayout = new QVBoxLayout(this);
     pLayout->addWidget(d_ptr->m_pWebView);
@@ -367,4 +369,4 @@ void EvernoteOAuthDialog::open()
 
 /** @endcond */
 
-#include "oauth.moc"
+#include "OAuth.moc"

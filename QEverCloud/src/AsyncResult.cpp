@@ -1,16 +1,19 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
+#include "Http.h"
+
 #include <AsyncResult.h>
 #include <EventLoopFinisher.h>
-#include "http.h"
+
 #include <QEventLoop>
 #include <QSignalMapper>
+
 #include <typeinfo>
 
 namespace qevercloud {
@@ -106,8 +109,8 @@ void AsyncResult::start()
 {
     Q_D(AsyncResult);
     ReplyFetcher * replyFetcher = new ReplyFetcher;
-    QObject::connect(replyFetcher, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
-                     this, QEC_SLOT(AsyncResult,onReplyFetched,QObject*));
+    QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
+                     this, &AsyncResult::onReplyFetched);
     replyFetcher->start(evernoteNetworkAccessManager(), d->m_request, d->m_postData);
 }
 

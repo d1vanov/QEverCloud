@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -8,14 +8,16 @@
  * This file was generated from Evernote Thrift API
  */
 
-
-#include <generated/services.h>
-#include "../impl.h"
-#include "../impl.h"
-#include "types_impl.h"
-#include <qt4helpers.h>
+#include <generated/Services.h>
+#include "../Impl.h"
+#include "../Impl.h"
+#include "Types_io.h"
+#include <Helpers.h>
 
 namespace qevercloud {
+
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_getSyncState_prepareParams(QString authenticationToken)
 {
     ThriftBinaryBufferWriter w;
@@ -10954,7 +10956,7 @@ AsyncResult* UserStore::listBusinessInvitationsAsync(bool includeRequestedInvita
     return new AsyncResult(m_url, params, UserStore_listBusinessInvitations_readReplyAsync);
 }
 
-QByteArray UserStore_getAccountLimits_prepareParams(ServiceLevel::type serviceLevel)
+QByteArray UserStore_getAccountLimits_prepareParams(ServiceLevel serviceLevel)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -11038,14 +11040,14 @@ QVariant UserStore_getAccountLimits_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_getAccountLimits_readReply(reply));
 }
 
-AccountLimits UserStore::getAccountLimits(ServiceLevel::type serviceLevel)
+AccountLimits UserStore::getAccountLimits(ServiceLevel serviceLevel)
 {
     QByteArray params = UserStore_getAccountLimits_prepareParams(serviceLevel);
     QByteArray reply = askEvernote(m_url, params);
     return UserStore_getAccountLimits_readReply(reply);
 }
 
-AsyncResult* UserStore::getAccountLimitsAsync(ServiceLevel::type serviceLevel)
+AsyncResult* UserStore::getAccountLimitsAsync(ServiceLevel serviceLevel)
 {
     QByteArray params = UserStore_getAccountLimits_prepareParams(serviceLevel);
     return new AsyncResult(m_url, params, UserStore_getAccountLimits_readReplyAsync);

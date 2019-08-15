@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -9,14 +9,15 @@
 #ifndef QEVERCLOUD_EXCEPTIONS_H
 #define QEVERCLOUD_EXCEPTIONS_H
 
-#include "Optional.h"
-#include "export.h"
 #include "EverCloudException.h"
+#include "Export.h"
+#include "Optional.h"
 #include "generated/EDAMErrorCode.h"
-#include "generated/types.h"
-#include <QString>
+#include "generated/Types.h"
+
 #include <QObject>
 #include <QSharedPointer>
+#include <QString>
 
 namespace qevercloud {
 
@@ -79,11 +80,11 @@ class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData
     Q_OBJECT
     Q_DISABLE_COPY(EDAMUserExceptionData)
 public:
-    explicit EDAMUserExceptionData(QString error, EDAMErrorCode::type errorCode, Optional<QString> parameter);
+    explicit EDAMUserExceptionData(QString error, EDAMErrorCode errorCode, Optional<QString> parameter);
     virtual void throwException() const Q_DECL_OVERRIDE;
 
 protected:
-    EDAMErrorCode::type     m_errorCode;
+    EDAMErrorCode     m_errorCode;
     Optional<QString>       m_parameter;
 };
 
@@ -93,11 +94,11 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionData)
 public:
-    explicit EDAMSystemExceptionData(QString err, EDAMErrorCode::type errorCode, Optional<QString> message, Optional<qint32> rateLimitDuration);
+    explicit EDAMSystemExceptionData(QString err, EDAMErrorCode errorCode, Optional<QString> message, Optional<qint32> rateLimitDuration);
     virtual void throwException() const Q_DECL_OVERRIDE;
 
 protected:
-    EDAMErrorCode::type     m_errorCode;
+    EDAMErrorCode     m_errorCode;
     Optional<QString>       m_message;
     Optional<qint32>        m_rateLimitDuration;
 };
@@ -122,13 +123,13 @@ class QEVERCLOUD_EXPORT EDAMInvalidContactsExceptionData: public EvernoteExcepti
     Q_OBJECT
     Q_DISABLE_COPY(EDAMInvalidContactsExceptionData)
 public:
-    explicit EDAMInvalidContactsExceptionData(QList<Contact> contacts, Optional<QString> parameter, Optional<QList<EDAMInvalidContactReason::type> > reasons);
+    explicit EDAMInvalidContactsExceptionData(QList<Contact> contacts, Optional<QString> parameter, Optional<QList<EDAMInvalidContactReason> > reasons);
     virtual void throwException() const Q_DECL_OVERRIDE;
 
 protected:
     QList< Contact >                                    m_contacts;
     Optional< QString >                                 m_parameter;
-    Optional< QList< EDAMInvalidContactReason::type > > m_reasons;
+    Optional< QList< EDAMInvalidContactReason > > m_reasons;
 };
 
 /**
@@ -146,7 +147,7 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReachedData: public EDAMSyst
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionRateLimitReachedData)
 public:
-    explicit EDAMSystemExceptionRateLimitReachedData(QString error, EDAMErrorCode::type errorCode, Optional<QString> message,
+    explicit EDAMSystemExceptionRateLimitReachedData(QString error, EDAMErrorCode errorCode, Optional<QString> message,
                                                      Optional<qint32> rateLimitDuration);
     virtual void throwException() const Q_DECL_OVERRIDE;
 };
@@ -166,7 +167,7 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpiredData: public EDAMSystemExc
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionAuthExpiredData)
 public:
-    explicit EDAMSystemExceptionAuthExpiredData(QString error, EDAMErrorCode::type errorCode, Optional<QString> message,
+    explicit EDAMSystemExceptionAuthExpiredData(QString error, EDAMErrorCode errorCode, Optional<QString> message,
                                                 Optional<qint32> rateLimitDuration);
     virtual void throwException() const Q_DECL_OVERRIDE;
 };

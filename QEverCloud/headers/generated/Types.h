@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -8,497 +8,36 @@
  * This file was generated from Evernote Thrift API
  */
 
-
 #ifndef QEVERCLOUD_GENERATED_TYPES_H
 #define QEVERCLOUD_GENERATED_TYPES_H
 
-#include "../Optional.h"
-#include "../export.h"
+#include "../Export.h"
+
+
 #include "EDAMErrorCode.h"
-#include <QMap>
+#include "../Optional.h"
+#include <QSharedPointer>
+#include <QMetaType>
 #include <QList>
+#include <QMap>
 #include <QSet>
-#include <QString>
 #include <QStringList>
 #include <QByteArray>
 #include <QDateTime>
-#include <QMetaType>
-#include <QSharedPointer>
 #include <QMetaType>
 
 namespace qevercloud {
 
 /**
- * An enumeration that provides a reason for why a given contact was invalid, for example,
- * as thrown via an EDAMInvalidContactsException.
- *
- * <dl>
- *   <dt>BAD_ADDRESS</dt>
- *     <dd>The contact information does not represent a valid address for a recipient.
- *         Clients should be validating and normalizing contacts, so receiving this
- *         error code commonly represents a client error.
- *         </dd>
- *   <dt>DUPLICATE_CONTACT</dt>
- *     <dd>If the method throwing this exception accepts a list of contacts, this error
- *         code indicates that the given contact is a duplicate of another contact in
- *         the list.  Note that the server may clean up contacts, and that this cleanup
- *         occurs before checking for duplication.  Receiving this error is commonly
- *         an indication of a client issue, since client should be normalizing contacts
- *         and removing duplicates. All instances that are duplicates are returned.  For
- *         example, if a list of 5 contacts has the same e-mail address twice, the two
- *         conflicting e-mail address contacts will be returned.
- *         </dd>
- *   <dt>NO_CONNECTION</dt>
- *     <dd>Indicates that the given contact, an Evernote type contact, is not connected
- *         to the user for which the call is being made. It is possible that clients are
- *         out of sync with the server and should re-synchronize their identities and
- *         business user state. See Identity.userConnected for more information on user
- *         connections.
- *         </dd>
- * </dl>
- *
- * Note that if multiple reasons may apply, only one is returned. The precedence order
- * is BAD_ADDRESS, DUPLICATE_CONTACT, NO_CONNECTION, meaning that if a contact has a bad
- * address and is also duplicated, it will be returned as a BAD_ADDRESS.
- */
-struct QEVERCLOUD_EXPORT EDAMInvalidContactReason {
-    enum type {
-        BAD_ADDRESS,
-        DUPLICATE_CONTACT,
-        NO_CONNECTION
-    };
-};
-
-/**
- * Privilege levels for accessing shared notebooks.
- *
- * READ_NOTEBOOK: Recipient is able to read the contents of the shared notebook
- *   but does not have access to information about other recipients of the
- *   notebook or the activity stream information.
- *
- * READ_NOTEBOOK_PLUS_ACTIVITY: Recipient has READ_NOTEBOOK rights and can also
- *   access information about other recipients and the activity stream.
- *
- * MODIFY_NOTEBOOK_PLUS_ACTIVITY: Recipient has rights to read and modify the contents
- *   of the shared notebook, including the right to move notes to the trash and to create
- *   notes in the notebook.  The recipient can also access information about other
- *   recipients and the activity stream.
- *
- * FULL_ACCESS: Recipient has full rights to the shared notebook and recipient lists,
- *   including privilege to revoke and create invitations and to change privilege
- *   levels on invitations for individuals. If the user is a member of the same group,
- *   (e.g. the same business) as the shared notebook, they will additionally be granted
- *   permissions to update the publishing status of the notebook.
- */
-struct QEVERCLOUD_EXPORT ShareRelationshipPrivilegeLevel {
-    enum type {
-        READ_NOTEBOOK = 0,
-        READ_NOTEBOOK_PLUS_ACTIVITY = 10,
-        MODIFY_NOTEBOOK_PLUS_ACTIVITY = 20,
-        FULL_ACCESS = 30
-    };
-};
-
-/**
- * This enumeration defines the possible permission levels for a user.
- * Free accounts will have a level of NORMAL and paid Premium accounts
- * will have a level of PREMIUM.
- */
-struct QEVERCLOUD_EXPORT PrivilegeLevel {
-    enum type {
-        NORMAL = 1,
-        PREMIUM = 3,
-        VIP = 5,
-        MANAGER = 7,
-        SUPPORT = 8,
-        ADMIN = 9
-    };
-};
-
-/**
- * This enumeration defines the possible tiers of service that a user may have. A
- * ServiceLevel of BUSINESS signifies a business-only account, which can never be any
- * other ServiceLevel.
- */
-struct QEVERCLOUD_EXPORT ServiceLevel {
-    enum type {
-        BASIC = 1,
-        PLUS = 2,
-        PREMIUM = 3,
-        BUSINESS = 4
-    };
-};
-
-/**
- * Every search query is specified as a sequence of characters.
- * Currently, only the USER query format is supported.
- */
-struct QEVERCLOUD_EXPORT QueryFormat {
-    enum type {
-        USER = 1,
-        SEXP = 2
-    };
-};
-
-/**
- * This enumeration defines the possible sort ordering for notes when
- * they are returned from a search result.
- */
-struct QEVERCLOUD_EXPORT NoteSortOrder {
-    enum type {
-        CREATED = 1,
-        UPDATED = 2,
-        RELEVANCE = 3,
-        UPDATE_SEQUENCE_NUMBER = 4,
-        TITLE = 5
-    };
-};
-
-/**
- * This enumeration defines the possible states of a premium account
- *
- * NONE:    the user has never attempted to become a premium subscriber
- *
- * PENDING: the user has requested a premium account but their charge has not
- *   been confirmed
- *
- * ACTIVE:  the user has been charged and their premium account is in good
- *  standing
- *
- * FAILED:  the system attempted to charge the was denied. We will periodically attempt to
- *  re-validate their order.
- *
- * CANCELLATION_PENDING: the user has requested that no further charges be made
- *   but the current account is still active.
- *
- * CANCELED: the premium account was canceled either because of failure to pay
- *   or user cancelation. No more attempts will be made to activate the account.
- */
-struct QEVERCLOUD_EXPORT PremiumOrderStatus {
-    enum type {
-        NONE = 0,
-        PENDING = 1,
-        ACTIVE = 2,
-        FAILED = 3,
-        CANCELLATION_PENDING = 4,
-        CANCELED = 5
-    };
-};
-
-/**
- * Privilege levels for accessing shared notebooks.
- *
- * Note that as of 2014-04, FULL_ACCESS is synonymous with BUSINESS_FULL_ACCESS.  If a
- * user is a member of a business and has FULL_ACCESS privileges, then they will
- * automatically be granted BUSINESS_FULL_ACCESS for notebooks in their business.  This
- * will happen implicitly when they attempt to access the corresponding notebooks of
- * the business.  BUSINESS_FULL_ACCESS is therefore deprecated.
- *
- * READ_NOTEBOOK: Recipient is able to read the contents of the shared notebook
- *   but does not have access to information about other recipients of the
- *   notebook or the activity stream information.
- *
- * MODIFY_NOTEBOOK_PLUS_ACTIVITY: Recipient has rights to read and modify the contents
- *   of the shared notebook, including the right to move notes to the trash and to create
- *   notes in the notebook.  The recipient can also access information about other
- *   recipients and the activity stream.
- *
- * READ_NOTEBOOK_PLUS_ACTIVITY: Recipient has READ_NOTEBOOK rights and can also
- *   access information about other recipients and the activity stream.
- *
- * GROUP: If the user belongs to a group, such as a Business, that has a defined
- *   privilege level, use the privilege level of the group as the privilege for
- *   the individual.
- *
- * FULL_ACCESS: Recipient has full rights to the shared notebook and recipient lists,
- *   including privilege to revoke and create invitations and to change privilege
- *   levels on invitations for individuals.  For members of a business, FULL_ACCESS
- *   privilege on business notebooks also grants the ability to change how the notebook
- *   will appear when shared with the business, including the rights to share and
- *   unshare the notebook with the business.
- *
- * BUSINESS_FULL_ACCESS: Deprecated.  See the note above about BUSINESS_FULL_ACCESS and
- *   FULL_ACCESS being synonymous.
- */
-struct QEVERCLOUD_EXPORT SharedNotebookPrivilegeLevel {
-    enum type {
-        READ_NOTEBOOK = 0,
-        MODIFY_NOTEBOOK_PLUS_ACTIVITY = 1,
-        READ_NOTEBOOK_PLUS_ACTIVITY = 2,
-        GROUP = 3,
-        FULL_ACCESS = 4,
-        BUSINESS_FULL_ACCESS = 5
-    };
-};
-
-/**
- * Privilege levels for accessing a shared note. All privilege levels convey "activity feed" access,
- * which allows the recipient to access information about other recipients and the activity stream.
- *
- * READ_NOTE: Recipient has rights to read the shared note.
- *
- * MODIFY_NOTE: Recipient has all of the rights of READ_NOTE, plus rights to modify the shared
- *   note's content, title and resources. Other fields, including the notebook, tags and metadata,
- *   may not be modified.
- *
- * FULL_ACCESS: Recipient has all of the rights of MODIFY_NOTE, plus rights to share the note with
- *   other users via email, public note links, and note sharing. Recipient may also update and
- *   remove other recipient's note sharing rights.
- */
-struct QEVERCLOUD_EXPORT SharedNotePrivilegeLevel {
-    enum type {
-        READ_NOTE = 0,
-        MODIFY_NOTE = 1,
-        FULL_ACCESS = 2
-    };
-};
-
-/**
- * Enumeration of the roles that a User can have within a sponsored group.
- *
- * GROUP_MEMBER: The user is a member of the group with no special privileges.
- *
- * GROUP_ADMIN: The user is an administrator within the group.
- *
- * GROUP_OWNER: The user is the owner of the group.
- */
-struct QEVERCLOUD_EXPORT SponsoredGroupRole {
-    enum type {
-        GROUP_MEMBER = 1,
-        GROUP_ADMIN = 2,
-        GROUP_OWNER = 3
-    };
-};
-
-/**
- * Enumeration of the roles that a User can have within an Evernote Business account.
- *
- * ADMIN: The user is an administrator of the Evernote Business account.
- *
- * NORMAL: The user is a regular user within the Evernote Business account.
- */
-struct QEVERCLOUD_EXPORT BusinessUserRole {
-    enum type {
-        ADMIN = 1,
-        NORMAL = 2
-    };
-};
-
-/**
- * The BusinessUserStatus indicates the status of the user in the business.
- *
- * A BusinessUser will typically start as ACTIVE.
- * Only ACTIVE users can authenticate to the Business.
- *
- * <dl>
- * <dt>ACTIVE<dt>
- * <dd>The business user can authenticate to and access the business.</dd>
- * <dt>DEACTIVATED<dt>
- * <dd>The business user has been deactivated and cannot access the business</dd>
- * </dl>
- */
-struct QEVERCLOUD_EXPORT BusinessUserStatus {
-    enum type {
-        ACTIVE = 1,
-        DEACTIVATED = 2
-    };
-};
-
-/**
- * An enumeration describing restrictions on the domain of shared notebook
- * instances that are valid for a given operation, as used, for example, in
- * NotebookRestrictions.
- *
- * ASSIGNED: The domain consists of shared notebooks that belong, or are assigned,
- * to the recipient.
- *
- * NO_SHARED_NOTEBOOKS: No shared notebooks are applicable to the operation.
- */
-struct QEVERCLOUD_EXPORT SharedNotebookInstanceRestrictions {
-    enum type {
-        ASSIGNED = 1,
-        NO_SHARED_NOTEBOOKS = 2
-    };
-};
-
-/**
- * An enumeration describing the configuration state related to receiving
- * reminder e-mails from the service.  Reminder e-mails summarize notes
- * based on their Note.attributes.reminderTime values.
- *
- * DO_NOT_SEND: The user has selected to not receive reminder e-mail.
- *
- * SEND_DAILY_EMAIL: The user has selected to receive reminder e-mail for those
- *   days when there is a reminder.
- */
-struct QEVERCLOUD_EXPORT ReminderEmailConfig {
-    enum type {
-        DO_NOT_SEND = 1,
-        SEND_DAILY_EMAIL = 2
-    };
-};
-
-/**
- * An enumeration defining the possible states of a BusinessInvitation.
- *
- * APPROVED: The invitation was created or approved by a business admin and may be redeemed by the
- *   invited email.
- *
- * REQUESTED: The invitation was requested by a non-admin member of the business and must be
- *   approved by an admin before it may be redeemed. Invitations in this state do not count
- *   against a business' seat limit.
- *
- * REDEEMED: The invitation has already been redeemed. Invitations in this state do not count
- *   against a business' seat limit.
- */
-struct QEVERCLOUD_EXPORT BusinessInvitationStatus {
-    enum type {
-        APPROVED = 0,
-        REQUESTED = 1,
-        REDEEMED = 2
-    };
-};
-
-/**
- * What kinds of Contacts does the Evernote service know about?
- */
-struct QEVERCLOUD_EXPORT ContactType {
-    enum type {
-        EVERNOTE = 1,
-        SMS = 2,
-        FACEBOOK = 3,
-        EMAIL = 4,
-        TWITTER = 5,
-        LINKEDIN = 6
-    };
-};
-
-/**
- * Entity types
- */
-struct QEVERCLOUD_EXPORT EntityType {
-    enum type {
-        NOTE = 1,
-        NOTEBOOK = 2,
-        WORKSPACE = 3
-    };
-};
-
-/**
- * This enumeration defines the possible states that a notebook can be in for a recipient.
- * It encompasses the "inMyList" boolean and default notebook status.
- *
- * <dl>
- * <dt>NOT_IN_MY_LIST</dt>
- * <dd>The notebook is not in the recipient's list (not "joined").</dd>
- * <dt>IN_MY_LIST</dt>
- * <dd>The notebook is in the recipient's notebook list (formerly, we would say
- *     that the recipient has "joined" the notebook)</dd>
- * <dt>IN_MY_LIST_AND_DEFAULT_NOTEBOOK</dt>
- * <dd>The same as IN_MY_LIST and this notebook is the user's default notebook.</dd>
- * </dl>
- */
-struct QEVERCLOUD_EXPORT RecipientStatus {
-    enum type {
-        NOT_IN_MY_LIST = 1,
-        IN_MY_LIST = 2,
-        IN_MY_LIST_AND_DEFAULT_NOTEBOOK = 3
-    };
-};
-
-/**
- * This enumeration defines the possible types of canMoveToContainer outcomes.
- * <p />
- * An outdated client is expected to signal a "Cannot Move, Please Upgrade To Learn Why"
- * like response to the user if an unknown enumeration value is received.
- * <dl>
- * <dt>CAN_BE_MOVED</dt>
- * <dd>Can move Notebook to Workspace.</dd>
- * <dt>INSUFFICIENT_ENTITY_PRIVILEGE</dt>
- * <dd>Can not move Notebook to Workspace, because either:
- *  a) Notebook not in Workspace and insufficient privilege on Notebook
- *  or b) Notebook in Workspace and membership on Workspace with insufficient privilege
- *  for move</dd>
- * <dt>INSUFFICIENT_CONTAINER_PRIVILEGE</dt>
- * <dd>Notebook in Workspace and no membership on Workspace.
- * </dd>
- * </dl>
- */
-struct QEVERCLOUD_EXPORT CanMoveToContainerStatus {
-    enum type {
-        CAN_BE_MOVED = 1,
-        INSUFFICIENT_ENTITY_PRIVILEGE = 2,
-        INSUFFICIENT_CONTAINER_PRIVILEGE = 3
-    };
-};
-
-/**
- * This enumeration defines the possible types of related content.
- *
- * NEWS_ARTICLE: This related content is a news article
- * PROFILE_PERSON: This match refers to the profile of an individual person
- * PROFILE_ORGANIZATION: This match refers to the profile of an organization
- * REFERENCE_MATERIAL: This related content is material from reference works
- */
-struct QEVERCLOUD_EXPORT RelatedContentType {
-    enum type {
-        NEWS_ARTICLE = 1,
-        PROFILE_PERSON = 2,
-        PROFILE_ORGANIZATION = 3,
-        REFERENCE_MATERIAL = 4
-    };
-};
-
-/**
- * This enumeration defines the possible ways to access related content.
- *
- * NOT_ACCESSIBLE: The content is not accessible given the user's privilege level, but
- *     still worth showing as a snippet. The content url may point to a webpage that
- *     explains why not, or explains how to access that content.
- *
- * DIRECT_LINK_ACCESS_OK: The content is accessible directly, and no additional login is
- *     required.
- *
- * DIRECT_LINK_LOGIN_REQUIRED: The content is accessible directly, but an additional login
- *     is required.
- *
- * DIRECT_LINK_EMBEDDED_VIEW: The content is accessible directly, and should be shown in
- *     an embedded web view.
- *     If the URL refers to a secured location under our control (for example,
- *     https://www.evernote.com/<smth>), the client may include user-specific authentication
- *     credentials with the request.
- */
-struct QEVERCLOUD_EXPORT RelatedContentAccess {
-    enum type {
-        NOT_ACCESSIBLE = 0,
-        DIRECT_LINK_ACCESS_OK = 1,
-        DIRECT_LINK_LOGIN_REQUIRED = 2,
-        DIRECT_LINK_EMBEDDED_VIEW = 3
-    };
-};
-
-/**
- *
- */
-struct QEVERCLOUD_EXPORT UserIdentityType {
-    enum type {
-        EVERNOTE_USERID = 1,
-        EMAIL = 2,
-        IDENTITYID = 3
-    };
-};
-
-
-/**
  * A monotonically incrementing number on each shard that identifies a cross shard
  * cache invalidation event.
  */
-typedef qint64 InvalidationSequenceNumber;
+using InvalidationSequenceNumber = qint64;
 
 /**
  * A type alias for the primary identifiers for Identity objects.
  */
-typedef qint64 IdentityID;
+using IdentityID = qint64;
 
 /**
  * Every Evernote account is assigned a unique numeric identifier which
@@ -506,7 +45,7 @@ typedef qint64 IdentityID;
  * the (string-based) "username" which is known by the user for login
  * purposes.  The user should have no reason to know their UserID.
  */
-typedef qint32 UserID;
+using UserID = qint32;
 
 /**
  * Most data elements within a user's account (e.g. notebooks, notes, tags,
@@ -518,7 +57,7 @@ typedef qint32 UserID;
  * The internal components of the GUID are not given any particular meaning:
  * only the entire string is relevant as a unique identifier.
  */
-typedef QString Guid;
+using Guid = QString;
 
 /**
  * An Evernote Timestamp is the date and time of an event in UTC time.
@@ -537,17 +76,17 @@ typedef QString Guid;
  * The service will accept timestamp values (e.g. for Note created and update
  * times) between 1000-01-01 and 9999-12-31
  */
-typedef qint64 Timestamp;
+using Timestamp = qint64;
 
 /**
  * A sequence number for the MessageStore subsystem.
  */
-typedef qint64 MessageEventID;
+using MessageEventID = qint64;
 
 /**
  * A type alias for the primary identifiers for MessageThread objects.
  */
-typedef qint64 MessageThreadID;
+using MessageThreadID = qint64;
 
 
 /**
@@ -1232,7 +771,7 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
     /**
     Specifies the types of Related Content that should be returned.
     */
-    Optional< QSet< RelatedContentType::type > > relatedContentTypes;
+    Optional< QSet< RelatedContentType > > relatedContentTypes;
 
     bool operator==(const RelatedResultSpec & other) const
     {
@@ -1304,7 +843,7 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
      used by the service to convey information to the user, so clients
      should treat it as read-only.
     */
-    Optional< ShareRelationshipPrivilegeLevel::type > bestPrivilege;
+    Optional< ShareRelationshipPrivilegeLevel > bestPrivilege;
     /**
     The individually granted privilege for the member, which does
      not take GROUP privileges into account.  This value may be unset if
@@ -1314,7 +853,7 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
      should present to users for selection are given via the the
      'restrictions' field.
     */
-    Optional< ShareRelationshipPrivilegeLevel::type > individualPrivilege;
+    Optional< ShareRelationshipPrivilegeLevel > individualPrivilege;
     /**
     The restrictions on which privileges may be individually
      assigned to the recipient of this share relationship.
@@ -1408,7 +947,7 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
      to convey information to the user, so clients should treat it as
      read-only.
     */
-    Optional< SharedNotePrivilegeLevel::type > privilege;
+    Optional< SharedNotePrivilegeLevel > privilege;
     /**
     The restrictions on which privileges may be individually
      assigned to the recipient of this share relationship. This field
@@ -1464,7 +1003,7 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
      accept this invitation. If the user already has a higher privilege to
      access this note then this will not affect the recipient's privileges.
     */
-    Optional< SharedNotePrivilegeLevel::type > privilege;
+    Optional< SharedNotePrivilegeLevel > privilege;
     /**
     The user id of the user who most recently shared this note to this
      recipient. This field is used by the service to convey information
@@ -1804,7 +1343,7 @@ struct QEVERCLOUD_EXPORT UserAttributes {
            notes in the user's business notebooks that the user has configured for
            e-mail notifications.
     */
-    Optional< ReminderEmailConfig::type > reminderEmailConfig;
+    Optional< ReminderEmailConfig > reminderEmailConfig;
     /**
     If set, this contains the time at which the user last confirmed that the
            configured email address for this account is correct and up-to-date. If this is
@@ -1954,7 +1493,7 @@ struct QEVERCLOUD_EXPORT Accounting {
     Indicates the phases of a premium account
        during the billing process.
     */
-    Optional< PremiumOrderStatus::type > premiumServiceStatus;
+    Optional< PremiumOrderStatus > premiumServiceStatus;
     /**
     The order number used by the commerce system to
        process recurring payments
@@ -2032,7 +1571,7 @@ struct QEVERCLOUD_EXPORT Accounting {
     /**
     <i>DEPRECATED:</i>See BusinessUserInfo.
     */
-    Optional< BusinessUserRole::type > businessRole;
+    Optional< BusinessUserRole > businessRole;
     /**
     discount per seat in negative amount and smallest unit of the currency (e.g.
            cents for USD)
@@ -2100,7 +1639,7 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
     The role of the user within the Evernote Business account that
            they are a member of.
     */
-    Optional< BusinessUserRole::type > role;
+    Optional< BusinessUserRole > role;
     /**
     An e-mail address that will be used by the service in the context of your
            Evernote Business activities.  For example, this e-mail address will be used
@@ -2268,12 +1807,12 @@ struct QEVERCLOUD_EXPORT User {
     */
     Optional< QString > timezone;
     /** NOT DOCUMENTED */
-    Optional< PrivilegeLevel::type > privilege;
+    Optional< PrivilegeLevel > privilege;
     /**
     The level of service the user currently receives. This will always be populated
            for users retrieved from the Evernote service.
     */
-    Optional< ServiceLevel::type > serviceLevel;
+    Optional< ServiceLevel > serviceLevel;
     /**
     The date and time when this user account was created in the
        service.
@@ -2380,7 +1919,7 @@ struct QEVERCLOUD_EXPORT Contact {
     /**
     What service does this contact come from?
     */
-    Optional< ContactType::type > type;
+    Optional< ContactType > type;
     /**
     A URL of a profile photo representing this Contact. This field is filled in by the
          service and is read-only to clients.
@@ -3089,7 +2628,7 @@ struct QEVERCLOUD_EXPORT SharedNote {
     /**
     The privilege level that the share grants to the recipient.
     */
-    Optional< SharedNotePrivilegeLevel::type > privilege;
+    Optional< SharedNotePrivilegeLevel > privilege;
     /**
     The time at which the share was created.
     */
@@ -3433,7 +2972,7 @@ struct QEVERCLOUD_EXPORT Publishing {
     When the notes are publicly displayed, they will be sorted
        based on the requested criteria.
     */
-    Optional< NoteSortOrder::type > order;
+    Optional< NoteSortOrder > order;
     /**
     If this is set to true, then the public notes will be
        displayed in ascending order (e.g. from oldest to newest).  Otherwise,
@@ -3491,7 +3030,7 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
     The privileges that will be granted to users who join the notebook through
            the business library.
     */
-    Optional< SharedNotebookPrivilegeLevel::type > privilege;
+    Optional< SharedNotebookPrivilegeLevel > privilege;
     /**
     Whether the notebook should be "recommended" when displayed in the business
            library user interface.
@@ -3582,7 +3121,7 @@ struct QEVERCLOUD_EXPORT SavedSearch {
     The format of the query string, to determine how to parse
        and process it.
     */
-    Optional< QueryFormat::type > format;
+    Optional< QueryFormat > format;
     /**
     A number identifying the last transaction to
        modify the state of this object.  The USN values are sequential within an
@@ -3710,7 +3249,7 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings {
          that the recipient has "joined" the notebook) and perhaps also their
          default notebook
     */
-    Optional< RecipientStatus::type > recipientStatus;
+    Optional< RecipientStatus > recipientStatus;
 
     bool operator==(const NotebookRecipientSettings & other) const
     {
@@ -3794,7 +3333,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
     The privilege level granted to the notebook, activity stream, and
          invitations.  See the corresponding enumeration for details.
     */
-    Optional< SharedNotebookPrivilegeLevel::type > privilege;
+    Optional< SharedNotebookPrivilegeLevel > privilege;
     /**
     Settings intended for use only by the recipient of this shared
          notebook.  You should skip setting this value unless you want
@@ -3868,7 +3407,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
  */
 struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions {
     /** NOT DOCUMENTED */
-    Optional< CanMoveToContainerStatus::type > canMoveToContainer;
+    Optional< CanMoveToContainerStatus > canMoveToContainer;
 
     bool operator==(const CanMoveToContainerRestrictions & other) const
     {
@@ -4000,14 +3539,14 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
        associated with the notebook on which the NotebookRestrictions are defined.
        See the enumeration for further details.
     */
-    Optional< SharedNotebookInstanceRestrictions::type > updateWhichSharedNotebookRestrictions;
+    Optional< SharedNotebookInstanceRestrictions > updateWhichSharedNotebookRestrictions;
     /**
     Restrictions on which shared notebook instances can be expunged.  If the
        value is not set or null, then the client can expunge any of the shared notebooks
        associated with the notebook on which the NotebookRestrictions are defined.
        See the enumeration for further details.
     */
-    Optional< SharedNotebookInstanceRestrictions::type > expungeWhichSharedNotebookRestrictions;
+    Optional< SharedNotebookInstanceRestrictions > expungeWhichSharedNotebookRestrictions;
     /**
     The client may not share notes in the notebook via the shareNoteWithBusiness
        method.
@@ -4422,11 +3961,11 @@ struct QEVERCLOUD_EXPORT UserProfile {
     /**
     The BusinessUserRole for the user
     */
-    Optional< BusinessUserRole::type > role;
+    Optional< BusinessUserRole > role;
     /**
     The BusinessUserStatus for the user
     */
-    Optional< BusinessUserStatus::type > status;
+    Optional< BusinessUserStatus > status;
 
     bool operator==(const UserProfile & other) const
     {
@@ -4545,12 +4084,12 @@ struct QEVERCLOUD_EXPORT RelatedContent {
     /**
     The type of this related content.
     */
-    Optional< RelatedContentType::type > contentType;
+    Optional< RelatedContentType > contentType;
     /**
     An indication of how this content can be accessed. This type influences the
          semantics of the <code>url</code> parameter.
     */
-    Optional< RelatedContentAccess::type > accessType;
+    Optional< RelatedContentAccess > accessType;
     /**
     If set, the client should show this URL to the user, instead of the URL that was
          used to retrieve the content. This URL should be used when opening the content
@@ -4617,11 +4156,11 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
     /**
     The role to grant the user after the invitation is accepted.
     */
-    Optional< BusinessUserRole::type > role;
+    Optional< BusinessUserRole > role;
     /**
     The status of the invitation.
     */
-    Optional< BusinessInvitationStatus::type > status;
+    Optional< BusinessInvitationStatus > status;
     /**
     For invitations that were initially requested by a non-admin member of the business,
            this field specifies the user ID of the requestor. For all other invitations, this field
@@ -4693,7 +4232,7 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
  */
 struct QEVERCLOUD_EXPORT UserIdentity {
     /** NOT DOCUMENTED */
-    Optional< UserIdentityType::type > type;
+    Optional< UserIdentityType > type;
     /** NOT DOCUMENTED */
     Optional< QString > stringIdentifier;
     /** NOT DOCUMENTED */
@@ -4726,7 +4265,7 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
     /**
     The service level of the account.
     */
-    Optional< ServiceLevel::type > serviceLevel;
+    Optional< ServiceLevel > serviceLevel;
     /** NOT DOCUMENTED */
     Optional< QString > username;
     /**
@@ -5081,7 +4620,7 @@ struct QEVERCLOUD_EXPORT BootstrapInfo {
 class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException
 {
 public:
-    EDAMErrorCode::type errorCode;
+    EDAMErrorCode errorCode;
     Optional< QString > parameter;
 
     EDAMUserException();
@@ -5122,7 +4661,7 @@ public:
 class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException
 {
 public:
-    EDAMErrorCode::type errorCode;
+    EDAMErrorCode errorCode;
     Optional< QString > message;
     Optional< qint32 > rateLimitDuration;
 
@@ -5215,7 +4754,7 @@ class QEVERCLOUD_EXPORT EDAMInvalidContactsException: public EvernoteException
 public:
     QList< Contact > contacts;
     Optional< QString > parameter;
-    Optional< QList< EDAMInvalidContactReason::type > > reasons;
+    Optional< QList< EDAMInvalidContactReason > > reasons;
 
     EDAMInvalidContactsException();
     virtual ~EDAMInvalidContactsException() throw() Q_DECL_OVERRIDE;
@@ -5809,7 +5348,7 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
      Evernote User ID, and so we won't know until the invitation is
      redeemed whether or not the recipient already has privilege.
     */
-    Optional< ShareRelationshipPrivilegeLevel::type > privilege;
+    Optional< ShareRelationshipPrivilegeLevel > privilege;
     /**
     The user id of the user who most recently shared this notebook
      to this identity. This field is used by the service to convey information
@@ -6043,7 +5582,7 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate {
     /**
     The privilege level to be granted.
     */
-    Optional< SharedNotePrivilegeLevel::type > privilege;
+    Optional< SharedNotePrivilegeLevel > privilege;
 
     bool operator==(const SharedNoteTemplate & other) const
     {
@@ -6088,7 +5627,7 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate {
     /**
     The privilege level to be granted.
     */
-    Optional< SharedNotebookPrivilegeLevel::type > privilege;
+    Optional< SharedNotebookPrivilegeLevel > privilege;
 
     bool operator==(const NotebookShareTemplate & other) const
     {
@@ -6217,7 +5756,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
 
 
 } // namespace qevercloud
-
 Q_DECLARE_METATYPE(qevercloud::SyncState)
 Q_DECLARE_METATYPE(qevercloud::SyncChunkFilter)
 Q_DECLARE_METATYPE(qevercloud::NoteFilter)
@@ -6296,5 +5834,6 @@ Q_DECLARE_METATYPE(qevercloud::NotebookShareTemplate)
 Q_DECLARE_METATYPE(qevercloud::CreateOrUpdateNotebookSharesResult)
 Q_DECLARE_METATYPE(qevercloud::ManageNoteSharesError)
 Q_DECLARE_METATYPE(qevercloud::ManageNoteSharesResult)
+
 
 #endif // QEVERCLOUD_GENERATED_TYPES_H

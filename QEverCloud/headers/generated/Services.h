@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -8,23 +8,16 @@
  * This file was generated from Evernote Thrift API
  */
 
-
 #ifndef QEVERCLOUD_GENERATED_SERVICES_H
 #define QEVERCLOUD_GENERATED_SERVICES_H
 
-#include "../Optional.h"
-#include "../export.h"
+#include "../Export.h"
+
+
 #include "../AsyncResult.h"
-#include "constants.h"
-#include "types.h"
-#include <QMap>
-#include <QList>
-#include <QSet>
-#include <QString>
-#include <QStringList>
-#include <QByteArray>
-#include <QDateTime>
-#include <QMetaType>
+#include "../Optional.h"
+#include "Constants.h"
+#include "Types.h"
 #include <QObject>
 
 namespace qevercloud {
@@ -60,7 +53,7 @@ class QEVERCLOUD_EXPORT NoteStore: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(NoteStore)
 public:
-    explicit NoteStore(QString noteStoreUrl = QString(), QString authenticationToken = QString(), QObject * parent = 0);
+    explicit NoteStore(QString noteStoreUrl = QString(), QString authenticationToken = QString(), QObject * parent = nullptr);
     explicit NoteStore(QObject * parent);
 
     void setNoteStoreUrl(QString noteStoreUrl) { m_url = noteStoreUrl; }
@@ -2400,7 +2393,7 @@ class QEVERCLOUD_EXPORT UserStore: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(UserStore)
 public:
-    explicit UserStore(QString host, QString authenticationToken = QString(), QObject * parent = 0);
+    explicit UserStore(QString host, QString authenticationToken = QString(), QObject * parent = nullptr);
 
     void setAuthenticationToken(QString authenticationToken) { m_authenticationToken = authenticationToken; }
     QString authenticationToken() { return m_authenticationToken; }
@@ -2863,10 +2856,10 @@ public:
        *   <li>DATA_REQUIRED "serviceLevel" - serviceLevel is null</li>
        * </ul>
        */
-    AccountLimits getAccountLimits(ServiceLevel::type serviceLevel);
+    AccountLimits getAccountLimits(ServiceLevel serviceLevel);
 
     /** Asynchronous version of @link getAccountLimits @endlink */
-    AsyncResult * getAccountLimitsAsync(ServiceLevel::type serviceLevel);
+    AsyncResult * getAccountLimitsAsync(ServiceLevel serviceLevel);
 
 private:
     QString m_url;

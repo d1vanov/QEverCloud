@@ -14,51 +14,52 @@ if(BUILD_WITH_OAUTH_SUPPORT)
 endif()
 
 set(NON_GENERATED_HEADERS
-    headers/export.h
-    headers/exceptions.h
-    headers/globals.h
-    headers/thumbnail.h
     headers/AsyncResult.h
+    headers/EventLoopFinisher.h
+    headers/EverCloudException.h
+    headers/Export.h
+    headers/Exceptions.h
+    headers/Globals.h
+    headers/Helpers.h
     headers/InkNoteImageDownloader.h
     headers/Optional.h
-    headers/EverCloudException.h
-    headers/qt4helpers.h
-    headers/EventLoopFinisher.h)
+    headers/Thumbnail.h)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   list(APPEND NON_GENERATED_HEADERS
-    headers/oauth.h)
+    headers/OAuth.h)
 endif()
 
 set(GENERATED_HEADERS
-    headers/generated/constants.h
-    headers/generated/services.h
-    headers/generated/types.h
+    headers/generated/Constants.h
+    headers/generated/Services.h
+    headers/generated/Types.h
     headers/generated/EDAMErrorCode.h)
 
 set(PRIVATE_HEADERS
-    src/thrift.h
-    src/http.h
-    src/impl.h
-    src/generated/types_impl.h)
+    src/Http.h
+    src/Impl.h
+    src/Thrift.h
+    src/generated/Types_io.h)
 
 set(SOURCES
-    src/globals.cpp
-    src/exceptions.cpp
-    src/http.cpp
-    src/services_nongenerated.cpp
     src/AsyncResult.cpp
-    src/EverCloudException.cpp
     src/EventLoopFinisher.cpp
-    src/thumbnail.cpp
+    src/EverCloudException.cpp
+    src/Exceptions.cpp
+    src/Globals.cpp
+    src/Http.cpp
     src/InkNoteImageDownloader.cpp
-    src/generated/constants.cpp
-    src/generated/services.cpp
-    src/generated/types.cpp)
+    src/ServicesNonGenerated.cpp
+    src/Thumbnail.cpp
+    src/generated/Constants.cpp
+    src/generated/EDAMErrorCode.cpp
+    src/generated/Services.cpp
+    src/generated/Types.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   list(APPEND SOURCES
-    src/oauth.cpp)
+    src/OAuth.cpp)
 endif()
 
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})

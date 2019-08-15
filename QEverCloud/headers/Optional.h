@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -10,6 +10,7 @@
 #define QEVERCLOUD_OPTIONAL_H
 
 #include "EverCloudException.h"
+
 #include <algorithm>
 
 namespace qevercloud {
@@ -29,7 +30,7 @@ namespace qevercloud {
  *
  * So for my library I created a special class that supports the optional value notion explicitly.
  * Basically Optional class just holds a bool value that tracks the fact that a value was assigned. But this tracking
- * is done automatically and attempts to use unissigned values throw exceptions. In this way errors are much harder to
+ * is done automatically and attempts to use unassigned values throw exceptions. In this way errors are much harder to
  * make and it's harder for them to slip through testing unnoticed too.
  *
  */

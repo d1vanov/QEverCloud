@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -9,12 +9,13 @@
 #ifndef QEVERCLOUD_THUMBNAIL_H
 #define QEVERCLOUD_THUMBNAIL_H
 
-#include "export.h"
 #include "AsyncResult.h"
-#include "generated/types.h"
+#include "Export.h"
+#include "generated/Types.h"
+
 #include <QByteArray>
-#include <QString>
 #include <QNetworkAccessManager>
+#include <QString>
 
 namespace qevercloud {
 

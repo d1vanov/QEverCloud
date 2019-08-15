@@ -6,10 +6,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <exceptions.h>
-#include <globals.h>
-#include <qt4helpers.h>
-#include "http.h"
+#include "Http.h"
+
+#include <Exceptions.h>
+#include <Helpers.h>
+#include <Globals.h>
+
 #include <QEventLoop>
 #include <QtNetwork>
 #include <QSharedPointer>
@@ -25,7 +27,7 @@ ReplyFetcher::ReplyFetcher(QObject * parent) :
     m_httpStatusCode(0)
 {
     m_ticker = new QTimer(this);
-    QObject::connect(m_ticker, QEC_SIGNAL(QTimer,timeout), this, QEC_SLOT(ReplyFetcher,checkForTimeout));
+    QObject::connect(m_ticker, &QTimer::timeout, this, &ReplyFetcher::checkForTimeout);
 }
 
 void ReplyFetcher::start(QNetworkAccessManager * nam, QUrl url)
@@ -53,10 +55,10 @@ void ReplyFetcher::start(QNetworkAccessManager * nam, QNetworkRequest request, Q
         m_reply = QSharedPointer<QNetworkReply>(nam->post(request, postData), &QObject::deleteLater);
     }
 
-    QObject::connect(m_reply.data(), QEC_SIGNAL(QNetworkReply,finished), this, QEC_SLOT(ReplyFetcher,onFinished));
+    QObject::connect(m_reply.data(), &QNetworkReply::finished, this, &ReplyFetcher::onFinished);
     QObject::connect(m_reply.data(), SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
-    QObject::connect(m_reply.data(), QEC_SIGNAL(QNetworkReply,sslErrors,QList<QSslError>), this, QEC_SLOT(ReplyFetcher,onSslErrors,QList<QSslError>));
-    QObject::connect(m_reply.data(), QEC_SIGNAL(QNetworkReply,downloadProgress,qint64,qint64), this, QEC_SLOT(ReplyFetcher,onDownloadProgress,qint64,qint64));
+    QObject::connect(m_reply.data(), &QNetworkReply::sslErrors, this, &ReplyFetcher::onSslErrors);
+    QObject::connect(m_reply.data(), &QNetworkReply::downloadProgress, this, &ReplyFetcher::onDownloadProgress);
 }
 
 void ReplyFetcher::onDownloadProgress(qint64, qint64)

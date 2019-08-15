@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -9,11 +9,13 @@
 #ifndef QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 #define QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 
-#include "qt4helpers.h"
-#include "export.h"
+#include "Export.h"
+#include "Helpers.h"
+
 #include <QObject>
 #include <QString>
 #include <QSharedPointer>
+
 #include <exception>
 
 namespace qevercloud {
@@ -33,9 +35,9 @@ public:
     explicit EverCloudException(QString error);
     explicit EverCloudException(const std::string & error);
     explicit EverCloudException(const char * error);
-    ~EverCloudException() throw();
+    ~EverCloudException() noexcept;
 
-    const char * what() const throw();
+    const char * what() const noexcept;
 
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const;
 };

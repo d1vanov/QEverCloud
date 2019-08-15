@@ -9,7 +9,8 @@
 #ifndef QEVERCLOUD_GLOBALS_H
 #define QEVERCLOUD_GLOBALS_H
 
-#include "export.h"
+#include "Export.h"
+
 #include <QNetworkAccessManager>
 
 /**

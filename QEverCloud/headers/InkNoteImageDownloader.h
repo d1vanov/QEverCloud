@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Dmitry Ivanov
+ * Copyright (c) 2016-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -8,9 +8,10 @@
 #ifndef QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
 #define QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
 
-#include "export.h"
 #include "AsyncResult.h"
-#include "generated/types.h"
+#include "Export.h"
+#include "generated/Types.h"
+
 #include <QByteArray>
 #include <QString>
 #include <QNetworkAccessManager>

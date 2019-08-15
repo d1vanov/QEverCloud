@@ -1,17 +1,19 @@
 /**
- * Copyright (c) 2016 Dmitry Ivanov
+ * Copyright (c) 2016-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
+#include "Http.h"
+
+#include <Helpers.h>
 #include <InkNoteImageDownloader.h>
-#include <qt4helpers.h>
-#include "http.h"
-#include <QSize>
+
+#include <QBuffer>
 #include <QImage>
 #include <QPainter>
-#include <QBuffer>
+#include <QSize>
 
 namespace qevercloud {
 

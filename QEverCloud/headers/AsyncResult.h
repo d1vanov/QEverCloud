@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -9,11 +9,12 @@
 #ifndef QEVERCLOUD_ASYNC_RESULT_H
 #define QEVERCLOUD_ASYNC_RESULT_H
 
-#include "qt4helpers.h"
-#include "export.h"
 #include "EverCloudException.h"
-#include <QObject>
+#include "Export.h"
+#include "Helpers.h"
+
 #include <QNetworkRequest>
+#include <QObject>
 
 namespace qevercloud {
 

@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -9,11 +9,12 @@
 #ifndef QEVERCLOUD_IMPL_H
 #define QEVERCLOUD_IMPL_H
 
+#include "Http.h"
+#include "Thrift.h"
+
+#include <Exceptions.h>
+#include <Globals.h>
 #include <Optional.h>
-#include <exceptions.h>
-#include <globals.h>
-#include "http.h"
-#include "thrift.h"
 
 /**
 

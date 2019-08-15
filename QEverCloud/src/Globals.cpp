@@ -6,10 +6,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <globals.h>
-#include <QSharedPointer>
+#include <Globals.h>
+
 #include <QMutex>
 #include <QMutexLocker>
+#include <QSharedPointer>
 
 namespace qevercloud {
 

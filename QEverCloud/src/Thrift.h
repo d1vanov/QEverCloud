@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
  * https://opensource.org/licenses/MIT
@@ -9,10 +9,12 @@
 #ifndef QEVERCLOUD_THRIFT_H
 #define QEVERCLOUD_THRIFT_H
 
-#include <exceptions.h>
-#include <qt4helpers.h>
+#include <Exceptions.h>
+#include <Helpers.h>
+
 #include <QByteArray>
 #include <QtEndian>
+
 #include <cstring>
 #include <limits>
 
