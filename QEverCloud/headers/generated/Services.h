@@ -13,7 +13,6 @@
 
 #include "../Export.h"
 
-
 #include "../AsyncResult.h"
 #include "../Optional.h"
 #include "Constants.h"
@@ -2867,13 +2866,14 @@ private:
 };
 
 } // namespace qevercloud
-Q_DECLARE_METATYPE(QList< qevercloud::Notebook >)
-Q_DECLARE_METATYPE(QList< qevercloud::Tag >)
-Q_DECLARE_METATYPE(QList< qevercloud::SavedSearch >)
-Q_DECLARE_METATYPE(QList< qevercloud::NoteVersionId >)
-Q_DECLARE_METATYPE(QList< qevercloud::SharedNotebook >)
-Q_DECLARE_METATYPE(QList< qevercloud::LinkedNotebook >)
-Q_DECLARE_METATYPE(QList< qevercloud::BusinessInvitation >)
-Q_DECLARE_METATYPE(QList< qevercloud::UserProfile >)
+
+Q_DECLARE_METATYPE(QList<qevercloud::Notebook>)
+Q_DECLARE_METATYPE(QList<qevercloud::Tag>)
+Q_DECLARE_METATYPE(QList<qevercloud::SavedSearch>)
+Q_DECLARE_METATYPE(QList<qevercloud::NoteVersionId>)
+Q_DECLARE_METATYPE(QList<qevercloud::SharedNotebook>)
+Q_DECLARE_METATYPE(QList<qevercloud::LinkedNotebook>)
+Q_DECLARE_METATYPE(QList<qevercloud::BusinessInvitation>)
+Q_DECLARE_METATYPE(QList<qevercloud::UserProfile>)
 
 #endif // QEVERCLOUD_GENERATED_SERVICES_H

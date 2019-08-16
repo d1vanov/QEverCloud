@@ -13,18 +13,17 @@
 
 #include "../Export.h"
 
-
-#include "EDAMErrorCode.h"
 #include "../Optional.h"
-#include <QSharedPointer>
-#include <QMetaType>
-#include <QList>
-#include <QMap>
-#include <QSet>
-#include <QStringList>
+#include "EDAMErrorCode.h"
 #include <QByteArray>
 #include <QDateTime>
+#include <QList>
+#include <QMap>
 #include <QMetaType>
+#include <QMetaType>
+#include <QSet>
+#include <QSharedPointer>
+#include <QStringList>
 
 namespace qevercloud {
 
@@ -5756,6 +5755,7 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
 
 
 } // namespace qevercloud
+
 Q_DECLARE_METATYPE(qevercloud::SyncState)
 Q_DECLARE_METATYPE(qevercloud::SyncChunkFilter)
 Q_DECLARE_METATYPE(qevercloud::NoteFilter)

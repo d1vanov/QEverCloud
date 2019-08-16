@@ -13,9 +13,8 @@
 
 #include "../Export.h"
 
-
-#include <QTextStream>
 #include <QDebug>
+#include <QTextStream>
 
 namespace qevercloud {
 

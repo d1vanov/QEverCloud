@@ -11,11 +11,9 @@
 #ifndef QEVERCLOUD_GENERATED_TYPES_IO_H
 #define QEVERCLOUD_GENERATED_TYPES_IO_H
 
-
-
-#include <generated/Types.h>
 #include "../Impl.h"
 #include <Optional.h>
+#include <generated/Types.h>
 
 namespace qevercloud {
 
