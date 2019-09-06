@@ -20,17 +20,17 @@ ThriftException::ThriftException() :
     m_type(Type::UNKNOWN)
 {}
 
-ThriftException::ThriftException(ThriftException::Type::type type) :
+ThriftException::ThriftException(ThriftException::Type type) :
     EverCloudException(),
     m_type(type)
 {}
 
-ThriftException::ThriftException(ThriftException::Type::type type, QString message) :
+ThriftException::ThriftException(ThriftException::Type type, QString message) :
     EverCloudException(message),
     m_type(type)
 {}
 
-ThriftException::Type::type ThriftException::type() const
+ThriftException::Type ThriftException::type() const
 {
     return m_type;
 }
@@ -139,7 +139,7 @@ ThriftException readThriftException(ThriftBinaryBufferReader & reader)
 
     reader.readStructBegin(name);
     QString error;
-    ThriftException::Type::type type = ThriftException::Type::UNKNOWN;
+    ThriftException::Type type = ThriftException::Type::UNKNOWN;
 
     while(true)
     {
@@ -164,7 +164,7 @@ ThriftException readThriftException(ThriftBinaryBufferReader & reader)
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 t;
                 reader.readI32(t);
-                type = static_cast<ThriftException::Type::type>(t);
+                type = static_cast<ThriftException::Type>(t);
             }
             else {
                 reader.skip(fieldType);
@@ -360,7 +360,7 @@ void EDAMSystemExceptionAuthExpiredData::throwException() const
     throw exception;
 }
 
-ThriftExceptionData::ThriftExceptionData(QString error, ThriftException::Type::type type) :
+ThriftExceptionData::ThriftExceptionData(QString error, ThriftException::Type type) :
     EverCloudExceptionData(error),
     m_type(type)
 {}

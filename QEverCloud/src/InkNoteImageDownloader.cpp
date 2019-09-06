@@ -21,7 +21,8 @@ class InkNoteImageDownloaderPrivate
 {
 public:
     QPair<QNetworkRequest, QByteArray> createPostRequest(const QString & urlPart,
-                                                         const int sliceNumber, const bool isPublic = false);
+                                                         const int sliceNumber,
+                                                         const bool isPublic = false);
 
     QString m_host;
     QString m_shardId;
@@ -34,7 +35,8 @@ InkNoteImageDownloader::InkNoteImageDownloader() :
     d_ptr(new InkNoteImageDownloaderPrivate)
 {}
 
-InkNoteImageDownloader::InkNoteImageDownloader(QString host, QString shardId, QString authenticationToken,
+InkNoteImageDownloader::InkNoteImageDownloader(QString host, QString shardId,
+                                               QString authenticationToken,
                                                int width, int height) :
     d_ptr(new InkNoteImageDownloaderPrivate)
 {
@@ -62,7 +64,8 @@ InkNoteImageDownloader & InkNoteImageDownloader::setShardId(QString shardId)
     return *this;
 }
 
-InkNoteImageDownloader & InkNoteImageDownloader::setAuthenticationToken(QString authenticationToken)
+InkNoteImageDownloader & InkNoteImageDownloader::setAuthenticationToken(
+    QString authenticationToken)
 {
     d_ptr->m_authenticationToken = authenticationToken;
     return *this;
@@ -95,12 +98,15 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
     while(true)
     {
         int httpStatusCode = 0;
-        QPair<QNetworkRequest, QByteArray> postRequest = d->createPostRequest(urlPart, sliceCounter, isPublic);
+        QPair<QNetworkRequest, QByteArray> postRequest =
+            d->createPostRequest(urlPart, sliceCounter, isPublic);
 
-        QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), postRequest.first,
-                                          postRequest.second, &httpStatusCode);
+        QByteArray reply = simpleDownload(evernoteNetworkAccessManager(),
+                                          postRequest.first, postRequest.second,
+                                          &httpStatusCode);
         if (httpStatusCode != 200) {
-            throw EverCloudException(QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
+            throw EverCloudException(
+                QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
         }
 
         QImage replyImagePart;
@@ -108,7 +114,9 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
         if (replyImagePart.isNull())
         {
             if (Q_UNLIKELY(inkNoteImage.isNull())) {
-                throw EverCloudException(QStringLiteral("Ink note's image part is null before even starting to assemble"));
+                throw EverCloudException(
+                    QStringLiteral("Ink note's image part is null before even "
+                                   "starting to assemble"));
             }
 
             break;
@@ -118,7 +126,8 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
             inkNoteImage = inkNoteImage.convertToFormat(replyImagePart.format());
         }
 
-        QRect painterCurrentRect(0, painterPosition, replyImagePart.width(), replyImagePart.height());
+        QRect painterCurrentRect(0, painterPosition, replyImagePart.width(),
+                                 replyImagePart.height());
         painterPosition += replyImagePart.height();
 
         QPainter painter(&inkNoteImage);
@@ -141,13 +150,13 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
     return imageData;
 }
 
-QPair<QNetworkRequest, QByteArray> InkNoteImageDownloaderPrivate::createPostRequest(const QString & urlPart,
-                                                                                    const int sliceNumber,
-                                                                                    const bool isPublic)
+QPair<QNetworkRequest, QByteArray> InkNoteImageDownloaderPrivate::createPostRequest(
+    const QString & urlPart, const int sliceNumber, const bool isPublic)
 {
     QNetworkRequest request;
     request.setUrl(QUrl(urlPart + QString::number(sliceNumber)));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      QStringLiteral("application/x-www-form-urlencoded"));
 
     QByteArray postData = ""; // not QByteArray()! or else ReplyFetcher will not work.
     if (!isPublic) {

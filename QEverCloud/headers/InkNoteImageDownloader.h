@@ -60,7 +60,8 @@ public:
      * @param height
      * Height of the ink note's resource
      */
-    InkNoteImageDownloader(QString host, QString shardId, QString authenticationToken, int width, int height);
+    InkNoteImageDownloader(QString host, QString shardId,
+                           QString authenticationToken, int width, int height);
 
     virtual ~InkNoteImageDownloader();
 

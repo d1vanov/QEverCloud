@@ -25,21 +25,21 @@ QNetworkAccessManager * evernoteNetworkAccessManager()
     return pNetworkAccessManager.data();
 }
 
-static int qevercloudConnectionTimeout = 180000;
+static int qevercloudRequestTimeout = 180000;
 
-int connectionTimeout()
+int requestTimeout()
 {
-    return qevercloudConnectionTimeout;
+    return qevercloudRequestTimeout;
 }
 
-void setConnectionTimeout(int timeout)
+void setRequestTimeout(int timeout)
 {
-    qevercloudConnectionTimeout = timeout;
+    qevercloudRequestTimeout = timeout;
 }
 
 int libraryVersion()
 {
-    return 4*10000 + 0*100 + 0;
+    return 5*10000 + 0*100 + 0;
 }
 
 } // namespace qevercloud
