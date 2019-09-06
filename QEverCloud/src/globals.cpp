@@ -38,7 +38,7 @@ void setConnectionTimeout(int timeout)
 
 int libraryVersion()
 {
-    return 4*10000 + 0*100 + 0;
+    return 4*10000 + 1*100 + 0;
 }
 
 } // namespace qevercloud
