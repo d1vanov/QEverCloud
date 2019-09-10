@@ -2,8 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
- * https://opensource.org/licenses/MIT
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license: https://opensource.org/licenses/MIT
  */
 
 #ifndef QEVERCLOUD_OAUTH_H
@@ -46,12 +46,14 @@ class EvernoteOAuthWebViewPrivate;
 /**
  * @brief The class is tailored specifically for OAuth authorization with Evernote.
  *
- * While it is functional by itself you probably will prefer to use EvernoteOAuthDialog.
+ * While it is functional by itself you probably will prefer to use
+ * EvernoteOAuthDialog.
  *
  * %Note that you have to include QEverCloudOAuth.h header.
  *
- * By deafult EvernoteOAuthWebView uses qrand() for generating nonce so do not forget to call qsrand()
- * in your application. See @link setNonceGenerator @endlink If you want more control over nonce generation.
+ * By deafult EvernoteOAuthWebView uses qrand() for generating nonce so do not
+ * forget to call qsrand() in your application. See @link setNonceGenerator @endlink
+ * If you want more control over nonce generation.
  */
 class QEVERCLOUD_EXPORT EvernoteOAuthWebView: public QWidget
 {
@@ -79,7 +81,10 @@ public:
      */
     void authenticate(QString host, QString consumerKey, QString consumerSecret);
 
-    /** @return true if the last call to authenticate resulted in a successful authentication. */
+    /**
+      * @return true if the last call to authenticate resulted in a successful
+      * authentication.
+     */
     bool isSucceeded() const;
 
     /** @return error message resulted from the last call to authenticate */

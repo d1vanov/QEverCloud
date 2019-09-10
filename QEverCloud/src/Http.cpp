@@ -68,7 +68,7 @@ void ReplyFetcher::onDownloadProgress(qint64, qint64)
 
 void ReplyFetcher::checkForTimeout()
 {
-    const int timeout = connectionTimeout();
+    const int timeout = requestTimeout();
     if (timeout < 0) {
         return;
     }

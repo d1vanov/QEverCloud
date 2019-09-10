@@ -2,8 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
- * https://opensource.org/licenses/MIT
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license: https://opensource.org/licenses/MIT
  */
 
 #ifndef QEVERCLOUD_ASYNC_RESULT_H
@@ -31,14 +31,18 @@ QT_FORWARD_DECLARE_CLASS(AsyncResultPrivate)
 NoteStore* ns;
 Note note;
 ...
-QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished, [ns](QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-    if(!error.isNull()) {
-        // do something in case of an error
-    } else {
-        Note note = result.value<Note>();
-        // process returned result
-    }
-});
+QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished,
+                 [ns](QVariant result,
+                      QSharedPointer<EverCloudExceptionData> error)
+                 {
+                    if(!error.isNull()) {
+                        // do something in case of an error
+                    }
+                    else {
+                        Note note = result.value<Note>();
+                        // process returned result
+                    }
+                 });
  @endcode
  */
 class QEVERCLOUD_EXPORT AsyncResult: public QObject
@@ -51,10 +55,12 @@ private:
 public:
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
-    AsyncResult(QString url, QByteArray postData, ReadFunctionType readFunction = AsyncResult::asIs,
+    AsyncResult(QString url, QByteArray postData,
+                ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = Q_NULLPTR);
 
-    AsyncResult(QNetworkRequest request, QByteArray postData, ReadFunctionType readFunction = AsyncResult::asIs,
+    AsyncResult(QNetworkRequest request, QByteArray postData,
+                ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = Q_NULLPTR);
 
     ~AsyncResult();
@@ -72,9 +78,11 @@ Q_SIGNALS:
      * @brief Emitted upon asyncronous call completition.
      * @param result
      * @param error
-     * error.isNull() != true in case of an error. See EverCloudExceptionData for more details.
+     * error.isNull() != true in case of an error. See EverCloudExceptionData
+     * for more details.
      *
-     * AsyncResult deletes itself after emitting this signal. You don't have to manage it's lifetime explicitly.
+     * AsyncResult deletes itself after emitting this signal. You don't have to
+     * manage it's lifetime explicitly.
      */
     void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
 
