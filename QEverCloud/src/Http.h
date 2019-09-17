@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -36,11 +37,17 @@ public:
     ReplyFetcher(QObject * parent = Q_NULLPTR);
 
     void start(QNetworkAccessManager * nam, QUrl url);
+
     // if !postData.isNull() then POST will be issued instead of GET
-    void start(QNetworkAccessManager * nam, QNetworkRequest request, QByteArray postData = QByteArray());
+    void start(QNetworkAccessManager * nam, QNetworkRequest request,
+               QByteArray postData = QByteArray());
+
     bool isError() { return !m_success; }
+
     QString errorText() { return m_errorText; }
+
     QByteArray receivedData() { return m_receivedData; }
+
     int httpStatusCode() { return m_httpStatusCode; }
 
 Q_SIGNALS:
@@ -71,14 +78,17 @@ QNetworkRequest createEvernoteRequest(QString url);
 QByteArray askEvernote(QString url, QByteArray postData);
 
 QByteArray simpleDownload(QNetworkAccessManager * nam, QNetworkRequest request,
-                          QByteArray postData = QByteArray(), int * httpStatusCode = Q_NULLPTR);
+                          QByteArray postData = QByteArray(),
+                          int * httpStatusCode = Q_NULLPTR);
 
 class ReplyFetcherLauncher: public QObject
 {
     Q_OBJECT
 public:
-    explicit ReplyFetcherLauncher(ReplyFetcher * fetcher, QNetworkAccessManager * nam,
-                                  const QNetworkRequest & request, const QByteArray & postData);
+    explicit ReplyFetcherLauncher(ReplyFetcher * fetcher,
+                                  QNetworkAccessManager * nam,
+                                  const QNetworkRequest & request,
+                                  const QByteArray & postData);
 
 public Q_SLOTS:
     void start();

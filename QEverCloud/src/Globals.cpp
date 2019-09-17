@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -20,7 +21,8 @@ QNetworkAccessManager * evernoteNetworkAccessManager()
     static QMutex networkAccessManagerMutex;
     QMutexLocker mutexLocker(&networkAccessManagerMutex);
     if (pNetworkAccessManager.isNull()) {
-        pNetworkAccessManager = QSharedPointer<QNetworkAccessManager>(new QNetworkAccessManager);
+        pNetworkAccessManager = QSharedPointer<QNetworkAccessManager>(
+            new QNetworkAccessManager);
     }
     return pNetworkAccessManager.data();
 }

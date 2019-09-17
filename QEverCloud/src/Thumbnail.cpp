@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -79,12 +80,14 @@ Thumbnail & Thumbnail::setImageType(ImageType::type imageType)
 QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
 {
     int httpStatusCode = 0;
-    QPair<QNetworkRequest, QByteArray> request = createPostRequest(guid, isPublic, isResourceGuid);
+    QPair<QNetworkRequest, QByteArray> request =
+        createPostRequest(guid, isPublic, isResourceGuid);
 
     QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), request.first,
                                       request.second, &httpStatusCode);
     if (httpStatusCode != 200) {
-        throw EverCloudException(QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
+        throw EverCloudException(
+            QString::fromUtf8("HTTP Status Code = %1").arg(httpStatusCode));
     }
 
     return reply;
@@ -92,11 +95,13 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
 
 AsyncResult* Thumbnail::downloadAsync(Guid guid, bool isPublic, bool isResourceGuid)
 {
-    QPair<QNetworkRequest, QByteArray> pair = createPostRequest(guid, isPublic, isResourceGuid);
+    QPair<QNetworkRequest, QByteArray> pair =
+        createPostRequest(guid, isPublic, isResourceGuid);
     return new AsyncResult(pair.first, pair.second);
 }
 
-QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(Guid guid, bool isPublic, bool isResourceGuid)
+QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
+    Guid guid, bool isPublic, bool isResourceGuid)
 {
     Q_D(Thumbnail);
 
@@ -136,10 +141,12 @@ QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(Guid guid, bool 
     }
 
     request.setUrl(QUrl(url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      QStringLiteral("application/x-www-form-urlencoded"));
 
     if (!isPublic) {
-        postData = QByteArray("auth=")+ QUrl::toPercentEncoding(d->m_authenticationToken);
+        postData =
+            QByteArray("auth=") + QUrl::toPercentEncoding(d->m_authenticationToken);
     }
 
     return qMakePair(request, postData);

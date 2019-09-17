@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -21,10 +22,12 @@ namespace qevercloud {
 class AsyncResultPrivate
 {
 public:
-    explicit AsyncResultPrivate(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+    explicit AsyncResultPrivate(QString url, QByteArray postData,
+                                AsyncResult::ReadFunctionType readFunction,
                                 bool autoDelete, AsyncResult * q);
 
-    explicit AsyncResultPrivate(QNetworkRequest request, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+    explicit AsyncResultPrivate(QNetworkRequest request, QByteArray postData,
+                                AsyncResult::ReadFunctionType readFunction,
                                 bool autoDelete, AsyncResult * q);
 
     virtual ~AsyncResultPrivate();
@@ -39,7 +42,8 @@ private:
     Q_DECLARE_PUBLIC(AsyncResult)
 };
 
-AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData,
+                                       AsyncResult::ReadFunctionType readFunction,
                                        bool autoDelete, AsyncResult * q) :
     m_request(createEvernoteRequest(url)),
     m_postData(postData),
@@ -48,7 +52,9 @@ AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData, AsyncRe
     q_ptr(q)
 {}
 
-AsyncResultPrivate::AsyncResultPrivate(QNetworkRequest request, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+AsyncResultPrivate::AsyncResultPrivate(QNetworkRequest request,
+                                       QByteArray postData,
+                                       AsyncResult::ReadFunctionType readFunction,
                                        bool autoDelete, AsyncResult * q) :
     m_request(request),
     m_postData(postData),
@@ -66,7 +72,8 @@ QVariant AsyncResult::asIs(QByteArray replyData)
     return replyData;
 }
 
-AsyncResult::AsyncResult(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+AsyncResult::AsyncResult(QString url, QByteArray postData,
+                         AsyncResult::ReadFunctionType readFunction,
                          bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(url, postData, readFunction, autoDelete, this))
@@ -74,7 +81,8 @@ AsyncResult::AsyncResult(QString url, QByteArray postData, AsyncResult::ReadFunc
     QMetaObject::invokeMethod(this, "start", Qt::QueuedConnection);
 }
 
-AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData, qevercloud::AsyncResult::ReadFunctionType readFunction,
+AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData,
+                         qevercloud::AsyncResult::ReadFunctionType readFunction,
                          bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(request, postData, readFunction, autoDelete, this))
@@ -90,7 +98,9 @@ AsyncResult::~AsyncResult()
 bool AsyncResult::waitForFinished(int timeout)
 {
     QEventLoop loop;
-    QObject::connect(this, SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)), &loop, SLOT(quit()));
+    QObject::connect(this,
+                     SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)),
+                     &loop, SLOT(quit()));
 
     if(timeout >= 0) {
         QTimer timer;
@@ -111,7 +121,8 @@ void AsyncResult::start()
     ReplyFetcher * replyFetcher = new ReplyFetcher;
     QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                      this, &AsyncResult::onReplyFetched);
-    replyFetcher->start(evernoteNetworkAccessManager(), d->m_request, d->m_postData);
+    replyFetcher->start(
+        evernoteNetworkAccessManager(), d->m_request, d->m_postData);
 }
 
 void AsyncResult::onReplyFetched(QObject * rp)
@@ -125,10 +136,14 @@ void AsyncResult::onReplyFetched(QObject * rp)
     try
     {
         if (reply->isError()) {
-            error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(reply->errorText()));
+            error = QSharedPointer<EverCloudExceptionData>(
+                new EverCloudExceptionData(reply->errorText()));
         }
         else if(reply->httpStatusCode() != 200) {
-            error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("HTTP Status Code = %1").arg(reply->httpStatusCode())));
+            error = QSharedPointer<EverCloudExceptionData>(
+                new EverCloudExceptionData(
+                    QString::fromUtf8("HTTP Status Code = %1")
+                    .arg(reply->httpStatusCode())));
         }
         else {
             result = d->m_readFunction(reply->receivedData());
@@ -138,11 +153,14 @@ void AsyncResult::onReplyFetched(QObject * rp)
         error = e.exceptionData();
     }
     catch(const std::exception & e) {
-        error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("Exception of type \"%1\" with the message: %2")
-                                                                                  .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what()))));
+        error = QSharedPointer<EverCloudExceptionData>(
+            new EverCloudExceptionData(
+                QString::fromUtf8("Exception of type \"%1\" with the message: %2")
+                .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what()))));
     }
     catch(...) {
-        error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("Unknown exception")));
+        error = QSharedPointer<EverCloudExceptionData>(
+            new EverCloudExceptionData(QStringLiteral("Unknown exception")));
     }
 
     emit finished(result, error);

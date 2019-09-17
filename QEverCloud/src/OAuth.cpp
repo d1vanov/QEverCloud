@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -41,7 +42,8 @@ namespace {
         quint64 random;
         std::memcpy(&random, &randomData.constData()[0], sizeof(random));
         res ^= random;
-        std::memcpy(&random, &randomData.constData()[sizeof(random)], sizeof(random));
+        std::memcpy(&random, &randomData.constData()[sizeof(random)],
+                    sizeof(random));
         res ^= random;
 
         return res;
@@ -130,7 +132,8 @@ EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
     setLayout(pLayout);
 }
 
-void EvernoteOAuthWebView::authenticate(QString host, QString consumerKey, QString consumerSecret)
+void EvernoteOAuthWebView::authenticate(
+    QString host, QString consumerKey, QString consumerSecret)
 {
     Q_D(EvernoteOAuthWebView);
     d->m_host = host;
@@ -140,8 +143,12 @@ void EvernoteOAuthWebView::authenticate(QString host, QString consumerKey, QStri
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
     quint64 nonce = nonceGenerator()();
-    d->m_oauthUrlBase = QStringLiteral("https://%1/oauth?oauth_consumer_key=%2&oauth_signature=%3&oauth_signature_method=PLAINTEXT&oauth_timestamp=%4&oauth_nonce=%5")
-            .arg(host, consumerKey, consumerSecret).arg(timestamp).arg(nonce);
+    d->m_oauthUrlBase =
+        QString::fromUtf8("https://%1/oauth?oauth_consumer_key=%2&"
+                          "oauth_signature=%3&"
+                          "oauth_signature_method=PLAINTEXT&"
+                          "oauth_timestamp=%4&oauth_nonce=%5")
+        .arg(host, consumerKey, consumerSecret).arg(timestamp).arg(nonce);
 
     // step 1: acquire temporary token
     ReplyFetcher * replyFetcher = new ReplyFetcher();
@@ -202,7 +209,8 @@ void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
         // step 2: directing a user to the login page
         QObject::connect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
                          this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
-        QUrl loginUrl(QStringLiteral("https://%1//OAuth.action?%2").arg(m_host, token));
+        QUrl loginUrl(QString::fromUtf8("https://%1//OAuth.action?%2")
+                      .arg(m_host, token));
         setUrl(loginUrl);
     }
 
@@ -264,10 +272,12 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
         }
 
         m_oauthResult.noteStoreUrl = params[QStringLiteral("edam_noteStoreUrl")];
-        m_oauthResult.expires = Timestamp(params[QStringLiteral("edam_expires")].toLongLong());
+        m_oauthResult.expires =
+            Timestamp(params[QStringLiteral("edam_expires")].toLongLong());
         m_oauthResult.shardId = params[QStringLiteral("edam_shard")];
         m_oauthResult.userId = params[QStringLiteral("edam_userId")].toInt();
-        m_oauthResult.webApiUrlPrefix = params[QStringLiteral("edam_webApiUrlPrefix")];
+        m_oauthResult.webApiUrlPrefix =
+            params[QStringLiteral("edam_webApiUrlPrefix")];
         m_oauthResult.authenticationToken = params[QStringLiteral("oauth_token")];
 
         emit authenticationFinished(true);
@@ -285,7 +295,8 @@ void EvernoteOAuthWebViewPrivate::clearHtml()
 class EvernoteOAuthDialogPrivate
 {
 public:
-    EvernoteOAuthDialogPrivate(const QString & host, const QString & consumerKey, const QString & consumerSecret) :
+    EvernoteOAuthDialogPrivate(const QString & host, const QString & consumerKey,
+                               const QString & consumerSecret) :
         m_pWebView(Q_NULLPTR),
         m_host(host),
         m_consumerKey(consumerKey),
@@ -298,7 +309,9 @@ public:
     QString                 m_consumerSecret;
 };
 
-EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey, QString consumerSecret, QString host, QWidget  *parent) :
+EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey,
+                                         QString consumerSecret,
+                                         QString host, QWidget  *parent) :
     QDialog(parent),
     d_ptr(new EvernoteOAuthDialogPrivate(host, consumerKey, consumerSecret))
 {

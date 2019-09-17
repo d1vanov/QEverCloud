@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -39,7 +40,8 @@ UserStore::UserStore(QString host, QString authenticationToken, QObject * parent
  *  This token that will be used as the default token.
  *
  */
-NoteStore::NoteStore(QString noteStoreUrl, QString authenticationToken, QObject * parent) :
+NoteStore::NoteStore(QString noteStoreUrl, QString authenticationToken,
+                     QObject * parent) :
     QObject(parent)
 {
     setNoteStoreUrl(noteStoreUrl);
@@ -49,7 +51,8 @@ NoteStore::NoteStore(QString noteStoreUrl, QString authenticationToken, QObject 
 /**
  * Constructs NoteStore object.
  *
- * noteStoreUrl and possibly authenticationToken are expected to be specified later.
+ * noteStoreUrl and possibly authenticationToken are expected to be specified
+ * later.
  */
 NoteStore::NoteStore(QObject * parent) :
     QObject(parent)

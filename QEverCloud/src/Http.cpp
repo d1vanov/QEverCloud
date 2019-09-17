@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -27,7 +28,8 @@ ReplyFetcher::ReplyFetcher(QObject * parent) :
     m_httpStatusCode(0)
 {
     m_ticker = new QTimer(this);
-    QObject::connect(m_ticker, &QTimer::timeout, this, &ReplyFetcher::checkForTimeout);
+    QObject::connect(m_ticker, &QTimer::timeout,
+                     this, &ReplyFetcher::checkForTimeout);
 }
 
 void ReplyFetcher::start(QNetworkAccessManager * nam, QUrl url)
@@ -37,28 +39,36 @@ void ReplyFetcher::start(QNetworkAccessManager * nam, QUrl url)
     start(nam, request);
 }
 
-void ReplyFetcher::start(QNetworkAccessManager * nam, QNetworkRequest request, QByteArray postData)
+void ReplyFetcher::start(
+    QNetworkAccessManager * nam, QNetworkRequest request, QByteArray postData)
 {
     m_httpStatusCode= 0;
     m_errorText.clear();
     m_receivedData.clear();
-    m_success = true; // not in finished() signal handler, it might not be called according to the docs
+    m_success = true; // not in finished() signal handler, it might not be
+                      // called according to the docs
                       // besides, I've added timeout feature
 
     m_lastNetworkTime = QDateTime::currentMSecsSinceEpoch();
     m_ticker->start(1000);
 
     if (postData.isNull()) {
-        m_reply = QSharedPointer<QNetworkReply>(nam->get(request), &QObject::deleteLater);
+        m_reply = QSharedPointer<QNetworkReply>(
+            nam->get(request), &QObject::deleteLater);
     }
     else {
-        m_reply = QSharedPointer<QNetworkReply>(nam->post(request, postData), &QObject::deleteLater);
+        m_reply = QSharedPointer<QNetworkReply>(
+            nam->post(request, postData), &QObject::deleteLater);
     }
 
-    QObject::connect(m_reply.data(), &QNetworkReply::finished, this, &ReplyFetcher::onFinished);
-    QObject::connect(m_reply.data(), SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
-    QObject::connect(m_reply.data(), &QNetworkReply::sslErrors, this, &ReplyFetcher::onSslErrors);
-    QObject::connect(m_reply.data(), &QNetworkReply::downloadProgress, this, &ReplyFetcher::onDownloadProgress);
+    QObject::connect(m_reply.data(), &QNetworkReply::finished,
+                     this, &ReplyFetcher::onFinished);
+    QObject::connect(m_reply.data(), SIGNAL(error(QNetworkReply::NetworkError)),
+                     this, SLOT(onError(QNetworkReply::NetworkError)));
+    QObject::connect(m_reply.data(), &QNetworkReply::sslErrors,
+                     this, &ReplyFetcher::onSslErrors);
+    QObject::connect(m_reply.data(), &QNetworkReply::downloadProgress,
+                     this, &ReplyFetcher::onDownloadProgress);
 }
 
 void ReplyFetcher::onDownloadProgress(qint64, qint64)
@@ -87,7 +97,8 @@ void ReplyFetcher::onFinished()
     }
 
     m_receivedData = m_reply->readAll();
-    m_httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    m_httpStatusCode = m_reply->attribute(
+        QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     QObject::disconnect(m_reply.data());
     emit replyFetched(this);
@@ -125,9 +136,11 @@ QByteArray simpleDownload(QNetworkAccessManager* nam, QNetworkRequest request,
 {
     ReplyFetcher * fetcher = new ReplyFetcher;
     QEventLoop loop;
-    QObject::connect(fetcher, SIGNAL(replyFetched(QObject*)), &loop, SLOT(quit()));
+    QObject::connect(fetcher, SIGNAL(replyFetched(QObject*)),
+                     &loop, SLOT(quit()));
 
-    ReplyFetcherLauncher * fetcherLauncher = new ReplyFetcherLauncher(fetcher, nam, request, postData);
+    ReplyFetcherLauncher * fetcherLauncher =
+        new ReplyFetcherLauncher(fetcher, nam, request, postData);
     QTimer::singleShot(0, fetcherLauncher, SLOT(start()));
     loop.exec(QEventLoop::ExcludeUserInputEvents);
 
@@ -152,12 +165,21 @@ QNetworkRequest createEvernoteRequest(QString url)
 {
     QNetworkRequest request;
     request.setUrl(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-thrift"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      QStringLiteral("application/x-thrift"));
 
 #if QT_VERSION < 0x050000
-    request.setRawHeader("User-Agent", QString::fromUtf8("QEverCloud %1.%2").arg(libraryVersion() / 10000).arg(libraryVersion() % 10000).toLatin1());
+    request.setRawHeader(
+        "User-Agent",
+        QString::fromUtf8("QEverCloud %1.%2")
+        .arg(libraryVersion() / 10000)
+        .arg(libraryVersion() % 10000).toLatin1());
 #else
-    request.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("QEverCloud %1.%2").arg(libraryVersion() / 10000).arg(libraryVersion() % 10000));
+    request.setHeader(
+        QNetworkRequest::UserAgentHeader,
+        QString::fromUtf8("QEverCloud %1.%2")
+        .arg(libraryVersion() / 10000)
+        .arg(libraryVersion() % 10000));
 #endif
 
     request.setRawHeader("Accept", "application/x-thrift");
@@ -167,17 +189,24 @@ QNetworkRequest createEvernoteRequest(QString url)
 QByteArray askEvernote(QString url, QByteArray postData)
 {
     int httpStatusCode = 0;
-    QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), createEvernoteRequest(url), postData, &httpStatusCode);
+    QByteArray reply = simpleDownload(
+        evernoteNetworkAccessManager(),
+        createEvernoteRequest(url),
+        postData,
+        &httpStatusCode);
 
     if (httpStatusCode != 200) {
-        throw EverCloudException(QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
+        throw EverCloudException(
+            QString::fromUtf8("HTTP Status Code = %1").arg(httpStatusCode));
     }
 
     return reply;
 }
 
-ReplyFetcherLauncher::ReplyFetcherLauncher(ReplyFetcher * fetcher, QNetworkAccessManager * nam,
-                                           const QNetworkRequest & request, const QByteArray & postData) :
+ReplyFetcherLauncher::ReplyFetcherLauncher(ReplyFetcher * fetcher,
+                                           QNetworkAccessManager * nam,
+                                           const QNetworkRequest & request,
+                                           const QByteArray & postData) :
     QObject(nam),
     m_fetcher(fetcher),
     m_nam(nam),

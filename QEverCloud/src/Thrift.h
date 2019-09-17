@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
@@ -122,7 +123,9 @@ public:
 
     QByteArray buffer() { return m_buf; }
 
-    quint32 writeMessageBegin(QString name, const ThriftMessageType::type messageType, const qint32 seqid)
+    quint32 writeMessageBegin(QString name,
+                              const ThriftMessageType::type messageType,
+                              const qint32 seqid)
     {
         if (m_strict)
         {
@@ -153,7 +156,9 @@ public:
 
     inline quint32 writeStructEnd() { return 0; }
 
-    inline quint32 writeFieldBegin(QString name, const ThriftFieldType::type fieldType, const qint16 fieldId)
+    inline quint32 writeFieldBegin(QString name,
+                                   const ThriftFieldType::type fieldType,
+                                   const qint16 fieldId)
     {
         Q_UNUSED(name);
         quint32 wsize = 0;
@@ -163,9 +168,15 @@ public:
     }
 
     inline quint32 writeFieldEnd() { return 0; }
-    inline quint32 writeFieldStop() { return writeByte((qint8)ThriftFieldType::T_STOP); }
 
-    inline quint32 writeMapBegin(const ThriftFieldType::type keyType, const ThriftFieldType::type valType, const qint32 size)
+    inline quint32 writeFieldStop()
+    {
+        return writeByte((qint8)ThriftFieldType::T_STOP);
+    }
+
+    inline quint32 writeMapBegin(const ThriftFieldType::type keyType,
+                                 const ThriftFieldType::type valType,
+                                 const qint32 size)
     {
         quint32 wsize = 0;
         wsize += writeByte(static_cast<qint8>(keyType));
@@ -176,7 +187,8 @@ public:
 
     inline quint32 writeMapEnd() { return 0; }
 
-    inline quint32 writeListBegin(const ThriftFieldType::type elemType, const qint32 size)
+    inline quint32 writeListBegin(const ThriftFieldType::type elemType,
+                                  const qint32 size)
     {
         quint32 wsize = 0;
         wsize += writeByte(static_cast<qint8>(elemType));
@@ -186,7 +198,8 @@ public:
 
     inline quint32 writeListEnd() { return 0; }
 
-    inline quint32 writeSetBegin(const ThriftFieldType::type elemType, const qint32 size)
+    inline quint32 writeSetBegin(const ThriftFieldType::type elemType,
+                                 const qint32 size)
     {
         return writeListBegin(elemType, size);
     }
@@ -232,7 +245,9 @@ public:
 
     inline quint32 writeDouble(const double dub)
     {
-        Q_STATIC_ASSERT_X(sizeof(double) == sizeof(qint64) && std::numeric_limits<double>::is_iec559, "incompatible double type");
+        Q_STATIC_ASSERT_X(sizeof(double) == sizeof(qint64) &&
+                          std::numeric_limits<double>::is_iec559,
+                          "incompatible double type");
 
         quint64 bits = bitwise_cast<quint64>(dub);
         qToBigEndian(bits, reinterpret_cast<uchar*>(&bits));
@@ -250,7 +265,8 @@ public:
     {
         qint32 size = static_cast<qint32>(bytes.length());
         if (size > std::numeric_limits<qint32>::max()) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The data is too big"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("The data is too big"));
         }
 
         quint32 result = writeI32(static_cast<qint32>(size));
@@ -275,14 +291,17 @@ private:
     void read(quint8 * dest, qint32 bytesCount)
     {
         if (Q_UNLIKELY((m_pos + bytesCount) > m_buf.length())) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Unexpected end of data"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Unexpected end of data"));
         }
 
         if (Q_UNLIKELY(bytesCount < 0)) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative bytes count"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Negative bytes count"));
         }
 
-        std::memcpy(dest, m_buf.mid(m_pos, bytesCount).constData(), static_cast<std::size_t>(bytesCount));
+        std::memcpy(dest, m_buf.mid(m_pos, bytesCount).constData(),
+                    static_cast<std::size_t>(bytesCount));
         m_pos += bytesCount;
     }
 
@@ -296,7 +315,9 @@ public:
     void setStringLimit(qint32 limit) { m_stringLimit = limit; }
     void setStrictMode(bool on) { m_strict = on; }
 
-    quint32 readMessageBegin(QString & name, ThriftMessageType::type & messageType, qint32 & seqid)
+    quint32 readMessageBegin(QString & name,
+                             ThriftMessageType::type & messageType,
+                             qint32 & seqid)
     {
         quint32 result = 0;
         qint32 sz;
@@ -307,7 +328,8 @@ public:
             // Check for correct version number
             qint32 version = sz & VERSION_MASK;
             if (version != VERSION_1) {
-                throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Bad version identifier"));
+                throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                      QStringLiteral("Bad version identifier"));
             }
 
             messageType = static_cast<ThriftMessageType::type>(sz & 0x000000ff);
@@ -317,7 +339,10 @@ public:
         else
         {
             if (m_strict) {
-                throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("No version identifier... old protocol client in strict mode?"));
+                throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                      QStringLiteral("No version identifier... "
+                                                     "old protocol client in "
+                                                     "strict mode?"));
             }
             else {
                 // Handle pre-versioned input
@@ -337,7 +362,10 @@ public:
 
     inline quint32 readStructBegin(QString & name) { name.clear(); return 0; }
     inline quint32 readStructEnd() { return 0; }
-    inline quint32 readFieldBegin(QString & name, ThriftFieldType::type & fieldType, qint16 & fieldId)
+
+    inline quint32 readFieldBegin(QString & name,
+                                  ThriftFieldType::type & fieldType,
+                                  qint16 & fieldId)
     {
         Q_UNUSED(name)
         quint32 result = 0;
@@ -356,7 +384,9 @@ public:
 
     inline quint32 readFieldEnd() { return 0; }
 
-    inline quint32 readMapBegin(ThriftFieldType::type & keyType, ThriftFieldType::type & valType, qint32 & size)
+    inline quint32 readMapBegin(ThriftFieldType::type & keyType,
+                                ThriftFieldType::type & valType,
+                                qint32 & size)
     {
         qint8 k, v;
         quint32 result = 0;
@@ -367,10 +397,12 @@ public:
         valType = static_cast<ThriftFieldType::type>(v);
         result += readI32(sizei);
         if (sizei < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Negative size!"));
         }
         else if (m_stringLimit > 0 && sizei > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("The size limit is exceeded."));
         }
         size = sizei;
         return result;
@@ -387,17 +419,24 @@ public:
         elemType = static_cast<ThriftFieldType::type>(e);
         result += readI32(sizei);
         if (sizei < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Negative size!"));
         }
         else if (m_stringLimit > 0 && sizei > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("The size limit is exceeded."));
         }
         size = sizei;
         return result;
     }
 
     inline quint32 readListEnd() { return 0; }
-    inline quint32 readSetBegin(ThriftFieldType::type & elemType, qint32 & size) { return readListBegin(elemType, size); }
+
+    inline quint32 readSetBegin(ThriftFieldType::type & elemType, qint32 & size)
+    {
+        return readListBegin(elemType, size);
+    }
+
     inline quint32 readSetEnd() { return 0; }
 
     inline quint32 readBool(bool & value)
@@ -454,7 +493,9 @@ public:
 
     inline quint32 readDouble(double & dub)
     {
-        Q_STATIC_ASSERT_X(sizeof(double) == sizeof(qint64) && std::numeric_limits<double>::is_iec559, "incompatible double type");
+        Q_STATIC_ASSERT_X(sizeof(double) == sizeof(qint64) &&
+                          std::numeric_limits<double>::is_iec559,
+                          "incompatible double type");
 
         union bytes {
             quint8 b[8];
@@ -474,11 +515,13 @@ public:
         result = readI32(size);
 
         if (size < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Negative size!"));
         }
 
         if (m_stringLimit > 0 && size > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("The size limit is exceeded."));
         }
 
         // Catch empty string case
@@ -488,7 +531,8 @@ public:
         }
 
         if ((m_pos + size) > m_buf.length()) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Unexpected end of data"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Unexpected end of data"));
         }
 
         str = QString::fromUtf8(m_buf.constData() + m_pos, size);
@@ -505,11 +549,13 @@ public:
         result = readI32(size);
 
         if (size < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Negative size!"));
         }
 
         if (m_stringLimit > 0 && size > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("The size limit is exceeded."));
         }
 
         // Catch empty string case
@@ -519,7 +565,8 @@ public:
         }
 
         if ((m_pos + size) > m_buf.length()) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Unexpected end of data"));
+            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
+                                  QStringLiteral("Unexpected end of data"));
         }
 
         str = m_buf.mid(m_pos, size);
