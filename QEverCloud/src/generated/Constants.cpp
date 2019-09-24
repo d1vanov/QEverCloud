@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  *
  * This file was generated from Evernote Thrift API
@@ -120,13 +121,46 @@ const QString EDAM_MIME_TYPE_PDF = QStringLiteral("application/pdf");
 const QString EDAM_MIME_TYPE_DEFAULT = QStringLiteral("application/octet-stream");
 // Limits.thrift
 
-const QSet< QString > EDAM_MIME_TYPES = QSet< QString >() << EDAM_MIME_TYPE_GIF << EDAM_MIME_TYPE_JPEG << EDAM_MIME_TYPE_PNG << EDAM_MIME_TYPE_WAV << EDAM_MIME_TYPE_MP3 << EDAM_MIME_TYPE_AMR << EDAM_MIME_TYPE_INK << EDAM_MIME_TYPE_PDF << EDAM_MIME_TYPE_MP4_VIDEO << EDAM_MIME_TYPE_AAC << EDAM_MIME_TYPE_M4A;
+const QSet<QString> EDAM_MIME_TYPES = QSet<QString>()
+    << EDAM_MIME_TYPE_GIF
+    << EDAM_MIME_TYPE_JPEG
+    << EDAM_MIME_TYPE_PNG
+    << EDAM_MIME_TYPE_WAV
+    << EDAM_MIME_TYPE_MP3
+    << EDAM_MIME_TYPE_AMR
+    << EDAM_MIME_TYPE_INK
+    << EDAM_MIME_TYPE_PDF
+    << EDAM_MIME_TYPE_MP4_VIDEO
+    << EDAM_MIME_TYPE_AAC
+    << EDAM_MIME_TYPE_M4A
+;
 // Limits.thrift
 
-const QSet< QString > EDAM_INDEXABLE_RESOURCE_MIME_TYPES = QSet< QString >() << QStringLiteral("application/msword") << QStringLiteral("application/mspowerpoint") << QStringLiteral("application/excel") << QStringLiteral("application/vnd.ms-word") << QStringLiteral("application/vnd.ms-powerpoint") << QStringLiteral("application/vnd.ms-excel") << QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document") << QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation") << QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") << QStringLiteral("application/vnd.apple.pages") << QStringLiteral("application/vnd.apple.numbers") << QStringLiteral("application/vnd.apple.keynote") << QStringLiteral("application/x-iwork-pages-sffpages") << QStringLiteral("application/x-iwork-numbers-sffnumbers") << QStringLiteral("application/x-iwork-keynote-sffkey");
+const QSet<QString> EDAM_INDEXABLE_RESOURCE_MIME_TYPES = QSet<QString>()
+    << QStringLiteral("application/msword")
+    << QStringLiteral("application/mspowerpoint")
+    << QStringLiteral("application/excel")
+    << QStringLiteral("application/vnd.ms-word")
+    << QStringLiteral("application/vnd.ms-powerpoint")
+    << QStringLiteral("application/vnd.ms-excel")
+    << QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    << QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation")
+    << QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    << QStringLiteral("application/vnd.apple.pages")
+    << QStringLiteral("application/vnd.apple.numbers")
+    << QStringLiteral("application/vnd.apple.keynote")
+    << QStringLiteral("application/x-iwork-pages-sffpages")
+    << QStringLiteral("application/x-iwork-numbers-sffnumbers")
+    << QStringLiteral("application/x-iwork-keynote-sffkey")
+;
 // Limits.thrift
 
-const QSet< QString > EDAM_INDEXABLE_PLAINTEXT_MIME_TYPES = QSet< QString >() << QStringLiteral("application/x-sh") << QStringLiteral("application/x-bsh") << QStringLiteral("application/sql") << QStringLiteral("application/x-sql");
+const QSet<QString> EDAM_INDEXABLE_PLAINTEXT_MIME_TYPES = QSet<QString>()
+    << QStringLiteral("application/x-sh")
+    << QStringLiteral("application/x-bsh")
+    << QStringLiteral("application/sql")
+    << QStringLiteral("application/x-sql")
+;
 // Limits.thrift
 
 const qint32 EDAM_SEARCH_QUERY_LEN_MIN = 0;
@@ -243,7 +277,10 @@ const qint32 EDAM_PUBLISHING_URI_LEN_MAX = 255;
 const QString EDAM_PUBLISHING_URI_REGEX = QStringLiteral("^[a-zA-Z0-9.~_+-]{1,255}$");
 // Limits.thrift
 
-const QSet< QString > EDAM_PUBLISHING_URI_PROHIBITED = QSet< QString >() << QStringLiteral(".") << QStringLiteral("..");
+const QSet<QString> EDAM_PUBLISHING_URI_PROHIBITED = QSet<QString>()
+    << QStringLiteral(".")
+    << QStringLiteral("..")
+;
 // Limits.thrift
 
 const qint32 EDAM_PUBLISHING_DESCRIPTION_LEN_MIN = 1;

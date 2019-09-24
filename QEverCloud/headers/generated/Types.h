@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  *
  * This file was generated from Evernote Thrift API
@@ -122,7 +123,7 @@ struct QEVERCLOUD_EXPORT SyncState {
        This value may not be present if the SyncState has been retrieved by
        a caller that only has read access to the account.
     */
-    Optional< qint64 > uploaded;
+    Optional<qint64> uploaded;
     /**
     The last time when a user's account level information was changed. This value
        is the latest time when a modification was made to any of the following:
@@ -142,7 +143,7 @@ struct QEVERCLOUD_EXPORT SyncState {
          <li>Update previousValue = SyncState.userLastUpdated</li>
        </ol>
     */
-    Optional< Timestamp > userLastUpdated;
+    Optional<Timestamp> userLastUpdated;
     /**
     The greatest MessageEventID for this user's account. Clients that do a full
        sync should store this value locally and compare their local copy to the
@@ -150,7 +151,7 @@ struct QEVERCLOUD_EXPORT SyncState {
        MessageStore. This value will be omitted if the user has never sent or
        received a message.
     */
-    Optional< MessageEventID > userMaxMessageEventId;
+    Optional<MessageEventID> userMaxMessageEventId;
 
     bool operator==(const SyncState & other) const
     {
@@ -181,31 +182,31 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
     /**
     If true, then the server will include the SyncChunks.notes field
     */
-    Optional< bool > includeNotes;
+    Optional<bool> includeNotes;
     /**
     If true, then the server will include the 'resources' field on all of
        the Notes that are in SyncChunk.notes.
        If 'includeNotes' is false, then this will have no effect.
     */
-    Optional< bool > includeNoteResources;
+    Optional<bool> includeNoteResources;
     /**
     If true, then the server will include the 'attributes' field on all of
        the Notes that are in SyncChunks.notes.
        If 'includeNotes' is false, then this will have no effect.
     */
-    Optional< bool > includeNoteAttributes;
+    Optional<bool> includeNoteAttributes;
     /**
     If true, then the server will include the SyncChunks.notebooks field
     */
-    Optional< bool > includeNotebooks;
+    Optional<bool> includeNotebooks;
     /**
     If true, then the server will include the SyncChunks.tags field
     */
-    Optional< bool > includeTags;
+    Optional<bool> includeTags;
     /**
     If true, then the server will include the SyncChunks.searches field
     */
-    Optional< bool > includeSearches;
+    Optional<bool> includeSearches;
     /**
     If true, then the server will include the SyncChunks.resources field.
        Since the Resources are also provided with their Note
@@ -213,52 +214,52 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
        want to watch for changes to individual Resources due to recognition data
        being added.
     */
-    Optional< bool > includeResources;
+    Optional<bool> includeResources;
     /**
     If true, then the server will include the SyncChunks.linkedNotebooks field.
     */
-    Optional< bool > includeLinkedNotebooks;
+    Optional<bool> includeLinkedNotebooks;
     /**
     If true, then the server will include the 'expunged' data for any type
        of included data.  For example, if 'includeTags' and 'includeExpunged'
        are both true, then the SyncChunks.expungedTags field will be set with
        the GUIDs of tags that have been expunged from the server.
     */
-    Optional< bool > includeExpunged;
+    Optional<bool> includeExpunged;
     /**
     If true, then the values for the applicationData map will be filled
        in, assuming notes and note attributes are being returned.  Otherwise,
        only the keysOnly field will be filled in.
     */
-    Optional< bool > includeNoteApplicationDataFullMap;
+    Optional<bool> includeNoteApplicationDataFullMap;
     /**
     If true, then the fullMap values for the applicationData map will be
        filled in, assuming resources and resource attributes are being returned
        (includeResources is true).  Otherwise, only the keysOnly field will be
        filled in.
     */
-    Optional< bool > includeResourceApplicationDataFullMap;
+    Optional<bool> includeResourceApplicationDataFullMap;
     /**
     If true, then the fullMap values for the applicationData map will be
        filled in for resources found inside of notes, assuming resources are
        being returned in notes (includeNoteResources is true).  Otherwise,
        only the keysOnly field will be filled in.
     */
-    Optional< bool > includeNoteResourceApplicationDataFullMap;
+    Optional<bool> includeNoteResourceApplicationDataFullMap;
     /**
     If true, then the service will include the sharedNotes field on all
        notes that are in SyncChunk.notes. If 'includeNotes' is false, then
        this will have no effect.
     */
-    Optional< bool > includeSharedNotes;
+    Optional<bool> includeSharedNotes;
     /** NOT DOCUMENTED */
-    Optional< bool > omitSharedNotebooks;
+    Optional<bool> omitSharedNotebooks;
     /**
     If set, then only send notes whose content class matches this value.
        The value can be a literal match or, if the last character is an
        asterisk, a prefix match.
     */
-    Optional< QString > requireNoteContentClass;
+    Optional<QString> requireNoteContentClass;
     /**
     If set, then restrict the returned notebooks, notes, and
        resources to those associated with one of the notebooks whose
@@ -276,7 +277,7 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
        includeNotebooks, includeNoteAttributes, includeNoteResources,
        and maybe some of the "FullMap" fields.
     */
-    Optional< QSet< QString > > notebookGuids;
+    Optional<QSet<QString>> notebookGuids;
 
     bool operator==(const SyncChunkFilter & other) const
     {
@@ -317,27 +318,27 @@ struct QEVERCLOUD_EXPORT NoteFilter {
     The NoteSortOrder value indicating what criterion should be
        used to sort the results of the filter.
     */
-    Optional< qint32 > order;
+    Optional<qint32> order;
     /**
     If true, the results will be ascending in the requested
        sort order.  If false, the results will be descending.
     */
-    Optional< bool > ascending;
+    Optional<bool> ascending;
     /**
     If present, a search query string that will filter the set of notes to be returned.
        Accepts the full search grammar documented in the Evernote API Overview.
     */
-    Optional< QString > words;
+    Optional<QString> words;
     /**
     If present, the Guid of the notebook that must contain
        the notes.
     */
-    Optional< Guid > notebookGuid;
+    Optional<Guid> notebookGuid;
     /**
     If present, the list of tags (by GUID) that must be present
        on the notes.
     */
-    Optional< QList< Guid > > tagGuids;
+    Optional<QList<Guid>> tagGuids;
     /**
     The zone ID for the user, which will be used to interpret
        any dates or times in the queries that do not include their desired zone
@@ -347,50 +348,50 @@ struct QEVERCLOUD_EXPORT NoteFilter {
        The format must be encoded as a standard zone ID such as
        "America/Los_Angeles".
     */
-    Optional< QString > timeZone;
+    Optional<QString> timeZone;
     /**
     If true, then only notes that are not active (i.e. notes in
        the Trash) will be returned. Otherwise, only active notes will be returned.
        There is no way to find both active and inactive notes in a single query.
     */
-    Optional< bool > inactive;
+    Optional<bool> inactive;
     /**
     If present, a search query string that may or may not influence the notes
        to be returned, both in terms of coverage as well as of order. Think of it
        as a wish list, not a requirement.
        Accepts the full search grammar documented in the Evernote API Overview.
     */
-    Optional< QString > emphasized;
+    Optional<QString> emphasized;
     /**
     If true, then the search will include all business notebooks that are readable
        by the user. A business authentication token must be supplied for
        this option to take effect when calling search APIs.
     */
-    Optional< bool > includeAllReadableNotebooks;
+    Optional<bool> includeAllReadableNotebooks;
     /**
     If true, then the search will include all workspaces that are readable
        by the user. A business authentication token must be supplied for
        this option to take effect when calling search APIs.
     */
-    Optional< bool > includeAllReadableWorkspaces;
+    Optional<bool> includeAllReadableWorkspaces;
     /**
     Specifies the context to consider when determining result ranking.
        Clients must leave this value unset unless they wish to explicitly specify a known
        non-default context.
     */
-    Optional< QString > context;
+    Optional<QString> context;
     /**
     If present, the raw user query input.
        Accepts the full search grammar documented in the Evernote API Overview.
     */
-    Optional< QString > rawWords;
+    Optional<QString> rawWords;
     /**
     Specifies the correlating information about the current search session, in byte array.
        If this request is not for the first page of search results, the client should populate
        this field with the value of searchContextBytes from the NotesMetadataList of the
        original search response.
     */
-    Optional< QByteArray > searchContextBytes;
+    Optional<QByteArray> searchContextBytes;
 
     bool operator==(const NoteFilter & other) const
     {
@@ -432,27 +433,27 @@ struct QEVERCLOUD_EXPORT NoteFilter {
  */
 struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
     /** NOT DOCUMENTED */
-    Optional< bool > includeTitle;
+    Optional<bool> includeTitle;
     /** NOT DOCUMENTED */
-    Optional< bool > includeContentLength;
+    Optional<bool> includeContentLength;
     /** NOT DOCUMENTED */
-    Optional< bool > includeCreated;
+    Optional<bool> includeCreated;
     /** NOT DOCUMENTED */
-    Optional< bool > includeUpdated;
+    Optional<bool> includeUpdated;
     /** NOT DOCUMENTED */
-    Optional< bool > includeDeleted;
+    Optional<bool> includeDeleted;
     /** NOT DOCUMENTED */
-    Optional< bool > includeUpdateSequenceNum;
+    Optional<bool> includeUpdateSequenceNum;
     /** NOT DOCUMENTED */
-    Optional< bool > includeNotebookGuid;
+    Optional<bool> includeNotebookGuid;
     /** NOT DOCUMENTED */
-    Optional< bool > includeTagGuids;
+    Optional<bool> includeTagGuids;
     /** NOT DOCUMENTED */
-    Optional< bool > includeAttributes;
+    Optional<bool> includeAttributes;
     /** NOT DOCUMENTED */
-    Optional< bool > includeLargestResourceMime;
+    Optional<bool> includeLargestResourceMime;
     /** NOT DOCUMENTED */
-    Optional< bool > includeLargestResourceSize;
+    Optional<bool> includeLargestResourceSize;
 
     bool operator==(const NotesMetadataResultSpec & other) const
     {
@@ -487,19 +488,19 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts {
     A mapping from the Notebook GUID to the number of
        notes (from some selection) that are in the corresponding notebook.
     */
-    Optional< QMap< Guid, qint32 > > notebookCounts;
+    Optional<QMap<Guid, qint32>> notebookCounts;
     /**
     A mapping from the Tag GUID to the number of notes (from some
        selection) that have the corresponding tag.
     */
-    Optional< QMap< Guid, qint32 > > tagCounts;
+    Optional<QMap<Guid, qint32>> tagCounts;
     /**
     If this is set, then this is the number of notes that are in the trash.
        If this is not set, then the number of notes in the trash hasn't been
        reported.  (I.e. if there are no notes in the trash, this will be set
        to 0.)
     */
-    Optional< qint32 > trashCount;
+    Optional<qint32> trashCount;
 
     bool operator==(const NoteCollectionCounts & other) const
     {
@@ -530,38 +531,38 @@ struct QEVERCLOUD_EXPORT NoteResultSpec {
     /**
     If true, the Note.content field will be populated with the note's ENML contents.
     */
-    Optional< bool > includeContent;
+    Optional<bool> includeContent;
     /**
     If true, any Resource elements will include the binary contents of their 'data' field's
          body.
     */
-    Optional< bool > includeResourcesData;
+    Optional<bool> includeResourcesData;
     /**
     If true, any Resource elements will include the binary contents of their 'recognition'
          field's body if recognition data is available.
     */
-    Optional< bool > includeResourcesRecognition;
+    Optional<bool> includeResourcesRecognition;
     /**
     If true, any Resource elements will include the binary contents of their 'alternateData'
          field's body, if an alternate form is available.
     */
-    Optional< bool > includeResourcesAlternateData;
+    Optional<bool> includeResourcesAlternateData;
     /**
     If true, the Note.sharedNotes field will be populated with the note's shares.
     */
-    Optional< bool > includeSharedNotes;
+    Optional<bool> includeSharedNotes;
     /**
     If true, the Note.attributes.applicationData.fullMap field will be populated.
     */
-    Optional< bool > includeNoteAppDataValues;
+    Optional<bool> includeNoteAppDataValues;
     /**
     If true, the Note.resource.attributes.applicationData.fullMap field will be populated.
     */
-    Optional< bool > includeResourceAppDataValues;
+    Optional<bool> includeResourceAppDataValues;
     /**
     If true, the Note.limits field will be populated with the note owner's account limits.
     */
-    Optional< bool > includeAccountLimits;
+    Optional<bool> includeAccountLimits;
 
     bool operator==(const NoteResultSpec & other) const
     {
@@ -618,7 +619,7 @@ struct QEVERCLOUD_EXPORT NoteVersionId {
     The ID of the user who made the change to this version of the note. This will be
         unset if the note version was edited by the owner of the account.
     */
-    Optional< UserID > lastEditorId;
+    Optional<UserID> lastEditorId;
 
     bool operator==(const NoteVersionId & other) const
     {
@@ -650,31 +651,31 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
     The GUID of an existing note in your account for which related
          entities will be found.
     */
-    Optional< QString > noteGuid;
+    Optional<QString> noteGuid;
     /**
     A string of plain text for which to find related entities.
          You should provide a text block with a number of characters between
          EDAM_RELATED_PLAINTEXT_LEN_MIN and EDAM_RELATED_PLAINTEXT_LEN_MAX.
     */
-    Optional< QString > plainText;
+    Optional<QString> plainText;
     /**
     The list of criteria that will constrain the notes being considered
          related.
          Please note that some of the parameters may be ignored, such as
          <em>order</em> and <em>ascending</em>.
     */
-    Optional< NoteFilter > filter;
+    Optional<NoteFilter> filter;
     /**
     A URI string specifying a reference entity, around which "relatedness"
          should be based. This can be an URL pointing to a web page, for example.
     */
-    Optional< QString > referenceUri;
+    Optional<QString> referenceUri;
     /**
     Specifies the context to consider when determining related results.
          Clients must leave this value unset unless they wish to explicitly specify a known
          non-default context.
     */
-    Optional< QString > context;
+    Optional<QString> context;
     /**
     If set and non-empty, this is an indicator for the server whether it is actually
          necessary to perform a new findRelated call at all. Cache Keys are opaque strings
@@ -686,7 +687,7 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
     
          If not set, the server will not attempt to generate a cache key at all.
     */
-    Optional< QString > cacheKey;
+    Optional<QString> cacheKey;
 
     bool operator==(const RelatedQuery & other) const
     {
@@ -720,57 +721,57 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
          will be silently capped.  If you do not set this field, then
          no notes will be returned.
     */
-    Optional< qint32 > maxNotes;
+    Optional<qint32> maxNotes;
     /**
     Return notebooks that are related to the query, but no more than
          this many.  Any value greater than EDAM_RELATED_MAX_NOTEBOOKS
          will be silently capped.  If you do not set this field, then
          no notebooks will be returned.
     */
-    Optional< qint32 > maxNotebooks;
+    Optional<qint32> maxNotebooks;
     /**
     Return tags that are related to the query, but no more than
          this many.  Any value greater than EDAM_RELATED_MAX_TAGS
          will be silently capped.  If you do not set this field, then
          no tags will be returned.
     */
-    Optional< qint32 > maxTags;
+    Optional<qint32> maxTags;
     /**
     Require that all returned related notebooks are writable.
          The user will be able to create notes in all returned notebooks.
          However, individual notes returned may still belong to notebooks
          in which the user lacks the ability to create notes.
     */
-    Optional< bool > writableNotebooksOnly;
+    Optional<bool> writableNotebooksOnly;
     /**
     If set to <code>true</code>, return the containingNotebooks field
          in the RelatedResult, which will contain the list of notebooks to
          to which the returned related notes belong.
     */
-    Optional< bool > includeContainingNotebooks;
+    Optional<bool> includeContainingNotebooks;
     /**
     If set to <code>true</code>, indicate that debug information should
          be returned in the 'debugInfo' field of RelatedResult. Note that the call may
          be slower if this flag is set.
     */
-    Optional< bool > includeDebugInfo;
+    Optional<bool> includeDebugInfo;
     /**
     This can only be used when making a findRelated call against a business.
       Find users within your business who have knowledge about the specified query.
       No more than this many users will be returned. Any value greater than
       EDAM_RELATED_MAX_EXPERTS will be silently capped.
     */
-    Optional< qint32 > maxExperts;
+    Optional<qint32> maxExperts;
     /**
     Return snippets of related content that is related to the query, but no more than
       this many. Any value greater than EDAM_RELATED_MAX_RELATED_CONTENT will be silently
       capped. If you do not set this field, then no related content will be returned.
     */
-    Optional< qint32 > maxRelatedContent;
+    Optional<qint32> maxRelatedContent;
     /**
     Specifies the types of Related Content that should be returned.
     */
-    Optional< QSet< RelatedContentType > > relatedContentTypes;
+    Optional<QSet<RelatedContentType>> relatedContentTypes;
 
     bool operator==(const RelatedResultSpec & other) const
     {
@@ -796,13 +797,13 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
 /** NO DOC COMMENT ID FOUND */
 struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions {
     /** NOT DOCUMENTED */
-    Optional< bool > noSetReadOnly;
+    Optional<bool> noSetReadOnly;
     /** NOT DOCUMENTED */
-    Optional< bool > noSetReadPlusActivity;
+    Optional<bool> noSetReadPlusActivity;
     /** NOT DOCUMENTED */
-    Optional< bool > noSetModify;
+    Optional<bool> noSetModify;
     /** NOT DOCUMENTED */
-    Optional< bool > noSetFullAccess;
+    Optional<bool> noSetFullAccess;
 
     bool operator==(const ShareRelationshipRestrictions & other) const
     {
@@ -830,11 +831,11 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
     The string that clients should show to users to represent this
      member.
     */
-    Optional< QString > displayName;
+    Optional<QString> displayName;
     /**
     The Evernote User ID of the recipient of this notebook share.
     */
-    Optional< UserID > recipientUserId;
+    Optional<UserID> recipientUserId;
     /**
     The privilege at which the member can access the notebook,
      which is the best privilege granted either individually or to a
@@ -842,7 +843,7 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
      used by the service to convey information to the user, so clients
      should treat it as read-only.
     */
-    Optional< ShareRelationshipPrivilegeLevel > bestPrivilege;
+    Optional<ShareRelationshipPrivilegeLevel> bestPrivilege;
     /**
     The individually granted privilege for the member, which does
      not take GROUP privileges into account.  This value may be unset if
@@ -852,12 +853,12 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
      should present to users for selection are given via the the
      'restrictions' field.
     */
-    Optional< ShareRelationshipPrivilegeLevel > individualPrivilege;
+    Optional<ShareRelationshipPrivilegeLevel> individualPrivilege;
     /**
     The restrictions on which privileges may be individually
      assigned to the recipient of this share relationship.
     */
-    Optional< ShareRelationshipRestrictions > restrictions;
+    Optional<ShareRelationshipRestrictions> restrictions;
     /**
     The user id of the user who most recently shared the notebook
      to this user. This field is currently unset for a MemberShareRelationship
@@ -866,7 +867,7 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
      This field is used by the service to convey information to the user, so
      clients should treat it as read-only.
     */
-    Optional< UserID > sharerUserId;
+    Optional<UserID> sharerUserId;
 
     bool operator==(const MemberShareRelationship & other) const
     {
@@ -897,17 +898,17 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions {
     This value is true if the user is not allowed to set the privilege
      level to SharedNotePrivilegeLevel.READ_NOTE.
     */
-    Optional< bool > noSetReadNote;
+    Optional<bool> noSetReadNote;
     /**
     This value is true if the user is not allowed to set the privilege
      level to SharedNotePrivilegeLevel.MODIFY_NOTE.
     */
-    Optional< bool > noSetModifyNote;
+    Optional<bool> noSetModifyNote;
     /**
     This value is true if the user is not allowed to set the
      privilege level to SharedNotePrivilegeLevel.FULL_ACCESS.
     */
-    Optional< bool > noSetFullAccess;
+    Optional<bool> noSetFullAccess;
 
     bool operator==(const NoteShareRelationshipRestrictions & other) const
     {
@@ -934,11 +935,11 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
     The string that clients should show to users to represent this
      member.
     */
-    Optional< QString > displayName;
+    Optional<QString> displayName;
     /**
     The Evernote UserID of the user who is a member to the note.
     */
-    Optional< UserID > recipientUserId;
+    Optional<UserID> recipientUserId;
     /**
     The privilege at which the member can access the note,
      which is the best privilege granted to the user across all of their
@@ -946,20 +947,20 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
      to convey information to the user, so clients should treat it as
      read-only.
     */
-    Optional< SharedNotePrivilegeLevel > privilege;
+    Optional<SharedNotePrivilegeLevel> privilege;
     /**
     The restrictions on which privileges may be individually
      assigned to the recipient of this share relationship. This field
      is used by the service to convey information to the user, so
      clients should treat it as read-only.
     */
-    Optional< NoteShareRelationshipRestrictions > restrictions;
+    Optional<NoteShareRelationshipRestrictions> restrictions;
     /**
     The user id of the user who most recently shared the note with
      this user. This field is used by the service to convey information
      to the user, so clients should treat it as read-only.
     */
-    Optional< UserID > sharerUserId;
+    Optional<UserID> sharerUserId;
 
     bool operator==(const NoteMemberShareRelationship & other) const
     {
@@ -988,7 +989,7 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
     The string that clients should show to users to represent this
      invitation.
     */
-    Optional< QString > displayName;
+    Optional<QString> displayName;
     /**
     Identifies the identity of the invitation recipient. Once the
      identity has been claimed by an Evernote user and they have accessed
@@ -996,19 +997,19 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
      longer be returned by the service to clients. Instead, that recipient
      will be included in the list of NoteMemberShareRelationships.
     */
-    Optional< IdentityID > recipientIdentityId;
+    Optional<IdentityID> recipientIdentityId;
     /**
     The privilege level that the recipient will be granted when they
      accept this invitation. If the user already has a higher privilege to
      access this note then this will not affect the recipient's privileges.
     */
-    Optional< SharedNotePrivilegeLevel > privilege;
+    Optional<SharedNotePrivilegeLevel> privilege;
     /**
     The user id of the user who most recently shared this note to this
      recipient. This field is used by the service to convey information
      to the user, so clients should treat it as read-only.
     */
-    Optional< UserID > sharerUserId;
+    Optional<UserID> sharerUserId;
 
     bool operator==(const NoteInvitationShareRelationship & other) const
     {
@@ -1038,15 +1039,15 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships {
     A list of open invitations that can be redeemed into
      memberships to the note.
     */
-    Optional< QList< NoteInvitationShareRelationship > > invitations;
+    Optional<QList<NoteInvitationShareRelationship>> invitations;
     /**
     A list of memberships of the noteb. A member is identified
      by their Evernote UserID and has rights to access the
      note.
     */
-    Optional< QList< NoteMemberShareRelationship > > memberships;
+    Optional<QList<NoteMemberShareRelationship>> memberships;
     /** NOT DOCUMENTED */
-    Optional< NoteShareRelationshipRestrictions > invitationRestrictions;
+    Optional<NoteShareRelationshipRestrictions> invitationRestrictions;
 
     bool operator==(const NoteShareRelationships & other) const
     {
@@ -1077,7 +1078,7 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
     /**
     The GUID of the note whose shares are being managed.
     */
-    Optional< QString > noteGuid;
+    Optional<QString> noteGuid;
     /**
     A list of existing memberships to update. This field is not
          meant to be the full set of memberships for the note. Clients
@@ -1085,7 +1086,7 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
          to modify. To remove an existing membership, see the unshares
          field.
     */
-    Optional< QList< NoteMemberShareRelationship > > membershipsToUpdate;
+    Optional<QList<NoteMemberShareRelationship>> membershipsToUpdate;
     /**
     The list of outstanding invitations to update, as matched by the
          identity field of the NoteInvitationShareRelatioship instances.
@@ -1093,15 +1094,15 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
          note. Clients should only include those existing invitations that
          they wish to modify.
     */
-    Optional< QList< NoteInvitationShareRelationship > > invitationsToUpdate;
+    Optional<QList<NoteInvitationShareRelationship>> invitationsToUpdate;
     /**
     A list of existing memberships to expunge from the service.
     */
-    Optional< QList< UserID > > membershipsToUnshare;
+    Optional<QList<UserID>> membershipsToUnshare;
     /**
     A list of outstanding invitations to expunge from the service.
     */
-    Optional< QList< IdentityID > > invitationsToUnshare;
+    Optional<QList<IdentityID>> invitationsToUnshare;
 
     bool operator==(const ManageNoteSharesParameters & other) const
     {
@@ -1135,11 +1136,11 @@ struct QEVERCLOUD_EXPORT Data {
        data body, in binary form.  The hash function is MD5<br/>
        Length:  EDAM_HASH_LEN (exactly)
     */
-    Optional< QByteArray > bodyHash;
+    Optional<QByteArray> bodyHash;
     /**
     The length, in bytes, of the data body.
     */
-    Optional< qint32 > size;
+    Optional<qint32> size;
     /**
     This field is set to contain the binary contents of the data
        whenever the resource is being transferred.  If only metadata is
@@ -1147,7 +1148,7 @@ struct QEVERCLOUD_EXPORT Data {
        notify the service about the change to an attribute for a resource
        without transmitting the binary resource contents.
     */
-    Optional< QByteArray > body;
+    Optional<QByteArray> body;
 
     bool operator==(const Data & other) const
     {
@@ -1176,30 +1177,30 @@ struct QEVERCLOUD_EXPORT UserAttributes {
        specified.<br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > defaultLocationName;
+    Optional<QString> defaultLocationName;
     /**
     if set, this is the latitude that should be
        assigned to any notes that have no other latitude information.
     */
-    Optional< double > defaultLatitude;
+    Optional<double> defaultLatitude;
     /**
     if set, this is the longitude that should be
        assigned to any notes that have no other longitude information.
     */
-    Optional< double > defaultLongitude;
+    Optional<double> defaultLongitude;
     /**
     if set, the user account is not yet confirmed for
        login.  I.e. the account has been created, but we are still waiting for
        the user to complete the activation step.
     */
-    Optional< bool > preactivation;
+    Optional<bool> preactivation;
     /**
     a list of promotions the user has seen.
         This list may occasionally be modified by the system when promotions are
         no longer available.<br/>
         Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QStringList > viewedPromotions;
+    Optional<QStringList> viewedPromotions;
     /**
     if set, this is the email address that the
         user may send email to in order to add an email note directly into the
@@ -1208,7 +1209,7 @@ struct QEVERCLOUD_EXPORT UserAttributes {
         If this is not set, the user may not add notes via the gateway.<br/>
         Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > incomingEmailAddress;
+    Optional<QString> incomingEmailAddress;
     /**
     if set, this will contain a list of email
         addresses that have recently been used as recipients
@@ -1218,97 +1219,97 @@ struct QEVERCLOUD_EXPORT UserAttributes {
         Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX each<br/>
         Max:  EDAM_USER_RECENT_MAILED_ADDRESSES_MAX entries
     */
-    Optional< QStringList > recentMailedAddresses;
+    Optional<QStringList> recentMailedAddresses;
     /**
     Free-form text field that may hold general support
         information, etc.<br/>
         Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > comments;
+    Optional<QString> comments;
     /**
     The date/time when the user agreed to
         the terms of service.  This can be used as the effective "start date"
         for the account.
     */
-    Optional< Timestamp > dateAgreedToTermsOfService;
+    Optional<Timestamp> dateAgreedToTermsOfService;
     /**
     The number of referrals that the user is permitted
         to make.
     */
-    Optional< qint32 > maxReferrals;
+    Optional<qint32> maxReferrals;
     /**
     The number of referrals sent from this account.
     */
-    Optional< qint32 > referralCount;
+    Optional<qint32> referralCount;
     /**
     A code indicating where the user was sent from. AKA
         promotion code
     */
-    Optional< QString > refererCode;
+    Optional<QString> refererCode;
     /**
     The most recent date when the user sent outbound
         emails from the service.  Used with sentEmailCount to limit the number
         of emails that can be sent per day.
     */
-    Optional< Timestamp > sentEmailDate;
+    Optional<Timestamp> sentEmailDate;
     /**
     The number of emails that were sent from the user
         via the service on sentEmailDate.  Used to enforce a limit on the number
         of emails per user per day to prevent spamming.
     */
-    Optional< qint32 > sentEmailCount;
+    Optional<qint32> sentEmailCount;
     /**
     If set, this is the maximum number of emails that
         may be sent in a given day from this account.  If unset, the server will
         use the configured default limit.
     */
-    Optional< qint32 > dailyEmailLimit;
+    Optional<qint32> dailyEmailLimit;
     /**
     If set, this is the date when the user asked
         to be excluded from offers and promotions sent by Evernote.  If not set,
         then the user currently agrees to receive these messages.
     */
-    Optional< Timestamp > emailOptOutDate;
+    Optional<Timestamp> emailOptOutDate;
     /**
     If set, this is the date when the user asked
         to be included in offers and promotions sent by Evernote's partners.
         If not sent, then the user currently does not agree to receive these
         emails.
     */
-    Optional< Timestamp > partnerEmailOptInDate;
+    Optional<Timestamp> partnerEmailOptInDate;
     /**
     a 2 character language codes based on:
            http://ftp.ics.uci.edu/pub/ietf/http/related/iso639.txt used for
           localization purposes to determine what language to use for the web
           interface and for other direct communication (e.g. emails).
     */
-    Optional< QString > preferredLanguage;
+    Optional<QString> preferredLanguage;
     /**
     Preferred country code based on ISO 3166-1-alpha-2 indicating the
        users preferred country
     */
-    Optional< QString > preferredCountry;
+    Optional<QString> preferredCountry;
     /**
     Boolean flag set to true if the user wants to clip full pages by
        default when they use the web clipper without a selection.
     */
-    Optional< bool > clipFullPage;
+    Optional<bool> clipFullPage;
     /**
     The username of the account of someone who has chosen to enable
        Twittering into Evernote.  This value is subject to change, since users
        may change their Twitter user name.
     */
-    Optional< QString > twitterUserName;
+    Optional<QString> twitterUserName;
     /**
     The unique identifier of the user's Twitter account if that user
        has chosen to enable Twittering into Evernote.
     */
-    Optional< QString > twitterId;
+    Optional<QString> twitterId;
     /**
     A name identifier used to identify a particular set of branding and
         light customization.
     */
-    Optional< QString > groupName;
+    Optional<QString> groupName;
     /**
     a 2 character language codes based on:
            http://ftp.ics.uci.edu/pub/ietf/http/related/iso639.txt
@@ -1316,25 +1317,25 @@ struct QEVERCLOUD_EXPORT UserAttributes {
            when processing images and PDF files to find text.
            If not set, then the 'preferredLanguage' will be used.
     */
-    Optional< QString > recognitionLanguage;
+    Optional<QString> recognitionLanguage;
     /** NOT DOCUMENTED */
-    Optional< QString > referralProof;
+    Optional<QString> referralProof;
     /** NOT DOCUMENTED */
-    Optional< bool > educationalDiscount;
+    Optional<bool> educationalDiscount;
     /**
     A string recording the business address of a Sponsored Account user who has requested invoicing.
     */
-    Optional< QString > businessAddress;
+    Optional<QString> businessAddress;
     /**
     A flag indicating whether to hide the billing information on a sponsored
            account owner's settings page
     */
-    Optional< bool > hideSponsorBilling;
+    Optional<bool> hideSponsorBilling;
     /**
     A flag indicating whether the user chooses to allow Evernote to automatically
            file and tag emailed notes
     */
-    Optional< bool > useEmailAutoFiling;
+    Optional<bool> useEmailAutoFiling;
     /**
     Configuration state for whether or not the user wishes to receive
            reminder e-mail.  This setting applies to both the reminder e-mail sent
@@ -1342,31 +1343,31 @@ struct QEVERCLOUD_EXPORT UserAttributes {
            notes in the user's business notebooks that the user has configured for
            e-mail notifications.
     */
-    Optional< ReminderEmailConfig > reminderEmailConfig;
+    Optional<ReminderEmailConfig> reminderEmailConfig;
     /**
     If set, this contains the time at which the user last confirmed that the
            configured email address for this account is correct and up-to-date. If this is
            unset that indicates that the user's email address is unverified.
     */
-    Optional< Timestamp > emailAddressLastConfirmed;
+    Optional<Timestamp> emailAddressLastConfirmed;
     /**
     If set, this contains the time at which the user's password last changed. This
            will be unset for users created before the addition of this field who have not
            changed their passwords since the addition of this field.
     */
-    Optional< Timestamp > passwordUpdated;
+    Optional<Timestamp> passwordUpdated;
     /** NOT DOCUMENTED */
-    Optional< bool > salesforcePushEnabled;
+    Optional<bool> salesforcePushEnabled;
     /**
     If set to True, the server will record LogRequest send from clients of this
             user as ClientEventLog.
     */
-    Optional< bool > shouldLogClientEvent;
+    Optional<bool> shouldLogClientEvent;
     /**
     If set to True, no Machine Learning nor human review will be done to this
             user's note contents.
     */
-    Optional< bool > optOutMachineLearning;
+    Optional<bool> optOutMachineLearning;
 
     bool operator==(const UserAttributes & other) const
     {
@@ -1424,32 +1425,32 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes {
     /**
     Free form text of this user's title in the business
     */
-    Optional< QString > title;
+    Optional<QString> title;
     /**
     City, State (for US) or City / Province for other countries
     */
-    Optional< QString > location;
+    Optional<QString> location;
     /**
     Free form text of the department this user belongs to.
     */
-    Optional< QString > department;
+    Optional<QString> department;
     /**
     User's mobile phone number. Stored as plain text without any formatting.
     */
-    Optional< QString > mobilePhone;
+    Optional<QString> mobilePhone;
     /**
     URL to user's public LinkedIn profile page. This should only contain
       the portion relative to the base LinkedIn URL. For example: "/pub/john-smith/".
     */
-    Optional< QString > linkedInProfileUrl;
+    Optional<QString> linkedInProfileUrl;
     /**
     User's work phone number. Stored as plain text without any formatting.
     */
-    Optional< QString > workPhone;
+    Optional<QString> workPhone;
     /**
     The date on which the user started working at their company.
     */
-    Optional< Timestamp > companyStartDate;
+    Optional<Timestamp> companyStartDate;
 
     bool operator==(const BusinessUserAttributes & other) const
     {
@@ -1481,108 +1482,108 @@ struct QEVERCLOUD_EXPORT Accounting {
        limit is imposed.  This date and time is exclusive, so this is effectively
        the start of the new month.
     */
-    Optional< Timestamp > uploadLimitEnd;
+    Optional<Timestamp> uploadLimitEnd;
     /**
     When uploadLimitEnd is reached, the service
        will change uploadLimit to uploadLimitNextMonth. If a premium account is
        canceled, this mechanism will reset the quota appropriately.
     */
-    Optional< qint64 > uploadLimitNextMonth;
+    Optional<qint64> uploadLimitNextMonth;
     /**
     Indicates the phases of a premium account
        during the billing process.
     */
-    Optional< PremiumOrderStatus > premiumServiceStatus;
+    Optional<PremiumOrderStatus> premiumServiceStatus;
     /**
     The order number used by the commerce system to
        process recurring payments
     */
-    Optional< QString > premiumOrderNumber;
+    Optional<QString> premiumOrderNumber;
     /**
     The commerce system used (paypal, Google
        checkout, etc)
     */
-    Optional< QString > premiumCommerceService;
+    Optional<QString> premiumCommerceService;
     /**
     The start date when this premium promotion
        began (this number will get overwritten if a premium service is canceled
        and then re-activated).
     */
-    Optional< Timestamp > premiumServiceStart;
+    Optional<Timestamp> premiumServiceStart;
     /**
     The code associated with the purchase eg. monthly
        or annual purchase. Clients should interpret this value and localize it.
     */
-    Optional< QString > premiumServiceSKU;
+    Optional<QString> premiumServiceSKU;
     /**
     Date the last time the user was charged.
        Null if never charged.
     */
-    Optional< Timestamp > lastSuccessfulCharge;
+    Optional<Timestamp> lastSuccessfulCharge;
     /**
     Date the last time a charge was attempted and
        failed.
     */
-    Optional< Timestamp > lastFailedCharge;
+    Optional<Timestamp> lastFailedCharge;
     /**
     Reason provided for the charge failure
     */
-    Optional< QString > lastFailedChargeReason;
+    Optional<QString> lastFailedChargeReason;
     /**
     The end of the billing cycle. This could be in the
        past if there are failed charges.
     */
-    Optional< Timestamp > nextPaymentDue;
+    Optional<Timestamp> nextPaymentDue;
     /**
     An internal variable to manage locking operations
        on the commerce variables.
     */
-    Optional< Timestamp > premiumLockUntil;
+    Optional<Timestamp> premiumLockUntil;
     /**
     The date any modification where made to this record.
     */
-    Optional< Timestamp > updated;
+    Optional<Timestamp> updated;
     /**
     The number number identifying the
        recurring subscription used to make the recurring charges.
     */
-    Optional< QString > premiumSubscriptionNumber;
+    Optional<QString> premiumSubscriptionNumber;
     /**
     Date charge last attempted
     */
-    Optional< Timestamp > lastRequestedCharge;
+    Optional<Timestamp> lastRequestedCharge;
     /**
     ISO 4217 currency code
     */
-    Optional< QString > currency;
+    Optional<QString> currency;
     /**
     charge in the smallest unit of the currency (e.g. cents for USD)
     */
-    Optional< qint32 > unitPrice;
+    Optional<qint32> unitPrice;
     /**
     <i>DEPRECATED:</i>See BusinessUserInfo.
     */
-    Optional< qint32 > businessId;
+    Optional<qint32> businessId;
     /**
     <i>DEPRECATED:</i>See BusinessUserInfo.
     */
-    Optional< QString > businessName;
+    Optional<QString> businessName;
     /**
     <i>DEPRECATED:</i>See BusinessUserInfo.
     */
-    Optional< BusinessUserRole > businessRole;
+    Optional<BusinessUserRole> businessRole;
     /**
     discount per seat in negative amount and smallest unit of the currency (e.g.
            cents for USD)
     */
-    Optional< qint32 > unitDiscount;
+    Optional<qint32> unitDiscount;
     /**
     The next time the user will be charged, may or may not be the same as
            nextPaymentDue
     */
-    Optional< Timestamp > nextChargeDate;
+    Optional<Timestamp> nextChargeDate;
     /** NOT DOCUMENTED */
-    Optional< qint32 > availablePoints;
+    Optional<qint32> availablePoints;
 
     bool operator==(const Accounting & other) const
     {
@@ -1631,14 +1632,14 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
        The human-readable name of the Evernote Business account that the user
            is a member of.
     */
-    Optional< qint32 > businessId;
+    Optional<qint32> businessId;
     /** NOT DOCUMENTED */
-    Optional< QString > businessName;
+    Optional<QString> businessName;
     /**
     The role of the user within the Evernote Business account that
            they are a member of.
     */
-    Optional< BusinessUserRole > role;
+    Optional<BusinessUserRole> role;
     /**
     An e-mail address that will be used by the service in the context of your
            Evernote Business activities.  For example, this e-mail address will be used
@@ -1646,11 +1647,11 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
            your business, etc.  The business e-mail cannot be used for identification
            purposes such as for logging into the service.
     */
-    Optional< QString > email;
+    Optional<QString> email;
     /**
     Last time the business user or business user attributes were updated.
     */
-    Optional< Timestamp > updated;
+    Optional<Timestamp> updated;
 
     bool operator==(const BusinessUserInfo & other) const
     {
@@ -1678,22 +1679,22 @@ struct QEVERCLOUD_EXPORT AccountLimits {
            service per day.  If an email is sent to two different recipients, this
            counts as two emails.
     */
-    Optional< qint32 > userMailLimitDaily;
+    Optional<qint32> userMailLimitDaily;
     /**
     Maximum total size of a Note that can be added.  The size of a note is
            calculated as:
            ENML content length (in Unicode characters) plus the sum of all resource
            sizes (in bytes).
     */
-    Optional< qint64 > noteSizeMax;
+    Optional<qint64> noteSizeMax;
     /**
     Maximum size of a resource, in bytes
     */
-    Optional< qint64 > resourceSizeMax;
+    Optional<qint64> resourceSizeMax;
     /**
     Maximum number of linked notebooks per account.
     */
-    Optional< qint32 > userLinkedNotebookMax;
+    Optional<qint32> userLinkedNotebookMax;
     /**
     The number of bytes that can be uploaded to the account
        in the current month.  For new notes that are created, this is the length
@@ -1702,31 +1703,31 @@ struct QEVERCLOUD_EXPORT AccountLimits {
        length and the new length (if this is greater than 0) plus the size of
        each new resource.
     */
-    Optional< qint64 > uploadLimit;
+    Optional<qint64> uploadLimit;
     /**
     Maximum number of Notes per user
     */
-    Optional< qint32 > userNoteCountMax;
+    Optional<qint32> userNoteCountMax;
     /**
     Maximum number of Notebooks per user
     */
-    Optional< qint32 > userNotebookCountMax;
+    Optional<qint32> userNotebookCountMax;
     /**
     Maximum number of Tags per account
     */
-    Optional< qint32 > userTagCountMax;
+    Optional<qint32> userTagCountMax;
     /**
     Maximum number of Tags per Note
     */
-    Optional< qint32 > noteTagCountMax;
+    Optional<qint32> noteTagCountMax;
     /**
     Maximum number of SavedSearches per account
     */
-    Optional< qint32 > userSavedSearchesMax;
+    Optional<qint32> userSavedSearchesMax;
     /**
     The maximum number of Resources per Note
     */
-    Optional< qint32 > noteResourceCountMax;
+    Optional<qint32> noteResourceCountMax;
 
     bool operator==(const AccountLimits & other) const
     {
@@ -1759,7 +1760,7 @@ struct QEVERCLOUD_EXPORT User {
     The unique numeric identifier for the account, which will not
        change for the lifetime of the account.
     */
-    Optional< UserID > id;
+    Optional<UserID> id;
     /**
     The name that uniquely identifies a single user account. This name
        may be presented by the user, along with their password, to log into
@@ -1770,7 +1771,7 @@ struct QEVERCLOUD_EXPORT User {
        <br/>
        Regex:  EDAM_USER_USERNAME_REGEX
     */
-    Optional< QString > username;
+    Optional<QString> username;
     /**
     The email address registered for the user.  Must comply with
        RFC 2821 and RFC 2822.<br/>
@@ -1780,7 +1781,7 @@ struct QEVERCLOUD_EXPORT User {
        <br/>
        Regex:  EDAM_EMAIL_REGEX
     */
-    Optional< QString > email;
+    Optional<QString> email;
     /**
     The printable name of the user, which may be a combination
        of given and family names.  This is used instead of separate "first"
@@ -1792,7 +1793,7 @@ struct QEVERCLOUD_EXPORT User {
        <br/>
        Regex:  EDAM_USER_NAME_REGEX
     */
-    Optional< QString > name;
+    Optional<QString> name;
     /**
     The zone ID for the user's default location.  If present,
        this may be used to localize the display of any timestamp for which no
@@ -1804,71 +1805,71 @@ struct QEVERCLOUD_EXPORT User {
        <br/>
        Regex:  EDAM_TIMEZONE_REGEX
     */
-    Optional< QString > timezone;
+    Optional<QString> timezone;
     /** NOT DOCUMENTED */
-    Optional< PrivilegeLevel > privilege;
+    Optional<PrivilegeLevel> privilege;
     /**
     The level of service the user currently receives. This will always be populated
            for users retrieved from the Evernote service.
     */
-    Optional< ServiceLevel > serviceLevel;
+    Optional<ServiceLevel> serviceLevel;
     /**
     The date and time when this user account was created in the
        service.
     */
-    Optional< Timestamp > created;
+    Optional<Timestamp> created;
     /**
     The date and time when this user account was last modified
        in the service.
     */
-    Optional< Timestamp > updated;
+    Optional<Timestamp> updated;
     /**
     If the account has been deleted from the system (e.g. as
        the result of a legal request by the user), the date and time of the
        deletion will be represented here.  If not, this value will not be set.
     */
-    Optional< Timestamp > deleted;
+    Optional<Timestamp> deleted;
     /**
     If the user account is available for login and
        synchronization, this flag will be set to true.
     */
-    Optional< bool > active;
+    Optional<bool> active;
     /**
     DEPRECATED - Client applications should have no need to use this field.
     */
-    Optional< QString > shardId;
+    Optional<QString> shardId;
     /**
     If present, this will contain a list of the attributes
        for this user account.
     */
-    Optional< UserAttributes > attributes;
+    Optional<UserAttributes> attributes;
     /**
     Bookkeeping information for the user's subscription.
     */
-    Optional< Accounting > accounting;
+    Optional<Accounting> accounting;
     /**
     If present, this will contain a set of business information
        relating to the user's business membership.  If not present, the
        user is not currently part of a business.
     */
-    Optional< BusinessUserInfo > businessUserInfo;
+    Optional<BusinessUserInfo> businessUserInfo;
     /**
     The URL of the photo that represents this User. This field is filled in by the
        service and is read-only to clients. If <code>photoLastUpdated</code> is
        not set, this url will point to a placeholder user photo generated by the
        service.
     */
-    Optional< QString > photoUrl;
+    Optional<QString> photoUrl;
     /**
     The time at which the photo at 'photoUrl' was last updated by this User. This
        field will be null if the User never set a profile photo. This field is filled in by
        the service and is read-only to clients.
     */
-    Optional< Timestamp > photoLastUpdated;
+    Optional<Timestamp> photoLastUpdated;
     /**
     Account limits applicable for this user.
     */
-    Optional< AccountLimits > accountLimits;
+    Optional<AccountLimits> accountLimits;
 
     bool operator==(const User & other) const
     {
@@ -1910,26 +1911,26 @@ struct QEVERCLOUD_EXPORT Contact {
     The displayable name of this contact. This field is filled in by the service and
          is read-only to clients.
     */
-    Optional< QString > name;
+    Optional<QString> name;
     /**
     A unique identifier for this ContactType.
     */
-    Optional< QString > id;
+    Optional<QString> id;
     /**
     What service does this contact come from?
     */
-    Optional< ContactType > type;
+    Optional<ContactType> type;
     /**
     A URL of a profile photo representing this Contact. This field is filled in by the
          service and is read-only to clients.
     */
-    Optional< QString > photoUrl;
+    Optional<QString> photoUrl;
     /**
     timestamp when the profile photo at 'photoUrl' was last updated.
          This field will be null if the user has never set a profile photo.
          This field is filled in by the service and is read-only to clients.
     */
-    Optional< Timestamp > photoLastUpdated;
+    Optional<Timestamp> photoLastUpdated;
     /**
     This field will only be filled by the service when it is giving a Contact record
          to a client, and that client does not normally have enough permission to send a
@@ -1937,14 +1938,14 @@ struct QEVERCLOUD_EXPORT Contact {
          whole Contact record could be used to send a new Message to the Contact, and the
          service will inspect this permit to confirm that operation was allowed.
     */
-    Optional< QByteArray > messagingPermit;
+    Optional<QByteArray> messagingPermit;
     /**
     If this field is set, then this (whole) Contact record may be used in calls to
          sendMessage until this time. After that time, those calls may be rejected by the
          service if the caller does not have direct permission to initiate a message with
          the represented Evernote user.
     */
-    Optional< Timestamp > messagingPermitExpires;
+    Optional<Timestamp> messagingPermitExpires;
 
     bool operator==(const Contact & other) const
     {
@@ -1976,13 +1977,13 @@ struct QEVERCLOUD_EXPORT Identity {
     */
     IdentityID id;
     /** NOT DOCUMENTED */
-    Optional< Contact > contact;
+    Optional<Contact> contact;
     /**
     The Evernote User id that is connected to the Contact. May be unset
           if this identity has not yet been claimed, or the caller is not
           connected to this identity.
     */
-    Optional< UserID > userId;
+    Optional<UserID> userId;
     /**
     Indicates that the contact for this identity is no longer active and
       should not be used when creating new threads using Destination.recipients,
@@ -1990,16 +1991,16 @@ struct QEVERCLOUD_EXPORT Identity {
       that is active.  If you are connected to the user (see userConnected), you
       can still create threads using their Evernote-type contact.
     */
-    Optional< bool > deactivated;
+    Optional<bool> deactivated;
     /**
     Does this Identity belong to someone who is in the same business as the
           caller?
     */
-    Optional< bool > sameBusiness;
+    Optional<bool> sameBusiness;
     /**
     Has the caller blocked the Evernote user this Identity represents?
     */
-    Optional< bool > blocked;
+    Optional<bool> blocked;
     /**
     Indicates that the caller is "connected" to the user of this
       identity via this identity.  When you have a connection via an
@@ -2016,12 +2017,12 @@ struct QEVERCLOUD_EXPORT Identity {
       sending messages to yourself, but you will obviously see your own
       profile information.
     */
-    Optional< bool > userConnected;
+    Optional<bool> userConnected;
     /**
     A server-assigned sequence number for the events in the messages
       subsystem.
     */
-    Optional< MessageEventID > eventId;
+    Optional<MessageEventID> eventId;
 
     bool operator==(const Identity & other) const
     {
@@ -2056,7 +2057,7 @@ struct QEVERCLOUD_EXPORT Tag {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     A sequence of characters representing the tag's identifier.
        Case is preserved, but is ignored for comparisons.
@@ -2069,7 +2070,7 @@ struct QEVERCLOUD_EXPORT Tag {
        <br/>
        Regex:  EDAM_TAG_NAME_REGEX
     */
-    Optional< QString > name;
+    Optional<QString> name;
     /**
     If this is set, then this is the GUID of the tag that
        holds this tag within the tag organizational hierarchy.  If this is
@@ -2081,14 +2082,14 @@ struct QEVERCLOUD_EXPORT Tag {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > parentGuid;
+    Optional<Guid> parentGuid;
     /**
     A number identifying the last transaction to
        modify the state of this object.  The USN values are sequential within an
        account, and can be used to compare the order of modifications within the
        service.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
 
     bool operator==(const Tag & other) const
     {
@@ -2130,11 +2131,11 @@ struct QEVERCLOUD_EXPORT LazyMap {
     The set of keys for the map.  This field is ignored by the
            server when set.
     */
-    Optional< QSet< QString > > keysOnly;
+    Optional<QSet<QString>> keysOnly;
     /**
     The complete map, including all keys and values.
     */
-    Optional< QMap< QString, QString > > fullMap;
+    Optional<QMap<QString, QString>> fullMap;
 
     bool operator==(const LazyMap & other) const
     {
@@ -2159,60 +2160,60 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
        <br/>
         Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > sourceURL;
+    Optional<QString> sourceURL;
     /**
     the date and time that is associated with this resource
        (e.g. the time embedded in an image from a digital camera with a clock)
     */
-    Optional< Timestamp > timestamp;
+    Optional<Timestamp> timestamp;
     /**
     the latitude where the resource was captured
     */
-    Optional< double > latitude;
+    Optional<double> latitude;
     /**
     the longitude where the resource was captured
     */
-    Optional< double > longitude;
+    Optional<double> longitude;
     /**
     the altitude where the resource was captured
     */
-    Optional< double > altitude;
+    Optional<double> altitude;
     /**
     information about an image's camera, e.g. as embedded in
        the image's EXIF data
        <br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > cameraMake;
+    Optional<QString> cameraMake;
     /**
     information about an image's camera, e.g. as embedded
        in the image's EXIF data
        <br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > cameraModel;
+    Optional<QString> cameraModel;
     /**
     if true, then the original client that submitted
        the resource plans to submit the recognition index for this resource at a
        later time.
     */
-    Optional< bool > clientWillIndex;
+    Optional<bool> clientWillIndex;
     /**
     DEPRECATED - this field is no longer set by the service, so should
          be ignored.
     */
-    Optional< QString > recoType;
+    Optional<QString> recoType;
     /**
     if the resource came from a source that provided an
        explicit file name, the original name will be stored here.  Many resources
        come from unnamed sources, so this will not always be set.
     */
-    Optional< QString > fileName;
+    Optional<QString> fileName;
     /**
     this will be true if the resource should be displayed as an attachment,
        or false if the resource should be displayed inline (if possible).
     */
-    Optional< bool > attachment;
+    Optional<bool> attachment;
     /**
     Provides a location for applications to store a relatively small
      (4kb) blob of data associated with a Resource that is not visible to the user
@@ -2229,7 +2230,7 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
      <br/>
      Syntax regex for name (key): EDAM_APPLICATIONDATA_NAME_REGEX
     */
-    Optional< LazyMap > applicationData;
+    Optional<LazyMap> applicationData;
 
     bool operator==(const ResourceAttributes & other) const
     {
@@ -2269,7 +2270,7 @@ struct QEVERCLOUD_EXPORT Resource {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     The unique identifier of the Note that holds this
        Resource. Will be set whenever the resource is retrieved from the service,
@@ -2279,13 +2280,13 @@ struct QEVERCLOUD_EXPORT Resource {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > noteGuid;
+    Optional<Guid> noteGuid;
     /**
     The contents of the resource.
        Maximum length:  The data.body is limited to EDAM_RESOURCE_SIZE_MAX_FREE
        for free accounts and EDAM_RESOURCE_SIZE_MAX_PREMIUM for premium accounts.
     */
-    Optional< Data > data;
+    Optional<Data> data;
     /**
     The MIME type for the embedded resource.  E.g. "image/gif"
        <br/>
@@ -2293,41 +2294,41 @@ struct QEVERCLOUD_EXPORT Resource {
        <br/>
        Regex:  EDAM_MIME_REGEX
     */
-    Optional< QString > mime;
+    Optional<QString> mime;
     /**
     If set, this contains the display width of this resource, in
        pixels.
     */
-    Optional< qint16 > width;
+    Optional<qint16> width;
     /**
     If set, this contains the display height of this resource,
        in pixels.
     */
-    Optional< qint16 > height;
+    Optional<qint16> height;
     /**
     DEPRECATED: ignored.
     */
-    Optional< qint16 > duration;
+    Optional<qint16> duration;
     /**
     If the resource is active or not.
     */
-    Optional< bool > active;
+    Optional<bool> active;
     /**
     If set, this will hold the encoded data that provides
        information on search and recognition within this resource.
     */
-    Optional< Data > recognition;
+    Optional<Data> recognition;
     /**
     A list of the attributes for this resource.
     */
-    Optional< ResourceAttributes > attributes;
+    Optional<ResourceAttributes> attributes;
     /**
     A number identifying the last transaction to
        modify the state of this object. The USN values are sequential within an
        account, and can be used to compare the order of modifications within the
        service.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /**
     Some Resources may be assigned an alternate data format by the service
        which may be more appropriate for indexing or rendering than the original
@@ -2335,7 +2336,7 @@ struct QEVERCLOUD_EXPORT Resource {
        be available via this Data element.  If a Resource has no alternate form,
        this field will be unset.
     */
-    Optional< Data > alternateData;
+    Optional<Data> alternateData;
 
     bool operator==(const Resource & other) const
     {
@@ -2368,39 +2369,39 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
     /**
     time that the note refers to
     */
-    Optional< Timestamp > subjectDate;
+    Optional<Timestamp> subjectDate;
     /**
     the latitude where the note was taken
     */
-    Optional< double > latitude;
+    Optional<double> latitude;
     /**
     the longitude where the note was taken
     */
-    Optional< double > longitude;
+    Optional<double> longitude;
     /**
     the altitude where the note was taken
     */
-    Optional< double > altitude;
+    Optional<double> altitude;
     /**
     the author of the content of the note
        <br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > author;
+    Optional<QString> author;
     /**
     the method that the note was added to the account, if the
        note wasn't directly authored in an Evernote desktop client.
        <br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > source;
+    Optional<QString> source;
     /**
     the original location where the resource was hosted. For web clips,
        this will be the URL of the page that was clipped.
        <br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > sourceURL;
+    Optional<QString> sourceURL;
     /**
     an identifying string for the application that
        created this note.  This string does not have a guaranteed syntax or
@@ -2408,7 +2409,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
        <br/>
        Length:  EDAM_ATTRIBUTE_LEN_MIN - EDAM_ATTRIBUTE_LEN_MAX
     */
-    Optional< QString > sourceApplication;
+    Optional<QString> sourceApplication;
     /**
     The date and time when this note was directly shared via its own URL.
       This is only set on notes that were individually shared - it is independent
@@ -2416,7 +2417,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
       is treated as "read-only" for clients; the server will ignore changes
       to this field from an external client.
     */
-    Optional< Timestamp > shareDate;
+    Optional<Timestamp> shareDate;
     /**
     The set of notes with this parameter set are considered
      "reminders" and are to be treated specially by clients to give them
@@ -2443,14 +2444,14 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      reminderOrder is not set, the server will fill in the current
      server time for the reminderOrder field.
     */
-    Optional< qint64 > reminderOrder;
+    Optional<qint64> reminderOrder;
     /**
     The date and time when a user dismissed/"marked done" the reminder
      on the note.  Users typically do not manually set this value directly
      as it is set to the time when the user dismissed/"marked done" the
      reminder.
     */
-    Optional< Timestamp > reminderDoneTime;
+    Optional<Timestamp> reminderDoneTime;
     /**
     The date and time a user has selected to be reminded of the note.
      A note with this value set is known as a "reminder" and the user can
@@ -2461,7 +2462,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      cleared.  This should happen regardless of any existing reminder time
      that may have previously existed on the note.
     */
-    Optional< Timestamp > reminderTime;
+    Optional<Timestamp> reminderTime;
     /**
     Allows the user to assign a human-readable location name associated
      with a note. Users may assign values like 'Home' and 'Work'. Place
@@ -2473,7 +2474,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      more useful than a simple automated lookup based on the note's latitude
      and longitude.
     */
-    Optional< QString > placeName;
+    Optional<QString> placeName;
     /**
     The class (or type) of note. This field is used to indicate to
      clients that special structured information is represented within
@@ -2496,7 +2497,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      <br/>
      Regex: EDAM_NOTE_CONTENT_CLASS_REGEX
     */
-    Optional< QString > contentClass;
+    Optional<QString> contentClass;
     /**
     Provides a location for applications to store a relatively small
      (4kb) blob of data that is not meant to be visible to the user and
@@ -2513,7 +2514,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      <br/>
      Syntax regex for name (key): EDAM_APPLICATIONDATA_NAME_REGEX
     */
-    Optional< LazyMap > applicationData;
+    Optional<LazyMap> applicationData;
     /**
     An indication of who made the last change to the note.  If you are
      accessing the note via a shared notebook to which you have modification
@@ -2525,21 +2526,21 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      it will be left unset.  This field is read-only by clients.  The server
      will ignore all values set by clients into this field.
     */
-    Optional< QString > lastEditedBy;
+    Optional<QString> lastEditedBy;
     /**
     A map of classifications applied to the note by clients or by the
      Evernote service. The key is the string name of the classification type,
      and the value is a constant that begins with CLASSIFICATION_.
     */
-    Optional< QMap< QString, QString > > classifications;
+    Optional<QMap<QString, QString>> classifications;
     /**
     The numeric user ID of the user who originally created the note.
     */
-    Optional< UserID > creatorId;
+    Optional<UserID> creatorId;
     /**
     The numeric user ID of the user described in lastEditedBy.
     */
-    Optional< UserID > lastEditorId;
+    Optional<UserID> lastEditorId;
     /**
     When this flag is set on a business note, any user in that business
      may view the note if they request it by GUID. This field is read-only by
@@ -2548,7 +2549,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      To share a note with the business, use NoteStore.shareNoteWithBusiness and
      to stop sharing a note with the business, use NoteStore.stopSharingNoteWithBusiness.
     */
-    Optional< bool > sharedWithBusiness;
+    Optional<bool> sharedWithBusiness;
     /**
     If set, this specifies the GUID of a note that caused a sync conflict
      resulting in the creation of a duplicate note. The duplicated note contains
@@ -2557,7 +2558,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
      conflict. This allows clients to provide a customized user experience for note
      conflicts.
     */
-    Optional< Guid > conflictSourceNoteGuid;
+    Optional<Guid> conflictSourceNoteGuid;
     /**
     If set, this specifies that the note's title was automatically generated
      and indicates the likelihood that the generated title is useful for display to
@@ -2570,7 +2571,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
     
      When a user edits a note's title, clients MUST unset this value.
     */
-    Optional< qint32 > noteTitleQuality;
+    Optional<qint32> noteTitleQuality;
 
     bool operator==(const NoteAttributes & other) const
     {
@@ -2616,30 +2617,30 @@ struct QEVERCLOUD_EXPORT SharedNote {
     /**
     The user ID of the user who shared the note with the recipient.
     */
-    Optional< UserID > sharerUserID;
+    Optional<UserID> sharerUserID;
     /**
     The identity of the recipient of the share. For a given note, there may be only one
          SharedNote per recipient identity. Only recipientIdentity.id is guaranteed to be set.
          Other fields on the Identity may or my not be set based on the requesting user's
          relationship with the recipient.
     */
-    Optional< Identity > recipientIdentity;
+    Optional<Identity> recipientIdentity;
     /**
     The privilege level that the share grants to the recipient.
     */
-    Optional< SharedNotePrivilegeLevel > privilege;
+    Optional<SharedNotePrivilegeLevel> privilege;
     /**
     The time at which the share was created.
     */
-    Optional< Timestamp > serviceCreated;
+    Optional<Timestamp> serviceCreated;
     /**
     The time at which the share was last updated.
     */
-    Optional< Timestamp > serviceUpdated;
+    Optional<Timestamp> serviceUpdated;
     /**
     The time at which the share was assigned to a specific recipient user ID.
     */
-    Optional< Timestamp > serviceAssigned;
+    Optional<Timestamp> serviceAssigned;
 
     bool operator==(const SharedNote & other) const
     {
@@ -2700,22 +2701,22 @@ struct QEVERCLOUD_EXPORT NoteRestrictions {
     /**
     The client may not update the note's title (Note.title).
     */
-    Optional< bool > noUpdateTitle;
+    Optional<bool> noUpdateTitle;
     /** NOT DOCUMENTED */
-    Optional< bool > noUpdateContent;
+    Optional<bool> noUpdateContent;
     /**
     The client may not email the note (NoteStore.emailNote).
     */
-    Optional< bool > noEmail;
+    Optional<bool> noEmail;
     /**
     The client may not share the note with specific recipients
          (NoteStore.createOrUpdateSharedNotes).
     */
-    Optional< bool > noShare;
+    Optional<bool> noShare;
     /**
     The client may not make the note public (NoteStore.shareNote).
     */
-    Optional< bool > noSharePublicly;
+    Optional<bool> noSharePublicly;
 
     bool operator==(const NoteRestrictions & other) const
     {
@@ -2744,15 +2745,15 @@ struct QEVERCLOUD_EXPORT NoteRestrictions {
  */
 struct QEVERCLOUD_EXPORT NoteLimits {
     /** NOT DOCUMENTED */
-    Optional< qint32 > noteResourceCountMax;
+    Optional<qint32> noteResourceCountMax;
     /** NOT DOCUMENTED */
-    Optional< qint64 > uploadLimit;
+    Optional<qint64> uploadLimit;
     /** NOT DOCUMENTED */
-    Optional< qint64 > resourceSizeMax;
+    Optional<qint64> resourceSizeMax;
     /** NOT DOCUMENTED */
-    Optional< qint64 > noteSizeMax;
+    Optional<qint64> noteSizeMax;
     /** NOT DOCUMENTED */
-    Optional< qint64 > uploaded;
+    Optional<qint64> uploaded;
 
     bool operator==(const NoteLimits & other) const
     {
@@ -2784,7 +2785,7 @@ struct QEVERCLOUD_EXPORT Note {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     The subject of the note.  Can't begin or end with a space.
        <br/>
@@ -2792,7 +2793,7 @@ struct QEVERCLOUD_EXPORT Note {
        <br/>
        Regex:  EDAM_NOTE_TITLE_REGEX
     */
-    Optional< QString > title;
+    Optional<QString> title;
     /**
     The XHTML block that makes up the note.  This is
        the canonical form of the note's contents, so will include abstract
@@ -2803,7 +2804,7 @@ struct QEVERCLOUD_EXPORT Note {
        <br/>
        Length:  EDAM_NOTE_CONTENT_LEN_MIN - EDAM_NOTE_CONTENT_LEN_MAX
     */
-    Optional< QString > content;
+    Optional<QString> content;
     /**
     The binary MD5 checksum of the UTF-8 encoded content
        body. This will always be set by the server, but clients may choose to omit
@@ -2811,13 +2812,13 @@ struct QEVERCLOUD_EXPORT Note {
        <br/>
        Length:  EDAM_HASH_LEN (exactly)
     */
-    Optional< QByteArray > contentHash;
+    Optional<QByteArray> contentHash;
     /**
     The number of Unicode characters in the content of
        the note.  This will always be set by the service, but clients may choose
        to omit this value when they submit a Note.
     */
-    Optional< qint32 > contentLength;
+    Optional<qint32> contentLength;
     /**
     The date and time when the note was created in one of the
        clients.  In most cases, this will match the user's sense of when
@@ -2827,14 +2828,14 @@ struct QEVERCLOUD_EXPORT Note {
        ordering between notes.  Notes created directly through the service
        (e.g. via the web GUI) will have an absolutely ordered "created" value.
     */
-    Optional< Timestamp > created;
+    Optional<Timestamp> created;
     /**
     The date and time when the note was last modified in one of
        the clients.  In most cases, this will match the user's sense of when
        the note was modified, but this field may not be absolutely reliable
        due to the possibility of client clock errors.
     */
-    Optional< Timestamp > updated;
+    Optional<Timestamp> updated;
     /**
     If present, the note is considered "deleted", and this
        stores the date and time when the note was deleted by one of the clients.
@@ -2842,19 +2843,19 @@ struct QEVERCLOUD_EXPORT Note {
        deleted, but this field may be unreliable due to the possibility of
        client clock errors.
     */
-    Optional< Timestamp > deleted;
+    Optional<Timestamp> deleted;
     /**
     If the note is available for normal actions and viewing,
        this flag will be set to true.
     */
-    Optional< bool > active;
+    Optional<bool> active;
     /**
     A number identifying the last transaction to
        modify the state of this note (including changes to the note's attributes
        or resources).  The USN values are sequential within an account,
        and can be used to compare the order of modifications within the service.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /**
     The unique identifier of the notebook that contains
        this note.  If no notebookGuid is provided on a call to createNote(), the
@@ -2864,7 +2865,7 @@ struct QEVERCLOUD_EXPORT Note {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< QString > notebookGuid;
+    Optional<QString> notebookGuid;
     /**
     A list of the GUID identifiers for tags that are applied to this note.
        This may be provided in a call to createNote() to unambiguously declare
@@ -2875,7 +2876,7 @@ struct QEVERCLOUD_EXPORT Note {
        the server will assume that no changes have been made to the resources.
        Maximum:  EDAM_NOTE_TAGS_MAX tags per note
     */
-    Optional< QList< Guid > > tagGuids;
+    Optional<QList<Guid>> tagGuids;
     /**
     The list of resources that are embedded within this note.
        If the list of resources are omitted on a call to updateNote(), then
@@ -2885,13 +2886,13 @@ struct QEVERCLOUD_EXPORT Note {
        the Note is returned in the future.
        Maximum:  EDAM_NOTE_RESOURCES_MAX resources per note
     */
-    Optional< QList< Resource > > resources;
+    Optional<QList<Resource>> resources;
     /**
     A list of the attributes for this note.
        If the list of attributes are omitted on a call to updateNote(), then
        the server will assume that no changes have been made to the resources.
     */
-    Optional< NoteAttributes > attributes;
+    Optional<NoteAttributes> attributes;
     /**
     May be provided by clients during calls to createNote() as an
        alternative to providing the tagGuids of existing tags.  If any tagNames
@@ -2899,14 +2900,14 @@ struct QEVERCLOUD_EXPORT Note {
        don't already exist.  Created tags will have no parent (they will be at
        the top level of the tag panel).
     */
-    Optional< QStringList > tagNames;
+    Optional<QStringList> tagNames;
     /**
     The list of recipients with whom this note has been shared. This field will be unset if
          the caller has access to the note via the containing notebook, but does not have activity
          feed permission for that notebook. This field is read-only. Clients may not make changes to
          a note's sharing state via this field.
     */
-    Optional< QList< SharedNote > > sharedNotes;
+    Optional<QList<SharedNote>> sharedNotes;
     /**
     If this field is set, the user has note-level permissions that may differ from their
          notebook-level permissions. In this case, the restrictions structure specifies
@@ -2915,9 +2916,9 @@ struct QEVERCLOUD_EXPORT Note {
          note-specific restrictions. However, a client may still be limited based on the user's
          notebook permissions.
     */
-    Optional< NoteRestrictions > restrictions;
+    Optional<NoteRestrictions> restrictions;
     /** NOT DOCUMENTED */
-    Optional< NoteLimits > limits;
+    Optional<NoteLimits> limits;
 
     bool operator==(const Note & other) const
     {
@@ -2966,18 +2967,18 @@ struct QEVERCLOUD_EXPORT Publishing {
        <br/>
        Regex:  EDAM_PUBLISHING_URI_REGEX
     */
-    Optional< QString > uri;
+    Optional<QString> uri;
     /**
     When the notes are publicly displayed, they will be sorted
        based on the requested criteria.
     */
-    Optional< NoteSortOrder > order;
+    Optional<NoteSortOrder> order;
     /**
     If this is set to true, then the public notes will be
        displayed in ascending order (e.g. from oldest to newest).  Otherwise,
        the notes will be displayed in descending order (e.g. newest to oldest).
     */
-    Optional< bool > ascending;
+    Optional<bool> ascending;
     /**
     This field may be used to provide a short
        description of the notebook, which may be displayed when (e.g.) the
@@ -2988,7 +2989,7 @@ struct QEVERCLOUD_EXPORT Publishing {
        <br/>
        Regex:  EDAM_PUBLISHING_DESCRIPTION_REGEX
     */
-    Optional< QString > publicDescription;
+    Optional<QString> publicDescription;
 
     bool operator==(const Publishing & other) const
     {
@@ -3024,17 +3025,17 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
        <br/>
        Regex:  EDAM_BUSINESS_NOTEBOOK_DESCRIPTION_REGEX
     */
-    Optional< QString > notebookDescription;
+    Optional<QString> notebookDescription;
     /**
     The privileges that will be granted to users who join the notebook through
            the business library.
     */
-    Optional< SharedNotebookPrivilegeLevel > privilege;
+    Optional<SharedNotebookPrivilegeLevel> privilege;
     /**
     Whether the notebook should be "recommended" when displayed in the business
            library user interface.
     */
-    Optional< bool > recommended;
+    Optional<bool> recommended;
 
     bool operator==(const BusinessNotebook & other) const
     {
@@ -3059,18 +3060,18 @@ struct QEVERCLOUD_EXPORT SavedSearchScope {
     /**
     The search should include notes from the account that contains the SavedSearch.
     */
-    Optional< bool > includeAccount;
+    Optional<bool> includeAccount;
     /**
     The search should include notes within those shared notebooks
        that the user has joined that are NOT business notebooks.
     */
-    Optional< bool > includePersonalLinkedNotebooks;
+    Optional<bool> includePersonalLinkedNotebooks;
     /**
     The search should include notes within those shared notebooks
        that the user has joined that are business notebooks in the business that
        the user is currently a member of.
     */
-    Optional< bool > includeBusinessLinkedNotebooks;
+    Optional<bool> includeBusinessLinkedNotebooks;
 
     bool operator==(const SavedSearchScope & other) const
     {
@@ -3099,7 +3100,7 @@ struct QEVERCLOUD_EXPORT SavedSearch {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     The name of the saved search to display in the GUI.  The
        account may only contain one search with a given name (case-insensitive
@@ -3109,25 +3110,25 @@ struct QEVERCLOUD_EXPORT SavedSearch {
        <br/>
        Regex:  EDAM_SAVED_SEARCH_NAME_REGEX
     */
-    Optional< QString > name;
+    Optional<QString> name;
     /**
     A string expressing the search to be performed.
        <br/>
        Length:  EDAM_SAVED_SEARCH_QUERY_LEN_MIN - EDAM_SAVED_SEARCH_QUERY_LEN_MAX
     */
-    Optional< QString > query;
+    Optional<QString> query;
     /**
     The format of the query string, to determine how to parse
        and process it.
     */
-    Optional< QueryFormat > format;
+    Optional<QueryFormat> format;
     /**
     A number identifying the last transaction to
        modify the state of this object.  The USN values are sequential within an
        account, and can be used to compare the order of modifications within the
        service.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /**
     <p>Specifies the set of notes that should be included in the search, if
         possible.</p>
@@ -3141,7 +3142,7 @@ struct QEVERCLOUD_EXPORT SavedSearch {
         context. If a client cannot search any of the desired scopes, it should refuse
         to execute the search.</p>
     */
-    Optional< SavedSearchScope > scope;
+    Optional<SavedSearchScope> scope;
 
     bool operator==(const SavedSearch & other) const
     {
@@ -3182,14 +3183,14 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings {
          business notebooks that belong to the business of which the user is a
          member. You may only set this value on a notebook in your business.
     */
-    Optional< bool > reminderNotifyEmail;
+    Optional<bool> reminderNotifyEmail;
     /**
     Indicates that the user wishes to receive notifications for
          reminders by applications that support providing such
          notifications.  The exact nature of the notification is defined
          by the individual applications.
     */
-    Optional< bool > reminderNotifyInApp;
+    Optional<bool> reminderNotifyInApp;
 
     bool operator==(const SharedNotebookRecipientSettings & other) const
     {
@@ -3223,32 +3224,32 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings {
          which the user is a member. You may only set this value on a
          notebook in your business. This value will initially be unset.
     */
-    Optional< bool > reminderNotifyEmail;
+    Optional<bool> reminderNotifyEmail;
     /**
     Indicates that the user wishes to receive notifications for
          reminders by applications that support providing such
          notifications.  The exact nature of the notification is defined
          by the individual applications. This value will initially be unset.
     */
-    Optional< bool > reminderNotifyInApp;
+    Optional<bool> reminderNotifyInApp;
     /**
     DEPRECATED: Use recipientStatus instead.
          The notebook is on the recipient's notebook list (formerly, we would say
          that the recipient has "joined" the notebook)
     */
-    Optional< bool > inMyList;
+    Optional<bool> inMyList;
     /**
     The stack the recipient has put this notebook into. See Notebook.stack
      for a definition. Every recipient can have their own stack value for the same
      notebook.
     */
-    Optional< QString > stack;
+    Optional<QString> stack;
     /**
     The notebook is on/off the recipient's notebook list (formerly, we would say
          that the recipient has "joined" the notebook) and perhaps also their
          default notebook
     */
-    Optional< RecipientStatus > recipientStatus;
+    Optional<RecipientStatus> recipientStatus;
 
     bool operator==(const NotebookRecipientSettings & other) const
     {
@@ -3275,36 +3276,36 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
     /**
     The primary identifier of the share, which is not globally unique.
     */
-    Optional< qint64 > id;
+    Optional<qint64> id;
     /**
     The user id of the owner of the notebook.
     */
-    Optional< UserID > userId;
+    Optional<UserID> userId;
     /**
     The GUID of the notebook that has been shared.
     */
-    Optional< Guid > notebookGuid;
+    Optional<Guid> notebookGuid;
     /**
     A string containing a display name for the recipient of the share. This may
          be an email address, a phone number, a full name, or some other descriptive
          string This field is read-only to clients. It will be filled in by the service
          when returning shared notebooks.
     */
-    Optional< QString > email;
+    Optional<QString> email;
     /**
     The IdentityID of the share recipient. If present, only the user who has
          claimed that identity may access this share.
     */
-    Optional< IdentityID > recipientIdentityId;
+    Optional<IdentityID> recipientIdentityId;
     /**
     DEPRECATED
     */
-    Optional< bool > notebookModifiable;
+    Optional<bool> notebookModifiable;
     /**
     The date that the owner first created the share with the specific email
        address.
     */
-    Optional< Timestamp > serviceCreated;
+    Optional<Timestamp> serviceCreated;
     /**
     The date the shared notebook was last updated on the service.  This
          will be updated when authenticateToSharedNotebook is called the first
@@ -3313,7 +3314,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
          as part of a shareNotebook(...) call, as well as on any calls to
          updateSharedNotebook(...).
     */
-    Optional< Timestamp > serviceUpdated;
+    Optional<Timestamp> serviceUpdated;
     /**
     An immutable, opaque string that acts as a globally unique
          identifier for this shared notebook record.  You can use this field to
@@ -3321,25 +3322,25 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
          create new LinkedNotebook records.  This field replaces the deprecated
          shareKey field.
     */
-    Optional< QString > globalId;
+    Optional<QString> globalId;
     /**
     DEPRECATED. The username of the user who can access this share. This
          value is read-only to clients. It will be filled in by the service when
          returning shared notebooks.
     */
-    Optional< QString > username;
+    Optional<QString> username;
     /**
     The privilege level granted to the notebook, activity stream, and
          invitations.  See the corresponding enumeration for details.
     */
-    Optional< SharedNotebookPrivilegeLevel > privilege;
+    Optional<SharedNotebookPrivilegeLevel> privilege;
     /**
     Settings intended for use only by the recipient of this shared
          notebook.  You should skip setting this value unless you want
          to change the value contained inside the structure, and only if
          you are the recipient.
     */
-    Optional< SharedNotebookRecipientSettings > recipientSettings;
+    Optional<SharedNotebookRecipientSettings> recipientSettings;
     /**
     The user id of the user who shared a notebook via this shared notebook
          instance. This may not be the same as userId, since a user with full
@@ -3348,7 +3349,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
          field is currently unset for a SharedNotebook created by joining a
          notebook that has been published to the business.
     */
-    Optional< UserID > sharerUserId;
+    Optional<UserID> sharerUserId;
     /**
     The username of the user who can access this share. This is the username
          for the user with the id in recipientUserId. This value can be set
@@ -3356,7 +3357,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
          created SharedNotebook being assigned to a user. This value is always set
          if serviceAssigned is set.
     */
-    Optional< QString > recipientUsername;
+    Optional<QString> recipientUsername;
     /**
     The id of the user who can access this share. This is the id for the user
          with the username in recipientUsername. This value is read-only and set
@@ -3365,13 +3366,13 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
          prefer this field over recipientUsername unless they need to use usernames
          directly.
     */
-    Optional< UserID > recipientUserId;
+    Optional<UserID> recipientUserId;
     /**
     The date this SharedNotebook was assigned (i.e. has been associated with an
          Evernote user whose user ID is set in recipientUserId). Unset if the SharedNotebook
          is not assigned. This field is a read-only value that is set by the service.
     */
-    Optional< Timestamp > serviceAssigned;
+    Optional<Timestamp> serviceAssigned;
 
     bool operator==(const SharedNotebook & other) const
     {
@@ -3406,7 +3407,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
  */
 struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions {
     /** NOT DOCUMENTED */
-    Optional< CanMoveToContainerStatus > canMoveToContainer;
+    Optional<CanMoveToContainerStatus> canMoveToContainer;
 
     bool operator==(const CanMoveToContainerRestrictions & other) const
     {
@@ -3452,131 +3453,131 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
     The client is not able to read notes from the service and
        the notebook is write-only.
     */
-    Optional< bool > noReadNotes;
+    Optional<bool> noReadNotes;
     /**
     The client may not create new notes in the notebook.
     */
-    Optional< bool > noCreateNotes;
+    Optional<bool> noCreateNotes;
     /**
     The client may not update notes currently in the notebook.
     */
-    Optional< bool > noUpdateNotes;
+    Optional<bool> noUpdateNotes;
     /**
     The client may not expunge notes currently in the notebook.
     */
-    Optional< bool > noExpungeNotes;
+    Optional<bool> noExpungeNotes;
     /**
     The client may not share notes in the notebook via the
        shareNote or createOrUpdateSharedNotes methods.
     */
-    Optional< bool > noShareNotes;
+    Optional<bool> noShareNotes;
     /**
     The client may not e-mail notes by guid via the Evernote
        service by using the emailNote method.  Email notes by value
        by populating the note parameter instead.
     */
-    Optional< bool > noEmailNotes;
+    Optional<bool> noEmailNotes;
     /**
     The client may not send messages to the share recipients of
        the notebook.
     */
-    Optional< bool > noSendMessageToRecipients;
+    Optional<bool> noSendMessageToRecipients;
     /**
     The client may not update the Notebook object itself, for
        example, via the updateNotebook method.
     */
-    Optional< bool > noUpdateNotebook;
+    Optional<bool> noUpdateNotebook;
     /**
     The client may not expunge the Notebook object itself, for
        example, via the expungeNotebook method.
     */
-    Optional< bool > noExpungeNotebook;
+    Optional<bool> noExpungeNotebook;
     /**
     The client may not set this notebook to be the default notebook.
        The caller should leave Notebook.defaultNotebook unset.
     */
-    Optional< bool > noSetDefaultNotebook;
+    Optional<bool> noSetDefaultNotebook;
     /**
     If the client is able to update the Notebook, the Notebook.stack
        value may not be set.
     */
-    Optional< bool > noSetNotebookStack;
+    Optional<bool> noSetNotebookStack;
     /**
     The client may not publish the notebook to the public.
        For example, business notebooks may not be shared publicly.
     */
-    Optional< bool > noPublishToPublic;
+    Optional<bool> noPublishToPublic;
     /**
     The client may not publish the notebook to the business library.
     */
-    Optional< bool > noPublishToBusinessLibrary;
+    Optional<bool> noPublishToBusinessLibrary;
     /**
     The client may not complete an operation that results in a new tag
        being created in the owner's account.
     */
-    Optional< bool > noCreateTags;
+    Optional<bool> noCreateTags;
     /**
     The client may not update tags in the owner's account.
     */
-    Optional< bool > noUpdateTags;
+    Optional<bool> noUpdateTags;
     /**
     The client may not expunge tags in the owner's account.
     */
-    Optional< bool > noExpungeTags;
+    Optional<bool> noExpungeTags;
     /**
     If the client is able to create or update tags in the owner's account,
        then they will not be able to set the parent tag.  Leave the value unset.
     */
-    Optional< bool > noSetParentTag;
+    Optional<bool> noSetParentTag;
     /**
     The client is unable to create shared notebooks for the notebook.
     */
-    Optional< bool > noCreateSharedNotebooks;
+    Optional<bool> noCreateSharedNotebooks;
     /**
     Restrictions on which shared notebook instances can be updated.  If the
        value is not set or null, then the client can update any of the shared notebooks
        associated with the notebook on which the NotebookRestrictions are defined.
        See the enumeration for further details.
     */
-    Optional< SharedNotebookInstanceRestrictions > updateWhichSharedNotebookRestrictions;
+    Optional<SharedNotebookInstanceRestrictions> updateWhichSharedNotebookRestrictions;
     /**
     Restrictions on which shared notebook instances can be expunged.  If the
        value is not set or null, then the client can expunge any of the shared notebooks
        associated with the notebook on which the NotebookRestrictions are defined.
        See the enumeration for further details.
     */
-    Optional< SharedNotebookInstanceRestrictions > expungeWhichSharedNotebookRestrictions;
+    Optional<SharedNotebookInstanceRestrictions> expungeWhichSharedNotebookRestrictions;
     /**
     The client may not share notes in the notebook via the shareNoteWithBusiness
        method.
     */
-    Optional< bool > noShareNotesWithBusiness;
+    Optional<bool> noShareNotesWithBusiness;
     /**
     The client may not rename this notebook.
     */
-    Optional< bool > noRenameNotebook;
+    Optional<bool> noRenameNotebook;
     /**
     clients may not change the NotebookRecipientSettings.inMyList settings for
        this notebook.
     */
-    Optional< bool > noSetInMyList;
+    Optional<bool> noSetInMyList;
     /** NOT DOCUMENTED */
-    Optional< bool > noChangeContact;
+    Optional<bool> noChangeContact;
     /**
     Specifies if the client can move this notebook to a container and if not,
        the reason why.
     */
-    Optional< CanMoveToContainerRestrictions > canMoveToContainerRestrictions;
+    Optional<CanMoveToContainerRestrictions> canMoveToContainerRestrictions;
     /** NOT DOCUMENTED */
-    Optional< bool > noSetReminderNotifyEmail;
+    Optional<bool> noSetReminderNotifyEmail;
     /** NOT DOCUMENTED */
-    Optional< bool > noSetReminderNotifyInApp;
+    Optional<bool> noSetReminderNotifyInApp;
     /** NOT DOCUMENTED */
-    Optional< bool > noSetRecipientSettingsStack;
+    Optional<bool> noSetRecipientSettingsStack;
     /**
     If set, the client cannot move a Note into or out of the Notebook.
     */
-    Optional< bool > noCanMoveNote;
+    Optional<bool> noCanMoveNote;
 
     bool operator==(const NotebookRestrictions & other) const
     {
@@ -3630,7 +3631,7 @@ struct QEVERCLOUD_EXPORT Notebook {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     A sequence of characters representing the name of the
        notebook.  May be changed by clients, but the account may not contain two
@@ -3641,14 +3642,14 @@ struct QEVERCLOUD_EXPORT Notebook {
        <br/>
        Regex:  EDAM_NOTEBOOK_NAME_REGEX
     */
-    Optional< QString > name;
+    Optional<QString> name;
     /**
     A number identifying the last transaction to
        modify the state of this object.  The USN values are sequential within an
        account, and can be used to compare the order of modifications within the
        service.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /**
     If true, this notebook should be used for new notes
        whenever the user has not (or cannot) specify a desired target notebook.
@@ -3661,21 +3662,21 @@ struct QEVERCLOUD_EXPORT Notebook {
        set to false by the service.  If the account has no default notebook
        set, the service will use the most recent notebook as the default.
     */
-    Optional< bool > defaultNotebook;
+    Optional<bool> defaultNotebook;
     /**
     The time when this notebook was created on the
        service. This will be set on the service during creation, and the service
        will provide this value when it returns a Notebook to a client.
        The service will ignore this value if it is sent by clients.
     */
-    Optional< Timestamp > serviceCreated;
+    Optional<Timestamp> serviceCreated;
     /**
     The time when this notebook was last modified on the
        service.  This will be set on the service during creation, and the service
        will provide this value when it returns a Notebook to a client.
        The service will ignore this value if it is sent by clients.
     */
-    Optional< Timestamp > serviceUpdated;
+    Optional<Timestamp> serviceUpdated;
     /**
     If the Notebook has been opened for public access, then this will point to the set of
        publishing information for the Notebook (URI, description, etc.). A Notebook cannot be
@@ -3685,7 +3686,7 @@ struct QEVERCLOUD_EXPORT Notebook {
        Note that this structure is never populated for business notebooks, see the businessNotebook
        field.
     */
-    Optional< Publishing > publishing;
+    Optional<Publishing> publishing;
     /**
     If this is set to true, then the Notebook will be
        accessible either to the public, or for business users to their business,
@@ -3694,7 +3695,7 @@ struct QEVERCLOUD_EXPORT Notebook {
        Clients that do not wish to change the publishing behavior of a Notebook
        should not set this value when calling NoteStore.updateNotebook().
     */
-    Optional< bool > published;
+    Optional<bool> published;
     /**
     If this is set, then the notebook is visually contained within a stack
        of notebooks with this name.  All notebooks in the same account with the
@@ -3702,11 +3703,11 @@ struct QEVERCLOUD_EXPORT Notebook {
        Notebooks with no stack set are "top level" and not contained within a
        stack.
     */
-    Optional< QString > stack;
+    Optional<QString> stack;
     /**
     <i>DEPRECATED</i> - replaced by sharedNotebooks.
     */
-    Optional< QList< qint64 > > sharedNotebookIds;
+    Optional<QList<qint64>> sharedNotebookIds;
     /**
     The list of recipients to whom this notebook has been shared
        (one SharedNotebook object per recipient email address). This field will
@@ -3716,14 +3717,14 @@ struct QEVERCLOUD_EXPORT Notebook {
        This field is read-only. Clients may not make changes to shared notebooks
        via this field.
     */
-    Optional< QList< SharedNotebook > > sharedNotebooks;
+    Optional<QList<SharedNotebook>> sharedNotebooks;
     /**
     If the notebook is part of a business account and has been shared with the entire
        business, this will contain sharing information. The presence or absence of this field
        is not a reliable test of whether a given notebook is in fact a business notebook - the
        field is only used when a notebook is or has been shared with the entire business.
     */
-    Optional< BusinessNotebook > businessNotebook;
+    Optional<BusinessNotebook> businessNotebook;
     /**
     Intended for use with Business accounts, this field identifies the user who
        has been designated as the "contact".  For notebooks created in business
@@ -3733,15 +3734,15 @@ struct QEVERCLOUD_EXPORT Notebook {
        field unset, indicating that no change to the value is being requested and that
        the existing value, if any, should be preserved.
     */
-    Optional< User > contact;
+    Optional<User> contact;
     /** NOT DOCUMENTED */
-    Optional< NotebookRestrictions > restrictions;
+    Optional<NotebookRestrictions> restrictions;
     /**
     This represents the preferences/settings that a recipient has set for this
        notebook. These are intended to be changed only by the recipient, and each
        recipient has their own recipient settings.
     */
-    Optional< NotebookRecipientSettings > recipientSettings;
+    Optional<NotebookRecipientSettings> recipientSettings;
 
     bool operator==(const Notebook & other) const
     {
@@ -3779,18 +3780,18 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
     /**
     The display name of the shared notebook. The link owner can change this.
     */
-    Optional< QString > shareName;
+    Optional<QString> shareName;
     /**
     The username of the user who owns the shared or public notebook.
     */
-    Optional< QString > username;
+    Optional<QString> username;
     /**
     The shard ID of the notebook if the notebook is not public.
     
      <dt>uri
      The identifier of the public notebook.
     */
-    Optional< QString > shardId;
+    Optional<QString> shardId;
     /**
     The globally unique identifier (globalId) of the shared notebook that
        corresponds to the share key, or the GUID of the Notebook that the linked notebook
@@ -3798,9 +3799,9 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
        Notebook.GUID value when creating new LinkedNotebooks. This field replaces the
        deprecated "shareKey" field.
     */
-    Optional< QString > sharedNotebookGlobalId;
+    Optional<QString> sharedNotebookGlobalId;
     /** NOT DOCUMENTED */
-    Optional< QString > uri;
+    Optional<QString> uri;
     /**
     The unique identifier of this linked notebook.  Will be set whenever
        a linked notebook is retrieved from the service, but may be null when a client
@@ -3810,21 +3811,21 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
        <br/>
        Regex:  EDAM_GUID_REGEX
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     A number identifying the last transaction to
        modify the state of this object.  The USN values are sequential within an
        account, and can be used to compare the order of modifications within the
        service.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /**
     This field will contain the full URL that clients should use to make
        NoteStore requests to the server shard that contains that notebook's data.
        I.e. this is the URL that should be used to create the Thrift HTTP client
        transport to send messages to the NoteStore service for the account.
     */
-    Optional< QString > noteStoreUrl;
+    Optional<QString> noteStoreUrl;
     /**
     This field will contain the initial part of the URLs that should be used
        to make requests to Evernote's thin client "web API", which provide
@@ -3834,7 +3835,7 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
        end of this string to construct the full URL, as documented on our
        developer web site.
     */
-    Optional< QString > webApiUrlPrefix;
+    Optional<QString> webApiUrlPrefix;
     /**
     If this is set, then the notebook is visually contained within a stack
        of notebooks with this name.  All notebooks in the same account with the
@@ -3843,12 +3844,12 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
        stack.  The link owner can change this and this field is for the benefit
        of the link owner.
     */
-    Optional< QString > stack;
+    Optional<QString> stack;
     /**
     If set, this will be the unique identifier for the business that owns
        the notebook to which the linked notebook refers.
     */
-    Optional< qint32 > businessId;
+    Optional<qint32> businessId;
 
     bool operator==(const LinkedNotebook & other) const
     {
@@ -3882,25 +3883,25 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor {
     /**
     The unique identifier of the notebook.
     */
-    Optional< Guid > guid;
+    Optional<Guid> guid;
     /**
     A sequence of characters representing the name of the
        notebook.
     */
-    Optional< QString > notebookDisplayName;
+    Optional<QString> notebookDisplayName;
     /**
     The User.name value of the notebook's "contact".
     */
-    Optional< QString > contactName;
+    Optional<QString> contactName;
     /**
     Whether a SharedNotebook record exists between the calling user and this
        notebook.
     */
-    Optional< bool > hasSharedNotebook;
+    Optional<bool> hasSharedNotebook;
     /**
     The number of users who have joined this notebook.
     */
-    Optional< qint32 > joinedUserCount;
+    Optional<qint32> joinedUserCount;
 
     bool operator==(const NotebookDescriptor & other) const
     {
@@ -3927,44 +3928,44 @@ struct QEVERCLOUD_EXPORT UserProfile {
     /**
     The numeric identifier that uniquely identifies a user.
     */
-    Optional< UserID > id;
+    Optional<UserID> id;
     /**
     The full name of the user.
     */
-    Optional< QString > name;
+    Optional<QString> name;
     /**
     The user's business email address. If the user has not registered their business
        email address, this field will be empty.
     */
-    Optional< QString > email;
+    Optional<QString> email;
     /**
     The user's Evernote username.
     */
-    Optional< QString > username;
+    Optional<QString> username;
     /**
     The user's business specific attributes.
     */
-    Optional< BusinessUserAttributes > attributes;
+    Optional<BusinessUserAttributes> attributes;
     /**
     The time when the user joined the business
     */
-    Optional< Timestamp > joined;
+    Optional<Timestamp> joined;
     /**
     The time when the user's profile photo was most recently updated
     */
-    Optional< Timestamp > photoLastUpdated;
+    Optional<Timestamp> photoLastUpdated;
     /**
     A URL identifying a copy of the user's current profile photo
     */
-    Optional< QString > photoUrl;
+    Optional<QString> photoUrl;
     /**
     The BusinessUserRole for the user
     */
-    Optional< BusinessUserRole > role;
+    Optional<BusinessUserRole> role;
     /**
     The BusinessUserStatus for the user
     */
-    Optional< BusinessUserStatus > status;
+    Optional<BusinessUserStatus> status;
 
     bool operator==(const UserProfile & other) const
     {
@@ -3998,23 +3999,23 @@ struct QEVERCLOUD_EXPORT RelatedContentImage {
     /**
     The external URL of the image
     */
-    Optional< QString > url;
+    Optional<QString> url;
     /**
     The width of the image, in pixels.
     */
-    Optional< qint32 > width;
+    Optional<qint32> width;
     /**
     The height of the image, in pixels.
     */
-    Optional< qint32 > height;
+    Optional<qint32> height;
     /**
     the pixel ratio (usually either 1.0, 1.5 or 2.0)
     */
-    Optional< double > pixelRatio;
+    Optional<double> pixelRatio;
     /**
     the size of the image file, in bytes
     */
-    Optional< qint32 > fileSize;
+    Optional<qint32> fileSize;
 
     bool operator==(const RelatedContentImage & other) const
     {
@@ -4042,74 +4043,74 @@ struct QEVERCLOUD_EXPORT RelatedContent {
     /**
     An identifier that uniquely identifies the content.
     */
-    Optional< QString > contentId;
+    Optional<QString> contentId;
     /**
     The main title to show.
     */
-    Optional< QString > title;
+    Optional<QString> title;
     /**
     The URL the client can use to retrieve the content.
     */
-    Optional< QString > url;
+    Optional<QString> url;
     /**
     An identifier that uniquely identifies the source.
     */
-    Optional< QString > sourceId;
+    Optional<QString> sourceId;
     /**
     A URL the client can access to know more about the source.
     */
-    Optional< QString > sourceUrl;
+    Optional<QString> sourceUrl;
     /**
     The favicon URL of the source which the content belongs to.
     */
-    Optional< QString > sourceFaviconUrl;
+    Optional<QString> sourceFaviconUrl;
     /**
     A human-readable name of the source that provided this content.
     */
-    Optional< QString > sourceName;
+    Optional<QString> sourceName;
     /**
     A timestamp telling the user about the recency of the content.
     */
-    Optional< Timestamp > date;
+    Optional<Timestamp> date;
     /**
     A teaser text to show to the user; usually the first few sentences of the content,
          excluding the title.
     */
-    Optional< QString > teaser;
+    Optional<QString> teaser;
     /**
     A list of thumbnails the client can show in the snippet.
     */
-    Optional< QList< RelatedContentImage > > thumbnails;
+    Optional<QList<RelatedContentImage>> thumbnails;
     /**
     The type of this related content.
     */
-    Optional< RelatedContentType > contentType;
+    Optional<RelatedContentType> contentType;
     /**
     An indication of how this content can be accessed. This type influences the
          semantics of the <code>url</code> parameter.
     */
-    Optional< RelatedContentAccess > accessType;
+    Optional<RelatedContentAccess> accessType;
     /**
     If set, the client should show this URL to the user, instead of the URL that was
          used to retrieve the content. This URL should be used when opening the content
          in an external browser window, or when sharing with another person.
     */
-    Optional< QString > visibleUrl;
+    Optional<QString> visibleUrl;
     /**
     If set, the client should use this URL for clipping purposes, instead of the URL
          that was used to retrieve the content. The clipUrl may directly point to an .enex
          file, for example.
     */
-    Optional< QString > clipUrl;
+    Optional<QString> clipUrl;
     /**
     If set, the client may use this Contact for messaging purposes. This will typically
          only be set for user profiles.
     */
-    Optional< Contact > contact;
+    Optional<Contact> contact;
     /**
     For News articles only. A list of names of the article authors, if available.
     */
-    Optional< QStringList > authors;
+    Optional<QStringList> authors;
 
     bool operator==(const RelatedContent & other) const
     {
@@ -4147,38 +4148,38 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
     /**
     The ID of the business to which the invitation grants access.
     */
-    Optional< qint32 > businessId;
+    Optional<qint32> businessId;
     /**
     The email address that was invited to join the business.
     */
-    Optional< QString > email;
+    Optional<QString> email;
     /**
     The role to grant the user after the invitation is accepted.
     */
-    Optional< BusinessUserRole > role;
+    Optional<BusinessUserRole> role;
     /**
     The status of the invitation.
     */
-    Optional< BusinessInvitationStatus > status;
+    Optional<BusinessInvitationStatus> status;
     /**
     For invitations that were initially requested by a non-admin member of the business,
            this field specifies the user ID of the requestor. For all other invitations, this field
            will be unset.
     */
-    Optional< UserID > requesterId;
+    Optional<UserID> requesterId;
     /**
     If this invitation was created implicitly via a WorkChat, this field
            will be true.
     */
-    Optional< bool > fromWorkChat;
+    Optional<bool> fromWorkChat;
     /**
     The timestamp at which this invitation was created.
     */
-    Optional< Timestamp > created;
+    Optional<Timestamp> created;
     /**
     The timestamp at which the most recent reminder was sent.
     */
-    Optional< Timestamp > mostRecentReminder;
+    Optional<Timestamp> mostRecentReminder;
 
     bool operator==(const BusinessInvitation & other) const
     {
@@ -4231,11 +4232,11 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
  */
 struct QEVERCLOUD_EXPORT UserIdentity {
     /** NOT DOCUMENTED */
-    Optional< UserIdentityType > type;
+    Optional<UserIdentityType> type;
     /** NOT DOCUMENTED */
-    Optional< QString > stringIdentifier;
+    Optional<QString> stringIdentifier;
     /** NOT DOCUMENTED */
-    Optional< qint64 > longIdentifier;
+    Optional<qint64> longIdentifier;
 
     bool operator==(const UserIdentity & other) const
     {
@@ -4264,16 +4265,16 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
     /**
     The service level of the account.
     */
-    Optional< ServiceLevel > serviceLevel;
+    Optional<ServiceLevel> serviceLevel;
     /** NOT DOCUMENTED */
-    Optional< QString > username;
+    Optional<QString> username;
     /**
     This field will contain the full URL that clients should use to make
        NoteStore requests to the server shard that contains that user's data.
        I.e. this is the URL that should be used to create the Thrift HTTP client
        transport to send messages to the NoteStore service for the account.
     */
-    Optional< QString > noteStoreUrl;
+    Optional<QString> noteStoreUrl;
     /**
     This field will contain the initial part of the URLs that should be used
        to make requests to Evernote's thin client "web API", which provide
@@ -4283,7 +4284,7 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
        end of this string to construct the full URL, as documented on our
        developer web site.
     */
-    Optional< QString > webApiUrlPrefix;
+    Optional<QString> webApiUrlPrefix;
 
     bool operator==(const PublicUserInfo & other) const
     {
@@ -4311,7 +4312,7 @@ struct QEVERCLOUD_EXPORT UserUrls {
        I.e. this is the URL that should be used to create the Thrift HTTP client
        transport to send messages to the NoteStore service for the account.
     */
-    Optional< QString > noteStoreUrl;
+    Optional<QString> noteStoreUrl;
     /**
     This field will contain the initial part of the URLs that should be used
        to make requests to Evernote's thin client "web API", which provide
@@ -4321,33 +4322,33 @@ struct QEVERCLOUD_EXPORT UserUrls {
        end of this string to construct the full URL, as documented on our
        developer web site.
     */
-    Optional< QString > webApiUrlPrefix;
+    Optional<QString> webApiUrlPrefix;
     /**
     This field will contain the full URL that clients should use to make UserStore
        requests after successfully authenticating. I.e. this is the URL that should be used
        to create the Thrift HTTP client transport to send messages to the UserStore service
        for this account.
     */
-    Optional< QString > userStoreUrl;
+    Optional<QString> userStoreUrl;
     /**
     This field will contain the full URL that clients should use to make Utility requests
        to the server shard that contains that user's data. I.e. this is the URL that should
        be used to create the Thrift HTTP client transport to send messages to the Utility
        service for the account.
     */
-    Optional< QString > utilityUrl;
+    Optional<QString> utilityUrl;
     /**
     This field will contain the full URL that clients should use to make MessageStore
        requests to the server. I.e. this is the URL that should be used to create the
        Thrift HTTP client transport to send messages to the MessageStore service for the
        account.
     */
-    Optional< QString > messageStoreUrl;
+    Optional<QString> messageStoreUrl;
     /**
     This field will contain the full URL that clients should use when opening a
        persistent web socket to recieve notification of events for the authenticated user.
     */
-    Optional< QString > userWebSocketUrl;
+    Optional<QString> userWebSocketUrl;
 
     bool operator==(const UserUrls & other) const
     {
@@ -4394,21 +4395,21 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
        authenticated if this was a full authentication.  May be absent if this
        particular authentication did not require user information.
     */
-    Optional< User > user;
+    Optional<User> user;
     /**
     If this authentication result was achieved without full permissions to
        access the full User structure, this field may be set to give back
        a more limited public set of data.
     */
-    Optional< PublicUserInfo > publicUserInfo;
+    Optional<PublicUserInfo> publicUserInfo;
     /**
     DEPRECATED - Client applications should use urls.noteStoreUrl.
     */
-    Optional< QString > noteStoreUrl;
+    Optional<QString> noteStoreUrl;
     /**
     DEPRECATED - Client applications should use urls.webApiUrlPrefix.
     */
-    Optional< QString > webApiUrlPrefix;
+    Optional<QString> webApiUrlPrefix;
     /**
     If set to true, this field indicates that the user has enabled two-factor
        authentication and must enter their second factor in order to complete
@@ -4416,7 +4417,7 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
        a short-lived authentication token that may only be used to make a
        subsequent call to completeTwoFactorAuthentication.
     */
-    Optional< bool > secondFactorRequired;
+    Optional<bool> secondFactorRequired;
     /**
     When secondFactorRequired is set to true, this field may contain a string
        describing the second factor delivery method that the user has configured.
@@ -4424,12 +4425,12 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
        "(xxx) xxx-x095". This string can be displayed to the user to remind them
        how to obtain the required second factor.
     */
-    Optional< QString > secondFactorDeliveryHint;
+    Optional<QString> secondFactorDeliveryHint;
     /**
     This structure will contain all of the URLs that clients need to make requests to the
        Evernote service on behalf of the authenticated User.
     */
-    Optional< UserUrls > urls;
+    Optional<UserUrls> urls;
 
     bool operator==(const AuthenticationResult & other) const
     {
@@ -4486,40 +4487,40 @@ struct QEVERCLOUD_EXPORT BootstrapSettings {
     /**
     Whether the client application should enable sharing of notes on Facebook.
     */
-    Optional< bool > enableFacebookSharing;
+    Optional<bool> enableFacebookSharing;
     /**
     Whether the client application should enable gift subscriptions.
     */
-    Optional< bool > enableGiftSubscriptions;
+    Optional<bool> enableGiftSubscriptions;
     /**
     Whether the client application should enable in-client creation of support tickets.
     */
-    Optional< bool > enableSupportTickets;
+    Optional<bool> enableSupportTickets;
     /**
     Whether the client application should enable shared notebooks.
     */
-    Optional< bool > enableSharedNotebooks;
+    Optional<bool> enableSharedNotebooks;
     /**
     Whether the client application should enable single note sharing.
     */
-    Optional< bool > enableSingleNoteSharing;
+    Optional<bool> enableSingleNoteSharing;
     /**
     Whether the client application should enable sponsored accounts.
     */
-    Optional< bool > enableSponsoredAccounts;
+    Optional<bool> enableSponsoredAccounts;
     /**
     Whether the client application should enable sharing of notes on Twitter.
     */
-    Optional< bool > enableTwitterSharing;
+    Optional<bool> enableTwitterSharing;
     /** NOT DOCUMENTED */
-    Optional< bool > enableLinkedInSharing;
+    Optional<bool> enableLinkedInSharing;
     /** NOT DOCUMENTED */
-    Optional< bool > enablePublicNotebooks;
+    Optional<bool> enablePublicNotebooks;
     /**
     Whether the client application should enable authentication with Google,
        for example to allow integration with a user's Gmail contacts.
     */
-    Optional< bool > enableGoogle;
+    Optional<bool> enableGoogle;
 
     bool operator==(const BootstrapSettings & other) const
     {
@@ -4583,7 +4584,7 @@ struct QEVERCLOUD_EXPORT BootstrapInfo {
     List of one or more bootstrap profiles, in descending
        preference order.
     */
-    QList< BootstrapProfile > profiles;
+    QList<BootstrapProfile> profiles;
 
     bool operator==(const BootstrapInfo & other) const
     {
@@ -4620,7 +4621,7 @@ class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException
 {
 public:
     EDAMErrorCode errorCode;
-    Optional< QString > parameter;
+    Optional<QString> parameter;
 
     EDAMUserException();
     virtual ~EDAMUserException() throw() Q_DECL_OVERRIDE;
@@ -4661,8 +4662,8 @@ class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException
 {
 public:
     EDAMErrorCode errorCode;
-    Optional< QString > message;
-    Optional< qint32 > rateLimitDuration;
+    Optional<QString> message;
+    Optional<qint32> rateLimitDuration;
 
     EDAMSystemException();
     virtual ~EDAMSystemException() throw() Q_DECL_OVERRIDE;
@@ -4702,8 +4703,8 @@ public:
 class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException
 {
 public:
-    Optional< QString > identifier;
-    Optional< QString > key;
+    Optional<QString> identifier;
+    Optional<QString> key;
 
     EDAMNotFoundException();
     virtual ~EDAMNotFoundException() throw() Q_DECL_OVERRIDE;
@@ -4751,9 +4752,9 @@ public:
 class QEVERCLOUD_EXPORT EDAMInvalidContactsException: public EvernoteException
 {
 public:
-    QList< Contact > contacts;
-    Optional< QString > parameter;
-    Optional< QList< EDAMInvalidContactReason > > reasons;
+    QList<Contact> contacts;
+    Optional<QString> parameter;
+    Optional<QList<EDAMInvalidContactReason>> reasons;
 
     EDAMInvalidContactsException();
     virtual ~EDAMInvalidContactsException() throw() Q_DECL_OVERRIDE;
@@ -4798,7 +4799,7 @@ struct QEVERCLOUD_EXPORT SyncChunk {
        in this sync chunk.  If there are no objects in the chunk, this will not be
        set.
     */
-    Optional< qint32 > chunkHighUSN;
+    Optional<qint32> chunkHighUSN;
     /**
     The total number of updates that have been performed in
        the service for this account.  This is equal to the highest USN within the
@@ -4814,61 +4815,61 @@ struct QEVERCLOUD_EXPORT SyncChunk {
        of tags and resources, but the note content, resource content, resource
        recognition data and resource alternate data will not be supplied.
     */
-    Optional< QList< Note > > notes;
+    Optional<QList<Note>> notes;
     /**
     If present, this is a list of non-expunged notebooks that
        have a USN in this chunk.
     */
-    Optional< QList< Notebook > > notebooks;
+    Optional<QList<Notebook>> notebooks;
     /**
     If present, this is a list of the non-expunged tags that have a
        USN in this chunk.
     */
-    Optional< QList< Tag > > tags;
+    Optional<QList<Tag>> tags;
     /**
     If present, this is a list of non-expunged searches that
        have a USN in this chunk.
     */
-    Optional< QList< SavedSearch > > searches;
+    Optional<QList<SavedSearch>> searches;
     /**
     If present, this is a list of the non-expunged resources
        that have a USN in this chunk.  This will include the metadata for each
        resource, but not its binary contents or recognition data, which must be
        retrieved separately.
     */
-    Optional< QList< Resource > > resources;
+    Optional<QList<Resource>> resources;
     /**
     If present, the GUIDs of all of the notes that were
        permanently expunged in this chunk.
     */
-    Optional< QList< Guid > > expungedNotes;
+    Optional<QList<Guid>> expungedNotes;
     /**
     If present, the GUIDs of all of the notebooks that
        were permanently expunged in this chunk.  When a notebook is expunged,
        this implies that all of its child notes (and their resources) were
        also expunged.
     */
-    Optional< QList< Guid > > expungedNotebooks;
+    Optional<QList<Guid>> expungedNotebooks;
     /**
     If present, the GUIDs of all of the tags that were
        permanently expunged in this chunk.
     */
-    Optional< QList< Guid > > expungedTags;
+    Optional<QList<Guid>> expungedTags;
     /**
     If present, the GUIDs of all of the saved searches
        that were permanently expunged in this chunk.
     */
-    Optional< QList< Guid > > expungedSearches;
+    Optional<QList<Guid>> expungedSearches;
     /**
     If present, this is a list of non-expunged LinkedNotebooks that
        have a USN in this chunk.
     */
-    Optional< QList< LinkedNotebook > > linkedNotebooks;
+    Optional<QList<LinkedNotebook>> linkedNotebooks;
     /**
     If present, the GUIDs of all of the LinkedNotebooks
        that were permanently expunged in this chunk.
     */
-    Optional< QList< Guid > > expungedLinkedNotebooks;
+    Optional<QList<Guid>> expungedLinkedNotebooks;
 
     bool operator==(const SyncChunk & other) const
     {
@@ -4917,20 +4918,20 @@ struct QEVERCLOUD_EXPORT NoteList {
        metadata (attributes, resources, etc.), but will not include the ENML
        content of the note or the binary contents of any resources.
     */
-    QList< Note > notes;
+    QList<Note> notes;
     /**
     If the NoteList was produced using a text based search
        query that included words that are not indexed or searched by the service,
        this will include a list of those ignored words.
     */
-    Optional< QStringList > stoppedWords;
+    Optional<QStringList> stoppedWords;
     /**
     If the NoteList was produced using a text based search
        query that included viable search words or quoted expressions, this will
        include a list of those words.  Any stopped words will not be included
        in this list.
     */
-    Optional< QStringList > searchedWords;
+    Optional<QStringList> searchedWords;
     /**
     Indicates the total number of transactions that have
        been committed within the account.  This reflects (for example) the
@@ -4939,16 +4940,16 @@ struct QEVERCLOUD_EXPORT NoteList {
        This number is the "high water mark" for Update Sequence Numbers (USN)
        within the account.
     */
-    Optional< qint32 > updateCount;
+    Optional<qint32> updateCount;
     /**
     Specifies the correlating information about the current search session, in byte array.
     */
-    Optional< QByteArray > searchContextBytes;
+    Optional<QByteArray> searchContextBytes;
     /**
     Depends on the value of <code>context</code> in NoteFilter, this field
        may contain debug information if the service decides to do so.
     */
-    Optional< QString > debugInfo;
+    Optional<QString> debugInfo;
 
     bool operator==(const NoteList & other) const
     {
@@ -4984,35 +4985,35 @@ struct QEVERCLOUD_EXPORT NoteMetadata {
     /** NOT DOCUMENTED */
     Guid guid;
     /** NOT DOCUMENTED */
-    Optional< QString > title;
+    Optional<QString> title;
     /** NOT DOCUMENTED */
-    Optional< qint32 > contentLength;
+    Optional<qint32> contentLength;
     /** NOT DOCUMENTED */
-    Optional< Timestamp > created;
+    Optional<Timestamp> created;
     /** NOT DOCUMENTED */
-    Optional< Timestamp > updated;
+    Optional<Timestamp> updated;
     /** NOT DOCUMENTED */
-    Optional< Timestamp > deleted;
+    Optional<Timestamp> deleted;
     /** NOT DOCUMENTED */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /** NOT DOCUMENTED */
-    Optional< QString > notebookGuid;
+    Optional<QString> notebookGuid;
     /** NOT DOCUMENTED */
-    Optional< QList< Guid > > tagGuids;
+    Optional<QList<Guid>> tagGuids;
     /** NOT DOCUMENTED */
-    Optional< NoteAttributes > attributes;
+    Optional<NoteAttributes> attributes;
     /**
     If set, then this will contain the MIME type of the largest Resource
        (in bytes) within the Note.  This may be useful, for example, to choose
        an appropriate icon or thumbnail to represent the Note.
     */
-    Optional< QString > largestResourceMime;
+    Optional<QString> largestResourceMime;
     /**
     If set, this will contain the size of the largest Resource file, in
       bytes, within the Note.  This may be useful, for example, to decide whether
       to ask the server for a thumbnail to represent the Note.
     */
-    Optional< qint32 > largestResourceSize;
+    Optional<qint32> largestResourceSize;
 
     bool operator==(const NoteMetadata & other) const
     {
@@ -5063,20 +5064,20 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
        performed.  Only the 'guid' field will be guaranteed to be set in each
        Note.
     */
-    QList< NoteMetadata > notes;
+    QList<NoteMetadata> notes;
     /**
     If the NoteList was produced using a text based search
        query that included words that are not indexed or searched by the service,
        this will include a list of those ignored words.
     */
-    Optional< QStringList > stoppedWords;
+    Optional<QStringList> stoppedWords;
     /**
     If the NoteList was produced using a text based search
        query that included viable search words or quoted expressions, this will
        include a list of those words.  Any stopped words will not be included
        in this list.
     */
-    Optional< QStringList > searchedWords;
+    Optional<QStringList> searchedWords;
     /**
     Indicates the total number of transactions that have
        been committed within the account.  This reflects (for example) the
@@ -5085,16 +5086,16 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
        This number is the "high water mark" for Update Sequence Numbers (USN)
        within the account.
     */
-    Optional< qint32 > updateCount;
+    Optional<qint32> updateCount;
     /**
     Specifies the correlating information about the current search session, in byte array.
     */
-    Optional< QByteArray > searchContextBytes;
+    Optional<QByteArray> searchContextBytes;
     /**
     Depends on the value of <code>context</code> in NoteFilter, this field
        may contain debug information if the service decides to do so.
     */
-    Optional< QString > debugInfo;
+    Optional<QString> debugInfo;
 
     bool operator==(const NotesMetadataList & other) const
     {
@@ -5127,37 +5128,37 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters {
           should be retrieved from the service and sent as email.  If not set,
           the 'note' field must be provided instead.
     */
-    Optional< QString > guid;
+    Optional<QString> guid;
     /**
     If the 'guid' field is not set, this field must be provided, including
           the full contents of the note note (and all of its Resources) to send.
           This can be used for a Note that as not been created in the service,
           for example by a local client with local notes.
     */
-    Optional< Note > note;
+    Optional<Note> note;
     /**
     If provided, this should contain a list of the SMTP email addresses
           that should be included in the "To:" line of the email.
           Callers must specify at least one "to" or "cc" email address.
     */
-    Optional< QStringList > toAddresses;
+    Optional<QStringList> toAddresses;
     /**
     If provided, this should contain a list of the SMTP email addresses
           that should be included in the "Cc:" line of the email.
           Callers must specify at least one "to" or "cc" email address.
     */
-    Optional< QStringList > ccAddresses;
+    Optional<QStringList> ccAddresses;
     /**
     If provided, this should contain the subject line of the email that
           will be sent.  If not provided, the title of the note will be used
           as the subject of the email.
     */
-    Optional< QString > subject;
+    Optional<QString> subject;
     /**
     If provided, this is additional personal text that should be included
           into the email as a message from the owner to the recipient(s).
     */
-    Optional< QString > message;
+    Optional<QString> message;
 
     bool operator==(const NoteEmailParameters & other) const
     {
@@ -5190,17 +5191,17 @@ struct QEVERCLOUD_EXPORT RelatedResult {
     If notes have been requested to be included, this will be the
          list of notes.
     */
-    Optional< QList< Note > > notes;
+    Optional<QList<Note>> notes;
     /**
     If notebooks have been requested to be included, this will be the
          list of notebooks.
     */
-    Optional< QList< Notebook > > notebooks;
+    Optional<QList<Notebook>> notebooks;
     /**
     If tags have been requested to be included, this will be the list
          of tags.
     */
-    Optional< QList< Tag > > tags;
+    Optional<QList<Tag>> tags;
     /**
     If <code>includeContainingNotebooks</code> is set to <code>true</code>
          in the RelatedResultSpec, return the list of notebooks to
@@ -5208,19 +5209,19 @@ struct QEVERCLOUD_EXPORT RelatedResult {
          list will occur once per notebook GUID and are represented as
          NotebookDescriptor objects.
     */
-    Optional< QList< NotebookDescriptor > > containingNotebooks;
+    Optional<QList<NotebookDescriptor>> containingNotebooks;
     /** NOT DOCUMENTED */
-    Optional< QString > debugInfo;
+    Optional<QString> debugInfo;
     /**
     If experts have been requested to be included, this will return
       a list of users within your business who have knowledge about the specified query.
     */
-    Optional< QList< UserProfile > > experts;
+    Optional<QList<UserProfile>> experts;
     /**
     If related content has been requested to be included, this will be the list of
       related content snippets.
     */
-    Optional< QList< RelatedContent > > relatedContent;
+    Optional<QList<RelatedContent>> relatedContent;
     /**
     If set and non-empty, this cache key may be used in subsequent
          "NoteStore.findRelated" calls (via "RelatedQuery") to re-use previous
@@ -5254,7 +5255,7 @@ struct QEVERCLOUD_EXPORT RelatedResult {
          "RelatedResult.relatedContent". List fields that are set, but empty indicate that
          no results could be found; the cache should be updated correspondingly.
     */
-    Optional< QString > cacheKey;
+    Optional<QString> cacheKey;
     /**
     If set, clients should reuse this response for any situations where the same input
           parameters are applicable for up to this many seconds after receiving this result.
@@ -5263,7 +5264,7 @@ struct QEVERCLOUD_EXPORT RelatedResult {
           but it should supply the stored cacheKey to the service when checking for an
           update.
     */
-    Optional< qint32 > cacheExpires;
+    Optional<qint32> cacheExpires;
 
     bool operator==(const RelatedResult & other) const
     {
@@ -5300,11 +5301,11 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult {
      You can check for updates to these large objects by checking the Data.bodyHash
      values and downloading accordingly.
     */
-    Optional< Note > note;
+    Optional<Note> note;
     /**
     Whether or not the note was updated by the operation.
     */
-    Optional< bool > updated;
+    Optional<bool> updated;
 
     bool operator==(const UpdateNoteIfUsnMatchesResult & other) const
     {
@@ -5330,7 +5331,7 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
     The string that clients should show to users to represent this
      invitation.
     */
-    Optional< QString > displayName;
+    Optional<QString> displayName;
     /**
     Identifies the recipient of the invitation. The user identity
      type can be either EMAIL, EVERNOTE or IDENTITYID. If the
@@ -5339,7 +5340,7 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
      EVERNOTE or IDENTITYID, depending on whether we can map the identity to an Evernote
      user at the time of creation.
     */
-    Optional< UserIdentity > recipientUserIdentity;
+    Optional<UserIdentity> recipientUserIdentity;
     /**
     The privilege level at which the member will be joined, if it
      turns out that the member is not already joined at a higher level.
@@ -5347,13 +5348,13 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
      Evernote User ID, and so we won't know until the invitation is
      redeemed whether or not the recipient already has privilege.
     */
-    Optional< ShareRelationshipPrivilegeLevel > privilege;
+    Optional<ShareRelationshipPrivilegeLevel> privilege;
     /**
     The user id of the user who most recently shared this notebook
      to this identity. This field is used by the service to convey information
      to the user, so clients should treat it as read-only.
     */
-    Optional< UserID > sharerUserId;
+    Optional<UserID> sharerUserId;
 
     bool operator==(const InvitationShareRelationship & other) const
     {
@@ -5383,13 +5384,13 @@ struct QEVERCLOUD_EXPORT ShareRelationships {
     A list of open invitations that can be redeemed into
      memberships to the notebook.
     */
-    Optional< QList< InvitationShareRelationship > > invitations;
+    Optional<QList<InvitationShareRelationship>> invitations;
     /**
     A list of memberships of the notebook.  A member is identified
      by their Evernote UserID and has rights to access the
      notebook.
     */
-    Optional< QList< MemberShareRelationship > > memberships;
+    Optional<QList<MemberShareRelationship>> memberships;
     /**
     The restrictions on what privileges may be granted to invitees
      to this notebook. These restrictions may be specific to the calling
@@ -5398,7 +5399,7 @@ struct QEVERCLOUD_EXPORT ShareRelationships {
      recipient of the invitation has been identified by the service, such
      as by a business auto-join, the actual assigned privilege may change.
     */
-    Optional< ShareRelationshipRestrictions > invitationRestrictions;
+    Optional<ShareRelationshipRestrictions> invitationRestrictions;
 
     bool operator==(const ShareRelationships & other) const
     {
@@ -5424,12 +5425,12 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
     /**
     The GUID of the notebook whose shares are being managed.
     */
-    Optional< QString > notebookGuid;
+    Optional<QString> notebookGuid;
     /**
     If the service sends a message to invitees, this parameter will
      be used to form the actual message that is sent.
     */
-    Optional< QString > inviteMessage;
+    Optional<QString> inviteMessage;
     /**
     The list of existing memberships to update.  This field is not
      intended to be the full set of memberships for the notebook and
@@ -5442,7 +5443,7 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
      joined by the service, so the client is creating an
      invitation, not a membership).
     */
-    Optional< QList< MemberShareRelationship > > membershipsToUpdate;
+    Optional<QList<MemberShareRelationship>> membershipsToUpdate;
     /**
     The list of invitations to update, as matched by the identity
      field of the InvitationShareRelationship instances, or to create if
@@ -5456,7 +5457,7 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
      belongs.  Note that to discover the user IDs for business members,
      the sharer must also be part of the business.
     */
-    Optional< QList< InvitationShareRelationship > > invitationsToCreateOrUpdate;
+    Optional<QList<InvitationShareRelationship>> invitationsToCreateOrUpdate;
     /**
     The list of share relationships to expunge from the service.
      If the user identity is for an Evernote UserID, then matching invitations or
@@ -5465,7 +5466,7 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
      match the identity (by identity ID or user ID or e-mail for legacy invitations) will be
      removed.
     */
-    Optional< QList< UserIdentity > > unshares;
+    Optional<QList<UserIdentity>> unshares;
 
     bool operator==(const ManageNotebookSharesParameters & other) const
     {
@@ -5500,19 +5501,19 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError {
     The identity of the share relationship whose update encountered
      an error.
     */
-    Optional< UserIdentity > userIdentity;
+    Optional<UserIdentity> userIdentity;
     /**
     If the error is represented as an EDAMUserException that would
      have otherwise been thrown without best-effort execution.  Only one
      exception field will be set.
     */
-    Optional< EDAMUserException > userException;
+    Optional<EDAMUserException> userException;
     /**
     If the error is represented as an EDAMNotFoundException that would
      have otherwise been thrown without best-effort execution.  Only one
      exception field will be set.
     */
-    Optional< EDAMNotFoundException > notFoundException;
+    Optional<EDAMNotFoundException> notFoundException;
 
     bool operator==(const ManageNotebookSharesError & other) const
     {
@@ -5539,7 +5540,7 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult {
      might still have occurred, and in that case, this field will contain
      the list of those errors the occurred.
     */
-    Optional< QList< ManageNotebookSharesError > > errors;
+    Optional<QList<ManageNotebookSharesError>> errors;
 
     bool operator==(const ManageNotebookSharesResult & other) const
     {
@@ -5562,7 +5563,7 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate {
     /**
     The GUID of the note.
     */
-    Optional< Guid > noteGuid;
+    Optional<Guid> noteGuid;
     /**
     The recipients of the note share specified as a messaging thread ID. If you
            have an existing messaging thread to share the note with, specify its ID
@@ -5570,18 +5571,18 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate {
            identities. The sharer must be a participant of the thread. Either this
            field or recipientContacts must be set.
     */
-    Optional< MessageThreadID > recipientThreadId;
+    Optional<MessageThreadID> recipientThreadId;
     /**
     The recipients of the note share specified as a list of contacts. This should
            only be set if the sharing takes place before the thread is created. Use
            recipientThreadId instead when sharing with an existing thread. Either this
            field or recipientThreadId must be set.
     */
-    Optional< QList< Contact > > recipientContacts;
+    Optional<QList<Contact>> recipientContacts;
     /**
     The privilege level to be granted.
     */
-    Optional< SharedNotePrivilegeLevel > privilege;
+    Optional<SharedNotePrivilegeLevel> privilege;
 
     bool operator==(const SharedNoteTemplate & other) const
     {
@@ -5607,7 +5608,7 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate {
     /**
     The GUID of the notebook.
     */
-    Optional< Guid > notebookGuid;
+    Optional<Guid> notebookGuid;
     /**
     The recipients of the notebook share specified as a messaging thread ID. If you
            have an existing messaging thread to share the note with, specify its ID
@@ -5615,18 +5616,18 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate {
            identities. The sharer must be a participant of the thread. Either this field
            or recipientContacts must be set.
     */
-    Optional< MessageThreadID > recipientThreadId;
+    Optional<MessageThreadID> recipientThreadId;
     /**
     The recipients of the notebook share specified as a list of contacts. This should
            only be set if the sharing takes place before the thread is created. Use
            recipientThreadId instead when sharing with an existing thread. Either this
            field or recipientThreadId must be set.
     */
-    Optional< QList< Contact > > recipientContacts;
+    Optional<QList<Contact>> recipientContacts;
     /**
     The privilege level to be granted.
     */
-    Optional< SharedNotebookPrivilegeLevel > privilege;
+    Optional<SharedNotebookPrivilegeLevel> privilege;
 
     bool operator==(const NotebookShareTemplate & other) const
     {
@@ -5652,14 +5653,14 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult {
     /**
     The USN of the notebook after the call.
     */
-    Optional< qint32 > updateSequenceNum;
+    Optional<qint32> updateSequenceNum;
     /**
     A list of SharedNotebook records that match the desired recipients. These
            records may have been either created or updated by the call to
            createOrUpdateNotebookShares, or they may have been at the desired privilege
            privilege level prior to the call.
     */
-    Optional< QList< SharedNotebook > > matchingShares;
+    Optional<QList<SharedNotebook>> matchingShares;
 
     bool operator==(const CreateOrUpdateNotebookSharesResult & other) const
     {
@@ -5691,17 +5692,17 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError {
     The identity ID of an outstanding invitation that was not updated
          due to the error.
     */
-    Optional< IdentityID > identityID;
+    Optional<IdentityID> identityID;
     /**
     The user ID of an existing membership that was not updated due
          to the error.
     */
-    Optional< UserID > userID;
+    Optional<UserID> userID;
     /**
     If the error is represented as an EDAMUserException that would
          have otherwise been thrown without best-effort execution.
     */
-    Optional< EDAMUserException > userException;
+    Optional<EDAMUserException> userException;
     /**
     If the error is represented as an EDAMNotFoundException that
          would have otherwise been thrown without best-effort execution.
@@ -5709,7 +5710,7 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError {
          or "User.id", indicating that no existing share could be found for
          the specified recipient.
     */
-    Optional< EDAMNotFoundException > notFoundException;
+    Optional<EDAMNotFoundException> notFoundException;
 
     bool operator==(const ManageNoteSharesError & other) const
     {
@@ -5737,7 +5738,7 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
          might still have occurred. In that case, this field will contain the
          list of errors.
     */
-    Optional< QList< ManageNoteSharesError > > errors;
+    Optional<QList<ManageNoteSharesError>> errors;
 
     bool operator==(const ManageNoteSharesResult & other) const
     {

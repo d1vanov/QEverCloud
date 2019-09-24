@@ -2,7 +2,8 @@
  * Original work: Copyright (c) 2014 Sergey Skoblikov
  * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
  *
- * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
  * https://opensource.org/licenses/MIT
  *
  * This file was generated from Evernote Thrift API
@@ -212,7 +213,7 @@ QEVERCLOUD_EXPORT extern const QString EDAM_MIME_TYPE_DEFAULT;
  * The set of resource MIME types that are expected to be handled
  * correctly by all of the major Evernote client applications.
  */
-QEVERCLOUD_EXPORT extern const QSet< QString > EDAM_MIME_TYPES;
+QEVERCLOUD_EXPORT extern const QSet<QString> EDAM_MIME_TYPES;
 
 // Limits.thrift
 /**
@@ -220,7 +221,7 @@ QEVERCLOUD_EXPORT extern const QSet< QString > EDAM_MIME_TYPES;
  * searching. With exception of images, PDFs and plain text files,
  * which are handled in a different way.
  */
-QEVERCLOUD_EXPORT extern const QSet< QString > EDAM_INDEXABLE_RESOURCE_MIME_TYPES;
+QEVERCLOUD_EXPORT extern const QSet<QString> EDAM_INDEXABLE_RESOURCE_MIME_TYPES;
 
 // Limits.thrift
 /**
@@ -228,7 +229,7 @@ QEVERCLOUD_EXPORT extern const QSet< QString > EDAM_INDEXABLE_RESOURCE_MIME_TYPE
  * for searching. The MIME types which start with "text/" will be handled
  * separately by each client (i.e. hard-coded in each client).
  */
-QEVERCLOUD_EXPORT extern const QSet< QString > EDAM_INDEXABLE_PLAINTEXT_MIME_TYPES;
+QEVERCLOUD_EXPORT extern const QSet<QString> EDAM_INDEXABLE_PLAINTEXT_MIME_TYPES;
 
 // Limits.thrift
 /**
@@ -499,7 +500,7 @@ QEVERCLOUD_EXPORT extern const QString EDAM_PUBLISHING_URI_REGEX;
 /**
  * The set of strings that may not be used as a publishing URI
  */
-QEVERCLOUD_EXPORT extern const QSet< QString > EDAM_PUBLISHING_URI_PROHIBITED;
+QEVERCLOUD_EXPORT extern const QSet<QString> EDAM_PUBLISHING_URI_PROHIBITED;
 
 // Limits.thrift
 /**
