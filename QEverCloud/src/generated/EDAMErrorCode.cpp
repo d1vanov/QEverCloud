@@ -16,7 +16,8 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const EDAMErrorCode value)
+QTextStream & operator<<(
+    QTextStream & out, const EDAMErrorCode value)
 {
     switch(value)
     {
@@ -113,7 +114,8 @@ QTextStream & operator<<(QTextStream & out, const EDAMErrorCode value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const EDAMErrorCode value)
+QDebug & operator<<(
+    QDebug & out, const EDAMErrorCode value)
 {
     switch(value)
     {
@@ -210,7 +212,8 @@ QDebug & operator<<(QDebug & out, const EDAMErrorCode value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const EDAMInvalidContactReason value)
+QTextStream & operator<<(
+    QTextStream & out, const EDAMInvalidContactReason value)
 {
     switch(value)
     {
@@ -232,7 +235,8 @@ QTextStream & operator<<(QTextStream & out, const EDAMInvalidContactReason value
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const EDAMInvalidContactReason value)
+QDebug & operator<<(
+    QDebug & out, const EDAMInvalidContactReason value)
 {
     switch(value)
     {
@@ -254,7 +258,8 @@ QDebug & operator<<(QDebug & out, const EDAMInvalidContactReason value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const ShareRelationshipPrivilegeLevel value)
+QTextStream & operator<<(
+    QTextStream & out, const ShareRelationshipPrivilegeLevel value)
 {
     switch(value)
     {
@@ -279,7 +284,8 @@ QTextStream & operator<<(QTextStream & out, const ShareRelationshipPrivilegeLeve
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const ShareRelationshipPrivilegeLevel value)
+QDebug & operator<<(
+    QDebug & out, const ShareRelationshipPrivilegeLevel value)
 {
     switch(value)
     {
@@ -304,7 +310,8 @@ QDebug & operator<<(QDebug & out, const ShareRelationshipPrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const PrivilegeLevel value)
+QTextStream & operator<<(
+    QTextStream & out, const PrivilegeLevel value)
 {
     switch(value)
     {
@@ -335,7 +342,8 @@ QTextStream & operator<<(QTextStream & out, const PrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const PrivilegeLevel value)
+QDebug & operator<<(
+    QDebug & out, const PrivilegeLevel value)
 {
     switch(value)
     {
@@ -366,7 +374,8 @@ QDebug & operator<<(QDebug & out, const PrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const ServiceLevel value)
+QTextStream & operator<<(
+    QTextStream & out, const ServiceLevel value)
 {
     switch(value)
     {
@@ -391,7 +400,8 @@ QTextStream & operator<<(QTextStream & out, const ServiceLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const ServiceLevel value)
+QDebug & operator<<(
+    QDebug & out, const ServiceLevel value)
 {
     switch(value)
     {
@@ -416,7 +426,8 @@ QDebug & operator<<(QDebug & out, const ServiceLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const QueryFormat value)
+QTextStream & operator<<(
+    QTextStream & out, const QueryFormat value)
 {
     switch(value)
     {
@@ -435,7 +446,8 @@ QTextStream & operator<<(QTextStream & out, const QueryFormat value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const QueryFormat value)
+QDebug & operator<<(
+    QDebug & out, const QueryFormat value)
 {
     switch(value)
     {
@@ -454,7 +466,8 @@ QDebug & operator<<(QDebug & out, const QueryFormat value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const NoteSortOrder value)
+QTextStream & operator<<(
+    QTextStream & out, const NoteSortOrder value)
 {
     switch(value)
     {
@@ -482,7 +495,8 @@ QTextStream & operator<<(QTextStream & out, const NoteSortOrder value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const NoteSortOrder value)
+QDebug & operator<<(
+    QDebug & out, const NoteSortOrder value)
 {
     switch(value)
     {
@@ -510,7 +524,8 @@ QDebug & operator<<(QDebug & out, const NoteSortOrder value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const PremiumOrderStatus value)
+QTextStream & operator<<(
+    QTextStream & out, const PremiumOrderStatus value)
 {
     switch(value)
     {
@@ -541,7 +556,8 @@ QTextStream & operator<<(QTextStream & out, const PremiumOrderStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const PremiumOrderStatus value)
+QDebug & operator<<(
+    QDebug & out, const PremiumOrderStatus value)
 {
     switch(value)
     {
@@ -572,7 +588,8 @@ QDebug & operator<<(QDebug & out, const PremiumOrderStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const SharedNotebookPrivilegeLevel value)
+QTextStream & operator<<(
+    QTextStream & out, const SharedNotebookPrivilegeLevel value)
 {
     switch(value)
     {
@@ -603,7 +620,8 @@ QTextStream & operator<<(QTextStream & out, const SharedNotebookPrivilegeLevel v
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const SharedNotebookPrivilegeLevel value)
+QDebug & operator<<(
+    QDebug & out, const SharedNotebookPrivilegeLevel value)
 {
     switch(value)
     {
@@ -634,7 +652,8 @@ QDebug & operator<<(QDebug & out, const SharedNotebookPrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const SharedNotePrivilegeLevel value)
+QTextStream & operator<<(
+    QTextStream & out, const SharedNotePrivilegeLevel value)
 {
     switch(value)
     {
@@ -656,7 +675,8 @@ QTextStream & operator<<(QTextStream & out, const SharedNotePrivilegeLevel value
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const SharedNotePrivilegeLevel value)
+QDebug & operator<<(
+    QDebug & out, const SharedNotePrivilegeLevel value)
 {
     switch(value)
     {
@@ -678,7 +698,8 @@ QDebug & operator<<(QDebug & out, const SharedNotePrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const SponsoredGroupRole value)
+QTextStream & operator<<(
+    QTextStream & out, const SponsoredGroupRole value)
 {
     switch(value)
     {
@@ -700,7 +721,8 @@ QTextStream & operator<<(QTextStream & out, const SponsoredGroupRole value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const SponsoredGroupRole value)
+QDebug & operator<<(
+    QDebug & out, const SponsoredGroupRole value)
 {
     switch(value)
     {
@@ -722,7 +744,8 @@ QDebug & operator<<(QDebug & out, const SponsoredGroupRole value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const BusinessUserRole value)
+QTextStream & operator<<(
+    QTextStream & out, const BusinessUserRole value)
 {
     switch(value)
     {
@@ -741,7 +764,8 @@ QTextStream & operator<<(QTextStream & out, const BusinessUserRole value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const BusinessUserRole value)
+QDebug & operator<<(
+    QDebug & out, const BusinessUserRole value)
 {
     switch(value)
     {
@@ -760,7 +784,8 @@ QDebug & operator<<(QDebug & out, const BusinessUserRole value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const BusinessUserStatus value)
+QTextStream & operator<<(
+    QTextStream & out, const BusinessUserStatus value)
 {
     switch(value)
     {
@@ -779,7 +804,8 @@ QTextStream & operator<<(QTextStream & out, const BusinessUserStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const BusinessUserStatus value)
+QDebug & operator<<(
+    QDebug & out, const BusinessUserStatus value)
 {
     switch(value)
     {
@@ -798,7 +824,8 @@ QDebug & operator<<(QDebug & out, const BusinessUserStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const SharedNotebookInstanceRestrictions value)
+QTextStream & operator<<(
+    QTextStream & out, const SharedNotebookInstanceRestrictions value)
 {
     switch(value)
     {
@@ -817,7 +844,8 @@ QTextStream & operator<<(QTextStream & out, const SharedNotebookInstanceRestrict
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const SharedNotebookInstanceRestrictions value)
+QDebug & operator<<(
+    QDebug & out, const SharedNotebookInstanceRestrictions value)
 {
     switch(value)
     {
@@ -836,7 +864,8 @@ QDebug & operator<<(QDebug & out, const SharedNotebookInstanceRestrictions value
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const ReminderEmailConfig value)
+QTextStream & operator<<(
+    QTextStream & out, const ReminderEmailConfig value)
 {
     switch(value)
     {
@@ -855,7 +884,8 @@ QTextStream & operator<<(QTextStream & out, const ReminderEmailConfig value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const ReminderEmailConfig value)
+QDebug & operator<<(
+    QDebug & out, const ReminderEmailConfig value)
 {
     switch(value)
     {
@@ -874,7 +904,8 @@ QDebug & operator<<(QDebug & out, const ReminderEmailConfig value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const BusinessInvitationStatus value)
+QTextStream & operator<<(
+    QTextStream & out, const BusinessInvitationStatus value)
 {
     switch(value)
     {
@@ -896,7 +927,8 @@ QTextStream & operator<<(QTextStream & out, const BusinessInvitationStatus value
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const BusinessInvitationStatus value)
+QDebug & operator<<(
+    QDebug & out, const BusinessInvitationStatus value)
 {
     switch(value)
     {
@@ -918,7 +950,8 @@ QDebug & operator<<(QDebug & out, const BusinessInvitationStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const ContactType value)
+QTextStream & operator<<(
+    QTextStream & out, const ContactType value)
 {
     switch(value)
     {
@@ -949,7 +982,8 @@ QTextStream & operator<<(QTextStream & out, const ContactType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const ContactType value)
+QDebug & operator<<(
+    QDebug & out, const ContactType value)
 {
     switch(value)
     {
@@ -980,7 +1014,8 @@ QDebug & operator<<(QDebug & out, const ContactType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const EntityType value)
+QTextStream & operator<<(
+    QTextStream & out, const EntityType value)
 {
     switch(value)
     {
@@ -1002,7 +1037,8 @@ QTextStream & operator<<(QTextStream & out, const EntityType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const EntityType value)
+QDebug & operator<<(
+    QDebug & out, const EntityType value)
 {
     switch(value)
     {
@@ -1024,7 +1060,8 @@ QDebug & operator<<(QDebug & out, const EntityType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const RecipientStatus value)
+QTextStream & operator<<(
+    QTextStream & out, const RecipientStatus value)
 {
     switch(value)
     {
@@ -1046,7 +1083,8 @@ QTextStream & operator<<(QTextStream & out, const RecipientStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const RecipientStatus value)
+QDebug & operator<<(
+    QDebug & out, const RecipientStatus value)
 {
     switch(value)
     {
@@ -1068,7 +1106,8 @@ QDebug & operator<<(QDebug & out, const RecipientStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const CanMoveToContainerStatus value)
+QTextStream & operator<<(
+    QTextStream & out, const CanMoveToContainerStatus value)
 {
     switch(value)
     {
@@ -1090,7 +1129,8 @@ QTextStream & operator<<(QTextStream & out, const CanMoveToContainerStatus value
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const CanMoveToContainerStatus value)
+QDebug & operator<<(
+    QDebug & out, const CanMoveToContainerStatus value)
 {
     switch(value)
     {
@@ -1112,7 +1152,8 @@ QDebug & operator<<(QDebug & out, const CanMoveToContainerStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const RelatedContentType value)
+QTextStream & operator<<(
+    QTextStream & out, const RelatedContentType value)
 {
     switch(value)
     {
@@ -1137,7 +1178,8 @@ QTextStream & operator<<(QTextStream & out, const RelatedContentType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const RelatedContentType value)
+QDebug & operator<<(
+    QDebug & out, const RelatedContentType value)
 {
     switch(value)
     {
@@ -1162,7 +1204,8 @@ QDebug & operator<<(QDebug & out, const RelatedContentType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const RelatedContentAccess value)
+QTextStream & operator<<(
+    QTextStream & out, const RelatedContentAccess value)
 {
     switch(value)
     {
@@ -1187,7 +1230,8 @@ QTextStream & operator<<(QTextStream & out, const RelatedContentAccess value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const RelatedContentAccess value)
+QDebug & operator<<(
+    QDebug & out, const RelatedContentAccess value)
 {
     switch(value)
     {
@@ -1212,7 +1256,8 @@ QDebug & operator<<(QDebug & out, const RelatedContentAccess value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & out, const UserIdentityType value)
+QTextStream & operator<<(
+    QTextStream & out, const UserIdentityType value)
 {
     switch(value)
     {
@@ -1234,7 +1279,8 @@ QTextStream & operator<<(QTextStream & out, const UserIdentityType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QDebug & operator<<(QDebug & out, const UserIdentityType value)
+QDebug & operator<<(
+    QDebug & out, const UserIdentityType value)
 {
     switch(value)
     {

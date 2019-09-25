@@ -136,11 +136,13 @@ inline uint qHash(EDAMErrorCode value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const EDAMErrorCode value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const EDAMErrorCode value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const EDAMErrorCode value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const EDAMErrorCode value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -191,11 +193,13 @@ inline uint qHash(EDAMInvalidContactReason value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const EDAMInvalidContactReason value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const EDAMInvalidContactReason value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const EDAMInvalidContactReason value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const EDAMInvalidContactReason value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -235,11 +239,13 @@ inline uint qHash(ShareRelationshipPrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const ShareRelationshipPrivilegeLevel value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const ShareRelationshipPrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const ShareRelationshipPrivilegeLevel value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const ShareRelationshipPrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -265,11 +271,13 @@ inline uint qHash(PrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const PrivilegeLevel value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const PrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const PrivilegeLevel value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const PrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -293,11 +301,13 @@ inline uint qHash(ServiceLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const ServiceLevel value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const ServiceLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const ServiceLevel value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const ServiceLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -318,11 +328,13 @@ inline uint qHash(QueryFormat value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const QueryFormat value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const QueryFormat value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const QueryFormat value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const QueryFormat value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -346,11 +358,13 @@ inline uint qHash(NoteSortOrder value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const NoteSortOrder value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const NoteSortOrder value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const NoteSortOrder value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const NoteSortOrder value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -391,11 +405,13 @@ inline uint qHash(PremiumOrderStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const PremiumOrderStatus value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const PremiumOrderStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const PremiumOrderStatus value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const PremiumOrderStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -451,11 +467,13 @@ inline uint qHash(SharedNotebookPrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const SharedNotebookPrivilegeLevel value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const SharedNotebookPrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const SharedNotebookPrivilegeLevel value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const SharedNotebookPrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -487,11 +505,13 @@ inline uint qHash(SharedNotePrivilegeLevel value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const SharedNotePrivilegeLevel value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const SharedNotePrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const SharedNotePrivilegeLevel value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const SharedNotePrivilegeLevel value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -518,11 +538,13 @@ inline uint qHash(SponsoredGroupRole value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const SponsoredGroupRole value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const SponsoredGroupRole value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const SponsoredGroupRole value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const SponsoredGroupRole value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -546,11 +568,13 @@ inline uint qHash(BusinessUserRole value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const BusinessUserRole value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const BusinessUserRole value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const BusinessUserRole value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const BusinessUserRole value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -580,11 +604,13 @@ inline uint qHash(BusinessUserStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const BusinessUserStatus value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const BusinessUserStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const BusinessUserStatus value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const BusinessUserStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -611,11 +637,13 @@ inline uint qHash(SharedNotebookInstanceRestrictions value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const SharedNotebookInstanceRestrictions value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const SharedNotebookInstanceRestrictions value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const SharedNotebookInstanceRestrictions value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const SharedNotebookInstanceRestrictions value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -642,11 +670,13 @@ inline uint qHash(ReminderEmailConfig value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const ReminderEmailConfig value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const ReminderEmailConfig value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const ReminderEmailConfig value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const ReminderEmailConfig value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -677,11 +707,13 @@ inline uint qHash(BusinessInvitationStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const BusinessInvitationStatus value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const BusinessInvitationStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const BusinessInvitationStatus value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const BusinessInvitationStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -705,11 +737,13 @@ inline uint qHash(ContactType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const ContactType value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const ContactType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const ContactType value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const ContactType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -730,11 +764,13 @@ inline uint qHash(EntityType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const EntityType value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const EntityType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const EntityType value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const EntityType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -766,11 +802,13 @@ inline uint qHash(RecipientStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const RecipientStatus value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const RecipientStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const RecipientStatus value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const RecipientStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -806,11 +844,13 @@ inline uint qHash(CanMoveToContainerStatus value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const CanMoveToContainerStatus value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const CanMoveToContainerStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const CanMoveToContainerStatus value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const CanMoveToContainerStatus value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -837,11 +877,13 @@ inline uint qHash(RelatedContentType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const RelatedContentType value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const RelatedContentType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const RelatedContentType value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const RelatedContentType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -879,11 +921,13 @@ inline uint qHash(RelatedContentAccess value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const RelatedContentAccess value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const RelatedContentAccess value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const RelatedContentAccess value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const RelatedContentAccess value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -904,11 +948,13 @@ inline uint qHash(UserIdentityType value)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QTextStream & operator<<(QTextStream & out, const UserIdentityType value);
+QEVERCLOUD_EXPORT QTextStream & operator<<(
+    QTextStream & out, const UserIdentityType value);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT QDebug & operator<<(QDebug & out, const UserIdentityType value);
+QEVERCLOUD_EXPORT QDebug & operator<<(
+    QDebug & out, const UserIdentityType value);
 
 } // namespace qevercloud
 
