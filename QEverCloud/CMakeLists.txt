@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.5.1)
 
 include(QEverCloudCMakePolicies)
 SET_POLICIES()
@@ -87,7 +87,7 @@ configure_file(headers/VersionInfo.h.in
 list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/VersionInfo.h)
 include_directories(${PROJECT_BINARY_DIR})
 
-set(LIBNAME "${QEVERCLOUD_LIBNAME_PREFIX}${QEVERCLOUD_QT_VERSION}qevercloud${QEVERCLOUD_LIBNAME_SUFFIX}")
+set(LIBNAME "${QEVERCLOUD_LIBNAME_PREFIX}${QEVERCLOUD_QT_VERSION}qevercloud")
 
 if(BUILD_SHARED)
   add_definitions("-DQEVERCLOUD_SHARED_LIBRARY")
@@ -107,35 +107,38 @@ set_target_properties(${LIBNAME} PROPERTIES
   MACOSX_RPATH 1
   INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 
-target_link_libraries(${LIBNAME} ${QT_LIBRARIES})
+target_compile_features(${LIBNAME} INTERFACE
+  cxx_auto_type
+  cxx_defaulted_functions
+  cxx_defaulted_move_initializers
+  cxx_deleted_functions
+  cxx_noexcept
+  cxx_nullptr
+  cxx_override
+  cxx_right_angle_brackets
+  cxx_rvalue_references
+  cxx_strong_enums)
 
-if(BUILD_WITH_QT4)
-  # NOTE: working around what seems to be a CMake bug
-  target_link_libraries(${LIBNAME} Qt4::QtWebKit)
-endif()
+target_compile_features(${LIBNAME} PRIVATE
+  cxx_final
+  cxx_lambdas
+  cxx_range_for)
+
+target_link_libraries(${LIBNAME} ${QT_LIBRARIES})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
 
 add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT")
 
 # Tests
-if(BUILD_WITH_QT4)
-  find_package(QT4 COMPONENTS QTCORE QTTEST QUIET)
-else()
-  find_package(Qt5Test QUIET)
-endif()
-
-if((NOT BUILD_WITH_QT4 AND Qt5Test_FOUND) OR (BUILD_WITH_QT4 AND Qt4_FOUND))
+find_package(Qt5Test QUIET)
+if(Qt5Test_FOUND)
   set(TEST_SOURCES
       src/tests/TestQEverCloud.cpp)
   add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
   add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
-  if(BUILD_WITH_QT4)
-    target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} Qt4::QtCore Qt4::QtGui Qt4::QtNetwork Qt4::QtWebKit Qt4::QtTest)
-  else()
-    target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES} Qt5::Test)
-  endif()
+  target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES} Qt5::Test)
 else()
   message(STATUS "Haven't found Qt components required for building and running the unit tests")
 endif()
@@ -148,9 +151,6 @@ install(TARGETS ${LIBNAME}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 set(DEV_HEADERS_FOLDER_NAME ${QEVERCLOUD_QT_VERSION}qevercloud)
-if(MAJOR_VERSION_DEV_HEADERS_FOLDER_NAME_SUFFIX)
-  string(CONCAT DEV_HEADERS_FOLDER_NAME ${DEV_HEADERS_FOLDER_NAME} ${PROJECT_VERSION_MAJOR})
-endif()
 
 # install public headers
 foreach(ITEM ${PUBLIC_HEADERS})
