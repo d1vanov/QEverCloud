@@ -23,6 +23,7 @@ set(NON_GENERATED_HEADERS
     headers/Helpers.h
     headers/InkNoteImageDownloader.h
     headers/Optional.h
+    headers/RequestContext.h
     headers/Thumbnail.h)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
@@ -50,6 +51,7 @@ set(SOURCES
     src/Globals.cpp
     src/Http.cpp
     src/InkNoteImageDownloader.cpp
+    src/RequestContext.cpp
     src/ServicesNonGenerated.cpp
     src/Thumbnail.cpp
     src/generated/Constants.cpp
@@ -100,6 +102,8 @@ add_sanitizers(${LIBNAME})
 set_target_properties(${LIBNAME} PROPERTIES
   VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
   SOVERSION ${PROJECT_VERSION_MAJOR}
+  CXX_STANDARD 17
+  CXX_EXTENSIONS OFF
   MACOSX_RPATH 1
   INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 
