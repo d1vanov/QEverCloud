@@ -80,7 +80,7 @@ QDebug & operator<<(QDebug & dbg, const IRequestContext & ctx)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-IRequestContextPtr NewRequestContext(
+IRequestContextPtr newRequestContext(
     QString authenticationToken,
     quint64 requestTimeout,
     bool increaseRequestTimeoutExponentially,
