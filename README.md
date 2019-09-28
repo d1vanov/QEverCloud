@@ -46,8 +46,7 @@ Prebuilt versions of the library can be downloaded from the following locations:
 The project can be built and shipped either as a static library or a shared library. Dll export/import symbols necessary for Windows platform are supported.
 
 Dependencies include the following Qt components:
- * For Qt4: QtCore, QtGui, QtNetwork and, if the library is built with OAuth support, QtWebKit
- * For Qt5: Qt5Core, Qt5Widgets, Qt5Network and, if the library is built with OAuth support, either:
+ * Qt5: Qt5Core, Qt5Widgets, Qt5Network and, if the library is built with OAuth support, either:
    * Qt5WebKit and Qt5WebKitWidgets - for Qt < 5.4
    * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
    * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
@@ -56,7 +55,7 @@ Since QEverCloud 3.0.2 it is possible to choose Qt5WebKit over Qt5WebEngine usin
 
 Since QEverCloud 4.0.0 it is possible to build the library without OAuth support and thus without QtWebKit or QtWebEngine dependencies, for this use CMake option `BUILD_WITH_OAUTH_SUPPORT=NO`.
 
-Also, if Qt4's QtTest or Qt5's Qt5Test modules are found during the pre-build configuration, the unit tests are enabled and can be run with `make test` command.
+Also, if Qt5's Qt5Test modules are found during the pre-build configuration, the unit tests are enabled and can be run with `make test` command.
 
 The project uses CMake build system which can be used as simply as follows (on Unix platforms):
 ```
@@ -67,16 +66,10 @@ make
 make install
 ```
 
-Please note that installing the library somewhere is mandatory because it puts the library's headers into the subfolder dependent on used Qt version: either *qt4qevercloud* or *qt5qevercloud*. The intended use of library's headers is something like this:
+Please note that installing the library somewhere is mandatory because it puts the library's headers into the subfolder *qt5qevercloud*. The intended use of library's headers is something like this:
 ```
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#include <qt4qevercloud/QEverCloud.h>
-#else
 #include <qt5qevercloud/QEverCloud.h>
-#endif
 ```
-
-If you just need to use the only one Qt version, you can skip the check and just include the header file you need.
 
 More CMake configurations options available:
 
@@ -88,48 +81,19 @@ More CMake configurations options available:
 
 If *BUILD_SHARED* is *ON*, `make install` would install the CMake module necessary for applications using CMake's `find_package` command to find the installation of the library.
 
-If *MAJOR_VERSION_LIB_NAME_SUFFIX* is on, `make install` would add the major version as a suffix to the library's name.
-
-If *MAJOR_VERSION_DEV_HEADERS_FOLDER_NAME_SUFFIX* is on, `make install` would install the development headers into the folder which name would end with the major version of QEverCloud.
-
-The two latter options are intended to allow for easier installation of multiple major versions of QEverCloud.
-
 Since QEverCloud 4.1.0 it is possible to build the library with enabled sanitizers using additional CMake options:
  * `-DSANITIZE_ADDRESS=ON` to enable address sanitizer
  * `-DSANITIZE_MEMORY=ON` to enable memory sanitizer
  * `-DSANITIZE_THREAD=ON` to enable thread sanitizer
  * `-DSANITIZE_UNDEFINED=ON` to enable undefined behaviour sanitizer
 
-## Compatibility
-
-The library can be built with both Qt4 and Qt5 versions of the framework. Since QEverCloud 4.1.0 the default one is Qt5. In order to force building with Qt4 version pass `-DBUILD_WITH_QT4=ON` option to CMake. Prior to QEverCloud 4.1.0 version of Qt used by default was Qt4. For those old versions in order to force building with Qt5 one needs to pass `-DUSE_QT5=1` option to CMake.
-
-### API breaks from 2.x to 3.0
-
-The API breaks only include the relocation of header files required in order to use the library: in 2.x one could simply do
-```
-#include <QEverCloud.h>
-```
-while since 3.0 the intended way to use the installed shared library is the following:
-```
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#include <qt4qevercloud/QEverCloud.h>
-#else
-#include <qt5qevercloud/QEverCloud.h>
-#endif
-```
-
-### API breaks from 3.x to 4.0
-
-Tha API breaks in 4.0 inlcude a few changes caused by migration from Evernote API 1.25 to Evernote API 1.28. The breaks are listed in a [separate document](API_breaks_3_to_4.md).
-
 ### QtWebKit vs QWebEngine
 
-The library uses Qt's web facilities for OAuth authentication. These can be based on either QtWebKit (for Qt4 and older versions of Qt5) or QWebEngine (for more recent versions of Qt5). With CMake build system the choice happens automatically during the pre-build configuration based on the used version of Qt. One can also choose to use QtWebKit even with newer versions of Qt via CMake option `USE_QT5_WEBKIT`.
+The library uses Qt's web facilities for OAuth authentication. These can be based on either QtWebKit (for older versions of Qt5) or QWebEngine (for more recent versions of Qt5). With CMake build system the choice happens automatically during the pre-build configuration based on the used version of Qt. One can also choose to use QtWebKit even with newer versions of Qt via CMake option `USE_QT5_WEBKIT`.
 
-### C++11/14/17 features
+### Compiler requirements
 
-The library does not use any C++11/14/17 features directly but only through macros like `Q_DECL_OVERRIDE`, `Q_STATIC_ASSERT_X`, `QStringLiteral` and others. Some of these macros are also "backported" to Qt4 version of the library i.e. they are defined by the library itself for Qt4 version. So the library should be buildable even with not C++11/14/17-compliant compiler.
+The library requires the compiler to support C++17 standard. CMake automatically checks whether the compiler is capable enough of building QEverCloud so if pre-build step was successful, the build should be successful as well.
 
 ## Include files for applications using the library
 
