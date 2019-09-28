@@ -52,7 +52,6 @@ set(SOURCES
     src/Http.cpp
     src/InkNoteImageDownloader.cpp
     src/RequestContext.cpp
-    src/ServicesNonGenerated.cpp
     src/Thumbnail.cpp
     src/generated/Constants.cpp
     src/generated/EDAMErrorCode.cpp
@@ -138,6 +137,9 @@ if(Qt5Test_FOUND)
   add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
   add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
+  set_target_properties(test_${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 17
+    CXX_EXTENSIONS OFF)
   target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES} Qt5::Test)
 else()
   message(STATUS "Haven't found Qt components required for building and running the unit tests")

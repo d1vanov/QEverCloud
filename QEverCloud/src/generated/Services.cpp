@@ -19,6 +19,709 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+
+class Q_DECL_HIDDEN NoteStore: public INoteStore
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(NoteStore)
+public:
+    explicit NoteStore(
+            QString noteStoreUrl = QString(),
+            IRequestContextPtr ctx = {},
+            QObject * parent = nullptr) :
+        INoteStore(parent),
+        m_url(std::move(noteStoreUrl)),
+        m_ctx(std::move(ctx))
+    {
+        if (!m_ctx) {
+            m_ctx = newRequestContext();
+        }
+    }
+
+    explicit NoteStore(QObject * parent) :
+        INoteStore(parent)
+    {
+        m_ctx = newRequestContext();
+    }
+
+    void setNoteStoreUrl(QString noteStoreUrl)
+    {
+        m_url = std::move(noteStoreUrl);
+    }
+
+    QString noteStoreUrl()
+    {
+        return m_url;
+    }
+
+    virtual SyncState getSyncState(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getSyncStateAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SyncChunk getFilteredSyncChunk(
+        qint32 afterUSN,
+        qint32 maxEntries,
+        const SyncChunkFilter & filter,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getFilteredSyncChunkAsync(
+        qint32 afterUSN,
+        qint32 maxEntries,
+        const SyncChunkFilter & filter,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SyncState getLinkedNotebookSyncState(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getLinkedNotebookSyncStateAsync(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SyncChunk getLinkedNotebookSyncChunk(
+        const LinkedNotebook & linkedNotebook,
+        qint32 afterUSN,
+        qint32 maxEntries,
+        bool fullSyncOnly,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getLinkedNotebookSyncChunkAsync(
+        const LinkedNotebook & linkedNotebook,
+        qint32 afterUSN,
+        qint32 maxEntries,
+        bool fullSyncOnly,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Notebook> listNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Notebook> listAccessibleBusinessNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listAccessibleBusinessNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook getNotebook(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNotebookAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook getDefaultNotebook(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getDefaultNotebookAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook createNotebook(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createNotebookAsync(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateNotebook(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateNotebookAsync(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeNotebook(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeNotebookAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Tag> listTags(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listTagsAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Tag> listTagsByNotebook(
+        Guid notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listTagsByNotebookAsync(
+        Guid notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Tag getTag(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getTagAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Tag createTag(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createTagAsync(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateTag(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateTagAsync(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void untagAll(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * untagAllAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeTag(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeTagAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<SavedSearch> listSearches(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listSearchesAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SavedSearch getSearch(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getSearchAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SavedSearch createSearch(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createSearchAsync(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateSearch(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateSearchAsync(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeSearch(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeSearchAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 findNoteOffset(
+        const NoteFilter & filter,
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findNoteOffsetAsync(
+        const NoteFilter & filter,
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual NotesMetadataList findNotesMetadata(
+        const NoteFilter & filter,
+        qint32 offset,
+        qint32 maxNotes,
+        const NotesMetadataResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findNotesMetadataAsync(
+        const NoteFilter & filter,
+        qint32 offset,
+        qint32 maxNotes,
+        const NotesMetadataResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual NoteCollectionCounts findNoteCounts(
+        const NoteFilter & filter,
+        bool withTrash,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findNoteCountsAsync(
+        const NoteFilter & filter,
+        bool withTrash,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note getNoteWithResultSpec(
+        Guid guid,
+        const NoteResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteWithResultSpecAsync(
+        Guid guid,
+        const NoteResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note getNote(
+        Guid guid,
+        bool withContent,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteAsync(
+        Guid guid,
+        bool withContent,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual LazyMap getNoteApplicationData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteApplicationDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getNoteApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 setNoteApplicationDataEntry(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * setNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 unsetNoteApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * unsetNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getNoteContent(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteContentAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getNoteSearchText(
+        Guid guid,
+        bool noteOnly,
+        bool tokenizeForIndexing,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteSearchTextAsync(
+        Guid guid,
+        bool noteOnly,
+        bool tokenizeForIndexing,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getResourceSearchText(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceSearchTextAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QStringList getNoteTagNames(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteTagNamesAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note createNote(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createNoteAsync(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note updateNote(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateNoteAsync(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 deleteNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * deleteNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note copyNote(
+        Guid noteGuid,
+        Guid toNotebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * copyNoteAsync(
+        Guid noteGuid,
+        Guid toNotebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<NoteVersionId> listNoteVersions(
+        Guid noteGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listNoteVersionsAsync(
+        Guid noteGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note getNoteVersion(
+        Guid noteGuid,
+        qint32 updateSequenceNum,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteVersionAsync(
+        Guid noteGuid,
+        qint32 updateSequenceNum,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Resource getResource(
+        Guid guid,
+        bool withData,
+        bool withRecognition,
+        bool withAttributes,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceAsync(
+        Guid guid,
+        bool withData,
+        bool withRecognition,
+        bool withAttributes,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual LazyMap getResourceApplicationData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceApplicationDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getResourceApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 setResourceApplicationDataEntry(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * setResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 unsetResourceApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * unsetResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateResource(
+        const Resource & resource,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateResourceAsync(
+        const Resource & resource,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QByteArray getResourceData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Resource getResourceByHash(
+        Guid noteGuid,
+        QByteArray contentHash,
+        bool withData,
+        bool withRecognition,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceByHashAsync(
+        Guid noteGuid,
+        QByteArray contentHash,
+        bool withData,
+        bool withRecognition,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QByteArray getResourceRecognition(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceRecognitionAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QByteArray getResourceAlternateData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceAlternateDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual ResourceAttributes getResourceAttributes(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceAttributesAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook getPublicNotebook(
+        UserID userId,
+        QString publicUri,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getPublicNotebookAsync(
+        UserID userId,
+        QString publicUri,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SharedNotebook shareNotebook(
+        const SharedNotebook & sharedNotebook,
+        QString message,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * shareNotebookAsync(
+        const SharedNotebook & sharedNotebook,
+        QString message,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+        const NotebookShareTemplate & shareTemplate,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createOrUpdateNotebookSharesAsync(
+        const NotebookShareTemplate & shareTemplate,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateSharedNotebook(
+        const SharedNotebook & sharedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateSharedNotebookAsync(
+        const SharedNotebook & sharedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook setNotebookRecipientSettings(
+        QString notebookGuid,
+        const NotebookRecipientSettings & recipientSettings,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * setNotebookRecipientSettingsAsync(
+        QString notebookGuid,
+        const NotebookRecipientSettings & recipientSettings,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<SharedNotebook> listSharedNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listSharedNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual LinkedNotebook createLinkedNotebook(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createLinkedNotebookAsync(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateLinkedNotebook(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateLinkedNotebookAsync(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<LinkedNotebook> listLinkedNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listLinkedNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeLinkedNotebook(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeLinkedNotebookAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateToSharedNotebook(
+        QString shareKeyOrGlobalId,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateToSharedNotebookAsync(
+        QString shareKeyOrGlobalId,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SharedNotebook getSharedNotebookByAuth(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getSharedNotebookByAuthAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void emailNote(
+        const NoteEmailParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * emailNoteAsync(
+        const NoteEmailParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString shareNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * shareNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void stopSharingNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * stopSharingNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateToSharedNote(
+        QString guid,
+        QString noteKey,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateToSharedNoteAsync(
+        QString guid,
+        QString noteKey,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual RelatedResult findRelated(
+        const RelatedQuery & query,
+        const RelatedResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findRelatedAsync(
+        const RelatedQuery & query,
+        const RelatedResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateNoteIfUsnMatchesAsync(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual ManageNotebookSharesResult manageNotebookShares(
+        const ManageNotebookSharesParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * manageNotebookSharesAsync(
+        const ManageNotebookSharesParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual ShareRelationships getNotebookShares(
+        QString notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNotebookSharesAsync(
+        QString notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+private:
+    QString m_url;
+    IRequestContextPtr m_ctx;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_getSyncState_prepareParams(
     QString authenticationToken)
 {
@@ -122,33 +825,35 @@ QVariant NoteStore_getSyncState_readReplyAsync(QByteArray reply)
 }
 
 SyncState NoteStore::getSyncState(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getSyncState_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getSyncState_readReply(reply);
 }
 
 AsyncResult* NoteStore::getSyncStateAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getSyncState_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_getSyncState_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getFilteredSyncChunk_prepareParams(
     QString authenticationToken,
     qint32 afterUSN,
     qint32 maxEntries,
-    const SyncChunkFilter& filter)
+    const SyncChunkFilter & filter)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -270,14 +975,14 @@ QVariant NoteStore_getFilteredSyncChunk_readReplyAsync(QByteArray reply)
 SyncChunk NoteStore::getFilteredSyncChunk(
     qint32 afterUSN,
     qint32 maxEntries,
-    const SyncChunkFilter& filter,
-    QString authenticationToken)
+    const SyncChunkFilter & filter,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getFilteredSyncChunk_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         afterUSN,
         maxEntries,
         filter);
@@ -288,23 +993,25 @@ SyncChunk NoteStore::getFilteredSyncChunk(
 AsyncResult* NoteStore::getFilteredSyncChunkAsync(
     qint32 afterUSN,
     qint32 maxEntries,
-    const SyncChunkFilter& filter,
-    QString authenticationToken)
+    const SyncChunkFilter & filter,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getFilteredSyncChunk_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         afterUSN,
         maxEntries,
         filter);
     return new AsyncResult(m_url, params, NoteStore_getFilteredSyncChunk_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_getLinkedNotebookSyncState_prepareParams(
     QString authenticationToken,
-    const LinkedNotebook& linkedNotebook)
+    const LinkedNotebook & linkedNotebook)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -422,35 +1129,37 @@ QVariant NoteStore_getLinkedNotebookSyncState_readReplyAsync(QByteArray reply)
 }
 
 SyncState NoteStore::getLinkedNotebookSyncState(
-    const LinkedNotebook& linkedNotebook,
-    QString authenticationToken)
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getLinkedNotebookSyncState_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getLinkedNotebookSyncState_readReply(reply);
 }
 
 AsyncResult* NoteStore::getLinkedNotebookSyncStateAsync(
-    const LinkedNotebook& linkedNotebook,
-    QString authenticationToken)
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getLinkedNotebookSyncState_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook);
     return new AsyncResult(m_url, params, NoteStore_getLinkedNotebookSyncState_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_getLinkedNotebookSyncChunk_prepareParams(
     QString authenticationToken,
-    const LinkedNotebook& linkedNotebook,
+    const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
     bool fullSyncOnly)
@@ -589,17 +1298,17 @@ QVariant NoteStore_getLinkedNotebookSyncChunk_readReplyAsync(QByteArray reply)
 }
 
 SyncChunk NoteStore::getLinkedNotebookSyncChunk(
-    const LinkedNotebook& linkedNotebook,
+    const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
     bool fullSyncOnly,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getLinkedNotebookSyncChunk_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook,
         afterUSN,
         maxEntries,
@@ -609,23 +1318,25 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
 }
 
 AsyncResult* NoteStore::getLinkedNotebookSyncChunkAsync(
-    const LinkedNotebook& linkedNotebook,
+    const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
     bool fullSyncOnly,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getLinkedNotebookSyncChunk_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook,
         afterUSN,
         maxEntries,
         fullSyncOnly);
     return new AsyncResult(m_url, params, NoteStore_getLinkedNotebookSyncChunk_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listNotebooks_prepareParams(
     QString authenticationToken)
@@ -740,27 +1451,29 @@ QVariant NoteStore_listNotebooks_readReplyAsync(QByteArray reply)
 }
 
 QList<Notebook> NoteStore::listNotebooks(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listNotebooks_readReply(reply);
 }
 
 AsyncResult* NoteStore::listNotebooksAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_listNotebooks_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listAccessibleBusinessNotebooks_prepareParams(
     QString authenticationToken)
@@ -875,27 +1588,29 @@ QVariant NoteStore_listAccessibleBusinessNotebooks_readReplyAsync(QByteArray rep
 }
 
 QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listAccessibleBusinessNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listAccessibleBusinessNotebooks_readReply(reply);
 }
 
 AsyncResult* NoteStore::listAccessibleBusinessNotebooksAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listAccessibleBusinessNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_listAccessibleBusinessNotebooks_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNotebook_prepareParams(
     QString authenticationToken,
@@ -1018,13 +1733,13 @@ QVariant NoteStore_getNotebook_readReplyAsync(QByteArray reply)
 
 Notebook NoteStore::getNotebook(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getNotebook_readReply(reply);
@@ -1032,16 +1747,18 @@ Notebook NoteStore::getNotebook(
 
 AsyncResult* NoteStore::getNotebookAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getDefaultNotebook_prepareParams(
     QString authenticationToken)
@@ -1146,31 +1863,33 @@ QVariant NoteStore_getDefaultNotebook_readReplyAsync(QByteArray reply)
 }
 
 Notebook NoteStore::getDefaultNotebook(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getDefaultNotebook_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getDefaultNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::getDefaultNotebookAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getDefaultNotebook_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_getDefaultNotebook_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_createNotebook_prepareParams(
     QString authenticationToken,
-    const Notebook& notebook)
+    const Notebook & notebook)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -1288,35 +2007,37 @@ QVariant NoteStore_createNotebook_readReplyAsync(QByteArray reply)
 }
 
 Notebook NoteStore::createNotebook(
-    const Notebook& notebook,
-    QString authenticationToken)
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebook);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_createNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::createNotebookAsync(
-    const Notebook& notebook,
-    QString authenticationToken)
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebook);
     return new AsyncResult(m_url, params, NoteStore_createNotebook_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateNotebook_prepareParams(
     QString authenticationToken,
-    const Notebook& notebook)
+    const Notebook & notebook)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -1434,31 +2155,33 @@ QVariant NoteStore_updateNotebook_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::updateNotebook(
-    const Notebook& notebook,
-    QString authenticationToken)
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebook);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateNotebookAsync(
-    const Notebook& notebook,
-    QString authenticationToken)
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebook);
     return new AsyncResult(m_url, params, NoteStore_updateNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_expungeNotebook_prepareParams(
     QString authenticationToken,
@@ -1581,13 +2304,13 @@ QVariant NoteStore_expungeNotebook_readReplyAsync(QByteArray reply)
 
 qint32 NoteStore::expungeNotebook(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_expungeNotebook_readReply(reply);
@@ -1595,16 +2318,18 @@ qint32 NoteStore::expungeNotebook(
 
 AsyncResult* NoteStore::expungeNotebookAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_expungeNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listTags_prepareParams(
     QString authenticationToken)
@@ -1719,27 +2444,29 @@ QVariant NoteStore_listTags_readReplyAsync(QByteArray reply)
 }
 
 QList<Tag> NoteStore::listTags(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listTags_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listTags_readReply(reply);
 }
 
 AsyncResult* NoteStore::listTagsAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listTags_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_listTags_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listTagsByNotebook_prepareParams(
     QString authenticationToken,
@@ -1872,13 +2599,13 @@ QVariant NoteStore_listTagsByNotebook_readReplyAsync(QByteArray reply)
 
 QList<Tag> NoteStore::listTagsByNotebook(
     Guid notebookGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listTagsByNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebookGuid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listTagsByNotebook_readReply(reply);
@@ -1886,16 +2613,18 @@ QList<Tag> NoteStore::listTagsByNotebook(
 
 AsyncResult* NoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listTagsByNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebookGuid);
     return new AsyncResult(m_url, params, NoteStore_listTagsByNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getTag_prepareParams(
     QString authenticationToken,
@@ -2018,13 +2747,13 @@ QVariant NoteStore_getTag_readReplyAsync(QByteArray reply)
 
 Tag NoteStore::getTag(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getTag_readReply(reply);
@@ -2032,20 +2761,22 @@ Tag NoteStore::getTag(
 
 AsyncResult* NoteStore::getTagAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getTag_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_createTag_prepareParams(
     QString authenticationToken,
-    const Tag& tag)
+    const Tag & tag)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2163,35 +2894,37 @@ QVariant NoteStore_createTag_readReplyAsync(QByteArray reply)
 }
 
 Tag NoteStore::createTag(
-    const Tag& tag,
-    QString authenticationToken)
+    const Tag & tag,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         tag);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_createTag_readReply(reply);
 }
 
 AsyncResult* NoteStore::createTagAsync(
-    const Tag& tag,
-    QString authenticationToken)
+    const Tag & tag,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         tag);
     return new AsyncResult(m_url, params, NoteStore_createTag_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateTag_prepareParams(
     QString authenticationToken,
-    const Tag& tag)
+    const Tag & tag)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2309,31 +3042,33 @@ QVariant NoteStore_updateTag_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::updateTag(
-    const Tag& tag,
-    QString authenticationToken)
+    const Tag & tag,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         tag);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateTag_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateTagAsync(
-    const Tag& tag,
-    QString authenticationToken)
+    const Tag & tag,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         tag);
     return new AsyncResult(m_url, params, NoteStore_updateTag_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_untagAll_prepareParams(
     QString authenticationToken,
@@ -2439,13 +3174,13 @@ QVariant NoteStore_untagAll_readReplyAsync(QByteArray reply)
 
 void NoteStore::untagAll(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_untagAll_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     NoteStore_untagAll_readReply(reply);
@@ -2453,16 +3188,18 @@ void NoteStore::untagAll(
 
 AsyncResult* NoteStore::untagAllAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_untagAll_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_untagAll_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_expungeTag_prepareParams(
     QString authenticationToken,
@@ -2585,13 +3322,13 @@ QVariant NoteStore_expungeTag_readReplyAsync(QByteArray reply)
 
 qint32 NoteStore::expungeTag(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_expungeTag_readReply(reply);
@@ -2599,16 +3336,18 @@ qint32 NoteStore::expungeTag(
 
 AsyncResult* NoteStore::expungeTagAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeTag_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_expungeTag_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listSearches_prepareParams(
     QString authenticationToken)
@@ -2723,27 +3462,29 @@ QVariant NoteStore_listSearches_readReplyAsync(QByteArray reply)
 }
 
 QList<SavedSearch> NoteStore::listSearches(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listSearches_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listSearches_readReply(reply);
 }
 
 AsyncResult* NoteStore::listSearchesAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listSearches_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_listSearches_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getSearch_prepareParams(
     QString authenticationToken,
@@ -2866,13 +3607,13 @@ QVariant NoteStore_getSearch_readReplyAsync(QByteArray reply)
 
 SavedSearch NoteStore::getSearch(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getSearch_readReply(reply);
@@ -2880,20 +3621,22 @@ SavedSearch NoteStore::getSearch(
 
 AsyncResult* NoteStore::getSearchAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getSearch_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_createSearch_prepareParams(
     QString authenticationToken,
-    const SavedSearch& search)
+    const SavedSearch & search)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3001,35 +3744,37 @@ QVariant NoteStore_createSearch_readReplyAsync(QByteArray reply)
 }
 
 SavedSearch NoteStore::createSearch(
-    const SavedSearch& search,
-    QString authenticationToken)
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         search);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_createSearch_readReply(reply);
 }
 
 AsyncResult* NoteStore::createSearchAsync(
-    const SavedSearch& search,
-    QString authenticationToken)
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         search);
     return new AsyncResult(m_url, params, NoteStore_createSearch_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateSearch_prepareParams(
     QString authenticationToken,
-    const SavedSearch& search)
+    const SavedSearch & search)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3147,31 +3892,33 @@ QVariant NoteStore_updateSearch_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::updateSearch(
-    const SavedSearch& search,
-    QString authenticationToken)
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         search);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateSearch_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateSearchAsync(
-    const SavedSearch& search,
-    QString authenticationToken)
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         search);
     return new AsyncResult(m_url, params, NoteStore_updateSearch_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_expungeSearch_prepareParams(
     QString authenticationToken,
@@ -3294,13 +4041,13 @@ QVariant NoteStore_expungeSearch_readReplyAsync(QByteArray reply)
 
 qint32 NoteStore::expungeSearch(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_expungeSearch_readReply(reply);
@@ -3308,20 +4055,22 @@ qint32 NoteStore::expungeSearch(
 
 AsyncResult* NoteStore::expungeSearchAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeSearch_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_expungeSearch_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_findNoteOffset_prepareParams(
     QString authenticationToken,
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     Guid guid)
 {
     ThriftBinaryBufferWriter w;
@@ -3446,15 +4195,15 @@ QVariant NoteStore_findNoteOffset_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::findNoteOffset(
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findNoteOffset_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         filter,
         guid);
     QByteArray reply = askEvernote(m_url, params);
@@ -3462,26 +4211,28 @@ qint32 NoteStore::findNoteOffset(
 }
 
 AsyncResult* NoteStore::findNoteOffsetAsync(
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findNoteOffset_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         filter,
         guid);
     return new AsyncResult(m_url, params, NoteStore_findNoteOffset_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_findNotesMetadata_prepareParams(
     QString authenticationToken,
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
-    const NotesMetadataResultSpec& resultSpec)
+    const NotesMetadataResultSpec & resultSpec)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3617,17 +4368,17 @@ QVariant NoteStore_findNotesMetadata_readReplyAsync(QByteArray reply)
 }
 
 NotesMetadataList NoteStore::findNotesMetadata(
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
-    const NotesMetadataResultSpec& resultSpec,
-    QString authenticationToken)
+    const NotesMetadataResultSpec & resultSpec,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findNotesMetadata_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         filter,
         offset,
         maxNotes,
@@ -3637,17 +4388,17 @@ NotesMetadataList NoteStore::findNotesMetadata(
 }
 
 AsyncResult* NoteStore::findNotesMetadataAsync(
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
-    const NotesMetadataResultSpec& resultSpec,
-    QString authenticationToken)
+    const NotesMetadataResultSpec & resultSpec,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findNotesMetadata_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         filter,
         offset,
         maxNotes,
@@ -3655,9 +4406,11 @@ AsyncResult* NoteStore::findNotesMetadataAsync(
     return new AsyncResult(m_url, params, NoteStore_findNotesMetadata_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_findNoteCounts_prepareParams(
     QString authenticationToken,
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     bool withTrash)
 {
     ThriftBinaryBufferWriter w;
@@ -3782,15 +4535,15 @@ QVariant NoteStore_findNoteCounts_readReplyAsync(QByteArray reply)
 }
 
 NoteCollectionCounts NoteStore::findNoteCounts(
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     bool withTrash,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findNoteCounts_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         filter,
         withTrash);
     QByteArray reply = askEvernote(m_url, params);
@@ -3798,24 +4551,26 @@ NoteCollectionCounts NoteStore::findNoteCounts(
 }
 
 AsyncResult* NoteStore::findNoteCountsAsync(
-    const NoteFilter& filter,
+    const NoteFilter & filter,
     bool withTrash,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findNoteCounts_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         filter,
         withTrash);
     return new AsyncResult(m_url, params, NoteStore_findNoteCounts_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_getNoteWithResultSpec_prepareParams(
     QString authenticationToken,
     Guid guid,
-    const NoteResultSpec& resultSpec)
+    const NoteResultSpec & resultSpec)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3940,14 +4695,14 @@ QVariant NoteStore_getNoteWithResultSpec_readReplyAsync(QByteArray reply)
 
 Note NoteStore::getNoteWithResultSpec(
     Guid guid,
-    const NoteResultSpec& resultSpec,
-    QString authenticationToken)
+    const NoteResultSpec & resultSpec,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteWithResultSpec_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         resultSpec);
     QByteArray reply = askEvernote(m_url, params);
@@ -3956,18 +4711,20 @@ Note NoteStore::getNoteWithResultSpec(
 
 AsyncResult* NoteStore::getNoteWithResultSpecAsync(
     Guid guid,
-    const NoteResultSpec& resultSpec,
-    QString authenticationToken)
+    const NoteResultSpec & resultSpec,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteWithResultSpec_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         resultSpec);
     return new AsyncResult(m_url, params, NoteStore_getNoteWithResultSpec_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNote_prepareParams(
     QString authenticationToken,
@@ -4122,13 +4879,13 @@ Note NoteStore::getNote(
     bool withResourcesData,
     bool withResourcesRecognition,
     bool withResourcesAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         withContent,
         withResourcesData,
@@ -4144,13 +4901,13 @@ AsyncResult* NoteStore::getNoteAsync(
     bool withResourcesData,
     bool withResourcesRecognition,
     bool withResourcesAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         withContent,
         withResourcesData,
@@ -4158,6 +4915,8 @@ AsyncResult* NoteStore::getNoteAsync(
         withResourcesAlternateData);
     return new AsyncResult(m_url, params, NoteStore_getNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNoteApplicationData_prepareParams(
     QString authenticationToken,
@@ -4280,13 +5039,13 @@ QVariant NoteStore_getNoteApplicationData_readReplyAsync(QByteArray reply)
 
 LazyMap NoteStore::getNoteApplicationData(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteApplicationData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getNoteApplicationData_readReply(reply);
@@ -4294,16 +5053,18 @@ LazyMap NoteStore::getNoteApplicationData(
 
 AsyncResult* NoteStore::getNoteApplicationDataAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteApplicationData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getNoteApplicationData_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNoteApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -4434,13 +5195,13 @@ QVariant NoteStore_getNoteApplicationDataEntry_readReplyAsync(QByteArray reply)
 QString NoteStore::getNoteApplicationDataEntry(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     QByteArray reply = askEvernote(m_url, params);
@@ -4450,17 +5211,19 @@ QString NoteStore::getNoteApplicationDataEntry(
 AsyncResult* NoteStore::getNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     return new AsyncResult(m_url, params, NoteStore_getNoteApplicationDataEntry_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_setNoteApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -4599,13 +5362,13 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     Guid guid,
     QString key,
     QString value,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_setNoteApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key,
         value);
@@ -4617,18 +5380,20 @@ AsyncResult* NoteStore::setNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_setNoteApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key,
         value);
     return new AsyncResult(m_url, params, NoteStore_setNoteApplicationDataEntry_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_unsetNoteApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -4759,13 +5524,13 @@ QVariant NoteStore_unsetNoteApplicationDataEntry_readReplyAsync(QByteArray reply
 qint32 NoteStore::unsetNoteApplicationDataEntry(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_unsetNoteApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     QByteArray reply = askEvernote(m_url, params);
@@ -4775,17 +5540,19 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
 AsyncResult* NoteStore::unsetNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_unsetNoteApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     return new AsyncResult(m_url, params, NoteStore_unsetNoteApplicationDataEntry_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNoteContent_prepareParams(
     QString authenticationToken,
@@ -4908,13 +5675,13 @@ QVariant NoteStore_getNoteContent_readReplyAsync(QByteArray reply)
 
 QString NoteStore::getNoteContent(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteContent_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getNoteContent_readReply(reply);
@@ -4922,16 +5689,18 @@ QString NoteStore::getNoteContent(
 
 AsyncResult* NoteStore::getNoteContentAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteContent_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getNoteContent_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNoteSearchText_prepareParams(
     QString authenticationToken,
@@ -5070,13 +5839,13 @@ QString NoteStore::getNoteSearchText(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteSearchText_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         noteOnly,
         tokenizeForIndexing);
@@ -5088,18 +5857,20 @@ AsyncResult* NoteStore::getNoteSearchTextAsync(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteSearchText_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         noteOnly,
         tokenizeForIndexing);
     return new AsyncResult(m_url, params, NoteStore_getNoteSearchText_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceSearchText_prepareParams(
     QString authenticationToken,
@@ -5222,13 +5993,13 @@ QVariant NoteStore_getResourceSearchText_readReplyAsync(QByteArray reply)
 
 QString NoteStore::getResourceSearchText(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceSearchText_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getResourceSearchText_readReply(reply);
@@ -5236,16 +6007,18 @@ QString NoteStore::getResourceSearchText(
 
 AsyncResult* NoteStore::getResourceSearchTextAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceSearchText_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getResourceSearchText_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNoteTagNames_prepareParams(
     QString authenticationToken,
@@ -5378,13 +6151,13 @@ QVariant NoteStore_getNoteTagNames_readReplyAsync(QByteArray reply)
 
 QStringList NoteStore::getNoteTagNames(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteTagNames_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getNoteTagNames_readReply(reply);
@@ -5392,20 +6165,22 @@ QStringList NoteStore::getNoteTagNames(
 
 AsyncResult* NoteStore::getNoteTagNamesAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteTagNames_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getNoteTagNames_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_createNote_prepareParams(
     QString authenticationToken,
-    const Note& note)
+    const Note & note)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5523,35 +6298,37 @@ QVariant NoteStore_createNote_readReplyAsync(QByteArray reply)
 }
 
 Note NoteStore::createNote(
-    const Note& note,
-    QString authenticationToken)
+    const Note & note,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         note);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_createNote_readReply(reply);
 }
 
 AsyncResult* NoteStore::createNoteAsync(
-    const Note& note,
-    QString authenticationToken)
+    const Note & note,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         note);
     return new AsyncResult(m_url, params, NoteStore_createNote_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateNote_prepareParams(
     QString authenticationToken,
-    const Note& note)
+    const Note & note)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5669,31 +6446,33 @@ QVariant NoteStore_updateNote_readReplyAsync(QByteArray reply)
 }
 
 Note NoteStore::updateNote(
-    const Note& note,
-    QString authenticationToken)
+    const Note & note,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         note);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateNote_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateNoteAsync(
-    const Note& note,
-    QString authenticationToken)
+    const Note & note,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         note);
     return new AsyncResult(m_url, params, NoteStore_updateNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_deleteNote_prepareParams(
     QString authenticationToken,
@@ -5816,13 +6595,13 @@ QVariant NoteStore_deleteNote_readReplyAsync(QByteArray reply)
 
 qint32 NoteStore::deleteNote(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_deleteNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_deleteNote_readReply(reply);
@@ -5830,16 +6609,18 @@ qint32 NoteStore::deleteNote(
 
 AsyncResult* NoteStore::deleteNoteAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_deleteNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_deleteNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_expungeNote_prepareParams(
     QString authenticationToken,
@@ -5962,13 +6743,13 @@ QVariant NoteStore_expungeNote_readReplyAsync(QByteArray reply)
 
 qint32 NoteStore::expungeNote(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_expungeNote_readReply(reply);
@@ -5976,16 +6757,18 @@ qint32 NoteStore::expungeNote(
 
 AsyncResult* NoteStore::expungeNoteAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_expungeNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_copyNote_prepareParams(
     QString authenticationToken,
@@ -6116,13 +6899,13 @@ QVariant NoteStore_copyNote_readReplyAsync(QByteArray reply)
 Note NoteStore::copyNote(
     Guid noteGuid,
     Guid toNotebookGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_copyNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid,
         toNotebookGuid);
     QByteArray reply = askEvernote(m_url, params);
@@ -6132,17 +6915,19 @@ Note NoteStore::copyNote(
 AsyncResult* NoteStore::copyNoteAsync(
     Guid noteGuid,
     Guid toNotebookGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_copyNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid,
         toNotebookGuid);
     return new AsyncResult(m_url, params, NoteStore_copyNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listNoteVersions_prepareParams(
     QString authenticationToken,
@@ -6275,13 +7060,13 @@ QVariant NoteStore_listNoteVersions_readReplyAsync(QByteArray reply)
 
 QList<NoteVersionId> NoteStore::listNoteVersions(
     Guid noteGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listNoteVersions_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listNoteVersions_readReply(reply);
@@ -6289,16 +7074,18 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
 
 AsyncResult* NoteStore::listNoteVersionsAsync(
     Guid noteGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listNoteVersions_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid);
     return new AsyncResult(m_url, params, NoteStore_listNoteVersions_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNoteVersion_prepareParams(
     QString authenticationToken,
@@ -6453,13 +7240,13 @@ Note NoteStore::getNoteVersion(
     bool withResourcesData,
     bool withResourcesRecognition,
     bool withResourcesAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteVersion_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid,
         updateSequenceNum,
         withResourcesData,
@@ -6475,13 +7262,13 @@ AsyncResult* NoteStore::getNoteVersionAsync(
     bool withResourcesData,
     bool withResourcesRecognition,
     bool withResourcesAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNoteVersion_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid,
         updateSequenceNum,
         withResourcesData,
@@ -6489,6 +7276,8 @@ AsyncResult* NoteStore::getNoteVersionAsync(
         withResourcesAlternateData);
     return new AsyncResult(m_url, params, NoteStore_getNoteVersion_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResource_prepareParams(
     QString authenticationToken,
@@ -6643,13 +7432,13 @@ Resource NoteStore::getResource(
     bool withRecognition,
     bool withAttributes,
     bool withAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResource_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         withData,
         withRecognition,
@@ -6665,13 +7454,13 @@ AsyncResult* NoteStore::getResourceAsync(
     bool withRecognition,
     bool withAttributes,
     bool withAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResource_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         withData,
         withRecognition,
@@ -6679,6 +7468,8 @@ AsyncResult* NoteStore::getResourceAsync(
         withAlternateData);
     return new AsyncResult(m_url, params, NoteStore_getResource_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceApplicationData_prepareParams(
     QString authenticationToken,
@@ -6801,13 +7592,13 @@ QVariant NoteStore_getResourceApplicationData_readReplyAsync(QByteArray reply)
 
 LazyMap NoteStore::getResourceApplicationData(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceApplicationData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getResourceApplicationData_readReply(reply);
@@ -6815,16 +7606,18 @@ LazyMap NoteStore::getResourceApplicationData(
 
 AsyncResult* NoteStore::getResourceApplicationDataAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceApplicationData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getResourceApplicationData_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -6955,13 +7748,13 @@ QVariant NoteStore_getResourceApplicationDataEntry_readReplyAsync(QByteArray rep
 QString NoteStore::getResourceApplicationDataEntry(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     QByteArray reply = askEvernote(m_url, params);
@@ -6971,17 +7764,19 @@ QString NoteStore::getResourceApplicationDataEntry(
 AsyncResult* NoteStore::getResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     return new AsyncResult(m_url, params, NoteStore_getResourceApplicationDataEntry_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_setResourceApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -7120,13 +7915,13 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     Guid guid,
     QString key,
     QString value,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_setResourceApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key,
         value);
@@ -7138,18 +7933,20 @@ AsyncResult* NoteStore::setResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_setResourceApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key,
         value);
     return new AsyncResult(m_url, params, NoteStore_setResourceApplicationDataEntry_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_unsetResourceApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -7280,13 +8077,13 @@ QVariant NoteStore_unsetResourceApplicationDataEntry_readReplyAsync(QByteArray r
 qint32 NoteStore::unsetResourceApplicationDataEntry(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_unsetResourceApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     QByteArray reply = askEvernote(m_url, params);
@@ -7296,21 +8093,23 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
 AsyncResult* NoteStore::unsetResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_unsetResourceApplicationDataEntry_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid,
         key);
     return new AsyncResult(m_url, params, NoteStore_unsetResourceApplicationDataEntry_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateResource_prepareParams(
     QString authenticationToken,
-    const Resource& resource)
+    const Resource & resource)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7428,31 +8227,33 @@ QVariant NoteStore_updateResource_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::updateResource(
-    const Resource& resource,
-    QString authenticationToken)
+    const Resource & resource,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateResource_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         resource);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateResource_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateResourceAsync(
-    const Resource& resource,
-    QString authenticationToken)
+    const Resource & resource,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateResource_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         resource);
     return new AsyncResult(m_url, params, NoteStore_updateResource_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceData_prepareParams(
     QString authenticationToken,
@@ -7575,13 +8376,13 @@ QVariant NoteStore_getResourceData_readReplyAsync(QByteArray reply)
 
 QByteArray NoteStore::getResourceData(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getResourceData_readReply(reply);
@@ -7589,16 +8390,18 @@ QByteArray NoteStore::getResourceData(
 
 AsyncResult* NoteStore::getResourceDataAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getResourceData_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceByHash_prepareParams(
     QString authenticationToken,
@@ -7753,13 +8556,13 @@ Resource NoteStore::getResourceByHash(
     bool withData,
     bool withRecognition,
     bool withAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceByHash_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid,
         contentHash,
         withData,
@@ -7775,13 +8578,13 @@ AsyncResult* NoteStore::getResourceByHashAsync(
     bool withData,
     bool withRecognition,
     bool withAlternateData,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceByHash_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         noteGuid,
         contentHash,
         withData,
@@ -7789,6 +8592,8 @@ AsyncResult* NoteStore::getResourceByHashAsync(
         withAlternateData);
     return new AsyncResult(m_url, params, NoteStore_getResourceByHash_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceRecognition_prepareParams(
     QString authenticationToken,
@@ -7911,13 +8716,13 @@ QVariant NoteStore_getResourceRecognition_readReplyAsync(QByteArray reply)
 
 QByteArray NoteStore::getResourceRecognition(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceRecognition_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getResourceRecognition_readReply(reply);
@@ -7925,16 +8730,18 @@ QByteArray NoteStore::getResourceRecognition(
 
 AsyncResult* NoteStore::getResourceRecognitionAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceRecognition_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getResourceRecognition_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceAlternateData_prepareParams(
     QString authenticationToken,
@@ -8057,13 +8864,13 @@ QVariant NoteStore_getResourceAlternateData_readReplyAsync(QByteArray reply)
 
 QByteArray NoteStore::getResourceAlternateData(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceAlternateData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getResourceAlternateData_readReply(reply);
@@ -8071,16 +8878,18 @@ QByteArray NoteStore::getResourceAlternateData(
 
 AsyncResult* NoteStore::getResourceAlternateDataAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceAlternateData_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getResourceAlternateData_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getResourceAttributes_prepareParams(
     QString authenticationToken,
@@ -8203,13 +9012,13 @@ QVariant NoteStore_getResourceAttributes_readReplyAsync(QByteArray reply)
 
 ResourceAttributes NoteStore::getResourceAttributes(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceAttributes_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getResourceAttributes_readReply(reply);
@@ -8217,16 +9026,18 @@ ResourceAttributes NoteStore::getResourceAttributes(
 
 AsyncResult* NoteStore::getResourceAttributesAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getResourceAttributes_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_getResourceAttributes_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getPublicNotebook_prepareParams(
     UserID userId,
@@ -8339,8 +9150,12 @@ QVariant NoteStore_getPublicNotebook_readReplyAsync(QByteArray reply)
 
 Notebook NoteStore::getPublicNotebook(
     UserID userId,
-    QString publicUri)
+    QString publicUri,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = NoteStore_getPublicNotebook_prepareParams(
         userId,
         publicUri);
@@ -8350,17 +9165,23 @@ Notebook NoteStore::getPublicNotebook(
 
 AsyncResult* NoteStore::getPublicNotebookAsync(
     UserID userId,
-    QString publicUri)
+    QString publicUri,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = NoteStore_getPublicNotebook_prepareParams(
         userId,
         publicUri);
     return new AsyncResult(m_url, params, NoteStore_getPublicNotebook_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_shareNotebook_prepareParams(
     QString authenticationToken,
-    const SharedNotebook& sharedNotebook,
+    const SharedNotebook & sharedNotebook,
     QString message)
 {
     ThriftBinaryBufferWriter w;
@@ -8485,15 +9306,15 @@ QVariant NoteStore_shareNotebook_readReplyAsync(QByteArray reply)
 }
 
 SharedNotebook NoteStore::shareNotebook(
-    const SharedNotebook& sharedNotebook,
+    const SharedNotebook & sharedNotebook,
     QString message,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_shareNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         sharedNotebook,
         message);
     QByteArray reply = askEvernote(m_url, params);
@@ -8501,23 +9322,25 @@ SharedNotebook NoteStore::shareNotebook(
 }
 
 AsyncResult* NoteStore::shareNotebookAsync(
-    const SharedNotebook& sharedNotebook,
+    const SharedNotebook & sharedNotebook,
     QString message,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_shareNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         sharedNotebook,
         message);
     return new AsyncResult(m_url, params, NoteStore_shareNotebook_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_createOrUpdateNotebookShares_prepareParams(
     QString authenticationToken,
-    const NotebookShareTemplate& shareTemplate)
+    const NotebookShareTemplate & shareTemplate)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8645,35 +9468,37 @@ QVariant NoteStore_createOrUpdateNotebookShares_readReplyAsync(QByteArray reply)
 }
 
 CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
-    const NotebookShareTemplate& shareTemplate,
-    QString authenticationToken)
+    const NotebookShareTemplate & shareTemplate,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createOrUpdateNotebookShares_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         shareTemplate);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_createOrUpdateNotebookShares_readReply(reply);
 }
 
 AsyncResult* NoteStore::createOrUpdateNotebookSharesAsync(
-    const NotebookShareTemplate& shareTemplate,
-    QString authenticationToken)
+    const NotebookShareTemplate & shareTemplate,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createOrUpdateNotebookShares_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         shareTemplate);
     return new AsyncResult(m_url, params, NoteStore_createOrUpdateNotebookShares_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateSharedNotebook_prepareParams(
     QString authenticationToken,
-    const SharedNotebook& sharedNotebook)
+    const SharedNotebook & sharedNotebook)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8791,36 +9616,38 @@ QVariant NoteStore_updateSharedNotebook_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::updateSharedNotebook(
-    const SharedNotebook& sharedNotebook,
-    QString authenticationToken)
+    const SharedNotebook & sharedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateSharedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         sharedNotebook);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateSharedNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateSharedNotebookAsync(
-    const SharedNotebook& sharedNotebook,
-    QString authenticationToken)
+    const SharedNotebook & sharedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateSharedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         sharedNotebook);
     return new AsyncResult(m_url, params, NoteStore_updateSharedNotebook_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_setNotebookRecipientSettings_prepareParams(
     QString authenticationToken,
     QString notebookGuid,
-    const NotebookRecipientSettings& recipientSettings)
+    const NotebookRecipientSettings & recipientSettings)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8945,14 +9772,14 @@ QVariant NoteStore_setNotebookRecipientSettings_readReplyAsync(QByteArray reply)
 
 Notebook NoteStore::setNotebookRecipientSettings(
     QString notebookGuid,
-    const NotebookRecipientSettings& recipientSettings,
-    QString authenticationToken)
+    const NotebookRecipientSettings & recipientSettings,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_setNotebookRecipientSettings_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebookGuid,
         recipientSettings);
     QByteArray reply = askEvernote(m_url, params);
@@ -8961,18 +9788,20 @@ Notebook NoteStore::setNotebookRecipientSettings(
 
 AsyncResult* NoteStore::setNotebookRecipientSettingsAsync(
     QString notebookGuid,
-    const NotebookRecipientSettings& recipientSettings,
-    QString authenticationToken)
+    const NotebookRecipientSettings & recipientSettings,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_setNotebookRecipientSettings_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebookGuid,
         recipientSettings);
     return new AsyncResult(m_url, params, NoteStore_setNotebookRecipientSettings_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listSharedNotebooks_prepareParams(
     QString authenticationToken)
@@ -9097,31 +9926,33 @@ QVariant NoteStore_listSharedNotebooks_readReplyAsync(QByteArray reply)
 }
 
 QList<SharedNotebook> NoteStore::listSharedNotebooks(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listSharedNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listSharedNotebooks_readReply(reply);
 }
 
 AsyncResult* NoteStore::listSharedNotebooksAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listSharedNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_listSharedNotebooks_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_createLinkedNotebook_prepareParams(
     QString authenticationToken,
-    const LinkedNotebook& linkedNotebook)
+    const LinkedNotebook & linkedNotebook)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9239,35 +10070,37 @@ QVariant NoteStore_createLinkedNotebook_readReplyAsync(QByteArray reply)
 }
 
 LinkedNotebook NoteStore::createLinkedNotebook(
-    const LinkedNotebook& linkedNotebook,
-    QString authenticationToken)
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createLinkedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_createLinkedNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::createLinkedNotebookAsync(
-    const LinkedNotebook& linkedNotebook,
-    QString authenticationToken)
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_createLinkedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook);
     return new AsyncResult(m_url, params, NoteStore_createLinkedNotebook_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateLinkedNotebook_prepareParams(
     QString authenticationToken,
-    const LinkedNotebook& linkedNotebook)
+    const LinkedNotebook & linkedNotebook)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9385,31 +10218,33 @@ QVariant NoteStore_updateLinkedNotebook_readReplyAsync(QByteArray reply)
 }
 
 qint32 NoteStore::updateLinkedNotebook(
-    const LinkedNotebook& linkedNotebook,
-    QString authenticationToken)
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateLinkedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateLinkedNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateLinkedNotebookAsync(
-    const LinkedNotebook& linkedNotebook,
-    QString authenticationToken)
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateLinkedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         linkedNotebook);
     return new AsyncResult(m_url, params, NoteStore_updateLinkedNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_listLinkedNotebooks_prepareParams(
     QString authenticationToken)
@@ -9534,27 +10369,29 @@ QVariant NoteStore_listLinkedNotebooks_readReplyAsync(QByteArray reply)
 }
 
 QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listLinkedNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_listLinkedNotebooks_readReply(reply);
 }
 
 AsyncResult* NoteStore::listLinkedNotebooksAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_listLinkedNotebooks_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_listLinkedNotebooks_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_expungeLinkedNotebook_prepareParams(
     QString authenticationToken,
@@ -9677,13 +10514,13 @@ QVariant NoteStore_expungeLinkedNotebook_readReplyAsync(QByteArray reply)
 
 qint32 NoteStore::expungeLinkedNotebook(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeLinkedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_expungeLinkedNotebook_readReply(reply);
@@ -9691,16 +10528,18 @@ qint32 NoteStore::expungeLinkedNotebook(
 
 AsyncResult* NoteStore::expungeLinkedNotebookAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_expungeLinkedNotebook_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_expungeLinkedNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_authenticateToSharedNotebook_prepareParams(
     QString shareKeyOrGlobalId,
@@ -9823,30 +10662,32 @@ QVariant NoteStore_authenticateToSharedNotebook_readReplyAsync(QByteArray reply)
 
 AuthenticationResult NoteStore::authenticateToSharedNotebook(
     QString shareKeyOrGlobalId,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_authenticateToSharedNotebook_prepareParams(
         shareKeyOrGlobalId,
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_authenticateToSharedNotebook_readReply(reply);
 }
 
 AsyncResult* NoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_authenticateToSharedNotebook_prepareParams(
         shareKeyOrGlobalId,
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_authenticateToSharedNotebook_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getSharedNotebookByAuth_prepareParams(
     QString authenticationToken)
@@ -9961,31 +10802,33 @@ QVariant NoteStore_getSharedNotebookByAuth_readReplyAsync(QByteArray reply)
 }
 
 SharedNotebook NoteStore::getSharedNotebookByAuth(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getSharedNotebookByAuth_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getSharedNotebookByAuth_readReply(reply);
 }
 
 AsyncResult* NoteStore::getSharedNotebookByAuthAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getSharedNotebookByAuth_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_getSharedNotebookByAuth_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_emailNote_prepareParams(
     QString authenticationToken,
-    const NoteEmailParameters& parameters)
+    const NoteEmailParameters & parameters)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10086,31 +10929,33 @@ QVariant NoteStore_emailNote_readReplyAsync(QByteArray reply)
 }
 
 void NoteStore::emailNote(
-    const NoteEmailParameters& parameters,
-    QString authenticationToken)
+    const NoteEmailParameters & parameters,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_emailNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         parameters);
     QByteArray reply = askEvernote(m_url, params);
     NoteStore_emailNote_readReply(reply);
 }
 
 AsyncResult* NoteStore::emailNoteAsync(
-    const NoteEmailParameters& parameters,
-    QString authenticationToken)
+    const NoteEmailParameters & parameters,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_emailNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         parameters);
     return new AsyncResult(m_url, params, NoteStore_emailNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_shareNote_prepareParams(
     QString authenticationToken,
@@ -10233,13 +11078,13 @@ QVariant NoteStore_shareNote_readReplyAsync(QByteArray reply)
 
 QString NoteStore::shareNote(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_shareNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_shareNote_readReply(reply);
@@ -10247,16 +11092,18 @@ QString NoteStore::shareNote(
 
 AsyncResult* NoteStore::shareNoteAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_shareNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_shareNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_stopSharingNote_prepareParams(
     QString authenticationToken,
@@ -10362,13 +11209,13 @@ QVariant NoteStore_stopSharingNote_readReplyAsync(QByteArray reply)
 
 void NoteStore::stopSharingNote(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_stopSharingNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     QByteArray reply = askEvernote(m_url, params);
     NoteStore_stopSharingNote_readReply(reply);
@@ -10376,16 +11223,18 @@ void NoteStore::stopSharingNote(
 
 AsyncResult* NoteStore::stopSharingNoteAsync(
     Guid guid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_stopSharingNote_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         guid);
     return new AsyncResult(m_url, params, NoteStore_stopSharingNote_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_authenticateToSharedNote_prepareParams(
     QString guid,
@@ -10516,15 +11365,15 @@ QVariant NoteStore_authenticateToSharedNote_readReplyAsync(QByteArray reply)
 AuthenticationResult NoteStore::authenticateToSharedNote(
     QString guid,
     QString noteKey,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_authenticateToSharedNote_prepareParams(
         guid,
         noteKey,
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_authenticateToSharedNote_readReply(reply);
 }
@@ -10532,22 +11381,24 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
 AsyncResult* NoteStore::authenticateToSharedNoteAsync(
     QString guid,
     QString noteKey,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_authenticateToSharedNote_prepareParams(
         guid,
         noteKey,
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, NoteStore_authenticateToSharedNote_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_findRelated_prepareParams(
     QString authenticationToken,
-    const RelatedQuery& query,
-    const RelatedResultSpec& resultSpec)
+    const RelatedQuery & query,
+    const RelatedResultSpec & resultSpec)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10671,15 +11522,15 @@ QVariant NoteStore_findRelated_readReplyAsync(QByteArray reply)
 }
 
 RelatedResult NoteStore::findRelated(
-    const RelatedQuery& query,
-    const RelatedResultSpec& resultSpec,
-    QString authenticationToken)
+    const RelatedQuery & query,
+    const RelatedResultSpec & resultSpec,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findRelated_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         query,
         resultSpec);
     QByteArray reply = askEvernote(m_url, params);
@@ -10687,23 +11538,25 @@ RelatedResult NoteStore::findRelated(
 }
 
 AsyncResult* NoteStore::findRelatedAsync(
-    const RelatedQuery& query,
-    const RelatedResultSpec& resultSpec,
-    QString authenticationToken)
+    const RelatedQuery & query,
+    const RelatedResultSpec & resultSpec,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_findRelated_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         query,
         resultSpec);
     return new AsyncResult(m_url, params, NoteStore_findRelated_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_updateNoteIfUsnMatches_prepareParams(
     QString authenticationToken,
-    const Note& note)
+    const Note & note)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10821,35 +11674,37 @@ QVariant NoteStore_updateNoteIfUsnMatches_readReplyAsync(QByteArray reply)
 }
 
 UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
-    const Note& note,
-    QString authenticationToken)
+    const Note & note,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateNoteIfUsnMatches_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         note);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_updateNoteIfUsnMatches_readReply(reply);
 }
 
 AsyncResult* NoteStore::updateNoteIfUsnMatchesAsync(
-    const Note& note,
-    QString authenticationToken)
+    const Note & note,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_updateNoteIfUsnMatches_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         note);
     return new AsyncResult(m_url, params, NoteStore_updateNoteIfUsnMatches_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 QByteArray NoteStore_manageNotebookShares_prepareParams(
     QString authenticationToken,
-    const ManageNotebookSharesParameters& parameters)
+    const ManageNotebookSharesParameters & parameters)
 {
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10967,31 +11822,33 @@ QVariant NoteStore_manageNotebookShares_readReplyAsync(QByteArray reply)
 }
 
 ManageNotebookSharesResult NoteStore::manageNotebookShares(
-    const ManageNotebookSharesParameters& parameters,
-    QString authenticationToken)
+    const ManageNotebookSharesParameters & parameters,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_manageNotebookShares_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         parameters);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_manageNotebookShares_readReply(reply);
 }
 
 AsyncResult* NoteStore::manageNotebookSharesAsync(
-    const ManageNotebookSharesParameters& parameters,
-    QString authenticationToken)
+    const ManageNotebookSharesParameters & parameters,
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_manageNotebookShares_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         parameters);
     return new AsyncResult(m_url, params, NoteStore_manageNotebookShares_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray NoteStore_getNotebookShares_prepareParams(
     QString authenticationToken,
@@ -11114,13 +11971,13 @@ QVariant NoteStore_getNotebookShares_readReplyAsync(QByteArray reply)
 
 ShareRelationships NoteStore::getNotebookShares(
     QString notebookGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNotebookShares_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebookGuid);
     QByteArray reply = askEvernote(m_url, params);
     return NoteStore_getNotebookShares_readReply(reply);
@@ -11128,16 +11985,180 @@ ShareRelationships NoteStore::getNotebookShares(
 
 AsyncResult* NoteStore::getNotebookSharesAsync(
     QString notebookGuid,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = NoteStore_getNotebookShares_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         notebookGuid);
     return new AsyncResult(m_url, params, NoteStore_getNotebookShares_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+class Q_DECL_HIDDEN UserStore: public IUserStore
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(UserStore)
+public:
+    explicit UserStore(
+            QString host,
+            IRequestContextPtr ctx = {},
+            QObject * parent = nullptr) :
+        IUserStore(parent),
+        m_ctx(std::move(ctx))
+    {
+        if (!m_ctx) {
+            m_ctx = newRequestContext();
+        }
+
+        QUrl url;
+        url.setScheme(QStringLiteral("https"));
+        url.setHost(host);
+        url.setPath(QStringLiteral("/edam/user"));
+        m_url = url.toString(QUrl::StripTrailingSlash);
+    }
+
+    virtual bool checkVersion(
+        QString clientName,
+        qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
+        qint16 edamVersionMinor = EDAM_VERSION_MINOR,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * checkVersionAsync(
+        QString clientName,
+        qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
+        qint16 edamVersionMinor = EDAM_VERSION_MINOR,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual BootstrapInfo getBootstrapInfo(
+        QString locale,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getBootstrapInfoAsync(
+        QString locale,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateLongSession(
+        QString username,
+        QString password,
+        QString consumerKey,
+        QString consumerSecret,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        bool supportsTwoFactor,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateLongSessionAsync(
+        QString username,
+        QString password,
+        QString consumerKey,
+        QString consumerSecret,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        bool supportsTwoFactor,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult completeTwoFactorAuthentication(
+        QString oneTimeCode,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * completeTwoFactorAuthenticationAsync(
+        QString oneTimeCode,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void revokeLongSession(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * revokeLongSessionAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateToBusiness(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateToBusinessAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual User getUser(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getUserAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual PublicUserInfo getPublicUserInfo(
+        QString username,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getPublicUserInfoAsync(
+        QString username,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual UserUrls getUserUrls(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getUserUrlsAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void inviteToBusiness(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * inviteToBusinessAsync(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void removeFromBusiness(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * removeFromBusinessAsync(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void updateBusinessUserIdentifier(
+        QString oldEmailAddress,
+        QString newEmailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateBusinessUserIdentifierAsync(
+        QString oldEmailAddress,
+        QString newEmailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<UserProfile> listBusinessUsers(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listBusinessUsersAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<BusinessInvitation> listBusinessInvitations(
+        bool includeRequestedInvitations,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listBusinessInvitationsAsync(
+        bool includeRequestedInvitations,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AccountLimits getAccountLimits(
+        ServiceLevel serviceLevel,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getAccountLimitsAsync(
+        ServiceLevel serviceLevel,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+private:
+    QString m_url;
+    IRequestContextPtr m_ctx;
+};
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_checkVersion_prepareParams(
     QString clientName,
@@ -11238,8 +12259,12 @@ QVariant UserStore_checkVersion_readReplyAsync(QByteArray reply)
 bool UserStore::checkVersion(
     QString clientName,
     qint16 edamVersionMajor,
-    qint16 edamVersionMinor)
+    qint16 edamVersionMinor,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_checkVersion_prepareParams(
         clientName,
         edamVersionMajor,
@@ -11251,14 +12276,20 @@ bool UserStore::checkVersion(
 AsyncResult* UserStore::checkVersionAsync(
     QString clientName,
     qint16 edamVersionMajor,
-    qint16 edamVersionMinor)
+    qint16 edamVersionMinor,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_checkVersion_prepareParams(
         clientName,
         edamVersionMajor,
         edamVersionMinor);
     return new AsyncResult(m_url, params, UserStore_checkVersion_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_getBootstrapInfo_prepareParams(
     QString locale)
@@ -11343,8 +12374,12 @@ QVariant UserStore_getBootstrapInfo_readReplyAsync(QByteArray reply)
 }
 
 BootstrapInfo UserStore::getBootstrapInfo(
-    QString locale)
+    QString locale,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_getBootstrapInfo_prepareParams(
         locale);
     QByteArray reply = askEvernote(m_url, params);
@@ -11352,12 +12387,18 @@ BootstrapInfo UserStore::getBootstrapInfo(
 }
 
 AsyncResult* UserStore::getBootstrapInfoAsync(
-    QString locale)
+    QString locale,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_getBootstrapInfo_prepareParams(
         locale);
     return new AsyncResult(m_url, params, UserStore_getBootstrapInfo_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_authenticateLongSession_prepareParams(
     QString username,
@@ -11510,8 +12551,12 @@ AuthenticationResult UserStore::authenticateLongSession(
     QString consumerSecret,
     QString deviceIdentifier,
     QString deviceDescription,
-    bool supportsTwoFactor)
+    bool supportsTwoFactor,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_authenticateLongSession_prepareParams(
         username,
         password,
@@ -11531,8 +12576,12 @@ AsyncResult* UserStore::authenticateLongSessionAsync(
     QString consumerSecret,
     QString deviceIdentifier,
     QString deviceDescription,
-    bool supportsTwoFactor)
+    bool supportsTwoFactor,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_authenticateLongSession_prepareParams(
         username,
         password,
@@ -11543,6 +12592,8 @@ AsyncResult* UserStore::authenticateLongSessionAsync(
         supportsTwoFactor);
     return new AsyncResult(m_url, params, UserStore_authenticateLongSession_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_completeTwoFactorAuthentication_prepareParams(
     QString authenticationToken,
@@ -11671,13 +12722,13 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     QString oneTimeCode,
     QString deviceIdentifier,
     QString deviceDescription,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_completeTwoFactorAuthentication_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         oneTimeCode,
         deviceIdentifier,
         deviceDescription);
@@ -11689,18 +12740,20 @@ AsyncResult* UserStore::completeTwoFactorAuthenticationAsync(
     QString oneTimeCode,
     QString deviceIdentifier,
     QString deviceDescription,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_completeTwoFactorAuthentication_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         oneTimeCode,
         deviceIdentifier,
         deviceDescription);
     return new AsyncResult(m_url, params, UserStore_completeTwoFactorAuthentication_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_revokeLongSession_prepareParams(
     QString authenticationToken)
@@ -11788,27 +12841,29 @@ QVariant UserStore_revokeLongSession_readReplyAsync(QByteArray reply)
 }
 
 void UserStore::revokeLongSession(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_revokeLongSession_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     UserStore_revokeLongSession_readReply(reply);
 }
 
 AsyncResult* UserStore::revokeLongSessionAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_revokeLongSession_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, UserStore_revokeLongSession_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_authenticateToBusiness_prepareParams(
     QString authenticationToken)
@@ -11913,27 +12968,29 @@ QVariant UserStore_authenticateToBusiness_readReplyAsync(QByteArray reply)
 }
 
 AuthenticationResult UserStore::authenticateToBusiness(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_authenticateToBusiness_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return UserStore_authenticateToBusiness_readReply(reply);
 }
 
 AsyncResult* UserStore::authenticateToBusinessAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_authenticateToBusiness_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, UserStore_authenticateToBusiness_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_getUser_prepareParams(
     QString authenticationToken)
@@ -12038,27 +13095,29 @@ QVariant UserStore_getUser_readReplyAsync(QByteArray reply)
 }
 
 User UserStore::getUser(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_getUser_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return UserStore_getUser_readReply(reply);
 }
 
 AsyncResult* UserStore::getUserAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_getUser_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, UserStore_getUser_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_getPublicUserInfo_prepareParams(
     QString username)
@@ -12173,8 +13232,12 @@ QVariant UserStore_getPublicUserInfo_readReplyAsync(QByteArray reply)
 }
 
 PublicUserInfo UserStore::getPublicUserInfo(
-    QString username)
+    QString username,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_getPublicUserInfo_prepareParams(
         username);
     QByteArray reply = askEvernote(m_url, params);
@@ -12182,12 +13245,18 @@ PublicUserInfo UserStore::getPublicUserInfo(
 }
 
 AsyncResult* UserStore::getPublicUserInfoAsync(
-    QString username)
+    QString username,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_getPublicUserInfo_prepareParams(
         username);
     return new AsyncResult(m_url, params, UserStore_getPublicUserInfo_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_getUserUrls_prepareParams(
     QString authenticationToken)
@@ -12292,27 +13361,29 @@ QVariant UserStore_getUserUrls_readReplyAsync(QByteArray reply)
 }
 
 UserUrls UserStore::getUserUrls(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_getUserUrls_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return UserStore_getUserUrls_readReply(reply);
 }
 
 AsyncResult* UserStore::getUserUrlsAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_getUserUrls_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, UserStore_getUserUrls_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_inviteToBusiness_prepareParams(
     QString authenticationToken,
@@ -12408,13 +13479,13 @@ QVariant UserStore_inviteToBusiness_readReplyAsync(QByteArray reply)
 
 void UserStore::inviteToBusiness(
     QString emailAddress,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_inviteToBusiness_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         emailAddress);
     QByteArray reply = askEvernote(m_url, params);
     UserStore_inviteToBusiness_readReply(reply);
@@ -12422,16 +13493,18 @@ void UserStore::inviteToBusiness(
 
 AsyncResult* UserStore::inviteToBusinessAsync(
     QString emailAddress,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_inviteToBusiness_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         emailAddress);
     return new AsyncResult(m_url, params, UserStore_inviteToBusiness_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_removeFromBusiness_prepareParams(
     QString authenticationToken,
@@ -12537,13 +13610,13 @@ QVariant UserStore_removeFromBusiness_readReplyAsync(QByteArray reply)
 
 void UserStore::removeFromBusiness(
     QString emailAddress,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_removeFromBusiness_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         emailAddress);
     QByteArray reply = askEvernote(m_url, params);
     UserStore_removeFromBusiness_readReply(reply);
@@ -12551,16 +13624,18 @@ void UserStore::removeFromBusiness(
 
 AsyncResult* UserStore::removeFromBusinessAsync(
     QString emailAddress,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_removeFromBusiness_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         emailAddress);
     return new AsyncResult(m_url, params, UserStore_removeFromBusiness_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_updateBusinessUserIdentifier_prepareParams(
     QString authenticationToken,
@@ -12674,13 +13749,13 @@ QVariant UserStore_updateBusinessUserIdentifier_readReplyAsync(QByteArray reply)
 void UserStore::updateBusinessUserIdentifier(
     QString oldEmailAddress,
     QString newEmailAddress,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_updateBusinessUserIdentifier_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         oldEmailAddress,
         newEmailAddress);
     QByteArray reply = askEvernote(m_url, params);
@@ -12690,17 +13765,19 @@ void UserStore::updateBusinessUserIdentifier(
 AsyncResult* UserStore::updateBusinessUserIdentifierAsync(
     QString oldEmailAddress,
     QString newEmailAddress,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_updateBusinessUserIdentifier_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         oldEmailAddress,
         newEmailAddress);
     return new AsyncResult(m_url, params, UserStore_updateBusinessUserIdentifier_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_listBusinessUsers_prepareParams(
     QString authenticationToken)
@@ -12815,27 +13892,29 @@ QVariant UserStore_listBusinessUsers_readReplyAsync(QByteArray reply)
 }
 
 QList<UserProfile> UserStore::listBusinessUsers(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_listBusinessUsers_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     QByteArray reply = askEvernote(m_url, params);
     return UserStore_listBusinessUsers_readReply(reply);
 }
 
 AsyncResult* UserStore::listBusinessUsersAsync(
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_listBusinessUsers_prepareParams(
-        authenticationToken);
+        ctx->authenticationToken());
     return new AsyncResult(m_url, params, UserStore_listBusinessUsers_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_listBusinessInvitations_prepareParams(
     QString authenticationToken,
@@ -12958,13 +14037,13 @@ QVariant UserStore_listBusinessInvitations_readReplyAsync(QByteArray reply)
 
 QList<BusinessInvitation> UserStore::listBusinessInvitations(
     bool includeRequestedInvitations,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_listBusinessInvitations_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         includeRequestedInvitations);
     QByteArray reply = askEvernote(m_url, params);
     return UserStore_listBusinessInvitations_readReply(reply);
@@ -12972,16 +14051,18 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
 
 AsyncResult* UserStore::listBusinessInvitationsAsync(
     bool includeRequestedInvitations,
-    QString authenticationToken)
+    IRequestContextPtr ctx)
 {
-    if (authenticationToken.isEmpty()) {
-        authenticationToken = m_authenticationToken;
+    if (!ctx) {
+        ctx = m_ctx;
     }
     QByteArray params = UserStore_listBusinessInvitations_prepareParams(
-        authenticationToken,
+        ctx->authenticationToken(),
         includeRequestedInvitations);
     return new AsyncResult(m_url, params, UserStore_listBusinessInvitations_readReplyAsync);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 QByteArray UserStore_getAccountLimits_prepareParams(
     ServiceLevel serviceLevel)
@@ -13076,8 +14157,12 @@ QVariant UserStore_getAccountLimits_readReplyAsync(QByteArray reply)
 }
 
 AccountLimits UserStore::getAccountLimits(
-    ServiceLevel serviceLevel)
+    ServiceLevel serviceLevel,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_getAccountLimits_prepareParams(
         serviceLevel);
     QByteArray reply = askEvernote(m_url, params);
@@ -13085,12 +14170,35 @@ AccountLimits UserStore::getAccountLimits(
 }
 
 AsyncResult* UserStore::getAccountLimitsAsync(
-    ServiceLevel serviceLevel)
+    ServiceLevel serviceLevel,
+    IRequestContextPtr ctx)
 {
+    if (!ctx) {
+        ctx = m_ctx;
+    }
     QByteArray params = UserStore_getAccountLimits_prepareParams(
         serviceLevel);
     return new AsyncResult(m_url, params, UserStore_getAccountLimits_readReplyAsync);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+INoteStore * newNoteStore(
+    QString noteStoreUrl,
+    IRequestContextPtr ctx,
+    QObject * parent)
+{
+    return new NoteStore(noteStoreUrl, ctx, parent);
+}
+
+IUserStore * newUserStore(
+    QString host,
+    IRequestContextPtr ctx,
+    QObject * parent)
+{
+    return new UserStore(host, ctx, parent);
+}
 
 } // namespace qevercloud
+
+#include <Services.moc>
