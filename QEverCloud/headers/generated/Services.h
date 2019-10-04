@@ -2729,6 +2729,8 @@ public:
 
 };
 
+using INoteStorePtr = std::shared_ptr<INoteStore>;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -3296,6 +3298,8 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
 };
+
+using IUserStorePtr = std::shared_ptr<IUserStore>;
 
 ////////////////////////////////////////////////////////////////////////////////
 

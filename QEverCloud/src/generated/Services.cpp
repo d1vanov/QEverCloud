@@ -14,10 +14,10 @@
 #include "../Impl.h"
 #include "Types_io.h"
 #include <Helpers.h>
+#include <algorithm>
+#include <cmath>
 
 namespace qevercloud {
-
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,7 @@ class Q_DECL_HIDDEN NoteStore: public INoteStore
     Q_DISABLE_COPY(NoteStore)
 public:
     explicit NoteStore(
-            QString noteStoreUrl = QString(),
+            QString noteStoreUrl = {},
             IRequestContextPtr ctx = {},
             QObject * parent = nullptr) :
         INoteStore(parent),
@@ -722,6 +722,8 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
+namespace {
+
 QByteArray NoteStore_getSyncState_prepareParams(
     QString authenticationToken)
 {
@@ -824,6 +826,8 @@ QVariant NoteStore_getSyncState_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getSyncState_readReply(reply));
 }
 
+} // namespace
+
 SyncState NoteStore::getSyncState(
     IRequestContextPtr ctx)
 {
@@ -836,7 +840,7 @@ SyncState NoteStore::getSyncState(
     return NoteStore_getSyncState_readReply(reply);
 }
 
-AsyncResult* NoteStore::getSyncStateAsync(
+AsyncResult * NoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -848,6 +852,8 @@ AsyncResult* NoteStore::getSyncStateAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getFilteredSyncChunk_prepareParams(
     QString authenticationToken,
@@ -972,6 +978,8 @@ QVariant NoteStore_getFilteredSyncChunk_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getFilteredSyncChunk_readReply(reply));
 }
 
+} // namespace
+
 SyncChunk NoteStore::getFilteredSyncChunk(
     qint32 afterUSN,
     qint32 maxEntries,
@@ -990,7 +998,7 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     return NoteStore_getFilteredSyncChunk_readReply(reply);
 }
 
-AsyncResult* NoteStore::getFilteredSyncChunkAsync(
+AsyncResult * NoteStore::getFilteredSyncChunkAsync(
     qint32 afterUSN,
     qint32 maxEntries,
     const SyncChunkFilter & filter,
@@ -1008,6 +1016,8 @@ AsyncResult* NoteStore::getFilteredSyncChunkAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getLinkedNotebookSyncState_prepareParams(
     QString authenticationToken,
@@ -1128,6 +1138,8 @@ QVariant NoteStore_getLinkedNotebookSyncState_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getLinkedNotebookSyncState_readReply(reply));
 }
 
+} // namespace
+
 SyncState NoteStore::getLinkedNotebookSyncState(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
@@ -1142,7 +1154,7 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     return NoteStore_getLinkedNotebookSyncState_readReply(reply);
 }
 
-AsyncResult* NoteStore::getLinkedNotebookSyncStateAsync(
+AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -1156,6 +1168,8 @@ AsyncResult* NoteStore::getLinkedNotebookSyncStateAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getLinkedNotebookSyncChunk_prepareParams(
     QString authenticationToken,
@@ -1297,6 +1311,8 @@ QVariant NoteStore_getLinkedNotebookSyncChunk_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getLinkedNotebookSyncChunk_readReply(reply));
 }
 
+} // namespace
+
 SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
@@ -1317,7 +1333,7 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     return NoteStore_getLinkedNotebookSyncChunk_readReply(reply);
 }
 
-AsyncResult* NoteStore::getLinkedNotebookSyncChunkAsync(
+AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
@@ -1337,6 +1353,8 @@ AsyncResult* NoteStore::getLinkedNotebookSyncChunkAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listNotebooks_prepareParams(
     QString authenticationToken)
@@ -1450,6 +1468,8 @@ QVariant NoteStore_listNotebooks_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listNotebooks_readReply(reply));
 }
 
+} // namespace
+
 QList<Notebook> NoteStore::listNotebooks(
     IRequestContextPtr ctx)
 {
@@ -1462,7 +1482,7 @@ QList<Notebook> NoteStore::listNotebooks(
     return NoteStore_listNotebooks_readReply(reply);
 }
 
-AsyncResult* NoteStore::listNotebooksAsync(
+AsyncResult * NoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -1474,6 +1494,8 @@ AsyncResult* NoteStore::listNotebooksAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listAccessibleBusinessNotebooks_prepareParams(
     QString authenticationToken)
@@ -1587,6 +1609,8 @@ QVariant NoteStore_listAccessibleBusinessNotebooks_readReplyAsync(QByteArray rep
     return QVariant::fromValue(NoteStore_listAccessibleBusinessNotebooks_readReply(reply));
 }
 
+} // namespace
+
 QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     IRequestContextPtr ctx)
 {
@@ -1599,7 +1623,7 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     return NoteStore_listAccessibleBusinessNotebooks_readReply(reply);
 }
 
-AsyncResult* NoteStore::listAccessibleBusinessNotebooksAsync(
+AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -1611,6 +1635,8 @@ AsyncResult* NoteStore::listAccessibleBusinessNotebooksAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNotebook_prepareParams(
     QString authenticationToken,
@@ -1731,6 +1757,8 @@ QVariant NoteStore_getNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNotebook_readReply(reply));
 }
 
+} // namespace
+
 Notebook NoteStore::getNotebook(
     Guid guid,
     IRequestContextPtr ctx)
@@ -1745,7 +1773,7 @@ Notebook NoteStore::getNotebook(
     return NoteStore_getNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNotebookAsync(
+AsyncResult * NoteStore::getNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -1759,6 +1787,8 @@ AsyncResult* NoteStore::getNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getDefaultNotebook_prepareParams(
     QString authenticationToken)
@@ -1862,6 +1892,8 @@ QVariant NoteStore_getDefaultNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getDefaultNotebook_readReply(reply));
 }
 
+} // namespace
+
 Notebook NoteStore::getDefaultNotebook(
     IRequestContextPtr ctx)
 {
@@ -1874,7 +1906,7 @@ Notebook NoteStore::getDefaultNotebook(
     return NoteStore_getDefaultNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::getDefaultNotebookAsync(
+AsyncResult * NoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -1886,6 +1918,8 @@ AsyncResult* NoteStore::getDefaultNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_createNotebook_prepareParams(
     QString authenticationToken,
@@ -2006,6 +2040,8 @@ QVariant NoteStore_createNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_createNotebook_readReply(reply));
 }
 
+} // namespace
+
 Notebook NoteStore::createNotebook(
     const Notebook & notebook,
     IRequestContextPtr ctx)
@@ -2020,7 +2056,7 @@ Notebook NoteStore::createNotebook(
     return NoteStore_createNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::createNotebookAsync(
+AsyncResult * NoteStore::createNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -2034,6 +2070,8 @@ AsyncResult* NoteStore::createNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateNotebook_prepareParams(
     QString authenticationToken,
@@ -2154,6 +2192,8 @@ QVariant NoteStore_updateNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateNotebook_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::updateNotebook(
     const Notebook & notebook,
     IRequestContextPtr ctx)
@@ -2168,7 +2208,7 @@ qint32 NoteStore::updateNotebook(
     return NoteStore_updateNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateNotebookAsync(
+AsyncResult * NoteStore::updateNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -2182,6 +2222,8 @@ AsyncResult* NoteStore::updateNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_expungeNotebook_prepareParams(
     QString authenticationToken,
@@ -2302,6 +2344,8 @@ QVariant NoteStore_expungeNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_expungeNotebook_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::expungeNotebook(
     Guid guid,
     IRequestContextPtr ctx)
@@ -2316,7 +2360,7 @@ qint32 NoteStore::expungeNotebook(
     return NoteStore_expungeNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::expungeNotebookAsync(
+AsyncResult * NoteStore::expungeNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -2330,6 +2374,8 @@ AsyncResult* NoteStore::expungeNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listTags_prepareParams(
     QString authenticationToken)
@@ -2443,6 +2489,8 @@ QVariant NoteStore_listTags_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listTags_readReply(reply));
 }
 
+} // namespace
+
 QList<Tag> NoteStore::listTags(
     IRequestContextPtr ctx)
 {
@@ -2455,7 +2503,7 @@ QList<Tag> NoteStore::listTags(
     return NoteStore_listTags_readReply(reply);
 }
 
-AsyncResult* NoteStore::listTagsAsync(
+AsyncResult * NoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -2467,6 +2515,8 @@ AsyncResult* NoteStore::listTagsAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listTagsByNotebook_prepareParams(
     QString authenticationToken,
@@ -2597,6 +2647,8 @@ QVariant NoteStore_listTagsByNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listTagsByNotebook_readReply(reply));
 }
 
+} // namespace
+
 QList<Tag> NoteStore::listTagsByNotebook(
     Guid notebookGuid,
     IRequestContextPtr ctx)
@@ -2611,7 +2663,7 @@ QList<Tag> NoteStore::listTagsByNotebook(
     return NoteStore_listTagsByNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::listTagsByNotebookAsync(
+AsyncResult * NoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -2625,6 +2677,8 @@ AsyncResult* NoteStore::listTagsByNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getTag_prepareParams(
     QString authenticationToken,
@@ -2745,6 +2799,8 @@ QVariant NoteStore_getTag_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getTag_readReply(reply));
 }
 
+} // namespace
+
 Tag NoteStore::getTag(
     Guid guid,
     IRequestContextPtr ctx)
@@ -2759,7 +2815,7 @@ Tag NoteStore::getTag(
     return NoteStore_getTag_readReply(reply);
 }
 
-AsyncResult* NoteStore::getTagAsync(
+AsyncResult * NoteStore::getTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -2773,6 +2829,8 @@ AsyncResult* NoteStore::getTagAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_createTag_prepareParams(
     QString authenticationToken,
@@ -2893,6 +2951,8 @@ QVariant NoteStore_createTag_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_createTag_readReply(reply));
 }
 
+} // namespace
+
 Tag NoteStore::createTag(
     const Tag & tag,
     IRequestContextPtr ctx)
@@ -2907,7 +2967,7 @@ Tag NoteStore::createTag(
     return NoteStore_createTag_readReply(reply);
 }
 
-AsyncResult* NoteStore::createTagAsync(
+AsyncResult * NoteStore::createTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -2921,6 +2981,8 @@ AsyncResult* NoteStore::createTagAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateTag_prepareParams(
     QString authenticationToken,
@@ -3041,6 +3103,8 @@ QVariant NoteStore_updateTag_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateTag_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::updateTag(
     const Tag & tag,
     IRequestContextPtr ctx)
@@ -3055,7 +3119,7 @@ qint32 NoteStore::updateTag(
     return NoteStore_updateTag_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateTagAsync(
+AsyncResult * NoteStore::updateTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -3069,6 +3133,8 @@ AsyncResult* NoteStore::updateTagAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_untagAll_prepareParams(
     QString authenticationToken,
@@ -3172,6 +3238,8 @@ QVariant NoteStore_untagAll_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void NoteStore::untagAll(
     Guid guid,
     IRequestContextPtr ctx)
@@ -3186,7 +3254,7 @@ void NoteStore::untagAll(
     NoteStore_untagAll_readReply(reply);
 }
 
-AsyncResult* NoteStore::untagAllAsync(
+AsyncResult * NoteStore::untagAllAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -3200,6 +3268,8 @@ AsyncResult* NoteStore::untagAllAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_expungeTag_prepareParams(
     QString authenticationToken,
@@ -3320,6 +3390,8 @@ QVariant NoteStore_expungeTag_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_expungeTag_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::expungeTag(
     Guid guid,
     IRequestContextPtr ctx)
@@ -3334,7 +3406,7 @@ qint32 NoteStore::expungeTag(
     return NoteStore_expungeTag_readReply(reply);
 }
 
-AsyncResult* NoteStore::expungeTagAsync(
+AsyncResult * NoteStore::expungeTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -3348,6 +3420,8 @@ AsyncResult* NoteStore::expungeTagAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listSearches_prepareParams(
     QString authenticationToken)
@@ -3461,6 +3535,8 @@ QVariant NoteStore_listSearches_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listSearches_readReply(reply));
 }
 
+} // namespace
+
 QList<SavedSearch> NoteStore::listSearches(
     IRequestContextPtr ctx)
 {
@@ -3473,7 +3549,7 @@ QList<SavedSearch> NoteStore::listSearches(
     return NoteStore_listSearches_readReply(reply);
 }
 
-AsyncResult* NoteStore::listSearchesAsync(
+AsyncResult * NoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -3485,6 +3561,8 @@ AsyncResult* NoteStore::listSearchesAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getSearch_prepareParams(
     QString authenticationToken,
@@ -3605,6 +3683,8 @@ QVariant NoteStore_getSearch_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getSearch_readReply(reply));
 }
 
+} // namespace
+
 SavedSearch NoteStore::getSearch(
     Guid guid,
     IRequestContextPtr ctx)
@@ -3619,7 +3699,7 @@ SavedSearch NoteStore::getSearch(
     return NoteStore_getSearch_readReply(reply);
 }
 
-AsyncResult* NoteStore::getSearchAsync(
+AsyncResult * NoteStore::getSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -3633,6 +3713,8 @@ AsyncResult* NoteStore::getSearchAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_createSearch_prepareParams(
     QString authenticationToken,
@@ -3743,6 +3825,8 @@ QVariant NoteStore_createSearch_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_createSearch_readReply(reply));
 }
 
+} // namespace
+
 SavedSearch NoteStore::createSearch(
     const SavedSearch & search,
     IRequestContextPtr ctx)
@@ -3757,7 +3841,7 @@ SavedSearch NoteStore::createSearch(
     return NoteStore_createSearch_readReply(reply);
 }
 
-AsyncResult* NoteStore::createSearchAsync(
+AsyncResult * NoteStore::createSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -3771,6 +3855,8 @@ AsyncResult* NoteStore::createSearchAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateSearch_prepareParams(
     QString authenticationToken,
@@ -3891,6 +3977,8 @@ QVariant NoteStore_updateSearch_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateSearch_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::updateSearch(
     const SavedSearch & search,
     IRequestContextPtr ctx)
@@ -3905,7 +3993,7 @@ qint32 NoteStore::updateSearch(
     return NoteStore_updateSearch_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateSearchAsync(
+AsyncResult * NoteStore::updateSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -3919,6 +4007,8 @@ AsyncResult* NoteStore::updateSearchAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_expungeSearch_prepareParams(
     QString authenticationToken,
@@ -4039,6 +4129,8 @@ QVariant NoteStore_expungeSearch_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_expungeSearch_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::expungeSearch(
     Guid guid,
     IRequestContextPtr ctx)
@@ -4053,7 +4145,7 @@ qint32 NoteStore::expungeSearch(
     return NoteStore_expungeSearch_readReply(reply);
 }
 
-AsyncResult* NoteStore::expungeSearchAsync(
+AsyncResult * NoteStore::expungeSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4067,6 +4159,8 @@ AsyncResult* NoteStore::expungeSearchAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_findNoteOffset_prepareParams(
     QString authenticationToken,
@@ -4194,6 +4288,8 @@ QVariant NoteStore_findNoteOffset_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_findNoteOffset_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::findNoteOffset(
     const NoteFilter & filter,
     Guid guid,
@@ -4210,7 +4306,7 @@ qint32 NoteStore::findNoteOffset(
     return NoteStore_findNoteOffset_readReply(reply);
 }
 
-AsyncResult* NoteStore::findNoteOffsetAsync(
+AsyncResult * NoteStore::findNoteOffsetAsync(
     const NoteFilter & filter,
     Guid guid,
     IRequestContextPtr ctx)
@@ -4226,6 +4322,8 @@ AsyncResult* NoteStore::findNoteOffsetAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_findNotesMetadata_prepareParams(
     QString authenticationToken,
@@ -4367,6 +4465,8 @@ QVariant NoteStore_findNotesMetadata_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_findNotesMetadata_readReply(reply));
 }
 
+} // namespace
+
 NotesMetadataList NoteStore::findNotesMetadata(
     const NoteFilter & filter,
     qint32 offset,
@@ -4387,7 +4487,7 @@ NotesMetadataList NoteStore::findNotesMetadata(
     return NoteStore_findNotesMetadata_readReply(reply);
 }
 
-AsyncResult* NoteStore::findNotesMetadataAsync(
+AsyncResult * NoteStore::findNotesMetadataAsync(
     const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
@@ -4407,6 +4507,8 @@ AsyncResult* NoteStore::findNotesMetadataAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_findNoteCounts_prepareParams(
     QString authenticationToken,
@@ -4534,6 +4636,8 @@ QVariant NoteStore_findNoteCounts_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_findNoteCounts_readReply(reply));
 }
 
+} // namespace
+
 NoteCollectionCounts NoteStore::findNoteCounts(
     const NoteFilter & filter,
     bool withTrash,
@@ -4550,7 +4654,7 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     return NoteStore_findNoteCounts_readReply(reply);
 }
 
-AsyncResult* NoteStore::findNoteCountsAsync(
+AsyncResult * NoteStore::findNoteCountsAsync(
     const NoteFilter & filter,
     bool withTrash,
     IRequestContextPtr ctx)
@@ -4566,6 +4670,8 @@ AsyncResult* NoteStore::findNoteCountsAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteWithResultSpec_prepareParams(
     QString authenticationToken,
@@ -4693,6 +4799,8 @@ QVariant NoteStore_getNoteWithResultSpec_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteWithResultSpec_readReply(reply));
 }
 
+} // namespace
+
 Note NoteStore::getNoteWithResultSpec(
     Guid guid,
     const NoteResultSpec & resultSpec,
@@ -4709,7 +4817,7 @@ Note NoteStore::getNoteWithResultSpec(
     return NoteStore_getNoteWithResultSpec_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteWithResultSpecAsync(
+AsyncResult * NoteStore::getNoteWithResultSpecAsync(
     Guid guid,
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -4725,6 +4833,8 @@ AsyncResult* NoteStore::getNoteWithResultSpecAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNote_prepareParams(
     QString authenticationToken,
@@ -4873,6 +4983,8 @@ QVariant NoteStore_getNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNote_readReply(reply));
 }
 
+} // namespace
+
 Note NoteStore::getNote(
     Guid guid,
     bool withContent,
@@ -4895,7 +5007,7 @@ Note NoteStore::getNote(
     return NoteStore_getNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteAsync(
+AsyncResult * NoteStore::getNoteAsync(
     Guid guid,
     bool withContent,
     bool withResourcesData,
@@ -4917,6 +5029,8 @@ AsyncResult* NoteStore::getNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteApplicationData_prepareParams(
     QString authenticationToken,
@@ -5037,6 +5151,8 @@ QVariant NoteStore_getNoteApplicationData_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteApplicationData_readReply(reply));
 }
 
+} // namespace
+
 LazyMap NoteStore::getNoteApplicationData(
     Guid guid,
     IRequestContextPtr ctx)
@@ -5051,7 +5167,7 @@ LazyMap NoteStore::getNoteApplicationData(
     return NoteStore_getNoteApplicationData_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteApplicationDataAsync(
+AsyncResult * NoteStore::getNoteApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -5065,6 +5181,8 @@ AsyncResult* NoteStore::getNoteApplicationDataAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -5192,6 +5310,8 @@ QVariant NoteStore_getNoteApplicationDataEntry_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteApplicationDataEntry_readReply(reply));
 }
 
+} // namespace
+
 QString NoteStore::getNoteApplicationDataEntry(
     Guid guid,
     QString key,
@@ -5208,7 +5328,7 @@ QString NoteStore::getNoteApplicationDataEntry(
     return NoteStore_getNoteApplicationDataEntry_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteApplicationDataEntryAsync(
+AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -5224,6 +5344,8 @@ AsyncResult* NoteStore::getNoteApplicationDataEntryAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_setNoteApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -5358,6 +5480,8 @@ QVariant NoteStore_setNoteApplicationDataEntry_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_setNoteApplicationDataEntry_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::setNoteApplicationDataEntry(
     Guid guid,
     QString key,
@@ -5376,7 +5500,7 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     return NoteStore_setNoteApplicationDataEntry_readReply(reply);
 }
 
-AsyncResult* NoteStore::setNoteApplicationDataEntryAsync(
+AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -5394,6 +5518,8 @@ AsyncResult* NoteStore::setNoteApplicationDataEntryAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_unsetNoteApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -5521,6 +5647,8 @@ QVariant NoteStore_unsetNoteApplicationDataEntry_readReplyAsync(QByteArray reply
     return QVariant::fromValue(NoteStore_unsetNoteApplicationDataEntry_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::unsetNoteApplicationDataEntry(
     Guid guid,
     QString key,
@@ -5537,7 +5665,7 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     return NoteStore_unsetNoteApplicationDataEntry_readReply(reply);
 }
 
-AsyncResult* NoteStore::unsetNoteApplicationDataEntryAsync(
+AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -5553,6 +5681,8 @@ AsyncResult* NoteStore::unsetNoteApplicationDataEntryAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteContent_prepareParams(
     QString authenticationToken,
@@ -5673,6 +5803,8 @@ QVariant NoteStore_getNoteContent_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteContent_readReply(reply));
 }
 
+} // namespace
+
 QString NoteStore::getNoteContent(
     Guid guid,
     IRequestContextPtr ctx)
@@ -5687,7 +5819,7 @@ QString NoteStore::getNoteContent(
     return NoteStore_getNoteContent_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteContentAsync(
+AsyncResult * NoteStore::getNoteContentAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -5701,6 +5833,8 @@ AsyncResult* NoteStore::getNoteContentAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteSearchText_prepareParams(
     QString authenticationToken,
@@ -5835,6 +5969,8 @@ QVariant NoteStore_getNoteSearchText_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteSearchText_readReply(reply));
 }
 
+} // namespace
+
 QString NoteStore::getNoteSearchText(
     Guid guid,
     bool noteOnly,
@@ -5853,7 +5989,7 @@ QString NoteStore::getNoteSearchText(
     return NoteStore_getNoteSearchText_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteSearchTextAsync(
+AsyncResult * NoteStore::getNoteSearchTextAsync(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
@@ -5871,6 +6007,8 @@ AsyncResult* NoteStore::getNoteSearchTextAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceSearchText_prepareParams(
     QString authenticationToken,
@@ -5991,6 +6129,8 @@ QVariant NoteStore_getResourceSearchText_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceSearchText_readReply(reply));
 }
 
+} // namespace
+
 QString NoteStore::getResourceSearchText(
     Guid guid,
     IRequestContextPtr ctx)
@@ -6005,7 +6145,7 @@ QString NoteStore::getResourceSearchText(
     return NoteStore_getResourceSearchText_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceSearchTextAsync(
+AsyncResult * NoteStore::getResourceSearchTextAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -6019,6 +6159,8 @@ AsyncResult* NoteStore::getResourceSearchTextAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteTagNames_prepareParams(
     QString authenticationToken,
@@ -6149,6 +6291,8 @@ QVariant NoteStore_getNoteTagNames_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteTagNames_readReply(reply));
 }
 
+} // namespace
+
 QStringList NoteStore::getNoteTagNames(
     Guid guid,
     IRequestContextPtr ctx)
@@ -6163,7 +6307,7 @@ QStringList NoteStore::getNoteTagNames(
     return NoteStore_getNoteTagNames_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteTagNamesAsync(
+AsyncResult * NoteStore::getNoteTagNamesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -6177,6 +6321,8 @@ AsyncResult* NoteStore::getNoteTagNamesAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_createNote_prepareParams(
     QString authenticationToken,
@@ -6297,6 +6443,8 @@ QVariant NoteStore_createNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_createNote_readReply(reply));
 }
 
+} // namespace
+
 Note NoteStore::createNote(
     const Note & note,
     IRequestContextPtr ctx)
@@ -6311,7 +6459,7 @@ Note NoteStore::createNote(
     return NoteStore_createNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::createNoteAsync(
+AsyncResult * NoteStore::createNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -6325,6 +6473,8 @@ AsyncResult* NoteStore::createNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateNote_prepareParams(
     QString authenticationToken,
@@ -6445,6 +6595,8 @@ QVariant NoteStore_updateNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateNote_readReply(reply));
 }
 
+} // namespace
+
 Note NoteStore::updateNote(
     const Note & note,
     IRequestContextPtr ctx)
@@ -6459,7 +6611,7 @@ Note NoteStore::updateNote(
     return NoteStore_updateNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateNoteAsync(
+AsyncResult * NoteStore::updateNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -6473,6 +6625,8 @@ AsyncResult* NoteStore::updateNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_deleteNote_prepareParams(
     QString authenticationToken,
@@ -6593,6 +6747,8 @@ QVariant NoteStore_deleteNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_deleteNote_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::deleteNote(
     Guid guid,
     IRequestContextPtr ctx)
@@ -6607,7 +6763,7 @@ qint32 NoteStore::deleteNote(
     return NoteStore_deleteNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::deleteNoteAsync(
+AsyncResult * NoteStore::deleteNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -6621,6 +6777,8 @@ AsyncResult* NoteStore::deleteNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_expungeNote_prepareParams(
     QString authenticationToken,
@@ -6741,6 +6899,8 @@ QVariant NoteStore_expungeNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_expungeNote_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::expungeNote(
     Guid guid,
     IRequestContextPtr ctx)
@@ -6755,7 +6915,7 @@ qint32 NoteStore::expungeNote(
     return NoteStore_expungeNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::expungeNoteAsync(
+AsyncResult * NoteStore::expungeNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -6769,6 +6929,8 @@ AsyncResult* NoteStore::expungeNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_copyNote_prepareParams(
     QString authenticationToken,
@@ -6896,6 +7058,8 @@ QVariant NoteStore_copyNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_copyNote_readReply(reply));
 }
 
+} // namespace
+
 Note NoteStore::copyNote(
     Guid noteGuid,
     Guid toNotebookGuid,
@@ -6912,7 +7076,7 @@ Note NoteStore::copyNote(
     return NoteStore_copyNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::copyNoteAsync(
+AsyncResult * NoteStore::copyNoteAsync(
     Guid noteGuid,
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
@@ -6928,6 +7092,8 @@ AsyncResult* NoteStore::copyNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listNoteVersions_prepareParams(
     QString authenticationToken,
@@ -7058,6 +7224,8 @@ QVariant NoteStore_listNoteVersions_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listNoteVersions_readReply(reply));
 }
 
+} // namespace
+
 QList<NoteVersionId> NoteStore::listNoteVersions(
     Guid noteGuid,
     IRequestContextPtr ctx)
@@ -7072,7 +7240,7 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     return NoteStore_listNoteVersions_readReply(reply);
 }
 
-AsyncResult* NoteStore::listNoteVersionsAsync(
+AsyncResult * NoteStore::listNoteVersionsAsync(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
@@ -7086,6 +7254,8 @@ AsyncResult* NoteStore::listNoteVersionsAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNoteVersion_prepareParams(
     QString authenticationToken,
@@ -7234,6 +7404,8 @@ QVariant NoteStore_getNoteVersion_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNoteVersion_readReply(reply));
 }
 
+} // namespace
+
 Note NoteStore::getNoteVersion(
     Guid noteGuid,
     qint32 updateSequenceNum,
@@ -7256,7 +7428,7 @@ Note NoteStore::getNoteVersion(
     return NoteStore_getNoteVersion_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNoteVersionAsync(
+AsyncResult * NoteStore::getNoteVersionAsync(
     Guid noteGuid,
     qint32 updateSequenceNum,
     bool withResourcesData,
@@ -7278,6 +7450,8 @@ AsyncResult* NoteStore::getNoteVersionAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResource_prepareParams(
     QString authenticationToken,
@@ -7426,6 +7600,8 @@ QVariant NoteStore_getResource_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResource_readReply(reply));
 }
 
+} // namespace
+
 Resource NoteStore::getResource(
     Guid guid,
     bool withData,
@@ -7448,7 +7624,7 @@ Resource NoteStore::getResource(
     return NoteStore_getResource_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceAsync(
+AsyncResult * NoteStore::getResourceAsync(
     Guid guid,
     bool withData,
     bool withRecognition,
@@ -7470,6 +7646,8 @@ AsyncResult* NoteStore::getResourceAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceApplicationData_prepareParams(
     QString authenticationToken,
@@ -7590,6 +7768,8 @@ QVariant NoteStore_getResourceApplicationData_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceApplicationData_readReply(reply));
 }
 
+} // namespace
+
 LazyMap NoteStore::getResourceApplicationData(
     Guid guid,
     IRequestContextPtr ctx)
@@ -7604,7 +7784,7 @@ LazyMap NoteStore::getResourceApplicationData(
     return NoteStore_getResourceApplicationData_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceApplicationDataAsync(
+AsyncResult * NoteStore::getResourceApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -7618,6 +7798,8 @@ AsyncResult* NoteStore::getResourceApplicationDataAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -7745,6 +7927,8 @@ QVariant NoteStore_getResourceApplicationDataEntry_readReplyAsync(QByteArray rep
     return QVariant::fromValue(NoteStore_getResourceApplicationDataEntry_readReply(reply));
 }
 
+} // namespace
+
 QString NoteStore::getResourceApplicationDataEntry(
     Guid guid,
     QString key,
@@ -7761,7 +7945,7 @@ QString NoteStore::getResourceApplicationDataEntry(
     return NoteStore_getResourceApplicationDataEntry_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceApplicationDataEntryAsync(
+AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -7777,6 +7961,8 @@ AsyncResult* NoteStore::getResourceApplicationDataEntryAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_setResourceApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -7911,6 +8097,8 @@ QVariant NoteStore_setResourceApplicationDataEntry_readReplyAsync(QByteArray rep
     return QVariant::fromValue(NoteStore_setResourceApplicationDataEntry_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::setResourceApplicationDataEntry(
     Guid guid,
     QString key,
@@ -7929,7 +8117,7 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     return NoteStore_setResourceApplicationDataEntry_readReply(reply);
 }
 
-AsyncResult* NoteStore::setResourceApplicationDataEntryAsync(
+AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -7947,6 +8135,8 @@ AsyncResult* NoteStore::setResourceApplicationDataEntryAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_unsetResourceApplicationDataEntry_prepareParams(
     QString authenticationToken,
@@ -8074,6 +8264,8 @@ QVariant NoteStore_unsetResourceApplicationDataEntry_readReplyAsync(QByteArray r
     return QVariant::fromValue(NoteStore_unsetResourceApplicationDataEntry_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::unsetResourceApplicationDataEntry(
     Guid guid,
     QString key,
@@ -8090,7 +8282,7 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     return NoteStore_unsetResourceApplicationDataEntry_readReply(reply);
 }
 
-AsyncResult* NoteStore::unsetResourceApplicationDataEntryAsync(
+AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -8106,6 +8298,8 @@ AsyncResult* NoteStore::unsetResourceApplicationDataEntryAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateResource_prepareParams(
     QString authenticationToken,
@@ -8226,6 +8420,8 @@ QVariant NoteStore_updateResource_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateResource_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::updateResource(
     const Resource & resource,
     IRequestContextPtr ctx)
@@ -8240,7 +8436,7 @@ qint32 NoteStore::updateResource(
     return NoteStore_updateResource_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateResourceAsync(
+AsyncResult * NoteStore::updateResourceAsync(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
@@ -8254,6 +8450,8 @@ AsyncResult* NoteStore::updateResourceAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceData_prepareParams(
     QString authenticationToken,
@@ -8374,6 +8572,8 @@ QVariant NoteStore_getResourceData_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceData_readReply(reply));
 }
 
+} // namespace
+
 QByteArray NoteStore::getResourceData(
     Guid guid,
     IRequestContextPtr ctx)
@@ -8388,7 +8588,7 @@ QByteArray NoteStore::getResourceData(
     return NoteStore_getResourceData_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceDataAsync(
+AsyncResult * NoteStore::getResourceDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8402,6 +8602,8 @@ AsyncResult* NoteStore::getResourceDataAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceByHash_prepareParams(
     QString authenticationToken,
@@ -8550,6 +8752,8 @@ QVariant NoteStore_getResourceByHash_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceByHash_readReply(reply));
 }
 
+} // namespace
+
 Resource NoteStore::getResourceByHash(
     Guid noteGuid,
     QByteArray contentHash,
@@ -8572,7 +8776,7 @@ Resource NoteStore::getResourceByHash(
     return NoteStore_getResourceByHash_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceByHashAsync(
+AsyncResult * NoteStore::getResourceByHashAsync(
     Guid noteGuid,
     QByteArray contentHash,
     bool withData,
@@ -8594,6 +8798,8 @@ AsyncResult* NoteStore::getResourceByHashAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceRecognition_prepareParams(
     QString authenticationToken,
@@ -8714,6 +8920,8 @@ QVariant NoteStore_getResourceRecognition_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceRecognition_readReply(reply));
 }
 
+} // namespace
+
 QByteArray NoteStore::getResourceRecognition(
     Guid guid,
     IRequestContextPtr ctx)
@@ -8728,7 +8936,7 @@ QByteArray NoteStore::getResourceRecognition(
     return NoteStore_getResourceRecognition_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceRecognitionAsync(
+AsyncResult * NoteStore::getResourceRecognitionAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8742,6 +8950,8 @@ AsyncResult* NoteStore::getResourceRecognitionAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceAlternateData_prepareParams(
     QString authenticationToken,
@@ -8862,6 +9072,8 @@ QVariant NoteStore_getResourceAlternateData_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceAlternateData_readReply(reply));
 }
 
+} // namespace
+
 QByteArray NoteStore::getResourceAlternateData(
     Guid guid,
     IRequestContextPtr ctx)
@@ -8876,7 +9088,7 @@ QByteArray NoteStore::getResourceAlternateData(
     return NoteStore_getResourceAlternateData_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceAlternateDataAsync(
+AsyncResult * NoteStore::getResourceAlternateDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8890,6 +9102,8 @@ AsyncResult* NoteStore::getResourceAlternateDataAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getResourceAttributes_prepareParams(
     QString authenticationToken,
@@ -9010,6 +9224,8 @@ QVariant NoteStore_getResourceAttributes_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getResourceAttributes_readReply(reply));
 }
 
+} // namespace
+
 ResourceAttributes NoteStore::getResourceAttributes(
     Guid guid,
     IRequestContextPtr ctx)
@@ -9024,7 +9240,7 @@ ResourceAttributes NoteStore::getResourceAttributes(
     return NoteStore_getResourceAttributes_readReply(reply);
 }
 
-AsyncResult* NoteStore::getResourceAttributesAsync(
+AsyncResult * NoteStore::getResourceAttributesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -9038,6 +9254,8 @@ AsyncResult* NoteStore::getResourceAttributesAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getPublicNotebook_prepareParams(
     UserID userId,
@@ -9148,6 +9366,8 @@ QVariant NoteStore_getPublicNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getPublicNotebook_readReply(reply));
 }
 
+} // namespace
+
 Notebook NoteStore::getPublicNotebook(
     UserID userId,
     QString publicUri,
@@ -9163,7 +9383,7 @@ Notebook NoteStore::getPublicNotebook(
     return NoteStore_getPublicNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::getPublicNotebookAsync(
+AsyncResult * NoteStore::getPublicNotebookAsync(
     UserID userId,
     QString publicUri,
     IRequestContextPtr ctx)
@@ -9178,6 +9398,8 @@ AsyncResult* NoteStore::getPublicNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_shareNotebook_prepareParams(
     QString authenticationToken,
@@ -9305,6 +9527,8 @@ QVariant NoteStore_shareNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_shareNotebook_readReply(reply));
 }
 
+} // namespace
+
 SharedNotebook NoteStore::shareNotebook(
     const SharedNotebook & sharedNotebook,
     QString message,
@@ -9321,7 +9545,7 @@ SharedNotebook NoteStore::shareNotebook(
     return NoteStore_shareNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::shareNotebookAsync(
+AsyncResult * NoteStore::shareNotebookAsync(
     const SharedNotebook & sharedNotebook,
     QString message,
     IRequestContextPtr ctx)
@@ -9337,6 +9561,8 @@ AsyncResult* NoteStore::shareNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_createOrUpdateNotebookShares_prepareParams(
     QString authenticationToken,
@@ -9467,6 +9693,8 @@ QVariant NoteStore_createOrUpdateNotebookShares_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_createOrUpdateNotebookShares_readReply(reply));
 }
 
+} // namespace
+
 CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
@@ -9481,7 +9709,7 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     return NoteStore_createOrUpdateNotebookShares_readReply(reply);
 }
 
-AsyncResult* NoteStore::createOrUpdateNotebookSharesAsync(
+AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
@@ -9495,6 +9723,8 @@ AsyncResult* NoteStore::createOrUpdateNotebookSharesAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateSharedNotebook_prepareParams(
     QString authenticationToken,
@@ -9615,6 +9845,8 @@ QVariant NoteStore_updateSharedNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateSharedNotebook_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::updateSharedNotebook(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
@@ -9629,7 +9861,7 @@ qint32 NoteStore::updateSharedNotebook(
     return NoteStore_updateSharedNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateSharedNotebookAsync(
+AsyncResult * NoteStore::updateSharedNotebookAsync(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
@@ -9643,6 +9875,8 @@ AsyncResult* NoteStore::updateSharedNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_setNotebookRecipientSettings_prepareParams(
     QString authenticationToken,
@@ -9770,6 +10004,8 @@ QVariant NoteStore_setNotebookRecipientSettings_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_setNotebookRecipientSettings_readReply(reply));
 }
 
+} // namespace
+
 Notebook NoteStore::setNotebookRecipientSettings(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings,
@@ -9786,7 +10022,7 @@ Notebook NoteStore::setNotebookRecipientSettings(
     return NoteStore_setNotebookRecipientSettings_readReply(reply);
 }
 
-AsyncResult* NoteStore::setNotebookRecipientSettingsAsync(
+AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
@@ -9802,6 +10038,8 @@ AsyncResult* NoteStore::setNotebookRecipientSettingsAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listSharedNotebooks_prepareParams(
     QString authenticationToken)
@@ -9925,6 +10163,8 @@ QVariant NoteStore_listSharedNotebooks_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listSharedNotebooks_readReply(reply));
 }
 
+} // namespace
+
 QList<SharedNotebook> NoteStore::listSharedNotebooks(
     IRequestContextPtr ctx)
 {
@@ -9937,7 +10177,7 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
     return NoteStore_listSharedNotebooks_readReply(reply);
 }
 
-AsyncResult* NoteStore::listSharedNotebooksAsync(
+AsyncResult * NoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -9949,6 +10189,8 @@ AsyncResult* NoteStore::listSharedNotebooksAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_createLinkedNotebook_prepareParams(
     QString authenticationToken,
@@ -10069,6 +10311,8 @@ QVariant NoteStore_createLinkedNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_createLinkedNotebook_readReply(reply));
 }
 
+} // namespace
+
 LinkedNotebook NoteStore::createLinkedNotebook(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
@@ -10083,7 +10327,7 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     return NoteStore_createLinkedNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::createLinkedNotebookAsync(
+AsyncResult * NoteStore::createLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -10097,6 +10341,8 @@ AsyncResult* NoteStore::createLinkedNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateLinkedNotebook_prepareParams(
     QString authenticationToken,
@@ -10217,6 +10463,8 @@ QVariant NoteStore_updateLinkedNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateLinkedNotebook_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::updateLinkedNotebook(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
@@ -10231,7 +10479,7 @@ qint32 NoteStore::updateLinkedNotebook(
     return NoteStore_updateLinkedNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateLinkedNotebookAsync(
+AsyncResult * NoteStore::updateLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -10245,6 +10493,8 @@ AsyncResult* NoteStore::updateLinkedNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_listLinkedNotebooks_prepareParams(
     QString authenticationToken)
@@ -10368,6 +10618,8 @@ QVariant NoteStore_listLinkedNotebooks_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_listLinkedNotebooks_readReply(reply));
 }
 
+} // namespace
+
 QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     IRequestContextPtr ctx)
 {
@@ -10380,7 +10632,7 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     return NoteStore_listLinkedNotebooks_readReply(reply);
 }
 
-AsyncResult* NoteStore::listLinkedNotebooksAsync(
+AsyncResult * NoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -10392,6 +10644,8 @@ AsyncResult* NoteStore::listLinkedNotebooksAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_expungeLinkedNotebook_prepareParams(
     QString authenticationToken,
@@ -10512,6 +10766,8 @@ QVariant NoteStore_expungeLinkedNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_expungeLinkedNotebook_readReply(reply));
 }
 
+} // namespace
+
 qint32 NoteStore::expungeLinkedNotebook(
     Guid guid,
     IRequestContextPtr ctx)
@@ -10526,7 +10782,7 @@ qint32 NoteStore::expungeLinkedNotebook(
     return NoteStore_expungeLinkedNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::expungeLinkedNotebookAsync(
+AsyncResult * NoteStore::expungeLinkedNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -10540,6 +10796,8 @@ AsyncResult* NoteStore::expungeLinkedNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_authenticateToSharedNotebook_prepareParams(
     QString shareKeyOrGlobalId,
@@ -10660,6 +10918,8 @@ QVariant NoteStore_authenticateToSharedNotebook_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_authenticateToSharedNotebook_readReply(reply));
 }
 
+} // namespace
+
 AuthenticationResult NoteStore::authenticateToSharedNotebook(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
@@ -10674,7 +10934,7 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     return NoteStore_authenticateToSharedNotebook_readReply(reply);
 }
 
-AsyncResult* NoteStore::authenticateToSharedNotebookAsync(
+AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
@@ -10688,6 +10948,8 @@ AsyncResult* NoteStore::authenticateToSharedNotebookAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getSharedNotebookByAuth_prepareParams(
     QString authenticationToken)
@@ -10801,6 +11063,8 @@ QVariant NoteStore_getSharedNotebookByAuth_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getSharedNotebookByAuth_readReply(reply));
 }
 
+} // namespace
+
 SharedNotebook NoteStore::getSharedNotebookByAuth(
     IRequestContextPtr ctx)
 {
@@ -10813,7 +11077,7 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
     return NoteStore_getSharedNotebookByAuth_readReply(reply);
 }
 
-AsyncResult* NoteStore::getSharedNotebookByAuthAsync(
+AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -10825,6 +11089,8 @@ AsyncResult* NoteStore::getSharedNotebookByAuthAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_emailNote_prepareParams(
     QString authenticationToken,
@@ -10928,6 +11194,8 @@ QVariant NoteStore_emailNote_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void NoteStore::emailNote(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
@@ -10942,7 +11210,7 @@ void NoteStore::emailNote(
     NoteStore_emailNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::emailNoteAsync(
+AsyncResult * NoteStore::emailNoteAsync(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -10956,6 +11224,8 @@ AsyncResult* NoteStore::emailNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_shareNote_prepareParams(
     QString authenticationToken,
@@ -11076,6 +11346,8 @@ QVariant NoteStore_shareNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_shareNote_readReply(reply));
 }
 
+} // namespace
+
 QString NoteStore::shareNote(
     Guid guid,
     IRequestContextPtr ctx)
@@ -11090,7 +11362,7 @@ QString NoteStore::shareNote(
     return NoteStore_shareNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::shareNoteAsync(
+AsyncResult * NoteStore::shareNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11104,6 +11376,8 @@ AsyncResult* NoteStore::shareNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_stopSharingNote_prepareParams(
     QString authenticationToken,
@@ -11207,6 +11481,8 @@ QVariant NoteStore_stopSharingNote_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void NoteStore::stopSharingNote(
     Guid guid,
     IRequestContextPtr ctx)
@@ -11221,7 +11497,7 @@ void NoteStore::stopSharingNote(
     NoteStore_stopSharingNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::stopSharingNoteAsync(
+AsyncResult * NoteStore::stopSharingNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11235,6 +11511,8 @@ AsyncResult* NoteStore::stopSharingNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_authenticateToSharedNote_prepareParams(
     QString guid,
@@ -11362,6 +11640,8 @@ QVariant NoteStore_authenticateToSharedNote_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_authenticateToSharedNote_readReply(reply));
 }
 
+} // namespace
+
 AuthenticationResult NoteStore::authenticateToSharedNote(
     QString guid,
     QString noteKey,
@@ -11378,7 +11658,7 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     return NoteStore_authenticateToSharedNote_readReply(reply);
 }
 
-AsyncResult* NoteStore::authenticateToSharedNoteAsync(
+AsyncResult * NoteStore::authenticateToSharedNoteAsync(
     QString guid,
     QString noteKey,
     IRequestContextPtr ctx)
@@ -11394,6 +11674,8 @@ AsyncResult* NoteStore::authenticateToSharedNoteAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_findRelated_prepareParams(
     QString authenticationToken,
@@ -11521,6 +11803,8 @@ QVariant NoteStore_findRelated_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_findRelated_readReply(reply));
 }
 
+} // namespace
+
 RelatedResult NoteStore::findRelated(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec,
@@ -11537,7 +11821,7 @@ RelatedResult NoteStore::findRelated(
     return NoteStore_findRelated_readReply(reply);
 }
 
-AsyncResult* NoteStore::findRelatedAsync(
+AsyncResult * NoteStore::findRelatedAsync(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -11553,6 +11837,8 @@ AsyncResult* NoteStore::findRelatedAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_updateNoteIfUsnMatches_prepareParams(
     QString authenticationToken,
@@ -11673,6 +11959,8 @@ QVariant NoteStore_updateNoteIfUsnMatches_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_updateNoteIfUsnMatches_readReply(reply));
 }
 
+} // namespace
+
 UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     const Note & note,
     IRequestContextPtr ctx)
@@ -11687,7 +11975,7 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     return NoteStore_updateNoteIfUsnMatches_readReply(reply);
 }
 
-AsyncResult* NoteStore::updateNoteIfUsnMatchesAsync(
+AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -11701,6 +11989,8 @@ AsyncResult* NoteStore::updateNoteIfUsnMatchesAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_manageNotebookShares_prepareParams(
     QString authenticationToken,
@@ -11821,6 +12111,8 @@ QVariant NoteStore_manageNotebookShares_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_manageNotebookShares_readReply(reply));
 }
 
+} // namespace
+
 ManageNotebookSharesResult NoteStore::manageNotebookShares(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
@@ -11835,7 +12127,7 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     return NoteStore_manageNotebookShares_readReply(reply);
 }
 
-AsyncResult* NoteStore::manageNotebookSharesAsync(
+AsyncResult * NoteStore::manageNotebookSharesAsync(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -11849,6 +12141,8 @@ AsyncResult* NoteStore::manageNotebookSharesAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray NoteStore_getNotebookShares_prepareParams(
     QString authenticationToken,
@@ -11969,6 +12263,8 @@ QVariant NoteStore_getNotebookShares_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(NoteStore_getNotebookShares_readReply(reply));
 }
 
+} // namespace
+
 ShareRelationships NoteStore::getNotebookShares(
     QString notebookGuid,
     IRequestContextPtr ctx)
@@ -11983,7 +12279,7 @@ ShareRelationships NoteStore::getNotebookShares(
     return NoteStore_getNotebookShares_readReply(reply);
 }
 
-AsyncResult* NoteStore::getNotebookSharesAsync(
+AsyncResult * NoteStore::getNotebookSharesAsync(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -12160,6 +12456,8 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
+namespace {
+
 QByteArray UserStore_checkVersion_prepareParams(
     QString clientName,
     qint16 edamVersionMajor,
@@ -12256,6 +12554,8 @@ QVariant UserStore_checkVersion_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_checkVersion_readReply(reply));
 }
 
+} // namespace
+
 bool UserStore::checkVersion(
     QString clientName,
     qint16 edamVersionMajor,
@@ -12273,7 +12573,7 @@ bool UserStore::checkVersion(
     return UserStore_checkVersion_readReply(reply);
 }
 
-AsyncResult* UserStore::checkVersionAsync(
+AsyncResult * UserStore::checkVersionAsync(
     QString clientName,
     qint16 edamVersionMajor,
     qint16 edamVersionMinor,
@@ -12290,6 +12590,8 @@ AsyncResult* UserStore::checkVersionAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_getBootstrapInfo_prepareParams(
     QString locale)
@@ -12373,6 +12675,8 @@ QVariant UserStore_getBootstrapInfo_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_getBootstrapInfo_readReply(reply));
 }
 
+} // namespace
+
 BootstrapInfo UserStore::getBootstrapInfo(
     QString locale,
     IRequestContextPtr ctx)
@@ -12386,7 +12690,7 @@ BootstrapInfo UserStore::getBootstrapInfo(
     return UserStore_getBootstrapInfo_readReply(reply);
 }
 
-AsyncResult* UserStore::getBootstrapInfoAsync(
+AsyncResult * UserStore::getBootstrapInfoAsync(
     QString locale,
     IRequestContextPtr ctx)
 {
@@ -12399,6 +12703,8 @@ AsyncResult* UserStore::getBootstrapInfoAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_authenticateLongSession_prepareParams(
     QString username,
@@ -12544,6 +12850,8 @@ QVariant UserStore_authenticateLongSession_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_authenticateLongSession_readReply(reply));
 }
 
+} // namespace
+
 AuthenticationResult UserStore::authenticateLongSession(
     QString username,
     QString password,
@@ -12569,7 +12877,7 @@ AuthenticationResult UserStore::authenticateLongSession(
     return UserStore_authenticateLongSession_readReply(reply);
 }
 
-AsyncResult* UserStore::authenticateLongSessionAsync(
+AsyncResult * UserStore::authenticateLongSessionAsync(
     QString username,
     QString password,
     QString consumerKey,
@@ -12594,6 +12902,8 @@ AsyncResult* UserStore::authenticateLongSessionAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_completeTwoFactorAuthentication_prepareParams(
     QString authenticationToken,
@@ -12718,6 +13028,8 @@ QVariant UserStore_completeTwoFactorAuthentication_readReplyAsync(QByteArray rep
     return QVariant::fromValue(UserStore_completeTwoFactorAuthentication_readReply(reply));
 }
 
+} // namespace
+
 AuthenticationResult UserStore::completeTwoFactorAuthentication(
     QString oneTimeCode,
     QString deviceIdentifier,
@@ -12736,7 +13048,7 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     return UserStore_completeTwoFactorAuthentication_readReply(reply);
 }
 
-AsyncResult* UserStore::completeTwoFactorAuthenticationAsync(
+AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
     QString oneTimeCode,
     QString deviceIdentifier,
     QString deviceDescription,
@@ -12754,6 +13066,8 @@ AsyncResult* UserStore::completeTwoFactorAuthenticationAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_revokeLongSession_prepareParams(
     QString authenticationToken)
@@ -12840,6 +13154,8 @@ QVariant UserStore_revokeLongSession_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void UserStore::revokeLongSession(
     IRequestContextPtr ctx)
 {
@@ -12852,7 +13168,7 @@ void UserStore::revokeLongSession(
     UserStore_revokeLongSession_readReply(reply);
 }
 
-AsyncResult* UserStore::revokeLongSessionAsync(
+AsyncResult * UserStore::revokeLongSessionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -12864,6 +13180,8 @@ AsyncResult* UserStore::revokeLongSessionAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_authenticateToBusiness_prepareParams(
     QString authenticationToken)
@@ -12967,6 +13285,8 @@ QVariant UserStore_authenticateToBusiness_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_authenticateToBusiness_readReply(reply));
 }
 
+} // namespace
+
 AuthenticationResult UserStore::authenticateToBusiness(
     IRequestContextPtr ctx)
 {
@@ -12979,7 +13299,7 @@ AuthenticationResult UserStore::authenticateToBusiness(
     return UserStore_authenticateToBusiness_readReply(reply);
 }
 
-AsyncResult* UserStore::authenticateToBusinessAsync(
+AsyncResult * UserStore::authenticateToBusinessAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -12991,6 +13311,8 @@ AsyncResult* UserStore::authenticateToBusinessAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_getUser_prepareParams(
     QString authenticationToken)
@@ -13094,6 +13416,8 @@ QVariant UserStore_getUser_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_getUser_readReply(reply));
 }
 
+} // namespace
+
 User UserStore::getUser(
     IRequestContextPtr ctx)
 {
@@ -13106,7 +13430,7 @@ User UserStore::getUser(
     return UserStore_getUser_readReply(reply);
 }
 
-AsyncResult* UserStore::getUserAsync(
+AsyncResult * UserStore::getUserAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -13118,6 +13442,8 @@ AsyncResult* UserStore::getUserAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_getPublicUserInfo_prepareParams(
     QString username)
@@ -13231,6 +13557,8 @@ QVariant UserStore_getPublicUserInfo_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_getPublicUserInfo_readReply(reply));
 }
 
+} // namespace
+
 PublicUserInfo UserStore::getPublicUserInfo(
     QString username,
     IRequestContextPtr ctx)
@@ -13244,7 +13572,7 @@ PublicUserInfo UserStore::getPublicUserInfo(
     return UserStore_getPublicUserInfo_readReply(reply);
 }
 
-AsyncResult* UserStore::getPublicUserInfoAsync(
+AsyncResult * UserStore::getPublicUserInfoAsync(
     QString username,
     IRequestContextPtr ctx)
 {
@@ -13257,6 +13585,8 @@ AsyncResult* UserStore::getPublicUserInfoAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_getUserUrls_prepareParams(
     QString authenticationToken)
@@ -13360,6 +13690,8 @@ QVariant UserStore_getUserUrls_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_getUserUrls_readReply(reply));
 }
 
+} // namespace
+
 UserUrls UserStore::getUserUrls(
     IRequestContextPtr ctx)
 {
@@ -13372,7 +13704,7 @@ UserUrls UserStore::getUserUrls(
     return UserStore_getUserUrls_readReply(reply);
 }
 
-AsyncResult* UserStore::getUserUrlsAsync(
+AsyncResult * UserStore::getUserUrlsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -13384,6 +13716,8 @@ AsyncResult* UserStore::getUserUrlsAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_inviteToBusiness_prepareParams(
     QString authenticationToken,
@@ -13477,6 +13811,8 @@ QVariant UserStore_inviteToBusiness_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void UserStore::inviteToBusiness(
     QString emailAddress,
     IRequestContextPtr ctx)
@@ -13491,7 +13827,7 @@ void UserStore::inviteToBusiness(
     UserStore_inviteToBusiness_readReply(reply);
 }
 
-AsyncResult* UserStore::inviteToBusinessAsync(
+AsyncResult * UserStore::inviteToBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
@@ -13505,6 +13841,8 @@ AsyncResult* UserStore::inviteToBusinessAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_removeFromBusiness_prepareParams(
     QString authenticationToken,
@@ -13608,6 +13946,8 @@ QVariant UserStore_removeFromBusiness_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void UserStore::removeFromBusiness(
     QString emailAddress,
     IRequestContextPtr ctx)
@@ -13622,7 +13962,7 @@ void UserStore::removeFromBusiness(
     UserStore_removeFromBusiness_readReply(reply);
 }
 
-AsyncResult* UserStore::removeFromBusinessAsync(
+AsyncResult * UserStore::removeFromBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
@@ -13636,6 +13976,8 @@ AsyncResult* UserStore::removeFromBusinessAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_updateBusinessUserIdentifier_prepareParams(
     QString authenticationToken,
@@ -13746,6 +14088,8 @@ QVariant UserStore_updateBusinessUserIdentifier_readReplyAsync(QByteArray reply)
     return QVariant();
 }
 
+} // namespace
+
 void UserStore::updateBusinessUserIdentifier(
     QString oldEmailAddress,
     QString newEmailAddress,
@@ -13762,7 +14106,7 @@ void UserStore::updateBusinessUserIdentifier(
     UserStore_updateBusinessUserIdentifier_readReply(reply);
 }
 
-AsyncResult* UserStore::updateBusinessUserIdentifierAsync(
+AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
     QString oldEmailAddress,
     QString newEmailAddress,
     IRequestContextPtr ctx)
@@ -13778,6 +14122,8 @@ AsyncResult* UserStore::updateBusinessUserIdentifierAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_listBusinessUsers_prepareParams(
     QString authenticationToken)
@@ -13891,6 +14237,8 @@ QVariant UserStore_listBusinessUsers_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_listBusinessUsers_readReply(reply));
 }
 
+} // namespace
+
 QList<UserProfile> UserStore::listBusinessUsers(
     IRequestContextPtr ctx)
 {
@@ -13903,7 +14251,7 @@ QList<UserProfile> UserStore::listBusinessUsers(
     return UserStore_listBusinessUsers_readReply(reply);
 }
 
-AsyncResult* UserStore::listBusinessUsersAsync(
+AsyncResult * UserStore::listBusinessUsersAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -13915,6 +14263,8 @@ AsyncResult* UserStore::listBusinessUsersAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_listBusinessInvitations_prepareParams(
     QString authenticationToken,
@@ -14035,6 +14385,8 @@ QVariant UserStore_listBusinessInvitations_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_listBusinessInvitations_readReply(reply));
 }
 
+} // namespace
+
 QList<BusinessInvitation> UserStore::listBusinessInvitations(
     bool includeRequestedInvitations,
     IRequestContextPtr ctx)
@@ -14049,7 +14401,7 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     return UserStore_listBusinessInvitations_readReply(reply);
 }
 
-AsyncResult* UserStore::listBusinessInvitationsAsync(
+AsyncResult * UserStore::listBusinessInvitationsAsync(
     bool includeRequestedInvitations,
     IRequestContextPtr ctx)
 {
@@ -14063,6 +14415,8 @@ AsyncResult* UserStore::listBusinessInvitationsAsync(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+namespace {
 
 QByteArray UserStore_getAccountLimits_prepareParams(
     ServiceLevel serviceLevel)
@@ -14156,6 +14510,8 @@ QVariant UserStore_getAccountLimits_readReplyAsync(QByteArray reply)
     return QVariant::fromValue(UserStore_getAccountLimits_readReply(reply));
 }
 
+} // namespace
+
 AccountLimits UserStore::getAccountLimits(
     ServiceLevel serviceLevel,
     IRequestContextPtr ctx)
@@ -14169,7 +14525,7 @@ AccountLimits UserStore::getAccountLimits(
     return UserStore_getAccountLimits_readReply(reply);
 }
 
-AsyncResult* UserStore::getAccountLimitsAsync(
+AsyncResult * UserStore::getAccountLimitsAsync(
     ServiceLevel serviceLevel,
     IRequestContextPtr ctx)
 {
@@ -14179,6 +14535,6907 @@ AsyncResult* UserStore::getAccountLimitsAsync(
     QByteArray params = UserStore_getAccountLimits_prepareParams(
         serviceLevel);
     return new AsyncResult(m_url, params, UserStore_getAccountLimits_readReplyAsync);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+class Q_DECL_HIDDEN DurableNoteStore: public INoteStore
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(DurableNoteStore)
+public:
+    explicit DurableNoteStore(
+            INoteStorePtr service,
+            IRequestContextPtr ctx = {},
+            QObject * parent = nullptr) :
+        INoteStore(parent),
+        m_service(std::move(service)),
+        m_ctx(std::move(ctx))
+    {
+        if (!m_ctx) {
+            m_ctx = newRequestContext();
+        }
+    }
+
+    virtual SyncState getSyncState(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getSyncStateAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SyncChunk getFilteredSyncChunk(
+        qint32 afterUSN,
+        qint32 maxEntries,
+        const SyncChunkFilter & filter,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getFilteredSyncChunkAsync(
+        qint32 afterUSN,
+        qint32 maxEntries,
+        const SyncChunkFilter & filter,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SyncState getLinkedNotebookSyncState(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getLinkedNotebookSyncStateAsync(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SyncChunk getLinkedNotebookSyncChunk(
+        const LinkedNotebook & linkedNotebook,
+        qint32 afterUSN,
+        qint32 maxEntries,
+        bool fullSyncOnly,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getLinkedNotebookSyncChunkAsync(
+        const LinkedNotebook & linkedNotebook,
+        qint32 afterUSN,
+        qint32 maxEntries,
+        bool fullSyncOnly,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Notebook> listNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Notebook> listAccessibleBusinessNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listAccessibleBusinessNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook getNotebook(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNotebookAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook getDefaultNotebook(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getDefaultNotebookAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook createNotebook(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createNotebookAsync(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateNotebook(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateNotebookAsync(
+        const Notebook & notebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeNotebook(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeNotebookAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Tag> listTags(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listTagsAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<Tag> listTagsByNotebook(
+        Guid notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listTagsByNotebookAsync(
+        Guid notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Tag getTag(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getTagAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Tag createTag(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createTagAsync(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateTag(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateTagAsync(
+        const Tag & tag,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void untagAll(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * untagAllAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeTag(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeTagAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<SavedSearch> listSearches(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listSearchesAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SavedSearch getSearch(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getSearchAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SavedSearch createSearch(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createSearchAsync(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateSearch(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateSearchAsync(
+        const SavedSearch & search,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeSearch(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeSearchAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 findNoteOffset(
+        const NoteFilter & filter,
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findNoteOffsetAsync(
+        const NoteFilter & filter,
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual NotesMetadataList findNotesMetadata(
+        const NoteFilter & filter,
+        qint32 offset,
+        qint32 maxNotes,
+        const NotesMetadataResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findNotesMetadataAsync(
+        const NoteFilter & filter,
+        qint32 offset,
+        qint32 maxNotes,
+        const NotesMetadataResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual NoteCollectionCounts findNoteCounts(
+        const NoteFilter & filter,
+        bool withTrash,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findNoteCountsAsync(
+        const NoteFilter & filter,
+        bool withTrash,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note getNoteWithResultSpec(
+        Guid guid,
+        const NoteResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteWithResultSpecAsync(
+        Guid guid,
+        const NoteResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note getNote(
+        Guid guid,
+        bool withContent,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteAsync(
+        Guid guid,
+        bool withContent,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual LazyMap getNoteApplicationData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteApplicationDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getNoteApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 setNoteApplicationDataEntry(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * setNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 unsetNoteApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * unsetNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getNoteContent(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteContentAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getNoteSearchText(
+        Guid guid,
+        bool noteOnly,
+        bool tokenizeForIndexing,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteSearchTextAsync(
+        Guid guid,
+        bool noteOnly,
+        bool tokenizeForIndexing,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getResourceSearchText(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceSearchTextAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QStringList getNoteTagNames(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteTagNamesAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note createNote(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createNoteAsync(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note updateNote(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateNoteAsync(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 deleteNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * deleteNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note copyNote(
+        Guid noteGuid,
+        Guid toNotebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * copyNoteAsync(
+        Guid noteGuid,
+        Guid toNotebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<NoteVersionId> listNoteVersions(
+        Guid noteGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listNoteVersionsAsync(
+        Guid noteGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Note getNoteVersion(
+        Guid noteGuid,
+        qint32 updateSequenceNum,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNoteVersionAsync(
+        Guid noteGuid,
+        qint32 updateSequenceNum,
+        bool withResourcesData,
+        bool withResourcesRecognition,
+        bool withResourcesAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Resource getResource(
+        Guid guid,
+        bool withData,
+        bool withRecognition,
+        bool withAttributes,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceAsync(
+        Guid guid,
+        bool withData,
+        bool withRecognition,
+        bool withAttributes,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual LazyMap getResourceApplicationData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceApplicationDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString getResourceApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 setResourceApplicationDataEntry(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * setResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 unsetResourceApplicationDataEntry(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * unsetResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateResource(
+        const Resource & resource,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateResourceAsync(
+        const Resource & resource,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QByteArray getResourceData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Resource getResourceByHash(
+        Guid noteGuid,
+        QByteArray contentHash,
+        bool withData,
+        bool withRecognition,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceByHashAsync(
+        Guid noteGuid,
+        QByteArray contentHash,
+        bool withData,
+        bool withRecognition,
+        bool withAlternateData,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QByteArray getResourceRecognition(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceRecognitionAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QByteArray getResourceAlternateData(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceAlternateDataAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual ResourceAttributes getResourceAttributes(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getResourceAttributesAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook getPublicNotebook(
+        UserID userId,
+        QString publicUri,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getPublicNotebookAsync(
+        UserID userId,
+        QString publicUri,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SharedNotebook shareNotebook(
+        const SharedNotebook & sharedNotebook,
+        QString message,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * shareNotebookAsync(
+        const SharedNotebook & sharedNotebook,
+        QString message,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+        const NotebookShareTemplate & shareTemplate,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createOrUpdateNotebookSharesAsync(
+        const NotebookShareTemplate & shareTemplate,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateSharedNotebook(
+        const SharedNotebook & sharedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateSharedNotebookAsync(
+        const SharedNotebook & sharedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual Notebook setNotebookRecipientSettings(
+        QString notebookGuid,
+        const NotebookRecipientSettings & recipientSettings,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * setNotebookRecipientSettingsAsync(
+        QString notebookGuid,
+        const NotebookRecipientSettings & recipientSettings,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<SharedNotebook> listSharedNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listSharedNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual LinkedNotebook createLinkedNotebook(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * createLinkedNotebookAsync(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 updateLinkedNotebook(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateLinkedNotebookAsync(
+        const LinkedNotebook & linkedNotebook,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<LinkedNotebook> listLinkedNotebooks(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listLinkedNotebooksAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual qint32 expungeLinkedNotebook(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * expungeLinkedNotebookAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateToSharedNotebook(
+        QString shareKeyOrGlobalId,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateToSharedNotebookAsync(
+        QString shareKeyOrGlobalId,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual SharedNotebook getSharedNotebookByAuth(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getSharedNotebookByAuthAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void emailNote(
+        const NoteEmailParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * emailNoteAsync(
+        const NoteEmailParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QString shareNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * shareNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void stopSharingNote(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * stopSharingNoteAsync(
+        Guid guid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateToSharedNote(
+        QString guid,
+        QString noteKey,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateToSharedNoteAsync(
+        QString guid,
+        QString noteKey,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual RelatedResult findRelated(
+        const RelatedQuery & query,
+        const RelatedResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * findRelatedAsync(
+        const RelatedQuery & query,
+        const RelatedResultSpec & resultSpec,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateNoteIfUsnMatchesAsync(
+        const Note & note,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual ManageNotebookSharesResult manageNotebookShares(
+        const ManageNotebookSharesParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * manageNotebookSharesAsync(
+        const ManageNotebookSharesParameters & parameters,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual ShareRelationships getNotebookShares(
+        QString notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getNotebookSharesAsync(
+        QString notebookGuid,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+private:
+    INoteStorePtr m_service;
+    IRequestContextPtr m_ctx;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class Q_DECL_HIDDEN DurableUserStore: public IUserStore
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(DurableUserStore)
+public:
+    explicit DurableUserStore(
+            IUserStorePtr service,
+            IRequestContextPtr ctx = {},
+            QObject * parent = nullptr) :
+        IUserStore(parent),
+        m_service(std::move(service)),
+        m_ctx(std::move(ctx))
+    {
+        if (!m_ctx) {
+            m_ctx = newRequestContext();
+        }
+
+    }
+
+    virtual bool checkVersion(
+        QString clientName,
+        qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
+        qint16 edamVersionMinor = EDAM_VERSION_MINOR,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * checkVersionAsync(
+        QString clientName,
+        qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
+        qint16 edamVersionMinor = EDAM_VERSION_MINOR,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual BootstrapInfo getBootstrapInfo(
+        QString locale,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getBootstrapInfoAsync(
+        QString locale,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateLongSession(
+        QString username,
+        QString password,
+        QString consumerKey,
+        QString consumerSecret,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        bool supportsTwoFactor,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateLongSessionAsync(
+        QString username,
+        QString password,
+        QString consumerKey,
+        QString consumerSecret,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        bool supportsTwoFactor,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult completeTwoFactorAuthentication(
+        QString oneTimeCode,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * completeTwoFactorAuthenticationAsync(
+        QString oneTimeCode,
+        QString deviceIdentifier,
+        QString deviceDescription,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void revokeLongSession(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * revokeLongSessionAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AuthenticationResult authenticateToBusiness(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * authenticateToBusinessAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual User getUser(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getUserAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual PublicUserInfo getPublicUserInfo(
+        QString username,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getPublicUserInfoAsync(
+        QString username,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual UserUrls getUserUrls(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getUserUrlsAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void inviteToBusiness(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * inviteToBusinessAsync(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void removeFromBusiness(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * removeFromBusinessAsync(
+        QString emailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual void updateBusinessUserIdentifier(
+        QString oldEmailAddress,
+        QString newEmailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * updateBusinessUserIdentifierAsync(
+        QString oldEmailAddress,
+        QString newEmailAddress,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<UserProfile> listBusinessUsers(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listBusinessUsersAsync(
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual QList<BusinessInvitation> listBusinessInvitations(
+        bool includeRequestedInvitations,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * listBusinessInvitationsAsync(
+        bool includeRequestedInvitations,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AccountLimits getAccountLimits(
+        ServiceLevel serviceLevel,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+    virtual AsyncResult * getAccountLimitsAsync(
+        ServiceLevel serviceLevel,
+        IRequestContextPtr ctx = {}) Q_DECL_OVERRIDE;
+
+private:
+    IUserStorePtr m_service;
+    IRequestContextPtr m_ctx;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+struct RetryState
+{
+    const quint64 m_started = QDateTime::currentMSecsSinceEpoch();
+    quint32 m_retryCount = 0;
+};
+
+template <class T>
+struct RequestState
+{
+    T m_request;
+    AsyncResult * m_response;
+
+    RequestState(T && request, AsyncResult * response) :
+        m_request(std::move(request)),
+        m_response(response)
+    {}
+};
+
+quint64 exponentiallyIncreasedTimeoutMsec(quint64 timeout, const quint64 maxTimeout)
+{
+    timeout = static_cast<quint64>(std::floor(timeout * 1.6 + 0.5));
+    timeout = std::min(timeout, maxTimeout);
+    return timeout;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+SyncState DurableNoteStore::getSyncState(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getSyncState(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getSyncStateAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getSyncStateAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SyncChunk DurableNoteStore::getFilteredSyncChunk(
+    qint32 afterUSN,
+    qint32 maxEntries,
+    const SyncChunkFilter & filter,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getFilteredSyncChunk(
+                afterUSN,
+                maxEntries,
+                filter,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
+    qint32 afterUSN,
+    qint32 maxEntries,
+    const SyncChunkFilter & filter,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getFilteredSyncChunkAsync(
+        afterUSN,
+        maxEntries,
+        filter,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SyncState DurableNoteStore::getLinkedNotebookSyncState(
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getLinkedNotebookSyncState(
+                linkedNotebook,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getLinkedNotebookSyncStateAsync(
+        linkedNotebook,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
+    const LinkedNotebook & linkedNotebook,
+    qint32 afterUSN,
+    qint32 maxEntries,
+    bool fullSyncOnly,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getLinkedNotebookSyncChunk(
+                linkedNotebook,
+                afterUSN,
+                maxEntries,
+                fullSyncOnly,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
+    const LinkedNotebook & linkedNotebook,
+    qint32 afterUSN,
+    qint32 maxEntries,
+    bool fullSyncOnly,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getLinkedNotebookSyncChunkAsync(
+        linkedNotebook,
+        afterUSN,
+        maxEntries,
+        fullSyncOnly,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<Notebook> DurableNoteStore::listNotebooks(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listNotebooks(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listNotebooksAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listNotebooksAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listAccessibleBusinessNotebooks(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listAccessibleBusinessNotebooksAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Notebook DurableNoteStore::getNotebook(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNotebook(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNotebookAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNotebookAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Notebook DurableNoteStore::getDefaultNotebook(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getDefaultNotebook(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getDefaultNotebookAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Notebook DurableNoteStore::createNotebook(
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->createNotebook(
+                notebook,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::createNotebookAsync(
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->createNotebookAsync(
+        notebook,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::updateNotebook(
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateNotebook(
+                notebook,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateNotebookAsync(
+    const Notebook & notebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateNotebookAsync(
+        notebook,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::expungeNotebook(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->expungeNotebook(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::expungeNotebookAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->expungeNotebookAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<Tag> DurableNoteStore::listTags(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listTags(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listTagsAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listTagsAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<Tag> DurableNoteStore::listTagsByNotebook(
+    Guid notebookGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listTagsByNotebook(
+                notebookGuid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
+    Guid notebookGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listTagsByNotebookAsync(
+        notebookGuid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Tag DurableNoteStore::getTag(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getTag(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getTagAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getTagAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Tag DurableNoteStore::createTag(
+    const Tag & tag,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->createTag(
+                tag,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::createTagAsync(
+    const Tag & tag,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->createTagAsync(
+        tag,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::updateTag(
+    const Tag & tag,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateTag(
+                tag,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateTagAsync(
+    const Tag & tag,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateTagAsync(
+        tag,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableNoteStore::untagAll(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->untagAll(
+                guid,
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::untagAllAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->untagAllAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::expungeTag(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->expungeTag(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::expungeTagAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->expungeTagAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<SavedSearch> DurableNoteStore::listSearches(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listSearches(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listSearchesAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listSearchesAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SavedSearch DurableNoteStore::getSearch(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getSearch(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getSearchAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getSearchAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SavedSearch DurableNoteStore::createSearch(
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->createSearch(
+                search,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::createSearchAsync(
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->createSearchAsync(
+        search,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::updateSearch(
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateSearch(
+                search,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateSearchAsync(
+    const SavedSearch & search,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateSearchAsync(
+        search,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::expungeSearch(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->expungeSearch(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::expungeSearchAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->expungeSearchAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::findNoteOffset(
+    const NoteFilter & filter,
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->findNoteOffset(
+                filter,
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::findNoteOffsetAsync(
+    const NoteFilter & filter,
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->findNoteOffsetAsync(
+        filter,
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+NotesMetadataList DurableNoteStore::findNotesMetadata(
+    const NoteFilter & filter,
+    qint32 offset,
+    qint32 maxNotes,
+    const NotesMetadataResultSpec & resultSpec,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->findNotesMetadata(
+                filter,
+                offset,
+                maxNotes,
+                resultSpec,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::findNotesMetadataAsync(
+    const NoteFilter & filter,
+    qint32 offset,
+    qint32 maxNotes,
+    const NotesMetadataResultSpec & resultSpec,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->findNotesMetadataAsync(
+        filter,
+        offset,
+        maxNotes,
+        resultSpec,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+NoteCollectionCounts DurableNoteStore::findNoteCounts(
+    const NoteFilter & filter,
+    bool withTrash,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->findNoteCounts(
+                filter,
+                withTrash,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::findNoteCountsAsync(
+    const NoteFilter & filter,
+    bool withTrash,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->findNoteCountsAsync(
+        filter,
+        withTrash,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Note DurableNoteStore::getNoteWithResultSpec(
+    Guid guid,
+    const NoteResultSpec & resultSpec,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteWithResultSpec(
+                guid,
+                resultSpec,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
+    Guid guid,
+    const NoteResultSpec & resultSpec,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteWithResultSpecAsync(
+        guid,
+        resultSpec,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Note DurableNoteStore::getNote(
+    Guid guid,
+    bool withContent,
+    bool withResourcesData,
+    bool withResourcesRecognition,
+    bool withResourcesAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNote(
+                guid,
+                withContent,
+                withResourcesData,
+                withResourcesRecognition,
+                withResourcesAlternateData,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteAsync(
+    Guid guid,
+    bool withContent,
+    bool withResourcesData,
+    bool withResourcesRecognition,
+    bool withResourcesAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteAsync(
+        guid,
+        withContent,
+        withResourcesData,
+        withResourcesRecognition,
+        withResourcesAlternateData,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+LazyMap DurableNoteStore::getNoteApplicationData(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteApplicationData(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteApplicationDataAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QString DurableNoteStore::getNoteApplicationDataEntry(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteApplicationDataEntry(
+                guid,
+                key,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteApplicationDataEntryAsync(
+        guid,
+        key,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::setNoteApplicationDataEntry(
+    Guid guid,
+    QString key,
+    QString value,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->setNoteApplicationDataEntry(
+                guid,
+                key,
+                value,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
+    Guid guid,
+    QString key,
+    QString value,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->setNoteApplicationDataEntryAsync(
+        guid,
+        key,
+        value,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->unsetNoteApplicationDataEntry(
+                guid,
+                key,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->unsetNoteApplicationDataEntryAsync(
+        guid,
+        key,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QString DurableNoteStore::getNoteContent(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteContent(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteContentAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteContentAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QString DurableNoteStore::getNoteSearchText(
+    Guid guid,
+    bool noteOnly,
+    bool tokenizeForIndexing,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteSearchText(
+                guid,
+                noteOnly,
+                tokenizeForIndexing,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
+    Guid guid,
+    bool noteOnly,
+    bool tokenizeForIndexing,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteSearchTextAsync(
+        guid,
+        noteOnly,
+        tokenizeForIndexing,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QString DurableNoteStore::getResourceSearchText(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceSearchText(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceSearchTextAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QStringList DurableNoteStore::getNoteTagNames(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteTagNames(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteTagNamesAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Note DurableNoteStore::createNote(
+    const Note & note,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->createNote(
+                note,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::createNoteAsync(
+    const Note & note,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->createNoteAsync(
+        note,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Note DurableNoteStore::updateNote(
+    const Note & note,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateNote(
+                note,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateNoteAsync(
+    const Note & note,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateNoteAsync(
+        note,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::deleteNote(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->deleteNote(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::deleteNoteAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->deleteNoteAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::expungeNote(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->expungeNote(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::expungeNoteAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->expungeNoteAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Note DurableNoteStore::copyNote(
+    Guid noteGuid,
+    Guid toNotebookGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->copyNote(
+                noteGuid,
+                toNotebookGuid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::copyNoteAsync(
+    Guid noteGuid,
+    Guid toNotebookGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->copyNoteAsync(
+        noteGuid,
+        toNotebookGuid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<NoteVersionId> DurableNoteStore::listNoteVersions(
+    Guid noteGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listNoteVersions(
+                noteGuid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listNoteVersionsAsync(
+    Guid noteGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listNoteVersionsAsync(
+        noteGuid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Note DurableNoteStore::getNoteVersion(
+    Guid noteGuid,
+    qint32 updateSequenceNum,
+    bool withResourcesData,
+    bool withResourcesRecognition,
+    bool withResourcesAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNoteVersion(
+                noteGuid,
+                updateSequenceNum,
+                withResourcesData,
+                withResourcesRecognition,
+                withResourcesAlternateData,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNoteVersionAsync(
+    Guid noteGuid,
+    qint32 updateSequenceNum,
+    bool withResourcesData,
+    bool withResourcesRecognition,
+    bool withResourcesAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNoteVersionAsync(
+        noteGuid,
+        updateSequenceNum,
+        withResourcesData,
+        withResourcesRecognition,
+        withResourcesAlternateData,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Resource DurableNoteStore::getResource(
+    Guid guid,
+    bool withData,
+    bool withRecognition,
+    bool withAttributes,
+    bool withAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResource(
+                guid,
+                withData,
+                withRecognition,
+                withAttributes,
+                withAlternateData,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceAsync(
+    Guid guid,
+    bool withData,
+    bool withRecognition,
+    bool withAttributes,
+    bool withAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceAsync(
+        guid,
+        withData,
+        withRecognition,
+        withAttributes,
+        withAlternateData,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+LazyMap DurableNoteStore::getResourceApplicationData(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceApplicationData(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceApplicationDataAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QString DurableNoteStore::getResourceApplicationDataEntry(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceApplicationDataEntry(
+                guid,
+                key,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceApplicationDataEntryAsync(
+        guid,
+        key,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::setResourceApplicationDataEntry(
+    Guid guid,
+    QString key,
+    QString value,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->setResourceApplicationDataEntry(
+                guid,
+                key,
+                value,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
+    Guid guid,
+    QString key,
+    QString value,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->setResourceApplicationDataEntryAsync(
+        guid,
+        key,
+        value,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->unsetResourceApplicationDataEntry(
+                guid,
+                key,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
+    Guid guid,
+    QString key,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->unsetResourceApplicationDataEntryAsync(
+        guid,
+        key,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::updateResource(
+    const Resource & resource,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateResource(
+                resource,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateResourceAsync(
+    const Resource & resource,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateResourceAsync(
+        resource,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QByteArray DurableNoteStore::getResourceData(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceData(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceDataAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceDataAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Resource DurableNoteStore::getResourceByHash(
+    Guid noteGuid,
+    QByteArray contentHash,
+    bool withData,
+    bool withRecognition,
+    bool withAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceByHash(
+                noteGuid,
+                contentHash,
+                withData,
+                withRecognition,
+                withAlternateData,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceByHashAsync(
+    Guid noteGuid,
+    QByteArray contentHash,
+    bool withData,
+    bool withRecognition,
+    bool withAlternateData,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceByHashAsync(
+        noteGuid,
+        contentHash,
+        withData,
+        withRecognition,
+        withAlternateData,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QByteArray DurableNoteStore::getResourceRecognition(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceRecognition(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceRecognitionAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QByteArray DurableNoteStore::getResourceAlternateData(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceAlternateData(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceAlternateDataAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+ResourceAttributes DurableNoteStore::getResourceAttributes(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getResourceAttributes(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getResourceAttributesAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getResourceAttributesAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Notebook DurableNoteStore::getPublicNotebook(
+    UserID userId,
+    QString publicUri,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getPublicNotebook(
+                userId,
+                publicUri,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getPublicNotebookAsync(
+    UserID userId,
+    QString publicUri,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getPublicNotebookAsync(
+        userId,
+        publicUri,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SharedNotebook DurableNoteStore::shareNotebook(
+    const SharedNotebook & sharedNotebook,
+    QString message,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->shareNotebook(
+                sharedNotebook,
+                message,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::shareNotebookAsync(
+    const SharedNotebook & sharedNotebook,
+    QString message,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->shareNotebookAsync(
+        sharedNotebook,
+        message,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShares(
+    const NotebookShareTemplate & shareTemplate,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->createOrUpdateNotebookShares(
+                shareTemplate,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
+    const NotebookShareTemplate & shareTemplate,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->createOrUpdateNotebookSharesAsync(
+        shareTemplate,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::updateSharedNotebook(
+    const SharedNotebook & sharedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateSharedNotebook(
+                sharedNotebook,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
+    const SharedNotebook & sharedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateSharedNotebookAsync(
+        sharedNotebook,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+Notebook DurableNoteStore::setNotebookRecipientSettings(
+    QString notebookGuid,
+    const NotebookRecipientSettings & recipientSettings,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->setNotebookRecipientSettings(
+                notebookGuid,
+                recipientSettings,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
+    QString notebookGuid,
+    const NotebookRecipientSettings & recipientSettings,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->setNotebookRecipientSettingsAsync(
+        notebookGuid,
+        recipientSettings,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listSharedNotebooks(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listSharedNotebooksAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+LinkedNotebook DurableNoteStore::createLinkedNotebook(
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->createLinkedNotebook(
+                linkedNotebook,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->createLinkedNotebookAsync(
+        linkedNotebook,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::updateLinkedNotebook(
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateLinkedNotebook(
+                linkedNotebook,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
+    const LinkedNotebook & linkedNotebook,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateLinkedNotebookAsync(
+        linkedNotebook,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listLinkedNotebooks(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listLinkedNotebooksAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+qint32 DurableNoteStore::expungeLinkedNotebook(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->expungeLinkedNotebook(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->expungeLinkedNotebookAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
+    QString shareKeyOrGlobalId,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->authenticateToSharedNotebook(
+                shareKeyOrGlobalId,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
+    QString shareKeyOrGlobalId,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->authenticateToSharedNotebookAsync(
+        shareKeyOrGlobalId,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getSharedNotebookByAuth(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getSharedNotebookByAuthAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableNoteStore::emailNote(
+    const NoteEmailParameters & parameters,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->emailNote(
+                parameters,
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::emailNoteAsync(
+    const NoteEmailParameters & parameters,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->emailNoteAsync(
+        parameters,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QString DurableNoteStore::shareNote(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->shareNote(
+                guid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::shareNoteAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->shareNoteAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableNoteStore::stopSharingNote(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->stopSharingNote(
+                guid,
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::stopSharingNoteAsync(
+    Guid guid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->stopSharingNoteAsync(
+        guid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+AuthenticationResult DurableNoteStore::authenticateToSharedNote(
+    QString guid,
+    QString noteKey,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->authenticateToSharedNote(
+                guid,
+                noteKey,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
+    QString guid,
+    QString noteKey,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->authenticateToSharedNoteAsync(
+        guid,
+        noteKey,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+RelatedResult DurableNoteStore::findRelated(
+    const RelatedQuery & query,
+    const RelatedResultSpec & resultSpec,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->findRelated(
+                query,
+                resultSpec,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::findRelatedAsync(
+    const RelatedQuery & query,
+    const RelatedResultSpec & resultSpec,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->findRelatedAsync(
+        query,
+        resultSpec,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
+    const Note & note,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->updateNoteIfUsnMatches(
+                note,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
+    const Note & note,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateNoteIfUsnMatchesAsync(
+        note,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
+    const ManageNotebookSharesParameters & parameters,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->manageNotebookShares(
+                parameters,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
+    const ManageNotebookSharesParameters & parameters,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->manageNotebookSharesAsync(
+        parameters,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+ShareRelationships DurableNoteStore::getNotebookShares(
+    QString notebookGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getNotebookShares(
+                notebookGuid,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableNoteStore::getNotebookSharesAsync(
+    QString notebookGuid,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getNotebookSharesAsync(
+        notebookGuid,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+bool DurableUserStore::checkVersion(
+    QString clientName,
+    qint16 edamVersionMajor,
+    qint16 edamVersionMinor,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->checkVersion(
+                clientName,
+                edamVersionMajor,
+                edamVersionMinor,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::checkVersionAsync(
+    QString clientName,
+    qint16 edamVersionMajor,
+    qint16 edamVersionMinor,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->checkVersionAsync(
+        clientName,
+        edamVersionMajor,
+        edamVersionMinor,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+BootstrapInfo DurableUserStore::getBootstrapInfo(
+    QString locale,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getBootstrapInfo(
+                locale,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::getBootstrapInfoAsync(
+    QString locale,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getBootstrapInfoAsync(
+        locale,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+AuthenticationResult DurableUserStore::authenticateLongSession(
+    QString username,
+    QString password,
+    QString consumerKey,
+    QString consumerSecret,
+    QString deviceIdentifier,
+    QString deviceDescription,
+    bool supportsTwoFactor,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->authenticateLongSession(
+                username,
+                password,
+                consumerKey,
+                consumerSecret,
+                deviceIdentifier,
+                deviceDescription,
+                supportsTwoFactor,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::authenticateLongSessionAsync(
+    QString username,
+    QString password,
+    QString consumerKey,
+    QString consumerSecret,
+    QString deviceIdentifier,
+    QString deviceDescription,
+    bool supportsTwoFactor,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->authenticateLongSessionAsync(
+        username,
+        password,
+        consumerKey,
+        consumerSecret,
+        deviceIdentifier,
+        deviceDescription,
+        supportsTwoFactor,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
+    QString oneTimeCode,
+    QString deviceIdentifier,
+    QString deviceDescription,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->completeTwoFactorAuthentication(
+                oneTimeCode,
+                deviceIdentifier,
+                deviceDescription,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
+    QString oneTimeCode,
+    QString deviceIdentifier,
+    QString deviceDescription,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->completeTwoFactorAuthenticationAsync(
+        oneTimeCode,
+        deviceIdentifier,
+        deviceDescription,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableUserStore::revokeLongSession(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->revokeLongSession(
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::revokeLongSessionAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->revokeLongSessionAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+AuthenticationResult DurableUserStore::authenticateToBusiness(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->authenticateToBusiness(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::authenticateToBusinessAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->authenticateToBusinessAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+User DurableUserStore::getUser(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getUser(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::getUserAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getUserAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+PublicUserInfo DurableUserStore::getPublicUserInfo(
+    QString username,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getPublicUserInfo(
+                username,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::getPublicUserInfoAsync(
+    QString username,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getPublicUserInfoAsync(
+        username,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+UserUrls DurableUserStore::getUserUrls(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getUserUrls(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::getUserUrlsAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getUserUrlsAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableUserStore::inviteToBusiness(
+    QString emailAddress,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->inviteToBusiness(
+                emailAddress,
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::inviteToBusinessAsync(
+    QString emailAddress,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->inviteToBusinessAsync(
+        emailAddress,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableUserStore::removeFromBusiness(
+    QString emailAddress,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->removeFromBusiness(
+                emailAddress,
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::removeFromBusinessAsync(
+    QString emailAddress,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->removeFromBusinessAsync(
+        emailAddress,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+void DurableUserStore::updateBusinessUserIdentifier(
+    QString oldEmailAddress,
+    QString newEmailAddress,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            m_service->updateBusinessUserIdentifier(
+                oldEmailAddress,
+                newEmailAddress,
+                ctx);
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
+    QString oldEmailAddress,
+    QString newEmailAddress,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->updateBusinessUserIdentifierAsync(
+        oldEmailAddress,
+        newEmailAddress,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<UserProfile> DurableUserStore::listBusinessUsers(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listBusinessUsers(
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::listBusinessUsersAsync(
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listBusinessUsersAsync(
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
+    bool includeRequestedInvitations,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->listBusinessInvitations(
+                includeRequestedInvitations,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
+    bool includeRequestedInvitations,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->listBusinessInvitationsAsync(
+        includeRequestedInvitations,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
+}
+
+AccountLimits DurableUserStore::getAccountLimits(
+    ServiceLevel serviceLevel,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+    while(state.m_retryCount)
+    {
+        try
+        {
+            auto res = m_service->getAccountLimits(
+                serviceLevel,
+                ctx);
+            return res;
+        }
+        catch(...)
+        {
+            --state.m_retryCount;
+            if (!state.m_retryCount) {
+                throw;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially()) {
+                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
+                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
+                    ctx->requestTimeout(),
+                    maxRequestTimeout);
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxRequestTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+        }
+    }
+
+    throw EverCloudException("no retry attempts left");
+}
+
+AsyncResult * DurableUserStore::getAccountLimitsAsync(
+    ServiceLevel serviceLevel,
+    IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    auto res = m_service->getAccountLimitsAsync(
+        serviceLevel,
+        ctx);
+    QObject::connect(res, &AsyncResult::finished,
+        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
+            Q_UNUSED(result)
+            Q_UNUSED(error)
+            // TODO: implement
+        });
+
+    return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
