@@ -118,6 +118,10 @@ bool AsyncResult::waitForFinished(int timeout)
 void AsyncResult::start()
 {
     Q_D(AsyncResult);
+    if (d->m_request.url().isEmpty() && d->m_postData.isEmpty()) {
+        return;
+    }
+
     ReplyFetcher * replyFetcher = new ReplyFetcher;
     QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                      this, &AsyncResult::onReplyFetched);

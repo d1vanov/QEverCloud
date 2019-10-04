@@ -81,7 +81,8 @@ Q_SIGNALS:
      * error.isNull() != true in case of an error. See EverCloudExceptionData
      * for more details.
      *
-     * AsyncResult deletes itself after emitting this signal. You don't have to
+     * AsyncResult deletes itself after emitting this signal (if autoDelete
+     * parameter passed to its constructor was set to true). You don't have to
      * manage it's lifetime explicitly.
      */
     void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
