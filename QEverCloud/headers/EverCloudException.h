@@ -23,7 +23,7 @@ namespace qevercloud {
 class QEVERCLOUD_EXPORT EverCloudExceptionData;
 
 /**
- * All exceptions throws by the library are of this class or its descendants.
+ * All exceptions thrown by the library are of this class or its descendants.
  */
 class QEVERCLOUD_EXPORT EverCloudException: public std::exception
 {
@@ -35,6 +35,7 @@ public:
     explicit EverCloudException(QString error);
     explicit EverCloudException(const std::string & error);
     explicit EverCloudException(const char * error);
+
     ~EverCloudException() noexcept;
 
     const char * what() const noexcept;

@@ -38,6 +38,7 @@ set(GENERATED_HEADERS
     headers/generated/EDAMErrorCode.h)
 
 set(PRIVATE_HEADERS
+    src/AsyncResult_p.h
     src/Http.h
     src/Impl.h
     src/Thrift.h
@@ -45,6 +46,7 @@ set(PRIVATE_HEADERS
 
 set(SOURCES
     src/AsyncResult.cpp
+    src/AsyncResult_p.cpp
     src/EventLoopFinisher.cpp
     src/EverCloudException.cpp
     src/Exceptions.cpp

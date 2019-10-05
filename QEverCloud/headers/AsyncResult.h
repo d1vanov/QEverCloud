@@ -19,6 +19,7 @@
 namespace qevercloud {
 
 QT_FORWARD_DECLARE_CLASS(AsyncResultPrivate)
+QT_FORWARD_DECLARE_CLASS(DurableService)
 
 /**
  * @brief Returned by asynchonous versions of functions.
@@ -87,9 +88,8 @@ Q_SIGNALS:
      */
     void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
 
-private Q_SLOTS:
-    void onReplyFetched(QObject * rp);
-    void start();
+private:
+    friend class DurableService;
 
 private:
     AsyncResultPrivate * const d_ptr;

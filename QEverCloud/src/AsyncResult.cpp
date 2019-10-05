@@ -7,6 +7,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+#include "AsyncResult_p.h"
 #include "Http.h"
 
 #include <AsyncResult.h>
@@ -19,53 +20,6 @@
 
 namespace qevercloud {
 
-class AsyncResultPrivate
-{
-public:
-    explicit AsyncResultPrivate(QString url, QByteArray postData,
-                                AsyncResult::ReadFunctionType readFunction,
-                                bool autoDelete, AsyncResult * q);
-
-    explicit AsyncResultPrivate(QNetworkRequest request, QByteArray postData,
-                                AsyncResult::ReadFunctionType readFunction,
-                                bool autoDelete, AsyncResult * q);
-
-    virtual ~AsyncResultPrivate();
-
-    QNetworkRequest                 m_request;
-    QByteArray                      m_postData;
-    AsyncResult::ReadFunctionType   m_readFunction;
-    bool                            m_autoDelete;
-
-private:
-    AsyncResult * const q_ptr;
-    Q_DECLARE_PUBLIC(AsyncResult)
-};
-
-AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData,
-                                       AsyncResult::ReadFunctionType readFunction,
-                                       bool autoDelete, AsyncResult * q) :
-    m_request(createEvernoteRequest(url)),
-    m_postData(postData),
-    m_readFunction(readFunction),
-    m_autoDelete(autoDelete),
-    q_ptr(q)
-{}
-
-AsyncResultPrivate::AsyncResultPrivate(QNetworkRequest request,
-                                       QByteArray postData,
-                                       AsyncResult::ReadFunctionType readFunction,
-                                       bool autoDelete, AsyncResult * q) :
-    m_request(request),
-    m_postData(postData),
-    m_readFunction(readFunction),
-    m_autoDelete(autoDelete),
-    q_ptr(q)
-{}
-
-
-AsyncResultPrivate::~AsyncResultPrivate()
-{}
 
 QVariant AsyncResult::asIs(QByteArray replyData)
 {
@@ -78,7 +32,7 @@ AsyncResult::AsyncResult(QString url, QByteArray postData,
     QObject(parent),
     d_ptr(new AsyncResultPrivate(url, postData, readFunction, autoDelete, this))
 {
-    QMetaObject::invokeMethod(this, "start", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }
 
 AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData,
@@ -87,7 +41,7 @@ AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData,
     QObject(parent),
     d_ptr(new AsyncResultPrivate(request, postData, readFunction, autoDelete, this))
 {
-    QMetaObject::invokeMethod(this, "start", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }
 
 AsyncResult::~AsyncResult()
@@ -113,66 +67,6 @@ bool AsyncResult::waitForFinished(int timeout)
 
     bool res = (loop.exec(QEventLoop::ExcludeUserInputEvents) == 0);
     return res;
-}
-
-void AsyncResult::start()
-{
-    Q_D(AsyncResult);
-    if (d->m_request.url().isEmpty() && d->m_postData.isEmpty()) {
-        return;
-    }
-
-    ReplyFetcher * replyFetcher = new ReplyFetcher;
-    QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
-                     this, &AsyncResult::onReplyFetched);
-    replyFetcher->start(
-        evernoteNetworkAccessManager(), d->m_request, d->m_postData);
-}
-
-void AsyncResult::onReplyFetched(QObject * rp)
-{
-    Q_D(AsyncResult);
-
-    ReplyFetcher * reply = qobject_cast<ReplyFetcher*>(rp);
-    QSharedPointer<EverCloudExceptionData> error;
-    QVariant result;
-
-    try
-    {
-        if (reply->isError()) {
-            error = QSharedPointer<EverCloudExceptionData>(
-                new EverCloudExceptionData(reply->errorText()));
-        }
-        else if(reply->httpStatusCode() != 200) {
-            error = QSharedPointer<EverCloudExceptionData>(
-                new EverCloudExceptionData(
-                    QString::fromUtf8("HTTP Status Code = %1")
-                    .arg(reply->httpStatusCode())));
-        }
-        else {
-            result = d->m_readFunction(reply->receivedData());
-        }
-    }
-    catch(const EverCloudException & e) {
-        error = e.exceptionData();
-    }
-    catch(const std::exception & e) {
-        error = QSharedPointer<EverCloudExceptionData>(
-            new EverCloudExceptionData(
-                QString::fromUtf8("Exception of type \"%1\" with the message: %2")
-                .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what()))));
-    }
-    catch(...) {
-        error = QSharedPointer<EverCloudExceptionData>(
-            new EverCloudExceptionData(QStringLiteral("Unknown exception")));
-    }
-
-    emit finished(result, error);
-    reply->deleteLater();
-
-    if (d->m_autoDelete) {
-        this->deleteLater();
-    }
 }
 
 } // namespace qevercloud
