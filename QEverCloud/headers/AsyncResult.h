@@ -53,16 +53,21 @@ class QEVERCLOUD_EXPORT AsyncResult: public QObject
 private:
     static QVariant asIs(QByteArray replyData);
 
+    /**
+     * Constructor for use by QEverCloud internals only
+     */
+    AsyncResult(bool autoDelete = true, QObject * parent = nullptr);
+
 public:
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
     AsyncResult(QString url, QByteArray postData,
                 ReadFunctionType readFunction = AsyncResult::asIs,
-                bool autoDelete = true, QObject * parent = Q_NULLPTR);
+                bool autoDelete = true, QObject * parent = nullptr);
 
     AsyncResult(QNetworkRequest request, QByteArray postData,
                 ReadFunctionType readFunction = AsyncResult::asIs,
-                bool autoDelete = true, QObject * parent = Q_NULLPTR);
+                bool autoDelete = true, QObject * parent = nullptr);
 
     ~AsyncResult();
 

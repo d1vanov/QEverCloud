@@ -11,6 +11,11 @@
 
 namespace qevercloud {
 
+AsyncResultPrivate::AsyncResultPrivate(bool autoDelete, AsyncResult * q) :
+    m_autoDelete(autoDelete),
+    q_ptr(q)
+{}
+
 AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData,
                                        AsyncResult::ReadFunctionType readFunction,
                                        bool autoDelete, AsyncResult * q) :
@@ -94,30 +99,8 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
     }
 }
 
-void AsyncResultPrivate::setValue(
-    QByteArray value, QSharedPointer<EverCloudExceptionData> error)
+void AsyncResultPrivate::setValue(QVariant result, QSharedPointer<EverCloudExceptionData> error)
 {
-    QVariant result;
-    if (error.isNull())
-    {
-        try {
-            result = m_readFunction(value);
-        }
-        catch(const EverCloudException & e) {
-            error = e.exceptionData();
-        }
-        catch(const std::exception & e) {
-            error = QSharedPointer<EverCloudExceptionData>(
-                new EverCloudExceptionData(
-                    QString::fromUtf8("Exception of type \"%1\" with the message: %2")
-                    .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what()))));
-        }
-        catch(...) {
-            error = QSharedPointer<EverCloudExceptionData>(
-                new EverCloudExceptionData(QStringLiteral("Unknown exception")));
-        }
-    }
-
     Q_EMIT finished(result, error);
 
     if (m_autoDelete) {

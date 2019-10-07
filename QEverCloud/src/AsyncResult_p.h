@@ -17,6 +17,8 @@ class AsyncResultPrivate: public QObject
 {
     Q_OBJECT
 public:
+    explicit AsyncResultPrivate(bool autoDelete, AsyncResult * q);
+
     explicit AsyncResultPrivate(QString url, QByteArray postData,
                                 AsyncResult::ReadFunctionType readFunction,
                                 bool autoDelete, AsyncResult * q);
@@ -35,7 +37,7 @@ public Q_SLOTS:
 
     void onReplyFetched(QObject * rp);
 
-    void setValue(QByteArray value, QSharedPointer<EverCloudExceptionData> error);
+    void setValue(QVariant result, QSharedPointer<EverCloudExceptionData> error);
 
 public:
     QNetworkRequest                 m_request;

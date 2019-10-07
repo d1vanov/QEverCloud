@@ -26,6 +26,11 @@ QVariant AsyncResult::asIs(QByteArray replyData)
     return replyData;
 }
 
+AsyncResult::AsyncResult(bool autoDelete, QObject * parent) :
+    QObject(parent),
+    d_ptr(new AsyncResultPrivate(autoDelete, this))
+{}
+
 AsyncResult::AsyncResult(QString url, QByteArray postData,
                          AsyncResult::ReadFunctionType readFunction,
                          bool autoDelete, QObject * parent) :
