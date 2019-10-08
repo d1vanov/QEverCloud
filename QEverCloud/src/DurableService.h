@@ -45,8 +45,8 @@ class Q_DECL_HIDDEN DurableService: public QObject
     Q_OBJECT
 public:
     using SyncResult = std::pair<QVariant, QSharedPointer<EverCloudExceptionData>>;
-    using SyncServiceCall = std::function<SyncResult()>;
-    using AsyncServiceCall = std::function<AsyncResult*()>;
+    using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
+    using AsyncServiceCall = std::function<AsyncResult*(IRequestContextPtr)>;
 
 public:
     DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx);
@@ -66,6 +66,10 @@ private:
     IRetryPolicyPtr     m_retryPolicy;
     IRequestContextPtr  m_ctx;
 };
+
+////////////////////////////////////////////////////////////////////////////////
+
+IRetryPolicyPtr newRetryPolicy();
 
 } // namespace qevercloud
 

@@ -8,7 +8,28 @@
 #include "AsyncResult_p.h"
 #include "DurableService.h"
 
+#include <Exceptions.h>
+
+#include <algorithm>
+#include <cmath>
+
 namespace qevercloud {
+
+namespace {
+
+////////////////////////////////////////////////////////////////////////////////
+
+quint64 exponentiallyIncreasedTimeoutMsec(
+    quint64 timeout, const quint64 maxTimeout)
+{
+    timeout = static_cast<quint64>(std::floor(timeout * 1.6 + 0.5));
+    timeout = std::min(timeout, maxTimeout);
+    return timeout;
+}
+
+} // namespace
+
+////////////////////////////////////////////////////////////////////////////////
 
 DurableService::DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx) :
     m_retryPolicy(std::move(retryPolicy)),
@@ -30,7 +51,7 @@ DurableService::SyncResult DurableService::ExecuteSyncRequest(
     while(state.m_retryCount)
     {
         try {
-            result = syncServiceCall();
+            result = syncServiceCall(ctx);
         }
         catch(const EverCloudException & e) {
             result.second = e.exceptionData();
@@ -48,6 +69,21 @@ DurableService::SyncResult DurableService::ExecuteSyncRequest(
             }
 
             --state.m_retryCount;
+
+            if (state.m_retryCount && ctx->increaseRequestTimeoutExponentially())
+            {
+                auto timeout = ctx->requestTimeout();
+                auto maxTimeout = ctx->maxRequestTimeout();
+                timeout = exponentiallyIncreasedTimeoutMsec(timeout, maxTimeout);
+
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+
             continue;
         }
 
@@ -78,44 +114,85 @@ void DurableService::DoExecuteAsyncRequest(
     AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
     RetryState && retryState, AsyncResult * result)
 {
-    AsyncResult * attemptRes = asyncServiceCall();
-    QObject::connect(attemptRes, &AsyncResult::finished,
-                     [=, retryPolicy = m_retryPolicy] (
-                        QVariant value,
-                        QSharedPointer<EverCloudExceptionData> exceptionData) mutable
-                     {
-                         if (!exceptionData) {
-                             result->d_ptr->setValue(value, {});
-                             return;
-                         }
+    AsyncResult * attemptRes = asyncServiceCall(ctx);
+    QObject::connect(
+        attemptRes,
+        &AsyncResult::finished,
+        result,
+        [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
+            QVariant value,
+            QSharedPointer<EverCloudExceptionData> exceptionData) mutable
+        {
+            if (!exceptionData) {
+                result->d_ptr->setValue(value, {});
+                return;
+            }
 
-                         if (!retryPolicy->ShouldRetry(exceptionData)) {
-                             result->d_ptr->setValue({}, exceptionData);
-                             return;
-                         }
+            if (!retryPolicy->ShouldRetry(exceptionData)) {
+                result->d_ptr->setValue({}, exceptionData);
+                return;
+            }
 
-                         --retryState.m_retryCount;
-                         if (!retryState.m_retryCount) {
-                             result->d_ptr->setValue({}, exceptionData);
-                             return;
-                         }
+            --retryState.m_retryCount;
+            if (!retryState.m_retryCount) {
+                result->d_ptr->setValue({}, exceptionData);
+                return;
+            }
 
-                         quint64 requestTimeout = ctx->requestTimeout();
-                         if (ctx->increaseRequestTimeoutExponentially()) {
-                             // TODO: increase timeout
-                         }
+            quint64 requestTimeout = ctx->requestTimeout();
+            if (ctx->increaseRequestTimeoutExponentially())
+            {
+                auto timeout = ctx->requestTimeout();
+                auto maxTimeout = ctx->maxRequestTimeout();
+                timeout = exponentiallyIncreasedTimeoutMsec(timeout, maxTimeout);
 
-                         auto newCtx = newRequestContext(
-                             ctx->authenticationToken(),
-                             requestTimeout,
-                             ctx->increaseRequestTimeoutExponentially(),
-                             ctx->maxRequestTimeout(),
-                             ctx->maxRequestRetryCount());
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxTimeout,
+                    ctx->maxRequestRetryCount());
+            }
 
-                         DoExecuteAsyncRequest(
-                             std::move(asyncServiceCall), std::move(newCtx),
-                             std::move(retryState), result);
-                     });
+            DoExecuteAsyncRequest(
+                std::move(asyncServiceCall), std::move(ctx),
+                std::move(retryState), result);
+        },
+        Qt::QueuedConnection);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
+{
+    virtual bool ShouldRetry(
+        QSharedPointer<EverCloudExceptionData> exceptionData) override
+    {
+        if (Q_UNLIKELY(exceptionData.isNull())) {
+            return true;
+        }
+
+        try {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException &) {
+            return true;
+        }
+        catch(const EDAMSystemException &) {
+            return true;
+        }
+        catch(...) {
+        }
+
+        return false;
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+IRetryPolicyPtr newRetryPolicy()
+{
+    return std::make_shared<RetryPolicy>();
 }
 
 } // namespace qevercloud
