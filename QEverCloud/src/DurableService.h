@@ -32,7 +32,7 @@ struct Q_DECL_HIDDEN RetryState
 
 struct Q_DECL_HIDDEN IRetryPolicy
 {
-    virtual bool ShouldRetry(
+    virtual bool shouldRetry(
         QSharedPointer<EverCloudExceptionData> exceptionData) = 0;
 };
 
@@ -51,14 +51,16 @@ public:
 public:
     DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx);
 
-    SyncResult ExecuteSyncRequest(
+    AsyncResult * newAsyncResult();
+
+    SyncResult executeSyncRequest(
         SyncServiceCall && syncServiceCall, IRequestContextPtr ctx);
 
-    AsyncResult * ExecuteAsyncRequest(
+    AsyncResult * executeAsyncRequest(
         AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx);
 
 private:
-    void DoExecuteAsyncRequest(
+    void doExecuteAsyncRequest(
         AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
         RetryState && retryState, AsyncResult * result);
 

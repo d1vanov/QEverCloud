@@ -36,7 +36,12 @@ DurableService::DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr c
     m_ctx(std::move(ctx))
 {}
 
-DurableService::SyncResult DurableService::ExecuteSyncRequest(
+AsyncResult * DurableService::newAsyncResult()
+{
+    return new AsyncResult;
+}
+
+DurableService::SyncResult DurableService::executeSyncRequest(
     SyncServiceCall && syncServiceCall, IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -64,7 +69,7 @@ DurableService::SyncResult DurableService::ExecuteSyncRequest(
 
         if (result.second)
         {
-            if (!m_retryPolicy->ShouldRetry(result.second)) {
+            if (!m_retryPolicy->shouldRetry(result.second)) {
                 return result;
             }
 
@@ -93,7 +98,7 @@ DurableService::SyncResult DurableService::ExecuteSyncRequest(
     return result;
 }
 
-AsyncResult * DurableService::ExecuteAsyncRequest(
+AsyncResult * DurableService::executeAsyncRequest(
     AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -104,13 +109,13 @@ AsyncResult * DurableService::ExecuteAsyncRequest(
     state.m_retryCount = ctx->maxRequestRetryCount();
 
     AsyncResult * result = new AsyncResult;
-    DoExecuteAsyncRequest(std::move(asyncServiceCall), std::move(ctx),
+    doExecuteAsyncRequest(std::move(asyncServiceCall), std::move(ctx),
                           std::move(state), result);
 
     return result;
 }
 
-void DurableService::DoExecuteAsyncRequest(
+void DurableService::doExecuteAsyncRequest(
     AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
     RetryState && retryState, AsyncResult * result)
 {
@@ -128,7 +133,7 @@ void DurableService::DoExecuteAsyncRequest(
                 return;
             }
 
-            if (!retryPolicy->ShouldRetry(exceptionData)) {
+            if (!retryPolicy->shouldRetry(exceptionData)) {
                 result->d_ptr->setValue({}, exceptionData);
                 return;
             }
@@ -154,7 +159,7 @@ void DurableService::DoExecuteAsyncRequest(
                     ctx->maxRequestRetryCount());
             }
 
-            DoExecuteAsyncRequest(
+            doExecuteAsyncRequest(
                 std::move(asyncServiceCall), std::move(ctx),
                 std::move(retryState), result);
         },
@@ -165,7 +170,7 @@ void DurableService::DoExecuteAsyncRequest(
 
 struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
 {
-    virtual bool ShouldRetry(
+    virtual bool shouldRetry(
         QSharedPointer<EverCloudExceptionData> exceptionData) override
     {
         if (Q_UNLIKELY(exceptionData.isNull())) {
