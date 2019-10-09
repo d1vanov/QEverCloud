@@ -11,6 +11,7 @@
 
 #include <generated/Services.h>
 #include "../Impl.h"
+#include "../DurableService.h"
 #include "../Impl.h"
 #include "Types_io.h"
 #include <Helpers.h>
@@ -14550,6 +14551,7 @@ public:
             QObject * parent = nullptr) :
         INoteStore(parent),
         m_service(std::move(service)),
+        m_durableService(newRetryPolicy(), ctx),
         m_ctx(std::move(ctx))
     {
         if (!m_ctx) {
@@ -15219,6 +15221,7 @@ public:
 
 private:
     INoteStorePtr m_service;
+    DurableService m_durableService;
     IRequestContextPtr m_ctx;
 };
 
@@ -15235,6 +15238,7 @@ public:
             QObject * parent = nullptr) :
         IUserStore(parent),
         m_service(std::move(service)),
+        m_durableService(newRetryPolicy(), ctx),
         m_ctx(std::move(ctx))
     {
         if (!m_ctx) {
@@ -15377,35 +15381,9 @@ public:
 
 private:
     IUserStorePtr m_service;
+    DurableService m_durableService;
     IRequestContextPtr m_ctx;
 };
-
-////////////////////////////////////////////////////////////////////////////////
-
-struct RetryState
-{
-    const quint64 m_started = QDateTime::currentMSecsSinceEpoch();
-    quint32 m_retryCount = 0;
-};
-
-template <class T>
-struct RequestState
-{
-    T m_request;
-    AsyncResult * m_response;
-
-    RequestState(T && request, AsyncResult * response) :
-        m_request(std::move(request)),
-        m_response(response)
-    {}
-};
-
-quint64 exponentiallyIncreasedTimeoutMsec(quint64 timeout, const quint64 maxTimeout)
-{
-    timeout = static_cast<quint64>(std::floor(timeout * 1.6 + 0.5));
-    timeout = std::min(timeout, maxTimeout);
-    return timeout;
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15416,39 +15394,18 @@ SyncState DurableNoteStore::getSyncState(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getSyncState(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SyncState>();
 }
 
 AsyncResult * DurableNoteStore::getSyncStateAsync(
@@ -15458,7 +15415,7 @@ AsyncResult * DurableNoteStore::getSyncStateAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getSyncStateAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -15481,42 +15438,21 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getFilteredSyncChunk(
                 afterUSN,
                 maxEntries,
                 filter,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SyncChunk>();
 }
 
 AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
@@ -15529,7 +15465,7 @@ AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getFilteredSyncChunkAsync(
         afterUSN,
         maxEntries,
@@ -15553,40 +15489,19 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getLinkedNotebookSyncState(
                 linkedNotebook,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SyncState>();
 }
 
 AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
@@ -15597,7 +15512,7 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getLinkedNotebookSyncStateAsync(
         linkedNotebook,
         ctx);
@@ -15622,11 +15537,8 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getLinkedNotebookSyncChunk(
                 linkedNotebook,
@@ -15634,31 +15546,13 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
                 maxEntries,
                 fullSyncOnly,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SyncChunk>();
 }
 
 AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
@@ -15672,7 +15566,7 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getLinkedNotebookSyncChunkAsync(
         linkedNotebook,
         afterUSN,
@@ -15696,39 +15590,18 @@ QList<Notebook> DurableNoteStore::listNotebooks(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listNotebooks(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<Notebook>>();
 }
 
 AsyncResult * DurableNoteStore::listNotebooksAsync(
@@ -15738,7 +15611,7 @@ AsyncResult * DurableNoteStore::listNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listNotebooksAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -15758,39 +15631,18 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listAccessibleBusinessNotebooks(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<Notebook>>();
 }
 
 AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
@@ -15800,7 +15652,7 @@ AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listAccessibleBusinessNotebooksAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -15821,40 +15673,19 @@ Notebook DurableNoteStore::getNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNotebook(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Notebook>();
 }
 
 AsyncResult * DurableNoteStore::getNotebookAsync(
@@ -15865,7 +15696,7 @@ AsyncResult * DurableNoteStore::getNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNotebookAsync(
         guid,
         ctx);
@@ -15886,39 +15717,18 @@ Notebook DurableNoteStore::getDefaultNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getDefaultNotebook(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Notebook>();
 }
 
 AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
@@ -15928,7 +15738,7 @@ AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getDefaultNotebookAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -15949,40 +15759,19 @@ Notebook DurableNoteStore::createNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->createNotebook(
                 notebook,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Notebook>();
 }
 
 AsyncResult * DurableNoteStore::createNotebookAsync(
@@ -15993,7 +15782,7 @@ AsyncResult * DurableNoteStore::createNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->createNotebookAsync(
         notebook,
         ctx);
@@ -16015,40 +15804,19 @@ qint32 DurableNoteStore::updateNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateNotebook(
                 notebook,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::updateNotebookAsync(
@@ -16059,7 +15827,7 @@ AsyncResult * DurableNoteStore::updateNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateNotebookAsync(
         notebook,
         ctx);
@@ -16081,40 +15849,19 @@ qint32 DurableNoteStore::expungeNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->expungeNotebook(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::expungeNotebookAsync(
@@ -16125,7 +15872,7 @@ AsyncResult * DurableNoteStore::expungeNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->expungeNotebookAsync(
         guid,
         ctx);
@@ -16146,39 +15893,18 @@ QList<Tag> DurableNoteStore::listTags(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listTags(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<Tag>>();
 }
 
 AsyncResult * DurableNoteStore::listTagsAsync(
@@ -16188,7 +15914,7 @@ AsyncResult * DurableNoteStore::listTagsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listTagsAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -16209,40 +15935,19 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listTagsByNotebook(
                 notebookGuid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<Tag>>();
 }
 
 AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
@@ -16253,7 +15958,7 @@ AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listTagsByNotebookAsync(
         notebookGuid,
         ctx);
@@ -16275,40 +15980,19 @@ Tag DurableNoteStore::getTag(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getTag(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Tag>();
 }
 
 AsyncResult * DurableNoteStore::getTagAsync(
@@ -16319,7 +16003,7 @@ AsyncResult * DurableNoteStore::getTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getTagAsync(
         guid,
         ctx);
@@ -16341,40 +16025,19 @@ Tag DurableNoteStore::createTag(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->createTag(
                 tag,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Tag>();
 }
 
 AsyncResult * DurableNoteStore::createTagAsync(
@@ -16385,7 +16048,7 @@ AsyncResult * DurableNoteStore::createTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->createTagAsync(
         tag,
         ctx);
@@ -16407,40 +16070,19 @@ qint32 DurableNoteStore::updateTag(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateTag(
                 tag,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::updateTagAsync(
@@ -16451,7 +16093,7 @@ AsyncResult * DurableNoteStore::updateTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateTagAsync(
         tag,
         ctx);
@@ -16473,39 +16115,19 @@ void DurableNoteStore::untagAll(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->untagAll(
                 guid,
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableNoteStore::untagAllAsync(
@@ -16516,7 +16138,7 @@ AsyncResult * DurableNoteStore::untagAllAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->untagAllAsync(
         guid,
         ctx);
@@ -16538,40 +16160,19 @@ qint32 DurableNoteStore::expungeTag(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->expungeTag(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::expungeTagAsync(
@@ -16582,7 +16183,7 @@ AsyncResult * DurableNoteStore::expungeTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->expungeTagAsync(
         guid,
         ctx);
@@ -16603,39 +16204,18 @@ QList<SavedSearch> DurableNoteStore::listSearches(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listSearches(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<SavedSearch>>();
 }
 
 AsyncResult * DurableNoteStore::listSearchesAsync(
@@ -16645,7 +16225,7 @@ AsyncResult * DurableNoteStore::listSearchesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listSearchesAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -16666,40 +16246,19 @@ SavedSearch DurableNoteStore::getSearch(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getSearch(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SavedSearch>();
 }
 
 AsyncResult * DurableNoteStore::getSearchAsync(
@@ -16710,7 +16269,7 @@ AsyncResult * DurableNoteStore::getSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getSearchAsync(
         guid,
         ctx);
@@ -16732,40 +16291,19 @@ SavedSearch DurableNoteStore::createSearch(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->createSearch(
                 search,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SavedSearch>();
 }
 
 AsyncResult * DurableNoteStore::createSearchAsync(
@@ -16776,7 +16314,7 @@ AsyncResult * DurableNoteStore::createSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->createSearchAsync(
         search,
         ctx);
@@ -16798,40 +16336,19 @@ qint32 DurableNoteStore::updateSearch(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateSearch(
                 search,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::updateSearchAsync(
@@ -16842,7 +16359,7 @@ AsyncResult * DurableNoteStore::updateSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateSearchAsync(
         search,
         ctx);
@@ -16864,40 +16381,19 @@ qint32 DurableNoteStore::expungeSearch(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->expungeSearch(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::expungeSearchAsync(
@@ -16908,7 +16404,7 @@ AsyncResult * DurableNoteStore::expungeSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->expungeSearchAsync(
         guid,
         ctx);
@@ -16931,41 +16427,20 @@ qint32 DurableNoteStore::findNoteOffset(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->findNoteOffset(
                 filter,
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::findNoteOffsetAsync(
@@ -16977,7 +16452,7 @@ AsyncResult * DurableNoteStore::findNoteOffsetAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->findNoteOffsetAsync(
         filter,
         guid,
@@ -17003,11 +16478,8 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->findNotesMetadata(
                 filter,
@@ -17015,31 +16487,13 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
                 maxNotes,
                 resultSpec,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<NotesMetadataList>();
 }
 
 AsyncResult * DurableNoteStore::findNotesMetadataAsync(
@@ -17053,7 +16507,7 @@ AsyncResult * DurableNoteStore::findNotesMetadataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->findNotesMetadataAsync(
         filter,
         offset,
@@ -17079,41 +16533,20 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->findNoteCounts(
                 filter,
                 withTrash,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<NoteCollectionCounts>();
 }
 
 AsyncResult * DurableNoteStore::findNoteCountsAsync(
@@ -17125,7 +16558,7 @@ AsyncResult * DurableNoteStore::findNoteCountsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->findNoteCountsAsync(
         filter,
         withTrash,
@@ -17149,41 +16582,20 @@ Note DurableNoteStore::getNoteWithResultSpec(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteWithResultSpec(
                 guid,
                 resultSpec,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Note>();
 }
 
 AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
@@ -17195,7 +16607,7 @@ AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteWithResultSpecAsync(
         guid,
         resultSpec,
@@ -17222,11 +16634,8 @@ Note DurableNoteStore::getNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNote(
                 guid,
@@ -17235,31 +16644,13 @@ Note DurableNoteStore::getNote(
                 withResourcesRecognition,
                 withResourcesAlternateData,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Note>();
 }
 
 AsyncResult * DurableNoteStore::getNoteAsync(
@@ -17274,7 +16665,7 @@ AsyncResult * DurableNoteStore::getNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteAsync(
         guid,
         withContent,
@@ -17300,40 +16691,19 @@ LazyMap DurableNoteStore::getNoteApplicationData(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteApplicationData(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<LazyMap>();
 }
 
 AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
@@ -17344,7 +16714,7 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteApplicationDataAsync(
         guid,
         ctx);
@@ -17367,41 +16737,20 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteApplicationDataEntry(
                 guid,
                 key,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toString();
 }
 
 AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
@@ -17413,7 +16762,7 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteApplicationDataEntryAsync(
         guid,
         key,
@@ -17438,42 +16787,21 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->setNoteApplicationDataEntry(
                 guid,
                 key,
                 value,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
@@ -17486,7 +16814,7 @@ AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->setNoteApplicationDataEntryAsync(
         guid,
         key,
@@ -17511,41 +16839,20 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->unsetNoteApplicationDataEntry(
                 guid,
                 key,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
@@ -17557,7 +16864,7 @@ AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->unsetNoteApplicationDataEntryAsync(
         guid,
         key,
@@ -17580,40 +16887,19 @@ QString DurableNoteStore::getNoteContent(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteContent(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toString();
 }
 
 AsyncResult * DurableNoteStore::getNoteContentAsync(
@@ -17624,7 +16910,7 @@ AsyncResult * DurableNoteStore::getNoteContentAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteContentAsync(
         guid,
         ctx);
@@ -17648,42 +16934,21 @@ QString DurableNoteStore::getNoteSearchText(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteSearchText(
                 guid,
                 noteOnly,
                 tokenizeForIndexing,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toString();
 }
 
 AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
@@ -17696,7 +16961,7 @@ AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteSearchTextAsync(
         guid,
         noteOnly,
@@ -17720,40 +16985,19 @@ QString DurableNoteStore::getResourceSearchText(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceSearchText(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toString();
 }
 
 AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
@@ -17764,7 +17008,7 @@ AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceSearchTextAsync(
         guid,
         ctx);
@@ -17786,40 +17030,19 @@ QStringList DurableNoteStore::getNoteTagNames(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteTagNames(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toStringList();
 }
 
 AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
@@ -17830,7 +17053,7 @@ AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteTagNamesAsync(
         guid,
         ctx);
@@ -17852,40 +17075,19 @@ Note DurableNoteStore::createNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->createNote(
                 note,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Note>();
 }
 
 AsyncResult * DurableNoteStore::createNoteAsync(
@@ -17896,7 +17098,7 @@ AsyncResult * DurableNoteStore::createNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->createNoteAsync(
         note,
         ctx);
@@ -17918,40 +17120,19 @@ Note DurableNoteStore::updateNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateNote(
                 note,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Note>();
 }
 
 AsyncResult * DurableNoteStore::updateNoteAsync(
@@ -17962,7 +17143,7 @@ AsyncResult * DurableNoteStore::updateNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateNoteAsync(
         note,
         ctx);
@@ -17984,40 +17165,19 @@ qint32 DurableNoteStore::deleteNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->deleteNote(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::deleteNoteAsync(
@@ -18028,7 +17188,7 @@ AsyncResult * DurableNoteStore::deleteNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->deleteNoteAsync(
         guid,
         ctx);
@@ -18050,40 +17210,19 @@ qint32 DurableNoteStore::expungeNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->expungeNote(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::expungeNoteAsync(
@@ -18094,7 +17233,7 @@ AsyncResult * DurableNoteStore::expungeNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->expungeNoteAsync(
         guid,
         ctx);
@@ -18117,41 +17256,20 @@ Note DurableNoteStore::copyNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->copyNote(
                 noteGuid,
                 toNotebookGuid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Note>();
 }
 
 AsyncResult * DurableNoteStore::copyNoteAsync(
@@ -18163,7 +17281,7 @@ AsyncResult * DurableNoteStore::copyNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->copyNoteAsync(
         noteGuid,
         toNotebookGuid,
@@ -18186,40 +17304,19 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listNoteVersions(
                 noteGuid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<NoteVersionId>>();
 }
 
 AsyncResult * DurableNoteStore::listNoteVersionsAsync(
@@ -18230,7 +17327,7 @@ AsyncResult * DurableNoteStore::listNoteVersionsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listNoteVersionsAsync(
         noteGuid,
         ctx);
@@ -18256,11 +17353,8 @@ Note DurableNoteStore::getNoteVersion(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNoteVersion(
                 noteGuid,
@@ -18269,31 +17363,13 @@ Note DurableNoteStore::getNoteVersion(
                 withResourcesRecognition,
                 withResourcesAlternateData,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Note>();
 }
 
 AsyncResult * DurableNoteStore::getNoteVersionAsync(
@@ -18308,7 +17384,7 @@ AsyncResult * DurableNoteStore::getNoteVersionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNoteVersionAsync(
         noteGuid,
         updateSequenceNum,
@@ -18338,11 +17414,8 @@ Resource DurableNoteStore::getResource(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResource(
                 guid,
@@ -18351,31 +17424,13 @@ Resource DurableNoteStore::getResource(
                 withAttributes,
                 withAlternateData,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Resource>();
 }
 
 AsyncResult * DurableNoteStore::getResourceAsync(
@@ -18390,7 +17445,7 @@ AsyncResult * DurableNoteStore::getResourceAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceAsync(
         guid,
         withData,
@@ -18416,40 +17471,19 @@ LazyMap DurableNoteStore::getResourceApplicationData(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceApplicationData(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<LazyMap>();
 }
 
 AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
@@ -18460,7 +17494,7 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceApplicationDataAsync(
         guid,
         ctx);
@@ -18483,41 +17517,20 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceApplicationDataEntry(
                 guid,
                 key,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toString();
 }
 
 AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
@@ -18529,7 +17542,7 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceApplicationDataEntryAsync(
         guid,
         key,
@@ -18554,42 +17567,21 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->setResourceApplicationDataEntry(
                 guid,
                 key,
                 value,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
@@ -18602,7 +17594,7 @@ AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->setResourceApplicationDataEntryAsync(
         guid,
         key,
@@ -18627,41 +17619,20 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->unsetResourceApplicationDataEntry(
                 guid,
                 key,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
@@ -18673,7 +17644,7 @@ AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->unsetResourceApplicationDataEntryAsync(
         guid,
         key,
@@ -18696,40 +17667,19 @@ qint32 DurableNoteStore::updateResource(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateResource(
                 resource,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::updateResourceAsync(
@@ -18740,7 +17690,7 @@ AsyncResult * DurableNoteStore::updateResourceAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateResourceAsync(
         resource,
         ctx);
@@ -18762,40 +17712,19 @@ QByteArray DurableNoteStore::getResourceData(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceData(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toByteArray();
 }
 
 AsyncResult * DurableNoteStore::getResourceDataAsync(
@@ -18806,7 +17735,7 @@ AsyncResult * DurableNoteStore::getResourceDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceDataAsync(
         guid,
         ctx);
@@ -18832,11 +17761,8 @@ Resource DurableNoteStore::getResourceByHash(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceByHash(
                 noteGuid,
@@ -18845,31 +17771,13 @@ Resource DurableNoteStore::getResourceByHash(
                 withRecognition,
                 withAlternateData,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Resource>();
 }
 
 AsyncResult * DurableNoteStore::getResourceByHashAsync(
@@ -18884,7 +17792,7 @@ AsyncResult * DurableNoteStore::getResourceByHashAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceByHashAsync(
         noteGuid,
         contentHash,
@@ -18910,40 +17818,19 @@ QByteArray DurableNoteStore::getResourceRecognition(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceRecognition(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toByteArray();
 }
 
 AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
@@ -18954,7 +17841,7 @@ AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceRecognitionAsync(
         guid,
         ctx);
@@ -18976,40 +17863,19 @@ QByteArray DurableNoteStore::getResourceAlternateData(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceAlternateData(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toByteArray();
 }
 
 AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
@@ -19020,7 +17886,7 @@ AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceAlternateDataAsync(
         guid,
         ctx);
@@ -19042,40 +17908,19 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getResourceAttributes(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<ResourceAttributes>();
 }
 
 AsyncResult * DurableNoteStore::getResourceAttributesAsync(
@@ -19086,7 +17931,7 @@ AsyncResult * DurableNoteStore::getResourceAttributesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getResourceAttributesAsync(
         guid,
         ctx);
@@ -19109,41 +17954,20 @@ Notebook DurableNoteStore::getPublicNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getPublicNotebook(
                 userId,
                 publicUri,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Notebook>();
 }
 
 AsyncResult * DurableNoteStore::getPublicNotebookAsync(
@@ -19155,7 +17979,7 @@ AsyncResult * DurableNoteStore::getPublicNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getPublicNotebookAsync(
         userId,
         publicUri,
@@ -19179,41 +18003,20 @@ SharedNotebook DurableNoteStore::shareNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->shareNotebook(
                 sharedNotebook,
                 message,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SharedNotebook>();
 }
 
 AsyncResult * DurableNoteStore::shareNotebookAsync(
@@ -19225,7 +18028,7 @@ AsyncResult * DurableNoteStore::shareNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->shareNotebookAsync(
         sharedNotebook,
         message,
@@ -19248,40 +18051,19 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->createOrUpdateNotebookShares(
                 shareTemplate,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<CreateOrUpdateNotebookSharesResult>();
 }
 
 AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
@@ -19292,7 +18074,7 @@ AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->createOrUpdateNotebookSharesAsync(
         shareTemplate,
         ctx);
@@ -19314,40 +18096,19 @@ qint32 DurableNoteStore::updateSharedNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateSharedNotebook(
                 sharedNotebook,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
@@ -19358,7 +18119,7 @@ AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateSharedNotebookAsync(
         sharedNotebook,
         ctx);
@@ -19381,41 +18142,20 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->setNotebookRecipientSettings(
                 notebookGuid,
                 recipientSettings,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<Notebook>();
 }
 
 AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
@@ -19427,7 +18167,7 @@ AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->setNotebookRecipientSettingsAsync(
         notebookGuid,
         recipientSettings,
@@ -19449,39 +18189,18 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listSharedNotebooks(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<SharedNotebook>>();
 }
 
 AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
@@ -19491,7 +18210,7 @@ AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listSharedNotebooksAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -19512,40 +18231,19 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->createLinkedNotebook(
                 linkedNotebook,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<LinkedNotebook>();
 }
 
 AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
@@ -19556,7 +18254,7 @@ AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->createLinkedNotebookAsync(
         linkedNotebook,
         ctx);
@@ -19578,40 +18276,19 @@ qint32 DurableNoteStore::updateLinkedNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateLinkedNotebook(
                 linkedNotebook,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
@@ -19622,7 +18299,7 @@ AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateLinkedNotebookAsync(
         linkedNotebook,
         ctx);
@@ -19643,39 +18320,18 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listLinkedNotebooks(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<LinkedNotebook>>();
 }
 
 AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
@@ -19685,7 +18341,7 @@ AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listLinkedNotebooksAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -19706,40 +18362,19 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->expungeLinkedNotebook(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<qint32>();
 }
 
 AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
@@ -19750,7 +18385,7 @@ AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->expungeLinkedNotebookAsync(
         guid,
         ctx);
@@ -19772,40 +18407,19 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->authenticateToSharedNotebook(
                 shareKeyOrGlobalId,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<AuthenticationResult>();
 }
 
 AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
@@ -19816,7 +18430,7 @@ AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->authenticateToSharedNotebookAsync(
         shareKeyOrGlobalId,
         ctx);
@@ -19837,39 +18451,18 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getSharedNotebookByAuth(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<SharedNotebook>();
 }
 
 AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
@@ -19879,7 +18472,7 @@ AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getSharedNotebookByAuthAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -19900,39 +18493,19 @@ void DurableNoteStore::emailNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->emailNote(
                 parameters,
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableNoteStore::emailNoteAsync(
@@ -19943,7 +18516,7 @@ AsyncResult * DurableNoteStore::emailNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->emailNoteAsync(
         parameters,
         ctx);
@@ -19965,40 +18538,19 @@ QString DurableNoteStore::shareNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->shareNote(
                 guid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toString();
 }
 
 AsyncResult * DurableNoteStore::shareNoteAsync(
@@ -20009,7 +18561,7 @@ AsyncResult * DurableNoteStore::shareNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->shareNoteAsync(
         guid,
         ctx);
@@ -20031,39 +18583,19 @@ void DurableNoteStore::stopSharingNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->stopSharingNote(
                 guid,
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableNoteStore::stopSharingNoteAsync(
@@ -20074,7 +18606,7 @@ AsyncResult * DurableNoteStore::stopSharingNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->stopSharingNoteAsync(
         guid,
         ctx);
@@ -20097,41 +18629,20 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->authenticateToSharedNote(
                 guid,
                 noteKey,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<AuthenticationResult>();
 }
 
 AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
@@ -20143,7 +18654,7 @@ AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->authenticateToSharedNoteAsync(
         guid,
         noteKey,
@@ -20167,41 +18678,20 @@ RelatedResult DurableNoteStore::findRelated(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->findRelated(
                 query,
                 resultSpec,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<RelatedResult>();
 }
 
 AsyncResult * DurableNoteStore::findRelatedAsync(
@@ -20213,7 +18703,7 @@ AsyncResult * DurableNoteStore::findRelatedAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->findRelatedAsync(
         query,
         resultSpec,
@@ -20236,40 +18726,19 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->updateNoteIfUsnMatches(
                 note,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<UpdateNoteIfUsnMatchesResult>();
 }
 
 AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
@@ -20280,7 +18749,7 @@ AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateNoteIfUsnMatchesAsync(
         note,
         ctx);
@@ -20302,40 +18771,19 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->manageNotebookShares(
                 parameters,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<ManageNotebookSharesResult>();
 }
 
 AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
@@ -20346,7 +18794,7 @@ AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->manageNotebookSharesAsync(
         parameters,
         ctx);
@@ -20368,40 +18816,19 @@ ShareRelationships DurableNoteStore::getNotebookShares(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getNotebookShares(
                 notebookGuid,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<ShareRelationships>();
 }
 
 AsyncResult * DurableNoteStore::getNotebookSharesAsync(
@@ -20412,7 +18839,7 @@ AsyncResult * DurableNoteStore::getNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getNotebookSharesAsync(
         notebookGuid,
         ctx);
@@ -20438,42 +18865,21 @@ bool DurableUserStore::checkVersion(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->checkVersion(
                 clientName,
                 edamVersionMajor,
                 edamVersionMinor,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.toBool();
 }
 
 AsyncResult * DurableUserStore::checkVersionAsync(
@@ -20486,7 +18892,7 @@ AsyncResult * DurableUserStore::checkVersionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->checkVersionAsync(
         clientName,
         edamVersionMajor,
@@ -20510,40 +18916,19 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getBootstrapInfo(
                 locale,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<BootstrapInfo>();
 }
 
 AsyncResult * DurableUserStore::getBootstrapInfoAsync(
@@ -20554,7 +18939,7 @@ AsyncResult * DurableUserStore::getBootstrapInfoAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getBootstrapInfoAsync(
         locale,
         ctx);
@@ -20582,11 +18967,8 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->authenticateLongSession(
                 username,
@@ -20597,31 +18979,13 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
                 deviceDescription,
                 supportsTwoFactor,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<AuthenticationResult>();
 }
 
 AsyncResult * DurableUserStore::authenticateLongSessionAsync(
@@ -20638,7 +19002,7 @@ AsyncResult * DurableUserStore::authenticateLongSessionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->authenticateLongSessionAsync(
         username,
         password,
@@ -20668,42 +19032,21 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->completeTwoFactorAuthentication(
                 oneTimeCode,
                 deviceIdentifier,
                 deviceDescription,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<AuthenticationResult>();
 }
 
 AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
@@ -20716,7 +19059,7 @@ AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->completeTwoFactorAuthenticationAsync(
         oneTimeCode,
         deviceIdentifier,
@@ -20739,38 +19082,18 @@ void DurableUserStore::revokeLongSession(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->revokeLongSession(
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableUserStore::revokeLongSessionAsync(
@@ -20780,7 +19103,7 @@ AsyncResult * DurableUserStore::revokeLongSessionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->revokeLongSessionAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -20800,39 +19123,18 @@ AuthenticationResult DurableUserStore::authenticateToBusiness(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->authenticateToBusiness(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<AuthenticationResult>();
 }
 
 AsyncResult * DurableUserStore::authenticateToBusinessAsync(
@@ -20842,7 +19144,7 @@ AsyncResult * DurableUserStore::authenticateToBusinessAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->authenticateToBusinessAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -20862,39 +19164,18 @@ User DurableUserStore::getUser(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getUser(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<User>();
 }
 
 AsyncResult * DurableUserStore::getUserAsync(
@@ -20904,7 +19185,7 @@ AsyncResult * DurableUserStore::getUserAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getUserAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -20925,40 +19206,19 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getPublicUserInfo(
                 username,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<PublicUserInfo>();
 }
 
 AsyncResult * DurableUserStore::getPublicUserInfoAsync(
@@ -20969,7 +19229,7 @@ AsyncResult * DurableUserStore::getPublicUserInfoAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getPublicUserInfoAsync(
         username,
         ctx);
@@ -20990,39 +19250,18 @@ UserUrls DurableUserStore::getUserUrls(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getUserUrls(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<UserUrls>();
 }
 
 AsyncResult * DurableUserStore::getUserUrlsAsync(
@@ -21032,7 +19271,7 @@ AsyncResult * DurableUserStore::getUserUrlsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getUserUrlsAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -21053,39 +19292,19 @@ void DurableUserStore::inviteToBusiness(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->inviteToBusiness(
                 emailAddress,
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableUserStore::inviteToBusinessAsync(
@@ -21096,7 +19315,7 @@ AsyncResult * DurableUserStore::inviteToBusinessAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->inviteToBusinessAsync(
         emailAddress,
         ctx);
@@ -21118,39 +19337,19 @@ void DurableUserStore::removeFromBusiness(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->removeFromBusiness(
                 emailAddress,
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableUserStore::removeFromBusinessAsync(
@@ -21161,7 +19360,7 @@ AsyncResult * DurableUserStore::removeFromBusinessAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->removeFromBusinessAsync(
         emailAddress,
         ctx);
@@ -21184,40 +19383,20 @@ void DurableUserStore::updateBusinessUserIdentifier(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             m_service->updateBusinessUserIdentifier(
                 oldEmailAddress,
                 newEmailAddress,
                 ctx);
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant(), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return;
 }
 
 AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
@@ -21229,7 +19408,7 @@ AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->updateBusinessUserIdentifierAsync(
         oldEmailAddress,
         newEmailAddress,
@@ -21251,39 +19430,18 @@ QList<UserProfile> DurableUserStore::listBusinessUsers(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listBusinessUsers(
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<UserProfile>>();
 }
 
 AsyncResult * DurableUserStore::listBusinessUsersAsync(
@@ -21293,7 +19451,7 @@ AsyncResult * DurableUserStore::listBusinessUsersAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listBusinessUsersAsync(
         ctx);
     QObject::connect(res, &AsyncResult::finished,
@@ -21314,40 +19472,19 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->listBusinessInvitations(
                 includeRequestedInvitations,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<QList<BusinessInvitation>>();
 }
 
 AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
@@ -21358,7 +19495,7 @@ AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->listBusinessInvitationsAsync(
         includeRequestedInvitations,
         ctx);
@@ -21380,40 +19517,19 @@ AccountLimits DurableUserStore::getAccountLimits(
         ctx = m_ctx;
     }
 
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-    while(state.m_retryCount)
-    {
-        try
+    auto call = DurableService::SyncServiceCall(
+        [&] (IRequestContextPtr ctx)
         {
             auto res = m_service->getAccountLimits(
                 serviceLevel,
                 ctx);
-            return res;
-        }
-        catch(...)
-        {
-            --state.m_retryCount;
-            if (!state.m_retryCount) {
-                throw;
-            }
+            return DurableService::SyncResult(QVariant::fromValue(res), {});
+        });
 
-            if (ctx->increaseRequestTimeoutExponentially()) {
-                quint64 maxRequestTimeout = ctx->maxRequestTimeout();
-                quint64 timeout = exponentiallyIncreasedTimeoutMsec(
-                    ctx->requestTimeout(),
-                    maxRequestTimeout);
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxRequestTimeout,
-                    ctx->maxRequestRetryCount());
-            }
-        }
-    }
+    auto result = m_durableService.executeSyncRequest(
+        std::move(call), ctx);
 
-    throw EverCloudException("no retry attempts left");
+    return result.first.value<AccountLimits>();
 }
 
 AsyncResult * DurableUserStore::getAccountLimitsAsync(
@@ -21424,7 +19540,7 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = m_durableService.newAsyncResult();
     auto res = m_service->getAccountLimitsAsync(
         serviceLevel,
         ctx);

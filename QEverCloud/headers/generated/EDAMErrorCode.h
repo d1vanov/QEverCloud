@@ -15,6 +15,7 @@
 #include "../Export.h"
 
 #include <QDebug>
+#include <QMetaType>
 #include <QTextStream>
 
 namespace qevercloud {
@@ -957,5 +958,29 @@ QEVERCLOUD_EXPORT QDebug & operator<<(
     QDebug & out, const UserIdentityType value);
 
 } // namespace qevercloud
+
+Q_DECLARE_METATYPE(qevercloud::EDAMErrorCode)
+Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactReason)
+Q_DECLARE_METATYPE(qevercloud::ShareRelationshipPrivilegeLevel)
+Q_DECLARE_METATYPE(qevercloud::PrivilegeLevel)
+Q_DECLARE_METATYPE(qevercloud::ServiceLevel)
+Q_DECLARE_METATYPE(qevercloud::QueryFormat)
+Q_DECLARE_METATYPE(qevercloud::NoteSortOrder)
+Q_DECLARE_METATYPE(qevercloud::PremiumOrderStatus)
+Q_DECLARE_METATYPE(qevercloud::SharedNotebookPrivilegeLevel)
+Q_DECLARE_METATYPE(qevercloud::SharedNotePrivilegeLevel)
+Q_DECLARE_METATYPE(qevercloud::SponsoredGroupRole)
+Q_DECLARE_METATYPE(qevercloud::BusinessUserRole)
+Q_DECLARE_METATYPE(qevercloud::BusinessUserStatus)
+Q_DECLARE_METATYPE(qevercloud::SharedNotebookInstanceRestrictions)
+Q_DECLARE_METATYPE(qevercloud::ReminderEmailConfig)
+Q_DECLARE_METATYPE(qevercloud::BusinessInvitationStatus)
+Q_DECLARE_METATYPE(qevercloud::ContactType)
+Q_DECLARE_METATYPE(qevercloud::EntityType)
+Q_DECLARE_METATYPE(qevercloud::RecipientStatus)
+Q_DECLARE_METATYPE(qevercloud::CanMoveToContainerStatus)
+Q_DECLARE_METATYPE(qevercloud::RelatedContentType)
+Q_DECLARE_METATYPE(qevercloud::RelatedContentAccess)
+Q_DECLARE_METATYPE(qevercloud::UserIdentityType)
 
 #endif // QEVERCLOUD_GENERATED_EDAMERRORCODE_H

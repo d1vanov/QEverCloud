@@ -5753,8 +5753,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
 
 };
 
-
-
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::SyncState)
