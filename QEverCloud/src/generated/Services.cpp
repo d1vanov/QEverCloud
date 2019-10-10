@@ -15415,17 +15415,16 @@ AsyncResult * DurableNoteStore::getSyncStateAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getSyncStateAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getSyncStateAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SyncChunk DurableNoteStore::getFilteredSyncChunk(
@@ -15465,20 +15464,19 @@ AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getFilteredSyncChunkAsync(
-        afterUSN,
-        maxEntries,
-        filter,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getFilteredSyncChunkAsync(
+                afterUSN,
+                maxEntries,
+                filter,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SyncState DurableNoteStore::getLinkedNotebookSyncState(
@@ -15512,18 +15510,17 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getLinkedNotebookSyncStateAsync(
-        linkedNotebook,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getLinkedNotebookSyncStateAsync(
+                linkedNotebook,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
@@ -15566,21 +15563,20 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getLinkedNotebookSyncChunkAsync(
-        linkedNotebook,
-        afterUSN,
-        maxEntries,
-        fullSyncOnly,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getLinkedNotebookSyncChunkAsync(
+                linkedNotebook,
+                afterUSN,
+                maxEntries,
+                fullSyncOnly,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<Notebook> DurableNoteStore::listNotebooks(
@@ -15611,17 +15607,16 @@ AsyncResult * DurableNoteStore::listNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listNotebooksAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listNotebooksAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
@@ -15652,17 +15647,16 @@ AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listAccessibleBusinessNotebooksAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listAccessibleBusinessNotebooksAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Notebook DurableNoteStore::getNotebook(
@@ -15696,18 +15690,17 @@ AsyncResult * DurableNoteStore::getNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNotebookAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNotebookAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Notebook DurableNoteStore::getDefaultNotebook(
@@ -15738,17 +15731,16 @@ AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getDefaultNotebookAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getDefaultNotebookAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Notebook DurableNoteStore::createNotebook(
@@ -15782,18 +15774,17 @@ AsyncResult * DurableNoteStore::createNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->createNotebookAsync(
-        notebook,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->createNotebookAsync(
+                notebook,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::updateNotebook(
@@ -15827,18 +15818,17 @@ AsyncResult * DurableNoteStore::updateNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateNotebookAsync(
-        notebook,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateNotebookAsync(
+                notebook,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::expungeNotebook(
@@ -15872,18 +15862,17 @@ AsyncResult * DurableNoteStore::expungeNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->expungeNotebookAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->expungeNotebookAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<Tag> DurableNoteStore::listTags(
@@ -15914,17 +15903,16 @@ AsyncResult * DurableNoteStore::listTagsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listTagsAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listTagsAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<Tag> DurableNoteStore::listTagsByNotebook(
@@ -15958,18 +15946,17 @@ AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listTagsByNotebookAsync(
-        notebookGuid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listTagsByNotebookAsync(
+                notebookGuid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Tag DurableNoteStore::getTag(
@@ -16003,18 +15990,17 @@ AsyncResult * DurableNoteStore::getTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getTagAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getTagAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Tag DurableNoteStore::createTag(
@@ -16048,18 +16034,17 @@ AsyncResult * DurableNoteStore::createTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->createTagAsync(
-        tag,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->createTagAsync(
+                tag,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::updateTag(
@@ -16093,18 +16078,17 @@ AsyncResult * DurableNoteStore::updateTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateTagAsync(
-        tag,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateTagAsync(
+                tag,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableNoteStore::untagAll(
@@ -16138,18 +16122,17 @@ AsyncResult * DurableNoteStore::untagAllAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->untagAllAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->untagAllAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::expungeTag(
@@ -16183,18 +16166,17 @@ AsyncResult * DurableNoteStore::expungeTagAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->expungeTagAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->expungeTagAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<SavedSearch> DurableNoteStore::listSearches(
@@ -16225,17 +16207,16 @@ AsyncResult * DurableNoteStore::listSearchesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listSearchesAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listSearchesAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SavedSearch DurableNoteStore::getSearch(
@@ -16269,18 +16250,17 @@ AsyncResult * DurableNoteStore::getSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getSearchAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getSearchAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SavedSearch DurableNoteStore::createSearch(
@@ -16314,18 +16294,17 @@ AsyncResult * DurableNoteStore::createSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->createSearchAsync(
-        search,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->createSearchAsync(
+                search,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::updateSearch(
@@ -16359,18 +16338,17 @@ AsyncResult * DurableNoteStore::updateSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateSearchAsync(
-        search,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateSearchAsync(
+                search,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::expungeSearch(
@@ -16404,18 +16382,17 @@ AsyncResult * DurableNoteStore::expungeSearchAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->expungeSearchAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->expungeSearchAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::findNoteOffset(
@@ -16452,19 +16429,18 @@ AsyncResult * DurableNoteStore::findNoteOffsetAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->findNoteOffsetAsync(
-        filter,
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->findNoteOffsetAsync(
+                filter,
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 NotesMetadataList DurableNoteStore::findNotesMetadata(
@@ -16507,21 +16483,20 @@ AsyncResult * DurableNoteStore::findNotesMetadataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->findNotesMetadataAsync(
-        filter,
-        offset,
-        maxNotes,
-        resultSpec,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->findNotesMetadataAsync(
+                filter,
+                offset,
+                maxNotes,
+                resultSpec,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 NoteCollectionCounts DurableNoteStore::findNoteCounts(
@@ -16558,19 +16533,18 @@ AsyncResult * DurableNoteStore::findNoteCountsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->findNoteCountsAsync(
-        filter,
-        withTrash,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->findNoteCountsAsync(
+                filter,
+                withTrash,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Note DurableNoteStore::getNoteWithResultSpec(
@@ -16607,19 +16581,18 @@ AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteWithResultSpecAsync(
-        guid,
-        resultSpec,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteWithResultSpecAsync(
+                guid,
+                resultSpec,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Note DurableNoteStore::getNote(
@@ -16665,22 +16638,21 @@ AsyncResult * DurableNoteStore::getNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteAsync(
-        guid,
-        withContent,
-        withResourcesData,
-        withResourcesRecognition,
-        withResourcesAlternateData,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteAsync(
+                guid,
+                withContent,
+                withResourcesData,
+                withResourcesRecognition,
+                withResourcesAlternateData,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 LazyMap DurableNoteStore::getNoteApplicationData(
@@ -16714,18 +16686,17 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteApplicationDataAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteApplicationDataAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QString DurableNoteStore::getNoteApplicationDataEntry(
@@ -16762,19 +16733,18 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteApplicationDataEntryAsync(
-        guid,
-        key,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteApplicationDataEntryAsync(
+                guid,
+                key,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::setNoteApplicationDataEntry(
@@ -16814,20 +16784,19 @@ AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->setNoteApplicationDataEntryAsync(
-        guid,
-        key,
-        value,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->setNoteApplicationDataEntryAsync(
+                guid,
+                key,
+                value,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
@@ -16864,19 +16833,18 @@ AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->unsetNoteApplicationDataEntryAsync(
-        guid,
-        key,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->unsetNoteApplicationDataEntryAsync(
+                guid,
+                key,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QString DurableNoteStore::getNoteContent(
@@ -16910,18 +16878,17 @@ AsyncResult * DurableNoteStore::getNoteContentAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteContentAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteContentAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QString DurableNoteStore::getNoteSearchText(
@@ -16961,20 +16928,19 @@ AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteSearchTextAsync(
-        guid,
-        noteOnly,
-        tokenizeForIndexing,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteSearchTextAsync(
+                guid,
+                noteOnly,
+                tokenizeForIndexing,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QString DurableNoteStore::getResourceSearchText(
@@ -17008,18 +16974,17 @@ AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceSearchTextAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceSearchTextAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QStringList DurableNoteStore::getNoteTagNames(
@@ -17053,18 +17018,17 @@ AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteTagNamesAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteTagNamesAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Note DurableNoteStore::createNote(
@@ -17098,18 +17062,17 @@ AsyncResult * DurableNoteStore::createNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->createNoteAsync(
-        note,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->createNoteAsync(
+                note,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Note DurableNoteStore::updateNote(
@@ -17143,18 +17106,17 @@ AsyncResult * DurableNoteStore::updateNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateNoteAsync(
-        note,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateNoteAsync(
+                note,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::deleteNote(
@@ -17188,18 +17150,17 @@ AsyncResult * DurableNoteStore::deleteNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->deleteNoteAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->deleteNoteAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::expungeNote(
@@ -17233,18 +17194,17 @@ AsyncResult * DurableNoteStore::expungeNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->expungeNoteAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->expungeNoteAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Note DurableNoteStore::copyNote(
@@ -17281,19 +17241,18 @@ AsyncResult * DurableNoteStore::copyNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->copyNoteAsync(
-        noteGuid,
-        toNotebookGuid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->copyNoteAsync(
+                noteGuid,
+                toNotebookGuid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<NoteVersionId> DurableNoteStore::listNoteVersions(
@@ -17327,18 +17286,17 @@ AsyncResult * DurableNoteStore::listNoteVersionsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listNoteVersionsAsync(
-        noteGuid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listNoteVersionsAsync(
+                noteGuid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Note DurableNoteStore::getNoteVersion(
@@ -17384,22 +17342,21 @@ AsyncResult * DurableNoteStore::getNoteVersionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNoteVersionAsync(
-        noteGuid,
-        updateSequenceNum,
-        withResourcesData,
-        withResourcesRecognition,
-        withResourcesAlternateData,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNoteVersionAsync(
+                noteGuid,
+                updateSequenceNum,
+                withResourcesData,
+                withResourcesRecognition,
+                withResourcesAlternateData,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Resource DurableNoteStore::getResource(
@@ -17445,22 +17402,21 @@ AsyncResult * DurableNoteStore::getResourceAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceAsync(
-        guid,
-        withData,
-        withRecognition,
-        withAttributes,
-        withAlternateData,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceAsync(
+                guid,
+                withData,
+                withRecognition,
+                withAttributes,
+                withAlternateData,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 LazyMap DurableNoteStore::getResourceApplicationData(
@@ -17494,18 +17450,17 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceApplicationDataAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceApplicationDataAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QString DurableNoteStore::getResourceApplicationDataEntry(
@@ -17542,19 +17497,18 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceApplicationDataEntryAsync(
-        guid,
-        key,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceApplicationDataEntryAsync(
+                guid,
+                key,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::setResourceApplicationDataEntry(
@@ -17594,20 +17548,19 @@ AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->setResourceApplicationDataEntryAsync(
-        guid,
-        key,
-        value,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->setResourceApplicationDataEntryAsync(
+                guid,
+                key,
+                value,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
@@ -17644,19 +17597,18 @@ AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->unsetResourceApplicationDataEntryAsync(
-        guid,
-        key,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->unsetResourceApplicationDataEntryAsync(
+                guid,
+                key,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::updateResource(
@@ -17690,18 +17642,17 @@ AsyncResult * DurableNoteStore::updateResourceAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateResourceAsync(
-        resource,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateResourceAsync(
+                resource,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QByteArray DurableNoteStore::getResourceData(
@@ -17735,18 +17686,17 @@ AsyncResult * DurableNoteStore::getResourceDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceDataAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceDataAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Resource DurableNoteStore::getResourceByHash(
@@ -17792,22 +17742,21 @@ AsyncResult * DurableNoteStore::getResourceByHashAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceByHashAsync(
-        noteGuid,
-        contentHash,
-        withData,
-        withRecognition,
-        withAlternateData,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceByHashAsync(
+                noteGuid,
+                contentHash,
+                withData,
+                withRecognition,
+                withAlternateData,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QByteArray DurableNoteStore::getResourceRecognition(
@@ -17841,18 +17790,17 @@ AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceRecognitionAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceRecognitionAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QByteArray DurableNoteStore::getResourceAlternateData(
@@ -17886,18 +17834,17 @@ AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceAlternateDataAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceAlternateDataAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 ResourceAttributes DurableNoteStore::getResourceAttributes(
@@ -17931,18 +17878,17 @@ AsyncResult * DurableNoteStore::getResourceAttributesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getResourceAttributesAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getResourceAttributesAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Notebook DurableNoteStore::getPublicNotebook(
@@ -17979,19 +17925,18 @@ AsyncResult * DurableNoteStore::getPublicNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getPublicNotebookAsync(
-        userId,
-        publicUri,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getPublicNotebookAsync(
+                userId,
+                publicUri,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SharedNotebook DurableNoteStore::shareNotebook(
@@ -18028,19 +17973,18 @@ AsyncResult * DurableNoteStore::shareNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->shareNotebookAsync(
-        sharedNotebook,
-        message,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->shareNotebookAsync(
+                sharedNotebook,
+                message,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShares(
@@ -18074,18 +18018,17 @@ AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->createOrUpdateNotebookSharesAsync(
-        shareTemplate,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->createOrUpdateNotebookSharesAsync(
+                shareTemplate,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::updateSharedNotebook(
@@ -18119,18 +18062,17 @@ AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateSharedNotebookAsync(
-        sharedNotebook,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateSharedNotebookAsync(
+                sharedNotebook,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 Notebook DurableNoteStore::setNotebookRecipientSettings(
@@ -18167,19 +18109,18 @@ AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->setNotebookRecipientSettingsAsync(
-        notebookGuid,
-        recipientSettings,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->setNotebookRecipientSettingsAsync(
+                notebookGuid,
+                recipientSettings,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
@@ -18210,17 +18151,16 @@ AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listSharedNotebooksAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listSharedNotebooksAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 LinkedNotebook DurableNoteStore::createLinkedNotebook(
@@ -18254,18 +18194,17 @@ AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->createLinkedNotebookAsync(
-        linkedNotebook,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->createLinkedNotebookAsync(
+                linkedNotebook,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::updateLinkedNotebook(
@@ -18299,18 +18238,17 @@ AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateLinkedNotebookAsync(
-        linkedNotebook,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateLinkedNotebookAsync(
+                linkedNotebook,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
@@ -18341,17 +18279,16 @@ AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listLinkedNotebooksAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listLinkedNotebooksAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 qint32 DurableNoteStore::expungeLinkedNotebook(
@@ -18385,18 +18322,17 @@ AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->expungeLinkedNotebookAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->expungeLinkedNotebookAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
@@ -18430,18 +18366,17 @@ AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->authenticateToSharedNotebookAsync(
-        shareKeyOrGlobalId,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->authenticateToSharedNotebookAsync(
+                shareKeyOrGlobalId,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
@@ -18472,17 +18407,16 @@ AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getSharedNotebookByAuthAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getSharedNotebookByAuthAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableNoteStore::emailNote(
@@ -18516,18 +18450,17 @@ AsyncResult * DurableNoteStore::emailNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->emailNoteAsync(
-        parameters,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->emailNoteAsync(
+                parameters,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QString DurableNoteStore::shareNote(
@@ -18561,18 +18494,17 @@ AsyncResult * DurableNoteStore::shareNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->shareNoteAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->shareNoteAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableNoteStore::stopSharingNote(
@@ -18606,18 +18538,17 @@ AsyncResult * DurableNoteStore::stopSharingNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->stopSharingNoteAsync(
-        guid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->stopSharingNoteAsync(
+                guid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 AuthenticationResult DurableNoteStore::authenticateToSharedNote(
@@ -18654,19 +18585,18 @@ AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->authenticateToSharedNoteAsync(
-        guid,
-        noteKey,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->authenticateToSharedNoteAsync(
+                guid,
+                noteKey,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 RelatedResult DurableNoteStore::findRelated(
@@ -18703,19 +18633,18 @@ AsyncResult * DurableNoteStore::findRelatedAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->findRelatedAsync(
-        query,
-        resultSpec,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->findRelatedAsync(
+                query,
+                resultSpec,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
@@ -18749,18 +18678,17 @@ AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateNoteIfUsnMatchesAsync(
-        note,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateNoteIfUsnMatchesAsync(
+                note,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
@@ -18794,18 +18722,17 @@ AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->manageNotebookSharesAsync(
-        parameters,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->manageNotebookSharesAsync(
+                parameters,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 ShareRelationships DurableNoteStore::getNotebookShares(
@@ -18839,18 +18766,17 @@ AsyncResult * DurableNoteStore::getNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getNotebookSharesAsync(
-        notebookGuid,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getNotebookSharesAsync(
+                notebookGuid,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -18892,20 +18818,19 @@ AsyncResult * DurableUserStore::checkVersionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->checkVersionAsync(
-        clientName,
-        edamVersionMajor,
-        edamVersionMinor,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->checkVersionAsync(
+                clientName,
+                edamVersionMajor,
+                edamVersionMinor,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 BootstrapInfo DurableUserStore::getBootstrapInfo(
@@ -18939,18 +18864,17 @@ AsyncResult * DurableUserStore::getBootstrapInfoAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getBootstrapInfoAsync(
-        locale,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getBootstrapInfoAsync(
+                locale,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 AuthenticationResult DurableUserStore::authenticateLongSession(
@@ -19002,24 +18926,23 @@ AsyncResult * DurableUserStore::authenticateLongSessionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->authenticateLongSessionAsync(
-        username,
-        password,
-        consumerKey,
-        consumerSecret,
-        deviceIdentifier,
-        deviceDescription,
-        supportsTwoFactor,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->authenticateLongSessionAsync(
+                username,
+                password,
+                consumerKey,
+                consumerSecret,
+                deviceIdentifier,
+                deviceDescription,
+                supportsTwoFactor,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
@@ -19059,20 +18982,19 @@ AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->completeTwoFactorAuthenticationAsync(
-        oneTimeCode,
-        deviceIdentifier,
-        deviceDescription,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->completeTwoFactorAuthenticationAsync(
+                oneTimeCode,
+                deviceIdentifier,
+                deviceDescription,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableUserStore::revokeLongSession(
@@ -19103,17 +19025,16 @@ AsyncResult * DurableUserStore::revokeLongSessionAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->revokeLongSessionAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->revokeLongSessionAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 AuthenticationResult DurableUserStore::authenticateToBusiness(
@@ -19144,17 +19065,16 @@ AsyncResult * DurableUserStore::authenticateToBusinessAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->authenticateToBusinessAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->authenticateToBusinessAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 User DurableUserStore::getUser(
@@ -19185,17 +19105,16 @@ AsyncResult * DurableUserStore::getUserAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getUserAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getUserAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 PublicUserInfo DurableUserStore::getPublicUserInfo(
@@ -19229,18 +19148,17 @@ AsyncResult * DurableUserStore::getPublicUserInfoAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getPublicUserInfoAsync(
-        username,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getPublicUserInfoAsync(
+                username,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 UserUrls DurableUserStore::getUserUrls(
@@ -19271,17 +19189,16 @@ AsyncResult * DurableUserStore::getUserUrlsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getUserUrlsAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getUserUrlsAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableUserStore::inviteToBusiness(
@@ -19315,18 +19232,17 @@ AsyncResult * DurableUserStore::inviteToBusinessAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->inviteToBusinessAsync(
-        emailAddress,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->inviteToBusinessAsync(
+                emailAddress,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableUserStore::removeFromBusiness(
@@ -19360,18 +19276,17 @@ AsyncResult * DurableUserStore::removeFromBusinessAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->removeFromBusinessAsync(
-        emailAddress,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->removeFromBusinessAsync(
+                emailAddress,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 void DurableUserStore::updateBusinessUserIdentifier(
@@ -19408,19 +19323,18 @@ AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->updateBusinessUserIdentifierAsync(
-        oldEmailAddress,
-        newEmailAddress,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->updateBusinessUserIdentifierAsync(
+                oldEmailAddress,
+                newEmailAddress,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<UserProfile> DurableUserStore::listBusinessUsers(
@@ -19451,17 +19365,16 @@ AsyncResult * DurableUserStore::listBusinessUsersAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listBusinessUsersAsync(
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listBusinessUsersAsync(
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
@@ -19495,18 +19408,17 @@ AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->listBusinessInvitationsAsync(
-        includeRequestedInvitations,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->listBusinessInvitationsAsync(
+                includeRequestedInvitations,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 AccountLimits DurableUserStore::getAccountLimits(
@@ -19540,18 +19452,17 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
         ctx = m_ctx;
     }
 
-    AsyncResult * result = m_durableService.newAsyncResult();
-    auto res = m_service->getAccountLimitsAsync(
-        serviceLevel,
-        ctx);
-    QObject::connect(res, &AsyncResult::finished,
-        [=] (QVariant result, QSharedPointer<EverCloudExceptionData> error) {
-            Q_UNUSED(result)
-            Q_UNUSED(error)
-            // TODO: implement
+    auto call = DurableService::AsyncServiceCall(
+        [=, service=m_service] (IRequestContextPtr ctx)
+        {
+            return service->getAccountLimitsAsync(
+                serviceLevel,
+                ctx);
         });
 
-    return result;
+    return m_durableService.executeAsyncRequest(
+        std::move(call), ctx);
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
