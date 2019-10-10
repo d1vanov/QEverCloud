@@ -36,11 +36,6 @@ DurableService::DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr c
     m_ctx(std::move(ctx))
 {}
 
-AsyncResult * DurableService::newAsyncResult()
-{
-    return new AsyncResult;
-}
-
 DurableService::SyncResult DurableService::executeSyncRequest(
     SyncServiceCall && syncServiceCall, IRequestContextPtr ctx)
 {

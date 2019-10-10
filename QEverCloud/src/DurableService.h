@@ -51,8 +51,6 @@ public:
 public:
     DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx);
 
-    AsyncResult * newAsyncResult();
-
     SyncResult executeSyncRequest(
         SyncServiceCall && syncServiceCall, IRequestContextPtr ctx);
 
