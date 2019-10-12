@@ -21,7 +21,6 @@ namespace {
 
 struct RetryState
 {
-    qint64 m_started = QDateTime::currentMSecsSinceEpoch();
     quint32 m_retryCount = 0;
 };
 
@@ -91,7 +90,11 @@ DurableService::DurableService(IRetryPolicyPtr retryPolicy,
                                IRequestContextPtr ctx) :
     m_retryPolicy(std::move(retryPolicy)),
     m_ctx(std::move(ctx))
-{}
+{
+    if (!m_retryPolicy) {
+        m_retryPolicy = newRetryPolicy();
+    }
+}
 
 DurableService::SyncResult DurableService::executeSyncRequest(
     SyncServiceCall && syncServiceCall, IRequestContextPtr ctx)
