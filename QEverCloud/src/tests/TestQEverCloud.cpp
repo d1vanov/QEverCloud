@@ -6,6 +6,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+#include "TestDurableService.h"
 #include "TestOptional.h"
 
 #include <QtTest/QtTest>
@@ -23,5 +24,6 @@ int main(int argc, char *argv[])
     }                                                                          \
 // RUN_TESTS
 
+    RUN_TESTS(DurableServiceTester)
     RUN_TESTS(OptionalTester)
 }

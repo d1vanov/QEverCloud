@@ -138,8 +138,10 @@ find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
   set(TEST_HEADERS
       src/tests/Common.h
+      src/tests/TestDurableService.h
       src/tests/TestOptional.h)
   set(TEST_SOURCES
+      src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp)
     add_executable(test_${PROJECT_NAME} ${TEST_HEADERS} ${TEST_SOURCES})
