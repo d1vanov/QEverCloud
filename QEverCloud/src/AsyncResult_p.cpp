@@ -38,7 +38,9 @@ AsyncResultPrivate::AsyncResultPrivate(QVariant result,
     m_autoDelete(autoDelete),
     q_ptr(q)
 {
-    setValue(result, error);
+    QMetaObject::invokeMethod(this, "setValue", Qt::QueuedConnection,
+                              Q_ARG(QVariant, result),
+                              Q_ARG(QSharedPointer<EverCloudExceptionData>, error));
 }
 
 AsyncResultPrivate::~AsyncResultPrivate()
@@ -94,21 +96,19 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
             new EverCloudExceptionData(QStringLiteral("Unknown exception")));
     }
 
-    Q_EMIT finished(result, error);
-    reply->deleteLater();
-
-    if (m_autoDelete) {
-        Q_Q(AsyncResult);
-        q->deleteLater();
-    }
+    setValue(result, error);
 }
 
 void AsyncResultPrivate::setValue(QVariant result, QSharedPointer<EverCloudExceptionData> error)
 {
+    Q_Q(AsyncResult);
+    QObject::connect(this, &AsyncResultPrivate::finished,
+                     q, &AsyncResult::finished,
+                     Qt::QueuedConnection);
+
     Q_EMIT finished(result, error);
 
     if (m_autoDelete) {
-        Q_Q(AsyncResult);
         q->deleteLater();
     }
 }
