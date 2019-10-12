@@ -50,10 +50,9 @@ class QEVERCLOUD_EXPORT AsyncResult: public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(AsyncResult)
-private:
+public:
     static QVariant asIs(QByteArray replyData);
 
-public:
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
     AsyncResult(QString url, QByteArray postData,
