@@ -38,4 +38,23 @@ void DurableServiceTester::shouldExecuteSyncServiceCall()
     QVERIFY(result.second.isNull());
 }
 
+void DurableServiceTester::shouldExecuteAsyncServiceCall()
+{
+    auto durableService = newDurableService();
+
+    bool serviceCallDetected = false;
+
+    AsyncResult * res = new AsyncResult(QString(), QByteArray());
+    auto * result = durableService->executeAsyncRequest(
+        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+            Q_ASSERT(ctx);
+            serviceCallDetected = true;
+            return res;
+        },
+        newRequestContext());
+
+    QVERIFY(serviceCallDetected);
+    res->deleteLater();
+}
+
 } // namespace qevercloud
