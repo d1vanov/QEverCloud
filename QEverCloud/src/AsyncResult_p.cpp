@@ -32,6 +32,15 @@ AsyncResultPrivate::AsyncResultPrivate(QNetworkRequest request,
     q_ptr(q)
 {}
 
+AsyncResultPrivate::AsyncResultPrivate(QVariant result,
+                                       QSharedPointer<EverCloudExceptionData> error,
+                                       bool autoDelete, AsyncResult * q) :
+    m_autoDelete(autoDelete),
+    q_ptr(q)
+{
+    setValue(result, error);
+}
+
 AsyncResultPrivate::~AsyncResultPrivate()
 {}
 

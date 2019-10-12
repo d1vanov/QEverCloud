@@ -64,6 +64,13 @@ public:
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 
+    /**
+     * Constructor accepting already prepared value and/or exception,
+     * for use in tests
+     */
+    AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
+                bool autoDelete = true, QObject * parent = nullptr);
+
     ~AsyncResult();
 
     /**

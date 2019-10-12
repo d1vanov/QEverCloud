@@ -25,6 +25,10 @@ public:
                                 AsyncResult::ReadFunctionType readFunction,
                                 bool autoDelete, AsyncResult * q);
 
+    explicit AsyncResultPrivate(QVariant result,
+                                QSharedPointer<EverCloudExceptionData> error,
+                                bool autoDelete, AsyncResult * q);
+
     virtual ~AsyncResultPrivate();
 
 Q_SIGNALS:

@@ -45,6 +45,12 @@ AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData,
     QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }
 
+AsyncResult::AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
+                         bool autoDelete, QObject * parent) :
+    QObject(parent),
+    d_ptr(new AsyncResultPrivate(result, error, autoDelete, this))
+{}
+
 AsyncResult::~AsyncResult()
 {
     delete d_ptr;
