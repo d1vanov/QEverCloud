@@ -17,8 +17,6 @@ class AsyncResultPrivate: public QObject
 {
     Q_OBJECT
 public:
-    explicit AsyncResultPrivate(bool autoDelete, AsyncResult * q);
-
     explicit AsyncResultPrivate(QString url, QByteArray postData,
                                 AsyncResult::ReadFunctionType readFunction,
                                 bool autoDelete, AsyncResult * q);

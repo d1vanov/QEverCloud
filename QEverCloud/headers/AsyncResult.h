@@ -53,11 +53,6 @@ class QEVERCLOUD_EXPORT AsyncResult: public QObject
 private:
     static QVariant asIs(QByteArray replyData);
 
-    /**
-     * Constructor for use by QEverCloud internals only
-     */
-    AsyncResult(bool autoDelete = true, QObject * parent = nullptr);
-
 public:
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 

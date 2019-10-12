@@ -6,8 +6,8 @@
  */
 
 #include "AsyncResult_p.h"
-#include "DurableService.h"
 
+#include <DurableService.h>
 #include <Exceptions.h>
 
 #include <algorithm>
@@ -19,6 +19,14 @@ namespace {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+struct RetryState
+{
+    qint64 m_started = QDateTime::currentMSecsSinceEpoch();
+    quint32 m_retryCount = 0;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
 quint64 exponentiallyIncreasedTimeoutMsec(
     quint64 timeout, const quint64 maxTimeout)
 {
@@ -27,11 +35,60 @@ quint64 exponentiallyIncreasedTimeoutMsec(
     return timeout;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
+{
+    virtual bool shouldRetry(
+        QSharedPointer<EverCloudExceptionData> exceptionData) override
+    {
+        if (Q_UNLIKELY(exceptionData.isNull())) {
+            return true;
+        }
+
+        try {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException &) {
+            return true;
+        }
+        catch(const EDAMSystemException &) {
+            return true;
+        }
+        catch(...) {
+        }
+
+        return false;
+    }
+};
+
 } // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
 
-DurableService::DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx) :
+class Q_DECL_HIDDEN DurableService: public IDurableService
+{
+public:
+    DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx);
+
+    virtual SyncResult executeSyncRequest(
+        SyncServiceCall && syncServiceCall, IRequestContextPtr ctx) override;
+
+    virtual AsyncResult * executeAsyncRequest(
+        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx) override;
+
+private:
+    void doExecuteAsyncRequest(
+        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
+        RetryState && retryState, AsyncResult * result);
+
+private:
+    IRetryPolicyPtr     m_retryPolicy;
+    IRequestContextPtr  m_ctx;
+};
+
+DurableService::DurableService(IRetryPolicyPtr retryPolicy,
+                               IRequestContextPtr ctx) :
     m_retryPolicy(std::move(retryPolicy)),
     m_ctx(std::move(ctx))
 {}
@@ -103,7 +160,7 @@ AsyncResult * DurableService::executeAsyncRequest(
     RetryState state;
     state.m_retryCount = ctx->maxRequestRetryCount();
 
-    AsyncResult * result = new AsyncResult;
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
     doExecuteAsyncRequest(std::move(asyncServiceCall), std::move(ctx),
                           std::move(state), result);
 
@@ -163,36 +220,17 @@ void DurableService::doExecuteAsyncRequest(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
-{
-    virtual bool shouldRetry(
-        QSharedPointer<EverCloudExceptionData> exceptionData) override
-    {
-        if (Q_UNLIKELY(exceptionData.isNull())) {
-            return true;
-        }
-
-        try {
-            exceptionData->throwException();
-        }
-        catch(const ThriftException &) {
-            return true;
-        }
-        catch(const EDAMSystemException &) {
-            return true;
-        }
-        catch(...) {
-        }
-
-        return false;
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
 IRetryPolicyPtr newRetryPolicy()
 {
     return std::make_shared<RetryPolicy>();
+}
+
+IDurableServicePtr newDurableService(
+    IRetryPolicyPtr retryPolicy,
+    IRequestContextPtr ctx)
+{
+    return std::make_shared<DurableService>(
+        retryPolicy, ctx);
 }
 
 } // namespace qevercloud

@@ -8,8 +8,9 @@
 #ifndef QEVERCLOUD_DURABLE_SERVICE_H
 #define QEVERCLOUD_DURABLE_SERVICE_H
 
-#include <AsyncResult.h>
-#include <RequestContext.h>
+#include "AsyncResult.h"
+#include "Export.h"
+#include "RequestContext.h"
 
 #include <QDateTime>
 #include <QVariant>
@@ -22,15 +23,7 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-struct Q_DECL_HIDDEN RetryState
-{
-    qint64 m_started = QDateTime::currentMSecsSinceEpoch();
-    quint32 m_retryCount = 0;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-struct Q_DECL_HIDDEN IRetryPolicy
+struct QEVERCLOUD_EXPORT IRetryPolicy
 {
     virtual bool shouldRetry(
         QSharedPointer<EverCloudExceptionData> exceptionData) = 0;
@@ -40,36 +33,32 @@ using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class Q_DECL_HIDDEN DurableService: public QObject
+QT_FORWARD_DECLARE_CLASS(DurableServicePrivate)
+
+class QEVERCLOUD_EXPORT IDurableService
 {
-    Q_OBJECT
 public:
     using SyncResult = std::pair<QVariant, QSharedPointer<EverCloudExceptionData>>;
     using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
     using AsyncServiceCall = std::function<AsyncResult*(IRequestContextPtr)>;
 
 public:
-    DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx);
+    virtual SyncResult executeSyncRequest(
+        SyncServiceCall && syncServiceCall, IRequestContextPtr ctx) = 0;
 
-    SyncResult executeSyncRequest(
-        SyncServiceCall && syncServiceCall, IRequestContextPtr ctx);
-
-    AsyncResult * executeAsyncRequest(
-        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx);
-
-private:
-    void doExecuteAsyncRequest(
-        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
-        RetryState && retryState, AsyncResult * result);
-
-private:
-    IRetryPolicyPtr     m_retryPolicy;
-    IRequestContextPtr  m_ctx;
+    virtual AsyncResult * executeAsyncRequest(
+        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx) = 0;
 };
+
+using IDurableServicePtr = std::shared_ptr<IDurableService>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-IRetryPolicyPtr newRetryPolicy();
+QEVERCLOUD_EXPORT IRetryPolicyPtr newRetryPolicy();
+
+QEVERCLOUD_EXPORT IDurableServicePtr newDurableService(
+    IRetryPolicyPtr = {},
+    IRequestContextPtr = {});
 
 } // namespace qevercloud
 

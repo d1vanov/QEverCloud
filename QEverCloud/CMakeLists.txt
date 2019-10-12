@@ -15,6 +15,7 @@ endif()
 
 set(NON_GENERATED_HEADERS
     headers/AsyncResult.h
+    headers/DurableService.h
     headers/EventLoopFinisher.h
     headers/EverCloudException.h
     headers/Export.h
@@ -39,7 +40,6 @@ set(GENERATED_HEADERS
 
 set(PRIVATE_HEADERS
     src/AsyncResult_p.h
-    src/DurableService.h
     src/Http.h
     src/Impl.h
     src/Thrift.h

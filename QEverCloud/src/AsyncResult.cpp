@@ -25,18 +25,15 @@ QVariant AsyncResult::asIs(QByteArray replyData)
     return replyData;
 }
 
-AsyncResult::AsyncResult(bool autoDelete, QObject * parent) :
-    QObject(parent),
-    d_ptr(new AsyncResultPrivate(autoDelete, this))
-{}
-
 AsyncResult::AsyncResult(QString url, QByteArray postData,
                          AsyncResult::ReadFunctionType readFunction,
                          bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(url, postData, readFunction, autoDelete, this))
 {
-    QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
+    if (!url.isEmpty()) {
+        QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
+    }
 }
 
 AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData,

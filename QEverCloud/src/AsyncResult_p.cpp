@@ -11,11 +11,6 @@
 
 namespace qevercloud {
 
-AsyncResultPrivate::AsyncResultPrivate(bool autoDelete, AsyncResult * q) :
-    m_autoDelete(autoDelete),
-    q_ptr(q)
-{}
-
 AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData,
                                        AsyncResult::ReadFunctionType readFunction,
                                        bool autoDelete, AsyncResult * q) :
