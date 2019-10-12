@@ -1,28 +1,27 @@
 /**
- * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Copyright (c) 2019 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
  * https://opensource.org/licenses/MIT
  */
 
-#include "TestQEverCloud.h"
+#include "TestOptional.h"
 
-namespace qevercloud {
+#include <QtTest/QtTest>
 
-TestEverCloudTest::TestEverCloudTest(QObject * parent) :
-    QObject(parent)
-{}
+using namespace qevercloud;
 
-} // namespace qevercloud
+int main(int argc, char *argv[])
+{
+    int res = 0;
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
-#ifdef QT_GUI_LIB
-#undef QT_GUI_LIB
-QTEST_MAIN(qevercloud::TestEverCloudTest)
-#define QT_GUI_LIB
-#endif // QT_GUI_LIB
-#else
-QTEST_GUILESS_MAIN(qevercloud::TestEverCloudTest)
-#endif
+#define RUN_TESTS(tester)                                                      \
+    res = QTest::qExec(new tester);                                            \
+    if (res != 0) {                                                            \
+        return res;                                                            \
+    }                                                                          \
+// RUN_TESTS
+
+    RUN_TESTS(OptionalTester)
+}

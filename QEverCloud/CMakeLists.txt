@@ -137,7 +137,8 @@ add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM
 find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
   set(TEST_HEADERS
-      src/tests/TestQEverCloud.h)
+      src/tests/Common.h
+      src/tests/TestOptional.h)
   set(TEST_SOURCES
       src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp)
