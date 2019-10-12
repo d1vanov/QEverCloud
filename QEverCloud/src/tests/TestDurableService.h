@@ -25,6 +25,7 @@ private Q_SLOTS:
     void shouldExecuteSyncServiceCall();
     void shouldExecuteAsyncServiceCall();
     void shouldRetrySyncServiceCalls();
+    void shouldRetryAsyncServiceCalls();
 };
 
 } // namespace qevercloud

@@ -9,6 +9,7 @@
 #include "TestDurableService.h"
 #include "TestOptional.h"
 
+#include <QCoreApplication>
 #include <QtTest/QtTest>
 
 using namespace qevercloud;
@@ -16,6 +17,8 @@ using namespace qevercloud;
 int main(int argc, char *argv[])
 {
     int res = 0;
+
+    QCoreApplication app(argc, argv);
 
 #define RUN_TESTS(tester)                                                      \
     res = QTest::qExec(new tester);                                            \
@@ -26,4 +29,6 @@ int main(int argc, char *argv[])
 
     RUN_TESTS(DurableServiceTester)
     RUN_TESTS(OptionalTester)
+
+    return 0;
 }
