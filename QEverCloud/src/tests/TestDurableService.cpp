@@ -9,6 +9,7 @@
 #include "TestDurableService.h"
 
 #include <DurableService.h>
+#include <Exceptions.h>
 
 #include <QtTest/QtTest>
 
@@ -55,6 +56,48 @@ void DurableServiceTester::shouldExecuteAsyncServiceCall()
 
     QVERIFY(serviceCallDetected);
     res->deleteLater();
+}
+
+void DurableServiceTester::shouldRetrySyncServiceCalls()
+{
+    auto durableService = newDurableService();
+
+    int serviceCallCounter = 0;
+    int maxServiceCallCounter = 3;
+
+    auto ctx = newRequestContext(
+        QString(),
+        DEFAULT_REQUEST_TIMEOUT_MSEC,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        maxServiceCallCounter);
+
+    QVariant value = QStringLiteral("value");
+
+    auto result = durableService->executeSyncRequest(
+        [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
+            Q_ASSERT(ctx);
+            ++serviceCallCounter;
+            if (serviceCallCounter < maxServiceCallCounter)
+            {
+                QSharedPointer<EverCloudExceptionData> data;
+                try {
+                    throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+                }
+                catch(const EverCloudException & e) {
+                    data = e.exceptionData();
+                }
+
+                return {{}, data};
+            }
+
+            return {value, {}};
+        },
+        ctx);
+
+    QVERIFY(serviceCallCounter == maxServiceCallCounter);
+    QVERIFY(result.first == value);
+    QVERIFY(result.second.isNull());
 }
 
 } // namespace qevercloud
