@@ -20,7 +20,6 @@
 
 namespace qevercloud {
 
-
 QVariant AsyncResult::asIs(QByteArray replyData)
 {
     return replyData;

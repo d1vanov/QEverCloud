@@ -136,9 +136,12 @@ add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM
 # Tests
 find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
+  set(TEST_HEADERS
+      src/tests/TestQEverCloud.h)
   set(TEST_SOURCES
+      src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp)
-  add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
+    add_executable(test_${PROJECT_NAME} ${TEST_HEADERS} ${TEST_SOURCES})
   add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
   set_target_properties(test_${PROJECT_NAME} PROPERTIES
