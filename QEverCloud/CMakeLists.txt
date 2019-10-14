@@ -23,6 +23,7 @@ set(NON_GENERATED_HEADERS
     headers/Globals.h
     headers/Helpers.h
     headers/InkNoteImageDownloader.h
+    headers/Log.h
     headers/Optional.h
     headers/RequestContext.h
     headers/Thumbnail.h)
@@ -55,6 +56,7 @@ set(SOURCES
     src/Globals.cpp
     src/Http.cpp
     src/InkNoteImageDownloader.cpp
+    src/Log.cpp
     src/RequestContext.cpp
     src/Thumbnail.cpp
     src/generated/Constants.cpp
