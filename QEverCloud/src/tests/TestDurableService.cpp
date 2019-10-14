@@ -183,6 +183,216 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
     QVERIFY(valueFetcher.m_exceptionData.isNull());
 }
 
+void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
+{
+    auto durableService = newDurableService();
+
+    int serviceCallCounter = 0;
+    int maxServiceCallCounter = 3;
+
+    auto ctx = newRequestContext(
+        QString(),
+        DEFAULT_REQUEST_TIMEOUT_MSEC,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        maxServiceCallCounter);
+
+    auto result = durableService->executeSyncRequest(
+        [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
+            Q_ASSERT(ctx);
+            Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
+
+            ++serviceCallCounter;
+            QSharedPointer<EverCloudExceptionData> data;
+            try {
+                throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+            }
+            catch(const EverCloudException & e) {
+                data = e.exceptionData();
+            }
+
+            return {{}, data};
+        },
+        ctx);
+
+    QVERIFY(serviceCallCounter == maxServiceCallCounter);
+    QVERIFY(!result.first.isValid());
+    QVERIFY(!result.second.isNull());
+
+    bool exceptionCaught = false;
+    try {
+        result.second->throwException();
+    }
+    catch(const ThriftException & e) {
+        exceptionCaught = true;
+        QVERIFY(e.type() == ThriftException::Type::INTERNAL_ERROR);
+    }
+    QVERIFY(exceptionCaught);
+}
+
+void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
+{
+    auto durableService = newDurableService();
+
+    int serviceCallCounter = 0;
+    int maxServiceCallCounter = 3;
+
+    auto ctx = newRequestContext(
+        QString(),
+        DEFAULT_REQUEST_TIMEOUT_MSEC,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        maxServiceCallCounter);
+
+    AsyncResult * result = durableService->executeAsyncRequest(
+        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+            Q_ASSERT(ctx);
+            Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
+
+            ++serviceCallCounter;
+            QSharedPointer<EverCloudExceptionData> data;
+            try {
+                throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+            }
+            catch(const EverCloudException & e) {
+                data = e.exceptionData();
+            }
+
+            return new AsyncResult(QVariant(), data);
+        },
+        ctx);
+
+    ValueFetcher valueFetcher;
+    QObject::connect(result, &AsyncResult::finished,
+                     &valueFetcher, &ValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(&valueFetcher, &ValueFetcher::finished,
+                     &loop, &QEventLoop::quit);
+    loop.exec();
+
+    QVERIFY(serviceCallCounter == maxServiceCallCounter);
+    QVERIFY(!valueFetcher.m_value.isValid());
+    QVERIFY(!valueFetcher.m_exceptionData.isNull());
+
+    bool exceptionCaught = false;
+    try {
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const ThriftException & e) {
+        exceptionCaught = true;
+        QVERIFY(e.type() == ThriftException::Type::INTERNAL_ERROR);
+    }
+    QVERIFY(exceptionCaught);
+}
+
+void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError()
+{
+    auto durableService = newDurableService();
+
+    int serviceCallCounter = 0;
+    int maxServiceCallCounter = 3;
+
+    auto ctx = newRequestContext(
+        QString(),
+        DEFAULT_REQUEST_TIMEOUT_MSEC,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        maxServiceCallCounter);
+
+    auto result = durableService->executeSyncRequest(
+        [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
+            Q_ASSERT(ctx);
+            Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
+
+            ++serviceCallCounter;
+            QSharedPointer<EverCloudExceptionData> data;
+            try {
+                EDAMUserException e;
+                e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
+                throw e;
+            }
+            catch(const EverCloudException & e) {
+                data = e.exceptionData();
+            }
+
+            return {{}, data};
+        },
+        ctx);
+
+    QVERIFY(serviceCallCounter == 1);
+    QVERIFY(!result.first.isValid());
+    QVERIFY(!result.second.isNull());
+
+    bool exceptionCaught = false;
+    try {
+        result.second->throwException();
+    }
+    catch(const EDAMUserException & e) {
+        exceptionCaught = true;
+        QVERIFY(e.errorCode == EDAMErrorCode::AUTH_EXPIRED);
+    }
+    QVERIFY(exceptionCaught);
+}
+
+void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableError()
+{
+    auto durableService = newDurableService();
+
+    int serviceCallCounter = 0;
+    int maxServiceCallCounter = 3;
+
+    auto ctx = newRequestContext(
+        QString(),
+        DEFAULT_REQUEST_TIMEOUT_MSEC,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+        maxServiceCallCounter);
+
+    AsyncResult * result = durableService->executeAsyncRequest(
+        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+            Q_ASSERT(ctx);
+            Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
+
+            ++serviceCallCounter;
+            QSharedPointer<EverCloudExceptionData> data;
+            try {
+                EDAMUserException e;
+                e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
+                throw e;
+            }
+            catch(const EverCloudException & e) {
+                data = e.exceptionData();
+            }
+
+            return new AsyncResult(QVariant(), data);
+        },
+        ctx);
+
+    ValueFetcher valueFetcher;
+    QObject::connect(result, &AsyncResult::finished,
+                     &valueFetcher, &ValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(&valueFetcher, &ValueFetcher::finished,
+                     &loop, &QEventLoop::quit);
+    loop.exec();
+
+    QVERIFY(serviceCallCounter == 1);
+    QVERIFY(!valueFetcher.m_value.isValid());
+    QVERIFY(!valueFetcher.m_exceptionData.isNull());
+
+    bool exceptionCaught = false;
+    try {
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e) {
+        exceptionCaught = true;
+        QVERIFY(e.errorCode == EDAMErrorCode::AUTH_EXPIRED);
+    }
+    QVERIFY(exceptionCaught);
+}
+
 } // namespace qevercloud
 
 #include <TestDurableService.moc>

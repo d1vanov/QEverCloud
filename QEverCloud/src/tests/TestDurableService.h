@@ -26,6 +26,10 @@ private Q_SLOTS:
     void shouldExecuteAsyncServiceCall();
     void shouldRetrySyncServiceCalls();
     void shouldRetryAsyncServiceCalls();
+    void shouldNotRetrySyncServiceCallMoreThanMaxTimes();
+    void shouldNotRetryAsyncServiceCallMoreThanMaxTimes();
+    void shouldNotRetrySyncServiceCallInCaseOfUnretriableError();
+    void shouldNotRetryAsyncServiceCallInCaseOfUnretriableError();
 };
 
 } // namespace qevercloud
