@@ -38,8 +38,11 @@ QEVERCLOUD_EXPORT QDebug & operator<<(
 class QEVERCLOUD_EXPORT ILogger
 {
 public:
-    virtual void writeLog(
-        const LogLevel level, const char * fileName,
+    virtual bool shouldLog(
+        const LogLevel level, const char * component) const = 0;
+
+    virtual void log(
+        const LogLevel level, const char * component, const char * fileName,
         const quint32 lineNumber, const qint64 timestamp,
         const QString & message) = 0;
 
@@ -53,6 +56,8 @@ using ILoggerPtr = std::shared_ptr<ILogger>;
 ////////////////////////////////////////////////////////////////////////////////
 
 ILoggerPtr newNullLogger();
+
+ILoggerPtr newStdErrLogger(LogLevel level = LogLevel::Warn);
 
 } // namespace qevercloud
 
