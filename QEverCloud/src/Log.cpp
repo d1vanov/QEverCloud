@@ -34,6 +34,9 @@ void printLogLevel(T & out, const LogLevel level)
     case LogLevel::Debug:
         out << "Debug";
         break;
+    case LogLevel::Info:
+        out << "Info";
+        break;
     case LogLevel::Warn:
         out << "Warn";
         break;
@@ -100,7 +103,7 @@ public:
         const LogLevel level, const char * component) const override
     {
         Q_UNUSED(component)
-        return (static_cast<int>(level) <= m_level);
+        return (static_cast<int>(level) >= m_level);
     }
 
     virtual void log(

@@ -24,6 +24,7 @@ enum class LogLevel
 {
     Trace = 0,
     Debug,
+    Info,
     Warn,
     Error
 };
@@ -94,6 +95,10 @@ QEVERCLOUD_EXPORT ILoggerPtr newStdErrLogger(LogLevel level = LogLevel::Warn);
 #define QEC_DEBUG(component, message)                                          \
     __QEVERCLOUD_LOG_BASE(component, LogLevel::Debug, message)                 \
 // QEC_DEBUG
+
+#define QEC_INFO(component, message)                                           \
+    __QEVERCLOUD_LOG_BASE(component, LogLevel::Info, message)                  \
+// QEC_INFO
 
 #define QEC_WARNING(component, message)                                        \
     __QEVERCLOUD_LOG_BASE(component, LogLevel::Warn, message)                  \
