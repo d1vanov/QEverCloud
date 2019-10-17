@@ -10,6 +10,7 @@
 
 #include "Export.h"
 
+#include <QDateTime>
 #include <QDebug>
 #include <QTextStream>
 
@@ -55,9 +56,52 @@ using ILoggerPtr = std::shared_ptr<ILogger>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-ILoggerPtr newNullLogger();
+QEVERCLOUD_EXPORT ILoggerPtr logger();
 
-ILoggerPtr newStdErrLogger(LogLevel level = LogLevel::Warn);
+QEVERCLOUD_EXPORT void setLogger(ILoggerPtr logger);
+
+QEVERCLOUD_EXPORT ILoggerPtr newNullLogger();
+
+QEVERCLOUD_EXPORT ILoggerPtr newStdErrLogger(LogLevel level = LogLevel::Warn);
+
+////////////////////////////////////////////////////////////////////////////////
+
+#define __QEVERCLOUD_LOG_BASE(component, level, message)                       \
+    {                                                                          \
+        auto __qevercloudLogger = ::qevercloud::logger();                      \
+        if (__qevercloudLogger->shouldLog(level, component))                   \
+        {                                                                      \
+            QString msg;                                                       \
+            QDebug dbg(&msg);                                                  \
+            dbg.nospace();                                                     \
+            dbg.noquote();                                                     \
+            dbg << message;                                                    \
+            __qevercloudLogger->log(                                           \
+                level,                                                         \
+                component,                                                     \
+                __FILE__,                                                      \
+                __LINE__,                                                      \
+                QDateTime::currentMSecsSinceEpoch(),                           \
+                msg);                                                          \
+        }                                                                      \
+    }                                                                          \
+// __QEVERCLOUD_LOG_BASE
+
+#define QEC_TRACE(component, message)                                          \
+    __QEVERCLOUD_LOG_BASE(component, LogLevel::Trace, message)                 \
+// QEC_TRACE
+
+#define QEC_DEBUG(component, message)                                          \
+    __QEVERCLOUD_LOG_BASE(component, LogLevel::Debug, message)                 \
+// QEC_DEBUG
+
+#define QEC_WARNING(component, message)                                        \
+    __QEVERCLOUD_LOG_BASE(component, LogLevel::Warn, message)                  \
+// QEC_WARNING
+
+#define QEC_ERROR(component, message)                                          \
+    __QEVERCLOUD_LOG_BASE(component, LogLevel::Error, message)                 \
+// QEC_ERROR
 
 } // namespace qevercloud
 

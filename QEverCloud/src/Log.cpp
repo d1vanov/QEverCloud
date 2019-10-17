@@ -7,6 +7,8 @@
 
 #include <Log.h>
 
+#include <QGlobalStatic>
+
 #include <atomic>
 #include <cstdio>
 #include <ctime>
@@ -14,6 +16,10 @@
 namespace qevercloud {
 
 namespace {
+
+////////////////////////////////////////////////////////////////////////////////
+
+Q_GLOBAL_STATIC(ILoggerPtr, globalLogger)
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -175,6 +181,25 @@ private:
 } // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
+
+ILoggerPtr logger()
+{
+    if (globalLogger.exists() &&
+        !globalLogger.isDestroyed() &&
+        (globalLogger->get() != nullptr))
+    {
+        return *globalLogger;
+    }
+
+    return newNullLogger();
+}
+
+void setLogger(ILoggerPtr logger)
+{
+    if (!globalLogger.isDestroyed()) {
+        *globalLogger = logger;
+    }
+}
 
 ILoggerPtr newNullLogger()
 {
