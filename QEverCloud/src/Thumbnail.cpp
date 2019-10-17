@@ -9,6 +9,7 @@
 
 #include "Http.h"
 
+#include <Log.h>
 #include <Thumbnail.h>
 
 namespace qevercloud {
@@ -79,6 +80,10 @@ Thumbnail & Thumbnail::setImageType(ImageType::type imageType)
 
 QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
 {
+    QEC_DEBUG("thumbnail", "Downloading thumbnail: guid = " << guid
+        << (isPublic ? "public" : "non-public") << ", "
+        << (isResourceGuid ? "resource guid" : "not a resource guid"));
+
     int httpStatusCode = 0;
     QPair<QNetworkRequest, QByteArray> request =
         createPostRequest(guid, isPublic, isResourceGuid);
@@ -86,6 +91,9 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
     QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), request.first,
                                       request.second, &httpStatusCode);
     if (httpStatusCode != 200) {
+        QEC_WARNING("thumbnail", "Failed to download thumbnail with guid "
+            << guid << ": http status code = " << httpStatusCode);
+
         throw EverCloudException(
             QString::fromUtf8("HTTP Status Code = %1").arg(httpStatusCode));
     }
@@ -95,6 +103,10 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
 
 AsyncResult* Thumbnail::downloadAsync(Guid guid, bool isPublic, bool isResourceGuid)
 {
+    QEC_DEBUG("thumbnail", "Starting async thumbnail download: guid = " << guid
+        << (isPublic ? "public" : "non-public") << ", "
+        << (isResourceGuid ? "resource guid" : "not a resource guid"));
+
     QPair<QNetworkRequest, QByteArray> pair =
         createPostRequest(guid, isPublic, isResourceGuid);
     return new AsyncResult(pair.first, pair.second);
@@ -139,6 +151,8 @@ QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
     if (d->m_size != 300) {
         url += QStringLiteral("?size=%1").arg(d->m_size);
     }
+
+    QEC_TRACE("thumbnail", "Sending thumbnail download request: url = " << url);
 
     request.setUrl(QUrl(url));
     request.setHeader(QNetworkRequest::ContentTypeHeader,
