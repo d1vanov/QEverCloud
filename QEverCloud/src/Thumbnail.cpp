@@ -90,7 +90,8 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
 
     QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), request.first,
                                       request.second, &httpStatusCode);
-    if (httpStatusCode != 200) {
+    if (httpStatusCode != 200)
+    {
         QEC_WARNING("thumbnail", "Failed to download thumbnail with guid "
             << guid << ": http status code = " << httpStatusCode);
 
@@ -98,6 +99,7 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
             QString::fromUtf8("HTTP Status Code = %1").arg(httpStatusCode));
     }
 
+    QEC_DEBUG("thumbnail", "Finished download for guid " << guid);
     return reply;
 }
 
@@ -109,7 +111,24 @@ AsyncResult* Thumbnail::downloadAsync(Guid guid, bool isPublic, bool isResourceG
 
     QPair<QNetworkRequest, QByteArray> pair =
         createPostRequest(guid, isPublic, isResourceGuid);
-    return new AsyncResult(pair.first, pair.second);
+    auto res = new AsyncResult(pair.first, pair.second);
+    QObject::connect(res, &AsyncResult::finished,
+                     [=] (const QVariant & value,
+                         const QSharedPointer<EverCloudExceptionData> data)
+                     {
+                         Q_UNUSED(value)
+
+                         if (data.isNull()) {
+                             QEC_DEBUG("thumbnail", "Finished async download "
+                                << "for guid " << guid);
+                             return;
+                         }
+
+                         QEC_WARNING("thumbnail", "Async download for guid "
+                            << guid << " finished with error: "
+                            << data->errorMessage);
+                     });
+    return res;
 }
 
 QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
