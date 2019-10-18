@@ -10,6 +10,7 @@
 
 #include <Helpers.h>
 #include <InkNoteImageDownloader.h>
+#include <Log.h>
 
 #include <QBuffer>
 #include <QImage>
@@ -86,6 +87,9 @@ InkNoteImageDownloader & InkNoteImageDownloader::setHeight(int height)
 
 QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
 {
+    QEC_DEBUG("ink_note_image", "Downloading ink note image: guid = " << guid
+        << (isPublic ? "public" : "non-public"));
+
     Q_D(InkNoteImageDownloader);
 
     QSize size(d_ptr->m_width, d_ptr->m_height);
@@ -102,10 +106,17 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
         QPair<QNetworkRequest, QByteArray> postRequest =
             d->createPostRequest(urlPart, sliceCounter, isPublic);
 
+        QEC_DEBUG("ink_note_image", "Sending download request to url: "
+            << postRequest.first.url());
+
         QByteArray reply = simpleDownload(evernoteNetworkAccessManager(),
                                           postRequest.first, postRequest.second,
                                           &httpStatusCode);
         if (httpStatusCode != 200) {
+            QEC_WARNING("ink_note_image", "Failed to download slice "
+                << sliceCounter << " for guid " << guid
+                << ": http status code = " << httpStatusCode);
+
             throw EverCloudException(
                 QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
         }
@@ -114,7 +125,11 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
         Q_UNUSED(replyImagePart.loadFromData(reply, "PNG"))
         if (replyImagePart.isNull())
         {
-            if (Q_UNLIKELY(inkNoteImage.isNull())) {
+            if (Q_UNLIKELY(inkNoteImage.isNull()))
+            {
+                QEC_WARNING("ink_note_image", "Failed to read downloaded data "
+                    << "as a png image");
+
                 throw EverCloudException(
                     QStringLiteral("Ink note's image part is null before even "
                                    "starting to assemble"));
@@ -148,6 +163,8 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
     QBuffer buffer(&imageData);
     Q_UNUSED(buffer.open(QIODevice::WriteOnly))
     inkNoteImage.save(&buffer, "PNG");
+
+    QEC_DEBUG("ink_note_image", "Finished download for guid " << guid);
     return imageData;
 }
 

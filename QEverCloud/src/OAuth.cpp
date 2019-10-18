@@ -10,6 +10,7 @@
 #include "Http.h"
 
 #include <Helpers.h>
+#include <Log.h>
 #include <OAuth.h>
 
 #include <QNetworkReply>
@@ -135,6 +136,8 @@ EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
 void EvernoteOAuthWebView::authenticate(
     QString host, QString consumerKey, QString consumerSecret)
 {
+    QEC_DEBUG("oauth", "Sending request to acquire temporary token");
+
     Q_D(EvernoteOAuthWebView);
     d->m_host = host;
     d->m_isSucceeded = false;
@@ -198,15 +201,19 @@ void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
     ReplyFetcher * replyFetcher = qobject_cast<ReplyFetcher*>(rf);
     if (replyFetcher->isError())
     {
+        QEC_WARNING("oauth", "Failed to acquire temporary token: "
+            << replyFetcher->errorText());
         setError(replyFetcher->errorText());
     }
     else
     {
+        QEC_DEBUG("oauth", "Successfully acquired temporary token");
         QString reply = QString::fromUtf8(replyFetcher->receivedData().constData());
         int index = reply.indexOf(QStringLiteral("&oauth_token_secret"));
         QString token = reply.left(index);
 
         // step 2: directing a user to the login page
+        QEC_DEBUG("oauth", "Setting up login window");
         QObject::connect(this, &EvernoteOAuthWebViewPrivate::urlChanged,
                          this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
         QUrl loginUrl(QString::fromUtf8("https://%1//OAuth.action?%2")
@@ -225,10 +232,13 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
     if (s.contains(QStringLiteral("nnoauth?")) && s.contains(oauthMarker))
     {
         if (s.contains(QStringLiteral("&oauth_verifier=")))
-        { // success
+        {
+            QEC_DEBUG("oauth", "Received approval for permanent token receipt");
+
             QString token = s.mid(s.indexOf(oauthMarker) + oauthMarker.length());
 
             // step 4: acquire permanent token
+            QEC_DEBUG("oauth", "Sending request to acquire permanent token");
             ReplyFetcher * replyFetcher = new ReplyFetcher();
             QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                              this, &EvernoteOAuthWebViewPrivate::permanentFinished);
@@ -241,6 +251,7 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
         }
         else
         {
+            QEC_WARNING("oauth", "Authentication failed");
             setError(QStringLiteral("Authentification failed."));
         }
 
@@ -255,10 +266,13 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
     ReplyFetcher * replyFetcher = qobject_cast<ReplyFetcher*>(rf);
     if (replyFetcher->isError())
     {
+        QEC_WARNING("oauth", "Failed to acquire permanent token");
         setError(replyFetcher->errorText());
     }
     else
     {
+        QEC_DEBUG("oauth", "Successfully acquired permanent token");
+
         m_isSucceeded = true;
 
         QByteArray reply = replyFetcher->receivedData();
