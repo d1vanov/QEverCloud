@@ -42,12 +42,40 @@ public:
     using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
     using AsyncServiceCall = std::function<AsyncResult*(IRequestContextPtr)>;
 
+    struct QEVERCLOUD_EXPORT SyncRequest
+    {
+        const char *    m_name;
+        QString         m_description;
+        SyncServiceCall m_call;
+
+        SyncRequest(const char * name, QString description,
+                    SyncServiceCall && call) :
+            m_name(name),
+            m_description(std::move(description)),
+            m_call(std::move(call))
+        {}
+    };
+
+    struct QEVERCLOUD_EXPORT AsyncRequest
+    {
+        const char *    m_name;
+        QString         m_description;
+        AsyncServiceCall    m_call;
+
+        AsyncRequest(const char * name, QString description,
+                     AsyncServiceCall && call) :
+            m_name(name),
+            m_description(std::move(description)),
+            m_call(std::move(call))
+        {}
+    };
+
 public:
     virtual SyncResult executeSyncRequest(
-        SyncServiceCall && syncServiceCall, IRequestContextPtr ctx) = 0;
+        SyncRequest && syncRequest, IRequestContextPtr ctx) = 0;
 
     virtual AsyncResult * executeAsyncRequest(
-        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx) = 0;
+        AsyncRequest && asyncRequest, IRequestContextPtr ctx) = 0;
 };
 
 using IDurableServicePtr = std::shared_ptr<IDurableService>;

@@ -54,12 +54,15 @@ void DurableServiceTester::shouldExecuteSyncServiceCall()
     bool serviceCallDetected = false;
     QVariant value = QStringLiteral("value");
 
-    auto result = durableService->executeSyncRequest(
+    IDurableService::SyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
             Q_ASSERT(ctx);
             serviceCallDetected = true;
             return {value, {}};
-        },
+        });
+
+    auto result = durableService->executeSyncRequest(
+        std::move(request),
         newRequestContext());
 
     QVERIFY(serviceCallDetected);
@@ -72,18 +75,31 @@ void DurableServiceTester::shouldExecuteAsyncServiceCall()
     auto durableService = newDurableService();
 
     bool serviceCallDetected = false;
+    QVariant value = QStringLiteral("value");
 
-    AsyncResult * res = new AsyncResult(QString(), QByteArray());
-    auto * result = durableService->executeAsyncRequest(
+    IDurableService::AsyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> AsyncResult* {
             Q_ASSERT(ctx);
             serviceCallDetected = true;
-            return res;
-        },
+            return new AsyncResult(value, {});
+        });
+
+    AsyncResult * result = durableService->executeAsyncRequest(
+        std::move(request),
         newRequestContext());
 
+    ValueFetcher valueFetcher;
+    QObject::connect(result, &AsyncResult::finished,
+                     &valueFetcher, &ValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(&valueFetcher, &ValueFetcher::finished,
+                     &loop, &QEventLoop::quit);
+    loop.exec();
+
     QVERIFY(serviceCallDetected);
-    res->deleteLater();
+    QVERIFY(valueFetcher.m_value == value);
+    QVERIFY(valueFetcher.m_exceptionData.isNull());
 }
 
 void DurableServiceTester::shouldRetrySyncServiceCalls()
@@ -102,7 +118,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
 
     QVariant value = QStringLiteral("value");
 
-    auto result = durableService->executeSyncRequest(
+    IDurableService::SyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
@@ -122,8 +138,9 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             }
 
             return {value, {}};
-        },
-        ctx);
+        });
+
+    auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(result.first == value);
@@ -146,7 +163,7 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
 
     QVariant value = QStringLiteral("value");
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    IDurableService::AsyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> AsyncResult* {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
@@ -166,7 +183,10 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
             }
 
             return new AsyncResult(value, {});
-        },
+        });
+
+    AsyncResult * result = durableService->executeAsyncRequest(
+        std::move(request),
         ctx);
 
     ValueFetcher valueFetcher;
@@ -197,7 +217,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
-    auto result = durableService->executeSyncRequest(
+    IDurableService::SyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
@@ -212,8 +232,9 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             }
 
             return {{}, data};
-        },
-        ctx);
+        });
+
+    auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!result.first.isValid());
@@ -244,7 +265,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    IDurableService::AsyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> AsyncResult* {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
@@ -259,7 +280,10 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
             }
 
             return new AsyncResult(QVariant(), data);
-        },
+        });
+
+    AsyncResult * result = durableService->executeAsyncRequest(
+        std::move(request),
         ctx);
 
     ValueFetcher valueFetcher;
@@ -300,7 +324,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
-    auto result = durableService->executeSyncRequest(
+    IDurableService::SyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> IDurableService::SyncResult {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
@@ -317,8 +341,9 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             }
 
             return {{}, data};
-        },
-        ctx);
+        });
+
+    auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!result.first.isValid());
@@ -349,7 +374,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    IDurableService::AsyncRequest request("request", {},
         [&] (IRequestContextPtr ctx) -> AsyncResult* {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
@@ -366,7 +391,10 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
             }
 
             return new AsyncResult(QVariant(), data);
-        },
+        });
+
+    AsyncResult * result = durableService->executeAsyncRequest(
+        std::move(request),
         ctx);
 
     ValueFetcher valueFetcher;

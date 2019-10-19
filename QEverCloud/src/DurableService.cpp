@@ -9,6 +9,7 @@
 
 #include <DurableService.h>
 #include <Exceptions.h>
+#include <Log.h>
 
 #include <algorithm>
 #include <cmath>
@@ -71,14 +72,14 @@ public:
     DurableService(IRetryPolicyPtr retryPolicy, IRequestContextPtr ctx);
 
     virtual SyncResult executeSyncRequest(
-        SyncServiceCall && syncServiceCall, IRequestContextPtr ctx) override;
+        SyncRequest && syncRequest, IRequestContextPtr ctx) override;
 
     virtual AsyncResult * executeAsyncRequest(
-        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx) override;
+        AsyncRequest && asyncRequest, IRequestContextPtr ctx) override;
 
 private:
     void doExecuteAsyncRequest(
-        AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
+        AsyncRequest && asyncRequest, IRequestContextPtr ctx,
         RetryState && retryState, AsyncResult * result);
 
 private:
@@ -97,7 +98,7 @@ DurableService::DurableService(IRetryPolicyPtr retryPolicy,
 }
 
 DurableService::SyncResult DurableService::executeSyncRequest(
-    SyncServiceCall && syncServiceCall, IRequestContextPtr ctx)
+    SyncRequest && syncRequest, IRequestContextPtr ctx)
 {
     if (!ctx) {
         ctx = m_ctx;
@@ -110,8 +111,14 @@ DurableService::SyncResult DurableService::executeSyncRequest(
 
     while(state.m_retryCount)
     {
+        QEC_DEBUG("durable_service", "Executing sync " << syncRequest.m_name
+            << " request: " << state.m_retryCount << " attempts left, timeout = "
+            << ctx->requestTimeout());
+        QEC_TRACE("durable_service", "Request details: "
+            << syncRequest.m_description);
+
         try {
-            result = syncServiceCall(ctx);
+            result = syncRequest.m_call(ctx);
         }
         catch(const EverCloudException & e) {
             result.second = e.exceptionData();
@@ -124,82 +131,21 @@ DurableService::SyncResult DurableService::executeSyncRequest(
 
         if (result.second)
         {
+            QEC_WARNING("durable_service", "Sync request " << syncRequest.m_name
+                << " failed: " << result.second->errorMessage
+                << "; request details: " << syncRequest.m_description);
+
             if (!m_retryPolicy->shouldRetry(result.second)) {
+                QEC_WARNING("durable_service", "Error is not retriable");
                 return result;
             }
 
             --state.m_retryCount;
-
-            if (state.m_retryCount && ctx->increaseRequestTimeoutExponentially())
-            {
-                auto timeout = ctx->requestTimeout();
-                auto maxTimeout = ctx->maxRequestTimeout();
-                timeout = exponentiallyIncreasedTimeoutMsec(timeout, maxTimeout);
-
-                ctx = newRequestContext(
-                    ctx->authenticationToken(),
-                    timeout,
-                    /* increase request timeout exponentially = */ true,
-                    maxTimeout,
-                    ctx->maxRequestRetryCount());
+            if (!state.m_retryCount) {
+                QEC_WARNING("durable_service", "No retry attempts left");
+                break;
             }
 
-            continue;
-        }
-
-        break;
-    }
-
-    return result;
-}
-
-AsyncResult * DurableService::executeAsyncRequest(
-    AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx)
-{
-    if (!ctx) {
-        ctx = m_ctx;
-    }
-
-    RetryState state;
-    state.m_retryCount = ctx->maxRequestRetryCount();
-
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
-    doExecuteAsyncRequest(std::move(asyncServiceCall), std::move(ctx),
-                          std::move(state), result);
-
-    return result;
-}
-
-void DurableService::doExecuteAsyncRequest(
-    AsyncServiceCall && asyncServiceCall, IRequestContextPtr ctx,
-    RetryState && retryState, AsyncResult * result)
-{
-    AsyncResult * attemptRes = asyncServiceCall(ctx);
-    QObject::connect(
-        attemptRes,
-        &AsyncResult::finished,
-        result,
-        [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
-            QVariant value,
-            QSharedPointer<EverCloudExceptionData> exceptionData) mutable
-        {
-            if (!exceptionData) {
-                result->d_ptr->setValue(value, {});
-                return;
-            }
-
-            if (!retryPolicy->shouldRetry(exceptionData)) {
-                result->d_ptr->setValue({}, exceptionData);
-                return;
-            }
-
-            --retryState.m_retryCount;
-            if (!retryState.m_retryCount) {
-                result->d_ptr->setValue({}, exceptionData);
-                return;
-            }
-
-            quint64 requestTimeout = ctx->requestTimeout();
             if (ctx->increaseRequestTimeoutExponentially())
             {
                 auto timeout = ctx->requestTimeout();
@@ -214,8 +160,100 @@ void DurableService::doExecuteAsyncRequest(
                     ctx->maxRequestRetryCount());
             }
 
+            QEC_INFO("durable_service", "Retrying sync " << syncRequest.m_name
+                << " request, " << state.m_retryCount << " attempts left");
+            continue;
+        }
+
+        if (!result.second) {
+            QEC_DEBUG("durable_service", "Successfully executed sync "
+                << syncRequest.m_name << " request");
+        }
+
+        break;
+    }
+
+    return result;
+}
+
+AsyncResult * DurableService::executeAsyncRequest(
+    AsyncRequest && asyncRequest, IRequestContextPtr ctx)
+{
+    if (!ctx) {
+        ctx = m_ctx;
+    }
+
+    RetryState state;
+    state.m_retryCount = ctx->maxRequestRetryCount();
+
+    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    doExecuteAsyncRequest(std::move(asyncRequest), std::move(ctx),
+                          std::move(state), result);
+
+    return result;
+}
+
+void DurableService::doExecuteAsyncRequest(
+    AsyncRequest && asyncRequest, IRequestContextPtr ctx,
+    RetryState && retryState, AsyncResult * result)
+{
+    QEC_DEBUG("durable_service", "Executing async " << asyncRequest.m_name
+        << " request: " << retryState.m_retryCount << " attempts left, timeout = "
+        << ctx->requestTimeout());
+    QEC_TRACE("durable_service", "Request details: "
+        << asyncRequest.m_description);
+
+    AsyncResult * attemptRes = asyncRequest.m_call(ctx);
+    QObject::connect(
+        attemptRes,
+        &AsyncResult::finished,
+        result,
+        [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
+            QVariant value,
+            QSharedPointer<EverCloudExceptionData> exceptionData) mutable
+        {
+            if (!exceptionData) {
+                QEC_DEBUG("durable_service", "Successfully executed async "
+                    << asyncRequest.m_name << " request");
+                result->d_ptr->setValue(value, {});
+                return;
+            }
+
+            QEC_WARNING("durable_service", "Sync request " << asyncRequest.m_name
+                << " failed: " << exceptionData->errorMessage
+                << "; request details: " << asyncRequest.m_description);
+
+            if (!retryPolicy->shouldRetry(exceptionData)) {
+                QEC_WARNING("durable_service", "Error is not retriable");
+                result->d_ptr->setValue({}, exceptionData);
+                return;
+            }
+
+            --retryState.m_retryCount;
+            if (!retryState.m_retryCount) {
+                QEC_WARNING("durable_service", "No retry attempts left");
+                result->d_ptr->setValue({}, exceptionData);
+                return;
+            }
+
+            if (ctx->increaseRequestTimeoutExponentially())
+            {
+                auto timeout = ctx->requestTimeout();
+                auto maxTimeout = ctx->maxRequestTimeout();
+                timeout = exponentiallyIncreasedTimeoutMsec(timeout, maxTimeout);
+
+                ctx = newRequestContext(
+                    ctx->authenticationToken(),
+                    timeout,
+                    /* increase request timeout exponentially = */ true,
+                    maxTimeout,
+                    ctx->maxRequestRetryCount());
+            }
+
+            QEC_INFO("durable_service", "Retrying async " << asyncRequest.m_name
+                << " request, " << retryState.m_retryCount << " attempts left");
             doExecuteAsyncRequest(
-                std::move(asyncServiceCall), std::move(ctx),
+                std::move(asyncRequest), std::move(ctx),
                 std::move(retryState), result);
         },
         Qt::QueuedConnection);
