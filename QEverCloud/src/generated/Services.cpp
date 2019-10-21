@@ -15402,7 +15402,6 @@ SyncState DurableNoteStore::getSyncState(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "getSyncState",
         {},
@@ -15428,7 +15427,6 @@ AsyncResult * DurableNoteStore::getSyncStateAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "getSyncState",
         {},
@@ -15460,10 +15458,15 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "afterUSN = " << afterUSN << "\n";
+    strm << "maxEntries = " << maxEntries << "\n";
+    strm << "filter = " << filter << "\n";
+
     IDurableService::SyncRequest request(
         "getFilteredSyncChunk",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15492,10 +15495,15 @@ AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "afterUSN = " << afterUSN << "\n";
+    strm << "maxEntries = " << maxEntries << "\n";
+    strm << "filter = " << filter << "\n";
+
     IDurableService::AsyncRequest request(
         "getFilteredSyncChunk",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -15520,10 +15528,13 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+
     IDurableService::SyncRequest request(
         "getLinkedNotebookSyncState",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15548,10 +15559,13 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+
     IDurableService::AsyncRequest request(
         "getLinkedNotebookSyncState",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -15582,10 +15596,16 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    strm << "afterUSN = " << afterUSN << "\n";
+    strm << "maxEntries = " << maxEntries << "\n";
+    strm << "fullSyncOnly = " << fullSyncOnly << "\n";
+
     IDurableService::SyncRequest request(
         "getLinkedNotebookSyncChunk",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15616,10 +15636,16 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    strm << "afterUSN = " << afterUSN << "\n";
+    strm << "maxEntries = " << maxEntries << "\n";
+    strm << "fullSyncOnly = " << fullSyncOnly << "\n";
+
     IDurableService::AsyncRequest request(
         "getLinkedNotebookSyncChunk",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -15642,7 +15668,6 @@ QList<Notebook> DurableNoteStore::listNotebooks(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listNotebooks",
         {},
@@ -15668,7 +15693,6 @@ AsyncResult * DurableNoteStore::listNotebooksAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listNotebooks",
         {},
@@ -15694,7 +15718,6 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listAccessibleBusinessNotebooks",
         {},
@@ -15720,7 +15743,6 @@ AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listAccessibleBusinessNotebooks",
         {},
@@ -15748,10 +15770,13 @@ Notebook DurableNoteStore::getNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15776,10 +15801,13 @@ AsyncResult * DurableNoteStore::getNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -15802,7 +15830,6 @@ Notebook DurableNoteStore::getDefaultNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "getDefaultNotebook",
         {},
@@ -15828,7 +15855,6 @@ AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "getDefaultNotebook",
         {},
@@ -15856,10 +15882,13 @@ Notebook DurableNoteStore::createNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebook = " << notebook << "\n";
+
     IDurableService::SyncRequest request(
         "createNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15884,10 +15913,13 @@ AsyncResult * DurableNoteStore::createNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebook = " << notebook << "\n";
+
     IDurableService::AsyncRequest request(
         "createNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -15912,10 +15944,13 @@ qint32 DurableNoteStore::updateNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebook = " << notebook << "\n";
+
     IDurableService::SyncRequest request(
         "updateNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15940,10 +15975,13 @@ AsyncResult * DurableNoteStore::updateNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebook = " << notebook << "\n";
+
     IDurableService::AsyncRequest request(
         "updateNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -15968,10 +16006,13 @@ qint32 DurableNoteStore::expungeNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "expungeNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -15996,10 +16037,13 @@ AsyncResult * DurableNoteStore::expungeNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "expungeNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16022,7 +16066,6 @@ QList<Tag> DurableNoteStore::listTags(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listTags",
         {},
@@ -16048,7 +16091,6 @@ AsyncResult * DurableNoteStore::listTagsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listTags",
         {},
@@ -16076,10 +16118,13 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebookGuid = " << notebookGuid << "\n";
+
     IDurableService::SyncRequest request(
         "listTagsByNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16104,10 +16149,13 @@ AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebookGuid = " << notebookGuid << "\n";
+
     IDurableService::AsyncRequest request(
         "listTagsByNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16132,10 +16180,13 @@ Tag DurableNoteStore::getTag(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getTag",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16160,10 +16211,13 @@ AsyncResult * DurableNoteStore::getTagAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getTag",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16188,10 +16242,13 @@ Tag DurableNoteStore::createTag(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "tag = " << tag << "\n";
+
     IDurableService::SyncRequest request(
         "createTag",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16216,10 +16273,13 @@ AsyncResult * DurableNoteStore::createTagAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "tag = " << tag << "\n";
+
     IDurableService::AsyncRequest request(
         "createTag",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16244,10 +16304,13 @@ qint32 DurableNoteStore::updateTag(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "tag = " << tag << "\n";
+
     IDurableService::SyncRequest request(
         "updateTag",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16272,10 +16335,13 @@ AsyncResult * DurableNoteStore::updateTagAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "tag = " << tag << "\n";
+
     IDurableService::AsyncRequest request(
         "updateTag",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16300,10 +16366,13 @@ void DurableNoteStore::untagAll(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "untagAll",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16328,10 +16397,13 @@ AsyncResult * DurableNoteStore::untagAllAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "untagAll",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16356,10 +16428,13 @@ qint32 DurableNoteStore::expungeTag(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "expungeTag",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16384,10 +16459,13 @@ AsyncResult * DurableNoteStore::expungeTagAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "expungeTag",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16410,7 +16488,6 @@ QList<SavedSearch> DurableNoteStore::listSearches(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listSearches",
         {},
@@ -16436,7 +16513,6 @@ AsyncResult * DurableNoteStore::listSearchesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listSearches",
         {},
@@ -16464,10 +16540,13 @@ SavedSearch DurableNoteStore::getSearch(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16492,10 +16571,13 @@ AsyncResult * DurableNoteStore::getSearchAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16520,10 +16602,13 @@ SavedSearch DurableNoteStore::createSearch(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "search = " << search << "\n";
+
     IDurableService::SyncRequest request(
         "createSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16548,10 +16633,13 @@ AsyncResult * DurableNoteStore::createSearchAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "search = " << search << "\n";
+
     IDurableService::AsyncRequest request(
         "createSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16576,10 +16664,13 @@ qint32 DurableNoteStore::updateSearch(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "search = " << search << "\n";
+
     IDurableService::SyncRequest request(
         "updateSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16604,10 +16695,13 @@ AsyncResult * DurableNoteStore::updateSearchAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "search = " << search << "\n";
+
     IDurableService::AsyncRequest request(
         "updateSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16632,10 +16726,13 @@ qint32 DurableNoteStore::expungeSearch(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "expungeSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16660,10 +16757,13 @@ AsyncResult * DurableNoteStore::expungeSearchAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "expungeSearch",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16690,10 +16790,14 @@ qint32 DurableNoteStore::findNoteOffset(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "filter = " << filter << "\n";
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "findNoteOffset",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16720,10 +16824,14 @@ AsyncResult * DurableNoteStore::findNoteOffsetAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "filter = " << filter << "\n";
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "findNoteOffset",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16754,10 +16862,16 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "filter = " << filter << "\n";
+    strm << "offset = " << offset << "\n";
+    strm << "maxNotes = " << maxNotes << "\n";
+    strm << "resultSpec = " << resultSpec << "\n";
+
     IDurableService::SyncRequest request(
         "findNotesMetadata",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16788,10 +16902,16 @@ AsyncResult * DurableNoteStore::findNotesMetadataAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "filter = " << filter << "\n";
+    strm << "offset = " << offset << "\n";
+    strm << "maxNotes = " << maxNotes << "\n";
+    strm << "resultSpec = " << resultSpec << "\n";
+
     IDurableService::AsyncRequest request(
         "findNotesMetadata",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16818,10 +16938,14 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "filter = " << filter << "\n";
+    strm << "withTrash = " << withTrash << "\n";
+
     IDurableService::SyncRequest request(
         "findNoteCounts",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16848,10 +16972,14 @@ AsyncResult * DurableNoteStore::findNoteCountsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "filter = " << filter << "\n";
+    strm << "withTrash = " << withTrash << "\n";
+
     IDurableService::AsyncRequest request(
         "findNoteCounts",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16878,10 +17006,14 @@ Note DurableNoteStore::getNoteWithResultSpec(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "resultSpec = " << resultSpec << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteWithResultSpec",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16908,10 +17040,14 @@ AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "resultSpec = " << resultSpec << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteWithResultSpec",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -16944,10 +17080,17 @@ Note DurableNoteStore::getNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "withContent = " << withContent << "\n";
+    strm << "withResourcesData = " << withResourcesData << "\n";
+    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+
     IDurableService::SyncRequest request(
         "getNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -16980,10 +17123,17 @@ AsyncResult * DurableNoteStore::getNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "withContent = " << withContent << "\n";
+    strm << "withResourcesData = " << withResourcesData << "\n";
+    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+
     IDurableService::AsyncRequest request(
         "getNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17008,10 +17158,13 @@ LazyMap DurableNoteStore::getNoteApplicationData(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteApplicationData",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17036,10 +17189,13 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteApplicationData",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17066,10 +17222,14 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17096,10 +17256,14 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17128,10 +17292,15 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+    strm << "value = " << value << "\n";
+
     IDurableService::SyncRequest request(
         "setNoteApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17160,10 +17329,15 @@ AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+    strm << "value = " << value << "\n";
+
     IDurableService::AsyncRequest request(
         "setNoteApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17190,10 +17364,14 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::SyncRequest request(
         "unsetNoteApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17220,10 +17398,14 @@ AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::AsyncRequest request(
         "unsetNoteApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17248,10 +17430,13 @@ QString DurableNoteStore::getNoteContent(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteContent",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17276,10 +17461,13 @@ AsyncResult * DurableNoteStore::getNoteContentAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteContent",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17308,10 +17496,15 @@ QString DurableNoteStore::getNoteSearchText(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "noteOnly = " << noteOnly << "\n";
+    strm << "tokenizeForIndexing = " << tokenizeForIndexing << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteSearchText",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17340,10 +17533,15 @@ AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "noteOnly = " << noteOnly << "\n";
+    strm << "tokenizeForIndexing = " << tokenizeForIndexing << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteSearchText",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17368,10 +17566,13 @@ QString DurableNoteStore::getResourceSearchText(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceSearchText",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17396,10 +17597,13 @@ AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceSearchText",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17424,10 +17628,13 @@ QStringList DurableNoteStore::getNoteTagNames(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteTagNames",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17452,10 +17659,13 @@ AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteTagNames",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17480,10 +17690,13 @@ Note DurableNoteStore::createNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "note = " << note << "\n";
+
     IDurableService::SyncRequest request(
         "createNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17508,10 +17721,13 @@ AsyncResult * DurableNoteStore::createNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "note = " << note << "\n";
+
     IDurableService::AsyncRequest request(
         "createNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17536,10 +17752,13 @@ Note DurableNoteStore::updateNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "note = " << note << "\n";
+
     IDurableService::SyncRequest request(
         "updateNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17564,10 +17783,13 @@ AsyncResult * DurableNoteStore::updateNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "note = " << note << "\n";
+
     IDurableService::AsyncRequest request(
         "updateNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17592,10 +17814,13 @@ qint32 DurableNoteStore::deleteNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "deleteNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17620,10 +17845,13 @@ AsyncResult * DurableNoteStore::deleteNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "deleteNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17648,10 +17876,13 @@ qint32 DurableNoteStore::expungeNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "expungeNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17676,10 +17907,13 @@ AsyncResult * DurableNoteStore::expungeNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "expungeNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17706,10 +17940,14 @@ Note DurableNoteStore::copyNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+    strm << "toNotebookGuid = " << toNotebookGuid << "\n";
+
     IDurableService::SyncRequest request(
         "copyNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17736,10 +17974,14 @@ AsyncResult * DurableNoteStore::copyNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+    strm << "toNotebookGuid = " << toNotebookGuid << "\n";
+
     IDurableService::AsyncRequest request(
         "copyNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17764,10 +18006,13 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+
     IDurableService::SyncRequest request(
         "listNoteVersions",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17792,10 +18037,13 @@ AsyncResult * DurableNoteStore::listNoteVersionsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+
     IDurableService::AsyncRequest request(
         "listNoteVersions",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17828,10 +18076,17 @@ Note DurableNoteStore::getNoteVersion(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+    strm << "updateSequenceNum = " << updateSequenceNum << "\n";
+    strm << "withResourcesData = " << withResourcesData << "\n";
+    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+
     IDurableService::SyncRequest request(
         "getNoteVersion",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17864,10 +18119,17 @@ AsyncResult * DurableNoteStore::getNoteVersionAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+    strm << "updateSequenceNum = " << updateSequenceNum << "\n";
+    strm << "withResourcesData = " << withResourcesData << "\n";
+    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+
     IDurableService::AsyncRequest request(
         "getNoteVersion",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17900,10 +18162,17 @@ Resource DurableNoteStore::getResource(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "withData = " << withData << "\n";
+    strm << "withRecognition = " << withRecognition << "\n";
+    strm << "withAttributes = " << withAttributes << "\n";
+    strm << "withAlternateData = " << withAlternateData << "\n";
+
     IDurableService::SyncRequest request(
         "getResource",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17936,10 +18205,17 @@ AsyncResult * DurableNoteStore::getResourceAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "withData = " << withData << "\n";
+    strm << "withRecognition = " << withRecognition << "\n";
+    strm << "withAttributes = " << withAttributes << "\n";
+    strm << "withAlternateData = " << withAlternateData << "\n";
+
     IDurableService::AsyncRequest request(
         "getResource",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -17964,10 +18240,13 @@ LazyMap DurableNoteStore::getResourceApplicationData(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceApplicationData",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -17992,10 +18271,13 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceApplicationData",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18022,10 +18304,14 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18052,10 +18338,14 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18084,10 +18374,15 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+    strm << "value = " << value << "\n";
+
     IDurableService::SyncRequest request(
         "setResourceApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18116,10 +18411,15 @@ AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+    strm << "value = " << value << "\n";
+
     IDurableService::AsyncRequest request(
         "setResourceApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18146,10 +18446,14 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::SyncRequest request(
         "unsetResourceApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18176,10 +18480,14 @@ AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "key = " << key << "\n";
+
     IDurableService::AsyncRequest request(
         "unsetResourceApplicationDataEntry",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18204,10 +18512,13 @@ qint32 DurableNoteStore::updateResource(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "resource = " << resource << "\n";
+
     IDurableService::SyncRequest request(
         "updateResource",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18232,10 +18543,13 @@ AsyncResult * DurableNoteStore::updateResourceAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "resource = " << resource << "\n";
+
     IDurableService::AsyncRequest request(
         "updateResource",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18260,10 +18574,13 @@ QByteArray DurableNoteStore::getResourceData(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceData",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18288,10 +18605,13 @@ AsyncResult * DurableNoteStore::getResourceDataAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceData",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18324,10 +18644,17 @@ Resource DurableNoteStore::getResourceByHash(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+    strm << "contentHash = " << contentHash << "\n";
+    strm << "withData = " << withData << "\n";
+    strm << "withRecognition = " << withRecognition << "\n";
+    strm << "withAlternateData = " << withAlternateData << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceByHash",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18360,10 +18687,17 @@ AsyncResult * DurableNoteStore::getResourceByHashAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "noteGuid = " << noteGuid << "\n";
+    strm << "contentHash = " << contentHash << "\n";
+    strm << "withData = " << withData << "\n";
+    strm << "withRecognition = " << withRecognition << "\n";
+    strm << "withAlternateData = " << withAlternateData << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceByHash",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18388,10 +18722,13 @@ QByteArray DurableNoteStore::getResourceRecognition(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceRecognition",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18416,10 +18753,13 @@ AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceRecognition",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18444,10 +18784,13 @@ QByteArray DurableNoteStore::getResourceAlternateData(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceAlternateData",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18472,10 +18815,13 @@ AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceAlternateData",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18500,10 +18846,13 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "getResourceAttributes",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18528,10 +18877,13 @@ AsyncResult * DurableNoteStore::getResourceAttributesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "getResourceAttributes",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18558,10 +18910,14 @@ Notebook DurableNoteStore::getPublicNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "userId = " << userId << "\n";
+    strm << "publicUri = " << publicUri << "\n";
+
     IDurableService::SyncRequest request(
         "getPublicNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18588,10 +18944,14 @@ AsyncResult * DurableNoteStore::getPublicNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "userId = " << userId << "\n";
+    strm << "publicUri = " << publicUri << "\n";
+
     IDurableService::AsyncRequest request(
         "getPublicNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18618,10 +18978,14 @@ SharedNotebook DurableNoteStore::shareNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "sharedNotebook = " << sharedNotebook << "\n";
+    strm << "message = " << message << "\n";
+
     IDurableService::SyncRequest request(
         "shareNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18648,10 +19012,14 @@ AsyncResult * DurableNoteStore::shareNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "sharedNotebook = " << sharedNotebook << "\n";
+    strm << "message = " << message << "\n";
+
     IDurableService::AsyncRequest request(
         "shareNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18676,10 +19044,13 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "shareTemplate = " << shareTemplate << "\n";
+
     IDurableService::SyncRequest request(
         "createOrUpdateNotebookShares",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18704,10 +19075,13 @@ AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "shareTemplate = " << shareTemplate << "\n";
+
     IDurableService::AsyncRequest request(
         "createOrUpdateNotebookShares",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18732,10 +19106,13 @@ qint32 DurableNoteStore::updateSharedNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "sharedNotebook = " << sharedNotebook << "\n";
+
     IDurableService::SyncRequest request(
         "updateSharedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18760,10 +19137,13 @@ AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "sharedNotebook = " << sharedNotebook << "\n";
+
     IDurableService::AsyncRequest request(
         "updateSharedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18790,10 +19170,14 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebookGuid = " << notebookGuid << "\n";
+    strm << "recipientSettings = " << recipientSettings << "\n";
+
     IDurableService::SyncRequest request(
         "setNotebookRecipientSettings",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18820,10 +19204,14 @@ AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebookGuid = " << notebookGuid << "\n";
+    strm << "recipientSettings = " << recipientSettings << "\n";
+
     IDurableService::AsyncRequest request(
         "setNotebookRecipientSettings",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18846,7 +19234,6 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listSharedNotebooks",
         {},
@@ -18872,7 +19259,6 @@ AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listSharedNotebooks",
         {},
@@ -18900,10 +19286,13 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+
     IDurableService::SyncRequest request(
         "createLinkedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18928,10 +19317,13 @@ AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+
     IDurableService::AsyncRequest request(
         "createLinkedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -18956,10 +19348,13 @@ qint32 DurableNoteStore::updateLinkedNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+
     IDurableService::SyncRequest request(
         "updateLinkedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -18984,10 +19379,13 @@ AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "linkedNotebook = " << linkedNotebook << "\n";
+
     IDurableService::AsyncRequest request(
         "updateLinkedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19010,7 +19408,6 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listLinkedNotebooks",
         {},
@@ -19036,7 +19433,6 @@ AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listLinkedNotebooks",
         {},
@@ -19064,10 +19460,13 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "expungeLinkedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19092,10 +19491,13 @@ AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "expungeLinkedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19120,10 +19522,13 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "shareKeyOrGlobalId = " << shareKeyOrGlobalId << "\n";
+
     IDurableService::SyncRequest request(
         "authenticateToSharedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19148,10 +19553,13 @@ AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "shareKeyOrGlobalId = " << shareKeyOrGlobalId << "\n";
+
     IDurableService::AsyncRequest request(
         "authenticateToSharedNotebook",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19174,7 +19582,6 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "getSharedNotebookByAuth",
         {},
@@ -19200,7 +19607,6 @@ AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "getSharedNotebookByAuth",
         {},
@@ -19228,10 +19634,13 @@ void DurableNoteStore::emailNote(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "parameters = " << parameters << "\n";
+
     IDurableService::SyncRequest request(
         "emailNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19256,10 +19665,13 @@ AsyncResult * DurableNoteStore::emailNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "parameters = " << parameters << "\n";
+
     IDurableService::AsyncRequest request(
         "emailNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19284,10 +19696,13 @@ QString DurableNoteStore::shareNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "shareNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19312,10 +19727,13 @@ AsyncResult * DurableNoteStore::shareNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "shareNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19340,10 +19758,13 @@ void DurableNoteStore::stopSharingNote(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::SyncRequest request(
         "stopSharingNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19368,10 +19789,13 @@ AsyncResult * DurableNoteStore::stopSharingNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+
     IDurableService::AsyncRequest request(
         "stopSharingNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19398,10 +19822,14 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "noteKey = " << noteKey << "\n";
+
     IDurableService::SyncRequest request(
         "authenticateToSharedNote",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19428,10 +19856,14 @@ AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "guid = " << guid << "\n";
+    strm << "noteKey = " << noteKey << "\n";
+
     IDurableService::AsyncRequest request(
         "authenticateToSharedNote",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19458,10 +19890,14 @@ RelatedResult DurableNoteStore::findRelated(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "query = " << query << "\n";
+    strm << "resultSpec = " << resultSpec << "\n";
+
     IDurableService::SyncRequest request(
         "findRelated",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19488,10 +19924,14 @@ AsyncResult * DurableNoteStore::findRelatedAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "query = " << query << "\n";
+    strm << "resultSpec = " << resultSpec << "\n";
+
     IDurableService::AsyncRequest request(
         "findRelated",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19516,10 +19956,13 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "note = " << note << "\n";
+
     IDurableService::SyncRequest request(
         "updateNoteIfUsnMatches",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19544,10 +19987,13 @@ AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "note = " << note << "\n";
+
     IDurableService::AsyncRequest request(
         "updateNoteIfUsnMatches",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19572,10 +20018,13 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "parameters = " << parameters << "\n";
+
     IDurableService::SyncRequest request(
         "manageNotebookShares",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19600,10 +20049,13 @@ AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "parameters = " << parameters << "\n";
+
     IDurableService::AsyncRequest request(
         "manageNotebookShares",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19628,10 +20080,13 @@ ShareRelationships DurableNoteStore::getNotebookShares(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebookGuid = " << notebookGuid << "\n";
+
     IDurableService::SyncRequest request(
         "getNotebookShares",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19656,10 +20111,13 @@ AsyncResult * DurableNoteStore::getNotebookSharesAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "notebookGuid = " << notebookGuid << "\n";
+
     IDurableService::AsyncRequest request(
         "getNotebookShares",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19690,10 +20148,15 @@ bool DurableUserStore::checkVersion(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "clientName = " << clientName << "\n";
+    strm << "edamVersionMajor = " << edamVersionMajor << "\n";
+    strm << "edamVersionMinor = " << edamVersionMinor << "\n";
+
     IDurableService::SyncRequest request(
         "checkVersion",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19722,10 +20185,15 @@ AsyncResult * DurableUserStore::checkVersionAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "clientName = " << clientName << "\n";
+    strm << "edamVersionMajor = " << edamVersionMajor << "\n";
+    strm << "edamVersionMinor = " << edamVersionMinor << "\n";
+
     IDurableService::AsyncRequest request(
         "checkVersion",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19750,10 +20218,13 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "locale = " << locale << "\n";
+
     IDurableService::SyncRequest request(
         "getBootstrapInfo",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19778,10 +20249,13 @@ AsyncResult * DurableUserStore::getBootstrapInfoAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "locale = " << locale << "\n";
+
     IDurableService::AsyncRequest request(
         "getBootstrapInfo",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19818,10 +20292,19 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "username = " << username << "\n";
+    strm << "password = " << password << "\n";
+    strm << "consumerKey = " << consumerKey << "\n";
+    strm << "consumerSecret = " << consumerSecret << "\n";
+    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+    strm << "deviceDescription = " << deviceDescription << "\n";
+    strm << "supportsTwoFactor = " << supportsTwoFactor << "\n";
+
     IDurableService::SyncRequest request(
         "authenticateLongSession",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19858,10 +20341,19 @@ AsyncResult * DurableUserStore::authenticateLongSessionAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "username = " << username << "\n";
+    strm << "password = " << password << "\n";
+    strm << "consumerKey = " << consumerKey << "\n";
+    strm << "consumerSecret = " << consumerSecret << "\n";
+    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+    strm << "deviceDescription = " << deviceDescription << "\n";
+    strm << "supportsTwoFactor = " << supportsTwoFactor << "\n";
+
     IDurableService::AsyncRequest request(
         "authenticateLongSession",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19890,10 +20382,15 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "oneTimeCode = " << oneTimeCode << "\n";
+    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+    strm << "deviceDescription = " << deviceDescription << "\n";
+
     IDurableService::SyncRequest request(
         "completeTwoFactorAuthentication",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -19922,10 +20419,15 @@ AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "oneTimeCode = " << oneTimeCode << "\n";
+    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+    strm << "deviceDescription = " << deviceDescription << "\n";
+
     IDurableService::AsyncRequest request(
         "completeTwoFactorAuthentication",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -19948,7 +20450,6 @@ void DurableUserStore::revokeLongSession(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "revokeLongSession",
         {},
@@ -19974,7 +20475,6 @@ AsyncResult * DurableUserStore::revokeLongSessionAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "revokeLongSession",
         {},
@@ -20000,7 +20500,6 @@ AuthenticationResult DurableUserStore::authenticateToBusiness(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "authenticateToBusiness",
         {},
@@ -20026,7 +20525,6 @@ AsyncResult * DurableUserStore::authenticateToBusinessAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "authenticateToBusiness",
         {},
@@ -20052,7 +20550,6 @@ User DurableUserStore::getUser(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "getUser",
         {},
@@ -20078,7 +20575,6 @@ AsyncResult * DurableUserStore::getUserAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "getUser",
         {},
@@ -20106,10 +20602,13 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "username = " << username << "\n";
+
     IDurableService::SyncRequest request(
         "getPublicUserInfo",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -20134,10 +20633,13 @@ AsyncResult * DurableUserStore::getPublicUserInfoAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "username = " << username << "\n";
+
     IDurableService::AsyncRequest request(
         "getPublicUserInfo",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -20160,7 +20662,6 @@ UserUrls DurableUserStore::getUserUrls(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "getUserUrls",
         {},
@@ -20186,7 +20687,6 @@ AsyncResult * DurableUserStore::getUserUrlsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "getUserUrls",
         {},
@@ -20214,10 +20714,13 @@ void DurableUserStore::inviteToBusiness(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "emailAddress = " << emailAddress << "\n";
+
     IDurableService::SyncRequest request(
         "inviteToBusiness",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -20242,10 +20745,13 @@ AsyncResult * DurableUserStore::inviteToBusinessAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "emailAddress = " << emailAddress << "\n";
+
     IDurableService::AsyncRequest request(
         "inviteToBusiness",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -20270,10 +20776,13 @@ void DurableUserStore::removeFromBusiness(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "emailAddress = " << emailAddress << "\n";
+
     IDurableService::SyncRequest request(
         "removeFromBusiness",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -20298,10 +20807,13 @@ AsyncResult * DurableUserStore::removeFromBusinessAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "emailAddress = " << emailAddress << "\n";
+
     IDurableService::AsyncRequest request(
         "removeFromBusiness",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -20328,10 +20840,14 @@ void DurableUserStore::updateBusinessUserIdentifier(
             return IDurableService::SyncResult(QVariant(), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "oldEmailAddress = " << oldEmailAddress << "\n";
+    strm << "newEmailAddress = " << newEmailAddress << "\n";
+
     IDurableService::SyncRequest request(
         "updateBusinessUserIdentifier",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -20358,10 +20874,14 @@ AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "oldEmailAddress = " << oldEmailAddress << "\n";
+    strm << "newEmailAddress = " << newEmailAddress << "\n";
+
     IDurableService::AsyncRequest request(
         "updateBusinessUserIdentifier",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -20384,7 +20904,6 @@ QList<UserProfile> DurableUserStore::listBusinessUsers(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
     IDurableService::SyncRequest request(
         "listBusinessUsers",
         {},
@@ -20410,7 +20929,6 @@ AsyncResult * DurableUserStore::listBusinessUsersAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
     IDurableService::AsyncRequest request(
         "listBusinessUsers",
         {},
@@ -20438,10 +20956,13 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "includeRequestedInvitations = " << includeRequestedInvitations << "\n";
+
     IDurableService::SyncRequest request(
         "listBusinessInvitations",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -20466,10 +20987,13 @@ AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "includeRequestedInvitations = " << includeRequestedInvitations << "\n";
+
     IDurableService::AsyncRequest request(
         "listBusinessInvitations",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(
@@ -20494,10 +21018,13 @@ AccountLimits DurableUserStore::getAccountLimits(
             return IDurableService::SyncResult(QVariant::fromValue(res), {});
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "serviceLevel = " << serviceLevel << "\n";
+
     IDurableService::SyncRequest request(
         "getAccountLimits",
-        {},
+        requestDescription,
         std::move(call));
 
     auto result = m_durableService->executeSyncRequest(
@@ -20522,10 +21049,13 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
                 ctx);
         });
 
-    // TODO: compose proper description
+    QString requestDescription;
+    QTextStream strm(&requestDescription);
+    strm << "serviceLevel = " << serviceLevel << "\n";
+
     IDurableService::AsyncRequest request(
         "getAccountLimits",
-        {},
+        requestDescription,
         std::move(call));
 
     return m_durableService->executeAsyncRequest(

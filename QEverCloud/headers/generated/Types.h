@@ -171,6 +171,12 @@ struct QEVERCLOUD_EXPORT SyncState {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SyncState & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SyncState & value);
+
 /**
  * This structure is used with the 'getFilteredSyncChunk' call to provide
  * fine-grained control over the data that's returned when a client needs
@@ -307,6 +313,12 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SyncChunkFilter & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SyncChunkFilter & value);
+
 /**
  * A list of criteria that are used to indicate which notes are desired from
  * the account.  This is used in queries to the NoteStore to determine
@@ -418,6 +430,12 @@ struct QEVERCLOUD_EXPORT NoteFilter {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteFilter & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteFilter & value);
+
 /**
  * This structure is provided to the findNotesMetadata function to specify
  * the subset of fields that should be included in each NoteMetadata element
@@ -478,6 +496,12 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NotesMetadataResultSpec & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NotesMetadataResultSpec & value);
+
 /**
  * A data structure representing the number of notes for each notebook
  * and tag with a non-zero set of applicable notes.
@@ -516,6 +540,12 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteCollectionCounts & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteCollectionCounts & value);
 
 /**
  * This structure is provided to the getNoteWithResultSpec function to specify the subset of
@@ -584,6 +614,12 @@ struct QEVERCLOUD_EXPORT NoteResultSpec {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteResultSpec & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteResultSpec & value);
+
 /**
  * Identifying information about previous versions of a note that are backed up
  * within Evernote's servers.  Used in the return value of the listNoteVersions
@@ -637,6 +673,12 @@ struct QEVERCLOUD_EXPORT NoteVersionId {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteVersionId & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteVersionId & value);
 
 /**
  * A description of the thing for which we are searching for related
@@ -706,6 +748,12 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const RelatedQuery & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const RelatedQuery & value);
 
 /**
  * A description of the thing for which the service will find related
@@ -794,6 +842,12 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const RelatedResultSpec & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const RelatedResultSpec & value);
+
 /** NO DOC COMMENT ID FOUND */
 struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions {
     /** NOT DOCUMENTED */
@@ -820,6 +874,12 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ShareRelationshipRestrictions & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ShareRelationshipRestrictions & value);
 
 /**
  * Describes the association between a Notebook and an Evernote User who is
@@ -887,6 +947,12 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const MemberShareRelationship & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const MemberShareRelationship & value);
+
 /**
  * This structure is used by the service to communicate to clients, via
  * getNoteShareRelationships, which privilege levels are assignable to the
@@ -924,6 +990,12 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteShareRelationshipRestrictions & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteShareRelationshipRestrictions & value);
 
 /**
  * Describes the association between a Note and an Evernote User who is
@@ -979,6 +1051,12 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteMemberShareRelationship & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteMemberShareRelationship & value);
+
 /**
  * Describes an invitation to a person to use their Evernote credentials
  * to gain access to a note belonging to another user.
@@ -1027,6 +1105,12 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteInvitationShareRelationship & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteInvitationShareRelationship & value);
+
 /**
  * Captures a collection of share relationships for a single note,
  * for example, as returned by the getNoteShares method. The share
@@ -1063,6 +1147,12 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteShareRelationships & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteShareRelationships & value);
 
 /**
  * Captures parameters used by clients to manage the shares for a given
@@ -1121,6 +1211,12 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ManageNoteSharesParameters & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ManageNoteSharesParameters & value);
+
 /**
  * In several places, EDAM exchanges blocks of bytes of data for a component
  * which may be relatively large.  For example:  the contents of a clipped
@@ -1164,6 +1260,12 @@ struct QEVERCLOUD_EXPORT Data {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Data & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Data & value);
 
 /**
  * A structure holding the optional attributes that can be stored
@@ -1416,6 +1518,12 @@ struct QEVERCLOUD_EXPORT UserAttributes {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const UserAttributes & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const UserAttributes & value);
+
 /**
  * A structure holding the optional attributes associated with users
  * in a business.
@@ -1470,6 +1578,12 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BusinessUserAttributes & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BusinessUserAttributes & value);
 
 /**
  * This represents the bookkeeping information for the user's subscription.
@@ -1620,6 +1734,12 @@ struct QEVERCLOUD_EXPORT Accounting {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Accounting & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Accounting & value);
+
 /**
  * This structure is used to provide information about an Evernote Business
  * membership, for members who are part of a business.
@@ -1669,6 +1789,12 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BusinessUserInfo & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BusinessUserInfo & value);
 
 /**
  * This structure is used to provide account limits that are in effect for this user.
@@ -1751,6 +1877,12 @@ struct QEVERCLOUD_EXPORT AccountLimits {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const AccountLimits & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const AccountLimits & value);
 
 /**
  * This represents the information about a single user account.
@@ -1901,6 +2033,12 @@ struct QEVERCLOUD_EXPORT User {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const User & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const User & value);
+
 /**
  * A structure that represents contact information. Note this does not necessarily correspond to
  * an Evernote user.
@@ -1965,6 +2103,12 @@ struct QEVERCLOUD_EXPORT Contact {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Contact & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Contact & value);
 
 /**
  * An object that represents the relationship between a Contact that possibly
@@ -2044,6 +2188,12 @@ struct QEVERCLOUD_EXPORT Identity {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Identity & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Identity & value);
+
 /**
  * A tag within a user's account is a unique name which may be organized
  * a simple hierarchy.
@@ -2107,6 +2257,12 @@ struct QEVERCLOUD_EXPORT Tag {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Tag & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Tag & value);
+
 /**
  * A structure that wraps a map of name/value pairs whose values are not
  * always present in the structure in order to reduce space when obtaining
@@ -2150,6 +2306,12 @@ struct QEVERCLOUD_EXPORT LazyMap {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const LazyMap & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const LazyMap & value);
 
 /**
  * Structure holding the optional attributes of a Resource
@@ -2256,6 +2418,12 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ResourceAttributes & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ResourceAttributes & value);
+
 /**
  * Every media file that is embedded or attached to a note is represented
  * through a Resource entry.
@@ -2361,6 +2529,12 @@ struct QEVERCLOUD_EXPORT Resource {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Resource & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Resource & value);
 
 /**
  * The list of optional attributes that can be stored on a note.
@@ -2607,6 +2781,12 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteAttributes & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteAttributes & value);
+
 /**
  * Represents a relationship between a note and a single share invitation recipient. The recipient
  * is identified via an Identity, and has a given privilege that specifies what actions they may
@@ -2659,6 +2839,12 @@ struct QEVERCLOUD_EXPORT SharedNote {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SharedNote & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SharedNote & value);
 
 /**
  * This structure captures information about the operations that cannot be performed on a given
@@ -2735,6 +2921,12 @@ struct QEVERCLOUD_EXPORT NoteRestrictions {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteRestrictions & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteRestrictions & value);
+
 /**
  * Represents the owner's account related limits on a Note.
  * The field uploaded represents the total number of bytes that have been uploaded
@@ -2771,6 +2963,12 @@ struct QEVERCLOUD_EXPORT NoteLimits {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteLimits & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteLimits & value);
 
 /**
  * Represents a single note in the user's account.
@@ -2950,6 +3148,12 @@ struct QEVERCLOUD_EXPORT Note {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Note & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Note & value);
+
 /**
  * If a Notebook has been opened to the public, the Notebook will have a
  * reference to one of these structures, which gives the location and optional
@@ -3007,6 +3211,12 @@ struct QEVERCLOUD_EXPORT Publishing {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Publishing & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Publishing & value);
+
 /**
  * If a Notebook contained in an Evernote Business account has been published
  * the to business library, the Notebook will have a reference to one of these
@@ -3052,6 +3262,12 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BusinessNotebook & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BusinessNotebook & value);
+
 /**
  * A structure defining the scope of a SavedSearch.
  *
@@ -3087,6 +3303,12 @@ struct QEVERCLOUD_EXPORT SavedSearchScope {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SavedSearchScope & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SavedSearchScope & value);
 
 /**
  * A named search associated with the account that can be quickly re-used.
@@ -3162,6 +3384,12 @@ struct QEVERCLOUD_EXPORT SavedSearch {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SavedSearch & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SavedSearch & value);
+
 /**
  * Settings meant for the recipient of a shared notebook, such as
  * for indicating which types of notifications the recipient wishes
@@ -3205,6 +3433,12 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SharedNotebookRecipientSettings & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SharedNotebookRecipientSettings & value);
 
 /**
  * Settings meant for the recipient of a notebook share.
@@ -3267,6 +3501,12 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NotebookRecipientSettings & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NotebookRecipientSettings & value);
 
 /**
  * Shared notebooks represent a relationship between a notebook and a single
@@ -3402,6 +3642,12 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SharedNotebook & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SharedNotebook & value);
+
 /**
  * Specifies if the client can move a Notebook to a Workspace.
  */
@@ -3421,6 +3667,12 @@ struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const CanMoveToContainerRestrictions & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const CanMoveToContainerRestrictions & value);
 
 /**
  * This structure captures information about the types of operations
@@ -3620,6 +3872,12 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NotebookRestrictions & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NotebookRestrictions & value);
+
 /**
  * A unique container for a set of notes.
  * */
@@ -3771,6 +4029,12 @@ struct QEVERCLOUD_EXPORT Notebook {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const Notebook & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const Notebook & value);
+
 /**
  * A link in a user's account that refers them to a public or
  * individual shared notebook in another user's account.
@@ -3874,6 +4138,12 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const LinkedNotebook & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const LinkedNotebook & value);
+
 /**
  * A structure that describes a notebook or a user's relationship with
  * a notebook. NotebookDescriptor is expected to remain a lighter-weight
@@ -3919,6 +4189,12 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NotebookDescriptor & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NotebookDescriptor & value);
 
 /**
  * This structure represents profile information for a user in a business.
@@ -3989,6 +4265,12 @@ struct QEVERCLOUD_EXPORT UserProfile {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const UserProfile & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const UserProfile & value);
+
 /**
  * An external image that can be shown with a related content snippet,
  * usually either a JPEG or PNG image. It is up to the client which image(s) are shown,
@@ -4033,6 +4315,12 @@ struct QEVERCLOUD_EXPORT RelatedContentImage {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const RelatedContentImage & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const RelatedContentImage & value);
 
 /**
  * A structure identifying one snippet of related content (some information that is not
@@ -4140,6 +4428,12 @@ struct QEVERCLOUD_EXPORT RelatedContent {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const RelatedContent & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const RelatedContent & value);
+
 /**
  * A structure describing an invitation to join a business account.
  *
@@ -4201,6 +4495,12 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BusinessInvitation & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BusinessInvitation & value);
+
 /**
  * A structure that holds user identifying information such as an
  * email address, Evernote user ID, or an identifier from a 3rd party
@@ -4253,6 +4553,12 @@ struct QEVERCLOUD_EXPORT UserIdentity {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const UserIdentity & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const UserIdentity & value);
+
 /**
  * This structure is used to provide publicly-available user information
  * about a particular account.
@@ -4302,6 +4608,12 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const PublicUserInfo & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const PublicUserInfo & value);
 
 /**
  * */
@@ -4367,6 +4679,12 @@ struct QEVERCLOUD_EXPORT UserUrls {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const UserUrls & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const UserUrls & value);
 
 /**
  * When an authentication (or re-authentication) is performed, this structure
@@ -4453,6 +4771,12 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const AuthenticationResult & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const AuthenticationResult & value);
 
 /**
  * This structure describes a collection of bootstrap settings.
@@ -4548,6 +4872,12 @@ struct QEVERCLOUD_EXPORT BootstrapSettings {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BootstrapSettings & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BootstrapSettings & value);
+
 /**
  * This structure describes a collection of bootstrap settings.
  **/
@@ -4576,6 +4906,12 @@ struct QEVERCLOUD_EXPORT BootstrapProfile {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BootstrapProfile & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BootstrapProfile & value);
+
 /**
  * This structure describes a collection of bootstrap profiles.
  **/
@@ -4598,6 +4934,12 @@ struct QEVERCLOUD_EXPORT BootstrapInfo {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const BootstrapInfo & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const BootstrapInfo & value);
 
 /**
  * This exception is thrown by EDAM procedures when a call fails as a result of 
@@ -4644,6 +4986,12 @@ public:
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const EDAMUserException & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const EDAMUserException & value);
+
 /**
  * This exception is thrown by EDAM procedures when a call fails as a result of
  * a problem in the service that could not be changed through caller action.
@@ -4687,6 +5035,12 @@ public:
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const EDAMSystemException & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const EDAMSystemException & value);
+
 /**
  * This exception is thrown by EDAM procedures when a caller asks to perform
  * an operation on an object that does not exist.  This may be thrown based on an invalid
@@ -4726,6 +5080,12 @@ public:
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const EDAMNotFoundException & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const EDAMNotFoundException & value);
 
 /**
  * An exception thrown when the provided Contacts fail validation. For instance,
@@ -4777,6 +5137,12 @@ public:
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const EDAMInvalidContactsException & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const EDAMInvalidContactsException & value);
 
 /**
  * This structure is given out by the NoteStore when a client asks to
@@ -4897,6 +5263,12 @@ struct QEVERCLOUD_EXPORT SyncChunk {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SyncChunk & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SyncChunk & value);
+
 /**
  * A small structure for returning a list of notes out of a larger set.
  *
@@ -4971,6 +5343,12 @@ struct QEVERCLOUD_EXPORT NoteList {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteList & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteList & value);
+
 /**
  * This structure is used in the set of results returned by the
  * findNotesMetadata function.  It represents the high-level information about
@@ -5038,6 +5416,12 @@ struct QEVERCLOUD_EXPORT NoteMetadata {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteMetadata & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteMetadata & value);
 
 /**
  * This structure is returned from calls to the findNotesMetadata function to
@@ -5117,6 +5501,12 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NotesMetadataList & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NotesMetadataList & value);
+
 /**
  * Parameters that must be given to the NoteStore emailNote call. These allow
  * the caller to specify the note to send, the recipient addresses, etc.
@@ -5177,6 +5567,12 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NoteEmailParameters & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NoteEmailParameters & value);
 
 /**
  * The result of calling findRelated().  The contents of the notes,
@@ -5287,6 +5683,12 @@ struct QEVERCLOUD_EXPORT RelatedResult {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const RelatedResult & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const RelatedResult & value);
+
 /**
  * The result of a call to updateNoteIfUsnMatches, which optionally updates a note
  * based on the current value of the note's update sequence number on the service.
@@ -5320,6 +5722,12 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const UpdateNoteIfUsnMatchesResult & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const UpdateNoteIfUsnMatchesResult & value);
 
 /**
  * Describes an invitation to a person to use their Evernote
@@ -5372,6 +5780,12 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const InvitationShareRelationship & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const InvitationShareRelationship & value);
+
 /**
  * Captures a collection of share relationships for a notebook, for
  * example, as returned by the getNotebookShares method.  The share
@@ -5415,6 +5829,12 @@ struct QEVERCLOUD_EXPORT ShareRelationships {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ShareRelationships & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ShareRelationships & value);
 
 /**
  * A structure that captures parameters used by clients to manage the
@@ -5485,6 +5905,12 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ManageNotebookSharesParameters & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ManageNotebookSharesParameters & value);
+
 /**
  * A structure to capture certain errors that occurred during a call
  * to manageNotebookShares.  That method can be run best-effort,
@@ -5530,6 +5956,12 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ManageNotebookSharesError & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ManageNotebookSharesError & value);
+
 /**
  * The return value of a call to the manageNotebookShares method.
  *
@@ -5554,6 +5986,12 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ManageNotebookSharesResult & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ManageNotebookSharesResult & value);
 
 /**
  * A structure used to share a note with one or more recipients at a given privilege.
@@ -5600,6 +6038,12 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const SharedNoteTemplate & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const SharedNoteTemplate & value);
+
 /**
  * A structure used to share a notebook with one or more recipients at a given privilege.
  *
@@ -5645,6 +6089,12 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const NotebookShareTemplate & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const NotebookShareTemplate & value);
+
 /**
  * A structure containing the results of a call to createOrUpdateNotebookShares.
  *
@@ -5675,6 +6125,12 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const CreateOrUpdateNotebookSharesResult & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const CreateOrUpdateNotebookSharesResult & value);
 
 /**
  * Captures errors that occur during a call to manageNoteShares. That
@@ -5728,6 +6184,12 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError {
 
 };
 
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ManageNoteSharesError & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ManageNoteSharesError & value);
+
 /**
  * The return value of a call to the manageNoteShares function.
  *
@@ -5752,6 +6214,12 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
     }
 
 };
+
+QEVERCLOUD_EXPORT QTextStream & operator <<(
+    QTextStream & strm, const ManageNoteSharesResult & value);
+
+QEVERCLOUD_EXPORT QDebug & operator <<(
+    QDebug & dbg, const ManageNoteSharesResult & value);
 
 } // namespace qevercloud
 

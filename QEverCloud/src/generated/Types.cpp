@@ -440,6 +440,90 @@ void readSyncState(ThriftBinaryBufferReader & r, SyncState & s) {
     if(!updateCount_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("SyncState.updateCount has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SyncState & value)
+{
+    out << "SyncState: {\n";
+    out << "    currentTime = "
+        << "Timestamp" << "\n";
+    out << "    fullSyncBefore = "
+        << "Timestamp" << "\n";
+    out << "    updateCount = "
+        << "qint32" << "\n";
+
+    if (value.uploaded.isSet()) {
+        out << "    uploaded = "
+            << value.uploaded.ref() << "\n";
+    }
+    else {
+        out << "    uploaded is not set\n";
+    }
+
+    if (value.userLastUpdated.isSet()) {
+        out << "    userLastUpdated = "
+            << value.userLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    userLastUpdated is not set\n";
+    }
+
+    if (value.userMaxMessageEventId.isSet()) {
+        out << "    userMaxMessageEventId = "
+            << value.userMaxMessageEventId.ref() << "\n";
+    }
+    else {
+        out << "    userMaxMessageEventId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SyncState & value)
+{
+    out << "SyncState: {\n";
+    out << "    currentTime = "
+        << "Timestamp" << "\n";
+    out << "    fullSyncBefore = "
+        << "Timestamp" << "\n";
+    out << "    updateCount = "
+        << "qint32" << "\n";
+
+    if (value.uploaded.isSet()) {
+        out << "    uploaded = "
+            << value.uploaded.ref() << "\n";
+    }
+    else {
+        out << "    uploaded is not set\n";
+    }
+
+    if (value.userLastUpdated.isSet()) {
+        out << "    userLastUpdated = "
+            << value.userLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    userLastUpdated is not set\n";
+    }
+
+    if (value.userMaxMessageEventId.isSet()) {
+        out << "    userMaxMessageEventId = "
+            << value.userMaxMessageEventId.ref() << "\n";
+    }
+    else {
+        out << "    userMaxMessageEventId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     w.writeStructBegin(QStringLiteral("SyncChunk"));
     w.writeFieldBegin(
@@ -857,6 +941,298 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
     if(!updateCount_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("SyncChunk.updateCount has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SyncChunk & value)
+{
+    out << "SyncChunk: {\n";
+    out << "    currentTime = "
+        << "Timestamp" << "\n";
+
+    if (value.chunkHighUSN.isSet()) {
+        out << "    chunkHighUSN = "
+            << value.chunkHighUSN.ref() << "\n";
+    }
+    else {
+        out << "    chunkHighUSN is not set\n";
+    }
+
+    out << "    updateCount = "
+        << "qint32" << "\n";
+
+    if (value.notes.isSet()) {
+        out << "    notes = "
+            << "QList<Note> {";
+        for(const auto & v: value.notes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notes is not set\n";
+    }
+
+    if (value.notebooks.isSet()) {
+        out << "    notebooks = "
+            << "QList<Notebook> {";
+        for(const auto & v: value.notebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notebooks is not set\n";
+    }
+
+    if (value.tags.isSet()) {
+        out << "    tags = "
+            << "QList<Tag> {";
+        for(const auto & v: value.tags.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tags is not set\n";
+    }
+
+    if (value.searches.isSet()) {
+        out << "    searches = "
+            << "QList<SavedSearch> {";
+        for(const auto & v: value.searches.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    searches is not set\n";
+    }
+
+    if (value.resources.isSet()) {
+        out << "    resources = "
+            << "QList<Resource> {";
+        for(const auto & v: value.resources.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    resources is not set\n";
+    }
+
+    if (value.expungedNotes.isSet()) {
+        out << "    expungedNotes = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedNotes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedNotes is not set\n";
+    }
+
+    if (value.expungedNotebooks.isSet()) {
+        out << "    expungedNotebooks = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedNotebooks is not set\n";
+    }
+
+    if (value.expungedTags.isSet()) {
+        out << "    expungedTags = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedTags.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedTags is not set\n";
+    }
+
+    if (value.expungedSearches.isSet()) {
+        out << "    expungedSearches = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedSearches.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedSearches is not set\n";
+    }
+
+    if (value.linkedNotebooks.isSet()) {
+        out << "    linkedNotebooks = "
+            << "QList<LinkedNotebook> {";
+        for(const auto & v: value.linkedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    linkedNotebooks is not set\n";
+    }
+
+    if (value.expungedLinkedNotebooks.isSet()) {
+        out << "    expungedLinkedNotebooks = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedLinkedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedLinkedNotebooks is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SyncChunk & value)
+{
+    out << "SyncChunk: {\n";
+    out << "    currentTime = "
+        << "Timestamp" << "\n";
+
+    if (value.chunkHighUSN.isSet()) {
+        out << "    chunkHighUSN = "
+            << value.chunkHighUSN.ref() << "\n";
+    }
+    else {
+        out << "    chunkHighUSN is not set\n";
+    }
+
+    out << "    updateCount = "
+        << "qint32" << "\n";
+
+    if (value.notes.isSet()) {
+        out << "    notes = "
+            << "QList<Note> {";
+        for(const auto & v: value.notes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notes is not set\n";
+    }
+
+    if (value.notebooks.isSet()) {
+        out << "    notebooks = "
+            << "QList<Notebook> {";
+        for(const auto & v: value.notebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notebooks is not set\n";
+    }
+
+    if (value.tags.isSet()) {
+        out << "    tags = "
+            << "QList<Tag> {";
+        for(const auto & v: value.tags.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tags is not set\n";
+    }
+
+    if (value.searches.isSet()) {
+        out << "    searches = "
+            << "QList<SavedSearch> {";
+        for(const auto & v: value.searches.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    searches is not set\n";
+    }
+
+    if (value.resources.isSet()) {
+        out << "    resources = "
+            << "QList<Resource> {";
+        for(const auto & v: value.resources.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    resources is not set\n";
+    }
+
+    if (value.expungedNotes.isSet()) {
+        out << "    expungedNotes = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedNotes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedNotes is not set\n";
+    }
+
+    if (value.expungedNotebooks.isSet()) {
+        out << "    expungedNotebooks = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedNotebooks is not set\n";
+    }
+
+    if (value.expungedTags.isSet()) {
+        out << "    expungedTags = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedTags.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedTags is not set\n";
+    }
+
+    if (value.expungedSearches.isSet()) {
+        out << "    expungedSearches = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedSearches.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedSearches is not set\n";
+    }
+
+    if (value.linkedNotebooks.isSet()) {
+        out << "    linkedNotebooks = "
+            << "QList<LinkedNotebook> {";
+        for(const auto & v: value.linkedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    linkedNotebooks is not set\n";
+    }
+
+    if (value.expungedLinkedNotebooks.isSet()) {
+        out << "    expungedLinkedNotebooks = "
+            << "QList<Guid> {";
+        for(const auto & v: value.expungedLinkedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    expungedLinkedNotebooks is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeSyncChunkFilter(ThriftBinaryBufferWriter & w, const SyncChunkFilter & s) {
     w.writeStructBegin(QStringLiteral("SyncChunkFilter"));
     if (s.includeNotes.isSet()) {
@@ -1166,6 +1542,292 @@ void readSyncChunkFilter(ThriftBinaryBufferReader & r, SyncChunkFilter & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SyncChunkFilter & value)
+{
+    out << "SyncChunkFilter: {\n";
+
+    if (value.includeNotes.isSet()) {
+        out << "    includeNotes = "
+            << value.includeNotes.ref() << "\n";
+    }
+    else {
+        out << "    includeNotes is not set\n";
+    }
+
+    if (value.includeNoteResources.isSet()) {
+        out << "    includeNoteResources = "
+            << value.includeNoteResources.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteResources is not set\n";
+    }
+
+    if (value.includeNoteAttributes.isSet()) {
+        out << "    includeNoteAttributes = "
+            << value.includeNoteAttributes.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteAttributes is not set\n";
+    }
+
+    if (value.includeNotebooks.isSet()) {
+        out << "    includeNotebooks = "
+            << value.includeNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeNotebooks is not set\n";
+    }
+
+    if (value.includeTags.isSet()) {
+        out << "    includeTags = "
+            << value.includeTags.ref() << "\n";
+    }
+    else {
+        out << "    includeTags is not set\n";
+    }
+
+    if (value.includeSearches.isSet()) {
+        out << "    includeSearches = "
+            << value.includeSearches.ref() << "\n";
+    }
+    else {
+        out << "    includeSearches is not set\n";
+    }
+
+    if (value.includeResources.isSet()) {
+        out << "    includeResources = "
+            << value.includeResources.ref() << "\n";
+    }
+    else {
+        out << "    includeResources is not set\n";
+    }
+
+    if (value.includeLinkedNotebooks.isSet()) {
+        out << "    includeLinkedNotebooks = "
+            << value.includeLinkedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeLinkedNotebooks is not set\n";
+    }
+
+    if (value.includeExpunged.isSet()) {
+        out << "    includeExpunged = "
+            << value.includeExpunged.ref() << "\n";
+    }
+    else {
+        out << "    includeExpunged is not set\n";
+    }
+
+    if (value.includeNoteApplicationDataFullMap.isSet()) {
+        out << "    includeNoteApplicationDataFullMap = "
+            << value.includeNoteApplicationDataFullMap.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteApplicationDataFullMap is not set\n";
+    }
+
+    if (value.includeResourceApplicationDataFullMap.isSet()) {
+        out << "    includeResourceApplicationDataFullMap = "
+            << value.includeResourceApplicationDataFullMap.ref() << "\n";
+    }
+    else {
+        out << "    includeResourceApplicationDataFullMap is not set\n";
+    }
+
+    if (value.includeNoteResourceApplicationDataFullMap.isSet()) {
+        out << "    includeNoteResourceApplicationDataFullMap = "
+            << value.includeNoteResourceApplicationDataFullMap.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteResourceApplicationDataFullMap is not set\n";
+    }
+
+    if (value.includeSharedNotes.isSet()) {
+        out << "    includeSharedNotes = "
+            << value.includeSharedNotes.ref() << "\n";
+    }
+    else {
+        out << "    includeSharedNotes is not set\n";
+    }
+
+    if (value.omitSharedNotebooks.isSet()) {
+        out << "    omitSharedNotebooks = "
+            << value.omitSharedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    omitSharedNotebooks is not set\n";
+    }
+
+    if (value.requireNoteContentClass.isSet()) {
+        out << "    requireNoteContentClass = "
+            << value.requireNoteContentClass.ref() << "\n";
+    }
+    else {
+        out << "    requireNoteContentClass is not set\n";
+    }
+
+    if (value.notebookGuids.isSet()) {
+        out << "    notebookGuids = "
+            << "QSet<QString> {";
+        for(const auto & v: value.notebookGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notebookGuids is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SyncChunkFilter & value)
+{
+    out << "SyncChunkFilter: {\n";
+
+    if (value.includeNotes.isSet()) {
+        out << "    includeNotes = "
+            << value.includeNotes.ref() << "\n";
+    }
+    else {
+        out << "    includeNotes is not set\n";
+    }
+
+    if (value.includeNoteResources.isSet()) {
+        out << "    includeNoteResources = "
+            << value.includeNoteResources.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteResources is not set\n";
+    }
+
+    if (value.includeNoteAttributes.isSet()) {
+        out << "    includeNoteAttributes = "
+            << value.includeNoteAttributes.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteAttributes is not set\n";
+    }
+
+    if (value.includeNotebooks.isSet()) {
+        out << "    includeNotebooks = "
+            << value.includeNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeNotebooks is not set\n";
+    }
+
+    if (value.includeTags.isSet()) {
+        out << "    includeTags = "
+            << value.includeTags.ref() << "\n";
+    }
+    else {
+        out << "    includeTags is not set\n";
+    }
+
+    if (value.includeSearches.isSet()) {
+        out << "    includeSearches = "
+            << value.includeSearches.ref() << "\n";
+    }
+    else {
+        out << "    includeSearches is not set\n";
+    }
+
+    if (value.includeResources.isSet()) {
+        out << "    includeResources = "
+            << value.includeResources.ref() << "\n";
+    }
+    else {
+        out << "    includeResources is not set\n";
+    }
+
+    if (value.includeLinkedNotebooks.isSet()) {
+        out << "    includeLinkedNotebooks = "
+            << value.includeLinkedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeLinkedNotebooks is not set\n";
+    }
+
+    if (value.includeExpunged.isSet()) {
+        out << "    includeExpunged = "
+            << value.includeExpunged.ref() << "\n";
+    }
+    else {
+        out << "    includeExpunged is not set\n";
+    }
+
+    if (value.includeNoteApplicationDataFullMap.isSet()) {
+        out << "    includeNoteApplicationDataFullMap = "
+            << value.includeNoteApplicationDataFullMap.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteApplicationDataFullMap is not set\n";
+    }
+
+    if (value.includeResourceApplicationDataFullMap.isSet()) {
+        out << "    includeResourceApplicationDataFullMap = "
+            << value.includeResourceApplicationDataFullMap.ref() << "\n";
+    }
+    else {
+        out << "    includeResourceApplicationDataFullMap is not set\n";
+    }
+
+    if (value.includeNoteResourceApplicationDataFullMap.isSet()) {
+        out << "    includeNoteResourceApplicationDataFullMap = "
+            << value.includeNoteResourceApplicationDataFullMap.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteResourceApplicationDataFullMap is not set\n";
+    }
+
+    if (value.includeSharedNotes.isSet()) {
+        out << "    includeSharedNotes = "
+            << value.includeSharedNotes.ref() << "\n";
+    }
+    else {
+        out << "    includeSharedNotes is not set\n";
+    }
+
+    if (value.omitSharedNotebooks.isSet()) {
+        out << "    omitSharedNotebooks = "
+            << value.omitSharedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    omitSharedNotebooks is not set\n";
+    }
+
+    if (value.requireNoteContentClass.isSet()) {
+        out << "    requireNoteContentClass = "
+            << value.requireNoteContentClass.ref() << "\n";
+    }
+    else {
+        out << "    requireNoteContentClass is not set\n";
+    }
+
+    if (value.notebookGuids.isSet()) {
+        out << "    notebookGuids = "
+            << "QSet<QString> {";
+        for(const auto & v: value.notebookGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notebookGuids is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteFilter(ThriftBinaryBufferWriter & w, const NoteFilter & s) {
     w.writeStructBegin(QStringLiteral("NoteFilter"));
     if (s.order.isSet()) {
@@ -1424,6 +2086,244 @@ void readNoteFilter(ThriftBinaryBufferReader & r, NoteFilter & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteFilter & value)
+{
+    out << "NoteFilter: {\n";
+
+    if (value.order.isSet()) {
+        out << "    order = "
+            << value.order.ref() << "\n";
+    }
+    else {
+        out << "    order is not set\n";
+    }
+
+    if (value.ascending.isSet()) {
+        out << "    ascending = "
+            << value.ascending.ref() << "\n";
+    }
+    else {
+        out << "    ascending is not set\n";
+    }
+
+    if (value.words.isSet()) {
+        out << "    words = "
+            << value.words.ref() << "\n";
+    }
+    else {
+        out << "    words is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.tagGuids.isSet()) {
+        out << "    tagGuids = "
+            << "QList<Guid> {";
+        for(const auto & v: value.tagGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagGuids is not set\n";
+    }
+
+    if (value.timeZone.isSet()) {
+        out << "    timeZone = "
+            << value.timeZone.ref() << "\n";
+    }
+    else {
+        out << "    timeZone is not set\n";
+    }
+
+    if (value.inactive.isSet()) {
+        out << "    inactive = "
+            << value.inactive.ref() << "\n";
+    }
+    else {
+        out << "    inactive is not set\n";
+    }
+
+    if (value.emphasized.isSet()) {
+        out << "    emphasized = "
+            << value.emphasized.ref() << "\n";
+    }
+    else {
+        out << "    emphasized is not set\n";
+    }
+
+    if (value.includeAllReadableNotebooks.isSet()) {
+        out << "    includeAllReadableNotebooks = "
+            << value.includeAllReadableNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeAllReadableNotebooks is not set\n";
+    }
+
+    if (value.includeAllReadableWorkspaces.isSet()) {
+        out << "    includeAllReadableWorkspaces = "
+            << value.includeAllReadableWorkspaces.ref() << "\n";
+    }
+    else {
+        out << "    includeAllReadableWorkspaces is not set\n";
+    }
+
+    if (value.context.isSet()) {
+        out << "    context = "
+            << value.context.ref() << "\n";
+    }
+    else {
+        out << "    context is not set\n";
+    }
+
+    if (value.rawWords.isSet()) {
+        out << "    rawWords = "
+            << value.rawWords.ref() << "\n";
+    }
+    else {
+        out << "    rawWords is not set\n";
+    }
+
+    if (value.searchContextBytes.isSet()) {
+        out << "    searchContextBytes = "
+            << value.searchContextBytes.ref() << "\n";
+    }
+    else {
+        out << "    searchContextBytes is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteFilter & value)
+{
+    out << "NoteFilter: {\n";
+
+    if (value.order.isSet()) {
+        out << "    order = "
+            << value.order.ref() << "\n";
+    }
+    else {
+        out << "    order is not set\n";
+    }
+
+    if (value.ascending.isSet()) {
+        out << "    ascending = "
+            << value.ascending.ref() << "\n";
+    }
+    else {
+        out << "    ascending is not set\n";
+    }
+
+    if (value.words.isSet()) {
+        out << "    words = "
+            << value.words.ref() << "\n";
+    }
+    else {
+        out << "    words is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.tagGuids.isSet()) {
+        out << "    tagGuids = "
+            << "QList<Guid> {";
+        for(const auto & v: value.tagGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagGuids is not set\n";
+    }
+
+    if (value.timeZone.isSet()) {
+        out << "    timeZone = "
+            << value.timeZone.ref() << "\n";
+    }
+    else {
+        out << "    timeZone is not set\n";
+    }
+
+    if (value.inactive.isSet()) {
+        out << "    inactive = "
+            << value.inactive.ref() << "\n";
+    }
+    else {
+        out << "    inactive is not set\n";
+    }
+
+    if (value.emphasized.isSet()) {
+        out << "    emphasized = "
+            << value.emphasized.ref() << "\n";
+    }
+    else {
+        out << "    emphasized is not set\n";
+    }
+
+    if (value.includeAllReadableNotebooks.isSet()) {
+        out << "    includeAllReadableNotebooks = "
+            << value.includeAllReadableNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeAllReadableNotebooks is not set\n";
+    }
+
+    if (value.includeAllReadableWorkspaces.isSet()) {
+        out << "    includeAllReadableWorkspaces = "
+            << value.includeAllReadableWorkspaces.ref() << "\n";
+    }
+    else {
+        out << "    includeAllReadableWorkspaces is not set\n";
+    }
+
+    if (value.context.isSet()) {
+        out << "    context = "
+            << value.context.ref() << "\n";
+    }
+    else {
+        out << "    context is not set\n";
+    }
+
+    if (value.rawWords.isSet()) {
+        out << "    rawWords = "
+            << value.rawWords.ref() << "\n";
+    }
+    else {
+        out << "    rawWords is not set\n";
+    }
+
+    if (value.searchContextBytes.isSet()) {
+        out << "    searchContextBytes = "
+            << value.searchContextBytes.ref() << "\n";
+    }
+    else {
+        out << "    searchContextBytes is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteList(ThriftBinaryBufferWriter & w, const NoteList & s) {
     w.writeStructBegin(QStringLiteral("NoteList"));
     w.writeFieldBegin(
@@ -1627,6 +2527,134 @@ void readNoteList(ThriftBinaryBufferReader & r, NoteList & s) {
     if(!totalNotes_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteList.totalNotes has no value"));
     if(!notes_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteList.notes has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteList & value)
+{
+    out << "NoteList: {\n";
+    out << "    startIndex = "
+        << "qint32" << "\n";
+    out << "    totalNotes = "
+        << "qint32" << "\n";
+    out << "    notes = "
+        << "QList<Note>" << "\n";
+
+    if (value.stoppedWords.isSet()) {
+        out << "    stoppedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.stoppedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    stoppedWords is not set\n";
+    }
+
+    if (value.searchedWords.isSet()) {
+        out << "    searchedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.searchedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    searchedWords is not set\n";
+    }
+
+    if (value.updateCount.isSet()) {
+        out << "    updateCount = "
+            << value.updateCount.ref() << "\n";
+    }
+    else {
+        out << "    updateCount is not set\n";
+    }
+
+    if (value.searchContextBytes.isSet()) {
+        out << "    searchContextBytes = "
+            << value.searchContextBytes.ref() << "\n";
+    }
+    else {
+        out << "    searchContextBytes is not set\n";
+    }
+
+    if (value.debugInfo.isSet()) {
+        out << "    debugInfo = "
+            << value.debugInfo.ref() << "\n";
+    }
+    else {
+        out << "    debugInfo is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteList & value)
+{
+    out << "NoteList: {\n";
+    out << "    startIndex = "
+        << "qint32" << "\n";
+    out << "    totalNotes = "
+        << "qint32" << "\n";
+    out << "    notes = "
+        << "QList<Note>" << "\n";
+
+    if (value.stoppedWords.isSet()) {
+        out << "    stoppedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.stoppedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    stoppedWords is not set\n";
+    }
+
+    if (value.searchedWords.isSet()) {
+        out << "    searchedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.searchedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    searchedWords is not set\n";
+    }
+
+    if (value.updateCount.isSet()) {
+        out << "    updateCount = "
+            << value.updateCount.ref() << "\n";
+    }
+    else {
+        out << "    updateCount is not set\n";
+    }
+
+    if (value.searchContextBytes.isSet()) {
+        out << "    searchContextBytes = "
+            << value.searchContextBytes.ref() << "\n";
+    }
+    else {
+        out << "    searchContextBytes is not set\n";
+    }
+
+    if (value.debugInfo.isSet()) {
+        out << "    debugInfo = "
+            << value.debugInfo.ref() << "\n";
+    }
+    else {
+        out << "    debugInfo is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNoteMetadata(ThriftBinaryBufferWriter & w, const NoteMetadata & s) {
     w.writeStructBegin(QStringLiteral("NoteMetadata"));
@@ -1870,6 +2898,216 @@ void readNoteMetadata(ThriftBinaryBufferReader & r, NoteMetadata & s) {
     if(!guid_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteMetadata.guid has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteMetadata & value)
+{
+    out << "NoteMetadata: {\n";
+    out << "    guid = "
+        << "Guid" << "\n";
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.contentLength.isSet()) {
+        out << "    contentLength = "
+            << value.contentLength.ref() << "\n";
+    }
+    else {
+        out << "    contentLength is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.deleted.isSet()) {
+        out << "    deleted = "
+            << value.deleted.ref() << "\n";
+    }
+    else {
+        out << "    deleted is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.tagGuids.isSet()) {
+        out << "    tagGuids = "
+            << "QList<Guid> {";
+        for(const auto & v: value.tagGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagGuids is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.largestResourceMime.isSet()) {
+        out << "    largestResourceMime = "
+            << value.largestResourceMime.ref() << "\n";
+    }
+    else {
+        out << "    largestResourceMime is not set\n";
+    }
+
+    if (value.largestResourceSize.isSet()) {
+        out << "    largestResourceSize = "
+            << value.largestResourceSize.ref() << "\n";
+    }
+    else {
+        out << "    largestResourceSize is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteMetadata & value)
+{
+    out << "NoteMetadata: {\n";
+    out << "    guid = "
+        << "Guid" << "\n";
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.contentLength.isSet()) {
+        out << "    contentLength = "
+            << value.contentLength.ref() << "\n";
+    }
+    else {
+        out << "    contentLength is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.deleted.isSet()) {
+        out << "    deleted = "
+            << value.deleted.ref() << "\n";
+    }
+    else {
+        out << "    deleted is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.tagGuids.isSet()) {
+        out << "    tagGuids = "
+            << "QList<Guid> {";
+        for(const auto & v: value.tagGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagGuids is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.largestResourceMime.isSet()) {
+        out << "    largestResourceMime = "
+            << value.largestResourceMime.ref() << "\n";
+    }
+    else {
+        out << "    largestResourceMime is not set\n";
+    }
+
+    if (value.largestResourceSize.isSet()) {
+        out << "    largestResourceSize = "
+            << value.largestResourceSize.ref() << "\n";
+    }
+    else {
+        out << "    largestResourceSize is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNotesMetadataList(ThriftBinaryBufferWriter & w, const NotesMetadataList & s) {
     w.writeStructBegin(QStringLiteral("NotesMetadataList"));
     w.writeFieldBegin(
@@ -2073,6 +3311,134 @@ void readNotesMetadataList(ThriftBinaryBufferReader & r, NotesMetadataList & s) 
     if(!totalNotes_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NotesMetadataList.totalNotes has no value"));
     if(!notes_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NotesMetadataList.notes has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NotesMetadataList & value)
+{
+    out << "NotesMetadataList: {\n";
+    out << "    startIndex = "
+        << "qint32" << "\n";
+    out << "    totalNotes = "
+        << "qint32" << "\n";
+    out << "    notes = "
+        << "QList<NoteMetadata>" << "\n";
+
+    if (value.stoppedWords.isSet()) {
+        out << "    stoppedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.stoppedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    stoppedWords is not set\n";
+    }
+
+    if (value.searchedWords.isSet()) {
+        out << "    searchedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.searchedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    searchedWords is not set\n";
+    }
+
+    if (value.updateCount.isSet()) {
+        out << "    updateCount = "
+            << value.updateCount.ref() << "\n";
+    }
+    else {
+        out << "    updateCount is not set\n";
+    }
+
+    if (value.searchContextBytes.isSet()) {
+        out << "    searchContextBytes = "
+            << value.searchContextBytes.ref() << "\n";
+    }
+    else {
+        out << "    searchContextBytes is not set\n";
+    }
+
+    if (value.debugInfo.isSet()) {
+        out << "    debugInfo = "
+            << value.debugInfo.ref() << "\n";
+    }
+    else {
+        out << "    debugInfo is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NotesMetadataList & value)
+{
+    out << "NotesMetadataList: {\n";
+    out << "    startIndex = "
+        << "qint32" << "\n";
+    out << "    totalNotes = "
+        << "qint32" << "\n";
+    out << "    notes = "
+        << "QList<NoteMetadata>" << "\n";
+
+    if (value.stoppedWords.isSet()) {
+        out << "    stoppedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.stoppedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    stoppedWords is not set\n";
+    }
+
+    if (value.searchedWords.isSet()) {
+        out << "    searchedWords = "
+            << "QList<QString> {";
+        for(const auto & v: value.searchedWords.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    searchedWords is not set\n";
+    }
+
+    if (value.updateCount.isSet()) {
+        out << "    updateCount = "
+            << value.updateCount.ref() << "\n";
+    }
+    else {
+        out << "    updateCount is not set\n";
+    }
+
+    if (value.searchContextBytes.isSet()) {
+        out << "    searchContextBytes = "
+            << value.searchContextBytes.ref() << "\n";
+    }
+    else {
+        out << "    searchContextBytes is not set\n";
+    }
+
+    if (value.debugInfo.isSet()) {
+        out << "    debugInfo = "
+            << value.debugInfo.ref() << "\n";
+    }
+    else {
+        out << "    debugInfo is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNotesMetadataResultSpec(ThriftBinaryBufferWriter & w, const NotesMetadataResultSpec & s) {
     w.writeStructBegin(QStringLiteral("NotesMetadataResultSpec"));
@@ -2284,6 +3650,206 @@ void readNotesMetadataResultSpec(ThriftBinaryBufferReader & r, NotesMetadataResu
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NotesMetadataResultSpec & value)
+{
+    out << "NotesMetadataResultSpec: {\n";
+
+    if (value.includeTitle.isSet()) {
+        out << "    includeTitle = "
+            << value.includeTitle.ref() << "\n";
+    }
+    else {
+        out << "    includeTitle is not set\n";
+    }
+
+    if (value.includeContentLength.isSet()) {
+        out << "    includeContentLength = "
+            << value.includeContentLength.ref() << "\n";
+    }
+    else {
+        out << "    includeContentLength is not set\n";
+    }
+
+    if (value.includeCreated.isSet()) {
+        out << "    includeCreated = "
+            << value.includeCreated.ref() << "\n";
+    }
+    else {
+        out << "    includeCreated is not set\n";
+    }
+
+    if (value.includeUpdated.isSet()) {
+        out << "    includeUpdated = "
+            << value.includeUpdated.ref() << "\n";
+    }
+    else {
+        out << "    includeUpdated is not set\n";
+    }
+
+    if (value.includeDeleted.isSet()) {
+        out << "    includeDeleted = "
+            << value.includeDeleted.ref() << "\n";
+    }
+    else {
+        out << "    includeDeleted is not set\n";
+    }
+
+    if (value.includeUpdateSequenceNum.isSet()) {
+        out << "    includeUpdateSequenceNum = "
+            << value.includeUpdateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    includeUpdateSequenceNum is not set\n";
+    }
+
+    if (value.includeNotebookGuid.isSet()) {
+        out << "    includeNotebookGuid = "
+            << value.includeNotebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    includeNotebookGuid is not set\n";
+    }
+
+    if (value.includeTagGuids.isSet()) {
+        out << "    includeTagGuids = "
+            << value.includeTagGuids.ref() << "\n";
+    }
+    else {
+        out << "    includeTagGuids is not set\n";
+    }
+
+    if (value.includeAttributes.isSet()) {
+        out << "    includeAttributes = "
+            << value.includeAttributes.ref() << "\n";
+    }
+    else {
+        out << "    includeAttributes is not set\n";
+    }
+
+    if (value.includeLargestResourceMime.isSet()) {
+        out << "    includeLargestResourceMime = "
+            << value.includeLargestResourceMime.ref() << "\n";
+    }
+    else {
+        out << "    includeLargestResourceMime is not set\n";
+    }
+
+    if (value.includeLargestResourceSize.isSet()) {
+        out << "    includeLargestResourceSize = "
+            << value.includeLargestResourceSize.ref() << "\n";
+    }
+    else {
+        out << "    includeLargestResourceSize is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NotesMetadataResultSpec & value)
+{
+    out << "NotesMetadataResultSpec: {\n";
+
+    if (value.includeTitle.isSet()) {
+        out << "    includeTitle = "
+            << value.includeTitle.ref() << "\n";
+    }
+    else {
+        out << "    includeTitle is not set\n";
+    }
+
+    if (value.includeContentLength.isSet()) {
+        out << "    includeContentLength = "
+            << value.includeContentLength.ref() << "\n";
+    }
+    else {
+        out << "    includeContentLength is not set\n";
+    }
+
+    if (value.includeCreated.isSet()) {
+        out << "    includeCreated = "
+            << value.includeCreated.ref() << "\n";
+    }
+    else {
+        out << "    includeCreated is not set\n";
+    }
+
+    if (value.includeUpdated.isSet()) {
+        out << "    includeUpdated = "
+            << value.includeUpdated.ref() << "\n";
+    }
+    else {
+        out << "    includeUpdated is not set\n";
+    }
+
+    if (value.includeDeleted.isSet()) {
+        out << "    includeDeleted = "
+            << value.includeDeleted.ref() << "\n";
+    }
+    else {
+        out << "    includeDeleted is not set\n";
+    }
+
+    if (value.includeUpdateSequenceNum.isSet()) {
+        out << "    includeUpdateSequenceNum = "
+            << value.includeUpdateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    includeUpdateSequenceNum is not set\n";
+    }
+
+    if (value.includeNotebookGuid.isSet()) {
+        out << "    includeNotebookGuid = "
+            << value.includeNotebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    includeNotebookGuid is not set\n";
+    }
+
+    if (value.includeTagGuids.isSet()) {
+        out << "    includeTagGuids = "
+            << value.includeTagGuids.ref() << "\n";
+    }
+    else {
+        out << "    includeTagGuids is not set\n";
+    }
+
+    if (value.includeAttributes.isSet()) {
+        out << "    includeAttributes = "
+            << value.includeAttributes.ref() << "\n";
+    }
+    else {
+        out << "    includeAttributes is not set\n";
+    }
+
+    if (value.includeLargestResourceMime.isSet()) {
+        out << "    includeLargestResourceMime = "
+            << value.includeLargestResourceMime.ref() << "\n";
+    }
+    else {
+        out << "    includeLargestResourceMime is not set\n";
+    }
+
+    if (value.includeLargestResourceSize.isSet()) {
+        out << "    includeLargestResourceSize = "
+            << value.includeLargestResourceSize.ref() << "\n";
+    }
+    else {
+        out << "    includeLargestResourceSize is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteCollectionCounts(ThriftBinaryBufferWriter & w, const NoteCollectionCounts & s) {
     w.writeStructBegin(QStringLiteral("NoteCollectionCounts"));
     if (s.notebookCounts.isSet()) {
@@ -2393,6 +3959,90 @@ void readNoteCollectionCounts(ThriftBinaryBufferReader & r, NoteCollectionCounts
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteCollectionCounts & value)
+{
+    out << "NoteCollectionCounts: {\n";
+
+    if (value.notebookCounts.isSet()) {
+        out << "    notebookCounts = "
+            << "QMap<Guid, qint32> {";
+        for(const auto & it: toRange(value.notebookCounts.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    notebookCounts is not set\n";
+    }
+
+    if (value.tagCounts.isSet()) {
+        out << "    tagCounts = "
+            << "QMap<Guid, qint32> {";
+        for(const auto & it: toRange(value.tagCounts.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    tagCounts is not set\n";
+    }
+
+    if (value.trashCount.isSet()) {
+        out << "    trashCount = "
+            << value.trashCount.ref() << "\n";
+    }
+    else {
+        out << "    trashCount is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteCollectionCounts & value)
+{
+    out << "NoteCollectionCounts: {\n";
+
+    if (value.notebookCounts.isSet()) {
+        out << "    notebookCounts = "
+            << "QMap<Guid, qint32> {";
+        for(const auto & it: toRange(value.notebookCounts.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    notebookCounts is not set\n";
+    }
+
+    if (value.tagCounts.isSet()) {
+        out << "    tagCounts = "
+            << "QMap<Guid, qint32> {";
+        for(const auto & it: toRange(value.tagCounts.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    tagCounts is not set\n";
+    }
+
+    if (value.trashCount.isSet()) {
+        out << "    trashCount = "
+            << value.trashCount.ref() << "\n";
+    }
+    else {
+        out << "    trashCount is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNoteResultSpec(ThriftBinaryBufferWriter & w, const NoteResultSpec & s) {
     w.writeStructBegin(QStringLiteral("NoteResultSpec"));
@@ -2553,6 +4203,158 @@ void readNoteResultSpec(ThriftBinaryBufferReader & r, NoteResultSpec & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteResultSpec & value)
+{
+    out << "NoteResultSpec: {\n";
+
+    if (value.includeContent.isSet()) {
+        out << "    includeContent = "
+            << value.includeContent.ref() << "\n";
+    }
+    else {
+        out << "    includeContent is not set\n";
+    }
+
+    if (value.includeResourcesData.isSet()) {
+        out << "    includeResourcesData = "
+            << value.includeResourcesData.ref() << "\n";
+    }
+    else {
+        out << "    includeResourcesData is not set\n";
+    }
+
+    if (value.includeResourcesRecognition.isSet()) {
+        out << "    includeResourcesRecognition = "
+            << value.includeResourcesRecognition.ref() << "\n";
+    }
+    else {
+        out << "    includeResourcesRecognition is not set\n";
+    }
+
+    if (value.includeResourcesAlternateData.isSet()) {
+        out << "    includeResourcesAlternateData = "
+            << value.includeResourcesAlternateData.ref() << "\n";
+    }
+    else {
+        out << "    includeResourcesAlternateData is not set\n";
+    }
+
+    if (value.includeSharedNotes.isSet()) {
+        out << "    includeSharedNotes = "
+            << value.includeSharedNotes.ref() << "\n";
+    }
+    else {
+        out << "    includeSharedNotes is not set\n";
+    }
+
+    if (value.includeNoteAppDataValues.isSet()) {
+        out << "    includeNoteAppDataValues = "
+            << value.includeNoteAppDataValues.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteAppDataValues is not set\n";
+    }
+
+    if (value.includeResourceAppDataValues.isSet()) {
+        out << "    includeResourceAppDataValues = "
+            << value.includeResourceAppDataValues.ref() << "\n";
+    }
+    else {
+        out << "    includeResourceAppDataValues is not set\n";
+    }
+
+    if (value.includeAccountLimits.isSet()) {
+        out << "    includeAccountLimits = "
+            << value.includeAccountLimits.ref() << "\n";
+    }
+    else {
+        out << "    includeAccountLimits is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteResultSpec & value)
+{
+    out << "NoteResultSpec: {\n";
+
+    if (value.includeContent.isSet()) {
+        out << "    includeContent = "
+            << value.includeContent.ref() << "\n";
+    }
+    else {
+        out << "    includeContent is not set\n";
+    }
+
+    if (value.includeResourcesData.isSet()) {
+        out << "    includeResourcesData = "
+            << value.includeResourcesData.ref() << "\n";
+    }
+    else {
+        out << "    includeResourcesData is not set\n";
+    }
+
+    if (value.includeResourcesRecognition.isSet()) {
+        out << "    includeResourcesRecognition = "
+            << value.includeResourcesRecognition.ref() << "\n";
+    }
+    else {
+        out << "    includeResourcesRecognition is not set\n";
+    }
+
+    if (value.includeResourcesAlternateData.isSet()) {
+        out << "    includeResourcesAlternateData = "
+            << value.includeResourcesAlternateData.ref() << "\n";
+    }
+    else {
+        out << "    includeResourcesAlternateData is not set\n";
+    }
+
+    if (value.includeSharedNotes.isSet()) {
+        out << "    includeSharedNotes = "
+            << value.includeSharedNotes.ref() << "\n";
+    }
+    else {
+        out << "    includeSharedNotes is not set\n";
+    }
+
+    if (value.includeNoteAppDataValues.isSet()) {
+        out << "    includeNoteAppDataValues = "
+            << value.includeNoteAppDataValues.ref() << "\n";
+    }
+    else {
+        out << "    includeNoteAppDataValues is not set\n";
+    }
+
+    if (value.includeResourceAppDataValues.isSet()) {
+        out << "    includeResourceAppDataValues = "
+            << value.includeResourceAppDataValues.ref() << "\n";
+    }
+    else {
+        out << "    includeResourceAppDataValues is not set\n";
+    }
+
+    if (value.includeAccountLimits.isSet()) {
+        out << "    includeAccountLimits = "
+            << value.includeAccountLimits.ref() << "\n";
+    }
+    else {
+        out << "    includeAccountLimits is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteEmailParameters(ThriftBinaryBufferWriter & w, const NoteEmailParameters & s) {
     w.writeStructBegin(QStringLiteral("NoteEmailParameters"));
     if (s.guid.isSet()) {
@@ -2706,6 +4508,138 @@ void readNoteEmailParameters(ThriftBinaryBufferReader & r, NoteEmailParameters &
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteEmailParameters & value)
+{
+    out << "NoteEmailParameters: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.note.isSet()) {
+        out << "    note = "
+            << value.note.ref() << "\n";
+    }
+    else {
+        out << "    note is not set\n";
+    }
+
+    if (value.toAddresses.isSet()) {
+        out << "    toAddresses = "
+            << "QList<QString> {";
+        for(const auto & v: value.toAddresses.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    toAddresses is not set\n";
+    }
+
+    if (value.ccAddresses.isSet()) {
+        out << "    ccAddresses = "
+            << "QList<QString> {";
+        for(const auto & v: value.ccAddresses.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    ccAddresses is not set\n";
+    }
+
+    if (value.subject.isSet()) {
+        out << "    subject = "
+            << value.subject.ref() << "\n";
+    }
+    else {
+        out << "    subject is not set\n";
+    }
+
+    if (value.message.isSet()) {
+        out << "    message = "
+            << value.message.ref() << "\n";
+    }
+    else {
+        out << "    message is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteEmailParameters & value)
+{
+    out << "NoteEmailParameters: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.note.isSet()) {
+        out << "    note = "
+            << value.note.ref() << "\n";
+    }
+    else {
+        out << "    note is not set\n";
+    }
+
+    if (value.toAddresses.isSet()) {
+        out << "    toAddresses = "
+            << "QList<QString> {";
+        for(const auto & v: value.toAddresses.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    toAddresses is not set\n";
+    }
+
+    if (value.ccAddresses.isSet()) {
+        out << "    ccAddresses = "
+            << "QList<QString> {";
+        for(const auto & v: value.ccAddresses.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    ccAddresses is not set\n";
+    }
+
+    if (value.subject.isSet()) {
+        out << "    subject = "
+            << value.subject.ref() << "\n";
+    }
+    else {
+        out << "    subject is not set\n";
+    }
+
+    if (value.message.isSet()) {
+        out << "    message = "
+            << value.message.ref() << "\n";
+    }
+    else {
+        out << "    message is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteVersionId(ThriftBinaryBufferWriter & w, const NoteVersionId & s) {
     w.writeStructBegin(QStringLiteral("NoteVersionId"));
     w.writeFieldBegin(
@@ -2817,6 +4751,62 @@ void readNoteVersionId(ThriftBinaryBufferReader & r, NoteVersionId & s) {
     if(!saved_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteVersionId.saved has no value"));
     if(!title_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteVersionId.title has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteVersionId & value)
+{
+    out << "NoteVersionId: {\n";
+    out << "    updateSequenceNum = "
+        << "qint32" << "\n";
+    out << "    updated = "
+        << "Timestamp" << "\n";
+    out << "    saved = "
+        << "Timestamp" << "\n";
+    out << "    title = "
+        << "QString" << "\n";
+
+    if (value.lastEditorId.isSet()) {
+        out << "    lastEditorId = "
+            << value.lastEditorId.ref() << "\n";
+    }
+    else {
+        out << "    lastEditorId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteVersionId & value)
+{
+    out << "NoteVersionId: {\n";
+    out << "    updateSequenceNum = "
+        << "qint32" << "\n";
+    out << "    updated = "
+        << "Timestamp" << "\n";
+    out << "    saved = "
+        << "Timestamp" << "\n";
+    out << "    title = "
+        << "QString" << "\n";
+
+    if (value.lastEditorId.isSet()) {
+        out << "    lastEditorId = "
+            << value.lastEditorId.ref() << "\n";
+    }
+    else {
+        out << "    lastEditorId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeRelatedQuery(ThriftBinaryBufferWriter & w, const RelatedQuery & s) {
     w.writeStructBegin(QStringLiteral("RelatedQuery"));
@@ -2942,6 +4932,126 @@ void readRelatedQuery(ThriftBinaryBufferReader & r, RelatedQuery & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const RelatedQuery & value)
+{
+    out << "RelatedQuery: {\n";
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.plainText.isSet()) {
+        out << "    plainText = "
+            << value.plainText.ref() << "\n";
+    }
+    else {
+        out << "    plainText is not set\n";
+    }
+
+    if (value.filter.isSet()) {
+        out << "    filter = "
+            << value.filter.ref() << "\n";
+    }
+    else {
+        out << "    filter is not set\n";
+    }
+
+    if (value.referenceUri.isSet()) {
+        out << "    referenceUri = "
+            << value.referenceUri.ref() << "\n";
+    }
+    else {
+        out << "    referenceUri is not set\n";
+    }
+
+    if (value.context.isSet()) {
+        out << "    context = "
+            << value.context.ref() << "\n";
+    }
+    else {
+        out << "    context is not set\n";
+    }
+
+    if (value.cacheKey.isSet()) {
+        out << "    cacheKey = "
+            << value.cacheKey.ref() << "\n";
+    }
+    else {
+        out << "    cacheKey is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const RelatedQuery & value)
+{
+    out << "RelatedQuery: {\n";
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.plainText.isSet()) {
+        out << "    plainText = "
+            << value.plainText.ref() << "\n";
+    }
+    else {
+        out << "    plainText is not set\n";
+    }
+
+    if (value.filter.isSet()) {
+        out << "    filter = "
+            << value.filter.ref() << "\n";
+    }
+    else {
+        out << "    filter is not set\n";
+    }
+
+    if (value.referenceUri.isSet()) {
+        out << "    referenceUri = "
+            << value.referenceUri.ref() << "\n";
+    }
+    else {
+        out << "    referenceUri is not set\n";
+    }
+
+    if (value.context.isSet()) {
+        out << "    context = "
+            << value.context.ref() << "\n";
+    }
+    else {
+        out << "    context is not set\n";
+    }
+
+    if (value.cacheKey.isSet()) {
+        out << "    cacheKey = "
+            << value.cacheKey.ref() << "\n";
+    }
+    else {
+        out << "    cacheKey is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     w.writeStructBegin(QStringLiteral("RelatedResult"));
@@ -3203,6 +5313,210 @@ void readRelatedResult(ThriftBinaryBufferReader & r, RelatedResult & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const RelatedResult & value)
+{
+    out << "RelatedResult: {\n";
+
+    if (value.notes.isSet()) {
+        out << "    notes = "
+            << "QList<Note> {";
+        for(const auto & v: value.notes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notes is not set\n";
+    }
+
+    if (value.notebooks.isSet()) {
+        out << "    notebooks = "
+            << "QList<Notebook> {";
+        for(const auto & v: value.notebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notebooks is not set\n";
+    }
+
+    if (value.tags.isSet()) {
+        out << "    tags = "
+            << "QList<Tag> {";
+        for(const auto & v: value.tags.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tags is not set\n";
+    }
+
+    if (value.containingNotebooks.isSet()) {
+        out << "    containingNotebooks = "
+            << "QList<NotebookDescriptor> {";
+        for(const auto & v: value.containingNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    containingNotebooks is not set\n";
+    }
+
+    if (value.debugInfo.isSet()) {
+        out << "    debugInfo = "
+            << value.debugInfo.ref() << "\n";
+    }
+    else {
+        out << "    debugInfo is not set\n";
+    }
+
+    if (value.experts.isSet()) {
+        out << "    experts = "
+            << "QList<UserProfile> {";
+        for(const auto & v: value.experts.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    experts is not set\n";
+    }
+
+    if (value.relatedContent.isSet()) {
+        out << "    relatedContent = "
+            << "QList<RelatedContent> {";
+        for(const auto & v: value.relatedContent.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    relatedContent is not set\n";
+    }
+
+    if (value.cacheKey.isSet()) {
+        out << "    cacheKey = "
+            << value.cacheKey.ref() << "\n";
+    }
+    else {
+        out << "    cacheKey is not set\n";
+    }
+
+    if (value.cacheExpires.isSet()) {
+        out << "    cacheExpires = "
+            << value.cacheExpires.ref() << "\n";
+    }
+    else {
+        out << "    cacheExpires is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const RelatedResult & value)
+{
+    out << "RelatedResult: {\n";
+
+    if (value.notes.isSet()) {
+        out << "    notes = "
+            << "QList<Note> {";
+        for(const auto & v: value.notes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notes is not set\n";
+    }
+
+    if (value.notebooks.isSet()) {
+        out << "    notebooks = "
+            << "QList<Notebook> {";
+        for(const auto & v: value.notebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    notebooks is not set\n";
+    }
+
+    if (value.tags.isSet()) {
+        out << "    tags = "
+            << "QList<Tag> {";
+        for(const auto & v: value.tags.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tags is not set\n";
+    }
+
+    if (value.containingNotebooks.isSet()) {
+        out << "    containingNotebooks = "
+            << "QList<NotebookDescriptor> {";
+        for(const auto & v: value.containingNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    containingNotebooks is not set\n";
+    }
+
+    if (value.debugInfo.isSet()) {
+        out << "    debugInfo = "
+            << value.debugInfo.ref() << "\n";
+    }
+    else {
+        out << "    debugInfo is not set\n";
+    }
+
+    if (value.experts.isSet()) {
+        out << "    experts = "
+            << "QList<UserProfile> {";
+        for(const auto & v: value.experts.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    experts is not set\n";
+    }
+
+    if (value.relatedContent.isSet()) {
+        out << "    relatedContent = "
+            << "QList<RelatedContent> {";
+        for(const auto & v: value.relatedContent.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    relatedContent is not set\n";
+    }
+
+    if (value.cacheKey.isSet()) {
+        out << "    cacheKey = "
+            << value.cacheKey.ref() << "\n";
+    }
+    else {
+        out << "    cacheKey is not set\n";
+    }
+
+    if (value.cacheExpires.isSet()) {
+        out << "    cacheExpires = "
+            << value.cacheExpires.ref() << "\n";
+    }
+    else {
+        out << "    cacheExpires is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeRelatedResultSpec(ThriftBinaryBufferWriter & w, const RelatedResultSpec & s) {
     w.writeStructBegin(QStringLiteral("RelatedResultSpec"));
     if (s.maxNotes.isSet()) {
@@ -3393,6 +5707,180 @@ void readRelatedResultSpec(ThriftBinaryBufferReader & r, RelatedResultSpec & s) 
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const RelatedResultSpec & value)
+{
+    out << "RelatedResultSpec: {\n";
+
+    if (value.maxNotes.isSet()) {
+        out << "    maxNotes = "
+            << value.maxNotes.ref() << "\n";
+    }
+    else {
+        out << "    maxNotes is not set\n";
+    }
+
+    if (value.maxNotebooks.isSet()) {
+        out << "    maxNotebooks = "
+            << value.maxNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    maxNotebooks is not set\n";
+    }
+
+    if (value.maxTags.isSet()) {
+        out << "    maxTags = "
+            << value.maxTags.ref() << "\n";
+    }
+    else {
+        out << "    maxTags is not set\n";
+    }
+
+    if (value.writableNotebooksOnly.isSet()) {
+        out << "    writableNotebooksOnly = "
+            << value.writableNotebooksOnly.ref() << "\n";
+    }
+    else {
+        out << "    writableNotebooksOnly is not set\n";
+    }
+
+    if (value.includeContainingNotebooks.isSet()) {
+        out << "    includeContainingNotebooks = "
+            << value.includeContainingNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeContainingNotebooks is not set\n";
+    }
+
+    if (value.includeDebugInfo.isSet()) {
+        out << "    includeDebugInfo = "
+            << value.includeDebugInfo.ref() << "\n";
+    }
+    else {
+        out << "    includeDebugInfo is not set\n";
+    }
+
+    if (value.maxExperts.isSet()) {
+        out << "    maxExperts = "
+            << value.maxExperts.ref() << "\n";
+    }
+    else {
+        out << "    maxExperts is not set\n";
+    }
+
+    if (value.maxRelatedContent.isSet()) {
+        out << "    maxRelatedContent = "
+            << value.maxRelatedContent.ref() << "\n";
+    }
+    else {
+        out << "    maxRelatedContent is not set\n";
+    }
+
+    if (value.relatedContentTypes.isSet()) {
+        out << "    relatedContentTypes = "
+            << "QSet<RelatedContentType> {";
+        for(const auto & v: value.relatedContentTypes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    relatedContentTypes is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const RelatedResultSpec & value)
+{
+    out << "RelatedResultSpec: {\n";
+
+    if (value.maxNotes.isSet()) {
+        out << "    maxNotes = "
+            << value.maxNotes.ref() << "\n";
+    }
+    else {
+        out << "    maxNotes is not set\n";
+    }
+
+    if (value.maxNotebooks.isSet()) {
+        out << "    maxNotebooks = "
+            << value.maxNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    maxNotebooks is not set\n";
+    }
+
+    if (value.maxTags.isSet()) {
+        out << "    maxTags = "
+            << value.maxTags.ref() << "\n";
+    }
+    else {
+        out << "    maxTags is not set\n";
+    }
+
+    if (value.writableNotebooksOnly.isSet()) {
+        out << "    writableNotebooksOnly = "
+            << value.writableNotebooksOnly.ref() << "\n";
+    }
+    else {
+        out << "    writableNotebooksOnly is not set\n";
+    }
+
+    if (value.includeContainingNotebooks.isSet()) {
+        out << "    includeContainingNotebooks = "
+            << value.includeContainingNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeContainingNotebooks is not set\n";
+    }
+
+    if (value.includeDebugInfo.isSet()) {
+        out << "    includeDebugInfo = "
+            << value.includeDebugInfo.ref() << "\n";
+    }
+    else {
+        out << "    includeDebugInfo is not set\n";
+    }
+
+    if (value.maxExperts.isSet()) {
+        out << "    maxExperts = "
+            << value.maxExperts.ref() << "\n";
+    }
+    else {
+        out << "    maxExperts is not set\n";
+    }
+
+    if (value.maxRelatedContent.isSet()) {
+        out << "    maxRelatedContent = "
+            << value.maxRelatedContent.ref() << "\n";
+    }
+    else {
+        out << "    maxRelatedContent is not set\n";
+    }
+
+    if (value.relatedContentTypes.isSet()) {
+        out << "    relatedContentTypes = "
+            << "QSet<RelatedContentType> {";
+        for(const auto & v: value.relatedContentTypes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    relatedContentTypes is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeUpdateNoteIfUsnMatchesResult(ThriftBinaryBufferWriter & w, const UpdateNoteIfUsnMatchesResult & s) {
     w.writeStructBegin(QStringLiteral("UpdateNoteIfUsnMatchesResult"));
     if (s.note.isSet()) {
@@ -3449,6 +5937,62 @@ void readUpdateNoteIfUsnMatchesResult(ThriftBinaryBufferReader & r, UpdateNoteIf
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const UpdateNoteIfUsnMatchesResult & value)
+{
+    out << "UpdateNoteIfUsnMatchesResult: {\n";
+
+    if (value.note.isSet()) {
+        out << "    note = "
+            << value.note.ref() << "\n";
+    }
+    else {
+        out << "    note is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const UpdateNoteIfUsnMatchesResult & value)
+{
+    out << "UpdateNoteIfUsnMatchesResult: {\n";
+
+    if (value.note.isSet()) {
+        out << "    note = "
+            << value.note.ref() << "\n";
+    }
+    else {
+        out << "    note is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeShareRelationshipRestrictions(ThriftBinaryBufferWriter & w, const ShareRelationshipRestrictions & s) {
     w.writeStructBegin(QStringLiteral("ShareRelationshipRestrictions"));
@@ -3541,6 +6085,94 @@ void readShareRelationshipRestrictions(ThriftBinaryBufferReader & r, ShareRelati
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ShareRelationshipRestrictions & value)
+{
+    out << "ShareRelationshipRestrictions: {\n";
+
+    if (value.noSetReadOnly.isSet()) {
+        out << "    noSetReadOnly = "
+            << value.noSetReadOnly.ref() << "\n";
+    }
+    else {
+        out << "    noSetReadOnly is not set\n";
+    }
+
+    if (value.noSetReadPlusActivity.isSet()) {
+        out << "    noSetReadPlusActivity = "
+            << value.noSetReadPlusActivity.ref() << "\n";
+    }
+    else {
+        out << "    noSetReadPlusActivity is not set\n";
+    }
+
+    if (value.noSetModify.isSet()) {
+        out << "    noSetModify = "
+            << value.noSetModify.ref() << "\n";
+    }
+    else {
+        out << "    noSetModify is not set\n";
+    }
+
+    if (value.noSetFullAccess.isSet()) {
+        out << "    noSetFullAccess = "
+            << value.noSetFullAccess.ref() << "\n";
+    }
+    else {
+        out << "    noSetFullAccess is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ShareRelationshipRestrictions & value)
+{
+    out << "ShareRelationshipRestrictions: {\n";
+
+    if (value.noSetReadOnly.isSet()) {
+        out << "    noSetReadOnly = "
+            << value.noSetReadOnly.ref() << "\n";
+    }
+    else {
+        out << "    noSetReadOnly is not set\n";
+    }
+
+    if (value.noSetReadPlusActivity.isSet()) {
+        out << "    noSetReadPlusActivity = "
+            << value.noSetReadPlusActivity.ref() << "\n";
+    }
+    else {
+        out << "    noSetReadPlusActivity is not set\n";
+    }
+
+    if (value.noSetModify.isSet()) {
+        out << "    noSetModify = "
+            << value.noSetModify.ref() << "\n";
+    }
+    else {
+        out << "    noSetModify is not set\n";
+    }
+
+    if (value.noSetFullAccess.isSet()) {
+        out << "    noSetFullAccess = "
+            << value.noSetFullAccess.ref() << "\n";
+    }
+    else {
+        out << "    noSetFullAccess is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeInvitationShareRelationship(ThriftBinaryBufferWriter & w, const InvitationShareRelationship & s) {
     w.writeStructBegin(QStringLiteral("InvitationShareRelationship"));
     if (s.displayName.isSet()) {
@@ -3631,6 +6263,94 @@ void readInvitationShareRelationship(ThriftBinaryBufferReader & r, InvitationSha
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const InvitationShareRelationship & value)
+{
+    out << "InvitationShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientUserIdentity.isSet()) {
+        out << "    recipientUserIdentity = "
+            << value.recipientUserIdentity.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserIdentity is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const InvitationShareRelationship & value)
+{
+    out << "InvitationShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientUserIdentity.isSet()) {
+        out << "    recipientUserIdentity = "
+            << value.recipientUserIdentity.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserIdentity is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeMemberShareRelationship(ThriftBinaryBufferWriter & w, const MemberShareRelationship & s) {
     w.writeStructBegin(QStringLiteral("MemberShareRelationship"));
@@ -3757,6 +6477,126 @@ void readMemberShareRelationship(ThriftBinaryBufferReader & r, MemberShareRelati
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const MemberShareRelationship & value)
+{
+    out << "MemberShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientUserId.isSet()) {
+        out << "    recipientUserId = "
+            << value.recipientUserId.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserId is not set\n";
+    }
+
+    if (value.bestPrivilege.isSet()) {
+        out << "    bestPrivilege = "
+            << value.bestPrivilege.ref() << "\n";
+    }
+    else {
+        out << "    bestPrivilege is not set\n";
+    }
+
+    if (value.individualPrivilege.isSet()) {
+        out << "    individualPrivilege = "
+            << value.individualPrivilege.ref() << "\n";
+    }
+    else {
+        out << "    individualPrivilege is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const MemberShareRelationship & value)
+{
+    out << "MemberShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientUserId.isSet()) {
+        out << "    recipientUserId = "
+            << value.recipientUserId.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserId is not set\n";
+    }
+
+    if (value.bestPrivilege.isSet()) {
+        out << "    bestPrivilege = "
+            << value.bestPrivilege.ref() << "\n";
+    }
+    else {
+        out << "    bestPrivilege is not set\n";
+    }
+
+    if (value.individualPrivilege.isSet()) {
+        out << "    individualPrivilege = "
+            << value.individualPrivilege.ref() << "\n";
+    }
+    else {
+        out << "    individualPrivilege is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeShareRelationships(ThriftBinaryBufferWriter & w, const ShareRelationships & s) {
     w.writeStructBegin(QStringLiteral("ShareRelationships"));
     if (s.invitations.isSet()) {
@@ -3858,6 +6698,90 @@ void readShareRelationships(ThriftBinaryBufferReader & r, ShareRelationships & s
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ShareRelationships & value)
+{
+    out << "ShareRelationships: {\n";
+
+    if (value.invitations.isSet()) {
+        out << "    invitations = "
+            << "QList<InvitationShareRelationship> {";
+        for(const auto & v: value.invitations.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitations is not set\n";
+    }
+
+    if (value.memberships.isSet()) {
+        out << "    memberships = "
+            << "QList<MemberShareRelationship> {";
+        for(const auto & v: value.memberships.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    memberships is not set\n";
+    }
+
+    if (value.invitationRestrictions.isSet()) {
+        out << "    invitationRestrictions = "
+            << value.invitationRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    invitationRestrictions is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ShareRelationships & value)
+{
+    out << "ShareRelationships: {\n";
+
+    if (value.invitations.isSet()) {
+        out << "    invitations = "
+            << "QList<InvitationShareRelationship> {";
+        for(const auto & v: value.invitations.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitations is not set\n";
+    }
+
+    if (value.memberships.isSet()) {
+        out << "    memberships = "
+            << "QList<MemberShareRelationship> {";
+        for(const auto & v: value.memberships.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    memberships is not set\n";
+    }
+
+    if (value.invitationRestrictions.isSet()) {
+        out << "    invitationRestrictions = "
+            << value.invitationRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    invitationRestrictions is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeManageNotebookSharesParameters(ThriftBinaryBufferWriter & w, const ManageNotebookSharesParameters & s) {
     w.writeStructBegin(QStringLiteral("ManageNotebookSharesParameters"));
@@ -4009,6 +6933,128 @@ void readManageNotebookSharesParameters(ThriftBinaryBufferReader & r, ManageNote
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ManageNotebookSharesParameters & value)
+{
+    out << "ManageNotebookSharesParameters: {\n";
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.inviteMessage.isSet()) {
+        out << "    inviteMessage = "
+            << value.inviteMessage.ref() << "\n";
+    }
+    else {
+        out << "    inviteMessage is not set\n";
+    }
+
+    if (value.membershipsToUpdate.isSet()) {
+        out << "    membershipsToUpdate = "
+            << "QList<MemberShareRelationship> {";
+        for(const auto & v: value.membershipsToUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    membershipsToUpdate is not set\n";
+    }
+
+    if (value.invitationsToCreateOrUpdate.isSet()) {
+        out << "    invitationsToCreateOrUpdate = "
+            << "QList<InvitationShareRelationship> {";
+        for(const auto & v: value.invitationsToCreateOrUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitationsToCreateOrUpdate is not set\n";
+    }
+
+    if (value.unshares.isSet()) {
+        out << "    unshares = "
+            << "QList<UserIdentity> {";
+        for(const auto & v: value.unshares.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    unshares is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ManageNotebookSharesParameters & value)
+{
+    out << "ManageNotebookSharesParameters: {\n";
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.inviteMessage.isSet()) {
+        out << "    inviteMessage = "
+            << value.inviteMessage.ref() << "\n";
+    }
+    else {
+        out << "    inviteMessage is not set\n";
+    }
+
+    if (value.membershipsToUpdate.isSet()) {
+        out << "    membershipsToUpdate = "
+            << "QList<MemberShareRelationship> {";
+        for(const auto & v: value.membershipsToUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    membershipsToUpdate is not set\n";
+    }
+
+    if (value.invitationsToCreateOrUpdate.isSet()) {
+        out << "    invitationsToCreateOrUpdate = "
+            << "QList<InvitationShareRelationship> {";
+        for(const auto & v: value.invitationsToCreateOrUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitationsToCreateOrUpdate is not set\n";
+    }
+
+    if (value.unshares.isSet()) {
+        out << "    unshares = "
+            << "QList<UserIdentity> {";
+        for(const auto & v: value.unshares.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    unshares is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeManageNotebookSharesError(ThriftBinaryBufferWriter & w, const ManageNotebookSharesError & s) {
     w.writeStructBegin(QStringLiteral("ManageNotebookSharesError"));
     if (s.userIdentity.isSet()) {
@@ -4083,6 +7129,78 @@ void readManageNotebookSharesError(ThriftBinaryBufferReader & r, ManageNotebookS
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ManageNotebookSharesError & value)
+{
+    out << "ManageNotebookSharesError: {\n";
+
+    if (value.userIdentity.isSet()) {
+        out << "    userIdentity = "
+            << value.userIdentity.ref() << "\n";
+    }
+    else {
+        out << "    userIdentity is not set\n";
+    }
+
+    if (value.userException.isSet()) {
+        out << "    userException = "
+            << value.userException.ref() << "\n";
+    }
+    else {
+        out << "    userException is not set\n";
+    }
+
+    if (value.notFoundException.isSet()) {
+        out << "    notFoundException = "
+            << value.notFoundException.ref() << "\n";
+    }
+    else {
+        out << "    notFoundException is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ManageNotebookSharesError & value)
+{
+    out << "ManageNotebookSharesError: {\n";
+
+    if (value.userIdentity.isSet()) {
+        out << "    userIdentity = "
+            << value.userIdentity.ref() << "\n";
+    }
+    else {
+        out << "    userIdentity is not set\n";
+    }
+
+    if (value.userException.isSet()) {
+        out << "    userException = "
+            << value.userException.ref() << "\n";
+    }
+    else {
+        out << "    userException is not set\n";
+    }
+
+    if (value.notFoundException.isSet()) {
+        out << "    notFoundException = "
+            << value.notFoundException.ref() << "\n";
+    }
+    else {
+        out << "    notFoundException is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeManageNotebookSharesResult(ThriftBinaryBufferWriter & w, const ManageNotebookSharesResult & s) {
     w.writeStructBegin(QStringLiteral("ManageNotebookSharesResult"));
     if (s.errors.isSet()) {
@@ -4136,6 +7254,52 @@ void readManageNotebookSharesResult(ThriftBinaryBufferReader & r, ManageNotebook
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ManageNotebookSharesResult & value)
+{
+    out << "ManageNotebookSharesResult: {\n";
+
+    if (value.errors.isSet()) {
+        out << "    errors = "
+            << "QList<ManageNotebookSharesError> {";
+        for(const auto & v: value.errors.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    errors is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ManageNotebookSharesResult & value)
+{
+    out << "ManageNotebookSharesResult: {\n";
+
+    if (value.errors.isSet()) {
+        out << "    errors = "
+            << "QList<ManageNotebookSharesError> {";
+        for(const auto & v: value.errors.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    errors is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeSharedNoteTemplate(ThriftBinaryBufferWriter & w, const SharedNoteTemplate & s) {
     w.writeStructBegin(QStringLiteral("SharedNoteTemplate"));
@@ -4242,6 +7406,100 @@ void readSharedNoteTemplate(ThriftBinaryBufferReader & r, SharedNoteTemplate & s
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SharedNoteTemplate & value)
+{
+    out << "SharedNoteTemplate: {\n";
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.recipientThreadId.isSet()) {
+        out << "    recipientThreadId = "
+            << value.recipientThreadId.ref() << "\n";
+    }
+    else {
+        out << "    recipientThreadId is not set\n";
+    }
+
+    if (value.recipientContacts.isSet()) {
+        out << "    recipientContacts = "
+            << "QList<Contact> {";
+        for(const auto & v: value.recipientContacts.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    recipientContacts is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SharedNoteTemplate & value)
+{
+    out << "SharedNoteTemplate: {\n";
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.recipientThreadId.isSet()) {
+        out << "    recipientThreadId = "
+            << value.recipientThreadId.ref() << "\n";
+    }
+    else {
+        out << "    recipientThreadId is not set\n";
+    }
+
+    if (value.recipientContacts.isSet()) {
+        out << "    recipientContacts = "
+            << "QList<Contact> {";
+        for(const auto & v: value.recipientContacts.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    recipientContacts is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNotebookShareTemplate(ThriftBinaryBufferWriter & w, const NotebookShareTemplate & s) {
     w.writeStructBegin(QStringLiteral("NotebookShareTemplate"));
     if (s.notebookGuid.isSet()) {
@@ -4347,6 +7605,100 @@ void readNotebookShareTemplate(ThriftBinaryBufferReader & r, NotebookShareTempla
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NotebookShareTemplate & value)
+{
+    out << "NotebookShareTemplate: {\n";
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.recipientThreadId.isSet()) {
+        out << "    recipientThreadId = "
+            << value.recipientThreadId.ref() << "\n";
+    }
+    else {
+        out << "    recipientThreadId is not set\n";
+    }
+
+    if (value.recipientContacts.isSet()) {
+        out << "    recipientContacts = "
+            << "QList<Contact> {";
+        for(const auto & v: value.recipientContacts.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    recipientContacts is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NotebookShareTemplate & value)
+{
+    out << "NotebookShareTemplate: {\n";
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.recipientThreadId.isSet()) {
+        out << "    recipientThreadId = "
+            << value.recipientThreadId.ref() << "\n";
+    }
+    else {
+        out << "    recipientThreadId is not set\n";
+    }
+
+    if (value.recipientContacts.isSet()) {
+        out << "    recipientContacts = "
+            << "QList<Contact> {";
+        for(const auto & v: value.recipientContacts.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    recipientContacts is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeCreateOrUpdateNotebookSharesResult(ThriftBinaryBufferWriter & w, const CreateOrUpdateNotebookSharesResult & s) {
     w.writeStructBegin(QStringLiteral("CreateOrUpdateNotebookSharesResult"));
     if (s.updateSequenceNum.isSet()) {
@@ -4417,6 +7769,68 @@ void readCreateOrUpdateNotebookSharesResult(ThriftBinaryBufferReader & r, Create
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const CreateOrUpdateNotebookSharesResult & value)
+{
+    out << "CreateOrUpdateNotebookSharesResult: {\n";
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.matchingShares.isSet()) {
+        out << "    matchingShares = "
+            << "QList<SharedNotebook> {";
+        for(const auto & v: value.matchingShares.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    matchingShares is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const CreateOrUpdateNotebookSharesResult & value)
+{
+    out << "CreateOrUpdateNotebookSharesResult: {\n";
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.matchingShares.isSet()) {
+        out << "    matchingShares = "
+            << "QList<SharedNotebook> {";
+        for(const auto & v: value.matchingShares.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    matchingShares is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNoteShareRelationshipRestrictions(ThriftBinaryBufferWriter & w, const NoteShareRelationshipRestrictions & s) {
     w.writeStructBegin(QStringLiteral("NoteShareRelationshipRestrictions"));
@@ -4491,6 +7905,78 @@ void readNoteShareRelationshipRestrictions(ThriftBinaryBufferReader & r, NoteSha
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteShareRelationshipRestrictions & value)
+{
+    out << "NoteShareRelationshipRestrictions: {\n";
+
+    if (value.noSetReadNote.isSet()) {
+        out << "    noSetReadNote = "
+            << value.noSetReadNote.ref() << "\n";
+    }
+    else {
+        out << "    noSetReadNote is not set\n";
+    }
+
+    if (value.noSetModifyNote.isSet()) {
+        out << "    noSetModifyNote = "
+            << value.noSetModifyNote.ref() << "\n";
+    }
+    else {
+        out << "    noSetModifyNote is not set\n";
+    }
+
+    if (value.noSetFullAccess.isSet()) {
+        out << "    noSetFullAccess = "
+            << value.noSetFullAccess.ref() << "\n";
+    }
+    else {
+        out << "    noSetFullAccess is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteShareRelationshipRestrictions & value)
+{
+    out << "NoteShareRelationshipRestrictions: {\n";
+
+    if (value.noSetReadNote.isSet()) {
+        out << "    noSetReadNote = "
+            << value.noSetReadNote.ref() << "\n";
+    }
+    else {
+        out << "    noSetReadNote is not set\n";
+    }
+
+    if (value.noSetModifyNote.isSet()) {
+        out << "    noSetModifyNote = "
+            << value.noSetModifyNote.ref() << "\n";
+    }
+    else {
+        out << "    noSetModifyNote is not set\n";
+    }
+
+    if (value.noSetFullAccess.isSet()) {
+        out << "    noSetFullAccess = "
+            << value.noSetFullAccess.ref() << "\n";
+    }
+    else {
+        out << "    noSetFullAccess is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNoteMemberShareRelationship(ThriftBinaryBufferWriter & w, const NoteMemberShareRelationship & s) {
     w.writeStructBegin(QStringLiteral("NoteMemberShareRelationship"));
@@ -4600,6 +8086,110 @@ void readNoteMemberShareRelationship(ThriftBinaryBufferReader & r, NoteMemberSha
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteMemberShareRelationship & value)
+{
+    out << "NoteMemberShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientUserId.isSet()) {
+        out << "    recipientUserId = "
+            << value.recipientUserId.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserId is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteMemberShareRelationship & value)
+{
+    out << "NoteMemberShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientUserId.isSet()) {
+        out << "    recipientUserId = "
+            << value.recipientUserId.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserId is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteInvitationShareRelationship(ThriftBinaryBufferWriter & w, const NoteInvitationShareRelationship & s) {
     w.writeStructBegin(QStringLiteral("NoteInvitationShareRelationship"));
     if (s.displayName.isSet()) {
@@ -4690,6 +8280,94 @@ void readNoteInvitationShareRelationship(ThriftBinaryBufferReader & r, NoteInvit
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteInvitationShareRelationship & value)
+{
+    out << "NoteInvitationShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientIdentityId.isSet()) {
+        out << "    recipientIdentityId = "
+            << value.recipientIdentityId.ref() << "\n";
+    }
+    else {
+        out << "    recipientIdentityId is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteInvitationShareRelationship & value)
+{
+    out << "NoteInvitationShareRelationship: {\n";
+
+    if (value.displayName.isSet()) {
+        out << "    displayName = "
+            << value.displayName.ref() << "\n";
+    }
+    else {
+        out << "    displayName is not set\n";
+    }
+
+    if (value.recipientIdentityId.isSet()) {
+        out << "    recipientIdentityId = "
+            << value.recipientIdentityId.ref() << "\n";
+    }
+    else {
+        out << "    recipientIdentityId is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNoteShareRelationships(ThriftBinaryBufferWriter & w, const NoteShareRelationships & s) {
     w.writeStructBegin(QStringLiteral("NoteShareRelationships"));
@@ -4792,6 +8470,90 @@ void readNoteShareRelationships(ThriftBinaryBufferReader & r, NoteShareRelations
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteShareRelationships & value)
+{
+    out << "NoteShareRelationships: {\n";
+
+    if (value.invitations.isSet()) {
+        out << "    invitations = "
+            << "QList<NoteInvitationShareRelationship> {";
+        for(const auto & v: value.invitations.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitations is not set\n";
+    }
+
+    if (value.memberships.isSet()) {
+        out << "    memberships = "
+            << "QList<NoteMemberShareRelationship> {";
+        for(const auto & v: value.memberships.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    memberships is not set\n";
+    }
+
+    if (value.invitationRestrictions.isSet()) {
+        out << "    invitationRestrictions = "
+            << value.invitationRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    invitationRestrictions is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteShareRelationships & value)
+{
+    out << "NoteShareRelationships: {\n";
+
+    if (value.invitations.isSet()) {
+        out << "    invitations = "
+            << "QList<NoteInvitationShareRelationship> {";
+        for(const auto & v: value.invitations.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitations is not set\n";
+    }
+
+    if (value.memberships.isSet()) {
+        out << "    memberships = "
+            << "QList<NoteMemberShareRelationship> {";
+        for(const auto & v: value.memberships.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    memberships is not set\n";
+    }
+
+    if (value.invitationRestrictions.isSet()) {
+        out << "    invitationRestrictions = "
+            << value.invitationRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    invitationRestrictions is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeManageNoteSharesParameters(ThriftBinaryBufferWriter & w, const ManageNoteSharesParameters & s) {
     w.writeStructBegin(QStringLiteral("ManageNoteSharesParameters"));
@@ -4957,6 +8719,134 @@ void readManageNoteSharesParameters(ThriftBinaryBufferReader & r, ManageNoteShar
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ManageNoteSharesParameters & value)
+{
+    out << "ManageNoteSharesParameters: {\n";
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.membershipsToUpdate.isSet()) {
+        out << "    membershipsToUpdate = "
+            << "QList<NoteMemberShareRelationship> {";
+        for(const auto & v: value.membershipsToUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    membershipsToUpdate is not set\n";
+    }
+
+    if (value.invitationsToUpdate.isSet()) {
+        out << "    invitationsToUpdate = "
+            << "QList<NoteInvitationShareRelationship> {";
+        for(const auto & v: value.invitationsToUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitationsToUpdate is not set\n";
+    }
+
+    if (value.membershipsToUnshare.isSet()) {
+        out << "    membershipsToUnshare = "
+            << "QList<UserID> {";
+        for(const auto & v: value.membershipsToUnshare.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    membershipsToUnshare is not set\n";
+    }
+
+    if (value.invitationsToUnshare.isSet()) {
+        out << "    invitationsToUnshare = "
+            << "QList<IdentityID> {";
+        for(const auto & v: value.invitationsToUnshare.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitationsToUnshare is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ManageNoteSharesParameters & value)
+{
+    out << "ManageNoteSharesParameters: {\n";
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.membershipsToUpdate.isSet()) {
+        out << "    membershipsToUpdate = "
+            << "QList<NoteMemberShareRelationship> {";
+        for(const auto & v: value.membershipsToUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    membershipsToUpdate is not set\n";
+    }
+
+    if (value.invitationsToUpdate.isSet()) {
+        out << "    invitationsToUpdate = "
+            << "QList<NoteInvitationShareRelationship> {";
+        for(const auto & v: value.invitationsToUpdate.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitationsToUpdate is not set\n";
+    }
+
+    if (value.membershipsToUnshare.isSet()) {
+        out << "    membershipsToUnshare = "
+            << "QList<UserID> {";
+        for(const auto & v: value.membershipsToUnshare.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    membershipsToUnshare is not set\n";
+    }
+
+    if (value.invitationsToUnshare.isSet()) {
+        out << "    invitationsToUnshare = "
+            << "QList<IdentityID> {";
+        for(const auto & v: value.invitationsToUnshare.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    invitationsToUnshare is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeManageNoteSharesError(ThriftBinaryBufferWriter & w, const ManageNoteSharesError & s) {
     w.writeStructBegin(QStringLiteral("ManageNoteSharesError"));
     if (s.identityID.isSet()) {
@@ -5048,6 +8938,94 @@ void readManageNoteSharesError(ThriftBinaryBufferReader & r, ManageNoteSharesErr
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ManageNoteSharesError & value)
+{
+    out << "ManageNoteSharesError: {\n";
+
+    if (value.identityID.isSet()) {
+        out << "    identityID = "
+            << value.identityID.ref() << "\n";
+    }
+    else {
+        out << "    identityID is not set\n";
+    }
+
+    if (value.userID.isSet()) {
+        out << "    userID = "
+            << value.userID.ref() << "\n";
+    }
+    else {
+        out << "    userID is not set\n";
+    }
+
+    if (value.userException.isSet()) {
+        out << "    userException = "
+            << value.userException.ref() << "\n";
+    }
+    else {
+        out << "    userException is not set\n";
+    }
+
+    if (value.notFoundException.isSet()) {
+        out << "    notFoundException = "
+            << value.notFoundException.ref() << "\n";
+    }
+    else {
+        out << "    notFoundException is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ManageNoteSharesError & value)
+{
+    out << "ManageNoteSharesError: {\n";
+
+    if (value.identityID.isSet()) {
+        out << "    identityID = "
+            << value.identityID.ref() << "\n";
+    }
+    else {
+        out << "    identityID is not set\n";
+    }
+
+    if (value.userID.isSet()) {
+        out << "    userID = "
+            << value.userID.ref() << "\n";
+    }
+    else {
+        out << "    userID is not set\n";
+    }
+
+    if (value.userException.isSet()) {
+        out << "    userException = "
+            << value.userException.ref() << "\n";
+    }
+    else {
+        out << "    userException is not set\n";
+    }
+
+    if (value.notFoundException.isSet()) {
+        out << "    notFoundException = "
+            << value.notFoundException.ref() << "\n";
+    }
+    else {
+        out << "    notFoundException is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeManageNoteSharesResult(ThriftBinaryBufferWriter & w, const ManageNoteSharesResult & s) {
     w.writeStructBegin(QStringLiteral("ManageNoteSharesResult"));
     if (s.errors.isSet()) {
@@ -5101,6 +9079,52 @@ void readManageNoteSharesResult(ThriftBinaryBufferReader & r, ManageNoteSharesRe
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ManageNoteSharesResult & value)
+{
+    out << "ManageNoteSharesResult: {\n";
+
+    if (value.errors.isSet()) {
+        out << "    errors = "
+            << "QList<ManageNoteSharesError> {";
+        for(const auto & v: value.errors.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    errors is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ManageNoteSharesResult & value)
+{
+    out << "ManageNoteSharesResult: {\n";
+
+    if (value.errors.isSet()) {
+        out << "    errors = "
+            << "QList<ManageNoteSharesError> {";
+        for(const auto & v: value.errors.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    errors is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeData(ThriftBinaryBufferWriter & w, const Data & s) {
     w.writeStructBegin(QStringLiteral("Data"));
@@ -5175,6 +9199,78 @@ void readData(ThriftBinaryBufferReader & r, Data & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Data & value)
+{
+    out << "Data: {\n";
+
+    if (value.bodyHash.isSet()) {
+        out << "    bodyHash = "
+            << value.bodyHash.ref() << "\n";
+    }
+    else {
+        out << "    bodyHash is not set\n";
+    }
+
+    if (value.size.isSet()) {
+        out << "    size = "
+            << value.size.ref() << "\n";
+    }
+    else {
+        out << "    size is not set\n";
+    }
+
+    if (value.body.isSet()) {
+        out << "    body = "
+            << value.body.ref() << "\n";
+    }
+    else {
+        out << "    body is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Data & value)
+{
+    out << "Data: {\n";
+
+    if (value.bodyHash.isSet()) {
+        out << "    bodyHash = "
+            << value.bodyHash.ref() << "\n";
+    }
+    else {
+        out << "    bodyHash is not set\n";
+    }
+
+    if (value.size.isSet()) {
+        out << "    size = "
+            << value.size.ref() << "\n";
+    }
+    else {
+        out << "    size is not set\n";
+    }
+
+    if (value.body.isSet()) {
+        out << "    body = "
+            << value.body.ref() << "\n";
+    }
+    else {
+        out << "    body is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeUserAttributes(ThriftBinaryBufferWriter & w, const UserAttributes & s) {
     w.writeStructBegin(QStringLiteral("UserAttributes"));
@@ -5822,6 +9918,602 @@ void readUserAttributes(ThriftBinaryBufferReader & r, UserAttributes & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const UserAttributes & value)
+{
+    out << "UserAttributes: {\n";
+
+    if (value.defaultLocationName.isSet()) {
+        out << "    defaultLocationName = "
+            << value.defaultLocationName.ref() << "\n";
+    }
+    else {
+        out << "    defaultLocationName is not set\n";
+    }
+
+    if (value.defaultLatitude.isSet()) {
+        out << "    defaultLatitude = "
+            << value.defaultLatitude.ref() << "\n";
+    }
+    else {
+        out << "    defaultLatitude is not set\n";
+    }
+
+    if (value.defaultLongitude.isSet()) {
+        out << "    defaultLongitude = "
+            << value.defaultLongitude.ref() << "\n";
+    }
+    else {
+        out << "    defaultLongitude is not set\n";
+    }
+
+    if (value.preactivation.isSet()) {
+        out << "    preactivation = "
+            << value.preactivation.ref() << "\n";
+    }
+    else {
+        out << "    preactivation is not set\n";
+    }
+
+    if (value.viewedPromotions.isSet()) {
+        out << "    viewedPromotions = "
+            << "QList<QString> {";
+        for(const auto & v: value.viewedPromotions.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    viewedPromotions is not set\n";
+    }
+
+    if (value.incomingEmailAddress.isSet()) {
+        out << "    incomingEmailAddress = "
+            << value.incomingEmailAddress.ref() << "\n";
+    }
+    else {
+        out << "    incomingEmailAddress is not set\n";
+    }
+
+    if (value.recentMailedAddresses.isSet()) {
+        out << "    recentMailedAddresses = "
+            << "QList<QString> {";
+        for(const auto & v: value.recentMailedAddresses.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    recentMailedAddresses is not set\n";
+    }
+
+    if (value.comments.isSet()) {
+        out << "    comments = "
+            << value.comments.ref() << "\n";
+    }
+    else {
+        out << "    comments is not set\n";
+    }
+
+    if (value.dateAgreedToTermsOfService.isSet()) {
+        out << "    dateAgreedToTermsOfService = "
+            << value.dateAgreedToTermsOfService.ref() << "\n";
+    }
+    else {
+        out << "    dateAgreedToTermsOfService is not set\n";
+    }
+
+    if (value.maxReferrals.isSet()) {
+        out << "    maxReferrals = "
+            << value.maxReferrals.ref() << "\n";
+    }
+    else {
+        out << "    maxReferrals is not set\n";
+    }
+
+    if (value.referralCount.isSet()) {
+        out << "    referralCount = "
+            << value.referralCount.ref() << "\n";
+    }
+    else {
+        out << "    referralCount is not set\n";
+    }
+
+    if (value.refererCode.isSet()) {
+        out << "    refererCode = "
+            << value.refererCode.ref() << "\n";
+    }
+    else {
+        out << "    refererCode is not set\n";
+    }
+
+    if (value.sentEmailDate.isSet()) {
+        out << "    sentEmailDate = "
+            << value.sentEmailDate.ref() << "\n";
+    }
+    else {
+        out << "    sentEmailDate is not set\n";
+    }
+
+    if (value.sentEmailCount.isSet()) {
+        out << "    sentEmailCount = "
+            << value.sentEmailCount.ref() << "\n";
+    }
+    else {
+        out << "    sentEmailCount is not set\n";
+    }
+
+    if (value.dailyEmailLimit.isSet()) {
+        out << "    dailyEmailLimit = "
+            << value.dailyEmailLimit.ref() << "\n";
+    }
+    else {
+        out << "    dailyEmailLimit is not set\n";
+    }
+
+    if (value.emailOptOutDate.isSet()) {
+        out << "    emailOptOutDate = "
+            << value.emailOptOutDate.ref() << "\n";
+    }
+    else {
+        out << "    emailOptOutDate is not set\n";
+    }
+
+    if (value.partnerEmailOptInDate.isSet()) {
+        out << "    partnerEmailOptInDate = "
+            << value.partnerEmailOptInDate.ref() << "\n";
+    }
+    else {
+        out << "    partnerEmailOptInDate is not set\n";
+    }
+
+    if (value.preferredLanguage.isSet()) {
+        out << "    preferredLanguage = "
+            << value.preferredLanguage.ref() << "\n";
+    }
+    else {
+        out << "    preferredLanguage is not set\n";
+    }
+
+    if (value.preferredCountry.isSet()) {
+        out << "    preferredCountry = "
+            << value.preferredCountry.ref() << "\n";
+    }
+    else {
+        out << "    preferredCountry is not set\n";
+    }
+
+    if (value.clipFullPage.isSet()) {
+        out << "    clipFullPage = "
+            << value.clipFullPage.ref() << "\n";
+    }
+    else {
+        out << "    clipFullPage is not set\n";
+    }
+
+    if (value.twitterUserName.isSet()) {
+        out << "    twitterUserName = "
+            << value.twitterUserName.ref() << "\n";
+    }
+    else {
+        out << "    twitterUserName is not set\n";
+    }
+
+    if (value.twitterId.isSet()) {
+        out << "    twitterId = "
+            << value.twitterId.ref() << "\n";
+    }
+    else {
+        out << "    twitterId is not set\n";
+    }
+
+    if (value.groupName.isSet()) {
+        out << "    groupName = "
+            << value.groupName.ref() << "\n";
+    }
+    else {
+        out << "    groupName is not set\n";
+    }
+
+    if (value.recognitionLanguage.isSet()) {
+        out << "    recognitionLanguage = "
+            << value.recognitionLanguage.ref() << "\n";
+    }
+    else {
+        out << "    recognitionLanguage is not set\n";
+    }
+
+    if (value.referralProof.isSet()) {
+        out << "    referralProof = "
+            << value.referralProof.ref() << "\n";
+    }
+    else {
+        out << "    referralProof is not set\n";
+    }
+
+    if (value.educationalDiscount.isSet()) {
+        out << "    educationalDiscount = "
+            << value.educationalDiscount.ref() << "\n";
+    }
+    else {
+        out << "    educationalDiscount is not set\n";
+    }
+
+    if (value.businessAddress.isSet()) {
+        out << "    businessAddress = "
+            << value.businessAddress.ref() << "\n";
+    }
+    else {
+        out << "    businessAddress is not set\n";
+    }
+
+    if (value.hideSponsorBilling.isSet()) {
+        out << "    hideSponsorBilling = "
+            << value.hideSponsorBilling.ref() << "\n";
+    }
+    else {
+        out << "    hideSponsorBilling is not set\n";
+    }
+
+    if (value.useEmailAutoFiling.isSet()) {
+        out << "    useEmailAutoFiling = "
+            << value.useEmailAutoFiling.ref() << "\n";
+    }
+    else {
+        out << "    useEmailAutoFiling is not set\n";
+    }
+
+    if (value.reminderEmailConfig.isSet()) {
+        out << "    reminderEmailConfig = "
+            << value.reminderEmailConfig.ref() << "\n";
+    }
+    else {
+        out << "    reminderEmailConfig is not set\n";
+    }
+
+    if (value.emailAddressLastConfirmed.isSet()) {
+        out << "    emailAddressLastConfirmed = "
+            << value.emailAddressLastConfirmed.ref() << "\n";
+    }
+    else {
+        out << "    emailAddressLastConfirmed is not set\n";
+    }
+
+    if (value.passwordUpdated.isSet()) {
+        out << "    passwordUpdated = "
+            << value.passwordUpdated.ref() << "\n";
+    }
+    else {
+        out << "    passwordUpdated is not set\n";
+    }
+
+    if (value.salesforcePushEnabled.isSet()) {
+        out << "    salesforcePushEnabled = "
+            << value.salesforcePushEnabled.ref() << "\n";
+    }
+    else {
+        out << "    salesforcePushEnabled is not set\n";
+    }
+
+    if (value.shouldLogClientEvent.isSet()) {
+        out << "    shouldLogClientEvent = "
+            << value.shouldLogClientEvent.ref() << "\n";
+    }
+    else {
+        out << "    shouldLogClientEvent is not set\n";
+    }
+
+    if (value.optOutMachineLearning.isSet()) {
+        out << "    optOutMachineLearning = "
+            << value.optOutMachineLearning.ref() << "\n";
+    }
+    else {
+        out << "    optOutMachineLearning is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const UserAttributes & value)
+{
+    out << "UserAttributes: {\n";
+
+    if (value.defaultLocationName.isSet()) {
+        out << "    defaultLocationName = "
+            << value.defaultLocationName.ref() << "\n";
+    }
+    else {
+        out << "    defaultLocationName is not set\n";
+    }
+
+    if (value.defaultLatitude.isSet()) {
+        out << "    defaultLatitude = "
+            << value.defaultLatitude.ref() << "\n";
+    }
+    else {
+        out << "    defaultLatitude is not set\n";
+    }
+
+    if (value.defaultLongitude.isSet()) {
+        out << "    defaultLongitude = "
+            << value.defaultLongitude.ref() << "\n";
+    }
+    else {
+        out << "    defaultLongitude is not set\n";
+    }
+
+    if (value.preactivation.isSet()) {
+        out << "    preactivation = "
+            << value.preactivation.ref() << "\n";
+    }
+    else {
+        out << "    preactivation is not set\n";
+    }
+
+    if (value.viewedPromotions.isSet()) {
+        out << "    viewedPromotions = "
+            << "QList<QString> {";
+        for(const auto & v: value.viewedPromotions.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    viewedPromotions is not set\n";
+    }
+
+    if (value.incomingEmailAddress.isSet()) {
+        out << "    incomingEmailAddress = "
+            << value.incomingEmailAddress.ref() << "\n";
+    }
+    else {
+        out << "    incomingEmailAddress is not set\n";
+    }
+
+    if (value.recentMailedAddresses.isSet()) {
+        out << "    recentMailedAddresses = "
+            << "QList<QString> {";
+        for(const auto & v: value.recentMailedAddresses.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    recentMailedAddresses is not set\n";
+    }
+
+    if (value.comments.isSet()) {
+        out << "    comments = "
+            << value.comments.ref() << "\n";
+    }
+    else {
+        out << "    comments is not set\n";
+    }
+
+    if (value.dateAgreedToTermsOfService.isSet()) {
+        out << "    dateAgreedToTermsOfService = "
+            << value.dateAgreedToTermsOfService.ref() << "\n";
+    }
+    else {
+        out << "    dateAgreedToTermsOfService is not set\n";
+    }
+
+    if (value.maxReferrals.isSet()) {
+        out << "    maxReferrals = "
+            << value.maxReferrals.ref() << "\n";
+    }
+    else {
+        out << "    maxReferrals is not set\n";
+    }
+
+    if (value.referralCount.isSet()) {
+        out << "    referralCount = "
+            << value.referralCount.ref() << "\n";
+    }
+    else {
+        out << "    referralCount is not set\n";
+    }
+
+    if (value.refererCode.isSet()) {
+        out << "    refererCode = "
+            << value.refererCode.ref() << "\n";
+    }
+    else {
+        out << "    refererCode is not set\n";
+    }
+
+    if (value.sentEmailDate.isSet()) {
+        out << "    sentEmailDate = "
+            << value.sentEmailDate.ref() << "\n";
+    }
+    else {
+        out << "    sentEmailDate is not set\n";
+    }
+
+    if (value.sentEmailCount.isSet()) {
+        out << "    sentEmailCount = "
+            << value.sentEmailCount.ref() << "\n";
+    }
+    else {
+        out << "    sentEmailCount is not set\n";
+    }
+
+    if (value.dailyEmailLimit.isSet()) {
+        out << "    dailyEmailLimit = "
+            << value.dailyEmailLimit.ref() << "\n";
+    }
+    else {
+        out << "    dailyEmailLimit is not set\n";
+    }
+
+    if (value.emailOptOutDate.isSet()) {
+        out << "    emailOptOutDate = "
+            << value.emailOptOutDate.ref() << "\n";
+    }
+    else {
+        out << "    emailOptOutDate is not set\n";
+    }
+
+    if (value.partnerEmailOptInDate.isSet()) {
+        out << "    partnerEmailOptInDate = "
+            << value.partnerEmailOptInDate.ref() << "\n";
+    }
+    else {
+        out << "    partnerEmailOptInDate is not set\n";
+    }
+
+    if (value.preferredLanguage.isSet()) {
+        out << "    preferredLanguage = "
+            << value.preferredLanguage.ref() << "\n";
+    }
+    else {
+        out << "    preferredLanguage is not set\n";
+    }
+
+    if (value.preferredCountry.isSet()) {
+        out << "    preferredCountry = "
+            << value.preferredCountry.ref() << "\n";
+    }
+    else {
+        out << "    preferredCountry is not set\n";
+    }
+
+    if (value.clipFullPage.isSet()) {
+        out << "    clipFullPage = "
+            << value.clipFullPage.ref() << "\n";
+    }
+    else {
+        out << "    clipFullPage is not set\n";
+    }
+
+    if (value.twitterUserName.isSet()) {
+        out << "    twitterUserName = "
+            << value.twitterUserName.ref() << "\n";
+    }
+    else {
+        out << "    twitterUserName is not set\n";
+    }
+
+    if (value.twitterId.isSet()) {
+        out << "    twitterId = "
+            << value.twitterId.ref() << "\n";
+    }
+    else {
+        out << "    twitterId is not set\n";
+    }
+
+    if (value.groupName.isSet()) {
+        out << "    groupName = "
+            << value.groupName.ref() << "\n";
+    }
+    else {
+        out << "    groupName is not set\n";
+    }
+
+    if (value.recognitionLanguage.isSet()) {
+        out << "    recognitionLanguage = "
+            << value.recognitionLanguage.ref() << "\n";
+    }
+    else {
+        out << "    recognitionLanguage is not set\n";
+    }
+
+    if (value.referralProof.isSet()) {
+        out << "    referralProof = "
+            << value.referralProof.ref() << "\n";
+    }
+    else {
+        out << "    referralProof is not set\n";
+    }
+
+    if (value.educationalDiscount.isSet()) {
+        out << "    educationalDiscount = "
+            << value.educationalDiscount.ref() << "\n";
+    }
+    else {
+        out << "    educationalDiscount is not set\n";
+    }
+
+    if (value.businessAddress.isSet()) {
+        out << "    businessAddress = "
+            << value.businessAddress.ref() << "\n";
+    }
+    else {
+        out << "    businessAddress is not set\n";
+    }
+
+    if (value.hideSponsorBilling.isSet()) {
+        out << "    hideSponsorBilling = "
+            << value.hideSponsorBilling.ref() << "\n";
+    }
+    else {
+        out << "    hideSponsorBilling is not set\n";
+    }
+
+    if (value.useEmailAutoFiling.isSet()) {
+        out << "    useEmailAutoFiling = "
+            << value.useEmailAutoFiling.ref() << "\n";
+    }
+    else {
+        out << "    useEmailAutoFiling is not set\n";
+    }
+
+    if (value.reminderEmailConfig.isSet()) {
+        out << "    reminderEmailConfig = "
+            << value.reminderEmailConfig.ref() << "\n";
+    }
+    else {
+        out << "    reminderEmailConfig is not set\n";
+    }
+
+    if (value.emailAddressLastConfirmed.isSet()) {
+        out << "    emailAddressLastConfirmed = "
+            << value.emailAddressLastConfirmed.ref() << "\n";
+    }
+    else {
+        out << "    emailAddressLastConfirmed is not set\n";
+    }
+
+    if (value.passwordUpdated.isSet()) {
+        out << "    passwordUpdated = "
+            << value.passwordUpdated.ref() << "\n";
+    }
+    else {
+        out << "    passwordUpdated is not set\n";
+    }
+
+    if (value.salesforcePushEnabled.isSet()) {
+        out << "    salesforcePushEnabled = "
+            << value.salesforcePushEnabled.ref() << "\n";
+    }
+    else {
+        out << "    salesforcePushEnabled is not set\n";
+    }
+
+    if (value.shouldLogClientEvent.isSet()) {
+        out << "    shouldLogClientEvent = "
+            << value.shouldLogClientEvent.ref() << "\n";
+    }
+    else {
+        out << "    shouldLogClientEvent is not set\n";
+    }
+
+    if (value.optOutMachineLearning.isSet()) {
+        out << "    optOutMachineLearning = "
+            << value.optOutMachineLearning.ref() << "\n";
+    }
+    else {
+        out << "    optOutMachineLearning is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeBusinessUserAttributes(ThriftBinaryBufferWriter & w, const BusinessUserAttributes & s) {
     w.writeStructBegin(QStringLiteral("BusinessUserAttributes"));
     if (s.title.isSet()) {
@@ -5963,6 +10655,142 @@ void readBusinessUserAttributes(ThriftBinaryBufferReader & r, BusinessUserAttrib
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BusinessUserAttributes & value)
+{
+    out << "BusinessUserAttributes: {\n";
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.location.isSet()) {
+        out << "    location = "
+            << value.location.ref() << "\n";
+    }
+    else {
+        out << "    location is not set\n";
+    }
+
+    if (value.department.isSet()) {
+        out << "    department = "
+            << value.department.ref() << "\n";
+    }
+    else {
+        out << "    department is not set\n";
+    }
+
+    if (value.mobilePhone.isSet()) {
+        out << "    mobilePhone = "
+            << value.mobilePhone.ref() << "\n";
+    }
+    else {
+        out << "    mobilePhone is not set\n";
+    }
+
+    if (value.linkedInProfileUrl.isSet()) {
+        out << "    linkedInProfileUrl = "
+            << value.linkedInProfileUrl.ref() << "\n";
+    }
+    else {
+        out << "    linkedInProfileUrl is not set\n";
+    }
+
+    if (value.workPhone.isSet()) {
+        out << "    workPhone = "
+            << value.workPhone.ref() << "\n";
+    }
+    else {
+        out << "    workPhone is not set\n";
+    }
+
+    if (value.companyStartDate.isSet()) {
+        out << "    companyStartDate = "
+            << value.companyStartDate.ref() << "\n";
+    }
+    else {
+        out << "    companyStartDate is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BusinessUserAttributes & value)
+{
+    out << "BusinessUserAttributes: {\n";
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.location.isSet()) {
+        out << "    location = "
+            << value.location.ref() << "\n";
+    }
+    else {
+        out << "    location is not set\n";
+    }
+
+    if (value.department.isSet()) {
+        out << "    department = "
+            << value.department.ref() << "\n";
+    }
+    else {
+        out << "    department is not set\n";
+    }
+
+    if (value.mobilePhone.isSet()) {
+        out << "    mobilePhone = "
+            << value.mobilePhone.ref() << "\n";
+    }
+    else {
+        out << "    mobilePhone is not set\n";
+    }
+
+    if (value.linkedInProfileUrl.isSet()) {
+        out << "    linkedInProfileUrl = "
+            << value.linkedInProfileUrl.ref() << "\n";
+    }
+    else {
+        out << "    linkedInProfileUrl is not set\n";
+    }
+
+    if (value.workPhone.isSet()) {
+        out << "    workPhone = "
+            << value.workPhone.ref() << "\n";
+    }
+    else {
+        out << "    workPhone is not set\n";
+    }
+
+    if (value.companyStartDate.isSet()) {
+        out << "    companyStartDate = "
+            << value.companyStartDate.ref() << "\n";
+    }
+    else {
+        out << "    companyStartDate is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeAccounting(ThriftBinaryBufferWriter & w, const Accounting & s) {
     w.writeStructBegin(QStringLiteral("Accounting"));
@@ -6378,6 +11206,398 @@ void readAccounting(ThriftBinaryBufferReader & r, Accounting & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Accounting & value)
+{
+    out << "Accounting: {\n";
+
+    if (value.uploadLimitEnd.isSet()) {
+        out << "    uploadLimitEnd = "
+            << value.uploadLimitEnd.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimitEnd is not set\n";
+    }
+
+    if (value.uploadLimitNextMonth.isSet()) {
+        out << "    uploadLimitNextMonth = "
+            << value.uploadLimitNextMonth.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimitNextMonth is not set\n";
+    }
+
+    if (value.premiumServiceStatus.isSet()) {
+        out << "    premiumServiceStatus = "
+            << value.premiumServiceStatus.ref() << "\n";
+    }
+    else {
+        out << "    premiumServiceStatus is not set\n";
+    }
+
+    if (value.premiumOrderNumber.isSet()) {
+        out << "    premiumOrderNumber = "
+            << value.premiumOrderNumber.ref() << "\n";
+    }
+    else {
+        out << "    premiumOrderNumber is not set\n";
+    }
+
+    if (value.premiumCommerceService.isSet()) {
+        out << "    premiumCommerceService = "
+            << value.premiumCommerceService.ref() << "\n";
+    }
+    else {
+        out << "    premiumCommerceService is not set\n";
+    }
+
+    if (value.premiumServiceStart.isSet()) {
+        out << "    premiumServiceStart = "
+            << value.premiumServiceStart.ref() << "\n";
+    }
+    else {
+        out << "    premiumServiceStart is not set\n";
+    }
+
+    if (value.premiumServiceSKU.isSet()) {
+        out << "    premiumServiceSKU = "
+            << value.premiumServiceSKU.ref() << "\n";
+    }
+    else {
+        out << "    premiumServiceSKU is not set\n";
+    }
+
+    if (value.lastSuccessfulCharge.isSet()) {
+        out << "    lastSuccessfulCharge = "
+            << value.lastSuccessfulCharge.ref() << "\n";
+    }
+    else {
+        out << "    lastSuccessfulCharge is not set\n";
+    }
+
+    if (value.lastFailedCharge.isSet()) {
+        out << "    lastFailedCharge = "
+            << value.lastFailedCharge.ref() << "\n";
+    }
+    else {
+        out << "    lastFailedCharge is not set\n";
+    }
+
+    if (value.lastFailedChargeReason.isSet()) {
+        out << "    lastFailedChargeReason = "
+            << value.lastFailedChargeReason.ref() << "\n";
+    }
+    else {
+        out << "    lastFailedChargeReason is not set\n";
+    }
+
+    if (value.nextPaymentDue.isSet()) {
+        out << "    nextPaymentDue = "
+            << value.nextPaymentDue.ref() << "\n";
+    }
+    else {
+        out << "    nextPaymentDue is not set\n";
+    }
+
+    if (value.premiumLockUntil.isSet()) {
+        out << "    premiumLockUntil = "
+            << value.premiumLockUntil.ref() << "\n";
+    }
+    else {
+        out << "    premiumLockUntil is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.premiumSubscriptionNumber.isSet()) {
+        out << "    premiumSubscriptionNumber = "
+            << value.premiumSubscriptionNumber.ref() << "\n";
+    }
+    else {
+        out << "    premiumSubscriptionNumber is not set\n";
+    }
+
+    if (value.lastRequestedCharge.isSet()) {
+        out << "    lastRequestedCharge = "
+            << value.lastRequestedCharge.ref() << "\n";
+    }
+    else {
+        out << "    lastRequestedCharge is not set\n";
+    }
+
+    if (value.currency.isSet()) {
+        out << "    currency = "
+            << value.currency.ref() << "\n";
+    }
+    else {
+        out << "    currency is not set\n";
+    }
+
+    if (value.unitPrice.isSet()) {
+        out << "    unitPrice = "
+            << value.unitPrice.ref() << "\n";
+    }
+    else {
+        out << "    unitPrice is not set\n";
+    }
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    if (value.businessName.isSet()) {
+        out << "    businessName = "
+            << value.businessName.ref() << "\n";
+    }
+    else {
+        out << "    businessName is not set\n";
+    }
+
+    if (value.businessRole.isSet()) {
+        out << "    businessRole = "
+            << value.businessRole.ref() << "\n";
+    }
+    else {
+        out << "    businessRole is not set\n";
+    }
+
+    if (value.unitDiscount.isSet()) {
+        out << "    unitDiscount = "
+            << value.unitDiscount.ref() << "\n";
+    }
+    else {
+        out << "    unitDiscount is not set\n";
+    }
+
+    if (value.nextChargeDate.isSet()) {
+        out << "    nextChargeDate = "
+            << value.nextChargeDate.ref() << "\n";
+    }
+    else {
+        out << "    nextChargeDate is not set\n";
+    }
+
+    if (value.availablePoints.isSet()) {
+        out << "    availablePoints = "
+            << value.availablePoints.ref() << "\n";
+    }
+    else {
+        out << "    availablePoints is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Accounting & value)
+{
+    out << "Accounting: {\n";
+
+    if (value.uploadLimitEnd.isSet()) {
+        out << "    uploadLimitEnd = "
+            << value.uploadLimitEnd.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimitEnd is not set\n";
+    }
+
+    if (value.uploadLimitNextMonth.isSet()) {
+        out << "    uploadLimitNextMonth = "
+            << value.uploadLimitNextMonth.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimitNextMonth is not set\n";
+    }
+
+    if (value.premiumServiceStatus.isSet()) {
+        out << "    premiumServiceStatus = "
+            << value.premiumServiceStatus.ref() << "\n";
+    }
+    else {
+        out << "    premiumServiceStatus is not set\n";
+    }
+
+    if (value.premiumOrderNumber.isSet()) {
+        out << "    premiumOrderNumber = "
+            << value.premiumOrderNumber.ref() << "\n";
+    }
+    else {
+        out << "    premiumOrderNumber is not set\n";
+    }
+
+    if (value.premiumCommerceService.isSet()) {
+        out << "    premiumCommerceService = "
+            << value.premiumCommerceService.ref() << "\n";
+    }
+    else {
+        out << "    premiumCommerceService is not set\n";
+    }
+
+    if (value.premiumServiceStart.isSet()) {
+        out << "    premiumServiceStart = "
+            << value.premiumServiceStart.ref() << "\n";
+    }
+    else {
+        out << "    premiumServiceStart is not set\n";
+    }
+
+    if (value.premiumServiceSKU.isSet()) {
+        out << "    premiumServiceSKU = "
+            << value.premiumServiceSKU.ref() << "\n";
+    }
+    else {
+        out << "    premiumServiceSKU is not set\n";
+    }
+
+    if (value.lastSuccessfulCharge.isSet()) {
+        out << "    lastSuccessfulCharge = "
+            << value.lastSuccessfulCharge.ref() << "\n";
+    }
+    else {
+        out << "    lastSuccessfulCharge is not set\n";
+    }
+
+    if (value.lastFailedCharge.isSet()) {
+        out << "    lastFailedCharge = "
+            << value.lastFailedCharge.ref() << "\n";
+    }
+    else {
+        out << "    lastFailedCharge is not set\n";
+    }
+
+    if (value.lastFailedChargeReason.isSet()) {
+        out << "    lastFailedChargeReason = "
+            << value.lastFailedChargeReason.ref() << "\n";
+    }
+    else {
+        out << "    lastFailedChargeReason is not set\n";
+    }
+
+    if (value.nextPaymentDue.isSet()) {
+        out << "    nextPaymentDue = "
+            << value.nextPaymentDue.ref() << "\n";
+    }
+    else {
+        out << "    nextPaymentDue is not set\n";
+    }
+
+    if (value.premiumLockUntil.isSet()) {
+        out << "    premiumLockUntil = "
+            << value.premiumLockUntil.ref() << "\n";
+    }
+    else {
+        out << "    premiumLockUntil is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.premiumSubscriptionNumber.isSet()) {
+        out << "    premiumSubscriptionNumber = "
+            << value.premiumSubscriptionNumber.ref() << "\n";
+    }
+    else {
+        out << "    premiumSubscriptionNumber is not set\n";
+    }
+
+    if (value.lastRequestedCharge.isSet()) {
+        out << "    lastRequestedCharge = "
+            << value.lastRequestedCharge.ref() << "\n";
+    }
+    else {
+        out << "    lastRequestedCharge is not set\n";
+    }
+
+    if (value.currency.isSet()) {
+        out << "    currency = "
+            << value.currency.ref() << "\n";
+    }
+    else {
+        out << "    currency is not set\n";
+    }
+
+    if (value.unitPrice.isSet()) {
+        out << "    unitPrice = "
+            << value.unitPrice.ref() << "\n";
+    }
+    else {
+        out << "    unitPrice is not set\n";
+    }
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    if (value.businessName.isSet()) {
+        out << "    businessName = "
+            << value.businessName.ref() << "\n";
+    }
+    else {
+        out << "    businessName is not set\n";
+    }
+
+    if (value.businessRole.isSet()) {
+        out << "    businessRole = "
+            << value.businessRole.ref() << "\n";
+    }
+    else {
+        out << "    businessRole is not set\n";
+    }
+
+    if (value.unitDiscount.isSet()) {
+        out << "    unitDiscount = "
+            << value.unitDiscount.ref() << "\n";
+    }
+    else {
+        out << "    unitDiscount is not set\n";
+    }
+
+    if (value.nextChargeDate.isSet()) {
+        out << "    nextChargeDate = "
+            << value.nextChargeDate.ref() << "\n";
+    }
+    else {
+        out << "    nextChargeDate is not set\n";
+    }
+
+    if (value.availablePoints.isSet()) {
+        out << "    availablePoints = "
+            << value.availablePoints.ref() << "\n";
+    }
+    else {
+        out << "    availablePoints is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeBusinessUserInfo(ThriftBinaryBufferWriter & w, const BusinessUserInfo & s) {
     w.writeStructBegin(QStringLiteral("BusinessUserInfo"));
     if (s.businessId.isSet()) {
@@ -6485,6 +11705,110 @@ void readBusinessUserInfo(ThriftBinaryBufferReader & r, BusinessUserInfo & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BusinessUserInfo & value)
+{
+    out << "BusinessUserInfo: {\n";
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    if (value.businessName.isSet()) {
+        out << "    businessName = "
+            << value.businessName.ref() << "\n";
+    }
+    else {
+        out << "    businessName is not set\n";
+    }
+
+    if (value.role.isSet()) {
+        out << "    role = "
+            << value.role.ref() << "\n";
+    }
+    else {
+        out << "    role is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BusinessUserInfo & value)
+{
+    out << "BusinessUserInfo: {\n";
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    if (value.businessName.isSet()) {
+        out << "    businessName = "
+            << value.businessName.ref() << "\n";
+    }
+    else {
+        out << "    businessName is not set\n";
+    }
+
+    if (value.role.isSet()) {
+        out << "    role = "
+            << value.role.ref() << "\n";
+    }
+    else {
+        out << "    role is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeAccountLimits(ThriftBinaryBufferWriter & w, const AccountLimits & s) {
     w.writeStructBegin(QStringLiteral("AccountLimits"));
@@ -6695,6 +12019,206 @@ void readAccountLimits(ThriftBinaryBufferReader & r, AccountLimits & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const AccountLimits & value)
+{
+    out << "AccountLimits: {\n";
+
+    if (value.userMailLimitDaily.isSet()) {
+        out << "    userMailLimitDaily = "
+            << value.userMailLimitDaily.ref() << "\n";
+    }
+    else {
+        out << "    userMailLimitDaily is not set\n";
+    }
+
+    if (value.noteSizeMax.isSet()) {
+        out << "    noteSizeMax = "
+            << value.noteSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    noteSizeMax is not set\n";
+    }
+
+    if (value.resourceSizeMax.isSet()) {
+        out << "    resourceSizeMax = "
+            << value.resourceSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    resourceSizeMax is not set\n";
+    }
+
+    if (value.userLinkedNotebookMax.isSet()) {
+        out << "    userLinkedNotebookMax = "
+            << value.userLinkedNotebookMax.ref() << "\n";
+    }
+    else {
+        out << "    userLinkedNotebookMax is not set\n";
+    }
+
+    if (value.uploadLimit.isSet()) {
+        out << "    uploadLimit = "
+            << value.uploadLimit.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimit is not set\n";
+    }
+
+    if (value.userNoteCountMax.isSet()) {
+        out << "    userNoteCountMax = "
+            << value.userNoteCountMax.ref() << "\n";
+    }
+    else {
+        out << "    userNoteCountMax is not set\n";
+    }
+
+    if (value.userNotebookCountMax.isSet()) {
+        out << "    userNotebookCountMax = "
+            << value.userNotebookCountMax.ref() << "\n";
+    }
+    else {
+        out << "    userNotebookCountMax is not set\n";
+    }
+
+    if (value.userTagCountMax.isSet()) {
+        out << "    userTagCountMax = "
+            << value.userTagCountMax.ref() << "\n";
+    }
+    else {
+        out << "    userTagCountMax is not set\n";
+    }
+
+    if (value.noteTagCountMax.isSet()) {
+        out << "    noteTagCountMax = "
+            << value.noteTagCountMax.ref() << "\n";
+    }
+    else {
+        out << "    noteTagCountMax is not set\n";
+    }
+
+    if (value.userSavedSearchesMax.isSet()) {
+        out << "    userSavedSearchesMax = "
+            << value.userSavedSearchesMax.ref() << "\n";
+    }
+    else {
+        out << "    userSavedSearchesMax is not set\n";
+    }
+
+    if (value.noteResourceCountMax.isSet()) {
+        out << "    noteResourceCountMax = "
+            << value.noteResourceCountMax.ref() << "\n";
+    }
+    else {
+        out << "    noteResourceCountMax is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const AccountLimits & value)
+{
+    out << "AccountLimits: {\n";
+
+    if (value.userMailLimitDaily.isSet()) {
+        out << "    userMailLimitDaily = "
+            << value.userMailLimitDaily.ref() << "\n";
+    }
+    else {
+        out << "    userMailLimitDaily is not set\n";
+    }
+
+    if (value.noteSizeMax.isSet()) {
+        out << "    noteSizeMax = "
+            << value.noteSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    noteSizeMax is not set\n";
+    }
+
+    if (value.resourceSizeMax.isSet()) {
+        out << "    resourceSizeMax = "
+            << value.resourceSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    resourceSizeMax is not set\n";
+    }
+
+    if (value.userLinkedNotebookMax.isSet()) {
+        out << "    userLinkedNotebookMax = "
+            << value.userLinkedNotebookMax.ref() << "\n";
+    }
+    else {
+        out << "    userLinkedNotebookMax is not set\n";
+    }
+
+    if (value.uploadLimit.isSet()) {
+        out << "    uploadLimit = "
+            << value.uploadLimit.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimit is not set\n";
+    }
+
+    if (value.userNoteCountMax.isSet()) {
+        out << "    userNoteCountMax = "
+            << value.userNoteCountMax.ref() << "\n";
+    }
+    else {
+        out << "    userNoteCountMax is not set\n";
+    }
+
+    if (value.userNotebookCountMax.isSet()) {
+        out << "    userNotebookCountMax = "
+            << value.userNotebookCountMax.ref() << "\n";
+    }
+    else {
+        out << "    userNotebookCountMax is not set\n";
+    }
+
+    if (value.userTagCountMax.isSet()) {
+        out << "    userTagCountMax = "
+            << value.userTagCountMax.ref() << "\n";
+    }
+    else {
+        out << "    userTagCountMax is not set\n";
+    }
+
+    if (value.noteTagCountMax.isSet()) {
+        out << "    noteTagCountMax = "
+            << value.noteTagCountMax.ref() << "\n";
+    }
+    else {
+        out << "    noteTagCountMax is not set\n";
+    }
+
+    if (value.userSavedSearchesMax.isSet()) {
+        out << "    userSavedSearchesMax = "
+            << value.userSavedSearchesMax.ref() << "\n";
+    }
+    else {
+        out << "    userSavedSearchesMax is not set\n";
+    }
+
+    if (value.noteResourceCountMax.isSet()) {
+        out << "    noteResourceCountMax = "
+            << value.noteResourceCountMax.ref() << "\n";
+    }
+    else {
+        out << "    noteResourceCountMax is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeUser(ThriftBinaryBufferWriter & w, const User & s) {
     w.writeStructBegin(QStringLiteral("User"));
@@ -7025,6 +12549,318 @@ void readUser(ThriftBinaryBufferReader & r, User & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const User & value)
+{
+    out << "User: {\n";
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.timezone.isSet()) {
+        out << "    timezone = "
+            << value.timezone.ref() << "\n";
+    }
+    else {
+        out << "    timezone is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.serviceLevel.isSet()) {
+        out << "    serviceLevel = "
+            << value.serviceLevel.ref() << "\n";
+    }
+    else {
+        out << "    serviceLevel is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.deleted.isSet()) {
+        out << "    deleted = "
+            << value.deleted.ref() << "\n";
+    }
+    else {
+        out << "    deleted is not set\n";
+    }
+
+    if (value.active.isSet()) {
+        out << "    active = "
+            << value.active.ref() << "\n";
+    }
+    else {
+        out << "    active is not set\n";
+    }
+
+    if (value.shardId.isSet()) {
+        out << "    shardId = "
+            << value.shardId.ref() << "\n";
+    }
+    else {
+        out << "    shardId is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.accounting.isSet()) {
+        out << "    accounting = "
+            << value.accounting.ref() << "\n";
+    }
+    else {
+        out << "    accounting is not set\n";
+    }
+
+    if (value.businessUserInfo.isSet()) {
+        out << "    businessUserInfo = "
+            << value.businessUserInfo.ref() << "\n";
+    }
+    else {
+        out << "    businessUserInfo is not set\n";
+    }
+
+    if (value.photoUrl.isSet()) {
+        out << "    photoUrl = "
+            << value.photoUrl.ref() << "\n";
+    }
+    else {
+        out << "    photoUrl is not set\n";
+    }
+
+    if (value.photoLastUpdated.isSet()) {
+        out << "    photoLastUpdated = "
+            << value.photoLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    photoLastUpdated is not set\n";
+    }
+
+    if (value.accountLimits.isSet()) {
+        out << "    accountLimits = "
+            << value.accountLimits.ref() << "\n";
+    }
+    else {
+        out << "    accountLimits is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const User & value)
+{
+    out << "User: {\n";
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.timezone.isSet()) {
+        out << "    timezone = "
+            << value.timezone.ref() << "\n";
+    }
+    else {
+        out << "    timezone is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.serviceLevel.isSet()) {
+        out << "    serviceLevel = "
+            << value.serviceLevel.ref() << "\n";
+    }
+    else {
+        out << "    serviceLevel is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.deleted.isSet()) {
+        out << "    deleted = "
+            << value.deleted.ref() << "\n";
+    }
+    else {
+        out << "    deleted is not set\n";
+    }
+
+    if (value.active.isSet()) {
+        out << "    active = "
+            << value.active.ref() << "\n";
+    }
+    else {
+        out << "    active is not set\n";
+    }
+
+    if (value.shardId.isSet()) {
+        out << "    shardId = "
+            << value.shardId.ref() << "\n";
+    }
+    else {
+        out << "    shardId is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.accounting.isSet()) {
+        out << "    accounting = "
+            << value.accounting.ref() << "\n";
+    }
+    else {
+        out << "    accounting is not set\n";
+    }
+
+    if (value.businessUserInfo.isSet()) {
+        out << "    businessUserInfo = "
+            << value.businessUserInfo.ref() << "\n";
+    }
+    else {
+        out << "    businessUserInfo is not set\n";
+    }
+
+    if (value.photoUrl.isSet()) {
+        out << "    photoUrl = "
+            << value.photoUrl.ref() << "\n";
+    }
+    else {
+        out << "    photoUrl is not set\n";
+    }
+
+    if (value.photoLastUpdated.isSet()) {
+        out << "    photoLastUpdated = "
+            << value.photoLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    photoLastUpdated is not set\n";
+    }
+
+    if (value.accountLimits.isSet()) {
+        out << "    accountLimits = "
+            << value.accountLimits.ref() << "\n";
+    }
+    else {
+        out << "    accountLimits is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeContact(ThriftBinaryBufferWriter & w, const Contact & s) {
     w.writeStructBegin(QStringLiteral("Contact"));
     if (s.name.isSet()) {
@@ -7166,6 +13002,142 @@ void readContact(ThriftBinaryBufferReader & r, Contact & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Contact & value)
+{
+    out << "Contact: {\n";
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.type.isSet()) {
+        out << "    type = "
+            << value.type.ref() << "\n";
+    }
+    else {
+        out << "    type is not set\n";
+    }
+
+    if (value.photoUrl.isSet()) {
+        out << "    photoUrl = "
+            << value.photoUrl.ref() << "\n";
+    }
+    else {
+        out << "    photoUrl is not set\n";
+    }
+
+    if (value.photoLastUpdated.isSet()) {
+        out << "    photoLastUpdated = "
+            << value.photoLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    photoLastUpdated is not set\n";
+    }
+
+    if (value.messagingPermit.isSet()) {
+        out << "    messagingPermit = "
+            << value.messagingPermit.ref() << "\n";
+    }
+    else {
+        out << "    messagingPermit is not set\n";
+    }
+
+    if (value.messagingPermitExpires.isSet()) {
+        out << "    messagingPermitExpires = "
+            << value.messagingPermitExpires.ref() << "\n";
+    }
+    else {
+        out << "    messagingPermitExpires is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Contact & value)
+{
+    out << "Contact: {\n";
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.type.isSet()) {
+        out << "    type = "
+            << value.type.ref() << "\n";
+    }
+    else {
+        out << "    type is not set\n";
+    }
+
+    if (value.photoUrl.isSet()) {
+        out << "    photoUrl = "
+            << value.photoUrl.ref() << "\n";
+    }
+    else {
+        out << "    photoUrl is not set\n";
+    }
+
+    if (value.photoLastUpdated.isSet()) {
+        out << "    photoLastUpdated = "
+            << value.photoLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    photoLastUpdated is not set\n";
+    }
+
+    if (value.messagingPermit.isSet()) {
+        out << "    messagingPermit = "
+            << value.messagingPermit.ref() << "\n";
+    }
+    else {
+        out << "    messagingPermit is not set\n";
+    }
+
+    if (value.messagingPermitExpires.isSet()) {
+        out << "    messagingPermitExpires = "
+            << value.messagingPermitExpires.ref() << "\n";
+    }
+    else {
+        out << "    messagingPermitExpires is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeIdentity(ThriftBinaryBufferWriter & w, const Identity & s) {
     w.writeStructBegin(QStringLiteral("Identity"));
@@ -7327,6 +13299,146 @@ void readIdentity(ThriftBinaryBufferReader & r, Identity & s) {
     if(!id_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Identity.id has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Identity & value)
+{
+    out << "Identity: {\n";
+    out << "    id = "
+        << "IdentityID" << "\n";
+
+    if (value.contact.isSet()) {
+        out << "    contact = "
+            << value.contact.ref() << "\n";
+    }
+    else {
+        out << "    contact is not set\n";
+    }
+
+    if (value.userId.isSet()) {
+        out << "    userId = "
+            << value.userId.ref() << "\n";
+    }
+    else {
+        out << "    userId is not set\n";
+    }
+
+    if (value.deactivated.isSet()) {
+        out << "    deactivated = "
+            << value.deactivated.ref() << "\n";
+    }
+    else {
+        out << "    deactivated is not set\n";
+    }
+
+    if (value.sameBusiness.isSet()) {
+        out << "    sameBusiness = "
+            << value.sameBusiness.ref() << "\n";
+    }
+    else {
+        out << "    sameBusiness is not set\n";
+    }
+
+    if (value.blocked.isSet()) {
+        out << "    blocked = "
+            << value.blocked.ref() << "\n";
+    }
+    else {
+        out << "    blocked is not set\n";
+    }
+
+    if (value.userConnected.isSet()) {
+        out << "    userConnected = "
+            << value.userConnected.ref() << "\n";
+    }
+    else {
+        out << "    userConnected is not set\n";
+    }
+
+    if (value.eventId.isSet()) {
+        out << "    eventId = "
+            << value.eventId.ref() << "\n";
+    }
+    else {
+        out << "    eventId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Identity & value)
+{
+    out << "Identity: {\n";
+    out << "    id = "
+        << "IdentityID" << "\n";
+
+    if (value.contact.isSet()) {
+        out << "    contact = "
+            << value.contact.ref() << "\n";
+    }
+    else {
+        out << "    contact is not set\n";
+    }
+
+    if (value.userId.isSet()) {
+        out << "    userId = "
+            << value.userId.ref() << "\n";
+    }
+    else {
+        out << "    userId is not set\n";
+    }
+
+    if (value.deactivated.isSet()) {
+        out << "    deactivated = "
+            << value.deactivated.ref() << "\n";
+    }
+    else {
+        out << "    deactivated is not set\n";
+    }
+
+    if (value.sameBusiness.isSet()) {
+        out << "    sameBusiness = "
+            << value.sameBusiness.ref() << "\n";
+    }
+    else {
+        out << "    sameBusiness is not set\n";
+    }
+
+    if (value.blocked.isSet()) {
+        out << "    blocked = "
+            << value.blocked.ref() << "\n";
+    }
+    else {
+        out << "    blocked is not set\n";
+    }
+
+    if (value.userConnected.isSet()) {
+        out << "    userConnected = "
+            << value.userConnected.ref() << "\n";
+    }
+    else {
+        out << "    userConnected is not set\n";
+    }
+
+    if (value.eventId.isSet()) {
+        out << "    eventId = "
+            << value.eventId.ref() << "\n";
+    }
+    else {
+        out << "    eventId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeTag(ThriftBinaryBufferWriter & w, const Tag & s) {
     w.writeStructBegin(QStringLiteral("Tag"));
     if (s.guid.isSet()) {
@@ -7418,6 +13530,94 @@ void readTag(ThriftBinaryBufferReader & r, Tag & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Tag & value)
+{
+    out << "Tag: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.parentGuid.isSet()) {
+        out << "    parentGuid = "
+            << value.parentGuid.ref() << "\n";
+    }
+    else {
+        out << "    parentGuid is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Tag & value)
+{
+    out << "Tag: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.parentGuid.isSet()) {
+        out << "    parentGuid = "
+            << value.parentGuid.ref() << "\n";
+    }
+    else {
+        out << "    parentGuid is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeLazyMap(ThriftBinaryBufferWriter & w, const LazyMap & s) {
     w.writeStructBegin(QStringLiteral("LazyMap"));
     if (s.keysOnly.isSet()) {
@@ -7506,6 +13706,74 @@ void readLazyMap(ThriftBinaryBufferReader & r, LazyMap & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const LazyMap & value)
+{
+    out << "LazyMap: {\n";
+
+    if (value.keysOnly.isSet()) {
+        out << "    keysOnly = "
+            << "QSet<QString> {";
+        for(const auto & v: value.keysOnly.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    keysOnly is not set\n";
+    }
+
+    if (value.fullMap.isSet()) {
+        out << "    fullMap = "
+            << "QMap<QString, QString> {";
+        for(const auto & it: toRange(value.fullMap.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    fullMap is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const LazyMap & value)
+{
+    out << "LazyMap: {\n";
+
+    if (value.keysOnly.isSet()) {
+        out << "    keysOnly = "
+            << "QSet<QString> {";
+        for(const auto & v: value.keysOnly.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    keysOnly is not set\n";
+    }
+
+    if (value.fullMap.isSet()) {
+        out << "    fullMap = "
+            << "QMap<QString, QString> {";
+        for(const auto & it: toRange(value.fullMap.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    fullMap is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeResourceAttributes(ThriftBinaryBufferWriter & w, const ResourceAttributes & s) {
     w.writeStructBegin(QStringLiteral("ResourceAttributes"));
@@ -7734,6 +14002,222 @@ void readResourceAttributes(ThriftBinaryBufferReader & r, ResourceAttributes & s
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const ResourceAttributes & value)
+{
+    out << "ResourceAttributes: {\n";
+
+    if (value.sourceURL.isSet()) {
+        out << "    sourceURL = "
+            << value.sourceURL.ref() << "\n";
+    }
+    else {
+        out << "    sourceURL is not set\n";
+    }
+
+    if (value.timestamp.isSet()) {
+        out << "    timestamp = "
+            << value.timestamp.ref() << "\n";
+    }
+    else {
+        out << "    timestamp is not set\n";
+    }
+
+    if (value.latitude.isSet()) {
+        out << "    latitude = "
+            << value.latitude.ref() << "\n";
+    }
+    else {
+        out << "    latitude is not set\n";
+    }
+
+    if (value.longitude.isSet()) {
+        out << "    longitude = "
+            << value.longitude.ref() << "\n";
+    }
+    else {
+        out << "    longitude is not set\n";
+    }
+
+    if (value.altitude.isSet()) {
+        out << "    altitude = "
+            << value.altitude.ref() << "\n";
+    }
+    else {
+        out << "    altitude is not set\n";
+    }
+
+    if (value.cameraMake.isSet()) {
+        out << "    cameraMake = "
+            << value.cameraMake.ref() << "\n";
+    }
+    else {
+        out << "    cameraMake is not set\n";
+    }
+
+    if (value.cameraModel.isSet()) {
+        out << "    cameraModel = "
+            << value.cameraModel.ref() << "\n";
+    }
+    else {
+        out << "    cameraModel is not set\n";
+    }
+
+    if (value.clientWillIndex.isSet()) {
+        out << "    clientWillIndex = "
+            << value.clientWillIndex.ref() << "\n";
+    }
+    else {
+        out << "    clientWillIndex is not set\n";
+    }
+
+    if (value.recoType.isSet()) {
+        out << "    recoType = "
+            << value.recoType.ref() << "\n";
+    }
+    else {
+        out << "    recoType is not set\n";
+    }
+
+    if (value.fileName.isSet()) {
+        out << "    fileName = "
+            << value.fileName.ref() << "\n";
+    }
+    else {
+        out << "    fileName is not set\n";
+    }
+
+    if (value.attachment.isSet()) {
+        out << "    attachment = "
+            << value.attachment.ref() << "\n";
+    }
+    else {
+        out << "    attachment is not set\n";
+    }
+
+    if (value.applicationData.isSet()) {
+        out << "    applicationData = "
+            << value.applicationData.ref() << "\n";
+    }
+    else {
+        out << "    applicationData is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const ResourceAttributes & value)
+{
+    out << "ResourceAttributes: {\n";
+
+    if (value.sourceURL.isSet()) {
+        out << "    sourceURL = "
+            << value.sourceURL.ref() << "\n";
+    }
+    else {
+        out << "    sourceURL is not set\n";
+    }
+
+    if (value.timestamp.isSet()) {
+        out << "    timestamp = "
+            << value.timestamp.ref() << "\n";
+    }
+    else {
+        out << "    timestamp is not set\n";
+    }
+
+    if (value.latitude.isSet()) {
+        out << "    latitude = "
+            << value.latitude.ref() << "\n";
+    }
+    else {
+        out << "    latitude is not set\n";
+    }
+
+    if (value.longitude.isSet()) {
+        out << "    longitude = "
+            << value.longitude.ref() << "\n";
+    }
+    else {
+        out << "    longitude is not set\n";
+    }
+
+    if (value.altitude.isSet()) {
+        out << "    altitude = "
+            << value.altitude.ref() << "\n";
+    }
+    else {
+        out << "    altitude is not set\n";
+    }
+
+    if (value.cameraMake.isSet()) {
+        out << "    cameraMake = "
+            << value.cameraMake.ref() << "\n";
+    }
+    else {
+        out << "    cameraMake is not set\n";
+    }
+
+    if (value.cameraModel.isSet()) {
+        out << "    cameraModel = "
+            << value.cameraModel.ref() << "\n";
+    }
+    else {
+        out << "    cameraModel is not set\n";
+    }
+
+    if (value.clientWillIndex.isSet()) {
+        out << "    clientWillIndex = "
+            << value.clientWillIndex.ref() << "\n";
+    }
+    else {
+        out << "    clientWillIndex is not set\n";
+    }
+
+    if (value.recoType.isSet()) {
+        out << "    recoType = "
+            << value.recoType.ref() << "\n";
+    }
+    else {
+        out << "    recoType is not set\n";
+    }
+
+    if (value.fileName.isSet()) {
+        out << "    fileName = "
+            << value.fileName.ref() << "\n";
+    }
+    else {
+        out << "    fileName is not set\n";
+    }
+
+    if (value.attachment.isSet()) {
+        out << "    attachment = "
+            << value.attachment.ref() << "\n";
+    }
+    else {
+        out << "    attachment is not set\n";
+    }
+
+    if (value.applicationData.isSet()) {
+        out << "    applicationData = "
+            << value.applicationData.ref() << "\n";
+    }
+    else {
+        out << "    applicationData is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeResource(ThriftBinaryBufferWriter & w, const Resource & s) {
     w.writeStructBegin(QStringLiteral("Resource"));
     if (s.guid.isSet()) {
@@ -7960,6 +14444,222 @@ void readResource(ThriftBinaryBufferReader & r, Resource & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Resource & value)
+{
+    out << "Resource: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.data.isSet()) {
+        out << "    data = "
+            << value.data.ref() << "\n";
+    }
+    else {
+        out << "    data is not set\n";
+    }
+
+    if (value.mime.isSet()) {
+        out << "    mime = "
+            << value.mime.ref() << "\n";
+    }
+    else {
+        out << "    mime is not set\n";
+    }
+
+    if (value.width.isSet()) {
+        out << "    width = "
+            << value.width.ref() << "\n";
+    }
+    else {
+        out << "    width is not set\n";
+    }
+
+    if (value.height.isSet()) {
+        out << "    height = "
+            << value.height.ref() << "\n";
+    }
+    else {
+        out << "    height is not set\n";
+    }
+
+    if (value.duration.isSet()) {
+        out << "    duration = "
+            << value.duration.ref() << "\n";
+    }
+    else {
+        out << "    duration is not set\n";
+    }
+
+    if (value.active.isSet()) {
+        out << "    active = "
+            << value.active.ref() << "\n";
+    }
+    else {
+        out << "    active is not set\n";
+    }
+
+    if (value.recognition.isSet()) {
+        out << "    recognition = "
+            << value.recognition.ref() << "\n";
+    }
+    else {
+        out << "    recognition is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.alternateData.isSet()) {
+        out << "    alternateData = "
+            << value.alternateData.ref() << "\n";
+    }
+    else {
+        out << "    alternateData is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Resource & value)
+{
+    out << "Resource: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.noteGuid.isSet()) {
+        out << "    noteGuid = "
+            << value.noteGuid.ref() << "\n";
+    }
+    else {
+        out << "    noteGuid is not set\n";
+    }
+
+    if (value.data.isSet()) {
+        out << "    data = "
+            << value.data.ref() << "\n";
+    }
+    else {
+        out << "    data is not set\n";
+    }
+
+    if (value.mime.isSet()) {
+        out << "    mime = "
+            << value.mime.ref() << "\n";
+    }
+    else {
+        out << "    mime is not set\n";
+    }
+
+    if (value.width.isSet()) {
+        out << "    width = "
+            << value.width.ref() << "\n";
+    }
+    else {
+        out << "    width is not set\n";
+    }
+
+    if (value.height.isSet()) {
+        out << "    height = "
+            << value.height.ref() << "\n";
+    }
+    else {
+        out << "    height is not set\n";
+    }
+
+    if (value.duration.isSet()) {
+        out << "    duration = "
+            << value.duration.ref() << "\n";
+    }
+    else {
+        out << "    duration is not set\n";
+    }
+
+    if (value.active.isSet()) {
+        out << "    active = "
+            << value.active.ref() << "\n";
+    }
+    else {
+        out << "    active is not set\n";
+    }
+
+    if (value.recognition.isSet()) {
+        out << "    recognition = "
+            << value.recognition.ref() << "\n";
+    }
+    else {
+        out << "    recognition is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.alternateData.isSet()) {
+        out << "    alternateData = "
+            << value.alternateData.ref() << "\n";
+    }
+    else {
+        out << "    alternateData is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNoteAttributes(ThriftBinaryBufferWriter & w, const NoteAttributes & s) {
     w.writeStructBegin(QStringLiteral("NoteAttributes"));
@@ -8376,6 +15076,388 @@ void readNoteAttributes(ThriftBinaryBufferReader & r, NoteAttributes & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteAttributes & value)
+{
+    out << "NoteAttributes: {\n";
+
+    if (value.subjectDate.isSet()) {
+        out << "    subjectDate = "
+            << value.subjectDate.ref() << "\n";
+    }
+    else {
+        out << "    subjectDate is not set\n";
+    }
+
+    if (value.latitude.isSet()) {
+        out << "    latitude = "
+            << value.latitude.ref() << "\n";
+    }
+    else {
+        out << "    latitude is not set\n";
+    }
+
+    if (value.longitude.isSet()) {
+        out << "    longitude = "
+            << value.longitude.ref() << "\n";
+    }
+    else {
+        out << "    longitude is not set\n";
+    }
+
+    if (value.altitude.isSet()) {
+        out << "    altitude = "
+            << value.altitude.ref() << "\n";
+    }
+    else {
+        out << "    altitude is not set\n";
+    }
+
+    if (value.author.isSet()) {
+        out << "    author = "
+            << value.author.ref() << "\n";
+    }
+    else {
+        out << "    author is not set\n";
+    }
+
+    if (value.source.isSet()) {
+        out << "    source = "
+            << value.source.ref() << "\n";
+    }
+    else {
+        out << "    source is not set\n";
+    }
+
+    if (value.sourceURL.isSet()) {
+        out << "    sourceURL = "
+            << value.sourceURL.ref() << "\n";
+    }
+    else {
+        out << "    sourceURL is not set\n";
+    }
+
+    if (value.sourceApplication.isSet()) {
+        out << "    sourceApplication = "
+            << value.sourceApplication.ref() << "\n";
+    }
+    else {
+        out << "    sourceApplication is not set\n";
+    }
+
+    if (value.shareDate.isSet()) {
+        out << "    shareDate = "
+            << value.shareDate.ref() << "\n";
+    }
+    else {
+        out << "    shareDate is not set\n";
+    }
+
+    if (value.reminderOrder.isSet()) {
+        out << "    reminderOrder = "
+            << value.reminderOrder.ref() << "\n";
+    }
+    else {
+        out << "    reminderOrder is not set\n";
+    }
+
+    if (value.reminderDoneTime.isSet()) {
+        out << "    reminderDoneTime = "
+            << value.reminderDoneTime.ref() << "\n";
+    }
+    else {
+        out << "    reminderDoneTime is not set\n";
+    }
+
+    if (value.reminderTime.isSet()) {
+        out << "    reminderTime = "
+            << value.reminderTime.ref() << "\n";
+    }
+    else {
+        out << "    reminderTime is not set\n";
+    }
+
+    if (value.placeName.isSet()) {
+        out << "    placeName = "
+            << value.placeName.ref() << "\n";
+    }
+    else {
+        out << "    placeName is not set\n";
+    }
+
+    if (value.contentClass.isSet()) {
+        out << "    contentClass = "
+            << value.contentClass.ref() << "\n";
+    }
+    else {
+        out << "    contentClass is not set\n";
+    }
+
+    if (value.applicationData.isSet()) {
+        out << "    applicationData = "
+            << value.applicationData.ref() << "\n";
+    }
+    else {
+        out << "    applicationData is not set\n";
+    }
+
+    if (value.lastEditedBy.isSet()) {
+        out << "    lastEditedBy = "
+            << value.lastEditedBy.ref() << "\n";
+    }
+    else {
+        out << "    lastEditedBy is not set\n";
+    }
+
+    if (value.classifications.isSet()) {
+        out << "    classifications = "
+            << "QMap<QString, QString> {";
+        for(const auto & it: toRange(value.classifications.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    classifications is not set\n";
+    }
+
+    if (value.creatorId.isSet()) {
+        out << "    creatorId = "
+            << value.creatorId.ref() << "\n";
+    }
+    else {
+        out << "    creatorId is not set\n";
+    }
+
+    if (value.lastEditorId.isSet()) {
+        out << "    lastEditorId = "
+            << value.lastEditorId.ref() << "\n";
+    }
+    else {
+        out << "    lastEditorId is not set\n";
+    }
+
+    if (value.sharedWithBusiness.isSet()) {
+        out << "    sharedWithBusiness = "
+            << value.sharedWithBusiness.ref() << "\n";
+    }
+    else {
+        out << "    sharedWithBusiness is not set\n";
+    }
+
+    if (value.conflictSourceNoteGuid.isSet()) {
+        out << "    conflictSourceNoteGuid = "
+            << value.conflictSourceNoteGuid.ref() << "\n";
+    }
+    else {
+        out << "    conflictSourceNoteGuid is not set\n";
+    }
+
+    if (value.noteTitleQuality.isSet()) {
+        out << "    noteTitleQuality = "
+            << value.noteTitleQuality.ref() << "\n";
+    }
+    else {
+        out << "    noteTitleQuality is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteAttributes & value)
+{
+    out << "NoteAttributes: {\n";
+
+    if (value.subjectDate.isSet()) {
+        out << "    subjectDate = "
+            << value.subjectDate.ref() << "\n";
+    }
+    else {
+        out << "    subjectDate is not set\n";
+    }
+
+    if (value.latitude.isSet()) {
+        out << "    latitude = "
+            << value.latitude.ref() << "\n";
+    }
+    else {
+        out << "    latitude is not set\n";
+    }
+
+    if (value.longitude.isSet()) {
+        out << "    longitude = "
+            << value.longitude.ref() << "\n";
+    }
+    else {
+        out << "    longitude is not set\n";
+    }
+
+    if (value.altitude.isSet()) {
+        out << "    altitude = "
+            << value.altitude.ref() << "\n";
+    }
+    else {
+        out << "    altitude is not set\n";
+    }
+
+    if (value.author.isSet()) {
+        out << "    author = "
+            << value.author.ref() << "\n";
+    }
+    else {
+        out << "    author is not set\n";
+    }
+
+    if (value.source.isSet()) {
+        out << "    source = "
+            << value.source.ref() << "\n";
+    }
+    else {
+        out << "    source is not set\n";
+    }
+
+    if (value.sourceURL.isSet()) {
+        out << "    sourceURL = "
+            << value.sourceURL.ref() << "\n";
+    }
+    else {
+        out << "    sourceURL is not set\n";
+    }
+
+    if (value.sourceApplication.isSet()) {
+        out << "    sourceApplication = "
+            << value.sourceApplication.ref() << "\n";
+    }
+    else {
+        out << "    sourceApplication is not set\n";
+    }
+
+    if (value.shareDate.isSet()) {
+        out << "    shareDate = "
+            << value.shareDate.ref() << "\n";
+    }
+    else {
+        out << "    shareDate is not set\n";
+    }
+
+    if (value.reminderOrder.isSet()) {
+        out << "    reminderOrder = "
+            << value.reminderOrder.ref() << "\n";
+    }
+    else {
+        out << "    reminderOrder is not set\n";
+    }
+
+    if (value.reminderDoneTime.isSet()) {
+        out << "    reminderDoneTime = "
+            << value.reminderDoneTime.ref() << "\n";
+    }
+    else {
+        out << "    reminderDoneTime is not set\n";
+    }
+
+    if (value.reminderTime.isSet()) {
+        out << "    reminderTime = "
+            << value.reminderTime.ref() << "\n";
+    }
+    else {
+        out << "    reminderTime is not set\n";
+    }
+
+    if (value.placeName.isSet()) {
+        out << "    placeName = "
+            << value.placeName.ref() << "\n";
+    }
+    else {
+        out << "    placeName is not set\n";
+    }
+
+    if (value.contentClass.isSet()) {
+        out << "    contentClass = "
+            << value.contentClass.ref() << "\n";
+    }
+    else {
+        out << "    contentClass is not set\n";
+    }
+
+    if (value.applicationData.isSet()) {
+        out << "    applicationData = "
+            << value.applicationData.ref() << "\n";
+    }
+    else {
+        out << "    applicationData is not set\n";
+    }
+
+    if (value.lastEditedBy.isSet()) {
+        out << "    lastEditedBy = "
+            << value.lastEditedBy.ref() << "\n";
+    }
+    else {
+        out << "    lastEditedBy is not set\n";
+    }
+
+    if (value.classifications.isSet()) {
+        out << "    classifications = "
+            << "QMap<QString, QString> {";
+        for(const auto & it: toRange(value.classifications.ref())) {
+            out << "[" << it.key() << "] = " << it.value() << "\n";
+        }
+    }
+    else {
+        out << "    classifications is not set\n";
+    }
+
+    if (value.creatorId.isSet()) {
+        out << "    creatorId = "
+            << value.creatorId.ref() << "\n";
+    }
+    else {
+        out << "    creatorId is not set\n";
+    }
+
+    if (value.lastEditorId.isSet()) {
+        out << "    lastEditorId = "
+            << value.lastEditorId.ref() << "\n";
+    }
+    else {
+        out << "    lastEditorId is not set\n";
+    }
+
+    if (value.sharedWithBusiness.isSet()) {
+        out << "    sharedWithBusiness = "
+            << value.sharedWithBusiness.ref() << "\n";
+    }
+    else {
+        out << "    sharedWithBusiness is not set\n";
+    }
+
+    if (value.conflictSourceNoteGuid.isSet()) {
+        out << "    conflictSourceNoteGuid = "
+            << value.conflictSourceNoteGuid.ref() << "\n";
+    }
+    else {
+        out << "    conflictSourceNoteGuid is not set\n";
+    }
+
+    if (value.noteTitleQuality.isSet()) {
+        out << "    noteTitleQuality = "
+            << value.noteTitleQuality.ref() << "\n";
+    }
+    else {
+        out << "    noteTitleQuality is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeSharedNote(ThriftBinaryBufferWriter & w, const SharedNote & s) {
     w.writeStructBegin(QStringLiteral("SharedNote"));
     if (s.sharerUserID.isSet()) {
@@ -8501,6 +15583,126 @@ void readSharedNote(ThriftBinaryBufferReader & r, SharedNote & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SharedNote & value)
+{
+    out << "SharedNote: {\n";
+
+    if (value.sharerUserID.isSet()) {
+        out << "    sharerUserID = "
+            << value.sharerUserID.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserID is not set\n";
+    }
+
+    if (value.recipientIdentity.isSet()) {
+        out << "    recipientIdentity = "
+            << value.recipientIdentity.ref() << "\n";
+    }
+    else {
+        out << "    recipientIdentity is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.serviceCreated.isSet()) {
+        out << "    serviceCreated = "
+            << value.serviceCreated.ref() << "\n";
+    }
+    else {
+        out << "    serviceCreated is not set\n";
+    }
+
+    if (value.serviceUpdated.isSet()) {
+        out << "    serviceUpdated = "
+            << value.serviceUpdated.ref() << "\n";
+    }
+    else {
+        out << "    serviceUpdated is not set\n";
+    }
+
+    if (value.serviceAssigned.isSet()) {
+        out << "    serviceAssigned = "
+            << value.serviceAssigned.ref() << "\n";
+    }
+    else {
+        out << "    serviceAssigned is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SharedNote & value)
+{
+    out << "SharedNote: {\n";
+
+    if (value.sharerUserID.isSet()) {
+        out << "    sharerUserID = "
+            << value.sharerUserID.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserID is not set\n";
+    }
+
+    if (value.recipientIdentity.isSet()) {
+        out << "    recipientIdentity = "
+            << value.recipientIdentity.ref() << "\n";
+    }
+    else {
+        out << "    recipientIdentity is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.serviceCreated.isSet()) {
+        out << "    serviceCreated = "
+            << value.serviceCreated.ref() << "\n";
+    }
+    else {
+        out << "    serviceCreated is not set\n";
+    }
+
+    if (value.serviceUpdated.isSet()) {
+        out << "    serviceUpdated = "
+            << value.serviceUpdated.ref() << "\n";
+    }
+    else {
+        out << "    serviceUpdated is not set\n";
+    }
+
+    if (value.serviceAssigned.isSet()) {
+        out << "    serviceAssigned = "
+            << value.serviceAssigned.ref() << "\n";
+    }
+    else {
+        out << "    serviceAssigned is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteRestrictions(ThriftBinaryBufferWriter & w, const NoteRestrictions & s) {
     w.writeStructBegin(QStringLiteral("NoteRestrictions"));
     if (s.noUpdateTitle.isSet()) {
@@ -8609,6 +15811,110 @@ void readNoteRestrictions(ThriftBinaryBufferReader & r, NoteRestrictions & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteRestrictions & value)
+{
+    out << "NoteRestrictions: {\n";
+
+    if (value.noUpdateTitle.isSet()) {
+        out << "    noUpdateTitle = "
+            << value.noUpdateTitle.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateTitle is not set\n";
+    }
+
+    if (value.noUpdateContent.isSet()) {
+        out << "    noUpdateContent = "
+            << value.noUpdateContent.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateContent is not set\n";
+    }
+
+    if (value.noEmail.isSet()) {
+        out << "    noEmail = "
+            << value.noEmail.ref() << "\n";
+    }
+    else {
+        out << "    noEmail is not set\n";
+    }
+
+    if (value.noShare.isSet()) {
+        out << "    noShare = "
+            << value.noShare.ref() << "\n";
+    }
+    else {
+        out << "    noShare is not set\n";
+    }
+
+    if (value.noSharePublicly.isSet()) {
+        out << "    noSharePublicly = "
+            << value.noSharePublicly.ref() << "\n";
+    }
+    else {
+        out << "    noSharePublicly is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteRestrictions & value)
+{
+    out << "NoteRestrictions: {\n";
+
+    if (value.noUpdateTitle.isSet()) {
+        out << "    noUpdateTitle = "
+            << value.noUpdateTitle.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateTitle is not set\n";
+    }
+
+    if (value.noUpdateContent.isSet()) {
+        out << "    noUpdateContent = "
+            << value.noUpdateContent.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateContent is not set\n";
+    }
+
+    if (value.noEmail.isSet()) {
+        out << "    noEmail = "
+            << value.noEmail.ref() << "\n";
+    }
+    else {
+        out << "    noEmail is not set\n";
+    }
+
+    if (value.noShare.isSet()) {
+        out << "    noShare = "
+            << value.noShare.ref() << "\n";
+    }
+    else {
+        out << "    noShare is not set\n";
+    }
+
+    if (value.noSharePublicly.isSet()) {
+        out << "    noSharePublicly = "
+            << value.noSharePublicly.ref() << "\n";
+    }
+    else {
+        out << "    noSharePublicly is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNoteLimits(ThriftBinaryBufferWriter & w, const NoteLimits & s) {
     w.writeStructBegin(QStringLiteral("NoteLimits"));
     if (s.noteResourceCountMax.isSet()) {
@@ -8716,6 +16022,110 @@ void readNoteLimits(ThriftBinaryBufferReader & r, NoteLimits & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NoteLimits & value)
+{
+    out << "NoteLimits: {\n";
+
+    if (value.noteResourceCountMax.isSet()) {
+        out << "    noteResourceCountMax = "
+            << value.noteResourceCountMax.ref() << "\n";
+    }
+    else {
+        out << "    noteResourceCountMax is not set\n";
+    }
+
+    if (value.uploadLimit.isSet()) {
+        out << "    uploadLimit = "
+            << value.uploadLimit.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimit is not set\n";
+    }
+
+    if (value.resourceSizeMax.isSet()) {
+        out << "    resourceSizeMax = "
+            << value.resourceSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    resourceSizeMax is not set\n";
+    }
+
+    if (value.noteSizeMax.isSet()) {
+        out << "    noteSizeMax = "
+            << value.noteSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    noteSizeMax is not set\n";
+    }
+
+    if (value.uploaded.isSet()) {
+        out << "    uploaded = "
+            << value.uploaded.ref() << "\n";
+    }
+    else {
+        out << "    uploaded is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NoteLimits & value)
+{
+    out << "NoteLimits: {\n";
+
+    if (value.noteResourceCountMax.isSet()) {
+        out << "    noteResourceCountMax = "
+            << value.noteResourceCountMax.ref() << "\n";
+    }
+    else {
+        out << "    noteResourceCountMax is not set\n";
+    }
+
+    if (value.uploadLimit.isSet()) {
+        out << "    uploadLimit = "
+            << value.uploadLimit.ref() << "\n";
+    }
+    else {
+        out << "    uploadLimit is not set\n";
+    }
+
+    if (value.resourceSizeMax.isSet()) {
+        out << "    resourceSizeMax = "
+            << value.resourceSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    resourceSizeMax is not set\n";
+    }
+
+    if (value.noteSizeMax.isSet()) {
+        out << "    noteSizeMax = "
+            << value.noteSizeMax.ref() << "\n";
+    }
+    else {
+        out << "    noteSizeMax is not set\n";
+    }
+
+    if (value.uploaded.isSet()) {
+        out << "    uploaded = "
+            << value.uploaded.ref() << "\n";
+    }
+    else {
+        out << "    uploaded is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNote(ThriftBinaryBufferWriter & w, const Note & s) {
     w.writeStructBegin(QStringLiteral("Note"));
@@ -9102,6 +16512,342 @@ void readNote(ThriftBinaryBufferReader & r, Note & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Note & value)
+{
+    out << "Note: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.content.isSet()) {
+        out << "    content = "
+            << value.content.ref() << "\n";
+    }
+    else {
+        out << "    content is not set\n";
+    }
+
+    if (value.contentHash.isSet()) {
+        out << "    contentHash = "
+            << value.contentHash.ref() << "\n";
+    }
+    else {
+        out << "    contentHash is not set\n";
+    }
+
+    if (value.contentLength.isSet()) {
+        out << "    contentLength = "
+            << value.contentLength.ref() << "\n";
+    }
+    else {
+        out << "    contentLength is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.deleted.isSet()) {
+        out << "    deleted = "
+            << value.deleted.ref() << "\n";
+    }
+    else {
+        out << "    deleted is not set\n";
+    }
+
+    if (value.active.isSet()) {
+        out << "    active = "
+            << value.active.ref() << "\n";
+    }
+    else {
+        out << "    active is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.tagGuids.isSet()) {
+        out << "    tagGuids = "
+            << "QList<Guid> {";
+        for(const auto & v: value.tagGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagGuids is not set\n";
+    }
+
+    if (value.resources.isSet()) {
+        out << "    resources = "
+            << "QList<Resource> {";
+        for(const auto & v: value.resources.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    resources is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.tagNames.isSet()) {
+        out << "    tagNames = "
+            << "QList<QString> {";
+        for(const auto & v: value.tagNames.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagNames is not set\n";
+    }
+
+    if (value.sharedNotes.isSet()) {
+        out << "    sharedNotes = "
+            << "QList<SharedNote> {";
+        for(const auto & v: value.sharedNotes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    sharedNotes is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.limits.isSet()) {
+        out << "    limits = "
+            << value.limits.ref() << "\n";
+    }
+    else {
+        out << "    limits is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Note & value)
+{
+    out << "Note: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.content.isSet()) {
+        out << "    content = "
+            << value.content.ref() << "\n";
+    }
+    else {
+        out << "    content is not set\n";
+    }
+
+    if (value.contentHash.isSet()) {
+        out << "    contentHash = "
+            << value.contentHash.ref() << "\n";
+    }
+    else {
+        out << "    contentHash is not set\n";
+    }
+
+    if (value.contentLength.isSet()) {
+        out << "    contentLength = "
+            << value.contentLength.ref() << "\n";
+    }
+    else {
+        out << "    contentLength is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.updated.isSet()) {
+        out << "    updated = "
+            << value.updated.ref() << "\n";
+    }
+    else {
+        out << "    updated is not set\n";
+    }
+
+    if (value.deleted.isSet()) {
+        out << "    deleted = "
+            << value.deleted.ref() << "\n";
+    }
+    else {
+        out << "    deleted is not set\n";
+    }
+
+    if (value.active.isSet()) {
+        out << "    active = "
+            << value.active.ref() << "\n";
+    }
+    else {
+        out << "    active is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.tagGuids.isSet()) {
+        out << "    tagGuids = "
+            << "QList<Guid> {";
+        for(const auto & v: value.tagGuids.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagGuids is not set\n";
+    }
+
+    if (value.resources.isSet()) {
+        out << "    resources = "
+            << "QList<Resource> {";
+        for(const auto & v: value.resources.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    resources is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.tagNames.isSet()) {
+        out << "    tagNames = "
+            << "QList<QString> {";
+        for(const auto & v: value.tagNames.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    tagNames is not set\n";
+    }
+
+    if (value.sharedNotes.isSet()) {
+        out << "    sharedNotes = "
+            << "QList<SharedNote> {";
+        for(const auto & v: value.sharedNotes.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    sharedNotes is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.limits.isSet()) {
+        out << "    limits = "
+            << value.limits.ref() << "\n";
+    }
+    else {
+        out << "    limits is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writePublishing(ThriftBinaryBufferWriter & w, const Publishing & s) {
     w.writeStructBegin(QStringLiteral("Publishing"));
     if (s.uri.isSet()) {
@@ -9193,6 +16939,94 @@ void readPublishing(ThriftBinaryBufferReader & r, Publishing & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Publishing & value)
+{
+    out << "Publishing: {\n";
+
+    if (value.uri.isSet()) {
+        out << "    uri = "
+            << value.uri.ref() << "\n";
+    }
+    else {
+        out << "    uri is not set\n";
+    }
+
+    if (value.order.isSet()) {
+        out << "    order = "
+            << value.order.ref() << "\n";
+    }
+    else {
+        out << "    order is not set\n";
+    }
+
+    if (value.ascending.isSet()) {
+        out << "    ascending = "
+            << value.ascending.ref() << "\n";
+    }
+    else {
+        out << "    ascending is not set\n";
+    }
+
+    if (value.publicDescription.isSet()) {
+        out << "    publicDescription = "
+            << value.publicDescription.ref() << "\n";
+    }
+    else {
+        out << "    publicDescription is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Publishing & value)
+{
+    out << "Publishing: {\n";
+
+    if (value.uri.isSet()) {
+        out << "    uri = "
+            << value.uri.ref() << "\n";
+    }
+    else {
+        out << "    uri is not set\n";
+    }
+
+    if (value.order.isSet()) {
+        out << "    order = "
+            << value.order.ref() << "\n";
+    }
+    else {
+        out << "    order is not set\n";
+    }
+
+    if (value.ascending.isSet()) {
+        out << "    ascending = "
+            << value.ascending.ref() << "\n";
+    }
+    else {
+        out << "    ascending is not set\n";
+    }
+
+    if (value.publicDescription.isSet()) {
+        out << "    publicDescription = "
+            << value.publicDescription.ref() << "\n";
+    }
+    else {
+        out << "    publicDescription is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeBusinessNotebook(ThriftBinaryBufferWriter & w, const BusinessNotebook & s) {
     w.writeStructBegin(QStringLiteral("BusinessNotebook"));
     if (s.notebookDescription.isSet()) {
@@ -9267,6 +17101,78 @@ void readBusinessNotebook(ThriftBinaryBufferReader & r, BusinessNotebook & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BusinessNotebook & value)
+{
+    out << "BusinessNotebook: {\n";
+
+    if (value.notebookDescription.isSet()) {
+        out << "    notebookDescription = "
+            << value.notebookDescription.ref() << "\n";
+    }
+    else {
+        out << "    notebookDescription is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.recommended.isSet()) {
+        out << "    recommended = "
+            << value.recommended.ref() << "\n";
+    }
+    else {
+        out << "    recommended is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BusinessNotebook & value)
+{
+    out << "BusinessNotebook: {\n";
+
+    if (value.notebookDescription.isSet()) {
+        out << "    notebookDescription = "
+            << value.notebookDescription.ref() << "\n";
+    }
+    else {
+        out << "    notebookDescription is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.recommended.isSet()) {
+        out << "    recommended = "
+            << value.recommended.ref() << "\n";
+    }
+    else {
+        out << "    recommended is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeSavedSearchScope(ThriftBinaryBufferWriter & w, const SavedSearchScope & s) {
     w.writeStructBegin(QStringLiteral("SavedSearchScope"));
     if (s.includeAccount.isSet()) {
@@ -9340,6 +17246,78 @@ void readSavedSearchScope(ThriftBinaryBufferReader & r, SavedSearchScope & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SavedSearchScope & value)
+{
+    out << "SavedSearchScope: {\n";
+
+    if (value.includeAccount.isSet()) {
+        out << "    includeAccount = "
+            << value.includeAccount.ref() << "\n";
+    }
+    else {
+        out << "    includeAccount is not set\n";
+    }
+
+    if (value.includePersonalLinkedNotebooks.isSet()) {
+        out << "    includePersonalLinkedNotebooks = "
+            << value.includePersonalLinkedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includePersonalLinkedNotebooks is not set\n";
+    }
+
+    if (value.includeBusinessLinkedNotebooks.isSet()) {
+        out << "    includeBusinessLinkedNotebooks = "
+            << value.includeBusinessLinkedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeBusinessLinkedNotebooks is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SavedSearchScope & value)
+{
+    out << "SavedSearchScope: {\n";
+
+    if (value.includeAccount.isSet()) {
+        out << "    includeAccount = "
+            << value.includeAccount.ref() << "\n";
+    }
+    else {
+        out << "    includeAccount is not set\n";
+    }
+
+    if (value.includePersonalLinkedNotebooks.isSet()) {
+        out << "    includePersonalLinkedNotebooks = "
+            << value.includePersonalLinkedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includePersonalLinkedNotebooks is not set\n";
+    }
+
+    if (value.includeBusinessLinkedNotebooks.isSet()) {
+        out << "    includeBusinessLinkedNotebooks = "
+            << value.includeBusinessLinkedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    includeBusinessLinkedNotebooks is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeSavedSearch(ThriftBinaryBufferWriter & w, const SavedSearch & s) {
     w.writeStructBegin(QStringLiteral("SavedSearch"));
@@ -9466,6 +17444,126 @@ void readSavedSearch(ThriftBinaryBufferReader & r, SavedSearch & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SavedSearch & value)
+{
+    out << "SavedSearch: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.query.isSet()) {
+        out << "    query = "
+            << value.query.ref() << "\n";
+    }
+    else {
+        out << "    query is not set\n";
+    }
+
+    if (value.format.isSet()) {
+        out << "    format = "
+            << value.format.ref() << "\n";
+    }
+    else {
+        out << "    format is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.scope.isSet()) {
+        out << "    scope = "
+            << value.scope.ref() << "\n";
+    }
+    else {
+        out << "    scope is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SavedSearch & value)
+{
+    out << "SavedSearch: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.query.isSet()) {
+        out << "    query = "
+            << value.query.ref() << "\n";
+    }
+    else {
+        out << "    query is not set\n";
+    }
+
+    if (value.format.isSet()) {
+        out << "    format = "
+            << value.format.ref() << "\n";
+    }
+    else {
+        out << "    format is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.scope.isSet()) {
+        out << "    scope = "
+            << value.scope.ref() << "\n";
+    }
+    else {
+        out << "    scope is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeSharedNotebookRecipientSettings(ThriftBinaryBufferWriter & w, const SharedNotebookRecipientSettings & s) {
     w.writeStructBegin(QStringLiteral("SharedNotebookRecipientSettings"));
     if (s.reminderNotifyEmail.isSet()) {
@@ -9522,6 +17620,62 @@ void readSharedNotebookRecipientSettings(ThriftBinaryBufferReader & r, SharedNot
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SharedNotebookRecipientSettings & value)
+{
+    out << "SharedNotebookRecipientSettings: {\n";
+
+    if (value.reminderNotifyEmail.isSet()) {
+        out << "    reminderNotifyEmail = "
+            << value.reminderNotifyEmail.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyEmail is not set\n";
+    }
+
+    if (value.reminderNotifyInApp.isSet()) {
+        out << "    reminderNotifyInApp = "
+            << value.reminderNotifyInApp.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyInApp is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SharedNotebookRecipientSettings & value)
+{
+    out << "SharedNotebookRecipientSettings: {\n";
+
+    if (value.reminderNotifyEmail.isSet()) {
+        out << "    reminderNotifyEmail = "
+            << value.reminderNotifyEmail.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyEmail is not set\n";
+    }
+
+    if (value.reminderNotifyInApp.isSet()) {
+        out << "    reminderNotifyInApp = "
+            << value.reminderNotifyInApp.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyInApp is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNotebookRecipientSettings(ThriftBinaryBufferWriter & w, const NotebookRecipientSettings & s) {
     w.writeStructBegin(QStringLiteral("NotebookRecipientSettings"));
@@ -9630,6 +17784,110 @@ void readNotebookRecipientSettings(ThriftBinaryBufferReader & r, NotebookRecipie
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NotebookRecipientSettings & value)
+{
+    out << "NotebookRecipientSettings: {\n";
+
+    if (value.reminderNotifyEmail.isSet()) {
+        out << "    reminderNotifyEmail = "
+            << value.reminderNotifyEmail.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyEmail is not set\n";
+    }
+
+    if (value.reminderNotifyInApp.isSet()) {
+        out << "    reminderNotifyInApp = "
+            << value.reminderNotifyInApp.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyInApp is not set\n";
+    }
+
+    if (value.inMyList.isSet()) {
+        out << "    inMyList = "
+            << value.inMyList.ref() << "\n";
+    }
+    else {
+        out << "    inMyList is not set\n";
+    }
+
+    if (value.stack.isSet()) {
+        out << "    stack = "
+            << value.stack.ref() << "\n";
+    }
+    else {
+        out << "    stack is not set\n";
+    }
+
+    if (value.recipientStatus.isSet()) {
+        out << "    recipientStatus = "
+            << value.recipientStatus.ref() << "\n";
+    }
+    else {
+        out << "    recipientStatus is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NotebookRecipientSettings & value)
+{
+    out << "NotebookRecipientSettings: {\n";
+
+    if (value.reminderNotifyEmail.isSet()) {
+        out << "    reminderNotifyEmail = "
+            << value.reminderNotifyEmail.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyEmail is not set\n";
+    }
+
+    if (value.reminderNotifyInApp.isSet()) {
+        out << "    reminderNotifyInApp = "
+            << value.reminderNotifyInApp.ref() << "\n";
+    }
+    else {
+        out << "    reminderNotifyInApp is not set\n";
+    }
+
+    if (value.inMyList.isSet()) {
+        out << "    inMyList = "
+            << value.inMyList.ref() << "\n";
+    }
+    else {
+        out << "    inMyList is not set\n";
+    }
+
+    if (value.stack.isSet()) {
+        out << "    stack = "
+            << value.stack.ref() << "\n";
+    }
+    else {
+        out << "    stack is not set\n";
+    }
+
+    if (value.recipientStatus.isSet()) {
+        out << "    recipientStatus = "
+            << value.recipientStatus.ref() << "\n";
+    }
+    else {
+        out << "    recipientStatus is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeSharedNotebook(ThriftBinaryBufferWriter & w, const SharedNotebook & s) {
     w.writeStructBegin(QStringLiteral("SharedNotebook"));
@@ -9926,6 +18184,286 @@ void readSharedNotebook(ThriftBinaryBufferReader & r, SharedNotebook & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const SharedNotebook & value)
+{
+    out << "SharedNotebook: {\n";
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.userId.isSet()) {
+        out << "    userId = "
+            << value.userId.ref() << "\n";
+    }
+    else {
+        out << "    userId is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.recipientIdentityId.isSet()) {
+        out << "    recipientIdentityId = "
+            << value.recipientIdentityId.ref() << "\n";
+    }
+    else {
+        out << "    recipientIdentityId is not set\n";
+    }
+
+    if (value.notebookModifiable.isSet()) {
+        out << "    notebookModifiable = "
+            << value.notebookModifiable.ref() << "\n";
+    }
+    else {
+        out << "    notebookModifiable is not set\n";
+    }
+
+    if (value.serviceCreated.isSet()) {
+        out << "    serviceCreated = "
+            << value.serviceCreated.ref() << "\n";
+    }
+    else {
+        out << "    serviceCreated is not set\n";
+    }
+
+    if (value.serviceUpdated.isSet()) {
+        out << "    serviceUpdated = "
+            << value.serviceUpdated.ref() << "\n";
+    }
+    else {
+        out << "    serviceUpdated is not set\n";
+    }
+
+    if (value.globalId.isSet()) {
+        out << "    globalId = "
+            << value.globalId.ref() << "\n";
+    }
+    else {
+        out << "    globalId is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.recipientSettings.isSet()) {
+        out << "    recipientSettings = "
+            << value.recipientSettings.ref() << "\n";
+    }
+    else {
+        out << "    recipientSettings is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    if (value.recipientUsername.isSet()) {
+        out << "    recipientUsername = "
+            << value.recipientUsername.ref() << "\n";
+    }
+    else {
+        out << "    recipientUsername is not set\n";
+    }
+
+    if (value.recipientUserId.isSet()) {
+        out << "    recipientUserId = "
+            << value.recipientUserId.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserId is not set\n";
+    }
+
+    if (value.serviceAssigned.isSet()) {
+        out << "    serviceAssigned = "
+            << value.serviceAssigned.ref() << "\n";
+    }
+    else {
+        out << "    serviceAssigned is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const SharedNotebook & value)
+{
+    out << "SharedNotebook: {\n";
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.userId.isSet()) {
+        out << "    userId = "
+            << value.userId.ref() << "\n";
+    }
+    else {
+        out << "    userId is not set\n";
+    }
+
+    if (value.notebookGuid.isSet()) {
+        out << "    notebookGuid = "
+            << value.notebookGuid.ref() << "\n";
+    }
+    else {
+        out << "    notebookGuid is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.recipientIdentityId.isSet()) {
+        out << "    recipientIdentityId = "
+            << value.recipientIdentityId.ref() << "\n";
+    }
+    else {
+        out << "    recipientIdentityId is not set\n";
+    }
+
+    if (value.notebookModifiable.isSet()) {
+        out << "    notebookModifiable = "
+            << value.notebookModifiable.ref() << "\n";
+    }
+    else {
+        out << "    notebookModifiable is not set\n";
+    }
+
+    if (value.serviceCreated.isSet()) {
+        out << "    serviceCreated = "
+            << value.serviceCreated.ref() << "\n";
+    }
+    else {
+        out << "    serviceCreated is not set\n";
+    }
+
+    if (value.serviceUpdated.isSet()) {
+        out << "    serviceUpdated = "
+            << value.serviceUpdated.ref() << "\n";
+    }
+    else {
+        out << "    serviceUpdated is not set\n";
+    }
+
+    if (value.globalId.isSet()) {
+        out << "    globalId = "
+            << value.globalId.ref() << "\n";
+    }
+    else {
+        out << "    globalId is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.privilege.isSet()) {
+        out << "    privilege = "
+            << value.privilege.ref() << "\n";
+    }
+    else {
+        out << "    privilege is not set\n";
+    }
+
+    if (value.recipientSettings.isSet()) {
+        out << "    recipientSettings = "
+            << value.recipientSettings.ref() << "\n";
+    }
+    else {
+        out << "    recipientSettings is not set\n";
+    }
+
+    if (value.sharerUserId.isSet()) {
+        out << "    sharerUserId = "
+            << value.sharerUserId.ref() << "\n";
+    }
+    else {
+        out << "    sharerUserId is not set\n";
+    }
+
+    if (value.recipientUsername.isSet()) {
+        out << "    recipientUsername = "
+            << value.recipientUsername.ref() << "\n";
+    }
+    else {
+        out << "    recipientUsername is not set\n";
+    }
+
+    if (value.recipientUserId.isSet()) {
+        out << "    recipientUserId = "
+            << value.recipientUserId.ref() << "\n";
+    }
+    else {
+        out << "    recipientUserId is not set\n";
+    }
+
+    if (value.serviceAssigned.isSet()) {
+        out << "    serviceAssigned = "
+            << value.serviceAssigned.ref() << "\n";
+    }
+    else {
+        out << "    serviceAssigned is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeCanMoveToContainerRestrictions(ThriftBinaryBufferWriter & w, const CanMoveToContainerRestrictions & s) {
     w.writeStructBegin(QStringLiteral("CanMoveToContainerRestrictions"));
     if (s.canMoveToContainer.isSet()) {
@@ -9965,6 +18503,46 @@ void readCanMoveToContainerRestrictions(ThriftBinaryBufferReader & r, CanMoveToC
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const CanMoveToContainerRestrictions & value)
+{
+    out << "CanMoveToContainerRestrictions: {\n";
+
+    if (value.canMoveToContainer.isSet()) {
+        out << "    canMoveToContainer = "
+            << value.canMoveToContainer.ref() << "\n";
+    }
+    else {
+        out << "    canMoveToContainer is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const CanMoveToContainerRestrictions & value)
+{
+    out << "CanMoveToContainerRestrictions: {\n";
+
+    if (value.canMoveToContainer.isSet()) {
+        out << "    canMoveToContainer = "
+            << value.canMoveToContainer.ref() << "\n";
+    }
+    else {
+        out << "    canMoveToContainer is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeNotebookRestrictions(ThriftBinaryBufferWriter & w, const NotebookRestrictions & s) {
     w.writeStructBegin(QStringLiteral("NotebookRestrictions"));
@@ -10482,6 +19060,494 @@ void readNotebookRestrictions(ThriftBinaryBufferReader & r, NotebookRestrictions
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NotebookRestrictions & value)
+{
+    out << "NotebookRestrictions: {\n";
+
+    if (value.noReadNotes.isSet()) {
+        out << "    noReadNotes = "
+            << value.noReadNotes.ref() << "\n";
+    }
+    else {
+        out << "    noReadNotes is not set\n";
+    }
+
+    if (value.noCreateNotes.isSet()) {
+        out << "    noCreateNotes = "
+            << value.noCreateNotes.ref() << "\n";
+    }
+    else {
+        out << "    noCreateNotes is not set\n";
+    }
+
+    if (value.noUpdateNotes.isSet()) {
+        out << "    noUpdateNotes = "
+            << value.noUpdateNotes.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateNotes is not set\n";
+    }
+
+    if (value.noExpungeNotes.isSet()) {
+        out << "    noExpungeNotes = "
+            << value.noExpungeNotes.ref() << "\n";
+    }
+    else {
+        out << "    noExpungeNotes is not set\n";
+    }
+
+    if (value.noShareNotes.isSet()) {
+        out << "    noShareNotes = "
+            << value.noShareNotes.ref() << "\n";
+    }
+    else {
+        out << "    noShareNotes is not set\n";
+    }
+
+    if (value.noEmailNotes.isSet()) {
+        out << "    noEmailNotes = "
+            << value.noEmailNotes.ref() << "\n";
+    }
+    else {
+        out << "    noEmailNotes is not set\n";
+    }
+
+    if (value.noSendMessageToRecipients.isSet()) {
+        out << "    noSendMessageToRecipients = "
+            << value.noSendMessageToRecipients.ref() << "\n";
+    }
+    else {
+        out << "    noSendMessageToRecipients is not set\n";
+    }
+
+    if (value.noUpdateNotebook.isSet()) {
+        out << "    noUpdateNotebook = "
+            << value.noUpdateNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateNotebook is not set\n";
+    }
+
+    if (value.noExpungeNotebook.isSet()) {
+        out << "    noExpungeNotebook = "
+            << value.noExpungeNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noExpungeNotebook is not set\n";
+    }
+
+    if (value.noSetDefaultNotebook.isSet()) {
+        out << "    noSetDefaultNotebook = "
+            << value.noSetDefaultNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noSetDefaultNotebook is not set\n";
+    }
+
+    if (value.noSetNotebookStack.isSet()) {
+        out << "    noSetNotebookStack = "
+            << value.noSetNotebookStack.ref() << "\n";
+    }
+    else {
+        out << "    noSetNotebookStack is not set\n";
+    }
+
+    if (value.noPublishToPublic.isSet()) {
+        out << "    noPublishToPublic = "
+            << value.noPublishToPublic.ref() << "\n";
+    }
+    else {
+        out << "    noPublishToPublic is not set\n";
+    }
+
+    if (value.noPublishToBusinessLibrary.isSet()) {
+        out << "    noPublishToBusinessLibrary = "
+            << value.noPublishToBusinessLibrary.ref() << "\n";
+    }
+    else {
+        out << "    noPublishToBusinessLibrary is not set\n";
+    }
+
+    if (value.noCreateTags.isSet()) {
+        out << "    noCreateTags = "
+            << value.noCreateTags.ref() << "\n";
+    }
+    else {
+        out << "    noCreateTags is not set\n";
+    }
+
+    if (value.noUpdateTags.isSet()) {
+        out << "    noUpdateTags = "
+            << value.noUpdateTags.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateTags is not set\n";
+    }
+
+    if (value.noExpungeTags.isSet()) {
+        out << "    noExpungeTags = "
+            << value.noExpungeTags.ref() << "\n";
+    }
+    else {
+        out << "    noExpungeTags is not set\n";
+    }
+
+    if (value.noSetParentTag.isSet()) {
+        out << "    noSetParentTag = "
+            << value.noSetParentTag.ref() << "\n";
+    }
+    else {
+        out << "    noSetParentTag is not set\n";
+    }
+
+    if (value.noCreateSharedNotebooks.isSet()) {
+        out << "    noCreateSharedNotebooks = "
+            << value.noCreateSharedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    noCreateSharedNotebooks is not set\n";
+    }
+
+    if (value.updateWhichSharedNotebookRestrictions.isSet()) {
+        out << "    updateWhichSharedNotebookRestrictions = "
+            << value.updateWhichSharedNotebookRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    updateWhichSharedNotebookRestrictions is not set\n";
+    }
+
+    if (value.expungeWhichSharedNotebookRestrictions.isSet()) {
+        out << "    expungeWhichSharedNotebookRestrictions = "
+            << value.expungeWhichSharedNotebookRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    expungeWhichSharedNotebookRestrictions is not set\n";
+    }
+
+    if (value.noShareNotesWithBusiness.isSet()) {
+        out << "    noShareNotesWithBusiness = "
+            << value.noShareNotesWithBusiness.ref() << "\n";
+    }
+    else {
+        out << "    noShareNotesWithBusiness is not set\n";
+    }
+
+    if (value.noRenameNotebook.isSet()) {
+        out << "    noRenameNotebook = "
+            << value.noRenameNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noRenameNotebook is not set\n";
+    }
+
+    if (value.noSetInMyList.isSet()) {
+        out << "    noSetInMyList = "
+            << value.noSetInMyList.ref() << "\n";
+    }
+    else {
+        out << "    noSetInMyList is not set\n";
+    }
+
+    if (value.noChangeContact.isSet()) {
+        out << "    noChangeContact = "
+            << value.noChangeContact.ref() << "\n";
+    }
+    else {
+        out << "    noChangeContact is not set\n";
+    }
+
+    if (value.canMoveToContainerRestrictions.isSet()) {
+        out << "    canMoveToContainerRestrictions = "
+            << value.canMoveToContainerRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    canMoveToContainerRestrictions is not set\n";
+    }
+
+    if (value.noSetReminderNotifyEmail.isSet()) {
+        out << "    noSetReminderNotifyEmail = "
+            << value.noSetReminderNotifyEmail.ref() << "\n";
+    }
+    else {
+        out << "    noSetReminderNotifyEmail is not set\n";
+    }
+
+    if (value.noSetReminderNotifyInApp.isSet()) {
+        out << "    noSetReminderNotifyInApp = "
+            << value.noSetReminderNotifyInApp.ref() << "\n";
+    }
+    else {
+        out << "    noSetReminderNotifyInApp is not set\n";
+    }
+
+    if (value.noSetRecipientSettingsStack.isSet()) {
+        out << "    noSetRecipientSettingsStack = "
+            << value.noSetRecipientSettingsStack.ref() << "\n";
+    }
+    else {
+        out << "    noSetRecipientSettingsStack is not set\n";
+    }
+
+    if (value.noCanMoveNote.isSet()) {
+        out << "    noCanMoveNote = "
+            << value.noCanMoveNote.ref() << "\n";
+    }
+    else {
+        out << "    noCanMoveNote is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NotebookRestrictions & value)
+{
+    out << "NotebookRestrictions: {\n";
+
+    if (value.noReadNotes.isSet()) {
+        out << "    noReadNotes = "
+            << value.noReadNotes.ref() << "\n";
+    }
+    else {
+        out << "    noReadNotes is not set\n";
+    }
+
+    if (value.noCreateNotes.isSet()) {
+        out << "    noCreateNotes = "
+            << value.noCreateNotes.ref() << "\n";
+    }
+    else {
+        out << "    noCreateNotes is not set\n";
+    }
+
+    if (value.noUpdateNotes.isSet()) {
+        out << "    noUpdateNotes = "
+            << value.noUpdateNotes.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateNotes is not set\n";
+    }
+
+    if (value.noExpungeNotes.isSet()) {
+        out << "    noExpungeNotes = "
+            << value.noExpungeNotes.ref() << "\n";
+    }
+    else {
+        out << "    noExpungeNotes is not set\n";
+    }
+
+    if (value.noShareNotes.isSet()) {
+        out << "    noShareNotes = "
+            << value.noShareNotes.ref() << "\n";
+    }
+    else {
+        out << "    noShareNotes is not set\n";
+    }
+
+    if (value.noEmailNotes.isSet()) {
+        out << "    noEmailNotes = "
+            << value.noEmailNotes.ref() << "\n";
+    }
+    else {
+        out << "    noEmailNotes is not set\n";
+    }
+
+    if (value.noSendMessageToRecipients.isSet()) {
+        out << "    noSendMessageToRecipients = "
+            << value.noSendMessageToRecipients.ref() << "\n";
+    }
+    else {
+        out << "    noSendMessageToRecipients is not set\n";
+    }
+
+    if (value.noUpdateNotebook.isSet()) {
+        out << "    noUpdateNotebook = "
+            << value.noUpdateNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateNotebook is not set\n";
+    }
+
+    if (value.noExpungeNotebook.isSet()) {
+        out << "    noExpungeNotebook = "
+            << value.noExpungeNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noExpungeNotebook is not set\n";
+    }
+
+    if (value.noSetDefaultNotebook.isSet()) {
+        out << "    noSetDefaultNotebook = "
+            << value.noSetDefaultNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noSetDefaultNotebook is not set\n";
+    }
+
+    if (value.noSetNotebookStack.isSet()) {
+        out << "    noSetNotebookStack = "
+            << value.noSetNotebookStack.ref() << "\n";
+    }
+    else {
+        out << "    noSetNotebookStack is not set\n";
+    }
+
+    if (value.noPublishToPublic.isSet()) {
+        out << "    noPublishToPublic = "
+            << value.noPublishToPublic.ref() << "\n";
+    }
+    else {
+        out << "    noPublishToPublic is not set\n";
+    }
+
+    if (value.noPublishToBusinessLibrary.isSet()) {
+        out << "    noPublishToBusinessLibrary = "
+            << value.noPublishToBusinessLibrary.ref() << "\n";
+    }
+    else {
+        out << "    noPublishToBusinessLibrary is not set\n";
+    }
+
+    if (value.noCreateTags.isSet()) {
+        out << "    noCreateTags = "
+            << value.noCreateTags.ref() << "\n";
+    }
+    else {
+        out << "    noCreateTags is not set\n";
+    }
+
+    if (value.noUpdateTags.isSet()) {
+        out << "    noUpdateTags = "
+            << value.noUpdateTags.ref() << "\n";
+    }
+    else {
+        out << "    noUpdateTags is not set\n";
+    }
+
+    if (value.noExpungeTags.isSet()) {
+        out << "    noExpungeTags = "
+            << value.noExpungeTags.ref() << "\n";
+    }
+    else {
+        out << "    noExpungeTags is not set\n";
+    }
+
+    if (value.noSetParentTag.isSet()) {
+        out << "    noSetParentTag = "
+            << value.noSetParentTag.ref() << "\n";
+    }
+    else {
+        out << "    noSetParentTag is not set\n";
+    }
+
+    if (value.noCreateSharedNotebooks.isSet()) {
+        out << "    noCreateSharedNotebooks = "
+            << value.noCreateSharedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    noCreateSharedNotebooks is not set\n";
+    }
+
+    if (value.updateWhichSharedNotebookRestrictions.isSet()) {
+        out << "    updateWhichSharedNotebookRestrictions = "
+            << value.updateWhichSharedNotebookRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    updateWhichSharedNotebookRestrictions is not set\n";
+    }
+
+    if (value.expungeWhichSharedNotebookRestrictions.isSet()) {
+        out << "    expungeWhichSharedNotebookRestrictions = "
+            << value.expungeWhichSharedNotebookRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    expungeWhichSharedNotebookRestrictions is not set\n";
+    }
+
+    if (value.noShareNotesWithBusiness.isSet()) {
+        out << "    noShareNotesWithBusiness = "
+            << value.noShareNotesWithBusiness.ref() << "\n";
+    }
+    else {
+        out << "    noShareNotesWithBusiness is not set\n";
+    }
+
+    if (value.noRenameNotebook.isSet()) {
+        out << "    noRenameNotebook = "
+            << value.noRenameNotebook.ref() << "\n";
+    }
+    else {
+        out << "    noRenameNotebook is not set\n";
+    }
+
+    if (value.noSetInMyList.isSet()) {
+        out << "    noSetInMyList = "
+            << value.noSetInMyList.ref() << "\n";
+    }
+    else {
+        out << "    noSetInMyList is not set\n";
+    }
+
+    if (value.noChangeContact.isSet()) {
+        out << "    noChangeContact = "
+            << value.noChangeContact.ref() << "\n";
+    }
+    else {
+        out << "    noChangeContact is not set\n";
+    }
+
+    if (value.canMoveToContainerRestrictions.isSet()) {
+        out << "    canMoveToContainerRestrictions = "
+            << value.canMoveToContainerRestrictions.ref() << "\n";
+    }
+    else {
+        out << "    canMoveToContainerRestrictions is not set\n";
+    }
+
+    if (value.noSetReminderNotifyEmail.isSet()) {
+        out << "    noSetReminderNotifyEmail = "
+            << value.noSetReminderNotifyEmail.ref() << "\n";
+    }
+    else {
+        out << "    noSetReminderNotifyEmail is not set\n";
+    }
+
+    if (value.noSetReminderNotifyInApp.isSet()) {
+        out << "    noSetReminderNotifyInApp = "
+            << value.noSetReminderNotifyInApp.ref() << "\n";
+    }
+    else {
+        out << "    noSetReminderNotifyInApp is not set\n";
+    }
+
+    if (value.noSetRecipientSettingsStack.isSet()) {
+        out << "    noSetRecipientSettingsStack = "
+            << value.noSetRecipientSettingsStack.ref() << "\n";
+    }
+    else {
+        out << "    noSetRecipientSettingsStack is not set\n";
+    }
+
+    if (value.noCanMoveNote.isSet()) {
+        out << "    noCanMoveNote = "
+            << value.noCanMoveNote.ref() << "\n";
+    }
+    else {
+        out << "    noCanMoveNote is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNotebook(ThriftBinaryBufferWriter & w, const Notebook & s) {
     w.writeStructBegin(QStringLiteral("Notebook"));
     if (s.guid.isSet()) {
@@ -10788,6 +19854,282 @@ void readNotebook(ThriftBinaryBufferReader & r, Notebook & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const Notebook & value)
+{
+    out << "Notebook: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.defaultNotebook.isSet()) {
+        out << "    defaultNotebook = "
+            << value.defaultNotebook.ref() << "\n";
+    }
+    else {
+        out << "    defaultNotebook is not set\n";
+    }
+
+    if (value.serviceCreated.isSet()) {
+        out << "    serviceCreated = "
+            << value.serviceCreated.ref() << "\n";
+    }
+    else {
+        out << "    serviceCreated is not set\n";
+    }
+
+    if (value.serviceUpdated.isSet()) {
+        out << "    serviceUpdated = "
+            << value.serviceUpdated.ref() << "\n";
+    }
+    else {
+        out << "    serviceUpdated is not set\n";
+    }
+
+    if (value.publishing.isSet()) {
+        out << "    publishing = "
+            << value.publishing.ref() << "\n";
+    }
+    else {
+        out << "    publishing is not set\n";
+    }
+
+    if (value.published.isSet()) {
+        out << "    published = "
+            << value.published.ref() << "\n";
+    }
+    else {
+        out << "    published is not set\n";
+    }
+
+    if (value.stack.isSet()) {
+        out << "    stack = "
+            << value.stack.ref() << "\n";
+    }
+    else {
+        out << "    stack is not set\n";
+    }
+
+    if (value.sharedNotebookIds.isSet()) {
+        out << "    sharedNotebookIds = "
+            << "QList<qint64> {";
+        for(const auto & v: value.sharedNotebookIds.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    sharedNotebookIds is not set\n";
+    }
+
+    if (value.sharedNotebooks.isSet()) {
+        out << "    sharedNotebooks = "
+            << "QList<SharedNotebook> {";
+        for(const auto & v: value.sharedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    sharedNotebooks is not set\n";
+    }
+
+    if (value.businessNotebook.isSet()) {
+        out << "    businessNotebook = "
+            << value.businessNotebook.ref() << "\n";
+    }
+    else {
+        out << "    businessNotebook is not set\n";
+    }
+
+    if (value.contact.isSet()) {
+        out << "    contact = "
+            << value.contact.ref() << "\n";
+    }
+    else {
+        out << "    contact is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.recipientSettings.isSet()) {
+        out << "    recipientSettings = "
+            << value.recipientSettings.ref() << "\n";
+    }
+    else {
+        out << "    recipientSettings is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const Notebook & value)
+{
+    out << "Notebook: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.defaultNotebook.isSet()) {
+        out << "    defaultNotebook = "
+            << value.defaultNotebook.ref() << "\n";
+    }
+    else {
+        out << "    defaultNotebook is not set\n";
+    }
+
+    if (value.serviceCreated.isSet()) {
+        out << "    serviceCreated = "
+            << value.serviceCreated.ref() << "\n";
+    }
+    else {
+        out << "    serviceCreated is not set\n";
+    }
+
+    if (value.serviceUpdated.isSet()) {
+        out << "    serviceUpdated = "
+            << value.serviceUpdated.ref() << "\n";
+    }
+    else {
+        out << "    serviceUpdated is not set\n";
+    }
+
+    if (value.publishing.isSet()) {
+        out << "    publishing = "
+            << value.publishing.ref() << "\n";
+    }
+    else {
+        out << "    publishing is not set\n";
+    }
+
+    if (value.published.isSet()) {
+        out << "    published = "
+            << value.published.ref() << "\n";
+    }
+    else {
+        out << "    published is not set\n";
+    }
+
+    if (value.stack.isSet()) {
+        out << "    stack = "
+            << value.stack.ref() << "\n";
+    }
+    else {
+        out << "    stack is not set\n";
+    }
+
+    if (value.sharedNotebookIds.isSet()) {
+        out << "    sharedNotebookIds = "
+            << "QList<qint64> {";
+        for(const auto & v: value.sharedNotebookIds.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    sharedNotebookIds is not set\n";
+    }
+
+    if (value.sharedNotebooks.isSet()) {
+        out << "    sharedNotebooks = "
+            << "QList<SharedNotebook> {";
+        for(const auto & v: value.sharedNotebooks.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    sharedNotebooks is not set\n";
+    }
+
+    if (value.businessNotebook.isSet()) {
+        out << "    businessNotebook = "
+            << value.businessNotebook.ref() << "\n";
+    }
+    else {
+        out << "    businessNotebook is not set\n";
+    }
+
+    if (value.contact.isSet()) {
+        out << "    contact = "
+            << value.contact.ref() << "\n";
+    }
+    else {
+        out << "    contact is not set\n";
+    }
+
+    if (value.restrictions.isSet()) {
+        out << "    restrictions = "
+            << value.restrictions.ref() << "\n";
+    }
+    else {
+        out << "    restrictions is not set\n";
+    }
+
+    if (value.recipientSettings.isSet()) {
+        out << "    recipientSettings = "
+            << value.recipientSettings.ref() << "\n";
+    }
+    else {
+        out << "    recipientSettings is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeLinkedNotebook(ThriftBinaryBufferWriter & w, const LinkedNotebook & s) {
     w.writeStructBegin(QStringLiteral("LinkedNotebook"));
     if (s.shareName.isSet()) {
@@ -10998,6 +20340,206 @@ void readLinkedNotebook(ThriftBinaryBufferReader & r, LinkedNotebook & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const LinkedNotebook & value)
+{
+    out << "LinkedNotebook: {\n";
+
+    if (value.shareName.isSet()) {
+        out << "    shareName = "
+            << value.shareName.ref() << "\n";
+    }
+    else {
+        out << "    shareName is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.shardId.isSet()) {
+        out << "    shardId = "
+            << value.shardId.ref() << "\n";
+    }
+    else {
+        out << "    shardId is not set\n";
+    }
+
+    if (value.sharedNotebookGlobalId.isSet()) {
+        out << "    sharedNotebookGlobalId = "
+            << value.sharedNotebookGlobalId.ref() << "\n";
+    }
+    else {
+        out << "    sharedNotebookGlobalId is not set\n";
+    }
+
+    if (value.uri.isSet()) {
+        out << "    uri = "
+            << value.uri.ref() << "\n";
+    }
+    else {
+        out << "    uri is not set\n";
+    }
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    if (value.stack.isSet()) {
+        out << "    stack = "
+            << value.stack.ref() << "\n";
+    }
+    else {
+        out << "    stack is not set\n";
+    }
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const LinkedNotebook & value)
+{
+    out << "LinkedNotebook: {\n";
+
+    if (value.shareName.isSet()) {
+        out << "    shareName = "
+            << value.shareName.ref() << "\n";
+    }
+    else {
+        out << "    shareName is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.shardId.isSet()) {
+        out << "    shardId = "
+            << value.shardId.ref() << "\n";
+    }
+    else {
+        out << "    shardId is not set\n";
+    }
+
+    if (value.sharedNotebookGlobalId.isSet()) {
+        out << "    sharedNotebookGlobalId = "
+            << value.sharedNotebookGlobalId.ref() << "\n";
+    }
+    else {
+        out << "    sharedNotebookGlobalId is not set\n";
+    }
+
+    if (value.uri.isSet()) {
+        out << "    uri = "
+            << value.uri.ref() << "\n";
+    }
+    else {
+        out << "    uri is not set\n";
+    }
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.updateSequenceNum.isSet()) {
+        out << "    updateSequenceNum = "
+            << value.updateSequenceNum.ref() << "\n";
+    }
+    else {
+        out << "    updateSequenceNum is not set\n";
+    }
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    if (value.stack.isSet()) {
+        out << "    stack = "
+            << value.stack.ref() << "\n";
+    }
+    else {
+        out << "    stack is not set\n";
+    }
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeNotebookDescriptor(ThriftBinaryBufferWriter & w, const NotebookDescriptor & s) {
     w.writeStructBegin(QStringLiteral("NotebookDescriptor"));
     if (s.guid.isSet()) {
@@ -11105,6 +20647,110 @@ void readNotebookDescriptor(ThriftBinaryBufferReader & r, NotebookDescriptor & s
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const NotebookDescriptor & value)
+{
+    out << "NotebookDescriptor: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.notebookDisplayName.isSet()) {
+        out << "    notebookDisplayName = "
+            << value.notebookDisplayName.ref() << "\n";
+    }
+    else {
+        out << "    notebookDisplayName is not set\n";
+    }
+
+    if (value.contactName.isSet()) {
+        out << "    contactName = "
+            << value.contactName.ref() << "\n";
+    }
+    else {
+        out << "    contactName is not set\n";
+    }
+
+    if (value.hasSharedNotebook.isSet()) {
+        out << "    hasSharedNotebook = "
+            << value.hasSharedNotebook.ref() << "\n";
+    }
+    else {
+        out << "    hasSharedNotebook is not set\n";
+    }
+
+    if (value.joinedUserCount.isSet()) {
+        out << "    joinedUserCount = "
+            << value.joinedUserCount.ref() << "\n";
+    }
+    else {
+        out << "    joinedUserCount is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const NotebookDescriptor & value)
+{
+    out << "NotebookDescriptor: {\n";
+
+    if (value.guid.isSet()) {
+        out << "    guid = "
+            << value.guid.ref() << "\n";
+    }
+    else {
+        out << "    guid is not set\n";
+    }
+
+    if (value.notebookDisplayName.isSet()) {
+        out << "    notebookDisplayName = "
+            << value.notebookDisplayName.ref() << "\n";
+    }
+    else {
+        out << "    notebookDisplayName is not set\n";
+    }
+
+    if (value.contactName.isSet()) {
+        out << "    contactName = "
+            << value.contactName.ref() << "\n";
+    }
+    else {
+        out << "    contactName is not set\n";
+    }
+
+    if (value.hasSharedNotebook.isSet()) {
+        out << "    hasSharedNotebook = "
+            << value.hasSharedNotebook.ref() << "\n";
+    }
+    else {
+        out << "    hasSharedNotebook is not set\n";
+    }
+
+    if (value.joinedUserCount.isSet()) {
+        out << "    joinedUserCount = "
+            << value.joinedUserCount.ref() << "\n";
+    }
+    else {
+        out << "    joinedUserCount is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeUserProfile(ThriftBinaryBufferWriter & w, const UserProfile & s) {
     w.writeStructBegin(QStringLiteral("UserProfile"));
@@ -11299,6 +20945,190 @@ void readUserProfile(ThriftBinaryBufferReader & r, UserProfile & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const UserProfile & value)
+{
+    out << "UserProfile: {\n";
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.joined.isSet()) {
+        out << "    joined = "
+            << value.joined.ref() << "\n";
+    }
+    else {
+        out << "    joined is not set\n";
+    }
+
+    if (value.photoLastUpdated.isSet()) {
+        out << "    photoLastUpdated = "
+            << value.photoLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    photoLastUpdated is not set\n";
+    }
+
+    if (value.photoUrl.isSet()) {
+        out << "    photoUrl = "
+            << value.photoUrl.ref() << "\n";
+    }
+    else {
+        out << "    photoUrl is not set\n";
+    }
+
+    if (value.role.isSet()) {
+        out << "    role = "
+            << value.role.ref() << "\n";
+    }
+    else {
+        out << "    role is not set\n";
+    }
+
+    if (value.status.isSet()) {
+        out << "    status = "
+            << value.status.ref() << "\n";
+    }
+    else {
+        out << "    status is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const UserProfile & value)
+{
+    out << "UserProfile: {\n";
+
+    if (value.id.isSet()) {
+        out << "    id = "
+            << value.id.ref() << "\n";
+    }
+    else {
+        out << "    id is not set\n";
+    }
+
+    if (value.name.isSet()) {
+        out << "    name = "
+            << value.name.ref() << "\n";
+    }
+    else {
+        out << "    name is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.attributes.isSet()) {
+        out << "    attributes = "
+            << value.attributes.ref() << "\n";
+    }
+    else {
+        out << "    attributes is not set\n";
+    }
+
+    if (value.joined.isSet()) {
+        out << "    joined = "
+            << value.joined.ref() << "\n";
+    }
+    else {
+        out << "    joined is not set\n";
+    }
+
+    if (value.photoLastUpdated.isSet()) {
+        out << "    photoLastUpdated = "
+            << value.photoLastUpdated.ref() << "\n";
+    }
+    else {
+        out << "    photoLastUpdated is not set\n";
+    }
+
+    if (value.photoUrl.isSet()) {
+        out << "    photoUrl = "
+            << value.photoUrl.ref() << "\n";
+    }
+    else {
+        out << "    photoUrl is not set\n";
+    }
+
+    if (value.role.isSet()) {
+        out << "    role = "
+            << value.role.ref() << "\n";
+    }
+    else {
+        out << "    role is not set\n";
+    }
+
+    if (value.status.isSet()) {
+        out << "    status = "
+            << value.status.ref() << "\n";
+    }
+    else {
+        out << "    status is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeRelatedContentImage(ThriftBinaryBufferWriter & w, const RelatedContentImage & s) {
     w.writeStructBegin(QStringLiteral("RelatedContentImage"));
     if (s.url.isSet()) {
@@ -11406,6 +21236,110 @@ void readRelatedContentImage(ThriftBinaryBufferReader & r, RelatedContentImage &
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const RelatedContentImage & value)
+{
+    out << "RelatedContentImage: {\n";
+
+    if (value.url.isSet()) {
+        out << "    url = "
+            << value.url.ref() << "\n";
+    }
+    else {
+        out << "    url is not set\n";
+    }
+
+    if (value.width.isSet()) {
+        out << "    width = "
+            << value.width.ref() << "\n";
+    }
+    else {
+        out << "    width is not set\n";
+    }
+
+    if (value.height.isSet()) {
+        out << "    height = "
+            << value.height.ref() << "\n";
+    }
+    else {
+        out << "    height is not set\n";
+    }
+
+    if (value.pixelRatio.isSet()) {
+        out << "    pixelRatio = "
+            << value.pixelRatio.ref() << "\n";
+    }
+    else {
+        out << "    pixelRatio is not set\n";
+    }
+
+    if (value.fileSize.isSet()) {
+        out << "    fileSize = "
+            << value.fileSize.ref() << "\n";
+    }
+    else {
+        out << "    fileSize is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const RelatedContentImage & value)
+{
+    out << "RelatedContentImage: {\n";
+
+    if (value.url.isSet()) {
+        out << "    url = "
+            << value.url.ref() << "\n";
+    }
+    else {
+        out << "    url is not set\n";
+    }
+
+    if (value.width.isSet()) {
+        out << "    width = "
+            << value.width.ref() << "\n";
+    }
+    else {
+        out << "    width is not set\n";
+    }
+
+    if (value.height.isSet()) {
+        out << "    height = "
+            << value.height.ref() << "\n";
+    }
+    else {
+        out << "    height is not set\n";
+    }
+
+    if (value.pixelRatio.isSet()) {
+        out << "    pixelRatio = "
+            << value.pixelRatio.ref() << "\n";
+    }
+    else {
+        out << "    pixelRatio is not set\n";
+    }
+
+    if (value.fileSize.isSet()) {
+        out << "    fileSize = "
+            << value.fileSize.ref() << "\n";
+    }
+    else {
+        out << "    fileSize is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeRelatedContent(ThriftBinaryBufferWriter & w, const RelatedContent & s) {
     w.writeStructBegin(QStringLiteral("RelatedContent"));
@@ -11730,6 +21664,298 @@ void readRelatedContent(ThriftBinaryBufferReader & r, RelatedContent & s) {
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const RelatedContent & value)
+{
+    out << "RelatedContent: {\n";
+
+    if (value.contentId.isSet()) {
+        out << "    contentId = "
+            << value.contentId.ref() << "\n";
+    }
+    else {
+        out << "    contentId is not set\n";
+    }
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.url.isSet()) {
+        out << "    url = "
+            << value.url.ref() << "\n";
+    }
+    else {
+        out << "    url is not set\n";
+    }
+
+    if (value.sourceId.isSet()) {
+        out << "    sourceId = "
+            << value.sourceId.ref() << "\n";
+    }
+    else {
+        out << "    sourceId is not set\n";
+    }
+
+    if (value.sourceUrl.isSet()) {
+        out << "    sourceUrl = "
+            << value.sourceUrl.ref() << "\n";
+    }
+    else {
+        out << "    sourceUrl is not set\n";
+    }
+
+    if (value.sourceFaviconUrl.isSet()) {
+        out << "    sourceFaviconUrl = "
+            << value.sourceFaviconUrl.ref() << "\n";
+    }
+    else {
+        out << "    sourceFaviconUrl is not set\n";
+    }
+
+    if (value.sourceName.isSet()) {
+        out << "    sourceName = "
+            << value.sourceName.ref() << "\n";
+    }
+    else {
+        out << "    sourceName is not set\n";
+    }
+
+    if (value.date.isSet()) {
+        out << "    date = "
+            << value.date.ref() << "\n";
+    }
+    else {
+        out << "    date is not set\n";
+    }
+
+    if (value.teaser.isSet()) {
+        out << "    teaser = "
+            << value.teaser.ref() << "\n";
+    }
+    else {
+        out << "    teaser is not set\n";
+    }
+
+    if (value.thumbnails.isSet()) {
+        out << "    thumbnails = "
+            << "QList<RelatedContentImage> {";
+        for(const auto & v: value.thumbnails.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    thumbnails is not set\n";
+    }
+
+    if (value.contentType.isSet()) {
+        out << "    contentType = "
+            << value.contentType.ref() << "\n";
+    }
+    else {
+        out << "    contentType is not set\n";
+    }
+
+    if (value.accessType.isSet()) {
+        out << "    accessType = "
+            << value.accessType.ref() << "\n";
+    }
+    else {
+        out << "    accessType is not set\n";
+    }
+
+    if (value.visibleUrl.isSet()) {
+        out << "    visibleUrl = "
+            << value.visibleUrl.ref() << "\n";
+    }
+    else {
+        out << "    visibleUrl is not set\n";
+    }
+
+    if (value.clipUrl.isSet()) {
+        out << "    clipUrl = "
+            << value.clipUrl.ref() << "\n";
+    }
+    else {
+        out << "    clipUrl is not set\n";
+    }
+
+    if (value.contact.isSet()) {
+        out << "    contact = "
+            << value.contact.ref() << "\n";
+    }
+    else {
+        out << "    contact is not set\n";
+    }
+
+    if (value.authors.isSet()) {
+        out << "    authors = "
+            << "QList<QString> {";
+        for(const auto & v: value.authors.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    authors is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const RelatedContent & value)
+{
+    out << "RelatedContent: {\n";
+
+    if (value.contentId.isSet()) {
+        out << "    contentId = "
+            << value.contentId.ref() << "\n";
+    }
+    else {
+        out << "    contentId is not set\n";
+    }
+
+    if (value.title.isSet()) {
+        out << "    title = "
+            << value.title.ref() << "\n";
+    }
+    else {
+        out << "    title is not set\n";
+    }
+
+    if (value.url.isSet()) {
+        out << "    url = "
+            << value.url.ref() << "\n";
+    }
+    else {
+        out << "    url is not set\n";
+    }
+
+    if (value.sourceId.isSet()) {
+        out << "    sourceId = "
+            << value.sourceId.ref() << "\n";
+    }
+    else {
+        out << "    sourceId is not set\n";
+    }
+
+    if (value.sourceUrl.isSet()) {
+        out << "    sourceUrl = "
+            << value.sourceUrl.ref() << "\n";
+    }
+    else {
+        out << "    sourceUrl is not set\n";
+    }
+
+    if (value.sourceFaviconUrl.isSet()) {
+        out << "    sourceFaviconUrl = "
+            << value.sourceFaviconUrl.ref() << "\n";
+    }
+    else {
+        out << "    sourceFaviconUrl is not set\n";
+    }
+
+    if (value.sourceName.isSet()) {
+        out << "    sourceName = "
+            << value.sourceName.ref() << "\n";
+    }
+    else {
+        out << "    sourceName is not set\n";
+    }
+
+    if (value.date.isSet()) {
+        out << "    date = "
+            << value.date.ref() << "\n";
+    }
+    else {
+        out << "    date is not set\n";
+    }
+
+    if (value.teaser.isSet()) {
+        out << "    teaser = "
+            << value.teaser.ref() << "\n";
+    }
+    else {
+        out << "    teaser is not set\n";
+    }
+
+    if (value.thumbnails.isSet()) {
+        out << "    thumbnails = "
+            << "QList<RelatedContentImage> {";
+        for(const auto & v: value.thumbnails.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    thumbnails is not set\n";
+    }
+
+    if (value.contentType.isSet()) {
+        out << "    contentType = "
+            << value.contentType.ref() << "\n";
+    }
+    else {
+        out << "    contentType is not set\n";
+    }
+
+    if (value.accessType.isSet()) {
+        out << "    accessType = "
+            << value.accessType.ref() << "\n";
+    }
+    else {
+        out << "    accessType is not set\n";
+    }
+
+    if (value.visibleUrl.isSet()) {
+        out << "    visibleUrl = "
+            << value.visibleUrl.ref() << "\n";
+    }
+    else {
+        out << "    visibleUrl is not set\n";
+    }
+
+    if (value.clipUrl.isSet()) {
+        out << "    clipUrl = "
+            << value.clipUrl.ref() << "\n";
+    }
+    else {
+        out << "    clipUrl is not set\n";
+    }
+
+    if (value.contact.isSet()) {
+        out << "    contact = "
+            << value.contact.ref() << "\n";
+    }
+    else {
+        out << "    contact is not set\n";
+    }
+
+    if (value.authors.isSet()) {
+        out << "    authors = "
+            << "QList<QString> {";
+        for(const auto & v: value.authors.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    authors is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeBusinessInvitation(ThriftBinaryBufferWriter & w, const BusinessInvitation & s) {
     w.writeStructBegin(QStringLiteral("BusinessInvitation"));
     if (s.businessId.isSet()) {
@@ -11889,6 +22115,158 @@ void readBusinessInvitation(ThriftBinaryBufferReader & r, BusinessInvitation & s
     r.readStructEnd();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BusinessInvitation & value)
+{
+    out << "BusinessInvitation: {\n";
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.role.isSet()) {
+        out << "    role = "
+            << value.role.ref() << "\n";
+    }
+    else {
+        out << "    role is not set\n";
+    }
+
+    if (value.status.isSet()) {
+        out << "    status = "
+            << value.status.ref() << "\n";
+    }
+    else {
+        out << "    status is not set\n";
+    }
+
+    if (value.requesterId.isSet()) {
+        out << "    requesterId = "
+            << value.requesterId.ref() << "\n";
+    }
+    else {
+        out << "    requesterId is not set\n";
+    }
+
+    if (value.fromWorkChat.isSet()) {
+        out << "    fromWorkChat = "
+            << value.fromWorkChat.ref() << "\n";
+    }
+    else {
+        out << "    fromWorkChat is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.mostRecentReminder.isSet()) {
+        out << "    mostRecentReminder = "
+            << value.mostRecentReminder.ref() << "\n";
+    }
+    else {
+        out << "    mostRecentReminder is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BusinessInvitation & value)
+{
+    out << "BusinessInvitation: {\n";
+
+    if (value.businessId.isSet()) {
+        out << "    businessId = "
+            << value.businessId.ref() << "\n";
+    }
+    else {
+        out << "    businessId is not set\n";
+    }
+
+    if (value.email.isSet()) {
+        out << "    email = "
+            << value.email.ref() << "\n";
+    }
+    else {
+        out << "    email is not set\n";
+    }
+
+    if (value.role.isSet()) {
+        out << "    role = "
+            << value.role.ref() << "\n";
+    }
+    else {
+        out << "    role is not set\n";
+    }
+
+    if (value.status.isSet()) {
+        out << "    status = "
+            << value.status.ref() << "\n";
+    }
+    else {
+        out << "    status is not set\n";
+    }
+
+    if (value.requesterId.isSet()) {
+        out << "    requesterId = "
+            << value.requesterId.ref() << "\n";
+    }
+    else {
+        out << "    requesterId is not set\n";
+    }
+
+    if (value.fromWorkChat.isSet()) {
+        out << "    fromWorkChat = "
+            << value.fromWorkChat.ref() << "\n";
+    }
+    else {
+        out << "    fromWorkChat is not set\n";
+    }
+
+    if (value.created.isSet()) {
+        out << "    created = "
+            << value.created.ref() << "\n";
+    }
+    else {
+        out << "    created is not set\n";
+    }
+
+    if (value.mostRecentReminder.isSet()) {
+        out << "    mostRecentReminder = "
+            << value.mostRecentReminder.ref() << "\n";
+    }
+    else {
+        out << "    mostRecentReminder is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeUserIdentity(ThriftBinaryBufferWriter & w, const UserIdentity & s) {
     w.writeStructBegin(QStringLiteral("UserIdentity"));
     if (s.type.isSet()) {
@@ -11962,6 +22340,78 @@ void readUserIdentity(ThriftBinaryBufferReader & r, UserIdentity & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const UserIdentity & value)
+{
+    out << "UserIdentity: {\n";
+
+    if (value.type.isSet()) {
+        out << "    type = "
+            << value.type.ref() << "\n";
+    }
+    else {
+        out << "    type is not set\n";
+    }
+
+    if (value.stringIdentifier.isSet()) {
+        out << "    stringIdentifier = "
+            << value.stringIdentifier.ref() << "\n";
+    }
+    else {
+        out << "    stringIdentifier is not set\n";
+    }
+
+    if (value.longIdentifier.isSet()) {
+        out << "    longIdentifier = "
+            << value.longIdentifier.ref() << "\n";
+    }
+    else {
+        out << "    longIdentifier is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const UserIdentity & value)
+{
+    out << "UserIdentity: {\n";
+
+    if (value.type.isSet()) {
+        out << "    type = "
+            << value.type.ref() << "\n";
+    }
+    else {
+        out << "    type is not set\n";
+    }
+
+    if (value.stringIdentifier.isSet()) {
+        out << "    stringIdentifier = "
+            << value.stringIdentifier.ref() << "\n";
+    }
+    else {
+        out << "    stringIdentifier is not set\n";
+    }
+
+    if (value.longIdentifier.isSet()) {
+        out << "    longIdentifier = "
+            << value.longIdentifier.ref() << "\n";
+    }
+    else {
+        out << "    longIdentifier is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writePublicUserInfo(ThriftBinaryBufferWriter & w, const PublicUserInfo & s) {
     w.writeStructBegin(QStringLiteral("PublicUserInfo"));
@@ -12071,6 +22521,98 @@ void readPublicUserInfo(ThriftBinaryBufferReader & r, PublicUserInfo & s) {
     r.readStructEnd();
     if(!userId_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("PublicUserInfo.userId has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const PublicUserInfo & value)
+{
+    out << "PublicUserInfo: {\n";
+    out << "    userId = "
+        << "UserID" << "\n";
+
+    if (value.serviceLevel.isSet()) {
+        out << "    serviceLevel = "
+            << value.serviceLevel.ref() << "\n";
+    }
+    else {
+        out << "    serviceLevel is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const PublicUserInfo & value)
+{
+    out << "PublicUserInfo: {\n";
+    out << "    userId = "
+        << "UserID" << "\n";
+
+    if (value.serviceLevel.isSet()) {
+        out << "    serviceLevel = "
+            << value.serviceLevel.ref() << "\n";
+    }
+    else {
+        out << "    serviceLevel is not set\n";
+    }
+
+    if (value.username.isSet()) {
+        out << "    username = "
+            << value.username.ref() << "\n";
+    }
+    else {
+        out << "    username is not set\n";
+    }
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeUserUrls(ThriftBinaryBufferWriter & w, const UserUrls & s) {
     w.writeStructBegin(QStringLiteral("UserUrls"));
@@ -12196,6 +22738,126 @@ void readUserUrls(ThriftBinaryBufferReader & r, UserUrls & s) {
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const UserUrls & value)
+{
+    out << "UserUrls: {\n";
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    if (value.userStoreUrl.isSet()) {
+        out << "    userStoreUrl = "
+            << value.userStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    userStoreUrl is not set\n";
+    }
+
+    if (value.utilityUrl.isSet()) {
+        out << "    utilityUrl = "
+            << value.utilityUrl.ref() << "\n";
+    }
+    else {
+        out << "    utilityUrl is not set\n";
+    }
+
+    if (value.messageStoreUrl.isSet()) {
+        out << "    messageStoreUrl = "
+            << value.messageStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    messageStoreUrl is not set\n";
+    }
+
+    if (value.userWebSocketUrl.isSet()) {
+        out << "    userWebSocketUrl = "
+            << value.userWebSocketUrl.ref() << "\n";
+    }
+    else {
+        out << "    userWebSocketUrl is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const UserUrls & value)
+{
+    out << "UserUrls: {\n";
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    if (value.userStoreUrl.isSet()) {
+        out << "    userStoreUrl = "
+            << value.userStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    userStoreUrl is not set\n";
+    }
+
+    if (value.utilityUrl.isSet()) {
+        out << "    utilityUrl = "
+            << value.utilityUrl.ref() << "\n";
+    }
+    else {
+        out << "    utilityUrl is not set\n";
+    }
+
+    if (value.messageStoreUrl.isSet()) {
+        out << "    messageStoreUrl = "
+            << value.messageStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    messageStoreUrl is not set\n";
+    }
+
+    if (value.userWebSocketUrl.isSet()) {
+        out << "    userWebSocketUrl = "
+            << value.userWebSocketUrl.ref() << "\n";
+    }
+    else {
+        out << "    userWebSocketUrl is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeAuthenticationResult(ThriftBinaryBufferWriter & w, const AuthenticationResult & s) {
     w.writeStructBegin(QStringLiteral("AuthenticationResult"));
@@ -12392,6 +23054,154 @@ void readAuthenticationResult(ThriftBinaryBufferReader & r, AuthenticationResult
     if(!authenticationToken_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("AuthenticationResult.authenticationToken has no value"));
     if(!expiration_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("AuthenticationResult.expiration has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const AuthenticationResult & value)
+{
+    out << "AuthenticationResult: {\n";
+    out << "    currentTime = "
+        << "Timestamp" << "\n";
+    out << "    authenticationToken = "
+        << "QString" << "\n";
+    out << "    expiration = "
+        << "Timestamp" << "\n";
+
+    if (value.user.isSet()) {
+        out << "    user = "
+            << value.user.ref() << "\n";
+    }
+    else {
+        out << "    user is not set\n";
+    }
+
+    if (value.publicUserInfo.isSet()) {
+        out << "    publicUserInfo = "
+            << value.publicUserInfo.ref() << "\n";
+    }
+    else {
+        out << "    publicUserInfo is not set\n";
+    }
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    if (value.secondFactorRequired.isSet()) {
+        out << "    secondFactorRequired = "
+            << value.secondFactorRequired.ref() << "\n";
+    }
+    else {
+        out << "    secondFactorRequired is not set\n";
+    }
+
+    if (value.secondFactorDeliveryHint.isSet()) {
+        out << "    secondFactorDeliveryHint = "
+            << value.secondFactorDeliveryHint.ref() << "\n";
+    }
+    else {
+        out << "    secondFactorDeliveryHint is not set\n";
+    }
+
+    if (value.urls.isSet()) {
+        out << "    urls = "
+            << value.urls.ref() << "\n";
+    }
+    else {
+        out << "    urls is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const AuthenticationResult & value)
+{
+    out << "AuthenticationResult: {\n";
+    out << "    currentTime = "
+        << "Timestamp" << "\n";
+    out << "    authenticationToken = "
+        << "QString" << "\n";
+    out << "    expiration = "
+        << "Timestamp" << "\n";
+
+    if (value.user.isSet()) {
+        out << "    user = "
+            << value.user.ref() << "\n";
+    }
+    else {
+        out << "    user is not set\n";
+    }
+
+    if (value.publicUserInfo.isSet()) {
+        out << "    publicUserInfo = "
+            << value.publicUserInfo.ref() << "\n";
+    }
+    else {
+        out << "    publicUserInfo is not set\n";
+    }
+
+    if (value.noteStoreUrl.isSet()) {
+        out << "    noteStoreUrl = "
+            << value.noteStoreUrl.ref() << "\n";
+    }
+    else {
+        out << "    noteStoreUrl is not set\n";
+    }
+
+    if (value.webApiUrlPrefix.isSet()) {
+        out << "    webApiUrlPrefix = "
+            << value.webApiUrlPrefix.ref() << "\n";
+    }
+    else {
+        out << "    webApiUrlPrefix is not set\n";
+    }
+
+    if (value.secondFactorRequired.isSet()) {
+        out << "    secondFactorRequired = "
+            << value.secondFactorRequired.ref() << "\n";
+    }
+    else {
+        out << "    secondFactorRequired is not set\n";
+    }
+
+    if (value.secondFactorDeliveryHint.isSet()) {
+        out << "    secondFactorDeliveryHint = "
+            << value.secondFactorDeliveryHint.ref() << "\n";
+    }
+    else {
+        out << "    secondFactorDeliveryHint is not set\n";
+    }
+
+    if (value.urls.isSet()) {
+        out << "    urls = "
+            << value.urls.ref() << "\n";
+    }
+    else {
+        out << "    urls is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 void writeBootstrapSettings(ThriftBinaryBufferWriter & w, const BootstrapSettings & s) {
     w.writeStructBegin(QStringLiteral("BootstrapSettings"));
@@ -12658,6 +23468,206 @@ void readBootstrapSettings(ThriftBinaryBufferReader & r, BootstrapSettings & s) 
     if(!accountEmailDomain_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("BootstrapSettings.accountEmailDomain has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BootstrapSettings & value)
+{
+    out << "BootstrapSettings: {\n";
+    out << "    serviceHost = "
+        << "QString" << "\n";
+    out << "    marketingUrl = "
+        << "QString" << "\n";
+    out << "    supportUrl = "
+        << "QString" << "\n";
+    out << "    accountEmailDomain = "
+        << "QString" << "\n";
+
+    if (value.enableFacebookSharing.isSet()) {
+        out << "    enableFacebookSharing = "
+            << value.enableFacebookSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableFacebookSharing is not set\n";
+    }
+
+    if (value.enableGiftSubscriptions.isSet()) {
+        out << "    enableGiftSubscriptions = "
+            << value.enableGiftSubscriptions.ref() << "\n";
+    }
+    else {
+        out << "    enableGiftSubscriptions is not set\n";
+    }
+
+    if (value.enableSupportTickets.isSet()) {
+        out << "    enableSupportTickets = "
+            << value.enableSupportTickets.ref() << "\n";
+    }
+    else {
+        out << "    enableSupportTickets is not set\n";
+    }
+
+    if (value.enableSharedNotebooks.isSet()) {
+        out << "    enableSharedNotebooks = "
+            << value.enableSharedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    enableSharedNotebooks is not set\n";
+    }
+
+    if (value.enableSingleNoteSharing.isSet()) {
+        out << "    enableSingleNoteSharing = "
+            << value.enableSingleNoteSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableSingleNoteSharing is not set\n";
+    }
+
+    if (value.enableSponsoredAccounts.isSet()) {
+        out << "    enableSponsoredAccounts = "
+            << value.enableSponsoredAccounts.ref() << "\n";
+    }
+    else {
+        out << "    enableSponsoredAccounts is not set\n";
+    }
+
+    if (value.enableTwitterSharing.isSet()) {
+        out << "    enableTwitterSharing = "
+            << value.enableTwitterSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableTwitterSharing is not set\n";
+    }
+
+    if (value.enableLinkedInSharing.isSet()) {
+        out << "    enableLinkedInSharing = "
+            << value.enableLinkedInSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableLinkedInSharing is not set\n";
+    }
+
+    if (value.enablePublicNotebooks.isSet()) {
+        out << "    enablePublicNotebooks = "
+            << value.enablePublicNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    enablePublicNotebooks is not set\n";
+    }
+
+    if (value.enableGoogle.isSet()) {
+        out << "    enableGoogle = "
+            << value.enableGoogle.ref() << "\n";
+    }
+    else {
+        out << "    enableGoogle is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BootstrapSettings & value)
+{
+    out << "BootstrapSettings: {\n";
+    out << "    serviceHost = "
+        << "QString" << "\n";
+    out << "    marketingUrl = "
+        << "QString" << "\n";
+    out << "    supportUrl = "
+        << "QString" << "\n";
+    out << "    accountEmailDomain = "
+        << "QString" << "\n";
+
+    if (value.enableFacebookSharing.isSet()) {
+        out << "    enableFacebookSharing = "
+            << value.enableFacebookSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableFacebookSharing is not set\n";
+    }
+
+    if (value.enableGiftSubscriptions.isSet()) {
+        out << "    enableGiftSubscriptions = "
+            << value.enableGiftSubscriptions.ref() << "\n";
+    }
+    else {
+        out << "    enableGiftSubscriptions is not set\n";
+    }
+
+    if (value.enableSupportTickets.isSet()) {
+        out << "    enableSupportTickets = "
+            << value.enableSupportTickets.ref() << "\n";
+    }
+    else {
+        out << "    enableSupportTickets is not set\n";
+    }
+
+    if (value.enableSharedNotebooks.isSet()) {
+        out << "    enableSharedNotebooks = "
+            << value.enableSharedNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    enableSharedNotebooks is not set\n";
+    }
+
+    if (value.enableSingleNoteSharing.isSet()) {
+        out << "    enableSingleNoteSharing = "
+            << value.enableSingleNoteSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableSingleNoteSharing is not set\n";
+    }
+
+    if (value.enableSponsoredAccounts.isSet()) {
+        out << "    enableSponsoredAccounts = "
+            << value.enableSponsoredAccounts.ref() << "\n";
+    }
+    else {
+        out << "    enableSponsoredAccounts is not set\n";
+    }
+
+    if (value.enableTwitterSharing.isSet()) {
+        out << "    enableTwitterSharing = "
+            << value.enableTwitterSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableTwitterSharing is not set\n";
+    }
+
+    if (value.enableLinkedInSharing.isSet()) {
+        out << "    enableLinkedInSharing = "
+            << value.enableLinkedInSharing.ref() << "\n";
+    }
+    else {
+        out << "    enableLinkedInSharing is not set\n";
+    }
+
+    if (value.enablePublicNotebooks.isSet()) {
+        out << "    enablePublicNotebooks = "
+            << value.enablePublicNotebooks.ref() << "\n";
+    }
+    else {
+        out << "    enablePublicNotebooks is not set\n";
+    }
+
+    if (value.enableGoogle.isSet()) {
+        out << "    enableGoogle = "
+            << value.enableGoogle.ref() << "\n";
+    }
+    else {
+        out << "    enableGoogle is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeBootstrapProfile(ThriftBinaryBufferWriter & w, const BootstrapProfile & s) {
     w.writeStructBegin(QStringLiteral("BootstrapProfile"));
     w.writeFieldBegin(
@@ -12717,6 +23727,36 @@ void readBootstrapProfile(ThriftBinaryBufferReader & r, BootstrapProfile & s) {
     if(!settings_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("BootstrapProfile.settings has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BootstrapProfile & value)
+{
+    out << "BootstrapProfile: {\n";
+    out << "    name = "
+        << "QString" << "\n";
+    out << "    settings = "
+        << "BootstrapSettings" << "\n";
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BootstrapProfile & value)
+{
+    out << "BootstrapProfile: {\n";
+    out << "    name = "
+        << "QString" << "\n";
+    out << "    settings = "
+        << "BootstrapSettings" << "\n";
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 void writeBootstrapInfo(ThriftBinaryBufferWriter & w, const BootstrapInfo & s) {
     w.writeStructBegin(QStringLiteral("BootstrapInfo"));
     w.writeFieldBegin(
@@ -12771,6 +23811,32 @@ void readBootstrapInfo(ThriftBinaryBufferReader & r, BootstrapInfo & s) {
     r.readStructEnd();
     if(!profiles_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("BootstrapInfo.profiles has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const BootstrapInfo & value)
+{
+    out << "BootstrapInfo: {\n";
+    out << "    profiles = "
+        << "QList<BootstrapProfile>" << "\n";
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const BootstrapInfo & value)
+{
+    out << "BootstrapInfo: {\n";
+    out << "    profiles = "
+        << "QList<BootstrapProfile>" << "\n";
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 EDAMUserException::EDAMUserException() {}
 EDAMUserException::~EDAMUserException() throw() {}
@@ -12836,6 +23902,50 @@ void readEDAMUserException(ThriftBinaryBufferReader & r, EDAMUserException & s) 
     r.readStructEnd();
     if(!errorCode_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("EDAMUserException.errorCode has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const EDAMUserException & value)
+{
+    out << "EDAMUserException: {\n";
+    out << "    errorCode = "
+        << "EDAMErrorCode" << "\n";
+
+    if (value.parameter.isSet()) {
+        out << "    parameter = "
+            << value.parameter.ref() << "\n";
+    }
+    else {
+        out << "    parameter is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const EDAMUserException & value)
+{
+    out << "EDAMUserException: {\n";
+    out << "    errorCode = "
+        << "EDAMErrorCode" << "\n";
+
+    if (value.parameter.isSet()) {
+        out << "    parameter = "
+            << value.parameter.ref() << "\n";
+    }
+    else {
+        out << "    parameter is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 EDAMSystemException::EDAMSystemException() {}
 EDAMSystemException::~EDAMSystemException() throw() {}
@@ -12920,6 +24030,66 @@ void readEDAMSystemException(ThriftBinaryBufferReader & r, EDAMSystemException &
     if(!errorCode_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("EDAMSystemException.errorCode has no value"));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const EDAMSystemException & value)
+{
+    out << "EDAMSystemException: {\n";
+    out << "    errorCode = "
+        << "EDAMErrorCode" << "\n";
+
+    if (value.message.isSet()) {
+        out << "    message = "
+            << value.message.ref() << "\n";
+    }
+    else {
+        out << "    message is not set\n";
+    }
+
+    if (value.rateLimitDuration.isSet()) {
+        out << "    rateLimitDuration = "
+            << value.rateLimitDuration.ref() << "\n";
+    }
+    else {
+        out << "    rateLimitDuration is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const EDAMSystemException & value)
+{
+    out << "EDAMSystemException: {\n";
+    out << "    errorCode = "
+        << "EDAMErrorCode" << "\n";
+
+    if (value.message.isSet()) {
+        out << "    message = "
+            << value.message.ref() << "\n";
+    }
+    else {
+        out << "    message is not set\n";
+    }
+
+    if (value.rateLimitDuration.isSet()) {
+        out << "    rateLimitDuration = "
+            << value.rateLimitDuration.ref() << "\n";
+    }
+    else {
+        out << "    rateLimitDuration is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 EDAMNotFoundException::EDAMNotFoundException() {}
 EDAMNotFoundException::~EDAMNotFoundException() throw() {}
 EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException& other) : EvernoteException(other)
@@ -12983,6 +24153,62 @@ void readEDAMNotFoundException(ThriftBinaryBufferReader & r, EDAMNotFoundExcepti
     }
     r.readStructEnd();
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const EDAMNotFoundException & value)
+{
+    out << "EDAMNotFoundException: {\n";
+
+    if (value.identifier.isSet()) {
+        out << "    identifier = "
+            << value.identifier.ref() << "\n";
+    }
+    else {
+        out << "    identifier is not set\n";
+    }
+
+    if (value.key.isSet()) {
+        out << "    key = "
+            << value.key.ref() << "\n";
+    }
+    else {
+        out << "    key is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const EDAMNotFoundException & value)
+{
+    out << "EDAMNotFoundException: {\n";
+
+    if (value.identifier.isSet()) {
+        out << "    identifier = "
+            << value.identifier.ref() << "\n";
+    }
+    else {
+        out << "    identifier is not set\n";
+    }
+
+    if (value.key.isSet()) {
+        out << "    key = "
+            << value.key.ref() << "\n";
+    }
+    else {
+        out << "    key is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 EDAMInvalidContactsException::EDAMInvalidContactsException() {}
 EDAMInvalidContactsException::~EDAMInvalidContactsException() throw() {}
@@ -13094,6 +24320,72 @@ void readEDAMInvalidContactsException(ThriftBinaryBufferReader & r, EDAMInvalidC
     r.readStructEnd();
     if(!contacts_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("EDAMInvalidContactsException.contacts has no value"));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(
+    QTextStream & out, const EDAMInvalidContactsException & value)
+{
+    out << "EDAMInvalidContactsException: {\n";
+    out << "    contacts = "
+        << "QList<Contact>" << "\n";
+
+    if (value.parameter.isSet()) {
+        out << "    parameter = "
+            << value.parameter.ref() << "\n";
+    }
+    else {
+        out << "    parameter is not set\n";
+    }
+
+    if (value.reasons.isSet()) {
+        out << "    reasons = "
+            << "QList<EDAMInvalidContactReason> {";
+        for(const auto & v: value.reasons.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    reasons is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+QDebug & operator<<(
+    QDebug & out, const EDAMInvalidContactsException & value)
+{
+    out << "EDAMInvalidContactsException: {\n";
+    out << "    contacts = "
+        << "QList<Contact>" << "\n";
+
+    if (value.parameter.isSet()) {
+        out << "    parameter = "
+            << value.parameter.ref() << "\n";
+    }
+    else {
+        out << "    parameter is not set\n";
+    }
+
+    if (value.reasons.isSet()) {
+        out << "    reasons = "
+            << "QList<EDAMInvalidContactReason> {";
+        for(const auto & v: value.reasons.ref()) {
+            out << v;
+        }
+    }
+    else {
+        out << "    reasons is not set\n";
+    }
+
+    out << "}\n";
+    return out;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 
 /** @endcond */
