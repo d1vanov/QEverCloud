@@ -65,7 +65,7 @@ using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-IRequestContextPtr newRequestContext(
+QEVERCLOUD_EXPORT IRequestContextPtr newRequestContext(
     QString authenticationToken = {},
     quint64 requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC,
     bool increaseRequestTimeoutExponentially = DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
