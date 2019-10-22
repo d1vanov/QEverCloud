@@ -15,6 +15,7 @@
 #include "Types_io.h"
 #include <DurableService.h>
 #include <Helpers.h>
+#include <Log.h>
 #include <algorithm>
 #include <cmath>
 
@@ -15460,9 +15461,11 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "afterUSN = " << afterUSN << "\n";
-    strm << "maxEntries = " << maxEntries << "\n";
-    strm << "filter = " << filter << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "afterUSN = " << afterUSN << "\n";
+        strm << "maxEntries = " << maxEntries << "\n";
+        strm << "filter = " << filter << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getFilteredSyncChunk",
@@ -15497,9 +15500,11 @@ AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "afterUSN = " << afterUSN << "\n";
-    strm << "maxEntries = " << maxEntries << "\n";
-    strm << "filter = " << filter << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "afterUSN = " << afterUSN << "\n";
+        strm << "maxEntries = " << maxEntries << "\n";
+        strm << "filter = " << filter << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getFilteredSyncChunk",
@@ -15530,7 +15535,9 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getLinkedNotebookSyncState",
@@ -15561,7 +15568,9 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getLinkedNotebookSyncState",
@@ -15598,10 +15607,12 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
-    strm << "afterUSN = " << afterUSN << "\n";
-    strm << "maxEntries = " << maxEntries << "\n";
-    strm << "fullSyncOnly = " << fullSyncOnly << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+        strm << "afterUSN = " << afterUSN << "\n";
+        strm << "maxEntries = " << maxEntries << "\n";
+        strm << "fullSyncOnly = " << fullSyncOnly << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getLinkedNotebookSyncChunk",
@@ -15638,10 +15649,12 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
-    strm << "afterUSN = " << afterUSN << "\n";
-    strm << "maxEntries = " << maxEntries << "\n";
-    strm << "fullSyncOnly = " << fullSyncOnly << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+        strm << "afterUSN = " << afterUSN << "\n";
+        strm << "maxEntries = " << maxEntries << "\n";
+        strm << "fullSyncOnly = " << fullSyncOnly << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getLinkedNotebookSyncChunk",
@@ -15772,7 +15785,9 @@ Notebook DurableNoteStore::getNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNotebook",
@@ -15803,7 +15818,9 @@ AsyncResult * DurableNoteStore::getNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNotebook",
@@ -15884,7 +15901,9 @@ Notebook DurableNoteStore::createNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebook = " << notebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebook = " << notebook << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "createNotebook",
@@ -15915,7 +15934,9 @@ AsyncResult * DurableNoteStore::createNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebook = " << notebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebook = " << notebook << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "createNotebook",
@@ -15946,7 +15967,9 @@ qint32 DurableNoteStore::updateNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebook = " << notebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebook = " << notebook << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateNotebook",
@@ -15977,7 +16000,9 @@ AsyncResult * DurableNoteStore::updateNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebook = " << notebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebook = " << notebook << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateNotebook",
@@ -16008,7 +16033,9 @@ qint32 DurableNoteStore::expungeNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "expungeNotebook",
@@ -16039,7 +16066,9 @@ AsyncResult * DurableNoteStore::expungeNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "expungeNotebook",
@@ -16120,7 +16149,9 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebookGuid = " << notebookGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebookGuid = " << notebookGuid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "listTagsByNotebook",
@@ -16151,7 +16182,9 @@ AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebookGuid = " << notebookGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebookGuid = " << notebookGuid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "listTagsByNotebook",
@@ -16182,7 +16215,9 @@ Tag DurableNoteStore::getTag(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getTag",
@@ -16213,7 +16248,9 @@ AsyncResult * DurableNoteStore::getTagAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getTag",
@@ -16244,7 +16281,9 @@ Tag DurableNoteStore::createTag(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "tag = " << tag << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "tag = " << tag << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "createTag",
@@ -16275,7 +16314,9 @@ AsyncResult * DurableNoteStore::createTagAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "tag = " << tag << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "tag = " << tag << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "createTag",
@@ -16306,7 +16347,9 @@ qint32 DurableNoteStore::updateTag(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "tag = " << tag << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "tag = " << tag << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateTag",
@@ -16337,7 +16380,9 @@ AsyncResult * DurableNoteStore::updateTagAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "tag = " << tag << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "tag = " << tag << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateTag",
@@ -16368,7 +16413,9 @@ void DurableNoteStore::untagAll(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "untagAll",
@@ -16399,7 +16446,9 @@ AsyncResult * DurableNoteStore::untagAllAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "untagAll",
@@ -16430,7 +16479,9 @@ qint32 DurableNoteStore::expungeTag(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "expungeTag",
@@ -16461,7 +16512,9 @@ AsyncResult * DurableNoteStore::expungeTagAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "expungeTag",
@@ -16542,7 +16595,9 @@ SavedSearch DurableNoteStore::getSearch(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getSearch",
@@ -16573,7 +16628,9 @@ AsyncResult * DurableNoteStore::getSearchAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getSearch",
@@ -16604,7 +16661,9 @@ SavedSearch DurableNoteStore::createSearch(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "search = " << search << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "search = " << search << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "createSearch",
@@ -16635,7 +16694,9 @@ AsyncResult * DurableNoteStore::createSearchAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "search = " << search << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "search = " << search << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "createSearch",
@@ -16666,7 +16727,9 @@ qint32 DurableNoteStore::updateSearch(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "search = " << search << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "search = " << search << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateSearch",
@@ -16697,7 +16760,9 @@ AsyncResult * DurableNoteStore::updateSearchAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "search = " << search << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "search = " << search << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateSearch",
@@ -16728,7 +16793,9 @@ qint32 DurableNoteStore::expungeSearch(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "expungeSearch",
@@ -16759,7 +16826,9 @@ AsyncResult * DurableNoteStore::expungeSearchAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "expungeSearch",
@@ -16792,8 +16861,10 @@ qint32 DurableNoteStore::findNoteOffset(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "filter = " << filter << "\n";
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "filter = " << filter << "\n";
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "findNoteOffset",
@@ -16826,8 +16897,10 @@ AsyncResult * DurableNoteStore::findNoteOffsetAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "filter = " << filter << "\n";
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "filter = " << filter << "\n";
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "findNoteOffset",
@@ -16864,10 +16937,12 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "filter = " << filter << "\n";
-    strm << "offset = " << offset << "\n";
-    strm << "maxNotes = " << maxNotes << "\n";
-    strm << "resultSpec = " << resultSpec << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "filter = " << filter << "\n";
+        strm << "offset = " << offset << "\n";
+        strm << "maxNotes = " << maxNotes << "\n";
+        strm << "resultSpec = " << resultSpec << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "findNotesMetadata",
@@ -16904,10 +16979,12 @@ AsyncResult * DurableNoteStore::findNotesMetadataAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "filter = " << filter << "\n";
-    strm << "offset = " << offset << "\n";
-    strm << "maxNotes = " << maxNotes << "\n";
-    strm << "resultSpec = " << resultSpec << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "filter = " << filter << "\n";
+        strm << "offset = " << offset << "\n";
+        strm << "maxNotes = " << maxNotes << "\n";
+        strm << "resultSpec = " << resultSpec << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "findNotesMetadata",
@@ -16940,8 +17017,10 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "filter = " << filter << "\n";
-    strm << "withTrash = " << withTrash << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "filter = " << filter << "\n";
+        strm << "withTrash = " << withTrash << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "findNoteCounts",
@@ -16974,8 +17053,10 @@ AsyncResult * DurableNoteStore::findNoteCountsAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "filter = " << filter << "\n";
-    strm << "withTrash = " << withTrash << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "filter = " << filter << "\n";
+        strm << "withTrash = " << withTrash << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "findNoteCounts",
@@ -17008,8 +17089,10 @@ Note DurableNoteStore::getNoteWithResultSpec(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "resultSpec = " << resultSpec << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "resultSpec = " << resultSpec << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteWithResultSpec",
@@ -17042,8 +17125,10 @@ AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "resultSpec = " << resultSpec << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "resultSpec = " << resultSpec << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteWithResultSpec",
@@ -17082,11 +17167,13 @@ Note DurableNoteStore::getNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "withContent = " << withContent << "\n";
-    strm << "withResourcesData = " << withResourcesData << "\n";
-    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
-    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "withContent = " << withContent << "\n";
+        strm << "withResourcesData = " << withResourcesData << "\n";
+        strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+        strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNote",
@@ -17125,11 +17212,13 @@ AsyncResult * DurableNoteStore::getNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "withContent = " << withContent << "\n";
-    strm << "withResourcesData = " << withResourcesData << "\n";
-    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
-    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "withContent = " << withContent << "\n";
+        strm << "withResourcesData = " << withResourcesData << "\n";
+        strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+        strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNote",
@@ -17160,7 +17249,9 @@ LazyMap DurableNoteStore::getNoteApplicationData(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteApplicationData",
@@ -17191,7 +17282,9 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteApplicationData",
@@ -17224,8 +17317,10 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteApplicationDataEntry",
@@ -17258,8 +17353,10 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteApplicationDataEntry",
@@ -17294,9 +17391,11 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
-    strm << "value = " << value << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+        strm << "value = " << value << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "setNoteApplicationDataEntry",
@@ -17331,9 +17430,11 @@ AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
-    strm << "value = " << value << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+        strm << "value = " << value << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "setNoteApplicationDataEntry",
@@ -17366,8 +17467,10 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "unsetNoteApplicationDataEntry",
@@ -17400,8 +17503,10 @@ AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "unsetNoteApplicationDataEntry",
@@ -17432,7 +17537,9 @@ QString DurableNoteStore::getNoteContent(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteContent",
@@ -17463,7 +17570,9 @@ AsyncResult * DurableNoteStore::getNoteContentAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteContent",
@@ -17498,9 +17607,11 @@ QString DurableNoteStore::getNoteSearchText(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "noteOnly = " << noteOnly << "\n";
-    strm << "tokenizeForIndexing = " << tokenizeForIndexing << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "noteOnly = " << noteOnly << "\n";
+        strm << "tokenizeForIndexing = " << tokenizeForIndexing << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteSearchText",
@@ -17535,9 +17646,11 @@ AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "noteOnly = " << noteOnly << "\n";
-    strm << "tokenizeForIndexing = " << tokenizeForIndexing << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "noteOnly = " << noteOnly << "\n";
+        strm << "tokenizeForIndexing = " << tokenizeForIndexing << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteSearchText",
@@ -17568,7 +17681,9 @@ QString DurableNoteStore::getResourceSearchText(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceSearchText",
@@ -17599,7 +17714,9 @@ AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceSearchText",
@@ -17630,7 +17747,9 @@ QStringList DurableNoteStore::getNoteTagNames(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteTagNames",
@@ -17661,7 +17780,9 @@ AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteTagNames",
@@ -17692,7 +17813,9 @@ Note DurableNoteStore::createNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "note = " << note << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "note = " << note << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "createNote",
@@ -17723,7 +17846,9 @@ AsyncResult * DurableNoteStore::createNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "note = " << note << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "note = " << note << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "createNote",
@@ -17754,7 +17879,9 @@ Note DurableNoteStore::updateNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "note = " << note << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "note = " << note << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateNote",
@@ -17785,7 +17912,9 @@ AsyncResult * DurableNoteStore::updateNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "note = " << note << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "note = " << note << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateNote",
@@ -17816,7 +17945,9 @@ qint32 DurableNoteStore::deleteNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "deleteNote",
@@ -17847,7 +17978,9 @@ AsyncResult * DurableNoteStore::deleteNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "deleteNote",
@@ -17878,7 +18011,9 @@ qint32 DurableNoteStore::expungeNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "expungeNote",
@@ -17909,7 +18044,9 @@ AsyncResult * DurableNoteStore::expungeNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "expungeNote",
@@ -17942,8 +18079,10 @@ Note DurableNoteStore::copyNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
-    strm << "toNotebookGuid = " << toNotebookGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+        strm << "toNotebookGuid = " << toNotebookGuid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "copyNote",
@@ -17976,8 +18115,10 @@ AsyncResult * DurableNoteStore::copyNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
-    strm << "toNotebookGuid = " << toNotebookGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+        strm << "toNotebookGuid = " << toNotebookGuid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "copyNote",
@@ -18008,7 +18149,9 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "listNoteVersions",
@@ -18039,7 +18182,9 @@ AsyncResult * DurableNoteStore::listNoteVersionsAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "listNoteVersions",
@@ -18078,11 +18223,13 @@ Note DurableNoteStore::getNoteVersion(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
-    strm << "updateSequenceNum = " << updateSequenceNum << "\n";
-    strm << "withResourcesData = " << withResourcesData << "\n";
-    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
-    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+        strm << "updateSequenceNum = " << updateSequenceNum << "\n";
+        strm << "withResourcesData = " << withResourcesData << "\n";
+        strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+        strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNoteVersion",
@@ -18121,11 +18268,13 @@ AsyncResult * DurableNoteStore::getNoteVersionAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
-    strm << "updateSequenceNum = " << updateSequenceNum << "\n";
-    strm << "withResourcesData = " << withResourcesData << "\n";
-    strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
-    strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+        strm << "updateSequenceNum = " << updateSequenceNum << "\n";
+        strm << "withResourcesData = " << withResourcesData << "\n";
+        strm << "withResourcesRecognition = " << withResourcesRecognition << "\n";
+        strm << "withResourcesAlternateData = " << withResourcesAlternateData << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNoteVersion",
@@ -18164,11 +18313,13 @@ Resource DurableNoteStore::getResource(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "withData = " << withData << "\n";
-    strm << "withRecognition = " << withRecognition << "\n";
-    strm << "withAttributes = " << withAttributes << "\n";
-    strm << "withAlternateData = " << withAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "withData = " << withData << "\n";
+        strm << "withRecognition = " << withRecognition << "\n";
+        strm << "withAttributes = " << withAttributes << "\n";
+        strm << "withAlternateData = " << withAlternateData << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResource",
@@ -18207,11 +18358,13 @@ AsyncResult * DurableNoteStore::getResourceAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "withData = " << withData << "\n";
-    strm << "withRecognition = " << withRecognition << "\n";
-    strm << "withAttributes = " << withAttributes << "\n";
-    strm << "withAlternateData = " << withAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "withData = " << withData << "\n";
+        strm << "withRecognition = " << withRecognition << "\n";
+        strm << "withAttributes = " << withAttributes << "\n";
+        strm << "withAlternateData = " << withAlternateData << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResource",
@@ -18242,7 +18395,9 @@ LazyMap DurableNoteStore::getResourceApplicationData(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceApplicationData",
@@ -18273,7 +18428,9 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceApplicationData",
@@ -18306,8 +18463,10 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceApplicationDataEntry",
@@ -18340,8 +18499,10 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceApplicationDataEntry",
@@ -18376,9 +18537,11 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
-    strm << "value = " << value << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+        strm << "value = " << value << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "setResourceApplicationDataEntry",
@@ -18413,9 +18576,11 @@ AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
-    strm << "value = " << value << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+        strm << "value = " << value << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "setResourceApplicationDataEntry",
@@ -18448,8 +18613,10 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "unsetResourceApplicationDataEntry",
@@ -18482,8 +18649,10 @@ AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "key = " << key << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "key = " << key << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "unsetResourceApplicationDataEntry",
@@ -18514,7 +18683,9 @@ qint32 DurableNoteStore::updateResource(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "resource = " << resource << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "resource = " << resource << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateResource",
@@ -18545,7 +18716,9 @@ AsyncResult * DurableNoteStore::updateResourceAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "resource = " << resource << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "resource = " << resource << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateResource",
@@ -18576,7 +18749,9 @@ QByteArray DurableNoteStore::getResourceData(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceData",
@@ -18607,7 +18782,9 @@ AsyncResult * DurableNoteStore::getResourceDataAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceData",
@@ -18646,11 +18823,13 @@ Resource DurableNoteStore::getResourceByHash(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
-    strm << "contentHash = " << contentHash << "\n";
-    strm << "withData = " << withData << "\n";
-    strm << "withRecognition = " << withRecognition << "\n";
-    strm << "withAlternateData = " << withAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+        strm << "contentHash = " << contentHash << "\n";
+        strm << "withData = " << withData << "\n";
+        strm << "withRecognition = " << withRecognition << "\n";
+        strm << "withAlternateData = " << withAlternateData << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceByHash",
@@ -18689,11 +18868,13 @@ AsyncResult * DurableNoteStore::getResourceByHashAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "noteGuid = " << noteGuid << "\n";
-    strm << "contentHash = " << contentHash << "\n";
-    strm << "withData = " << withData << "\n";
-    strm << "withRecognition = " << withRecognition << "\n";
-    strm << "withAlternateData = " << withAlternateData << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "noteGuid = " << noteGuid << "\n";
+        strm << "contentHash = " << contentHash << "\n";
+        strm << "withData = " << withData << "\n";
+        strm << "withRecognition = " << withRecognition << "\n";
+        strm << "withAlternateData = " << withAlternateData << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceByHash",
@@ -18724,7 +18905,9 @@ QByteArray DurableNoteStore::getResourceRecognition(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceRecognition",
@@ -18755,7 +18938,9 @@ AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceRecognition",
@@ -18786,7 +18971,9 @@ QByteArray DurableNoteStore::getResourceAlternateData(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceAlternateData",
@@ -18817,7 +19004,9 @@ AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceAlternateData",
@@ -18848,7 +19037,9 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getResourceAttributes",
@@ -18879,7 +19070,9 @@ AsyncResult * DurableNoteStore::getResourceAttributesAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getResourceAttributes",
@@ -18912,8 +19105,10 @@ Notebook DurableNoteStore::getPublicNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "userId = " << userId << "\n";
-    strm << "publicUri = " << publicUri << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "userId = " << userId << "\n";
+        strm << "publicUri = " << publicUri << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getPublicNotebook",
@@ -18946,8 +19141,10 @@ AsyncResult * DurableNoteStore::getPublicNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "userId = " << userId << "\n";
-    strm << "publicUri = " << publicUri << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "userId = " << userId << "\n";
+        strm << "publicUri = " << publicUri << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getPublicNotebook",
@@ -18980,8 +19177,10 @@ SharedNotebook DurableNoteStore::shareNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "sharedNotebook = " << sharedNotebook << "\n";
-    strm << "message = " << message << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "sharedNotebook = " << sharedNotebook << "\n";
+        strm << "message = " << message << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "shareNotebook",
@@ -19014,8 +19213,10 @@ AsyncResult * DurableNoteStore::shareNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "sharedNotebook = " << sharedNotebook << "\n";
-    strm << "message = " << message << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "sharedNotebook = " << sharedNotebook << "\n";
+        strm << "message = " << message << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "shareNotebook",
@@ -19046,7 +19247,9 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "shareTemplate = " << shareTemplate << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "shareTemplate = " << shareTemplate << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "createOrUpdateNotebookShares",
@@ -19077,7 +19280,9 @@ AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "shareTemplate = " << shareTemplate << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "shareTemplate = " << shareTemplate << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "createOrUpdateNotebookShares",
@@ -19108,7 +19313,9 @@ qint32 DurableNoteStore::updateSharedNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "sharedNotebook = " << sharedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "sharedNotebook = " << sharedNotebook << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateSharedNotebook",
@@ -19139,7 +19346,9 @@ AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "sharedNotebook = " << sharedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "sharedNotebook = " << sharedNotebook << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateSharedNotebook",
@@ -19172,8 +19381,10 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebookGuid = " << notebookGuid << "\n";
-    strm << "recipientSettings = " << recipientSettings << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebookGuid = " << notebookGuid << "\n";
+        strm << "recipientSettings = " << recipientSettings << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "setNotebookRecipientSettings",
@@ -19206,8 +19417,10 @@ AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebookGuid = " << notebookGuid << "\n";
-    strm << "recipientSettings = " << recipientSettings << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebookGuid = " << notebookGuid << "\n";
+        strm << "recipientSettings = " << recipientSettings << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "setNotebookRecipientSettings",
@@ -19288,7 +19501,9 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "createLinkedNotebook",
@@ -19319,7 +19534,9 @@ AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "createLinkedNotebook",
@@ -19350,7 +19567,9 @@ qint32 DurableNoteStore::updateLinkedNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateLinkedNotebook",
@@ -19381,7 +19600,9 @@ AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "linkedNotebook = " << linkedNotebook << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "linkedNotebook = " << linkedNotebook << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateLinkedNotebook",
@@ -19462,7 +19683,9 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "expungeLinkedNotebook",
@@ -19493,7 +19716,9 @@ AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "expungeLinkedNotebook",
@@ -19524,7 +19749,9 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "shareKeyOrGlobalId = " << shareKeyOrGlobalId << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "shareKeyOrGlobalId = " << shareKeyOrGlobalId << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "authenticateToSharedNotebook",
@@ -19555,7 +19782,9 @@ AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "shareKeyOrGlobalId = " << shareKeyOrGlobalId << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "shareKeyOrGlobalId = " << shareKeyOrGlobalId << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "authenticateToSharedNotebook",
@@ -19636,7 +19865,9 @@ void DurableNoteStore::emailNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "parameters = " << parameters << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "parameters = " << parameters << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "emailNote",
@@ -19667,7 +19898,9 @@ AsyncResult * DurableNoteStore::emailNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "parameters = " << parameters << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "parameters = " << parameters << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "emailNote",
@@ -19698,7 +19931,9 @@ QString DurableNoteStore::shareNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "shareNote",
@@ -19729,7 +19964,9 @@ AsyncResult * DurableNoteStore::shareNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "shareNote",
@@ -19760,7 +19997,9 @@ void DurableNoteStore::stopSharingNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "stopSharingNote",
@@ -19791,7 +20030,9 @@ AsyncResult * DurableNoteStore::stopSharingNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "stopSharingNote",
@@ -19824,8 +20065,10 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "noteKey = " << noteKey << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "noteKey = " << noteKey << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "authenticateToSharedNote",
@@ -19858,8 +20101,10 @@ AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "guid = " << guid << "\n";
-    strm << "noteKey = " << noteKey << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "guid = " << guid << "\n";
+        strm << "noteKey = " << noteKey << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "authenticateToSharedNote",
@@ -19892,8 +20137,10 @@ RelatedResult DurableNoteStore::findRelated(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "query = " << query << "\n";
-    strm << "resultSpec = " << resultSpec << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "query = " << query << "\n";
+        strm << "resultSpec = " << resultSpec << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "findRelated",
@@ -19926,8 +20173,10 @@ AsyncResult * DurableNoteStore::findRelatedAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "query = " << query << "\n";
-    strm << "resultSpec = " << resultSpec << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "query = " << query << "\n";
+        strm << "resultSpec = " << resultSpec << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "findRelated",
@@ -19958,7 +20207,9 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "note = " << note << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "note = " << note << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateNoteIfUsnMatches",
@@ -19989,7 +20240,9 @@ AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "note = " << note << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "note = " << note << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateNoteIfUsnMatches",
@@ -20020,7 +20273,9 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "parameters = " << parameters << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "parameters = " << parameters << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "manageNotebookShares",
@@ -20051,7 +20306,9 @@ AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "parameters = " << parameters << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "parameters = " << parameters << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "manageNotebookShares",
@@ -20082,7 +20339,9 @@ ShareRelationships DurableNoteStore::getNotebookShares(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebookGuid = " << notebookGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebookGuid = " << notebookGuid << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getNotebookShares",
@@ -20113,7 +20372,9 @@ AsyncResult * DurableNoteStore::getNotebookSharesAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "notebookGuid = " << notebookGuid << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "notebookGuid = " << notebookGuid << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getNotebookShares",
@@ -20150,9 +20411,11 @@ bool DurableUserStore::checkVersion(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "clientName = " << clientName << "\n";
-    strm << "edamVersionMajor = " << edamVersionMajor << "\n";
-    strm << "edamVersionMinor = " << edamVersionMinor << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "clientName = " << clientName << "\n";
+        strm << "edamVersionMajor = " << edamVersionMajor << "\n";
+        strm << "edamVersionMinor = " << edamVersionMinor << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "checkVersion",
@@ -20187,9 +20450,11 @@ AsyncResult * DurableUserStore::checkVersionAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "clientName = " << clientName << "\n";
-    strm << "edamVersionMajor = " << edamVersionMajor << "\n";
-    strm << "edamVersionMinor = " << edamVersionMinor << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "clientName = " << clientName << "\n";
+        strm << "edamVersionMajor = " << edamVersionMajor << "\n";
+        strm << "edamVersionMinor = " << edamVersionMinor << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "checkVersion",
@@ -20220,7 +20485,9 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "locale = " << locale << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "locale = " << locale << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getBootstrapInfo",
@@ -20251,7 +20518,9 @@ AsyncResult * DurableUserStore::getBootstrapInfoAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "locale = " << locale << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "locale = " << locale << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getBootstrapInfo",
@@ -20294,13 +20563,12 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "username = " << username << "\n";
-    strm << "password = " << password << "\n";
-    strm << "consumerKey = " << consumerKey << "\n";
-    strm << "consumerSecret = " << consumerSecret << "\n";
-    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
-    strm << "deviceDescription = " << deviceDescription << "\n";
-    strm << "supportsTwoFactor = " << supportsTwoFactor << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "username = " << username << "\n";
+        strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+        strm << "deviceDescription = " << deviceDescription << "\n";
+        strm << "supportsTwoFactor = " << supportsTwoFactor << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "authenticateLongSession",
@@ -20343,13 +20611,12 @@ AsyncResult * DurableUserStore::authenticateLongSessionAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "username = " << username << "\n";
-    strm << "password = " << password << "\n";
-    strm << "consumerKey = " << consumerKey << "\n";
-    strm << "consumerSecret = " << consumerSecret << "\n";
-    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
-    strm << "deviceDescription = " << deviceDescription << "\n";
-    strm << "supportsTwoFactor = " << supportsTwoFactor << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "username = " << username << "\n";
+        strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+        strm << "deviceDescription = " << deviceDescription << "\n";
+        strm << "supportsTwoFactor = " << supportsTwoFactor << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "authenticateLongSession",
@@ -20384,9 +20651,10 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "oneTimeCode = " << oneTimeCode << "\n";
-    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
-    strm << "deviceDescription = " << deviceDescription << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+        strm << "deviceDescription = " << deviceDescription << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "completeTwoFactorAuthentication",
@@ -20421,9 +20689,10 @@ AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "oneTimeCode = " << oneTimeCode << "\n";
-    strm << "deviceIdentifier = " << deviceIdentifier << "\n";
-    strm << "deviceDescription = " << deviceDescription << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "deviceIdentifier = " << deviceIdentifier << "\n";
+        strm << "deviceDescription = " << deviceDescription << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "completeTwoFactorAuthentication",
@@ -20604,7 +20873,9 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "username = " << username << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "username = " << username << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getPublicUserInfo",
@@ -20635,7 +20906,9 @@ AsyncResult * DurableUserStore::getPublicUserInfoAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "username = " << username << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "username = " << username << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getPublicUserInfo",
@@ -20716,7 +20989,9 @@ void DurableUserStore::inviteToBusiness(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "emailAddress = " << emailAddress << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "emailAddress = " << emailAddress << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "inviteToBusiness",
@@ -20747,7 +21022,9 @@ AsyncResult * DurableUserStore::inviteToBusinessAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "emailAddress = " << emailAddress << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "emailAddress = " << emailAddress << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "inviteToBusiness",
@@ -20778,7 +21055,9 @@ void DurableUserStore::removeFromBusiness(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "emailAddress = " << emailAddress << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "emailAddress = " << emailAddress << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "removeFromBusiness",
@@ -20809,7 +21088,9 @@ AsyncResult * DurableUserStore::removeFromBusinessAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "emailAddress = " << emailAddress << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "emailAddress = " << emailAddress << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "removeFromBusiness",
@@ -20842,8 +21123,10 @@ void DurableUserStore::updateBusinessUserIdentifier(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "oldEmailAddress = " << oldEmailAddress << "\n";
-    strm << "newEmailAddress = " << newEmailAddress << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "oldEmailAddress = " << oldEmailAddress << "\n";
+        strm << "newEmailAddress = " << newEmailAddress << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "updateBusinessUserIdentifier",
@@ -20876,8 +21159,10 @@ AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "oldEmailAddress = " << oldEmailAddress << "\n";
-    strm << "newEmailAddress = " << newEmailAddress << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "oldEmailAddress = " << oldEmailAddress << "\n";
+        strm << "newEmailAddress = " << newEmailAddress << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "updateBusinessUserIdentifier",
@@ -20958,7 +21243,9 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "includeRequestedInvitations = " << includeRequestedInvitations << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "includeRequestedInvitations = " << includeRequestedInvitations << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "listBusinessInvitations",
@@ -20989,7 +21276,9 @@ AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "includeRequestedInvitations = " << includeRequestedInvitations << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "includeRequestedInvitations = " << includeRequestedInvitations << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "listBusinessInvitations",
@@ -21020,7 +21309,9 @@ AccountLimits DurableUserStore::getAccountLimits(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "serviceLevel = " << serviceLevel << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "serviceLevel = " << serviceLevel << "\n";
+    }
 
     IDurableService::SyncRequest request(
         "getAccountLimits",
@@ -21051,7 +21342,9 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
 
     QString requestDescription;
     QTextStream strm(&requestDescription);
-    strm << "serviceLevel = " << serviceLevel << "\n";
+    if (auto log = logger(); log->shouldLog(LogLevel::Trace, "durable_service")) {
+        strm << "serviceLevel = " << serviceLevel << "\n";
+    }
 
     IDurableService::AsyncRequest request(
         "getAccountLimits",
