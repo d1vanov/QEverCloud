@@ -1470,7 +1470,11 @@ void readSyncChunkFilter(
                 ThriftFieldType::type elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
-                if (elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect set type (SyncChunkFilter.notebookGuids)"));
+                if (elemType != ThriftFieldType::T_STRING) {
+                    throw ThriftException(
+                        ThriftException::Type::INVALID_DATA,
+                        QStringLiteral("Incorrect set type (SyncChunkFilter.notebookGuids)"));
+                }
                 for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
@@ -4791,7 +4795,11 @@ void readRelatedResultSpec(
                 ThriftFieldType::type elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
-                if (elemType != ThriftFieldType::T_I32) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect set type (RelatedResultSpec.relatedContentTypes)"));
+                if (elemType != ThriftFieldType::T_I32) {
+                    throw ThriftException(
+                        ThriftException::Type::INVALID_DATA,
+                        QStringLiteral("Incorrect set type (RelatedResultSpec.relatedContentTypes)"));
+                }
                 for(qint32 i = 0; i < size; i++) {
                     RelatedContentType elem;
                     readEnumRelatedContentType(r, elem);
@@ -11004,7 +11012,11 @@ void readLazyMap(
                 ThriftFieldType::type elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
-                if (elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect set type (LazyMap.keysOnly)"));
+                if (elemType != ThriftFieldType::T_STRING) {
+                    throw ThriftException(
+                        ThriftException::Type::INVALID_DATA,
+                        QStringLiteral("Incorrect set type (LazyMap.keysOnly)"));
+                }
                 for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
