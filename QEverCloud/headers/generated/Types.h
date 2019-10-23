@@ -16,6 +16,7 @@
 
 #include "../Optional.h"
 #include "EDAMErrorCode.h"
+#include "Printable.h"
 #include <QByteArray>
 #include <QDateTime>
 #include <QList>
@@ -93,7 +94,8 @@ using MessageThreadID = qint64;
  * This structure encapsulates the information about the state of the
  * user's account for the purpose of "state based" synchronization.
  * */
-struct QEVERCLOUD_EXPORT SyncState {
+struct QEVERCLOUD_EXPORT SyncState: public Printable
+{
     /**
     The server's current date and time.
     */
@@ -153,6 +155,8 @@ struct QEVERCLOUD_EXPORT SyncState {
     */
     Optional<MessageEventID> userMaxMessageEventId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SyncState & other) const
     {
         return (currentTime == other.currentTime)
@@ -171,12 +175,6 @@ struct QEVERCLOUD_EXPORT SyncState {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SyncState & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SyncState & value);
-
 /**
  * This structure is used with the 'getFilteredSyncChunk' call to provide
  * fine-grained control over the data that's returned when a client needs
@@ -184,7 +182,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * whether to include one class of data in the results of that call.
  *
  **/
-struct QEVERCLOUD_EXPORT SyncChunkFilter {
+struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
+{
     /**
     If true, then the server will include the SyncChunks.notes field
     */
@@ -285,6 +284,8 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
     */
     Optional<QSet<QString>> notebookGuids;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SyncChunkFilter & other) const
     {
         return includeNotes.isEqual(other.includeNotes)
@@ -313,19 +314,14 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SyncChunkFilter & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SyncChunkFilter & value);
-
 /**
  * A list of criteria that are used to indicate which notes are desired from
  * the account.  This is used in queries to the NoteStore to determine
  * which notes should be retrieved.
  *
  **/
-struct QEVERCLOUD_EXPORT NoteFilter {
+struct QEVERCLOUD_EXPORT NoteFilter: public Printable
+{
     /**
     The NoteSortOrder value indicating what criterion should be
        used to sort the results of the filter.
@@ -405,6 +401,8 @@ struct QEVERCLOUD_EXPORT NoteFilter {
     */
     Optional<QByteArray> searchContextBytes;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteFilter & other) const
     {
         return order.isEqual(other.order)
@@ -430,12 +428,6 @@ struct QEVERCLOUD_EXPORT NoteFilter {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteFilter & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteFilter & value);
-
 /**
  * This structure is provided to the findNotesMetadata function to specify
  * the subset of fields that should be included in each NoteMetadata element
@@ -449,7 +441,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * 'false' by the server, so the default behavior is to include nothing in
  * replies (but the mandatory GUID)
  */
-struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
+struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
+{
     /** NOT DOCUMENTED */
     Optional<bool> includeTitle;
     /** NOT DOCUMENTED */
@@ -472,6 +465,8 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
     Optional<bool> includeLargestResourceMime;
     /** NOT DOCUMENTED */
     Optional<bool> includeLargestResourceSize;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const NotesMetadataResultSpec & other) const
     {
@@ -496,18 +491,13 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NotesMetadataResultSpec & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NotesMetadataResultSpec & value);
-
 /**
  * A data structure representing the number of notes for each notebook
  * and tag with a non-zero set of applicable notes.
  *
  **/
-struct QEVERCLOUD_EXPORT NoteCollectionCounts {
+struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
+{
     /**
     A mapping from the Notebook GUID to the number of
        notes (from some selection) that are in the corresponding notebook.
@@ -526,6 +516,8 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts {
     */
     Optional<qint32> trashCount;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteCollectionCounts & other) const
     {
         return notebookCounts.isEqual(other.notebookCounts)
@@ -541,12 +533,6 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteCollectionCounts & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteCollectionCounts & value);
-
 /**
  * This structure is provided to the getNoteWithResultSpec function to specify the subset of
  * fields that should be included in the Note that is returned. This allows clients to request
@@ -557,7 +543,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * so that the default behavior is to include none of the fields below in the Note.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteResultSpec {
+struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
+{
     /**
     If true, the Note.content field will be populated with the note's ENML contents.
     */
@@ -594,6 +581,8 @@ struct QEVERCLOUD_EXPORT NoteResultSpec {
     */
     Optional<bool> includeAccountLimits;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteResultSpec & other) const
     {
         return includeContent.isEqual(other.includeContent)
@@ -614,19 +603,14 @@ struct QEVERCLOUD_EXPORT NoteResultSpec {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteResultSpec & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteResultSpec & value);
-
 /**
  * Identifying information about previous versions of a note that are backed up
  * within Evernote's servers.  Used in the return value of the listNoteVersions
  * call.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteVersionId {
+struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
+{
     /**
     The update sequence number for the Note when it last had this content.
         This serves to uniquely identify each version of the note, since USN
@@ -657,6 +641,8 @@ struct QEVERCLOUD_EXPORT NoteVersionId {
     */
     Optional<UserID> lastEditorId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteVersionId & other) const
     {
         return (updateSequenceNum == other.updateSequenceNum)
@@ -674,12 +660,6 @@ struct QEVERCLOUD_EXPORT NoteVersionId {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteVersionId & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteVersionId & value);
-
 /**
  * A description of the thing for which we are searching for related
  * entities.
@@ -688,7 +668,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * not both. <em>filter</em> and <em>referenceUri</em> are optional.
  *
  * */
-struct QEVERCLOUD_EXPORT RelatedQuery {
+struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
+{
     /**
     The GUID of an existing note in your account for which related
          entities will be found.
@@ -731,6 +712,8 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
     */
     Optional<QString> cacheKey;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const RelatedQuery & other) const
     {
         return noteGuid.isEqual(other.noteGuid)
@@ -749,12 +732,6 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const RelatedQuery & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const RelatedQuery & value);
-
 /**
  * A description of the thing for which the service will find related
  * entities, via findRelated(), together with a description of what
@@ -762,7 +739,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * RelatedResult.
  *
  * */
-struct QEVERCLOUD_EXPORT RelatedResultSpec {
+struct QEVERCLOUD_EXPORT RelatedResultSpec: public Printable
+{
     /**
     Return notes that are related to the query, but no more than
          this many.  Any value greater than EDAM_RELATED_MAX_NOTES
@@ -821,6 +799,8 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
     */
     Optional<QSet<RelatedContentType>> relatedContentTypes;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const RelatedResultSpec & other) const
     {
         return maxNotes.isEqual(other.maxNotes)
@@ -842,14 +822,9 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const RelatedResultSpec & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const RelatedResultSpec & value);
-
 /** NO DOC COMMENT ID FOUND */
-struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions {
+struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
+{
     /** NOT DOCUMENTED */
     Optional<bool> noSetReadOnly;
     /** NOT DOCUMENTED */
@@ -858,6 +833,8 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions {
     Optional<bool> noSetModify;
     /** NOT DOCUMENTED */
     Optional<bool> noSetFullAccess;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const ShareRelationshipRestrictions & other) const
     {
@@ -875,18 +852,13 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ShareRelationshipRestrictions & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ShareRelationshipRestrictions & value);
-
 /**
  * Describes the association between a Notebook and an Evernote User who is
  * a member of that notebook.
  *
  * */
-struct QEVERCLOUD_EXPORT MemberShareRelationship {
+struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
+{
     /**
     The string that clients should show to users to represent this
      member.
@@ -929,6 +901,8 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
     */
     Optional<UserID> sharerUserId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const MemberShareRelationship & other) const
     {
         return displayName.isEqual(other.displayName)
@@ -947,19 +921,14 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const MemberShareRelationship & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const MemberShareRelationship & value);
-
 /**
  * This structure is used by the service to communicate to clients, via
  * getNoteShareRelationships, which privilege levels are assignable to the
  * target of a note share relationship.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions {
+struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
+{
     /**
     This value is true if the user is not allowed to set the privilege
      level to SharedNotePrivilegeLevel.READ_NOTE.
@@ -976,6 +945,8 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions {
     */
     Optional<bool> noSetFullAccess;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteShareRelationshipRestrictions & other) const
     {
         return noSetReadNote.isEqual(other.noSetReadNote)
@@ -991,18 +962,13 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteShareRelationshipRestrictions & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteShareRelationshipRestrictions & value);
-
 /**
  * Describes the association between a Note and an Evernote User who is
  * a member of that note.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
+struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
+{
     /**
     The string that clients should show to users to represent this
      member.
@@ -1034,6 +1000,8 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
     */
     Optional<UserID> sharerUserId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteMemberShareRelationship & other) const
     {
         return displayName.isEqual(other.displayName)
@@ -1051,18 +1019,13 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteMemberShareRelationship & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteMemberShareRelationship & value);
-
 /**
  * Describes an invitation to a person to use their Evernote credentials
  * to gain access to a note belonging to another user.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
+struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
+{
     /**
     The string that clients should show to users to represent this
      invitation.
@@ -1089,6 +1052,8 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
     */
     Optional<UserID> sharerUserId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteInvitationShareRelationship & other) const
     {
         return displayName.isEqual(other.displayName)
@@ -1105,12 +1070,6 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteInvitationShareRelationship & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteInvitationShareRelationship & value);
-
 /**
  * Captures a collection of share relationships for a single note,
  * for example, as returned by the getNoteShares method. The share
@@ -1118,7 +1077,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * invitations that can be used to become members.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteShareRelationships {
+struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
+{
     /**
     A list of open invitations that can be redeemed into
      memberships to the note.
@@ -1132,6 +1092,8 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships {
     Optional<QList<NoteMemberShareRelationship>> memberships;
     /** NOT DOCUMENTED */
     Optional<NoteShareRelationshipRestrictions> invitationRestrictions;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const NoteShareRelationships & other) const
     {
@@ -1148,12 +1110,6 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteShareRelationships & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteShareRelationships & value);
-
 /**
  * Captures parameters used by clients to manage the shares for a given
  * note via the manageNoteShares function. This is used only to manage
@@ -1164,7 +1120,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * updated by this function is the share privilege.
  *
  * */
-struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
+struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
+{
     /**
     The GUID of the note whose shares are being managed.
     */
@@ -1194,6 +1151,8 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
     */
     Optional<QList<IdentityID>> invitationsToUnshare;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const ManageNoteSharesParameters & other) const
     {
         return noteGuid.isEqual(other.noteGuid)
@@ -1211,12 +1170,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ManageNoteSharesParameters & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ManageNoteSharesParameters & value);
-
 /**
  * In several places, EDAM exchanges blocks of bytes of data for a component
  * which may be relatively large.  For example:  the contents of a clipped
@@ -1226,7 +1179,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * they are only referenced their metadata.
  *
  **/
-struct QEVERCLOUD_EXPORT Data {
+struct QEVERCLOUD_EXPORT Data: public Printable
+{
     /**
     This field carries a one-way hash of the contents of the
        data body, in binary form.  The hash function is MD5<br/>
@@ -1246,6 +1200,8 @@ struct QEVERCLOUD_EXPORT Data {
     */
     Optional<QByteArray> body;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Data & other) const
     {
         return bodyHash.isEqual(other.bodyHash)
@@ -1261,18 +1217,13 @@ struct QEVERCLOUD_EXPORT Data {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Data & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Data & value);
-
 /**
  * A structure holding the optional attributes that can be stored
  * on a User.  These are generally less critical than the core User fields.
  *
  **/
-struct QEVERCLOUD_EXPORT UserAttributes {
+struct QEVERCLOUD_EXPORT UserAttributes: public Printable
+{
     /**
     the location string that should be associated
        with the user in order to determine where notes are taken if not otherwise
@@ -1471,6 +1422,8 @@ struct QEVERCLOUD_EXPORT UserAttributes {
     */
     Optional<bool> optOutMachineLearning;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const UserAttributes & other) const
     {
         return defaultLocationName.isEqual(other.defaultLocationName)
@@ -1518,18 +1471,13 @@ struct QEVERCLOUD_EXPORT UserAttributes {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const UserAttributes & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const UserAttributes & value);
-
 /**
  * A structure holding the optional attributes associated with users
  * in a business.
  *
  * */
-struct QEVERCLOUD_EXPORT BusinessUserAttributes {
+struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
+{
     /**
     Free form text of this user's title in the business
     */
@@ -1560,6 +1508,8 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes {
     */
     Optional<Timestamp> companyStartDate;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const BusinessUserAttributes & other) const
     {
         return title.isEqual(other.title)
@@ -1579,17 +1529,12 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BusinessUserAttributes & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BusinessUserAttributes & value);
-
 /**
  * This represents the bookkeeping information for the user's subscription.
  *
  **/
-struct QEVERCLOUD_EXPORT Accounting {
+struct QEVERCLOUD_EXPORT Accounting: public Printable
+{
     /**
     The date and time when the current upload limit
        expires.  At this time, the monthly upload count reverts to 0 and a new
@@ -1699,6 +1644,8 @@ struct QEVERCLOUD_EXPORT Accounting {
     /** NOT DOCUMENTED */
     Optional<qint32> availablePoints;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Accounting & other) const
     {
         return uploadLimitEnd.isEqual(other.uploadLimitEnd)
@@ -1734,18 +1681,13 @@ struct QEVERCLOUD_EXPORT Accounting {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Accounting & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Accounting & value);
-
 /**
  * This structure is used to provide information about an Evernote Business
  * membership, for members who are part of a business.
  *
  * */
-struct QEVERCLOUD_EXPORT BusinessUserInfo {
+struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
+{
     /**
     The ID of the Evernote Business account that the user is a member of.
      <dt>businessName
@@ -1773,6 +1715,8 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
     */
     Optional<Timestamp> updated;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const BusinessUserInfo & other) const
     {
         return businessId.isEqual(other.businessId)
@@ -1790,16 +1734,11 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BusinessUserInfo & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BusinessUserInfo & value);
-
 /**
  * This structure is used to provide account limits that are in effect for this user.
  **/
-struct QEVERCLOUD_EXPORT AccountLimits {
+struct QEVERCLOUD_EXPORT AccountLimits: public Printable
+{
     /**
     The number of emails of any type that can be sent by a user from the
            service per day.  If an email is sent to two different recipients, this
@@ -1855,6 +1794,8 @@ struct QEVERCLOUD_EXPORT AccountLimits {
     */
     Optional<qint32> noteResourceCountMax;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const AccountLimits & other) const
     {
         return userMailLimitDaily.isEqual(other.userMailLimitDaily)
@@ -1878,16 +1819,11 @@ struct QEVERCLOUD_EXPORT AccountLimits {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const AccountLimits & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const AccountLimits & value);
-
 /**
  * This represents the information about a single user account.
  **/
-struct QEVERCLOUD_EXPORT User {
+struct QEVERCLOUD_EXPORT User: public Printable
+{
     /**
     The unique numeric identifier for the account, which will not
        change for the lifetime of the account.
@@ -2003,6 +1939,8 @@ struct QEVERCLOUD_EXPORT User {
     */
     Optional<AccountLimits> accountLimits;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const User & other) const
     {
         return id.isEqual(other.id)
@@ -2033,18 +1971,13 @@ struct QEVERCLOUD_EXPORT User {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const User & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const User & value);
-
 /**
  * A structure that represents contact information. Note this does not necessarily correspond to
  * an Evernote user.
  *
  * */
-struct QEVERCLOUD_EXPORT Contact {
+struct QEVERCLOUD_EXPORT Contact: public Printable
+{
     /**
     The displayable name of this contact. This field is filled in by the service and
          is read-only to clients.
@@ -2085,6 +2018,8 @@ struct QEVERCLOUD_EXPORT Contact {
     */
     Optional<Timestamp> messagingPermitExpires;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Contact & other) const
     {
         return name.isEqual(other.name)
@@ -2104,18 +2039,13 @@ struct QEVERCLOUD_EXPORT Contact {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Contact & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Contact & value);
-
 /**
  * An object that represents the relationship between a Contact that possibly
  * belongs to an Evernote User.
  *
  * */
-struct QEVERCLOUD_EXPORT Identity {
+struct QEVERCLOUD_EXPORT Identity: public Printable
+{
     /**
     The unique identifier for this mapping.
     */
@@ -2168,6 +2098,8 @@ struct QEVERCLOUD_EXPORT Identity {
     */
     Optional<MessageEventID> eventId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Identity & other) const
     {
         return (id == other.id)
@@ -2188,17 +2120,12 @@ struct QEVERCLOUD_EXPORT Identity {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Identity & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Identity & value);
-
 /**
  * A tag within a user's account is a unique name which may be organized
  * a simple hierarchy.
  **/
-struct QEVERCLOUD_EXPORT Tag {
+struct QEVERCLOUD_EXPORT Tag: public Printable
+{
     /**
     The unique identifier of this tag. Will be set by the service,
        so may be omitted by the client when creating the Tag.
@@ -2241,6 +2168,8 @@ struct QEVERCLOUD_EXPORT Tag {
     */
     Optional<qint32> updateSequenceNum;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Tag & other) const
     {
         return guid.isEqual(other.guid)
@@ -2256,12 +2185,6 @@ struct QEVERCLOUD_EXPORT Tag {
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Tag & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Tag & value);
 
 /**
  * A structure that wraps a map of name/value pairs whose values are not
@@ -2282,7 +2205,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * map.
  *
  * */
-struct QEVERCLOUD_EXPORT LazyMap {
+struct QEVERCLOUD_EXPORT LazyMap: public Printable
+{
     /**
     The set of keys for the map.  This field is ignored by the
            server when set.
@@ -2292,6 +2216,8 @@ struct QEVERCLOUD_EXPORT LazyMap {
     The complete map, including all keys and values.
     */
     Optional<QMap<QString, QString>> fullMap;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const LazyMap & other) const
     {
@@ -2307,16 +2233,11 @@ struct QEVERCLOUD_EXPORT LazyMap {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const LazyMap & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const LazyMap & value);
-
 /**
  * Structure holding the optional attributes of a Resource
  * */
-struct QEVERCLOUD_EXPORT ResourceAttributes {
+struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
+{
     /**
     the original location where the resource was hosted
        <br/>
@@ -2394,6 +2315,8 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
     */
     Optional<LazyMap> applicationData;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const ResourceAttributes & other) const
     {
         return sourceURL.isEqual(other.sourceURL)
@@ -2418,17 +2341,12 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ResourceAttributes & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ResourceAttributes & value);
-
 /**
  * Every media file that is embedded or attached to a note is represented
  * through a Resource entry.
  * */
-struct QEVERCLOUD_EXPORT Resource {
+struct QEVERCLOUD_EXPORT Resource: public Printable
+{
     /**
     The unique identifier of this resource.  Will be set whenever
        a resource is retrieved from the service, but may be null when a client
@@ -2506,6 +2424,8 @@ struct QEVERCLOUD_EXPORT Resource {
     */
     Optional<Data> alternateData;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Resource & other) const
     {
         return guid.isEqual(other.guid)
@@ -2530,16 +2450,11 @@ struct QEVERCLOUD_EXPORT Resource {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Resource & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Resource & value);
-
 /**
  * The list of optional attributes that can be stored on a note.
  * */
-struct QEVERCLOUD_EXPORT NoteAttributes {
+struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
+{
     /**
     time that the note refers to
     */
@@ -2747,6 +2662,8 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
     */
     Optional<qint32> noteTitleQuality;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteAttributes & other) const
     {
         return subjectDate.isEqual(other.subjectDate)
@@ -2781,19 +2698,14 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteAttributes & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteAttributes & value);
-
 /**
  * Represents a relationship between a note and a single share invitation recipient. The recipient
  * is identified via an Identity, and has a given privilege that specifies what actions they may
  * take on the note.
  *
  * */
-struct QEVERCLOUD_EXPORT SharedNote {
+struct QEVERCLOUD_EXPORT SharedNote: public Printable
+{
     /**
     The user ID of the user who shared the note with the recipient.
     */
@@ -2822,6 +2734,8 @@ struct QEVERCLOUD_EXPORT SharedNote {
     */
     Optional<Timestamp> serviceAssigned;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SharedNote & other) const
     {
         return sharerUserID.isEqual(other.sharerUserID)
@@ -2839,12 +2753,6 @@ struct QEVERCLOUD_EXPORT SharedNote {
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SharedNote & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SharedNote & value);
 
 /**
  * This structure captures information about the operations that cannot be performed on a given
@@ -2883,7 +2791,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * restrictions.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteRestrictions {
+struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
+{
     /**
     The client may not update the note's title (Note.title).
     */
@@ -2904,6 +2813,8 @@ struct QEVERCLOUD_EXPORT NoteRestrictions {
     */
     Optional<bool> noSharePublicly;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteRestrictions & other) const
     {
         return noUpdateTitle.isEqual(other.noUpdateTitle)
@@ -2921,12 +2832,6 @@ struct QEVERCLOUD_EXPORT NoteRestrictions {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteRestrictions & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteRestrictions & value);
-
 /**
  * Represents the owner's account related limits on a Note.
  * The field uploaded represents the total number of bytes that have been uploaded
@@ -2935,7 +2840,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * <p />
  * See SyncState and AccountLimits struct field definitions for more details.
  */
-struct QEVERCLOUD_EXPORT NoteLimits {
+struct QEVERCLOUD_EXPORT NoteLimits: public Printable
+{
     /** NOT DOCUMENTED */
     Optional<qint32> noteResourceCountMax;
     /** NOT DOCUMENTED */
@@ -2946,6 +2852,8 @@ struct QEVERCLOUD_EXPORT NoteLimits {
     Optional<qint64> noteSizeMax;
     /** NOT DOCUMENTED */
     Optional<qint64> uploaded;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const NoteLimits & other) const
     {
@@ -2964,17 +2872,12 @@ struct QEVERCLOUD_EXPORT NoteLimits {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteLimits & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteLimits & value);
-
 /**
  * Represents a single note in the user's account.
  *
  * */
-struct QEVERCLOUD_EXPORT Note {
+struct QEVERCLOUD_EXPORT Note: public Printable
+{
     /**
     The unique identifier of this note.  Will be set by the
        server, but will be omitted by clients calling NoteStore.createNote()
@@ -3118,6 +3021,8 @@ struct QEVERCLOUD_EXPORT Note {
     /** NOT DOCUMENTED */
     Optional<NoteLimits> limits;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Note & other) const
     {
         return guid.isEqual(other.guid)
@@ -3148,18 +3053,13 @@ struct QEVERCLOUD_EXPORT Note {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Note & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Note & value);
-
 /**
  * If a Notebook has been opened to the public, the Notebook will have a
  * reference to one of these structures, which gives the location and optional
  * description of the externally-visible public Notebook.
  * */
-struct QEVERCLOUD_EXPORT Publishing {
+struct QEVERCLOUD_EXPORT Publishing: public Printable
+{
     /**
     If this field is present, then the notebook is published for
        mass consumption on the Internet under the provided URI, which is
@@ -3195,6 +3095,8 @@ struct QEVERCLOUD_EXPORT Publishing {
     */
     Optional<QString> publicDescription;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Publishing & other) const
     {
         return uri.isEqual(other.uri)
@@ -3211,12 +3113,6 @@ struct QEVERCLOUD_EXPORT Publishing {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Publishing & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Publishing & value);
-
 /**
  * If a Notebook contained in an Evernote Business account has been published
  * the to business library, the Notebook will have a reference to one of these
@@ -3224,7 +3120,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * library.
  *
  * */
-struct QEVERCLOUD_EXPORT BusinessNotebook {
+struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
+{
     /**
     A short description of the notebook's content that will be displayed
            in the business library user interface. The description may not begin
@@ -3247,6 +3144,8 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
     */
     Optional<bool> recommended;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const BusinessNotebook & other) const
     {
         return notebookDescription.isEqual(other.notebookDescription)
@@ -3262,17 +3161,12 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BusinessNotebook & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BusinessNotebook & value);
-
 /**
  * A structure defining the scope of a SavedSearch.
  *
  * */
-struct QEVERCLOUD_EXPORT SavedSearchScope {
+struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
+{
     /**
     The search should include notes from the account that contains the SavedSearch.
     */
@@ -3289,6 +3183,8 @@ struct QEVERCLOUD_EXPORT SavedSearchScope {
     */
     Optional<bool> includeBusinessLinkedNotebooks;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SavedSearchScope & other) const
     {
         return includeAccount.isEqual(other.includeAccount)
@@ -3304,16 +3200,11 @@ struct QEVERCLOUD_EXPORT SavedSearchScope {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SavedSearchScope & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SavedSearchScope & value);
-
 /**
  * A named search associated with the account that can be quickly re-used.
  * */
-struct QEVERCLOUD_EXPORT SavedSearch {
+struct QEVERCLOUD_EXPORT SavedSearch: public Printable
+{
     /**
     The unique identifier of this search.  Will be set by the
        service, so may be omitted by the client when creating.
@@ -3366,6 +3257,8 @@ struct QEVERCLOUD_EXPORT SavedSearch {
     */
     Optional<SavedSearchScope> scope;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SavedSearch & other) const
     {
         return guid.isEqual(other.guid)
@@ -3384,12 +3277,6 @@ struct QEVERCLOUD_EXPORT SavedSearch {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SavedSearch & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SavedSearch & value);
-
 /**
  * Settings meant for the recipient of a shared notebook, such as
  * for indicating which types of notifications the recipient wishes
@@ -3404,7 +3291,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * value.
  *
  * */
-struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings {
+struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
+{
     /**
     Indicates that the user wishes to receive daily e-mail notifications
          for reminders associated with the notebook. This may be true only for
@@ -3420,6 +3308,8 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings {
     */
     Optional<bool> reminderNotifyInApp;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SharedNotebookRecipientSettings & other) const
     {
         return reminderNotifyEmail.isEqual(other.reminderNotifyEmail)
@@ -3434,12 +3324,6 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SharedNotebookRecipientSettings & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SharedNotebookRecipientSettings & value);
-
 /**
  * Settings meant for the recipient of a notebook share.
  *
@@ -3450,7 +3334,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * has a true/false value, it will always have a true/false value.
  *
  * */
-struct QEVERCLOUD_EXPORT NotebookRecipientSettings {
+struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
+{
     /**
     Indicates that the user wishes to receive daily e-mail notifications
          for reminders associated with the notebook. This may be
@@ -3485,6 +3370,8 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings {
     */
     Optional<RecipientStatus> recipientStatus;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NotebookRecipientSettings & other) const
     {
         return reminderNotifyEmail.isEqual(other.reminderNotifyEmail)
@@ -3502,17 +3389,12 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NotebookRecipientSettings & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NotebookRecipientSettings & value);
-
 /**
  * Shared notebooks represent a relationship between a notebook and a single
  * share invitation recipient.
  * */
-struct QEVERCLOUD_EXPORT SharedNotebook {
+struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
+{
     /**
     The primary identifier of the share, which is not globally unique.
     */
@@ -3614,6 +3496,8 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
     */
     Optional<Timestamp> serviceAssigned;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SharedNotebook & other) const
     {
         return id.isEqual(other.id)
@@ -3642,18 +3526,15 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SharedNotebook & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SharedNotebook & value);
-
 /**
  * Specifies if the client can move a Notebook to a Workspace.
  */
-struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions {
+struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
+{
     /** NOT DOCUMENTED */
     Optional<CanMoveToContainerStatus> canMoveToContainer;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const CanMoveToContainerRestrictions & other) const
     {
@@ -3667,12 +3548,6 @@ struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions {
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const CanMoveToContainerRestrictions & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const CanMoveToContainerRestrictions & value);
 
 /**
  * This structure captures information about the types of operations
@@ -3700,7 +3575,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * the values were obtained.
  *
  * */
-struct QEVERCLOUD_EXPORT NotebookRestrictions {
+struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
+{
     /**
     The client is not able to read notes from the service and
        the notebook is write-only.
@@ -3831,6 +3707,8 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
     */
     Optional<bool> noCanMoveNote;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NotebookRestrictions & other) const
     {
         return noReadNotes.isEqual(other.noReadNotes)
@@ -3872,16 +3750,11 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NotebookRestrictions & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NotebookRestrictions & value);
-
 /**
  * A unique container for a set of notes.
  * */
-struct QEVERCLOUD_EXPORT Notebook {
+struct QEVERCLOUD_EXPORT Notebook: public Printable
+{
     /**
     The unique identifier of this notebook.
        <br/>
@@ -4002,6 +3875,8 @@ struct QEVERCLOUD_EXPORT Notebook {
     */
     Optional<NotebookRecipientSettings> recipientSettings;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const Notebook & other) const
     {
         return guid.isEqual(other.guid)
@@ -4029,18 +3904,13 @@ struct QEVERCLOUD_EXPORT Notebook {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const Notebook & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const Notebook & value);
-
 /**
  * A link in a user's account that refers them to a public or
  * individual shared notebook in another user's account.
  *
  * */
-struct QEVERCLOUD_EXPORT LinkedNotebook {
+struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
+{
     /**
     The display name of the shared notebook. The link owner can change this.
     */
@@ -4115,6 +3985,8 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
     */
     Optional<qint32> businessId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const LinkedNotebook & other) const
     {
         return shareName.isEqual(other.shareName)
@@ -4138,18 +4010,13 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const LinkedNotebook & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const LinkedNotebook & value);
-
 /**
  * A structure that describes a notebook or a user's relationship with
  * a notebook. NotebookDescriptor is expected to remain a lighter-weight
  * structure when compared to Notebook.
  * */
-struct QEVERCLOUD_EXPORT NotebookDescriptor {
+struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
+{
     /**
     The unique identifier of the notebook.
     */
@@ -4173,6 +4040,8 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor {
     */
     Optional<qint32> joinedUserCount;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NotebookDescriptor & other) const
     {
         return guid.isEqual(other.guid)
@@ -4190,17 +4059,12 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NotebookDescriptor & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NotebookDescriptor & value);
-
 /**
  * This structure represents profile information for a user in a business.
  *
  * */
-struct QEVERCLOUD_EXPORT UserProfile {
+struct QEVERCLOUD_EXPORT UserProfile: public Printable
+{
     /**
     The numeric identifier that uniquely identifies a user.
     */
@@ -4243,6 +4107,8 @@ struct QEVERCLOUD_EXPORT UserProfile {
     */
     Optional<BusinessUserStatus> status;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const UserProfile & other) const
     {
         return id.isEqual(other.id)
@@ -4265,19 +4131,14 @@ struct QEVERCLOUD_EXPORT UserProfile {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const UserProfile & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const UserProfile & value);
-
 /**
  * An external image that can be shown with a related content snippet,
  * usually either a JPEG or PNG image. It is up to the client which image(s) are shown,
  * depending on available screen real estate, resolution and aspect ratio.
  *
  * */
-struct QEVERCLOUD_EXPORT RelatedContentImage {
+struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
+{
     /**
     The external URL of the image
     */
@@ -4299,6 +4160,8 @@ struct QEVERCLOUD_EXPORT RelatedContentImage {
     */
     Optional<qint32> fileSize;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const RelatedContentImage & other) const
     {
         return url.isEqual(other.url)
@@ -4316,18 +4179,13 @@ struct QEVERCLOUD_EXPORT RelatedContentImage {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const RelatedContentImage & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const RelatedContentImage & value);
-
 /**
  * A structure identifying one snippet of related content (some information that is not
  * part of an Evernote account but might still be relevant to the user).
  *
  * */
-struct QEVERCLOUD_EXPORT RelatedContent {
+struct QEVERCLOUD_EXPORT RelatedContent: public Printable
+{
     /**
     An identifier that uniquely identifies the content.
     */
@@ -4400,6 +4258,8 @@ struct QEVERCLOUD_EXPORT RelatedContent {
     */
     Optional<QStringList> authors;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const RelatedContent & other) const
     {
         return contentId.isEqual(other.contentId)
@@ -4428,17 +4288,12 @@ struct QEVERCLOUD_EXPORT RelatedContent {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const RelatedContent & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const RelatedContent & value);
-
 /**
  * A structure describing an invitation to join a business account.
  *
  * */
-struct QEVERCLOUD_EXPORT BusinessInvitation {
+struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
+{
     /**
     The ID of the business to which the invitation grants access.
     */
@@ -4475,6 +4330,8 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
     */
     Optional<Timestamp> mostRecentReminder;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const BusinessInvitation & other) const
     {
         return businessId.isEqual(other.businessId)
@@ -4494,12 +4351,6 @@ struct QEVERCLOUD_EXPORT BusinessInvitation {
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BusinessInvitation & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BusinessInvitation & value);
 
 /**
  * A structure that holds user identifying information such as an
@@ -4530,13 +4381,16 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * to that e-mail address, to join the notebook, we do not know an
  * Evernote UserID UserIdentity ID to match the e-mail address.
  */
-struct QEVERCLOUD_EXPORT UserIdentity {
+struct QEVERCLOUD_EXPORT UserIdentity: public Printable
+{
     /** NOT DOCUMENTED */
     Optional<UserIdentityType> type;
     /** NOT DOCUMENTED */
     Optional<QString> stringIdentifier;
     /** NOT DOCUMENTED */
     Optional<qint64> longIdentifier;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const UserIdentity & other) const
     {
@@ -4553,17 +4407,12 @@ struct QEVERCLOUD_EXPORT UserIdentity {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const UserIdentity & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const UserIdentity & value);
-
 /**
  * This structure is used to provide publicly-available user information
  * about a particular account.
  **/
-struct QEVERCLOUD_EXPORT PublicUserInfo {
+struct QEVERCLOUD_EXPORT PublicUserInfo: public Printable
+{
     /**
     The unique numeric user identifier for the user account.
     */
@@ -4592,6 +4441,8 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
     */
     Optional<QString> webApiUrlPrefix;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const PublicUserInfo & other) const
     {
         return (userId == other.userId)
@@ -4609,15 +4460,10 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const PublicUserInfo & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const PublicUserInfo & value);
-
 /**
  * */
-struct QEVERCLOUD_EXPORT UserUrls {
+struct QEVERCLOUD_EXPORT UserUrls: public Printable
+{
     /**
     This field will contain the full URL that clients should use to make
        NoteStore requests to the server shard that contains that user's data.
@@ -4662,6 +4508,8 @@ struct QEVERCLOUD_EXPORT UserUrls {
     */
     Optional<QString> userWebSocketUrl;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const UserUrls & other) const
     {
         return noteStoreUrl.isEqual(other.noteStoreUrl)
@@ -4680,17 +4528,12 @@ struct QEVERCLOUD_EXPORT UserUrls {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const UserUrls & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const UserUrls & value);
-
 /**
  * When an authentication (or re-authentication) is performed, this structure
  * provides the result to the client.
  **/
-struct QEVERCLOUD_EXPORT AuthenticationResult {
+struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
+{
     /**
     The server-side date and time when this result was
        generated.
@@ -4750,6 +4593,8 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
     */
     Optional<UserUrls> urls;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const AuthenticationResult & other) const
     {
         return (currentTime == other.currentTime)
@@ -4772,16 +4617,11 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const AuthenticationResult & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const AuthenticationResult & value);
-
 /**
  * This structure describes a collection of bootstrap settings.
  **/
-struct QEVERCLOUD_EXPORT BootstrapSettings {
+struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
+{
     /**
     The hostname and optional port for composing Evernote web service URLs.
        This URL can be used to access the UserStore and related services,
@@ -4846,6 +4686,8 @@ struct QEVERCLOUD_EXPORT BootstrapSettings {
     */
     Optional<bool> enableGoogle;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const BootstrapSettings & other) const
     {
         return (serviceHost == other.serviceHost)
@@ -4872,16 +4714,11 @@ struct QEVERCLOUD_EXPORT BootstrapSettings {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BootstrapSettings & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BootstrapSettings & value);
-
 /**
  * This structure describes a collection of bootstrap settings.
  **/
-struct QEVERCLOUD_EXPORT BootstrapProfile {
+struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
+{
     /**
     The unique name of the profile, which is guaranteed to remain consistent across
        calls to getBootstrapInfo.
@@ -4891,6 +4728,8 @@ struct QEVERCLOUD_EXPORT BootstrapProfile {
     The settings for this profile.
     */
     BootstrapSettings settings;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const BootstrapProfile & other) const
     {
@@ -4906,21 +4745,18 @@ struct QEVERCLOUD_EXPORT BootstrapProfile {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BootstrapProfile & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BootstrapProfile & value);
-
 /**
  * This structure describes a collection of bootstrap profiles.
  **/
-struct QEVERCLOUD_EXPORT BootstrapInfo {
+struct QEVERCLOUD_EXPORT BootstrapInfo: public Printable
+{
     /**
     List of one or more bootstrap profiles, in descending
        preference order.
     */
     QList<BootstrapProfile> profiles;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const BootstrapInfo & other) const
     {
@@ -4934,12 +4770,6 @@ struct QEVERCLOUD_EXPORT BootstrapInfo {
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const BootstrapInfo & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const BootstrapInfo & value);
 
 /**
  * This exception is thrown by EDAM procedures when a call fails as a result of 
@@ -4959,18 +4789,20 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  *   indicate which parameter. For some errors (USER_NOT_ASSOCIATED, USER_NOT_REGISTERED,
  *   SSO_AUTHENTICATION_REQUIRED), this is the user's email.
  */
-class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException
+class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException, public Printable
 {
 public:
     EDAMErrorCode errorCode;
     Optional<QString> parameter;
 
     EDAMUserException();
-    virtual ~EDAMUserException() throw() Q_DECL_OVERRIDE;
+    virtual ~EDAMUserException() throw() override;
 
     EDAMUserException(const EDAMUserException & other);
-    const char * what() const throw() Q_DECL_OVERRIDE;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
+    const char * what() const throw() override;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const EDAMUserException & other) const
     {
@@ -4986,12 +4818,6 @@ public:
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const EDAMUserException & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const EDAMUserException & value);
-
 /**
  * This exception is thrown by EDAM procedures when a call fails as a result of
  * a problem in the service that could not be changed through caller action.
@@ -5006,7 +4832,7 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  *   API requests for the user until at least this many seconds have passed. Present only
  *   when errorCode is RATE_LIMIT_REACHED,
  */
-class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException
+class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException, public Printable
 {
 public:
     EDAMErrorCode errorCode;
@@ -5014,11 +4840,13 @@ public:
     Optional<qint32> rateLimitDuration;
 
     EDAMSystemException();
-    virtual ~EDAMSystemException() throw() Q_DECL_OVERRIDE;
+    virtual ~EDAMSystemException() throw() override;
 
     EDAMSystemException(const EDAMSystemException & other);
-    const char * what() const throw() Q_DECL_OVERRIDE;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
+    const char * what() const throw() override;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const EDAMSystemException & other) const
     {
@@ -5035,12 +4863,6 @@ public:
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const EDAMSystemException & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const EDAMSystemException & value);
-
 /**
  * This exception is thrown by EDAM procedures when a caller asks to perform
  * an operation on an object that does not exist.  This may be thrown based on an invalid
@@ -5054,18 +4876,20 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * key:  The value passed from the client in the identifier, which was not
  *   found. For example, the GUID that was not found.
  */
-class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException
+class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException, public Printable
 {
 public:
     Optional<QString> identifier;
     Optional<QString> key;
 
     EDAMNotFoundException();
-    virtual ~EDAMNotFoundException() throw() Q_DECL_OVERRIDE;
+    virtual ~EDAMNotFoundException() throw() override;
 
     EDAMNotFoundException(const EDAMNotFoundException & other);
-    const char * what() const throw() Q_DECL_OVERRIDE;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
+    const char * what() const throw() override;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const EDAMNotFoundException & other) const
     {
@@ -5080,12 +4904,6 @@ public:
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const EDAMNotFoundException & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const EDAMNotFoundException & value);
 
 /**
  * An exception thrown when the provided Contacts fail validation. For instance,
@@ -5109,7 +4927,7 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  *   matching, in order, the list returned in the contacts field.</dd>
  * </dl>
  */
-class QEVERCLOUD_EXPORT EDAMInvalidContactsException: public EvernoteException
+class QEVERCLOUD_EXPORT EDAMInvalidContactsException: public EvernoteException, public Printable
 {
 public:
     QList<Contact> contacts;
@@ -5117,11 +4935,13 @@ public:
     Optional<QList<EDAMInvalidContactReason>> reasons;
 
     EDAMInvalidContactsException();
-    virtual ~EDAMInvalidContactsException() throw() Q_DECL_OVERRIDE;
+    virtual ~EDAMInvalidContactsException() throw() override;
 
     EDAMInvalidContactsException(const EDAMInvalidContactsException & other);
-    const char * what() const throw() Q_DECL_OVERRIDE;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
+    const char * what() const throw() override;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const EDAMInvalidContactsException & other) const
     {
@@ -5138,12 +4958,6 @@ public:
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const EDAMInvalidContactsException & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const EDAMInvalidContactsException & value);
-
 /**
  * This structure is given out by the NoteStore when a client asks to
  * receive the current state of an account.  The client asks for the server's
@@ -5155,7 +4969,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * Sequence Numbers (USNs).
  *
  **/
-struct QEVERCLOUD_EXPORT SyncChunk {
+struct QEVERCLOUD_EXPORT SyncChunk: public Printable
+{
     /**
     The server's current date and time.
     */
@@ -5237,6 +5052,8 @@ struct QEVERCLOUD_EXPORT SyncChunk {
     */
     Optional<QList<Guid>> expungedLinkedNotebooks;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SyncChunk & other) const
     {
         return (currentTime == other.currentTime)
@@ -5263,17 +5080,12 @@ struct QEVERCLOUD_EXPORT SyncChunk {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SyncChunk & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SyncChunk & value);
-
 /**
  * A small structure for returning a list of notes out of a larger set.
  *
  **/
-struct QEVERCLOUD_EXPORT NoteList {
+struct QEVERCLOUD_EXPORT NoteList: public Printable
+{
     /**
     The starting index within the overall set of notes.  This
        is also the number of notes that are "before" this list in the set.
@@ -5323,6 +5135,8 @@ struct QEVERCLOUD_EXPORT NoteList {
     */
     Optional<QString> debugInfo;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteList & other) const
     {
         return (startIndex == other.startIndex)
@@ -5343,12 +5157,6 @@ struct QEVERCLOUD_EXPORT NoteList {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteList & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteList & value);
-
 /**
  * This structure is used in the set of results returned by the
  * findNotesMetadata function.  It represents the high-level information about
@@ -5359,7 +5167,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * the Note structure, with the exception of:
  *
  * */
-struct QEVERCLOUD_EXPORT NoteMetadata {
+struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
+{
     /** NOT DOCUMENTED */
     Guid guid;
     /** NOT DOCUMENTED */
@@ -5393,6 +5202,8 @@ struct QEVERCLOUD_EXPORT NoteMetadata {
     */
     Optional<qint32> largestResourceSize;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteMetadata & other) const
     {
         return (guid == other.guid)
@@ -5417,19 +5228,14 @@ struct QEVERCLOUD_EXPORT NoteMetadata {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteMetadata & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteMetadata & value);
-
 /**
  * This structure is returned from calls to the findNotesMetadata function to
  * give the high-level metadata about a subset of Notes that are found to
  * match a specified NoteFilter in a search.
  *
  **/
-struct QEVERCLOUD_EXPORT NotesMetadataList {
+struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
+{
     /**
     The starting index within the overall set of notes.  This
        is also the number of notes that are "before" this list in the set.
@@ -5481,6 +5287,8 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
     */
     Optional<QString> debugInfo;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NotesMetadataList & other) const
     {
         return (startIndex == other.startIndex)
@@ -5501,18 +5309,13 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NotesMetadataList & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NotesMetadataList & value);
-
 /**
  * Parameters that must be given to the NoteStore emailNote call. These allow
  * the caller to specify the note to send, the recipient addresses, etc.
  *
  * */
-struct QEVERCLOUD_EXPORT NoteEmailParameters {
+struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
+{
     /**
     If set, this must be the GUID of a note within the user's account that
           should be retrieved from the service and sent as email.  If not set,
@@ -5550,6 +5353,8 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters {
     */
     Optional<QString> message;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NoteEmailParameters & other) const
     {
         return guid.isEqual(other.guid)
@@ -5568,12 +5373,6 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NoteEmailParameters & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NoteEmailParameters & value);
-
 /**
  * The result of calling findRelated().  The contents of the notes,
  * notebooks, and tags fields will be in decreasing order of expected
@@ -5582,7 +5381,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * in cases where the relevance is estimated to be low.
  *
  * */
-struct QEVERCLOUD_EXPORT RelatedResult {
+struct QEVERCLOUD_EXPORT RelatedResult: public Printable
+{
     /**
     If notes have been requested to be included, this will be the
          list of notes.
@@ -5662,6 +5462,8 @@ struct QEVERCLOUD_EXPORT RelatedResult {
     */
     Optional<qint32> cacheExpires;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const RelatedResult & other) const
     {
         return notes.isEqual(other.notes)
@@ -5683,18 +5485,13 @@ struct QEVERCLOUD_EXPORT RelatedResult {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const RelatedResult & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const RelatedResult & value);
-
 /**
  * The result of a call to updateNoteIfUsnMatches, which optionally updates a note
  * based on the current value of the note's update sequence number on the service.
  *
  * */
-struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult {
+struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
+{
     /**
     Either the current state of the note if <tt>updated</tt> is false or the
      result of updating the note as would be done via the <tt>updateNote</tt> method.
@@ -5708,6 +5505,8 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult {
     Whether or not the note was updated by the operation.
     */
     Optional<bool> updated;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const UpdateNoteIfUsnMatchesResult & other) const
     {
@@ -5723,18 +5522,13 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const UpdateNoteIfUsnMatchesResult & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const UpdateNoteIfUsnMatchesResult & value);
-
 /**
  * Describes an invitation to a person to use their Evernote
  * credentials to become a member of a notebook.
  *
  * */
-struct QEVERCLOUD_EXPORT InvitationShareRelationship {
+struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
+{
     /**
     The string that clients should show to users to represent this
      invitation.
@@ -5764,6 +5558,8 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
     */
     Optional<UserID> sharerUserId;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const InvitationShareRelationship & other) const
     {
         return displayName.isEqual(other.displayName)
@@ -5780,12 +5576,6 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const InvitationShareRelationship & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const InvitationShareRelationship & value);
-
 /**
  * Captures a collection of share relationships for a notebook, for
  * example, as returned by the getNotebookShares method.  The share
@@ -5793,7 +5583,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * invitations that can be used to become members.
  *
  * */
-struct QEVERCLOUD_EXPORT ShareRelationships {
+struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
+{
     /**
     A list of open invitations that can be redeemed into
      memberships to the notebook.
@@ -5815,6 +5606,8 @@ struct QEVERCLOUD_EXPORT ShareRelationships {
     */
     Optional<ShareRelationshipRestrictions> invitationRestrictions;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const ShareRelationships & other) const
     {
         return invitations.isEqual(other.invitations)
@@ -5830,18 +5623,13 @@ struct QEVERCLOUD_EXPORT ShareRelationships {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ShareRelationships & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ShareRelationships & value);
-
 /**
  * A structure that captures parameters used by clients to manage the
  * shares for a given notebook via the manageNotebookShares method.
  *
  * */
-struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
+struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
+{
     /**
     The GUID of the notebook whose shares are being managed.
     */
@@ -5888,6 +5676,8 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
     */
     Optional<QList<UserIdentity>> unshares;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const ManageNotebookSharesParameters & other) const
     {
         return notebookGuid.isEqual(other.notebookGuid)
@@ -5905,12 +5695,6 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ManageNotebookSharesParameters & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ManageNotebookSharesParameters & value);
-
 /**
  * A structure to capture certain errors that occurred during a call
  * to manageNotebookShares.  That method can be run best-effort,
@@ -5922,7 +5706,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * relationship and one of the exception fields.
  *
  * */
-struct QEVERCLOUD_EXPORT ManageNotebookSharesError {
+struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
+{
     /**
     The identity of the share relationship whose update encountered
      an error.
@@ -5941,6 +5726,8 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError {
     */
     Optional<EDAMNotFoundException> notFoundException;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const ManageNotebookSharesError & other) const
     {
         return userIdentity.isEqual(other.userIdentity)
@@ -5956,23 +5743,20 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ManageNotebookSharesError & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ManageNotebookSharesError & value);
-
 /**
  * The return value of a call to the manageNotebookShares method.
  *
  * */
-struct QEVERCLOUD_EXPORT ManageNotebookSharesResult {
+struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
+{
     /**
     If the method completed without throwing exceptions, some errors
      might still have occurred, and in that case, this field will contain
      the list of those errors the occurred.
     */
     Optional<QList<ManageNotebookSharesError>> errors;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const ManageNotebookSharesResult & other) const
     {
@@ -5987,17 +5771,12 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ManageNotebookSharesResult & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ManageNotebookSharesResult & value);
-
 /**
  * A structure used to share a note with one or more recipients at a given privilege.
  *
  * */
-struct QEVERCLOUD_EXPORT SharedNoteTemplate {
+struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
+{
     /**
     The GUID of the note.
     */
@@ -6022,6 +5801,8 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate {
     */
     Optional<SharedNotePrivilegeLevel> privilege;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const SharedNoteTemplate & other) const
     {
         return noteGuid.isEqual(other.noteGuid)
@@ -6038,17 +5819,12 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const SharedNoteTemplate & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const SharedNoteTemplate & value);
-
 /**
  * A structure used to share a notebook with one or more recipients at a given privilege.
  *
  * */
-struct QEVERCLOUD_EXPORT NotebookShareTemplate {
+struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
+{
     /**
     The GUID of the notebook.
     */
@@ -6073,6 +5849,8 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate {
     */
     Optional<SharedNotebookPrivilegeLevel> privilege;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const NotebookShareTemplate & other) const
     {
         return notebookGuid.isEqual(other.notebookGuid)
@@ -6089,17 +5867,12 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const NotebookShareTemplate & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const NotebookShareTemplate & value);
-
 /**
  * A structure containing the results of a call to createOrUpdateNotebookShares.
  *
  * */
-struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult {
+struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
+{
     /**
     The USN of the notebook after the call.
     */
@@ -6111,6 +5884,8 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult {
            privilege level prior to the call.
     */
     Optional<QList<SharedNotebook>> matchingShares;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const CreateOrUpdateNotebookSharesResult & other) const
     {
@@ -6126,12 +5901,6 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const CreateOrUpdateNotebookSharesResult & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const CreateOrUpdateNotebookSharesResult & value);
-
 /**
  * Captures errors that occur during a call to manageNoteShares. That
  * function can be run best-effort, meaning that some change requests can
@@ -6143,7 +5912,8 @@ QEVERCLOUD_EXPORT QDebug & operator <<(
  * Only one of the two exception fields will be set on a given error.
  *
  * */
-struct QEVERCLOUD_EXPORT ManageNoteSharesError {
+struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
+{
     /**
     The identity ID of an outstanding invitation that was not updated
          due to the error.
@@ -6168,6 +5938,8 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError {
     */
     Optional<EDAMNotFoundException> notFoundException;
 
+    virtual void print(QTextStream & strm) const override;
+
     bool operator==(const ManageNoteSharesError & other) const
     {
         return identityID.isEqual(other.identityID)
@@ -6184,23 +5956,20 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError {
 
 };
 
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ManageNoteSharesError & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ManageNoteSharesError & value);
-
 /**
  * The return value of a call to the manageNoteShares function.
  *
  * */
-struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
+struct QEVERCLOUD_EXPORT ManageNoteSharesResult: public Printable
+{
     /**
     If the call succeeded without throwing an exception, some errors
          might still have occurred. In that case, this field will contain the
          list of errors.
     */
     Optional<QList<ManageNoteSharesError>> errors;
+
+    virtual void print(QTextStream & strm) const override;
 
     bool operator==(const ManageNoteSharesResult & other) const
     {
@@ -6214,12 +5983,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult {
     }
 
 };
-
-QEVERCLOUD_EXPORT QTextStream & operator <<(
-    QTextStream & strm, const ManageNoteSharesResult & value);
-
-QEVERCLOUD_EXPORT QDebug & operator <<(
-    QDebug & dbg, const ManageNoteSharesResult & value);
 
 } // namespace qevercloud
 
