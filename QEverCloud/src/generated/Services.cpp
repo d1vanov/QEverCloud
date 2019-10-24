@@ -729,6 +729,8 @@ namespace {
 QByteArray NoteStore_getSyncState_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_getSyncState_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -749,6 +751,8 @@ QByteArray NoteStore_getSyncState_prepareParams(
 
 SyncState NoteStore_getSyncState_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getSyncState_readReply");
+
     bool resultIsSet = false;
     SyncState result = SyncState();
     ThriftBinaryBufferReader r(reply);
@@ -833,6 +837,8 @@ QVariant NoteStore_getSyncState_readReplyAsync(QByteArray reply)
 SyncState NoteStore::getSyncState(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getSyncState");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -845,6 +851,8 @@ SyncState NoteStore::getSyncState(
 AsyncResult * NoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getSyncStateAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -863,6 +871,12 @@ QByteArray NoteStore_getFilteredSyncChunk_prepareParams(
     qint32 maxEntries,
     const SyncChunkFilter & filter)
 {
+    QEC_DEBUG("note_store", "NoteStore_getFilteredSyncChunk_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    afterUSN = " << afterUSN << "\n"
+        << "    maxEntries = " << maxEntries << "\n"
+        << "    filter = " << filter);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -901,6 +915,8 @@ QByteArray NoteStore_getFilteredSyncChunk_prepareParams(
 
 SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getFilteredSyncChunk_readReply");
+
     bool resultIsSet = false;
     SyncChunk result = SyncChunk();
     ThriftBinaryBufferReader r(reply);
@@ -988,6 +1004,12 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     const SyncChunkFilter & filter,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getFilteredSyncChunk");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    afterUSN = " << afterUSN << "\n"
+        << "    maxEntries = " << maxEntries << "\n"
+        << "    filter = " << filter);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1006,6 +1028,12 @@ AsyncResult * NoteStore::getFilteredSyncChunkAsync(
     const SyncChunkFilter & filter,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getFilteredSyncChunkAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    afterUSN = " << afterUSN << "\n"
+        << "    maxEntries = " << maxEntries << "\n"
+        << "    filter = " << filter);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1025,6 +1053,10 @@ QByteArray NoteStore_getLinkedNotebookSyncState_prepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook)
 {
+    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncState_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1051,6 +1083,8 @@ QByteArray NoteStore_getLinkedNotebookSyncState_prepareParams(
 
 SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncState_readReply");
+
     bool resultIsSet = false;
     SyncState result = SyncState();
     ThriftBinaryBufferReader r(reply);
@@ -1146,6 +1180,10 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getLinkedNotebookSyncState");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1160,6 +1198,10 @@ AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getLinkedNotebookSyncStateAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1180,6 +1222,13 @@ QByteArray NoteStore_getLinkedNotebookSyncChunk_prepareParams(
     qint32 maxEntries,
     bool fullSyncOnly)
 {
+    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncChunk_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook << "\n"
+        << "    afterUSN = " << afterUSN << "\n"
+        << "    maxEntries = " << maxEntries << "\n"
+        << "    fullSyncOnly = " << fullSyncOnly);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1224,6 +1273,8 @@ QByteArray NoteStore_getLinkedNotebookSyncChunk_prepareParams(
 
 SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncChunk_readReply");
+
     bool resultIsSet = false;
     SyncChunk result = SyncChunk();
     ThriftBinaryBufferReader r(reply);
@@ -1322,6 +1373,13 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     bool fullSyncOnly,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getLinkedNotebookSyncChunk");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook << "\n"
+        << "    afterUSN = " << afterUSN << "\n"
+        << "    maxEntries = " << maxEntries << "\n"
+        << "    fullSyncOnly = " << fullSyncOnly);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1342,6 +1400,13 @@ AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
     bool fullSyncOnly,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getLinkedNotebookSyncChunkAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook << "\n"
+        << "    afterUSN = " << afterUSN << "\n"
+        << "    maxEntries = " << maxEntries << "\n"
+        << "    fullSyncOnly = " << fullSyncOnly);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1361,6 +1426,8 @@ namespace {
 QByteArray NoteStore_listNotebooks_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_listNotebooks_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1381,6 +1448,8 @@ QByteArray NoteStore_listNotebooks_prepareParams(
 
 QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listNotebooks_readReply");
+
     bool resultIsSet = false;
     QList<Notebook> result = QList<Notebook>();
     ThriftBinaryBufferReader r(reply);
@@ -1479,6 +1548,8 @@ QVariant NoteStore_listNotebooks_readReplyAsync(QByteArray reply)
 QList<Notebook> NoteStore::listNotebooks(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listNotebooks");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1491,6 +1562,8 @@ QList<Notebook> NoteStore::listNotebooks(
 AsyncResult * NoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listNotebooksAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1506,6 +1579,8 @@ namespace {
 QByteArray NoteStore_listAccessibleBusinessNotebooks_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_listAccessibleBusinessNotebooks_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1526,6 +1601,8 @@ QByteArray NoteStore_listAccessibleBusinessNotebooks_prepareParams(
 
 QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listAccessibleBusinessNotebooks_readReply");
+
     bool resultIsSet = false;
     QList<Notebook> result = QList<Notebook>();
     ThriftBinaryBufferReader r(reply);
@@ -1624,6 +1701,8 @@ QVariant NoteStore_listAccessibleBusinessNotebooks_readReplyAsync(QByteArray rep
 QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listAccessibleBusinessNotebooks");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1636,6 +1715,8 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
 AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listAccessibleBusinessNotebooksAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1652,6 +1733,10 @@ QByteArray NoteStore_getNotebook_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1678,6 +1763,8 @@ QByteArray NoteStore_getNotebook_prepareParams(
 
 Notebook NoteStore_getNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNotebook_readReply");
+
     bool resultIsSet = false;
     Notebook result = Notebook();
     ThriftBinaryBufferReader r(reply);
@@ -1773,6 +1860,10 @@ Notebook NoteStore::getNotebook(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1787,6 +1878,10 @@ AsyncResult * NoteStore::getNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1803,6 +1898,8 @@ namespace {
 QByteArray NoteStore_getDefaultNotebook_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_getDefaultNotebook_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1823,6 +1920,8 @@ QByteArray NoteStore_getDefaultNotebook_prepareParams(
 
 Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getDefaultNotebook_readReply");
+
     bool resultIsSet = false;
     Notebook result = Notebook();
     ThriftBinaryBufferReader r(reply);
@@ -1907,6 +2006,8 @@ QVariant NoteStore_getDefaultNotebook_readReplyAsync(QByteArray reply)
 Notebook NoteStore::getDefaultNotebook(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getDefaultNotebook");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1919,6 +2020,8 @@ Notebook NoteStore::getDefaultNotebook(
 AsyncResult * NoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getDefaultNotebookAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -1935,6 +2038,10 @@ QByteArray NoteStore_createNotebook_prepareParams(
     QString authenticationToken,
     const Notebook & notebook)
 {
+    QEC_DEBUG("note_store", "NoteStore_createNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebook = " << notebook);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -1961,6 +2068,8 @@ QByteArray NoteStore_createNotebook_prepareParams(
 
 Notebook NoteStore_createNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_createNotebook_readReply");
+
     bool resultIsSet = false;
     Notebook result = Notebook();
     ThriftBinaryBufferReader r(reply);
@@ -2056,6 +2165,10 @@ Notebook NoteStore::createNotebook(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebook = " << notebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2070,6 +2183,10 @@ AsyncResult * NoteStore::createNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebook = " << notebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2087,6 +2204,10 @@ QByteArray NoteStore_updateNotebook_prepareParams(
     QString authenticationToken,
     const Notebook & notebook)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebook = " << notebook);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -2113,6 +2234,8 @@ QByteArray NoteStore_updateNotebook_prepareParams(
 
 qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateNotebook_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -2208,6 +2331,10 @@ qint32 NoteStore::updateNotebook(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebook = " << notebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2222,6 +2349,10 @@ AsyncResult * NoteStore::updateNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebook = " << notebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2239,6 +2370,10 @@ QByteArray NoteStore_expungeNotebook_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -2265,6 +2400,8 @@ QByteArray NoteStore_expungeNotebook_prepareParams(
 
 qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeNotebook_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -2360,6 +2497,10 @@ qint32 NoteStore::expungeNotebook(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2374,6 +2515,10 @@ AsyncResult * NoteStore::expungeNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2390,6 +2535,8 @@ namespace {
 QByteArray NoteStore_listTags_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_listTags_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -2410,6 +2557,8 @@ QByteArray NoteStore_listTags_prepareParams(
 
 QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listTags_readReply");
+
     bool resultIsSet = false;
     QList<Tag> result = QList<Tag>();
     ThriftBinaryBufferReader r(reply);
@@ -2508,6 +2657,8 @@ QVariant NoteStore_listTags_readReplyAsync(QByteArray reply)
 QList<Tag> NoteStore::listTags(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listTags");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2520,6 +2671,8 @@ QList<Tag> NoteStore::listTags(
 AsyncResult * NoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listTagsAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2536,6 +2689,10 @@ QByteArray NoteStore_listTagsByNotebook_prepareParams(
     QString authenticationToken,
     Guid notebookGuid)
 {
+    QEC_DEBUG("note_store", "NoteStore_listTagsByNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -2562,6 +2719,8 @@ QByteArray NoteStore_listTagsByNotebook_prepareParams(
 
 QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listTagsByNotebook_readReply");
+
     bool resultIsSet = false;
     QList<Tag> result = QList<Tag>();
     ThriftBinaryBufferReader r(reply);
@@ -2671,6 +2830,10 @@ QList<Tag> NoteStore::listTagsByNotebook(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listTagsByNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2685,6 +2848,10 @@ AsyncResult * NoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listTagsByNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2702,6 +2869,10 @@ QByteArray NoteStore_getTag_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getTag_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -2728,6 +2899,8 @@ QByteArray NoteStore_getTag_prepareParams(
 
 Tag NoteStore_getTag_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getTag_readReply");
+
     bool resultIsSet = false;
     Tag result = Tag();
     ThriftBinaryBufferReader r(reply);
@@ -2823,6 +2996,10 @@ Tag NoteStore::getTag(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getTag");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2837,6 +3014,10 @@ AsyncResult * NoteStore::getTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getTagAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2854,6 +3035,10 @@ QByteArray NoteStore_createTag_prepareParams(
     QString authenticationToken,
     const Tag & tag)
 {
+    QEC_DEBUG("note_store", "NoteStore_createTag_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    tag = " << tag);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -2880,6 +3065,8 @@ QByteArray NoteStore_createTag_prepareParams(
 
 Tag NoteStore_createTag_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_createTag_readReply");
+
     bool resultIsSet = false;
     Tag result = Tag();
     ThriftBinaryBufferReader r(reply);
@@ -2975,6 +3162,10 @@ Tag NoteStore::createTag(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createTag");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    tag = " << tag);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -2989,6 +3180,10 @@ AsyncResult * NoteStore::createTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createTagAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    tag = " << tag);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3006,6 +3201,10 @@ QByteArray NoteStore_updateTag_prepareParams(
     QString authenticationToken,
     const Tag & tag)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateTag_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    tag = " << tag);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3032,6 +3231,8 @@ QByteArray NoteStore_updateTag_prepareParams(
 
 qint32 NoteStore_updateTag_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateTag_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -3127,6 +3328,10 @@ qint32 NoteStore::updateTag(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateTag");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    tag = " << tag);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3141,6 +3346,10 @@ AsyncResult * NoteStore::updateTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateTagAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    tag = " << tag);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3158,6 +3367,10 @@ QByteArray NoteStore_untagAll_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_untagAll_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3184,6 +3397,8 @@ QByteArray NoteStore_untagAll_prepareParams(
 
 void NoteStore_untagAll_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_untagAll_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -3262,6 +3477,10 @@ void NoteStore::untagAll(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::untagAll");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3276,6 +3495,10 @@ AsyncResult * NoteStore::untagAllAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::untagAllAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3293,6 +3516,10 @@ QByteArray NoteStore_expungeTag_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeTag_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3319,6 +3546,8 @@ QByteArray NoteStore_expungeTag_prepareParams(
 
 qint32 NoteStore_expungeTag_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeTag_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -3414,6 +3643,10 @@ qint32 NoteStore::expungeTag(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeTag");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3428,6 +3661,10 @@ AsyncResult * NoteStore::expungeTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeTagAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3444,6 +3681,8 @@ namespace {
 QByteArray NoteStore_listSearches_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_listSearches_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3464,6 +3703,8 @@ QByteArray NoteStore_listSearches_prepareParams(
 
 QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listSearches_readReply");
+
     bool resultIsSet = false;
     QList<SavedSearch> result = QList<SavedSearch>();
     ThriftBinaryBufferReader r(reply);
@@ -3562,6 +3803,8 @@ QVariant NoteStore_listSearches_readReplyAsync(QByteArray reply)
 QList<SavedSearch> NoteStore::listSearches(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listSearches");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3574,6 +3817,8 @@ QList<SavedSearch> NoteStore::listSearches(
 AsyncResult * NoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listSearchesAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3590,6 +3835,10 @@ QByteArray NoteStore_getSearch_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getSearch_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3616,6 +3865,8 @@ QByteArray NoteStore_getSearch_prepareParams(
 
 SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getSearch_readReply");
+
     bool resultIsSet = false;
     SavedSearch result = SavedSearch();
     ThriftBinaryBufferReader r(reply);
@@ -3711,6 +3962,10 @@ SavedSearch NoteStore::getSearch(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getSearch");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3725,6 +3980,10 @@ AsyncResult * NoteStore::getSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getSearchAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3742,6 +4001,10 @@ QByteArray NoteStore_createSearch_prepareParams(
     QString authenticationToken,
     const SavedSearch & search)
 {
+    QEC_DEBUG("note_store", "NoteStore_createSearch_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    search = " << search);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3768,6 +4031,8 @@ QByteArray NoteStore_createSearch_prepareParams(
 
 SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_createSearch_readReply");
+
     bool resultIsSet = false;
     SavedSearch result = SavedSearch();
     ThriftBinaryBufferReader r(reply);
@@ -3853,6 +4118,10 @@ SavedSearch NoteStore::createSearch(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createSearch");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    search = " << search);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3867,6 +4136,10 @@ AsyncResult * NoteStore::createSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createSearchAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    search = " << search);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -3884,6 +4157,10 @@ QByteArray NoteStore_updateSearch_prepareParams(
     QString authenticationToken,
     const SavedSearch & search)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateSearch_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    search = " << search);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -3910,6 +4187,8 @@ QByteArray NoteStore_updateSearch_prepareParams(
 
 qint32 NoteStore_updateSearch_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateSearch_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -4005,6 +4284,10 @@ qint32 NoteStore::updateSearch(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateSearch");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    search = " << search);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4019,6 +4302,10 @@ AsyncResult * NoteStore::updateSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateSearchAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    search = " << search);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4036,6 +4323,10 @@ QByteArray NoteStore_expungeSearch_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeSearch_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -4062,6 +4353,8 @@ QByteArray NoteStore_expungeSearch_prepareParams(
 
 qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeSearch_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -4157,6 +4450,10 @@ qint32 NoteStore::expungeSearch(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeSearch");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4171,6 +4468,10 @@ AsyncResult * NoteStore::expungeSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeSearchAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4189,6 +4490,11 @@ QByteArray NoteStore_findNoteOffset_prepareParams(
     const NoteFilter & filter,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_findNoteOffset_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -4221,6 +4527,8 @@ QByteArray NoteStore_findNoteOffset_prepareParams(
 
 qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_findNoteOffset_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -4317,6 +4625,11 @@ qint32 NoteStore::findNoteOffset(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findNoteOffset");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4333,6 +4646,11 @@ AsyncResult * NoteStore::findNoteOffsetAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findNoteOffsetAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4354,6 +4672,13 @@ QByteArray NoteStore_findNotesMetadata_prepareParams(
     qint32 maxNotes,
     const NotesMetadataResultSpec & resultSpec)
 {
+    QEC_DEBUG("note_store", "NoteStore_findNotesMetadata_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    offset = " << offset << "\n"
+        << "    maxNotes = " << maxNotes << "\n"
+        << "    resultSpec = " << resultSpec);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -4398,6 +4723,8 @@ QByteArray NoteStore_findNotesMetadata_prepareParams(
 
 NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_findNotesMetadata_readReply");
+
     bool resultIsSet = false;
     NotesMetadataList result = NotesMetadataList();
     ThriftBinaryBufferReader r(reply);
@@ -4496,6 +4823,13 @@ NotesMetadataList NoteStore::findNotesMetadata(
     const NotesMetadataResultSpec & resultSpec,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findNotesMetadata");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    offset = " << offset << "\n"
+        << "    maxNotes = " << maxNotes << "\n"
+        << "    resultSpec = " << resultSpec);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4516,6 +4850,13 @@ AsyncResult * NoteStore::findNotesMetadataAsync(
     const NotesMetadataResultSpec & resultSpec,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findNotesMetadataAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    offset = " << offset << "\n"
+        << "    maxNotes = " << maxNotes << "\n"
+        << "    resultSpec = " << resultSpec);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4537,6 +4878,11 @@ QByteArray NoteStore_findNoteCounts_prepareParams(
     const NoteFilter & filter,
     bool withTrash)
 {
+    QEC_DEBUG("note_store", "NoteStore_findNoteCounts_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    withTrash = " << withTrash);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -4569,6 +4915,8 @@ QByteArray NoteStore_findNoteCounts_prepareParams(
 
 NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_findNoteCounts_readReply");
+
     bool resultIsSet = false;
     NoteCollectionCounts result = NoteCollectionCounts();
     ThriftBinaryBufferReader r(reply);
@@ -4665,6 +5013,11 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     bool withTrash,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findNoteCounts");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    withTrash = " << withTrash);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4681,6 +5034,11 @@ AsyncResult * NoteStore::findNoteCountsAsync(
     bool withTrash,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findNoteCountsAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    filter = " << filter << "\n"
+        << "    withTrash = " << withTrash);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4700,6 +5058,11 @@ QByteArray NoteStore_getNoteWithResultSpec_prepareParams(
     Guid guid,
     const NoteResultSpec & resultSpec)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteWithResultSpec_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    resultSpec = " << resultSpec);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -4732,6 +5095,8 @@ QByteArray NoteStore_getNoteWithResultSpec_prepareParams(
 
 Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteWithResultSpec_readReply");
+
     bool resultIsSet = false;
     Note result = Note();
     ThriftBinaryBufferReader r(reply);
@@ -4828,6 +5193,11 @@ Note NoteStore::getNoteWithResultSpec(
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteWithResultSpec");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    resultSpec = " << resultSpec);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4844,6 +5214,11 @@ AsyncResult * NoteStore::getNoteWithResultSpecAsync(
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteWithResultSpecAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    resultSpec = " << resultSpec);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -4866,6 +5241,14 @@ QByteArray NoteStore_getNote_prepareParams(
     bool withResourcesRecognition,
     bool withResourcesAlternateData)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    withContent = " << withContent << "\n"
+        << "    withResourcesData = " << withResourcesData << "\n"
+        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
+        << "    withResourcesAlternateData = " << withResourcesAlternateData);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -4916,6 +5299,8 @@ QByteArray NoteStore_getNote_prepareParams(
 
 Note NoteStore_getNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNote_readReply");
+
     bool resultIsSet = false;
     Note result = Note();
     ThriftBinaryBufferReader r(reply);
@@ -5015,6 +5400,14 @@ Note NoteStore::getNote(
     bool withResourcesAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    withContent = " << withContent << "\n"
+        << "    withResourcesData = " << withResourcesData << "\n"
+        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
+        << "    withResourcesAlternateData = " << withResourcesAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5037,6 +5430,14 @@ AsyncResult * NoteStore::getNoteAsync(
     bool withResourcesAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    withContent = " << withContent << "\n"
+        << "    withResourcesData = " << withResourcesData << "\n"
+        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
+        << "    withResourcesAlternateData = " << withResourcesAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5058,6 +5459,10 @@ QByteArray NoteStore_getNoteApplicationData_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationData_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -5084,6 +5489,8 @@ QByteArray NoteStore_getNoteApplicationData_prepareParams(
 
 LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationData_readReply");
+
     bool resultIsSet = false;
     LazyMap result = LazyMap();
     ThriftBinaryBufferReader r(reply);
@@ -5179,6 +5586,10 @@ LazyMap NoteStore::getNoteApplicationData(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteApplicationData");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5193,6 +5604,10 @@ AsyncResult * NoteStore::getNoteApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteApplicationDataAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5211,6 +5626,11 @@ QByteArray NoteStore_getNoteApplicationDataEntry_prepareParams(
     Guid guid,
     QString key)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationDataEntry_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -5243,6 +5663,8 @@ QByteArray NoteStore_getNoteApplicationDataEntry_prepareParams(
 
 QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationDataEntry_readReply");
+
     bool resultIsSet = false;
     QString result = QString();
     ThriftBinaryBufferReader r(reply);
@@ -5339,6 +5761,11 @@ QString NoteStore::getNoteApplicationDataEntry(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteApplicationDataEntry");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5355,6 +5782,11 @@ AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteApplicationDataEntryAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5375,6 +5807,12 @@ QByteArray NoteStore_setNoteApplicationDataEntry_prepareParams(
     QString key,
     QString value)
 {
+    QEC_DEBUG("note_store", "NoteStore_setNoteApplicationDataEntry_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key << "\n"
+        << "    value = " << value);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -5413,6 +5851,8 @@ QByteArray NoteStore_setNoteApplicationDataEntry_prepareParams(
 
 qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_setNoteApplicationDataEntry_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -5510,6 +5950,12 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     QString value,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::setNoteApplicationDataEntry");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key << "\n"
+        << "    value = " << value);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5528,6 +5974,12 @@ AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
     QString value,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::setNoteApplicationDataEntryAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key << "\n"
+        << "    value = " << value);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5548,6 +6000,11 @@ QByteArray NoteStore_unsetNoteApplicationDataEntry_prepareParams(
     Guid guid,
     QString key)
 {
+    QEC_DEBUG("note_store", "NoteStore_unsetNoteApplicationDataEntry_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -5580,6 +6037,8 @@ QByteArray NoteStore_unsetNoteApplicationDataEntry_prepareParams(
 
 qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_unsetNoteApplicationDataEntry_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -5676,6 +6135,11 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::unsetNoteApplicationDataEntry");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5692,6 +6156,11 @@ AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::unsetNoteApplicationDataEntryAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5710,6 +6179,10 @@ QByteArray NoteStore_getNoteContent_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteContent_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -5736,6 +6209,8 @@ QByteArray NoteStore_getNoteContent_prepareParams(
 
 QString NoteStore_getNoteContent_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteContent_readReply");
+
     bool resultIsSet = false;
     QString result = QString();
     ThriftBinaryBufferReader r(reply);
@@ -5831,6 +6306,10 @@ QString NoteStore::getNoteContent(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteContent");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5845,6 +6324,10 @@ AsyncResult * NoteStore::getNoteContentAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteContentAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -5864,6 +6347,12 @@ QByteArray NoteStore_getNoteSearchText_prepareParams(
     bool noteOnly,
     bool tokenizeForIndexing)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteSearchText_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    noteOnly = " << noteOnly << "\n"
+        << "    tokenizeForIndexing = " << tokenizeForIndexing);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -5902,6 +6391,8 @@ QByteArray NoteStore_getNoteSearchText_prepareParams(
 
 QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteSearchText_readReply");
+
     bool resultIsSet = false;
     QString result = QString();
     ThriftBinaryBufferReader r(reply);
@@ -5999,6 +6490,12 @@ QString NoteStore::getNoteSearchText(
     bool tokenizeForIndexing,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteSearchText");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    noteOnly = " << noteOnly << "\n"
+        << "    tokenizeForIndexing = " << tokenizeForIndexing);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6017,6 +6514,12 @@ AsyncResult * NoteStore::getNoteSearchTextAsync(
     bool tokenizeForIndexing,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteSearchTextAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    noteOnly = " << noteOnly << "\n"
+        << "    tokenizeForIndexing = " << tokenizeForIndexing);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6036,6 +6539,10 @@ QByteArray NoteStore_getResourceSearchText_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceSearchText_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6062,6 +6569,8 @@ QByteArray NoteStore_getResourceSearchText_prepareParams(
 
 QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceSearchText_readReply");
+
     bool resultIsSet = false;
     QString result = QString();
     ThriftBinaryBufferReader r(reply);
@@ -6157,6 +6666,10 @@ QString NoteStore::getResourceSearchText(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceSearchText");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6171,6 +6684,10 @@ AsyncResult * NoteStore::getResourceSearchTextAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceSearchTextAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6188,6 +6705,10 @@ QByteArray NoteStore_getNoteTagNames_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteTagNames_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6214,6 +6735,8 @@ QByteArray NoteStore_getNoteTagNames_prepareParams(
 
 QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteTagNames_readReply");
+
     bool resultIsSet = false;
     QStringList result = QStringList();
     ThriftBinaryBufferReader r(reply);
@@ -6323,6 +6846,10 @@ QStringList NoteStore::getNoteTagNames(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteTagNames");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6337,6 +6864,10 @@ AsyncResult * NoteStore::getNoteTagNamesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteTagNamesAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6354,6 +6885,10 @@ QByteArray NoteStore_createNote_prepareParams(
     QString authenticationToken,
     const Note & note)
 {
+    QEC_DEBUG("note_store", "NoteStore_createNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6380,6 +6915,8 @@ QByteArray NoteStore_createNote_prepareParams(
 
 Note NoteStore_createNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_createNote_readReply");
+
     bool resultIsSet = false;
     Note result = Note();
     ThriftBinaryBufferReader r(reply);
@@ -6475,6 +7012,10 @@ Note NoteStore::createNote(
     const Note & note,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6489,6 +7030,10 @@ AsyncResult * NoteStore::createNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6506,6 +7051,10 @@ QByteArray NoteStore_updateNote_prepareParams(
     QString authenticationToken,
     const Note & note)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6532,6 +7081,8 @@ QByteArray NoteStore_updateNote_prepareParams(
 
 Note NoteStore_updateNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateNote_readReply");
+
     bool resultIsSet = false;
     Note result = Note();
     ThriftBinaryBufferReader r(reply);
@@ -6627,6 +7178,10 @@ Note NoteStore::updateNote(
     const Note & note,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6641,6 +7196,10 @@ AsyncResult * NoteStore::updateNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6658,6 +7217,10 @@ QByteArray NoteStore_deleteNote_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_deleteNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6684,6 +7247,8 @@ QByteArray NoteStore_deleteNote_prepareParams(
 
 qint32 NoteStore_deleteNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_deleteNote_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -6779,6 +7344,10 @@ qint32 NoteStore::deleteNote(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::deleteNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6793,6 +7362,10 @@ AsyncResult * NoteStore::deleteNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::deleteNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6810,6 +7383,10 @@ QByteArray NoteStore_expungeNote_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6836,6 +7413,8 @@ QByteArray NoteStore_expungeNote_prepareParams(
 
 qint32 NoteStore_expungeNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeNote_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -6931,6 +7510,10 @@ qint32 NoteStore::expungeNote(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6945,6 +7528,10 @@ AsyncResult * NoteStore::expungeNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -6963,6 +7550,11 @@ QByteArray NoteStore_copyNote_prepareParams(
     Guid noteGuid,
     Guid toNotebookGuid)
 {
+    QEC_DEBUG("note_store", "NoteStore_copyNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    toNotebookGuid = " << toNotebookGuid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -6995,6 +7587,8 @@ QByteArray NoteStore_copyNote_prepareParams(
 
 Note NoteStore_copyNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_copyNote_readReply");
+
     bool resultIsSet = false;
     Note result = Note();
     ThriftBinaryBufferReader r(reply);
@@ -7091,6 +7685,11 @@ Note NoteStore::copyNote(
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::copyNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    toNotebookGuid = " << toNotebookGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7107,6 +7706,11 @@ AsyncResult * NoteStore::copyNoteAsync(
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::copyNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    toNotebookGuid = " << toNotebookGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7125,6 +7729,10 @@ QByteArray NoteStore_listNoteVersions_prepareParams(
     QString authenticationToken,
     Guid noteGuid)
 {
+    QEC_DEBUG("note_store", "NoteStore_listNoteVersions_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -7151,6 +7759,8 @@ QByteArray NoteStore_listNoteVersions_prepareParams(
 
 QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listNoteVersions_readReply");
+
     bool resultIsSet = false;
     QList<NoteVersionId> result = QList<NoteVersionId>();
     ThriftBinaryBufferReader r(reply);
@@ -7260,6 +7870,10 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listNoteVersions");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7274,6 +7888,10 @@ AsyncResult * NoteStore::listNoteVersionsAsync(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listNoteVersionsAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7295,6 +7913,14 @@ QByteArray NoteStore_getNoteVersion_prepareParams(
     bool withResourcesRecognition,
     bool withResourcesAlternateData)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteVersion_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    updateSequenceNum = " << updateSequenceNum << "\n"
+        << "    withResourcesData = " << withResourcesData << "\n"
+        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
+        << "    withResourcesAlternateData = " << withResourcesAlternateData);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -7345,6 +7971,8 @@ QByteArray NoteStore_getNoteVersion_prepareParams(
 
 Note NoteStore_getNoteVersion_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNoteVersion_readReply");
+
     bool resultIsSet = false;
     Note result = Note();
     ThriftBinaryBufferReader r(reply);
@@ -7444,6 +8072,14 @@ Note NoteStore::getNoteVersion(
     bool withResourcesAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteVersion");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    updateSequenceNum = " << updateSequenceNum << "\n"
+        << "    withResourcesData = " << withResourcesData << "\n"
+        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
+        << "    withResourcesAlternateData = " << withResourcesAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7466,6 +8102,14 @@ AsyncResult * NoteStore::getNoteVersionAsync(
     bool withResourcesAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNoteVersionAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    updateSequenceNum = " << updateSequenceNum << "\n"
+        << "    withResourcesData = " << withResourcesData << "\n"
+        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
+        << "    withResourcesAlternateData = " << withResourcesAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7491,6 +8135,14 @@ QByteArray NoteStore_getResource_prepareParams(
     bool withAttributes,
     bool withAlternateData)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResource_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    withData = " << withData << "\n"
+        << "    withRecognition = " << withRecognition << "\n"
+        << "    withAttributes = " << withAttributes << "\n"
+        << "    withAlternateData = " << withAlternateData);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -7541,6 +8193,8 @@ QByteArray NoteStore_getResource_prepareParams(
 
 Resource NoteStore_getResource_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResource_readReply");
+
     bool resultIsSet = false;
     Resource result = Resource();
     ThriftBinaryBufferReader r(reply);
@@ -7640,6 +8294,14 @@ Resource NoteStore::getResource(
     bool withAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResource");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    withData = " << withData << "\n"
+        << "    withRecognition = " << withRecognition << "\n"
+        << "    withAttributes = " << withAttributes << "\n"
+        << "    withAlternateData = " << withAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7662,6 +8324,14 @@ AsyncResult * NoteStore::getResourceAsync(
     bool withAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    withData = " << withData << "\n"
+        << "    withRecognition = " << withRecognition << "\n"
+        << "    withAttributes = " << withAttributes << "\n"
+        << "    withAlternateData = " << withAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7683,6 +8353,10 @@ QByteArray NoteStore_getResourceApplicationData_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationData_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -7709,6 +8383,8 @@ QByteArray NoteStore_getResourceApplicationData_prepareParams(
 
 LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationData_readReply");
+
     bool resultIsSet = false;
     LazyMap result = LazyMap();
     ThriftBinaryBufferReader r(reply);
@@ -7804,6 +8480,10 @@ LazyMap NoteStore::getResourceApplicationData(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceApplicationData");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7818,6 +8498,10 @@ AsyncResult * NoteStore::getResourceApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceApplicationDataAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7836,6 +8520,11 @@ QByteArray NoteStore_getResourceApplicationDataEntry_prepareParams(
     Guid guid,
     QString key)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationDataEntry_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -7868,6 +8557,8 @@ QByteArray NoteStore_getResourceApplicationDataEntry_prepareParams(
 
 QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationDataEntry_readReply");
+
     bool resultIsSet = false;
     QString result = QString();
     ThriftBinaryBufferReader r(reply);
@@ -7964,6 +8655,11 @@ QString NoteStore::getResourceApplicationDataEntry(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceApplicationDataEntry");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -7980,6 +8676,11 @@ AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceApplicationDataEntryAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8000,6 +8701,12 @@ QByteArray NoteStore_setResourceApplicationDataEntry_prepareParams(
     QString key,
     QString value)
 {
+    QEC_DEBUG("note_store", "NoteStore_setResourceApplicationDataEntry_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key << "\n"
+        << "    value = " << value);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -8038,6 +8745,8 @@ QByteArray NoteStore_setResourceApplicationDataEntry_prepareParams(
 
 qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_setResourceApplicationDataEntry_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -8135,6 +8844,12 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     QString value,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::setResourceApplicationDataEntry");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key << "\n"
+        << "    value = " << value);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8153,6 +8868,12 @@ AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
     QString value,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::setResourceApplicationDataEntryAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key << "\n"
+        << "    value = " << value);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8173,6 +8894,11 @@ QByteArray NoteStore_unsetResourceApplicationDataEntry_prepareParams(
     Guid guid,
     QString key)
 {
+    QEC_DEBUG("note_store", "NoteStore_unsetResourceApplicationDataEntry_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -8205,6 +8931,8 @@ QByteArray NoteStore_unsetResourceApplicationDataEntry_prepareParams(
 
 qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_unsetResourceApplicationDataEntry_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -8301,6 +9029,11 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::unsetResourceApplicationDataEntry");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8317,6 +9050,11 @@ AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
     QString key,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::unsetResourceApplicationDataEntryAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    key = " << key);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8335,6 +9073,10 @@ QByteArray NoteStore_updateResource_prepareParams(
     QString authenticationToken,
     const Resource & resource)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateResource_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    resource = " << resource);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -8361,6 +9103,8 @@ QByteArray NoteStore_updateResource_prepareParams(
 
 qint32 NoteStore_updateResource_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateResource_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -8456,6 +9200,10 @@ qint32 NoteStore::updateResource(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateResource");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    resource = " << resource);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8470,6 +9218,10 @@ AsyncResult * NoteStore::updateResourceAsync(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateResourceAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    resource = " << resource);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8487,6 +9239,10 @@ QByteArray NoteStore_getResourceData_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceData_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -8513,6 +9269,8 @@ QByteArray NoteStore_getResourceData_prepareParams(
 
 QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceData_readReply");
+
     bool resultIsSet = false;
     QByteArray result = QByteArray();
     ThriftBinaryBufferReader r(reply);
@@ -8608,6 +9366,10 @@ QByteArray NoteStore::getResourceData(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceData");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8622,6 +9384,10 @@ AsyncResult * NoteStore::getResourceDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceDataAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8643,6 +9409,14 @@ QByteArray NoteStore_getResourceByHash_prepareParams(
     bool withRecognition,
     bool withAlternateData)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceByHash_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    contentHash = " << contentHash << "\n"
+        << "    withData = " << withData << "\n"
+        << "    withRecognition = " << withRecognition << "\n"
+        << "    withAlternateData = " << withAlternateData);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -8693,6 +9467,8 @@ QByteArray NoteStore_getResourceByHash_prepareParams(
 
 Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceByHash_readReply");
+
     bool resultIsSet = false;
     Resource result = Resource();
     ThriftBinaryBufferReader r(reply);
@@ -8792,6 +9568,14 @@ Resource NoteStore::getResourceByHash(
     bool withAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceByHash");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    contentHash = " << contentHash << "\n"
+        << "    withData = " << withData << "\n"
+        << "    withRecognition = " << withRecognition << "\n"
+        << "    withAlternateData = " << withAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8814,6 +9598,14 @@ AsyncResult * NoteStore::getResourceByHashAsync(
     bool withAlternateData,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceByHashAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    noteGuid = " << noteGuid << "\n"
+        << "    contentHash = " << contentHash << "\n"
+        << "    withData = " << withData << "\n"
+        << "    withRecognition = " << withRecognition << "\n"
+        << "    withAlternateData = " << withAlternateData);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8835,6 +9627,10 @@ QByteArray NoteStore_getResourceRecognition_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceRecognition_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -8861,6 +9657,8 @@ QByteArray NoteStore_getResourceRecognition_prepareParams(
 
 QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceRecognition_readReply");
+
     bool resultIsSet = false;
     QByteArray result = QByteArray();
     ThriftBinaryBufferReader r(reply);
@@ -8956,6 +9754,10 @@ QByteArray NoteStore::getResourceRecognition(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceRecognition");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8970,6 +9772,10 @@ AsyncResult * NoteStore::getResourceRecognitionAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceRecognitionAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -8987,6 +9793,10 @@ QByteArray NoteStore_getResourceAlternateData_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceAlternateData_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9013,6 +9823,8 @@ QByteArray NoteStore_getResourceAlternateData_prepareParams(
 
 QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceAlternateData_readReply");
+
     bool resultIsSet = false;
     QByteArray result = QByteArray();
     ThriftBinaryBufferReader r(reply);
@@ -9108,6 +9920,10 @@ QByteArray NoteStore::getResourceAlternateData(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceAlternateData");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9122,6 +9938,10 @@ AsyncResult * NoteStore::getResourceAlternateDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceAlternateDataAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9139,6 +9959,10 @@ QByteArray NoteStore_getResourceAttributes_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceAttributes_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9165,6 +9989,8 @@ QByteArray NoteStore_getResourceAttributes_prepareParams(
 
 ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getResourceAttributes_readReply");
+
     bool resultIsSet = false;
     ResourceAttributes result = ResourceAttributes();
     ThriftBinaryBufferReader r(reply);
@@ -9260,6 +10086,10 @@ ResourceAttributes NoteStore::getResourceAttributes(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceAttributes");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9274,6 +10104,10 @@ AsyncResult * NoteStore::getResourceAttributesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getResourceAttributesAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9291,6 +10125,11 @@ QByteArray NoteStore_getPublicNotebook_prepareParams(
     UserID userId,
     QString publicUri)
 {
+    QEC_DEBUG("note_store", "NoteStore_getPublicNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    userId = " << userId << "\n"
+        << "    publicUri = " << publicUri);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9317,6 +10156,8 @@ QByteArray NoteStore_getPublicNotebook_prepareParams(
 
 Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getPublicNotebook_readReply");
+
     bool resultIsSet = false;
     Notebook result = Notebook();
     ThriftBinaryBufferReader r(reply);
@@ -9403,6 +10244,11 @@ Notebook NoteStore::getPublicNotebook(
     QString publicUri,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getPublicNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    userId = " << userId << "\n"
+        << "    publicUri = " << publicUri);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9418,6 +10264,11 @@ AsyncResult * NoteStore::getPublicNotebookAsync(
     QString publicUri,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getPublicNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    userId = " << userId << "\n"
+        << "    publicUri = " << publicUri);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9436,6 +10287,11 @@ QByteArray NoteStore_shareNotebook_prepareParams(
     const SharedNotebook & sharedNotebook,
     QString message)
 {
+    QEC_DEBUG("note_store", "NoteStore_shareNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    sharedNotebook = " << sharedNotebook << "\n"
+        << "    message = " << message);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9468,6 +10324,8 @@ QByteArray NoteStore_shareNotebook_prepareParams(
 
 SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_shareNotebook_readReply");
+
     bool resultIsSet = false;
     SharedNotebook result = SharedNotebook();
     ThriftBinaryBufferReader r(reply);
@@ -9564,6 +10422,11 @@ SharedNotebook NoteStore::shareNotebook(
     QString message,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::shareNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    sharedNotebook = " << sharedNotebook << "\n"
+        << "    message = " << message);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9580,6 +10443,11 @@ AsyncResult * NoteStore::shareNotebookAsync(
     QString message,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::shareNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    sharedNotebook = " << sharedNotebook << "\n"
+        << "    message = " << message);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9598,6 +10466,10 @@ QByteArray NoteStore_createOrUpdateNotebookShares_prepareParams(
     QString authenticationToken,
     const NotebookShareTemplate & shareTemplate)
 {
+    QEC_DEBUG("note_store", "NoteStore_createOrUpdateNotebookShares_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    shareTemplate = " << shareTemplate);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9624,6 +10496,8 @@ QByteArray NoteStore_createOrUpdateNotebookShares_prepareParams(
 
 CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_createOrUpdateNotebookShares_readReply");
+
     bool resultIsSet = false;
     CreateOrUpdateNotebookSharesResult result = CreateOrUpdateNotebookSharesResult();
     ThriftBinaryBufferReader r(reply);
@@ -9729,6 +10603,10 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createOrUpdateNotebookShares");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    shareTemplate = " << shareTemplate);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9743,6 +10621,10 @@ AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createOrUpdateNotebookSharesAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    shareTemplate = " << shareTemplate);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9760,6 +10642,10 @@ QByteArray NoteStore_updateSharedNotebook_prepareParams(
     QString authenticationToken,
     const SharedNotebook & sharedNotebook)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateSharedNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    sharedNotebook = " << sharedNotebook);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9786,6 +10672,8 @@ QByteArray NoteStore_updateSharedNotebook_prepareParams(
 
 qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateSharedNotebook_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -9881,6 +10769,10 @@ qint32 NoteStore::updateSharedNotebook(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateSharedNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    sharedNotebook = " << sharedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9895,6 +10787,10 @@ AsyncResult * NoteStore::updateSharedNotebookAsync(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateSharedNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    sharedNotebook = " << sharedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -9913,6 +10809,11 @@ QByteArray NoteStore_setNotebookRecipientSettings_prepareParams(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings)
 {
+    QEC_DEBUG("note_store", "NoteStore_setNotebookRecipientSettings_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid << "\n"
+        << "    recipientSettings = " << recipientSettings);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -9945,6 +10846,8 @@ QByteArray NoteStore_setNotebookRecipientSettings_prepareParams(
 
 Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_setNotebookRecipientSettings_readReply");
+
     bool resultIsSet = false;
     Notebook result = Notebook();
     ThriftBinaryBufferReader r(reply);
@@ -10041,6 +10944,11 @@ Notebook NoteStore::setNotebookRecipientSettings(
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::setNotebookRecipientSettings");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid << "\n"
+        << "    recipientSettings = " << recipientSettings);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10057,6 +10965,11 @@ AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::setNotebookRecipientSettingsAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid << "\n"
+        << "    recipientSettings = " << recipientSettings);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10074,6 +10987,8 @@ namespace {
 QByteArray NoteStore_listSharedNotebooks_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_listSharedNotebooks_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -10094,6 +11009,8 @@ QByteArray NoteStore_listSharedNotebooks_prepareParams(
 
 QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listSharedNotebooks_readReply");
+
     bool resultIsSet = false;
     QList<SharedNotebook> result = QList<SharedNotebook>();
     ThriftBinaryBufferReader r(reply);
@@ -10202,6 +11119,8 @@ QVariant NoteStore_listSharedNotebooks_readReplyAsync(QByteArray reply)
 QList<SharedNotebook> NoteStore::listSharedNotebooks(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listSharedNotebooks");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10214,6 +11133,8 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
 AsyncResult * NoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listSharedNotebooksAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10230,6 +11151,10 @@ QByteArray NoteStore_createLinkedNotebook_prepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook)
 {
+    QEC_DEBUG("note_store", "NoteStore_createLinkedNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -10256,6 +11181,8 @@ QByteArray NoteStore_createLinkedNotebook_prepareParams(
 
 LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_createLinkedNotebook_readReply");
+
     bool resultIsSet = false;
     LinkedNotebook result = LinkedNotebook();
     ThriftBinaryBufferReader r(reply);
@@ -10351,6 +11278,10 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createLinkedNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10365,6 +11296,10 @@ AsyncResult * NoteStore::createLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::createLinkedNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10382,6 +11317,10 @@ QByteArray NoteStore_updateLinkedNotebook_prepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateLinkedNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -10408,6 +11347,8 @@ QByteArray NoteStore_updateLinkedNotebook_prepareParams(
 
 qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateLinkedNotebook_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -10503,6 +11444,10 @@ qint32 NoteStore::updateLinkedNotebook(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateLinkedNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10517,6 +11462,10 @@ AsyncResult * NoteStore::updateLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateLinkedNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    linkedNotebook = " << linkedNotebook);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10533,6 +11482,8 @@ namespace {
 QByteArray NoteStore_listLinkedNotebooks_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_listLinkedNotebooks_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -10553,6 +11504,8 @@ QByteArray NoteStore_listLinkedNotebooks_prepareParams(
 
 QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_listLinkedNotebooks_readReply");
+
     bool resultIsSet = false;
     QList<LinkedNotebook> result = QList<LinkedNotebook>();
     ThriftBinaryBufferReader r(reply);
@@ -10661,6 +11614,8 @@ QVariant NoteStore_listLinkedNotebooks_readReplyAsync(QByteArray reply)
 QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listLinkedNotebooks");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10673,6 +11628,8 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
 AsyncResult * NoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::listLinkedNotebooksAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10689,6 +11646,10 @@ QByteArray NoteStore_expungeLinkedNotebook_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeLinkedNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -10715,6 +11676,8 @@ QByteArray NoteStore_expungeLinkedNotebook_prepareParams(
 
 qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_expungeLinkedNotebook_readReply");
+
     bool resultIsSet = false;
     qint32 result = qint32();
     ThriftBinaryBufferReader r(reply);
@@ -10810,6 +11773,10 @@ qint32 NoteStore::expungeLinkedNotebook(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeLinkedNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10824,6 +11791,10 @@ AsyncResult * NoteStore::expungeLinkedNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::expungeLinkedNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10841,6 +11812,10 @@ QByteArray NoteStore_authenticateToSharedNotebook_prepareParams(
     QString shareKeyOrGlobalId,
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNotebook_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    shareKeyOrGlobalId = " << shareKeyOrGlobalId);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -10867,6 +11842,8 @@ QByteArray NoteStore_authenticateToSharedNotebook_prepareParams(
 
 AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNotebook_readReply");
+
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
     ThriftBinaryBufferReader r(reply);
@@ -10962,6 +11939,10 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::authenticateToSharedNotebook");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    shareKeyOrGlobalId = " << shareKeyOrGlobalId);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10976,6 +11957,10 @@ AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::authenticateToSharedNotebookAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    shareKeyOrGlobalId = " << shareKeyOrGlobalId);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -10992,6 +11977,8 @@ namespace {
 QByteArray NoteStore_getSharedNotebookByAuth_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_getSharedNotebookByAuth_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11012,6 +11999,8 @@ QByteArray NoteStore_getSharedNotebookByAuth_prepareParams(
 
 SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getSharedNotebookByAuth_readReply");
+
     bool resultIsSet = false;
     SharedNotebook result = SharedNotebook();
     ThriftBinaryBufferReader r(reply);
@@ -11106,6 +12095,8 @@ QVariant NoteStore_getSharedNotebookByAuth_readReplyAsync(QByteArray reply)
 SharedNotebook NoteStore::getSharedNotebookByAuth(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getSharedNotebookByAuth");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11118,6 +12109,8 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
 AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getSharedNotebookByAuthAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11134,6 +12127,10 @@ QByteArray NoteStore_emailNote_prepareParams(
     QString authenticationToken,
     const NoteEmailParameters & parameters)
 {
+    QEC_DEBUG("note_store", "NoteStore_emailNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    parameters = " << parameters);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11160,6 +12157,8 @@ QByteArray NoteStore_emailNote_prepareParams(
 
 void NoteStore_emailNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_emailNote_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -11238,6 +12237,10 @@ void NoteStore::emailNote(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::emailNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    parameters = " << parameters);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11252,6 +12255,10 @@ AsyncResult * NoteStore::emailNoteAsync(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::emailNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    parameters = " << parameters);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11269,6 +12276,10 @@ QByteArray NoteStore_shareNote_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_shareNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11295,6 +12306,8 @@ QByteArray NoteStore_shareNote_prepareParams(
 
 QString NoteStore_shareNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_shareNote_readReply");
+
     bool resultIsSet = false;
     QString result = QString();
     ThriftBinaryBufferReader r(reply);
@@ -11390,6 +12403,10 @@ QString NoteStore::shareNote(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::shareNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11404,6 +12421,10 @@ AsyncResult * NoteStore::shareNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::shareNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11421,6 +12442,10 @@ QByteArray NoteStore_stopSharingNote_prepareParams(
     QString authenticationToken,
     Guid guid)
 {
+    QEC_DEBUG("note_store", "NoteStore_stopSharingNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11447,6 +12472,8 @@ QByteArray NoteStore_stopSharingNote_prepareParams(
 
 void NoteStore_stopSharingNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_stopSharingNote_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -11525,6 +12552,10 @@ void NoteStore::stopSharingNote(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::stopSharingNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11539,6 +12570,10 @@ AsyncResult * NoteStore::stopSharingNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::stopSharingNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11557,6 +12592,11 @@ QByteArray NoteStore_authenticateToSharedNote_prepareParams(
     QString noteKey,
     QString authenticationToken)
 {
+    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNote_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    noteKey = " << noteKey);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11589,6 +12629,8 @@ QByteArray NoteStore_authenticateToSharedNote_prepareParams(
 
 AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNote_readReply");
+
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
     ThriftBinaryBufferReader r(reply);
@@ -11685,6 +12727,11 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     QString noteKey,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::authenticateToSharedNote");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    noteKey = " << noteKey);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11701,6 +12748,11 @@ AsyncResult * NoteStore::authenticateToSharedNoteAsync(
     QString noteKey,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::authenticateToSharedNoteAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    guid = " << guid << "\n"
+        << "    noteKey = " << noteKey);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11720,6 +12772,11 @@ QByteArray NoteStore_findRelated_prepareParams(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec)
 {
+    QEC_DEBUG("note_store", "NoteStore_findRelated_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    query = " << query << "\n"
+        << "    resultSpec = " << resultSpec);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11752,6 +12809,8 @@ QByteArray NoteStore_findRelated_prepareParams(
 
 RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_findRelated_readReply");
+
     bool resultIsSet = false;
     RelatedResult result = RelatedResult();
     ThriftBinaryBufferReader r(reply);
@@ -11848,6 +12907,11 @@ RelatedResult NoteStore::findRelated(
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findRelated");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    query = " << query << "\n"
+        << "    resultSpec = " << resultSpec);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11864,6 +12928,11 @@ AsyncResult * NoteStore::findRelatedAsync(
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::findRelatedAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    query = " << query << "\n"
+        << "    resultSpec = " << resultSpec);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -11882,6 +12951,10 @@ QByteArray NoteStore_updateNoteIfUsnMatches_prepareParams(
     QString authenticationToken,
     const Note & note)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateNoteIfUsnMatches_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -11908,6 +12981,8 @@ QByteArray NoteStore_updateNoteIfUsnMatches_prepareParams(
 
 UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_updateNoteIfUsnMatches_readReply");
+
     bool resultIsSet = false;
     UpdateNoteIfUsnMatchesResult result = UpdateNoteIfUsnMatchesResult();
     ThriftBinaryBufferReader r(reply);
@@ -12003,6 +13078,10 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     const Note & note,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateNoteIfUsnMatches");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12017,6 +13096,10 @@ AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::updateNoteIfUsnMatchesAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    note = " << note);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12034,6 +13117,10 @@ QByteArray NoteStore_manageNotebookShares_prepareParams(
     QString authenticationToken,
     const ManageNotebookSharesParameters & parameters)
 {
+    QEC_DEBUG("note_store", "NoteStore_manageNotebookShares_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    parameters = " << parameters);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -12060,6 +13147,8 @@ QByteArray NoteStore_manageNotebookShares_prepareParams(
 
 ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_manageNotebookShares_readReply");
+
     bool resultIsSet = false;
     ManageNotebookSharesResult result = ManageNotebookSharesResult();
     ThriftBinaryBufferReader r(reply);
@@ -12155,6 +13244,10 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::manageNotebookShares");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    parameters = " << parameters);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12169,6 +13262,10 @@ AsyncResult * NoteStore::manageNotebookSharesAsync(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::manageNotebookSharesAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    parameters = " << parameters);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12186,6 +13283,10 @@ QByteArray NoteStore_getNotebookShares_prepareParams(
     QString authenticationToken,
     QString notebookGuid)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNotebookShares_prepareParams");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -12212,6 +13313,8 @@ QByteArray NoteStore_getNotebookShares_prepareParams(
 
 ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
 {
+    QEC_DEBUG("note_store", "NoteStore_getNotebookShares_readReply");
+
     bool resultIsSet = false;
     ShareRelationships result = ShareRelationships();
     ThriftBinaryBufferReader r(reply);
@@ -12307,6 +13410,10 @@ ShareRelationships NoteStore::getNotebookShares(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNotebookShares");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12321,6 +13428,10 @@ AsyncResult * NoteStore::getNotebookSharesAsync(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("note_store", "NoteStore::getNotebookSharesAsync");
+    QEC_TRACE("note_store", "Parameters:\n"
+        << "    notebookGuid = " << notebookGuid);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12501,6 +13612,12 @@ QByteArray UserStore_checkVersion_prepareParams(
     qint16 edamVersionMajor,
     qint16 edamVersionMinor)
 {
+    QEC_DEBUG("user_store", "UserStore_checkVersion_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    clientName = " << clientName << "\n"
+        << "    edamVersionMajor = " << edamVersionMajor << "\n"
+        << "    edamVersionMinor = " << edamVersionMinor);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -12533,6 +13650,8 @@ QByteArray UserStore_checkVersion_prepareParams(
 
 bool UserStore_checkVersion_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_checkVersion_readReply");
+
     bool resultIsSet = false;
     bool result = bool();
     ThriftBinaryBufferReader r(reply);
@@ -12600,6 +13719,12 @@ bool UserStore::checkVersion(
     qint16 edamVersionMinor,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::checkVersion");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    clientName = " << clientName << "\n"
+        << "    edamVersionMajor = " << edamVersionMajor << "\n"
+        << "    edamVersionMinor = " << edamVersionMinor);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12617,6 +13742,12 @@ AsyncResult * UserStore::checkVersionAsync(
     qint16 edamVersionMinor,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::checkVersionAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    clientName = " << clientName << "\n"
+        << "    edamVersionMajor = " << edamVersionMajor << "\n"
+        << "    edamVersionMinor = " << edamVersionMinor);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12634,6 +13765,10 @@ namespace {
 QByteArray UserStore_getBootstrapInfo_prepareParams(
     QString locale)
 {
+    QEC_DEBUG("user_store", "UserStore_getBootstrapInfo_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    locale = " << locale);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -12654,6 +13789,8 @@ QByteArray UserStore_getBootstrapInfo_prepareParams(
 
 BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_getBootstrapInfo_readReply");
+
     bool resultIsSet = false;
     BootstrapInfo result = BootstrapInfo();
     ThriftBinaryBufferReader r(reply);
@@ -12719,6 +13856,10 @@ BootstrapInfo UserStore::getBootstrapInfo(
     QString locale,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getBootstrapInfo");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    locale = " << locale);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12732,6 +13873,10 @@ AsyncResult * UserStore::getBootstrapInfoAsync(
     QString locale,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getBootstrapInfoAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    locale = " << locale);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12753,6 +13898,13 @@ QByteArray UserStore_authenticateLongSession_prepareParams(
     QString deviceDescription,
     bool supportsTwoFactor)
 {
+    QEC_DEBUG("user_store", "UserStore_authenticateLongSession_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    username = " << username << "\n"
+        << "    deviceIdentifier = " << deviceIdentifier << "\n"
+        << "    deviceDescription = " << deviceDescription << "\n"
+        << "    supportsTwoFactor = " << supportsTwoFactor);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -12809,6 +13961,8 @@ QByteArray UserStore_authenticateLongSession_prepareParams(
 
 AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_authenticateLongSession_readReply");
+
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
     ThriftBinaryBufferReader r(reply);
@@ -12900,6 +14054,13 @@ AuthenticationResult UserStore::authenticateLongSession(
     bool supportsTwoFactor,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::authenticateLongSession");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    username = " << username << "\n"
+        << "    deviceIdentifier = " << deviceIdentifier << "\n"
+        << "    deviceDescription = " << deviceDescription << "\n"
+        << "    supportsTwoFactor = " << supportsTwoFactor);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12925,6 +14086,13 @@ AsyncResult * UserStore::authenticateLongSessionAsync(
     bool supportsTwoFactor,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::authenticateLongSessionAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    username = " << username << "\n"
+        << "    deviceIdentifier = " << deviceIdentifier << "\n"
+        << "    deviceDescription = " << deviceDescription << "\n"
+        << "    supportsTwoFactor = " << supportsTwoFactor);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -12949,6 +14117,11 @@ QByteArray UserStore_completeTwoFactorAuthentication_prepareParams(
     QString deviceIdentifier,
     QString deviceDescription)
 {
+    QEC_DEBUG("user_store", "UserStore_completeTwoFactorAuthentication_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    deviceIdentifier = " << deviceIdentifier << "\n"
+        << "    deviceDescription = " << deviceDescription);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -12987,6 +14160,8 @@ QByteArray UserStore_completeTwoFactorAuthentication_prepareParams(
 
 AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_completeTwoFactorAuthentication_readReply");
+
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
     ThriftBinaryBufferReader r(reply);
@@ -13074,6 +14249,11 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     QString deviceDescription,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::completeTwoFactorAuthentication");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    deviceIdentifier = " << deviceIdentifier << "\n"
+        << "    deviceDescription = " << deviceDescription);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13092,6 +14272,11 @@ AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
     QString deviceDescription,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::completeTwoFactorAuthenticationAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    deviceIdentifier = " << deviceIdentifier << "\n"
+        << "    deviceDescription = " << deviceDescription);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13110,6 +14295,8 @@ namespace {
 QByteArray UserStore_revokeLongSession_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("user_store", "UserStore_revokeLongSession_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13130,6 +14317,8 @@ QByteArray UserStore_revokeLongSession_prepareParams(
 
 void UserStore_revokeLongSession_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_revokeLongSession_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -13197,6 +14386,8 @@ QVariant UserStore_revokeLongSession_readReplyAsync(QByteArray reply)
 void UserStore::revokeLongSession(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::revokeLongSession");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13209,6 +14400,8 @@ void UserStore::revokeLongSession(
 AsyncResult * UserStore::revokeLongSessionAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::revokeLongSessionAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13224,6 +14417,8 @@ namespace {
 QByteArray UserStore_authenticateToBusiness_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("user_store", "UserStore_authenticateToBusiness_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13244,6 +14439,8 @@ QByteArray UserStore_authenticateToBusiness_prepareParams(
 
 AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_authenticateToBusiness_readReply");
+
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
     ThriftBinaryBufferReader r(reply);
@@ -13328,6 +14525,8 @@ QVariant UserStore_authenticateToBusiness_readReplyAsync(QByteArray reply)
 AuthenticationResult UserStore::authenticateToBusiness(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::authenticateToBusiness");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13340,6 +14539,8 @@ AuthenticationResult UserStore::authenticateToBusiness(
 AsyncResult * UserStore::authenticateToBusinessAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::authenticateToBusinessAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13355,6 +14556,8 @@ namespace {
 QByteArray UserStore_getUser_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("user_store", "UserStore_getUser_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13375,6 +14578,8 @@ QByteArray UserStore_getUser_prepareParams(
 
 User UserStore_getUser_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_getUser_readReply");
+
     bool resultIsSet = false;
     User result = User();
     ThriftBinaryBufferReader r(reply);
@@ -13459,6 +14664,8 @@ QVariant UserStore_getUser_readReplyAsync(QByteArray reply)
 User UserStore::getUser(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getUser");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13471,6 +14678,8 @@ User UserStore::getUser(
 AsyncResult * UserStore::getUserAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getUserAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13486,6 +14695,10 @@ namespace {
 QByteArray UserStore_getPublicUserInfo_prepareParams(
     QString username)
 {
+    QEC_DEBUG("user_store", "UserStore_getPublicUserInfo_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    username = " << username);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13506,6 +14719,8 @@ QByteArray UserStore_getPublicUserInfo_prepareParams(
 
 PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_getPublicUserInfo_readReply");
+
     bool resultIsSet = false;
     PublicUserInfo result = PublicUserInfo();
     ThriftBinaryBufferReader r(reply);
@@ -13601,6 +14816,10 @@ PublicUserInfo UserStore::getPublicUserInfo(
     QString username,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getPublicUserInfo");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    username = " << username);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13614,6 +14833,10 @@ AsyncResult * UserStore::getPublicUserInfoAsync(
     QString username,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getPublicUserInfoAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    username = " << username);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13629,6 +14852,8 @@ namespace {
 QByteArray UserStore_getUserUrls_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("user_store", "UserStore_getUserUrls_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13649,6 +14874,8 @@ QByteArray UserStore_getUserUrls_prepareParams(
 
 UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_getUserUrls_readReply");
+
     bool resultIsSet = false;
     UserUrls result = UserUrls();
     ThriftBinaryBufferReader r(reply);
@@ -13733,6 +14960,8 @@ QVariant UserStore_getUserUrls_readReplyAsync(QByteArray reply)
 UserUrls UserStore::getUserUrls(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getUserUrls");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13745,6 +14974,8 @@ UserUrls UserStore::getUserUrls(
 AsyncResult * UserStore::getUserUrlsAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getUserUrlsAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13761,6 +14992,10 @@ QByteArray UserStore_inviteToBusiness_prepareParams(
     QString authenticationToken,
     QString emailAddress)
 {
+    QEC_DEBUG("user_store", "UserStore_inviteToBusiness_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    emailAddress = " << emailAddress);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13787,6 +15022,8 @@ QByteArray UserStore_inviteToBusiness_prepareParams(
 
 void UserStore_inviteToBusiness_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_inviteToBusiness_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -13855,6 +15092,10 @@ void UserStore::inviteToBusiness(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::inviteToBusiness");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    emailAddress = " << emailAddress);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13869,6 +15110,10 @@ AsyncResult * UserStore::inviteToBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::inviteToBusinessAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    emailAddress = " << emailAddress);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -13886,6 +15131,10 @@ QByteArray UserStore_removeFromBusiness_prepareParams(
     QString authenticationToken,
     QString emailAddress)
 {
+    QEC_DEBUG("user_store", "UserStore_removeFromBusiness_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    emailAddress = " << emailAddress);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -13912,6 +15161,8 @@ QByteArray UserStore_removeFromBusiness_prepareParams(
 
 void UserStore_removeFromBusiness_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_removeFromBusiness_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -13990,6 +15241,10 @@ void UserStore::removeFromBusiness(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::removeFromBusiness");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    emailAddress = " << emailAddress);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14004,6 +15259,10 @@ AsyncResult * UserStore::removeFromBusinessAsync(
     QString emailAddress,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::removeFromBusinessAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    emailAddress = " << emailAddress);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14022,6 +15281,11 @@ QByteArray UserStore_updateBusinessUserIdentifier_prepareParams(
     QString oldEmailAddress,
     QString newEmailAddress)
 {
+    QEC_DEBUG("user_store", "UserStore_updateBusinessUserIdentifier_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    oldEmailAddress = " << oldEmailAddress << "\n"
+        << "    newEmailAddress = " << newEmailAddress);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -14054,6 +15318,8 @@ QByteArray UserStore_updateBusinessUserIdentifier_prepareParams(
 
 void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_updateBusinessUserIdentifier_readReply");
+
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
@@ -14133,6 +15399,11 @@ void UserStore::updateBusinessUserIdentifier(
     QString newEmailAddress,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::updateBusinessUserIdentifier");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    oldEmailAddress = " << oldEmailAddress << "\n"
+        << "    newEmailAddress = " << newEmailAddress);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14149,6 +15420,11 @@ AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
     QString newEmailAddress,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::updateBusinessUserIdentifierAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    oldEmailAddress = " << oldEmailAddress << "\n"
+        << "    newEmailAddress = " << newEmailAddress);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14166,6 +15442,8 @@ namespace {
 QByteArray UserStore_listBusinessUsers_prepareParams(
     QString authenticationToken)
 {
+    QEC_DEBUG("user_store", "UserStore_listBusinessUsers_prepareParams");
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -14186,6 +15464,8 @@ QByteArray UserStore_listBusinessUsers_prepareParams(
 
 QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_listBusinessUsers_readReply");
+
     bool resultIsSet = false;
     QList<UserProfile> result = QList<UserProfile>();
     ThriftBinaryBufferReader r(reply);
@@ -14284,6 +15564,8 @@ QVariant UserStore_listBusinessUsers_readReplyAsync(QByteArray reply)
 QList<UserProfile> UserStore::listBusinessUsers(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::listBusinessUsers");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14296,6 +15578,8 @@ QList<UserProfile> UserStore::listBusinessUsers(
 AsyncResult * UserStore::listBusinessUsersAsync(
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::listBusinessUsersAsync");
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14312,6 +15596,10 @@ QByteArray UserStore_listBusinessInvitations_prepareParams(
     QString authenticationToken,
     bool includeRequestedInvitations)
 {
+    QEC_DEBUG("user_store", "UserStore_listBusinessInvitations_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    includeRequestedInvitations = " << includeRequestedInvitations);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -14338,6 +15626,8 @@ QByteArray UserStore_listBusinessInvitations_prepareParams(
 
 QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_listBusinessInvitations_readReply");
+
     bool resultIsSet = false;
     QList<BusinessInvitation> result = QList<BusinessInvitation>();
     ThriftBinaryBufferReader r(reply);
@@ -14437,6 +15727,10 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     bool includeRequestedInvitations,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::listBusinessInvitations");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    includeRequestedInvitations = " << includeRequestedInvitations);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14451,6 +15745,10 @@ AsyncResult * UserStore::listBusinessInvitationsAsync(
     bool includeRequestedInvitations,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::listBusinessInvitationsAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    includeRequestedInvitations = " << includeRequestedInvitations);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14467,6 +15765,10 @@ namespace {
 QByteArray UserStore_getAccountLimits_prepareParams(
     ServiceLevel serviceLevel)
 {
+    QEC_DEBUG("user_store", "UserStore_getAccountLimits_prepareParams");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    serviceLevel = " << serviceLevel);
+
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
     w.writeMessageBegin(
@@ -14487,6 +15789,8 @@ QByteArray UserStore_getAccountLimits_prepareParams(
 
 AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
 {
+    QEC_DEBUG("user_store", "UserStore_getAccountLimits_readReply");
+
     bool resultIsSet = false;
     AccountLimits result = AccountLimits();
     ThriftBinaryBufferReader r(reply);
@@ -14562,6 +15866,10 @@ AccountLimits UserStore::getAccountLimits(
     ServiceLevel serviceLevel,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getAccountLimits");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    serviceLevel = " << serviceLevel);
+
     if (!ctx) {
         ctx = m_ctx;
     }
@@ -14575,6 +15883,10 @@ AsyncResult * UserStore::getAccountLimitsAsync(
     ServiceLevel serviceLevel,
     IRequestContextPtr ctx)
 {
+    QEC_DEBUG("user_store", "UserStore::getAccountLimitsAsync");
+    QEC_TRACE("user_store", "Parameters:\n"
+        << "    serviceLevel = " << serviceLevel);
+
     if (!ctx) {
         ctx = m_ctx;
     }
