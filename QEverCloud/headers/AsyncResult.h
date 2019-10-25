@@ -55,11 +55,11 @@ public:
 
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
-    AsyncResult(QString url, QByteArray postData,
+    AsyncResult(QString url, QByteArray postData, qint64 timeoutMsec,
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 
-    AsyncResult(QNetworkRequest request, QByteArray postData,
+    AsyncResult(QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 

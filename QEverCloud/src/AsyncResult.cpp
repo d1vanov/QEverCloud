@@ -25,22 +25,26 @@ QVariant AsyncResult::asIs(QByteArray replyData)
     return replyData;
 }
 
-AsyncResult::AsyncResult(QString url, QByteArray postData,
-                         AsyncResult::ReadFunctionType readFunction,
-                         bool autoDelete, QObject * parent) :
+AsyncResult::AsyncResult(
+        QString url, QByteArray postData, qint64 timeoutMsec,
+        AsyncResult::ReadFunctionType readFunction, bool autoDelete,
+        QObject * parent) :
     QObject(parent),
-    d_ptr(new AsyncResultPrivate(url, postData, readFunction, autoDelete, this))
+    d_ptr(new AsyncResultPrivate(
+        url, postData, timeoutMsec, readFunction, autoDelete, this))
 {
     if (!url.isEmpty()) {
         QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
     }
 }
 
-AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData,
-                         qevercloud::AsyncResult::ReadFunctionType readFunction,
-                         bool autoDelete, QObject * parent) :
+AsyncResult::AsyncResult(
+        QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
+        qevercloud::AsyncResult::ReadFunctionType readFunction, bool autoDelete,
+        QObject * parent) :
     QObject(parent),
-    d_ptr(new AsyncResultPrivate(request, postData, readFunction, autoDelete, this))
+    d_ptr(new AsyncResultPrivate(
+        request, postData, timeoutMsec, readFunction, autoDelete, this))
 {
     QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }

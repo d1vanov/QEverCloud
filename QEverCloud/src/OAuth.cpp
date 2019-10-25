@@ -87,19 +87,20 @@ public Q_SLOTS:
 public:
     void setError(QString error);
 
-    bool        m_isSucceeded;
+    bool        m_isSucceeded = false;
     QSize       m_sizeHint;
     QString     m_errorText;
     QString     m_oauthUrlBase;
     QString     m_host;
+    qint64      m_timeoutMsec = 0;
     EvernoteOAuthWebView::OAuthResult   m_oauthResult;
 };
 
 EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
-    : QWebEngineView(parent), m_isSucceeded(false)
+    : QWebEngineView(parent)
 #else
-    : QWebView(parent), m_isSucceeded(false)
+    : QWebView(parent)
 #endif
 {
 #ifndef QEVERCLOUD_USE_QT_WEB_ENGINE
@@ -134,13 +135,15 @@ EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
 }
 
 void EvernoteOAuthWebView::authenticate(
-    QString host, QString consumerKey, QString consumerSecret)
+    QString host, QString consumerKey, QString consumerSecret,
+    const qint64 timeoutMsec)
 {
     QEC_DEBUG("oauth", "Sending request to acquire temporary token");
 
     Q_D(EvernoteOAuthWebView);
     d->m_host = host;
     d->m_isSucceeded = false;
+    d->m_timeoutMsec = timeoutMsec;
     d->setHtml(QLatin1String(""));
     d->history()->clear();
 
@@ -159,9 +162,9 @@ void EvernoteOAuthWebView::authenticate(
                      d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
     QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
-    replyFetcher->start(evernoteNetworkAccessManager(), url);
+    replyFetcher->start(evernoteNetworkAccessManager(), url, timeoutMsec);
 #else
-    replyFetcher->start(d->page()->networkAccessManager(), url);
+    replyFetcher->start(d->page()->networkAccessManager(), url, timeoutMsec);
 #endif
 }
 
@@ -244,9 +247,9 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
                              this, &EvernoteOAuthWebViewPrivate::permanentFinished);
             QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
-            replyFetcher->start(evernoteNetworkAccessManager(), url);
+            replyFetcher->start(evernoteNetworkAccessManager(), url, m_timeoutMsec);
 #else
-            replyFetcher->start(page()->networkAccessManager(), url);
+            replyFetcher->start(page()->networkAccessManager(), url, m_timeoutMsec);
 #endif
         }
         else

@@ -85,7 +85,8 @@ InkNoteImageDownloader & InkNoteImageDownloader::setHeight(int height)
     return *this;
 }
 
-QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
+QByteArray InkNoteImageDownloader::download(
+    Guid guid, const bool isPublic, const qint64 timeoutMsec)
 {
     QEC_DEBUG("ink_note_image", "Downloading ink note image: guid = " << guid
         << (isPublic ? "public" : "non-public"));
@@ -110,7 +111,8 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
             << postRequest.first.url());
 
         QByteArray reply = simpleDownload(evernoteNetworkAccessManager(),
-                                          postRequest.first, postRequest.second,
+                                          postRequest.first, timeoutMsec,
+                                          postRequest.second,
                                           &httpStatusCode);
         if (httpStatusCode != 200) {
             QEC_WARNING("ink_note_image", "Failed to download slice "

@@ -11,30 +11,33 @@
 
 namespace qevercloud {
 
-AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData,
-                                       AsyncResult::ReadFunctionType readFunction,
-                                       bool autoDelete, AsyncResult * q) :
+AsyncResultPrivate::AsyncResultPrivate(
+        QString url, QByteArray postData, qint64 timeoutMsec,
+        AsyncResult::ReadFunctionType readFunction, bool autoDelete,
+        AsyncResult * q) :
     m_request(createEvernoteRequest(url)),
     m_postData(postData),
+    m_timeoutMsec(timeoutMsec),
     m_readFunction(readFunction),
     m_autoDelete(autoDelete),
     q_ptr(q)
 {}
 
-AsyncResultPrivate::AsyncResultPrivate(QNetworkRequest request,
-                                       QByteArray postData,
-                                       AsyncResult::ReadFunctionType readFunction,
-                                       bool autoDelete, AsyncResult * q) :
+AsyncResultPrivate::AsyncResultPrivate(
+        QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
+        AsyncResult::ReadFunctionType readFunction, bool autoDelete,
+        AsyncResult * q) :
     m_request(request),
     m_postData(postData),
+    m_timeoutMsec(timeoutMsec),
     m_readFunction(readFunction),
     m_autoDelete(autoDelete),
     q_ptr(q)
 {}
 
-AsyncResultPrivate::AsyncResultPrivate(QVariant result,
-                                       QSharedPointer<EverCloudExceptionData> error,
-                                       bool autoDelete, AsyncResult * q) :
+AsyncResultPrivate::AsyncResultPrivate(
+        QVariant result, QSharedPointer<EverCloudExceptionData> error,
+        bool autoDelete, AsyncResult * q) :
     m_autoDelete(autoDelete),
     q_ptr(q)
 {
@@ -57,7 +60,7 @@ void AsyncResultPrivate::start()
     QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                      this, &AsyncResultPrivate::onReplyFetched);
     replyFetcher->start(
-        evernoteNetworkAccessManager(), m_request, m_postData);
+        evernoteNetworkAccessManager(), m_request, m_timeoutMsec, m_postData);
 }
 
 void AsyncResultPrivate::onReplyFetched(QObject * rp)
@@ -82,16 +85,19 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
             result = m_readFunction(reply->receivedData());
         }
     }
-    catch(const EverCloudException & e) {
+    catch(const EverCloudException & e)
+    {
         error = e.exceptionData();
     }
-    catch(const std::exception & e) {
+    catch(const std::exception & e)
+    {
         error = QSharedPointer<EverCloudExceptionData>(
             new EverCloudExceptionData(
                 QString::fromUtf8("Exception of type \"%1\" with the message: %2")
                 .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what()))));
     }
-    catch(...) {
+    catch(...)
+    {
         error = QSharedPointer<EverCloudExceptionData>(
             new EverCloudExceptionData(QStringLiteral("Unknown exception")));
     }
@@ -99,7 +105,8 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
     setValue(result, error);
 }
 
-void AsyncResultPrivate::setValue(QVariant result, QSharedPointer<EverCloudExceptionData> error)
+void AsyncResultPrivate::setValue(
+    QVariant result, QSharedPointer<EverCloudExceptionData> error)
 {
     Q_Q(AsyncResult);
     QObject::connect(this, &AsyncResultPrivate::finished,

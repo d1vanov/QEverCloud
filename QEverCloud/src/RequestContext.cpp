@@ -7,9 +7,9 @@ namespace qevercloud {
 class Q_DECL_HIDDEN RequestContext Q_DECL_FINAL: public IRequestContext
 {
 public:
-    RequestContext(QString authenticationToken, quint64 requestTimeout,
+    RequestContext(QString authenticationToken, qint64 requestTimeout,
                    bool increaseRequestTimeoutExponentially,
-                   quint64 maxRequestTimeout,
+                   qint64 maxRequestTimeout,
                    quint32 maxRequestRetryCount) :
         m_authenticationToken(std::move(authenticationToken)),
         m_requestTimeout(requestTimeout),
@@ -23,7 +23,7 @@ public:
         return m_authenticationToken;
     }
 
-    virtual quint64 requestTimeout() const Q_DECL_OVERRIDE
+    virtual qint64 requestTimeout() const Q_DECL_OVERRIDE
     {
         return m_requestTimeout;
     }
@@ -33,7 +33,7 @@ public:
         return m_increaseRequestTimeoutExponentially;
     }
 
-    virtual quint64 maxRequestTimeout() const Q_DECL_OVERRIDE
+    virtual qint64 maxRequestTimeout() const Q_DECL_OVERRIDE
     {
         return m_maxRequestTimeout;
     }
@@ -45,9 +45,9 @@ public:
 
 private:
     QString     m_authenticationToken;
-    quint64     m_requestTimeout;
+    qint64      m_requestTimeout;
     bool        m_increaseRequestTimeoutExponentially;
-    quint64     m_maxRequestTimeout;
+    qint64      m_maxRequestTimeout;
     quint32     m_maxRequestRetryCount;
 };
 
@@ -82,9 +82,9 @@ QDebug & operator<<(QDebug & dbg, const IRequestContext & ctx)
 
 IRequestContextPtr newRequestContext(
     QString authenticationToken,
-    quint64 requestTimeout,
+    qint64 requestTimeout,
     bool increaseRequestTimeoutExponentially,
-    quint64 maxRequestTimeout,
+    qint64 maxRequestTimeout,
     quint32 maxRequestRetryCount)
 {
     return std::make_shared<RequestContext>(

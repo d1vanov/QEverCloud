@@ -40,7 +40,7 @@ public:
     virtual QString authenticationToken() const = 0;
 
     /** Request timeout in milliseconds */
-    virtual quint64 requestTimeout() const = 0;
+    virtual qint64 requestTimeout() const = 0;
 
     /** Should request timeout be exponentially increased on retries or not */
     virtual bool increaseRequestTimeoutExponentially() const = 0;
@@ -49,7 +49,7 @@ public:
      * Max request timeout in milliseconds (upper boundary for exponentially
      * increasing timeouts on retries)
      */
-    virtual quint64 maxRequestTimeout() const = 0;
+    virtual qint64 maxRequestTimeout() const = 0;
 
     /** Max number of attempts to retry a request */
     virtual quint32 maxRequestRetryCount() const = 0;
@@ -67,9 +67,9 @@ using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 
 QEVERCLOUD_EXPORT IRequestContextPtr newRequestContext(
     QString authenticationToken = {},
-    quint64 requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC,
+    qint64 requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC,
     bool increaseRequestTimeoutExponentially = DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
-    quint64 maxRequestTimeout = DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
+    qint64 maxRequestTimeout = DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
     quint32 maxRequestRetryCount = DEFAULT_MAX_REQUEST_RETRY_COUNT);
 
 } // namespace qevercloud

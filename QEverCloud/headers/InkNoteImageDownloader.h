@@ -121,11 +121,14 @@ public:
      * The guid of the ink note's resource
      * @param isPublic
      * Specify true for public ink notes. In this case authentication token is
-     * not sent to with the request as it shoud be according to the docs.
+     * not sent to with the request as it should be according to the docs.
+     * @param timeoutMsec
+     * Timeout for download request in milliseconds
      * @return downloaded data.
      *
      */
-    QByteArray download(Guid guid, bool isPublic = false);
+    QByteArray download(
+        Guid guid, const bool isPublic = false, const qint64 timeoutMsec = 30000);
 
 private:
     InkNoteImageDownloaderPrivate * const d_ptr;

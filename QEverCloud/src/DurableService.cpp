@@ -186,7 +186,7 @@ AsyncResult * DurableService::executeAsyncRequest(
     RetryState state;
     state.m_retryCount = ctx->maxRequestRetryCount();
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray());
+    AsyncResult * result = new AsyncResult(QString(), QByteArray(), 0);
     doExecuteAsyncRequest(std::move(asyncRequest), std::move(ctx),
                           std::move(state), result);
 

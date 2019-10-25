@@ -78,7 +78,9 @@ Thumbnail & Thumbnail::setImageType(ImageType::type imageType)
     return *this;
 }
 
-QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
+QByteArray Thumbnail::download(
+    Guid guid, const bool isPublic, const bool isResourceGuid,
+    const qint64 timeoutMsec)
 {
     QEC_DEBUG("thumbnail", "Downloading thumbnail: guid = " << guid
         << (isPublic ? "public" : "non-public") << ", "
@@ -88,8 +90,13 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
     QPair<QNetworkRequest, QByteArray> request =
         createPostRequest(guid, isPublic, isResourceGuid);
 
-    QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), request.first,
-                                      request.second, &httpStatusCode);
+    QByteArray reply = simpleDownload(
+        evernoteNetworkAccessManager(),
+        request.first,
+        timeoutMsec,
+        request.second,
+        &httpStatusCode);
+
     if (httpStatusCode != 200)
     {
         QEC_WARNING("thumbnail", "Failed to download thumbnail with guid "
@@ -103,7 +110,9 @@ QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
     return reply;
 }
 
-AsyncResult* Thumbnail::downloadAsync(Guid guid, bool isPublic, bool isResourceGuid)
+AsyncResult * Thumbnail::downloadAsync(
+    Guid guid, const bool isPublic, const bool isResourceGuid,
+    const qint64 timeoutMsec)
 {
     QEC_DEBUG("thumbnail", "Starting async thumbnail download: guid = " << guid
         << (isPublic ? "public" : "non-public") << ", "
@@ -111,7 +120,7 @@ AsyncResult* Thumbnail::downloadAsync(Guid guid, bool isPublic, bool isResourceG
 
     QPair<QNetworkRequest, QByteArray> pair =
         createPostRequest(guid, isPublic, isResourceGuid);
-    auto res = new AsyncResult(pair.first, pair.second);
+    auto res = new AsyncResult(pair.first, pair.second, timeoutMsec);
     QObject::connect(res, &AsyncResult::finished,
                      [=] (const QVariant & value,
                          const QSharedPointer<EverCloudExceptionData> data)

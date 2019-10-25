@@ -78,8 +78,12 @@ public:
      * get it <a href="http://dev.evernote.com/doc/">from the Evernote</a>
      * @param consumerSecret
      * along with this
+     * @param timeoutMsec
+     * Timeout for network requests in milliseconds
      */
-    void authenticate(QString host, QString consumerKey, QString consumerSecret);
+    void authenticate(
+        QString host, QString consumerKey, QString consumerSecret,
+        const qint64 timeoutMsec = 30000);
 
     /**
       * @return true if the last call to authenticate resulted in a successful

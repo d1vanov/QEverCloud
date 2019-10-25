@@ -17,17 +17,19 @@ class AsyncResultPrivate: public QObject
 {
     Q_OBJECT
 public:
-    explicit AsyncResultPrivate(QString url, QByteArray postData,
-                                AsyncResult::ReadFunctionType readFunction,
-                                bool autoDelete, AsyncResult * q);
+    explicit AsyncResultPrivate(
+        QString url, QByteArray postData, qint64 timeoutMsec,
+        AsyncResult::ReadFunctionType readFunction, bool autoDelete,
+        AsyncResult * q);
 
-    explicit AsyncResultPrivate(QNetworkRequest request, QByteArray postData,
-                                AsyncResult::ReadFunctionType readFunction,
-                                bool autoDelete, AsyncResult * q);
+    explicit AsyncResultPrivate(
+        QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
+        AsyncResult::ReadFunctionType readFunction, bool autoDelete,
+        AsyncResult * q);
 
-    explicit AsyncResultPrivate(QVariant result,
-                                QSharedPointer<EverCloudExceptionData> error,
-                                bool autoDelete, AsyncResult * q);
+    explicit AsyncResultPrivate(
+        QVariant result, QSharedPointer<EverCloudExceptionData> error,
+        bool autoDelete, AsyncResult * q);
 
     virtual ~AsyncResultPrivate();
 
@@ -44,6 +46,7 @@ public Q_SLOTS:
 public:
     QNetworkRequest                 m_request;
     QByteArray                      m_postData;
+    qint64                          m_timeoutMsec = 0;
     AsyncResult::ReadFunctionType   m_readFunction;
     bool                            m_autoDelete;
 

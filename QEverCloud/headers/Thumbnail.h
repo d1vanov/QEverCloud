@@ -126,15 +126,19 @@ public:
      * token is not sent to with the request as it shoud be according to the docs.
      * @param isResourceGuid
      * true if guid denotes a resource and false if it denotes a note.
+     * @param timeoutMsec
+     * Timeout for download request in milliseconds
      * @return downloaded data.
      *
      */
     QByteArray download(
-        Guid guid, bool isPublic = false, bool isResourceGuid = false);
+        Guid guid, const bool isPublic = false, const bool isResourceGuid = false,
+        const qint64 timeoutMsec = 30000);
 
     /** Asynchronous version of @link download @endlink function*/
     AsyncResult * downloadAsync(
-        Guid guid, bool isPublic = false, bool isResourceGuid = false);
+        Guid guid, const bool isPublic = false, const bool isResourceGuid = false,
+        const qint64 timeoutMsec = 30000);
 
     /**
      * @brief Prepares a POST request for a thumbnail download.
