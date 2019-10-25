@@ -872,10 +872,6 @@ QByteArray NoteStore_getFilteredSyncChunk_prepareParams(
     const SyncChunkFilter & filter)
 {
     QEC_DEBUG("note_store", "NoteStore_getFilteredSyncChunk_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    afterUSN = " << afterUSN << "\n"
-        << "    maxEntries = " << maxEntries << "\n"
-        << "    filter = " << filter);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -1054,8 +1050,6 @@ QByteArray NoteStore_getLinkedNotebookSyncState_prepareParams(
     const LinkedNotebook & linkedNotebook)
 {
     QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncState_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    linkedNotebook = " << linkedNotebook);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -1223,11 +1217,6 @@ QByteArray NoteStore_getLinkedNotebookSyncChunk_prepareParams(
     bool fullSyncOnly)
 {
     QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncChunk_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    linkedNotebook = " << linkedNotebook << "\n"
-        << "    afterUSN = " << afterUSN << "\n"
-        << "    maxEntries = " << maxEntries << "\n"
-        << "    fullSyncOnly = " << fullSyncOnly);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -1734,8 +1723,6 @@ QByteArray NoteStore_getNotebook_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2039,8 +2026,6 @@ QByteArray NoteStore_createNotebook_prepareParams(
     const Notebook & notebook)
 {
     QEC_DEBUG("note_store", "NoteStore_createNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    notebook = " << notebook);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2205,8 +2190,6 @@ QByteArray NoteStore_updateNotebook_prepareParams(
     const Notebook & notebook)
 {
     QEC_DEBUG("note_store", "NoteStore_updateNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    notebook = " << notebook);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2371,8 +2354,6 @@ QByteArray NoteStore_expungeNotebook_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_expungeNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2690,8 +2671,6 @@ QByteArray NoteStore_listTagsByNotebook_prepareParams(
     Guid notebookGuid)
 {
     QEC_DEBUG("note_store", "NoteStore_listTagsByNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    notebookGuid = " << notebookGuid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -2870,8 +2849,6 @@ QByteArray NoteStore_getTag_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getTag_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3036,8 +3013,6 @@ QByteArray NoteStore_createTag_prepareParams(
     const Tag & tag)
 {
     QEC_DEBUG("note_store", "NoteStore_createTag_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    tag = " << tag);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3202,8 +3177,6 @@ QByteArray NoteStore_updateTag_prepareParams(
     const Tag & tag)
 {
     QEC_DEBUG("note_store", "NoteStore_updateTag_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    tag = " << tag);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3368,8 +3341,6 @@ QByteArray NoteStore_untagAll_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_untagAll_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3517,8 +3488,6 @@ QByteArray NoteStore_expungeTag_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_expungeTag_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -3836,8 +3805,6 @@ QByteArray NoteStore_getSearch_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getSearch_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -4002,8 +3969,6 @@ QByteArray NoteStore_createSearch_prepareParams(
     const SavedSearch & search)
 {
     QEC_DEBUG("note_store", "NoteStore_createSearch_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    search = " << search);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -4158,8 +4123,6 @@ QByteArray NoteStore_updateSearch_prepareParams(
     const SavedSearch & search)
 {
     QEC_DEBUG("note_store", "NoteStore_updateSearch_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    search = " << search);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -4324,8 +4287,6 @@ QByteArray NoteStore_expungeSearch_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_expungeSearch_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -4491,9 +4452,6 @@ QByteArray NoteStore_findNoteOffset_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_findNoteOffset_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    filter = " << filter << "\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -4673,11 +4631,6 @@ QByteArray NoteStore_findNotesMetadata_prepareParams(
     const NotesMetadataResultSpec & resultSpec)
 {
     QEC_DEBUG("note_store", "NoteStore_findNotesMetadata_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    filter = " << filter << "\n"
-        << "    offset = " << offset << "\n"
-        << "    maxNotes = " << maxNotes << "\n"
-        << "    resultSpec = " << resultSpec);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -4879,9 +4832,6 @@ QByteArray NoteStore_findNoteCounts_prepareParams(
     bool withTrash)
 {
     QEC_DEBUG("note_store", "NoteStore_findNoteCounts_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    filter = " << filter << "\n"
-        << "    withTrash = " << withTrash);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5059,9 +5009,6 @@ QByteArray NoteStore_getNoteWithResultSpec_prepareParams(
     const NoteResultSpec & resultSpec)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteWithResultSpec_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    resultSpec = " << resultSpec);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5242,12 +5189,6 @@ QByteArray NoteStore_getNote_prepareParams(
     bool withResourcesAlternateData)
 {
     QEC_DEBUG("note_store", "NoteStore_getNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    withContent = " << withContent << "\n"
-        << "    withResourcesData = " << withResourcesData << "\n"
-        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
-        << "    withResourcesAlternateData = " << withResourcesAlternateData);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5460,8 +5401,6 @@ QByteArray NoteStore_getNoteApplicationData_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteApplicationData_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5627,9 +5566,6 @@ QByteArray NoteStore_getNoteApplicationDataEntry_prepareParams(
     QString key)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteApplicationDataEntry_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    key = " << key);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -5808,10 +5744,6 @@ QByteArray NoteStore_setNoteApplicationDataEntry_prepareParams(
     QString value)
 {
     QEC_DEBUG("note_store", "NoteStore_setNoteApplicationDataEntry_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    key = " << key << "\n"
-        << "    value = " << value);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -6001,9 +5933,6 @@ QByteArray NoteStore_unsetNoteApplicationDataEntry_prepareParams(
     QString key)
 {
     QEC_DEBUG("note_store", "NoteStore_unsetNoteApplicationDataEntry_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    key = " << key);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -6180,8 +6109,6 @@ QByteArray NoteStore_getNoteContent_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteContent_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -6348,10 +6275,6 @@ QByteArray NoteStore_getNoteSearchText_prepareParams(
     bool tokenizeForIndexing)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteSearchText_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    noteOnly = " << noteOnly << "\n"
-        << "    tokenizeForIndexing = " << tokenizeForIndexing);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -6540,8 +6463,6 @@ QByteArray NoteStore_getResourceSearchText_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceSearchText_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -6706,8 +6627,6 @@ QByteArray NoteStore_getNoteTagNames_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteTagNames_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -6886,8 +6805,6 @@ QByteArray NoteStore_createNote_prepareParams(
     const Note & note)
 {
     QEC_DEBUG("note_store", "NoteStore_createNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    note = " << note);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7052,8 +6969,6 @@ QByteArray NoteStore_updateNote_prepareParams(
     const Note & note)
 {
     QEC_DEBUG("note_store", "NoteStore_updateNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    note = " << note);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7218,8 +7133,6 @@ QByteArray NoteStore_deleteNote_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_deleteNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7384,8 +7297,6 @@ QByteArray NoteStore_expungeNote_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_expungeNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7551,9 +7462,6 @@ QByteArray NoteStore_copyNote_prepareParams(
     Guid toNotebookGuid)
 {
     QEC_DEBUG("note_store", "NoteStore_copyNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    noteGuid = " << noteGuid << "\n"
-        << "    toNotebookGuid = " << toNotebookGuid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7730,8 +7638,6 @@ QByteArray NoteStore_listNoteVersions_prepareParams(
     Guid noteGuid)
 {
     QEC_DEBUG("note_store", "NoteStore_listNoteVersions_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    noteGuid = " << noteGuid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -7914,12 +7820,6 @@ QByteArray NoteStore_getNoteVersion_prepareParams(
     bool withResourcesAlternateData)
 {
     QEC_DEBUG("note_store", "NoteStore_getNoteVersion_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    noteGuid = " << noteGuid << "\n"
-        << "    updateSequenceNum = " << updateSequenceNum << "\n"
-        << "    withResourcesData = " << withResourcesData << "\n"
-        << "    withResourcesRecognition = " << withResourcesRecognition << "\n"
-        << "    withResourcesAlternateData = " << withResourcesAlternateData);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8136,12 +8036,6 @@ QByteArray NoteStore_getResource_prepareParams(
     bool withAlternateData)
 {
     QEC_DEBUG("note_store", "NoteStore_getResource_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    withData = " << withData << "\n"
-        << "    withRecognition = " << withRecognition << "\n"
-        << "    withAttributes = " << withAttributes << "\n"
-        << "    withAlternateData = " << withAlternateData);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8354,8 +8248,6 @@ QByteArray NoteStore_getResourceApplicationData_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceApplicationData_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8521,9 +8413,6 @@ QByteArray NoteStore_getResourceApplicationDataEntry_prepareParams(
     QString key)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceApplicationDataEntry_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    key = " << key);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8702,10 +8591,6 @@ QByteArray NoteStore_setResourceApplicationDataEntry_prepareParams(
     QString value)
 {
     QEC_DEBUG("note_store", "NoteStore_setResourceApplicationDataEntry_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    key = " << key << "\n"
-        << "    value = " << value);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -8895,9 +8780,6 @@ QByteArray NoteStore_unsetResourceApplicationDataEntry_prepareParams(
     QString key)
 {
     QEC_DEBUG("note_store", "NoteStore_unsetResourceApplicationDataEntry_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    key = " << key);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9074,8 +8956,6 @@ QByteArray NoteStore_updateResource_prepareParams(
     const Resource & resource)
 {
     QEC_DEBUG("note_store", "NoteStore_updateResource_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    resource = " << resource);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9240,8 +9120,6 @@ QByteArray NoteStore_getResourceData_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceData_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9410,12 +9288,6 @@ QByteArray NoteStore_getResourceByHash_prepareParams(
     bool withAlternateData)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceByHash_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    noteGuid = " << noteGuid << "\n"
-        << "    contentHash = " << contentHash << "\n"
-        << "    withData = " << withData << "\n"
-        << "    withRecognition = " << withRecognition << "\n"
-        << "    withAlternateData = " << withAlternateData);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9628,8 +9500,6 @@ QByteArray NoteStore_getResourceRecognition_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceRecognition_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9794,8 +9664,6 @@ QByteArray NoteStore_getResourceAlternateData_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceAlternateData_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -9960,8 +9828,6 @@ QByteArray NoteStore_getResourceAttributes_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_getResourceAttributes_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10126,9 +9992,6 @@ QByteArray NoteStore_getPublicNotebook_prepareParams(
     QString publicUri)
 {
     QEC_DEBUG("note_store", "NoteStore_getPublicNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    userId = " << userId << "\n"
-        << "    publicUri = " << publicUri);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10288,9 +10151,6 @@ QByteArray NoteStore_shareNotebook_prepareParams(
     QString message)
 {
     QEC_DEBUG("note_store", "NoteStore_shareNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    sharedNotebook = " << sharedNotebook << "\n"
-        << "    message = " << message);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10467,8 +10327,6 @@ QByteArray NoteStore_createOrUpdateNotebookShares_prepareParams(
     const NotebookShareTemplate & shareTemplate)
 {
     QEC_DEBUG("note_store", "NoteStore_createOrUpdateNotebookShares_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    shareTemplate = " << shareTemplate);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10643,8 +10501,6 @@ QByteArray NoteStore_updateSharedNotebook_prepareParams(
     const SharedNotebook & sharedNotebook)
 {
     QEC_DEBUG("note_store", "NoteStore_updateSharedNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    sharedNotebook = " << sharedNotebook);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -10810,9 +10666,6 @@ QByteArray NoteStore_setNotebookRecipientSettings_prepareParams(
     const NotebookRecipientSettings & recipientSettings)
 {
     QEC_DEBUG("note_store", "NoteStore_setNotebookRecipientSettings_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    notebookGuid = " << notebookGuid << "\n"
-        << "    recipientSettings = " << recipientSettings);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -11152,8 +11005,6 @@ QByteArray NoteStore_createLinkedNotebook_prepareParams(
     const LinkedNotebook & linkedNotebook)
 {
     QEC_DEBUG("note_store", "NoteStore_createLinkedNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    linkedNotebook = " << linkedNotebook);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -11318,8 +11169,6 @@ QByteArray NoteStore_updateLinkedNotebook_prepareParams(
     const LinkedNotebook & linkedNotebook)
 {
     QEC_DEBUG("note_store", "NoteStore_updateLinkedNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    linkedNotebook = " << linkedNotebook);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -11647,8 +11496,6 @@ QByteArray NoteStore_expungeLinkedNotebook_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_expungeLinkedNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -11813,8 +11660,6 @@ QByteArray NoteStore_authenticateToSharedNotebook_prepareParams(
     QString authenticationToken)
 {
     QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNotebook_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    shareKeyOrGlobalId = " << shareKeyOrGlobalId);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -12128,8 +11973,6 @@ QByteArray NoteStore_emailNote_prepareParams(
     const NoteEmailParameters & parameters)
 {
     QEC_DEBUG("note_store", "NoteStore_emailNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    parameters = " << parameters);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -12277,8 +12120,6 @@ QByteArray NoteStore_shareNote_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_shareNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -12443,8 +12284,6 @@ QByteArray NoteStore_stopSharingNote_prepareParams(
     Guid guid)
 {
     QEC_DEBUG("note_store", "NoteStore_stopSharingNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -12593,9 +12432,6 @@ QByteArray NoteStore_authenticateToSharedNote_prepareParams(
     QString authenticationToken)
 {
     QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNote_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    guid = " << guid << "\n"
-        << "    noteKey = " << noteKey);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -12773,9 +12609,6 @@ QByteArray NoteStore_findRelated_prepareParams(
     const RelatedResultSpec & resultSpec)
 {
     QEC_DEBUG("note_store", "NoteStore_findRelated_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    query = " << query << "\n"
-        << "    resultSpec = " << resultSpec);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -12952,8 +12785,6 @@ QByteArray NoteStore_updateNoteIfUsnMatches_prepareParams(
     const Note & note)
 {
     QEC_DEBUG("note_store", "NoteStore_updateNoteIfUsnMatches_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    note = " << note);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -13118,8 +12949,6 @@ QByteArray NoteStore_manageNotebookShares_prepareParams(
     const ManageNotebookSharesParameters & parameters)
 {
     QEC_DEBUG("note_store", "NoteStore_manageNotebookShares_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    parameters = " << parameters);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -13284,8 +13113,6 @@ QByteArray NoteStore_getNotebookShares_prepareParams(
     QString notebookGuid)
 {
     QEC_DEBUG("note_store", "NoteStore_getNotebookShares_prepareParams");
-    QEC_TRACE("note_store", "Parameters:\n"
-        << "    notebookGuid = " << notebookGuid);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -13613,10 +13440,6 @@ QByteArray UserStore_checkVersion_prepareParams(
     qint16 edamVersionMinor)
 {
     QEC_DEBUG("user_store", "UserStore_checkVersion_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    clientName = " << clientName << "\n"
-        << "    edamVersionMajor = " << edamVersionMajor << "\n"
-        << "    edamVersionMinor = " << edamVersionMinor);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -13766,8 +13589,6 @@ QByteArray UserStore_getBootstrapInfo_prepareParams(
     QString locale)
 {
     QEC_DEBUG("user_store", "UserStore_getBootstrapInfo_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    locale = " << locale);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -13899,11 +13720,6 @@ QByteArray UserStore_authenticateLongSession_prepareParams(
     bool supportsTwoFactor)
 {
     QEC_DEBUG("user_store", "UserStore_authenticateLongSession_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    username = " << username << "\n"
-        << "    deviceIdentifier = " << deviceIdentifier << "\n"
-        << "    deviceDescription = " << deviceDescription << "\n"
-        << "    supportsTwoFactor = " << supportsTwoFactor);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -14118,9 +13934,6 @@ QByteArray UserStore_completeTwoFactorAuthentication_prepareParams(
     QString deviceDescription)
 {
     QEC_DEBUG("user_store", "UserStore_completeTwoFactorAuthentication_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    deviceIdentifier = " << deviceIdentifier << "\n"
-        << "    deviceDescription = " << deviceDescription);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -14696,8 +14509,6 @@ QByteArray UserStore_getPublicUserInfo_prepareParams(
     QString username)
 {
     QEC_DEBUG("user_store", "UserStore_getPublicUserInfo_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    username = " << username);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -14993,8 +14804,6 @@ QByteArray UserStore_inviteToBusiness_prepareParams(
     QString emailAddress)
 {
     QEC_DEBUG("user_store", "UserStore_inviteToBusiness_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    emailAddress = " << emailAddress);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -15132,8 +14941,6 @@ QByteArray UserStore_removeFromBusiness_prepareParams(
     QString emailAddress)
 {
     QEC_DEBUG("user_store", "UserStore_removeFromBusiness_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    emailAddress = " << emailAddress);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -15282,9 +15089,6 @@ QByteArray UserStore_updateBusinessUserIdentifier_prepareParams(
     QString newEmailAddress)
 {
     QEC_DEBUG("user_store", "UserStore_updateBusinessUserIdentifier_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    oldEmailAddress = " << oldEmailAddress << "\n"
-        << "    newEmailAddress = " << newEmailAddress);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -15597,8 +15401,6 @@ QByteArray UserStore_listBusinessInvitations_prepareParams(
     bool includeRequestedInvitations)
 {
     QEC_DEBUG("user_store", "UserStore_listBusinessInvitations_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    includeRequestedInvitations = " << includeRequestedInvitations);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
@@ -15766,8 +15568,6 @@ QByteArray UserStore_getAccountLimits_prepareParams(
     ServiceLevel serviceLevel)
 {
     QEC_DEBUG("user_store", "UserStore_getAccountLimits_prepareParams");
-    QEC_TRACE("user_store", "Parameters:\n"
-        << "    serviceLevel = " << serviceLevel);
 
     ThriftBinaryBufferWriter w;
     qint32 cseqid = 0;
