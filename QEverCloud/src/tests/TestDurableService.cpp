@@ -128,7 +128,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             {
                 QSharedPointer<EverCloudExceptionData> data;
                 try {
-                    throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+                    throw NetworkException(QNetworkReply::TimeoutError);
                 }
                 catch(const EverCloudException & e) {
                     data = e.exceptionData();
@@ -173,7 +173,7 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
             {
                 QSharedPointer<EverCloudExceptionData> data;
                 try {
-                    throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+                    throw NetworkException(QNetworkReply::TimeoutError);
                 }
                 catch(const EverCloudException & e) {
                     data = e.exceptionData();
@@ -225,7 +225,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             ++serviceCallCounter;
             QSharedPointer<EverCloudExceptionData> data;
             try {
-                throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+                throw NetworkException(QNetworkReply::TimeoutError);
             }
             catch(const EverCloudException & e) {
                 data = e.exceptionData();
@@ -244,9 +244,9 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
     try {
         result.second->throwException();
     }
-    catch(const ThriftException & e) {
+    catch(const NetworkException & e) {
         exceptionCaught = true;
-        QVERIFY(e.type() == ThriftException::Type::INTERNAL_ERROR);
+        QVERIFY(e.type() == QNetworkReply::TimeoutError);
     }
     QVERIFY(exceptionCaught);
 }
@@ -273,7 +273,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
             ++serviceCallCounter;
             QSharedPointer<EverCloudExceptionData> data;
             try {
-                throw ThriftException(ThriftException::Type::INTERNAL_ERROR);
+                throw NetworkException(QNetworkReply::TimeoutError);
             }
             catch(const EverCloudException & e) {
                 data = e.exceptionData();
@@ -303,9 +303,9 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
     try {
         valueFetcher.m_exceptionData->throwException();
     }
-    catch(const ThriftException & e) {
+    catch(const NetworkException & e) {
         exceptionCaught = true;
-        QVERIFY(e.type() == ThriftException::Type::INTERNAL_ERROR);
+        QVERIFY(e.type() == QNetworkReply::TimeoutError);
     }
     QVERIFY(exceptionCaught);
 }

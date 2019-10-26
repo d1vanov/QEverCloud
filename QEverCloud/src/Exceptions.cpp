@@ -14,7 +14,137 @@
 #include <Optional.h>
 #include <generated/Types.h>
 
+#include <QTextStream>
+
 namespace qevercloud {
+
+////////////////////////////////////////////////////////////////////////////////
+
+NetworkException::NetworkException() :
+    EverCloudException(),
+    m_type(QNetworkReply::UnknownNetworkError)
+{}
+
+NetworkException::NetworkException(QNetworkReply::NetworkError type) :
+    EverCloudException(),
+    m_type(type)
+{}
+
+NetworkException::NetworkException(
+        QNetworkReply::NetworkError type,
+        QString message) :
+    EverCloudException(message),
+    m_type(type)
+{}
+
+QNetworkReply::NetworkError NetworkException::type() const
+{
+    return m_type;
+}
+
+const char * NetworkException::what() const noexcept
+{
+    if (m_error.isEmpty())
+    {
+        switch (m_type)
+        {
+        case QNetworkReply::NoError:
+            return "NetworkException: No error";
+        case QNetworkReply::ConnectionRefusedError:
+            return "NetworkException: Connection refused";
+        case QNetworkReply::RemoteHostClosedError:
+            return "NetworkException: Remote host closed";
+        case QNetworkReply::HostNotFoundError:
+            return "NetworkException: Host not found";
+        case QNetworkReply::TimeoutError:
+            return "NetworkException: The connection to remote host timed out";
+        case QNetworkReply::OperationCanceledError:
+            return "NetworkException: Operation canceled";
+        case QNetworkReply::SslHandshakeFailedError:
+            return "NetworkError: SSL handshake failed";
+        case QNetworkReply::TemporaryNetworkFailureError:
+            return "NetworkError: Temporary network failure";
+        case QNetworkReply::NetworkSessionFailedError:
+            return "NetworkError: Network session failed";
+        case QNetworkReply::BackgroundRequestNotAllowedError:
+            return "NetworkError: Background request not allowed";
+        case QNetworkReply::TooManyRedirectsError:
+            return "NetworkError: Too many redirects";
+        case QNetworkReply::InsecureRedirectError:
+            return "NetworkError: Insecure redirect";
+        case QNetworkReply::ProxyConnectionRefusedError:
+            return "NetworkError: Proxy connection refused";
+        case QNetworkReply::ProxyConnectionClosedError:
+            return "NetworkError: Proxy connection closed";
+        case QNetworkReply::ProxyNotFoundError:
+            return "NetworkError: Proxy not found";
+        case QNetworkReply::ProxyTimeoutError:
+            return "NetworkError: Proxy timeout";
+        case QNetworkReply::ProxyAuthenticationRequiredError:
+            return "NetworkError: Proxy authentication required";
+        case QNetworkReply::ContentAccessDenied:
+            return "NetworkError: Content access denied";
+        case QNetworkReply::ContentOperationNotPermittedError:
+            return "NetworkError: Content operation not permitted";
+        case QNetworkReply::ContentNotFoundError:
+            return "NetworkError: Content not found";
+        case QNetworkReply::AuthenticationRequiredError:
+            return "NetworkError: Authentication required";
+        case QNetworkReply::ContentReSendError:
+            return "NetworkError: Content resend failed";
+        case QNetworkReply::ContentConflictError:
+            return "NetworkError: Content conflict error";
+        case QNetworkReply::ContentGoneError:
+            return "NetworkError: Content gone";
+        case QNetworkReply::InternalServerError:
+            return "NetworkError: Internal server error";
+        case QNetworkReply::OperationNotImplementedError:
+            return "NetworkError: Operation not implemented error";
+        case QNetworkReply::ServiceUnavailableError:
+            return "NetworkError: Service unavailable";
+        case QNetworkReply::ProtocolUnknownError:
+            return "NetworkError: Protocol unknown";
+        case QNetworkReply::ProtocolInvalidOperationError:
+            return "NetworkError: Protocol invalid operation";
+        case QNetworkReply::UnknownNetworkError:
+            return "NetworkError: Unknown network";
+        case QNetworkReply::UnknownProxyError:
+            return "NetworkError: Unknown proxy";
+        case QNetworkReply::UnknownContentError:
+            return "NetworkError: Unknown content";
+        case QNetworkReply::ProtocolFailure:
+            return "NetworkError: Protocol failure";
+        case QNetworkReply::UnknownServerError:
+            return "NetworkError: Unknown server";
+        default:
+            return "NetworkError: (Invlaid exception type)";
+        }
+    }
+    else
+    {
+        return m_error.constData();
+    }
+}
+
+QSharedPointer<EverCloudExceptionData> NetworkException::exceptionData() const
+{
+    return QSharedPointer<EverCloudExceptionData>(
+        new NetworkExceptionData(QString::fromUtf8(what()), type()));
+}
+
+NetworkExceptionData::NetworkExceptionData(
+        QString error,
+        QNetworkReply::NetworkError type) :
+    EverCloudExceptionData(error),
+    m_type(type)
+{}
+
+void NetworkExceptionData::throwException() const
+{
+    throw NetworkException(m_type, errorMessage);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 ThriftException::ThriftException() :
     EverCloudException(),
@@ -36,97 +166,102 @@ ThriftException::Type ThriftException::type() const
     return m_type;
 }
 
-QByteArray strEDAMErrorCode(EDAMErrorCode errorCode)
-{
-    switch(errorCode)
-    {
-    case EDAMErrorCode::UNKNOWN:
-        return "UNKNOWN";
-    case EDAMErrorCode::BAD_DATA_FORMAT:
-        return "BAD_DATA_FORMAT";
-    case EDAMErrorCode::PERMISSION_DENIED:
-        return "PERMISSION_DENIED";
-    case EDAMErrorCode::INTERNAL_ERROR:
-        return "INTERNAL_ERROR";
-    case EDAMErrorCode::DATA_REQUIRED:
-        return "DATA_REQUIRED";
-    case EDAMErrorCode::LIMIT_REACHED:
-        return "LIMIT_REACHED";
-    case EDAMErrorCode::QUOTA_REACHED:
-        return "QUOTA_REACHED";
-    case EDAMErrorCode::INVALID_AUTH:
-        return "INVALID_AUTH";
-    case EDAMErrorCode::AUTH_EXPIRED:
-        return "AUTH_EXPIRED";
-    case EDAMErrorCode::DATA_CONFLICT:
-        return "DATA_CONFLICT";
-    case EDAMErrorCode::ENML_VALIDATION:
-        return "ENML_VALIDATION";
-    case EDAMErrorCode::SHARD_UNAVAILABLE:
-        return "SHARD_UNAVAILABLE";
-    case EDAMErrorCode::LEN_TOO_SHORT:
-        return "LEN_TOO_SHORT";
-    case EDAMErrorCode::LEN_TOO_LONG:
-        return "LEN_TOO_LONG";
-    case EDAMErrorCode::TOO_FEW:
-        return "TOO_FEW";
-    case EDAMErrorCode::TOO_MANY:
-        return "TOO_MANY";
-    case EDAMErrorCode::UNSUPPORTED_OPERATION:
-        return "UNSUPPORTED_OPERATION";
-    case EDAMErrorCode::TAKEN_DOWN:
-        return "TAKEN_DOWN";
-    case EDAMErrorCode::RATE_LIMIT_REACHED:
-        return "RATE_LIMIT_REACHED";
-    default:
-        return "UNRECOGNIZED_ERROR_CODE";
-    }
-}
-
-const char * EDAMUserException::what() const throw()
+const char * ThriftException::what() const noexcept
 {
     if (m_error.isEmpty())
     {
-        m_error = "EDAMUserException: " + strEDAMErrorCode(errorCode);
+        switch (m_type)
+        {
+        case Type::UNKNOWN:
+            return "ThriftException: Unknown application exception";
+        case Type::UNKNOWN_METHOD:
+            return "ThriftException: Unknown method";
+        case Type::INVALID_MESSAGE_TYPE:
+            return "ThriftException: Invalid message type";
+        case Type::WRONG_METHOD_NAME:
+            return "ThriftException: Wrong method name";
+        case Type::BAD_SEQUENCE_ID:
+            return "ThriftException: Bad sequence identifier";
+        case Type::MISSING_RESULT:
+            return "ThriftException: Missing result";
+        case Type::INVALID_DATA:
+            return "ThriftException: Invalid data";
+        default:
+            return "ThriftException: (Invalid exception type)";
+        };
+    }
+    else
+    {
+        return m_error.constData();
+    }
+}
+
+QSharedPointer<EverCloudExceptionData> ThriftException::exceptionData() const
+{
+    return QSharedPointer<EverCloudExceptionData>(
+        new ThriftExceptionData(QString::fromUtf8(what()), type()));
+}
+
+ThriftExceptionData::ThriftExceptionData(
+        QString error,
+        ThriftException::Type type) :
+    EverCloudExceptionData(error),
+    m_type(type)
+{}
+
+void ThriftExceptionData::throwException() const
+{
+    throw ThriftException(m_type, errorMessage);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+const char * EDAMUserException::what() const noexcept
+{
+    if (m_error.isEmpty())
+    {
+        QTextStream strm(&m_error);
+        strm << "EDAMUserException: " << errorCode;
         if (parameter.isSet()) {
-            m_error += " parameter=" + parameter->toUtf8();
+            strm << " parameter=" << parameter->toUtf8();
         }
     }
 
     return EvernoteException::what();
 }
 
-const char * EDAMSystemException::what() const throw()
+const char * EDAMSystemException::what() const noexcept
 {
     if (m_error.isEmpty())
     {
-        m_error = "EDAMSystemException: " + strEDAMErrorCode(errorCode);
+        QTextStream strm(&m_error);
+        strm << "EDAMSystemException: " << errorCode;
 
         if (message.isSet()) {
-            m_error += " " + message->toUtf8();
+            strm << " " << message->toUtf8();
         }
 
         if (rateLimitDuration.isSet()) {
-            m_error += QString::fromUtf8(" rateLimitDuration= %1 sec.")
-                .arg(rateLimitDuration).toUtf8();
+            strm << " rateLimitDuration= " << rateLimitDuration << " sec.";
         }
     }
 
     return EvernoteException::what();
 }
 
-const char * EDAMNotFoundException::what() const throw()
+const char * EDAMNotFoundException::what() const noexcept
 {
     if (m_error.isEmpty())
     {
-        m_error = "EDAMNotFoundException: ";
+        QTextStream strm(&m_error);
+        strm << "EDAMNotFoundException: ";
 
         if (identifier.isSet()) {
-            m_error += " identifier=" + identifier->toUtf8();
+            strm << " identifier=" << identifier;
         }
 
         if (key.isSet()) {
-            m_error += " key=" + key->toUtf8();
+            strm << " key=" << key;
         }
     }
 
@@ -193,7 +328,8 @@ EDAMInvalidContactsException::exceptionData() const
 }
 
 EDAMInvalidContactsExceptionData::EDAMInvalidContactsExceptionData(
-        QList<Contact> contacts, Optional<QString> parameter,
+        QList<Contact> contacts,
+        Optional<QString> parameter,
         Optional<QList<EDAMInvalidContactReason> > reasons) :
     EvernoteExceptionData(QStringLiteral("EDAMInvalidContactsExceptionData")),
     m_contacts(contacts),
@@ -201,18 +337,18 @@ EDAMInvalidContactsExceptionData::EDAMInvalidContactsExceptionData(
     m_reasons(reasons)
 {}
 
-const char * EDAMInvalidContactsException::what() const throw()
+const char * EDAMInvalidContactsException::what() const noexcept
 {
     return "EDAMInvalidContactsException";
 }
 
 void EDAMInvalidContactsExceptionData::throwException() const
 {
-    EDAMInvalidContactsException exception;
-    exception.contacts = m_contacts;
-    exception.parameter = m_parameter;
-    exception.reasons = m_reasons;
-    throw exception;
+    EDAMInvalidContactsException e;
+    e.contacts = m_contacts;
+    e.parameter = m_parameter;
+    e.reasons = m_reasons;
+    throw e;
 }
 
 QSharedPointer<EverCloudExceptionData> EDAMUserException::exceptionData() const
@@ -223,10 +359,10 @@ QSharedPointer<EverCloudExceptionData> EDAMUserException::exceptionData() const
 
 void EDAMUserExceptionData::throwException() const
 {
-    EDAMUserException exception;
-    exception.errorCode = m_errorCode;
-    exception.parameter = m_parameter;
-    throw exception;
+    EDAMUserException e;
+    e.errorCode = m_errorCode;
+    e.parameter = m_parameter;
+    throw e;
 }
 
 QSharedPointer<EverCloudExceptionData> EDAMSystemException::exceptionData() const
@@ -237,10 +373,11 @@ QSharedPointer<EverCloudExceptionData> EDAMSystemException::exceptionData() cons
             rateLimitDuration));
 }
 
-EDAMSystemExceptionData::EDAMSystemExceptionData(QString error,
-                                                 EDAMErrorCode errorCode,
-                                                 Optional<QString> message,
-                                                 Optional<qint32> rateLimitDuration) :
+EDAMSystemExceptionData::EDAMSystemExceptionData(
+        QString error,
+        EDAMErrorCode errorCode,
+        Optional<QString> message,
+        Optional<qint32> rateLimitDuration) :
     EvernoteExceptionData(error),
     m_errorCode(errorCode),
     m_message(message),
@@ -249,26 +386,27 @@ EDAMSystemExceptionData::EDAMSystemExceptionData(QString error,
 
 void EDAMSystemExceptionData::throwException() const
 {
-    EDAMSystemException exception;
-    exception.errorCode = m_errorCode;
-    exception.message = m_message;
-    exception.rateLimitDuration = m_rateLimitDuration;
-    throw exception;
+    EDAMSystemException e;
+    e.errorCode = m_errorCode;
+    e.message = m_message;
+    e.rateLimitDuration = m_rateLimitDuration;
+    throw e;
 }
 
 EDAMSystemExceptionRateLimitReachedData::EDAMSystemExceptionRateLimitReachedData(
-        QString error, EDAMErrorCode errorCode, Optional<QString> message,
+        QString error, EDAMErrorCode errorCode,
+        Optional<QString> message,
         Optional<qint32> rateLimitDuration) :
     EDAMSystemExceptionData(error, errorCode, message, rateLimitDuration)
 {}
 
 void EDAMSystemExceptionRateLimitReachedData::throwException() const
 {
-    EDAMSystemExceptionRateLimitReached exception;
-    exception.errorCode = m_errorCode;
-    exception.message = m_message;
-    exception.rateLimitDuration = m_rateLimitDuration;
-    throw exception;
+    EDAMSystemExceptionRateLimitReached e;
+    e.errorCode = m_errorCode;
+    e.message = m_message;
+    e.rateLimitDuration = m_rateLimitDuration;
+    throw e;
 }
 
 QSharedPointer<EverCloudExceptionData> EDAMNotFoundException::exceptionData() const
@@ -277,9 +415,10 @@ QSharedPointer<EverCloudExceptionData> EDAMNotFoundException::exceptionData() co
         new EDAMNotFoundExceptionData(QString::fromUtf8(what()), identifier, key));
 }
 
-EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(QString error,
-                                                     Optional<QString> identifier,
-                                                     Optional<QString> key) :
+EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(
+        QString error,
+        Optional<QString> identifier,
+        Optional<QString> key) :
     EvernoteExceptionData(error),
     m_identifier(identifier),
     m_key(key)
@@ -287,58 +426,28 @@ EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(QString error,
 
 void EDAMNotFoundExceptionData::throwException() const
 {
-    EDAMNotFoundException exception;
-    exception.identifier = m_identifier;
-    exception.key = m_key;
-    throw exception;
-}
-
-const char * ThriftException::what() const throw()
-{
-    if (m_error.isEmpty())
-    {
-        switch (m_type)
-        {
-        case Type::UNKNOWN:
-            return "ThriftException: Unknown application exception";
-        case Type::UNKNOWN_METHOD:
-            return "ThriftException: Unknown method";
-        case Type::INVALID_MESSAGE_TYPE:
-            return "ThriftException: Invalid message type";
-        case Type::WRONG_METHOD_NAME:
-            return "ThriftException: Wrong method name";
-        case Type::BAD_SEQUENCE_ID:
-            return "ThriftException: Bad sequence identifier";
-        case Type::MISSING_RESULT:
-            return "ThriftException: Missing result";
-        case Type::INVALID_DATA:
-            return "ThriftException: Invalid data";
-        default:
-            return "ThriftException: (Invalid exception type)";
-        };
-    }
-    else
-    {
-        return m_error.constData();
-    }
+    EDAMNotFoundException e;
+    e.identifier = m_identifier;
+    e.key = m_key;
+    throw e;
 }
 
 void throwEDAMSystemException(const EDAMSystemException & baseException)
 {
     if (baseException.errorCode == EDAMErrorCode::AUTH_EXPIRED) {
-        EDAMSystemExceptionAuthExpired exception;
-        exception.errorCode = exception.errorCode;
-        exception.message = exception.message;
-        exception.rateLimitDuration = exception.rateLimitDuration;
-        throw exception;
+        EDAMSystemExceptionAuthExpired e;
+        e.errorCode = baseException.errorCode;
+        e.message = baseException.message;
+        e.rateLimitDuration = baseException.rateLimitDuration;
+        throw e;
     }
 
     if (baseException.errorCode == EDAMErrorCode::RATE_LIMIT_REACHED) {
-        EDAMSystemExceptionRateLimitReached exception;
-        exception.errorCode = exception.errorCode;
-        exception.message = exception.message;
-        exception.rateLimitDuration = exception.rateLimitDuration;
-        throw exception;
+        EDAMSystemExceptionRateLimitReached e;
+        e.errorCode = baseException.errorCode;
+        e.message = baseException.message;
+        e.rateLimitDuration = baseException.rateLimitDuration;
+        throw e;
     }
 
     throw baseException;
@@ -348,48 +457,45 @@ QSharedPointer<EverCloudExceptionData>
 EDAMSystemExceptionRateLimitReached::exceptionData() const
 {
     return QSharedPointer<EverCloudExceptionData>(
-        new EDAMSystemExceptionRateLimitReachedData(QString::fromUtf8(what()),
-                                                    errorCode, message,
-                                                    rateLimitDuration));
+        new EDAMSystemExceptionRateLimitReachedData(
+            QString::fromUtf8(what()),
+            errorCode,
+            message,
+            rateLimitDuration));
 }
 
 QSharedPointer<EverCloudExceptionData>
 EDAMSystemExceptionAuthExpired::exceptionData() const
 {
     return QSharedPointer<EverCloudExceptionData>(
-        new EDAMSystemExceptionAuthExpiredData(QString::fromUtf8(what()),
-                                               errorCode, message,
-                                               rateLimitDuration));
+        new EDAMSystemExceptionAuthExpiredData(
+            QString::fromUtf8(what()),
+            errorCode,
+            message,
+            rateLimitDuration));
 }
 
 EDAMSystemExceptionAuthExpiredData::EDAMSystemExceptionAuthExpiredData(
-        QString error, EDAMErrorCode errorCode, Optional<QString> message,
+        QString error,
+        EDAMErrorCode errorCode,
+        Optional<QString> message,
         Optional<qint32> rateLimitDuration) :
     EDAMSystemExceptionData(error, errorCode, message, rateLimitDuration)
 {}
 
 void EDAMSystemExceptionAuthExpiredData::throwException() const
 {
-    EDAMSystemExceptionAuthExpired exception;
-    exception.errorCode = m_errorCode;
-    exception.message = m_message;
-    exception.rateLimitDuration = m_rateLimitDuration;
-    throw exception;
+    EDAMSystemExceptionAuthExpired e;
+    e.errorCode = m_errorCode;
+    e.message = m_message;
+    e.rateLimitDuration = m_rateLimitDuration;
+    throw e;
 }
 
-ThriftExceptionData::ThriftExceptionData(QString error, ThriftException::Type type) :
-    EverCloudExceptionData(error),
-    m_type(type)
-{}
-
-void ThriftExceptionData::throwException() const
-{
-    throw ThriftException(m_type, errorMessage);
-}
-
-EDAMUserExceptionData::EDAMUserExceptionData(QString error,
-                                             EDAMErrorCode errorCode,
-                                             Optional<QString> parameter) :
+EDAMUserExceptionData::EDAMUserExceptionData(
+        QString error,
+        EDAMErrorCode errorCode,
+        Optional<QString> parameter) :
     EvernoteExceptionData(error),
     m_errorCode(errorCode),
     m_parameter(parameter)

@@ -46,16 +46,58 @@ struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
             return true;
         }
 
-        try {
+        try
+        {
             exceptionData->throwException();
         }
-        catch(const ThriftException &) {
+        catch(const NetworkException & e)
+        {
+            switch(e.type())
+            {
+            case QNetworkReply::TimeoutError:
+                return true;
+            case QNetworkReply::TemporaryNetworkFailureError:
+                return true;
+            case QNetworkReply::NetworkSessionFailedError:
+                return true;
+            case QNetworkReply::ProxyConnectionClosedError:
+                return true;
+            case QNetworkReply::ProxyTimeoutError:
+                return true;
+            case QNetworkReply::ContentReSendError:
+                return true;
+            case QNetworkReply::InternalServerError:
+                return true;
+            case QNetworkReply::ServiceUnavailableError:
+                return true;
+            case QNetworkReply::ProtocolFailure:
+                return true;
+            default:
+                return false;
+            }
+        }
+        catch(const ThriftException & e)
+        {
+            switch(e.type())
+            {
+            case ThriftException::Type::BAD_SEQUENCE_ID:
+                return true;
+            case ThriftException::Type::INTERNAL_ERROR:
+                return true;
+            case ThriftException::Type::PROTOCOL_ERROR:
+                return true;
+            case ThriftException::Type::UNKNOWN:
+                return true;
+            default:
+                return false;
+            }
+        }
+        catch(const EDAMSystemException &)
+        {
             return true;
         }
-        catch(const EDAMSystemException &) {
-            return true;
-        }
-        catch(...) {
+        catch(...)
+        {
         }
 
         return false;

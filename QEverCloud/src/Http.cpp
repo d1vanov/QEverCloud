@@ -45,12 +45,10 @@ void ReplyFetcher::start(
     QNetworkAccessManager * nam, QNetworkRequest request, qint64 timeoutMsec,
     QByteArray postData)
 {
-    m_httpStatusCode= 0;
+    m_httpStatusCode = 0;
+    m_errorType = QNetworkReply::NoError;
     m_errorText.clear();
     m_receivedData.clear();
-
-    // NOTE: onFinished slot might not be called so initializing to true
-    m_success = true;
 
     m_lastNetworkTime = QDateTime::currentMSecsSinceEpoch();
     m_timeoutMsec = timeoutMsec;
@@ -90,7 +88,7 @@ void ReplyFetcher::checkForTimeout()
     }
 
     if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > m_timeoutMsec) {
-        setError(QStringLiteral("Connection timeout."));
+        setError(QNetworkReply::TimeoutError, QStringLiteral("Connection timeout."));
     }
 }
 
@@ -98,7 +96,7 @@ void ReplyFetcher::onFinished()
 {
     m_ticker->stop();
 
-    if (!m_success) {
+    if (m_errorType != QNetworkReply::NoError) {
         return;
     }
 
@@ -112,8 +110,7 @@ void ReplyFetcher::onFinished()
 
 void ReplyFetcher::onError(QNetworkReply::NetworkError error)
 {
-    Q_UNUSED(error)
-    setError(m_reply->errorString());
+    setError(error, m_reply->errorString());
 }
 
 void ReplyFetcher::onSslErrors(QList<QSslError> errors)
@@ -125,12 +122,12 @@ void ReplyFetcher::onSslErrors(QList<QSslError> errors)
         errorText += error.errorString().append(QStringLiteral("\n"));
     }
 
-    setError(errorText);
+    setError(QNetworkReply::SslHandshakeFailedError, errorText);
 }
 
-void ReplyFetcher::setError(QString errorText)
+void ReplyFetcher::setError(
+    QNetworkReply::NetworkError errorType, QString errorText)
 {
-    m_success = false;
     m_ticker->stop();
     m_errorText = errorText;
     QObject::disconnect(m_reply.data());
@@ -181,9 +178,10 @@ QByteArray simpleDownload(
     }
 
     if (fetcher->isError()) {
+        auto errorType = fetcher->errorType();
         QString errorText = fetcher->errorText();
         fetcher->deleteLater();
-        throw EverCloudException(errorText);
+        throw NetworkException(errorType, errorText);
     }
 
     QByteArray receivedData = fetcher->receivedData();

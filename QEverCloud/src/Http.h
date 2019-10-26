@@ -44,13 +44,15 @@ public:
     void start(QNetworkAccessManager * nam, QNetworkRequest request,
                qint64 timeoutMsec, QByteArray postData = QByteArray());
 
-    bool isError() { return !m_success; }
+    bool isError() const { return m_errorType != QNetworkReply::NoError; }
 
-    QString errorText() { return m_errorText; }
+    QNetworkReply::NetworkError errorType() const { return m_errorType; }
 
-    QByteArray receivedData() { return m_receivedData; }
+    QString errorText() const { return m_errorText; }
 
-    int httpStatusCode() { return m_httpStatusCode; }
+    QByteArray receivedData() const { return m_receivedData; }
+
+    int httpStatusCode() const { return m_httpStatusCode; }
 
 Q_SIGNALS:
     void replyFetched(QObject * self); // sends itself
@@ -63,12 +65,12 @@ private Q_SLOTS:
     void checkForTimeout();
 
 private:
-    void setError(QString errorText);
+    void setError(QNetworkReply::NetworkError errorType, QString errorText);
 
 private:
     QSharedPointer<QNetworkReply>   m_reply;
-    bool        m_success = false;
 
+    QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
     QString     m_errorText;
     QByteArray  m_receivedData;
     int         m_httpStatusCode = 0;
