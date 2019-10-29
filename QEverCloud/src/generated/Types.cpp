@@ -437,7 +437,7 @@ void readSyncState(
     SyncState & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool currentTime_isset = false;
     bool fullSyncBefore_isset = false;
@@ -720,7 +720,7 @@ void readSyncChunk(
     SyncChunk & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool currentTime_isset = false;
     bool updateCount_isset = false;
@@ -762,7 +762,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Note> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -785,7 +785,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Notebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -808,7 +808,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Tag> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -831,7 +831,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<SavedSearch> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -854,7 +854,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Resource> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -877,7 +877,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -900,7 +900,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -923,7 +923,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -946,7 +946,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -969,7 +969,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<LinkedNotebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -992,7 +992,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -1321,7 +1321,7 @@ void readSyncChunkFilter(
     SyncChunkFilter & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -1467,7 +1467,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_SET) {
                 QSet<QString> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -1757,7 +1757,7 @@ void readNoteFilter(
     NoteFilter & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -1804,7 +1804,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -2104,7 +2104,7 @@ void readNoteList(
     NoteList & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool startIndex_isset = false;
     bool totalNotes_isset = false;
@@ -2139,7 +2139,7 @@ void readNoteList(
                 notes_isset = true;
                 QList<Note> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -2162,7 +2162,7 @@ void readNoteList(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -2185,7 +2185,7 @@ void readNoteList(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -2421,7 +2421,7 @@ void readNoteMetadata(
     NoteMetadata & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool guid_isset = false;
     r.readStructBegin(fname);
@@ -2506,7 +2506,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -2748,7 +2748,7 @@ void readNotesMetadataList(
     NotesMetadataList & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool startIndex_isset = false;
     bool totalNotes_isset = false;
@@ -2783,7 +2783,7 @@ void readNotesMetadataList(
                 notes_isset = true;
                 QList<NoteMetadata> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -2806,7 +2806,7 @@ void readNotesMetadataList(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -2829,7 +2829,7 @@ void readNotesMetadataList(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -3055,7 +3055,7 @@ void readNotesMetadataResultSpec(
     NotesMetadataResultSpec & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -3314,7 +3314,7 @@ void readNoteCollectionCounts(
     NoteCollectionCounts & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -3325,8 +3325,8 @@ void readNoteCollectionCounts(
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap<Guid, qint32> v;
                 qint32 size;
-                ThriftFieldType::type keyType;
-                ThriftFieldType::type elemType;
+                ThriftFieldType keyType;
+                ThriftFieldType elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if (keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map key type (NoteCollectionCounts.notebookCounts)"));
                 if (elemType != ThriftFieldType::T_I32) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map value type (NoteCollectionCounts.notebookCounts)"));
@@ -3347,8 +3347,8 @@ void readNoteCollectionCounts(
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap<Guid, qint32> v;
                 qint32 size;
-                ThriftFieldType::type keyType;
-                ThriftFieldType::type elemType;
+                ThriftFieldType keyType;
+                ThriftFieldType elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if (keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map key type (NoteCollectionCounts.tagCounts)"));
                 if (elemType != ThriftFieldType::T_I32) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map value type (NoteCollectionCounts.tagCounts)"));
@@ -3501,7 +3501,7 @@ void readNoteResultSpec(
     NoteResultSpec & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -3731,7 +3731,7 @@ void readNoteEmailParameters(
     NoteEmailParameters & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -3760,7 +3760,7 @@ void readNoteEmailParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -3783,7 +3783,7 @@ void readNoteEmailParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -3939,7 +3939,7 @@ void readNoteVersionId(
     NoteVersionId & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool updateSequenceNum_isset = false;
     bool updated_isset = false;
@@ -4098,7 +4098,7 @@ void readRelatedQuery(
     RelatedQuery & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -4334,7 +4334,7 @@ void readRelatedResult(
     RelatedResult & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -4345,7 +4345,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Note> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4368,7 +4368,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Notebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4391,7 +4391,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Tag> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4414,7 +4414,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<NotebookDescriptor> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4446,7 +4446,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<UserProfile> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4469,7 +4469,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<RelatedContent> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4709,7 +4709,7 @@ void readRelatedResultSpec(
     RelatedResultSpec & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -4792,7 +4792,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_SET) {
                 QSet<RelatedContentType> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_I32) {
@@ -4934,7 +4934,7 @@ void readUpdateNoteIfUsnMatchesResult(
     UpdateNoteIfUsnMatchesResult & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5038,7 +5038,7 @@ void readShareRelationshipRestrictions(
     ShareRelationshipRestrictions & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5176,7 +5176,7 @@ void readInvitationShareRelationship(
     InvitationShareRelationship & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5330,7 +5330,7 @@ void readMemberShareRelationship(
     MemberShareRelationship & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5502,7 +5502,7 @@ void readShareRelationships(
     ShareRelationships & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5513,7 +5513,7 @@ void readShareRelationships(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<InvitationShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -5536,7 +5536,7 @@ void readShareRelationships(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<MemberShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -5679,7 +5679,7 @@ void readManageNotebookSharesParameters(
     ManageNotebookSharesParameters & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5708,7 +5708,7 @@ void readManageNotebookSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<MemberShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -5731,7 +5731,7 @@ void readManageNotebookSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<InvitationShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -5754,7 +5754,7 @@ void readManageNotebookSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<UserIdentity> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -5880,7 +5880,7 @@ void readManageNotebookSharesError(
     ManageNotebookSharesError & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5981,7 +5981,7 @@ void readManageNotebookSharesResult(
     ManageNotebookSharesResult & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -5992,7 +5992,7 @@ void readManageNotebookSharesResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<ManageNotebookSharesError> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -6090,7 +6090,7 @@ void readSharedNoteTemplate(
     SharedNoteTemplate & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6119,7 +6119,7 @@ void readSharedNoteTemplate(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Contact> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -6250,7 +6250,7 @@ void readNotebookShareTemplate(
     NotebookShareTemplate & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6279,7 +6279,7 @@ void readNotebookShareTemplate(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Contact> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -6394,7 +6394,7 @@ void readCreateOrUpdateNotebookSharesResult(
     CreateOrUpdateNotebookSharesResult & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6414,7 +6414,7 @@ void readCreateOrUpdateNotebookSharesResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<SharedNotebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -6508,7 +6508,7 @@ void readNoteShareRelationshipRestrictions(
     NoteShareRelationshipRestrictions & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6637,7 +6637,7 @@ void readNoteMemberShareRelationship(
     NoteMemberShareRelationship & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6792,7 +6792,7 @@ void readNoteInvitationShareRelationship(
     NoteInvitationShareRelationship & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6930,7 +6930,7 @@ void readNoteShareRelationships(
     NoteShareRelationships & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -6941,7 +6941,7 @@ void readNoteShareRelationships(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<NoteInvitationShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -6964,7 +6964,7 @@ void readNoteShareRelationships(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<NoteMemberShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -7111,7 +7111,7 @@ void readManageNoteSharesParameters(
     ManageNoteSharesParameters & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -7131,7 +7131,7 @@ void readManageNoteSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<NoteMemberShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -7154,7 +7154,7 @@ void readManageNoteSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<NoteInvitationShareRelationship> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -7177,7 +7177,7 @@ void readManageNoteSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<UserID> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_I32) {
@@ -7200,7 +7200,7 @@ void readManageNoteSharesParameters(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<IdentityID> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_I64) {
@@ -7338,7 +7338,7 @@ void readManageNoteSharesError(
     ManageNoteSharesError & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -7456,7 +7456,7 @@ void readManageNoteSharesResult(
     ManageNoteSharesResult & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -7467,7 +7467,7 @@ void readManageNoteSharesResult(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<ManageNoteSharesError> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -7553,7 +7553,7 @@ void readData(
     Data & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -7930,7 +7930,7 @@ void readUserAttributes(
     UserAttributes & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -7977,7 +7977,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -8009,7 +8009,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -8655,7 +8655,7 @@ void readBusinessUserAttributes(
     BusinessUserAttributes & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -8996,7 +8996,7 @@ void readAccounting(
     Accounting & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -9465,7 +9465,7 @@ void readBusinessUserInfo(
     BusinessUserInfo & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -9676,7 +9676,7 @@ void readAccountLimits(
     AccountLimits & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -10045,7 +10045,7 @@ void readUser(
     User & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -10445,7 +10445,7 @@ void readContact(
     Contact & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -10664,7 +10664,7 @@ void readIdentity(
     Identity & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool id_isset = false;
     r.readStructBegin(fname);
@@ -10867,7 +10867,7 @@ void readTag(
     Tag & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -10998,7 +10998,7 @@ void readLazyMap(
     LazyMap & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -11009,7 +11009,7 @@ void readLazyMap(
             if (fieldType == ThriftFieldType::T_SET) {
                 QSet<QString> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -11032,8 +11032,8 @@ void readLazyMap(
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap<QString, QString> v;
                 qint32 size;
-                ThriftFieldType::type keyType;
-                ThriftFieldType::type elemType;
+                ThriftFieldType keyType;
+                ThriftFieldType elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if (keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map key type (LazyMap.fullMap)"));
                 if (elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map value type (LazyMap.fullMap)"));
@@ -11201,7 +11201,7 @@ void readResourceAttributes(
     ResourceAttributes & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -11539,7 +11539,7 @@ void readResource(
     Resource & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -11962,7 +11962,7 @@ void readNoteAttributes(
     NoteAttributes & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -12117,8 +12117,8 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap<QString, QString> v;
                 qint32 size;
-                ThriftFieldType::type keyType;
-                ThriftFieldType::type elemType;
+                ThriftFieldType keyType;
+                ThriftFieldType elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if (keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map key type (NoteAttributes.classifications)"));
                 if (elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Incorrect map value type (NoteAttributes.classifications)"));
@@ -12439,7 +12439,7 @@ void readSharedNote(
     SharedNote & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -12619,7 +12619,7 @@ void readNoteRestrictions(
     NoteRestrictions & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -12782,7 +12782,7 @@ void readNoteLimits(
     NoteLimits & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -13065,7 +13065,7 @@ void readNote(
     Note & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -13175,7 +13175,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Guid> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -13198,7 +13198,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<Resource> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -13230,7 +13230,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -13253,7 +13253,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<SharedNote> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -13513,7 +13513,7 @@ void readPublishing(
     Publishing & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -13643,7 +13643,7 @@ void readBusinessNotebook(
     BusinessNotebook & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -13756,7 +13756,7 @@ void readSavedSearchScope(
     SavedSearchScope & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -13893,7 +13893,7 @@ void readSavedSearch(
     SavedSearch & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -14049,7 +14049,7 @@ void readSharedNotebookRecipientSettings(
     SharedNotebookRecipientSettings & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -14161,7 +14161,7 @@ void readNotebookRecipientSettings(
     NotebookRecipientSettings & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -14412,7 +14412,7 @@ void readSharedNotebook(
     SharedNotebook & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -14730,7 +14730,7 @@ void readCanMoveToContainerRestrictions(
     CanMoveToContainerRestrictions & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -15017,7 +15017,7 @@ void readNotebookRestrictions(
     NotebookRestrictions & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -15676,7 +15676,7 @@ void readNotebook(
     Notebook & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -15768,7 +15768,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<qint64> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_I64) {
@@ -15791,7 +15791,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<SharedNotebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -16093,7 +16093,7 @@ void readLinkedNotebook(
     LinkedNotebook & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -16358,7 +16358,7 @@ void readNotebookDescriptor(
     NotebookDescriptor & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -16561,7 +16561,7 @@ void readUserProfile(
     UserProfile & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -16809,7 +16809,7 @@ void readRelatedContentImage(
     RelatedContentImage & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -17068,7 +17068,7 @@ void readRelatedContent(
     RelatedContent & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -17160,7 +17160,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<RelatedContentImage> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -17228,7 +17228,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -17478,7 +17478,7 @@ void readBusinessInvitation(
     BusinessInvitation & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -17676,7 +17676,7 @@ void readUserIdentity(
     UserIdentity & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -17803,7 +17803,7 @@ void readPublicUserInfo(
     PublicUserInfo & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool userId_isset = false;
     r.readStructBegin(fname);
@@ -17971,7 +17971,7 @@ void readUserUrls(
     UserUrls & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -18185,7 +18185,7 @@ void readAuthenticationResult(
     AuthenticationResult & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool currentTime_isset = false;
     bool authenticationToken_isset = false;
@@ -18488,7 +18488,7 @@ void readBootstrapSettings(
     BootstrapSettings & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool serviceHost_isset = false;
     bool marketingUrl_isset = false;
@@ -18764,7 +18764,7 @@ void readBootstrapProfile(
     BootstrapProfile & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool name_isset = false;
     bool settings_isset = false;
@@ -18839,7 +18839,7 @@ void readBootstrapInfo(
     BootstrapInfo & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool profiles_isset = false;
     r.readStructBegin(fname);
@@ -18852,7 +18852,7 @@ void readBootstrapInfo(
                 profiles_isset = true;
                 QList<BootstrapProfile> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -18929,7 +18929,7 @@ void readEDAMUserException(
     EDAMUserException & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool errorCode_isset = false;
     r.readStructBegin(fname);
@@ -19028,7 +19028,7 @@ void readEDAMSystemException(
     EDAMSystemException & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool errorCode_isset = false;
     r.readStructBegin(fname);
@@ -19137,7 +19137,7 @@ void readEDAMNotFoundException(
     EDAMNotFoundException & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true)
@@ -19247,7 +19247,7 @@ void readEDAMInvalidContactsException(
     EDAMInvalidContactsException & s)
 {
     QString fname;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     bool contacts_isset = false;
     r.readStructBegin(fname);
@@ -19260,7 +19260,7 @@ void readEDAMInvalidContactsException(
                 contacts_isset = true;
                 QList<Contact> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -19292,7 +19292,7 @@ void readEDAMInvalidContactsException(
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList<EDAMInvalidContactReason> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_I32) {

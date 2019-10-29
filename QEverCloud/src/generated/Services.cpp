@@ -758,7 +758,7 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -776,7 +776,7 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -929,7 +929,7 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -947,7 +947,7 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -1106,7 +1106,7 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -1124,7 +1124,7 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -1302,7 +1302,7 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -1320,7 +1320,7 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -1488,7 +1488,7 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -1506,7 +1506,7 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -1517,7 +1517,7 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<Notebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -1652,7 +1652,7 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -1670,7 +1670,7 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -1681,7 +1681,7 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
                 resultIsSet = true;
                 QList<Notebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -1823,7 +1823,7 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -1841,7 +1841,7 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -1991,7 +1991,7 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -2009,7 +2009,7 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -2148,7 +2148,7 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -2166,7 +2166,7 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -2323,7 +2323,7 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -2341,7 +2341,7 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -2498,7 +2498,7 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -2516,7 +2516,7 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -2666,7 +2666,7 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -2684,7 +2684,7 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -2695,7 +2695,7 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<Tag> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -2837,7 +2837,7 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -2855,7 +2855,7 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -2866,7 +2866,7 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<Tag> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -3026,7 +3026,7 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -3044,7 +3044,7 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -3201,7 +3201,7 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -3219,7 +3219,7 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -3376,7 +3376,7 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -3394,7 +3394,7 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -3549,7 +3549,7 @@ void NoteStore_untagAll_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -3567,7 +3567,7 @@ void NoteStore_untagAll_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -3709,7 +3709,7 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -3727,7 +3727,7 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -3877,7 +3877,7 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -3895,7 +3895,7 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -3906,7 +3906,7 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<SavedSearch> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -4048,7 +4048,7 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -4066,7 +4066,7 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -4223,7 +4223,7 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -4241,7 +4241,7 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -4388,7 +4388,7 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -4406,7 +4406,7 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -4563,7 +4563,7 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -4581,7 +4581,7 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -4745,7 +4745,7 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -4763,7 +4763,7 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -4947,7 +4947,7 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -4965,7 +4965,7 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -5147,7 +5147,7 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -5165,7 +5165,7 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -5335,7 +5335,7 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -5353,7 +5353,7 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -5544,7 +5544,7 @@ Note NoteStore_getNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -5562,7 +5562,7 @@ Note NoteStore_getNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -5743,7 +5743,7 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -5761,7 +5761,7 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -5925,7 +5925,7 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -5943,7 +5943,7 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -6120,7 +6120,7 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -6138,7 +6138,7 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -6314,7 +6314,7 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -6332,7 +6332,7 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -6495,7 +6495,7 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -6513,7 +6513,7 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -6684,7 +6684,7 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -6702,7 +6702,7 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -6871,7 +6871,7 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -6889,7 +6889,7 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -7046,7 +7046,7 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -7064,7 +7064,7 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -7075,7 +7075,7 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 resultIsSet = true;
                 QStringList v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
@@ -7235,7 +7235,7 @@ Note NoteStore_createNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -7253,7 +7253,7 @@ Note NoteStore_createNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -7410,7 +7410,7 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -7428,7 +7428,7 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -7585,7 +7585,7 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -7603,7 +7603,7 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -7760,7 +7760,7 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -7778,7 +7778,7 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -7942,7 +7942,7 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -7960,7 +7960,7 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -8123,7 +8123,7 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -8141,7 +8141,7 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -8152,7 +8152,7 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<NoteVersionId> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -8340,7 +8340,7 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -8358,7 +8358,7 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -8567,7 +8567,7 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -8585,7 +8585,7 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -8766,7 +8766,7 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -8784,7 +8784,7 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -8948,7 +8948,7 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -8966,7 +8966,7 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -9143,7 +9143,7 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -9161,7 +9161,7 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -9337,7 +9337,7 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -9355,7 +9355,7 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -9518,7 +9518,7 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -9536,7 +9536,7 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -9693,7 +9693,7 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -9711,7 +9711,7 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -9896,7 +9896,7 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -9914,7 +9914,7 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -10095,7 +10095,7 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -10113,7 +10113,7 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -10270,7 +10270,7 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -10288,7 +10288,7 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -10445,7 +10445,7 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -10463,7 +10463,7 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -10620,7 +10620,7 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -10638,7 +10638,7 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -10796,7 +10796,7 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -10814,7 +10814,7 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -10977,7 +10977,7 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -10995,7 +10995,7 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -11162,7 +11162,7 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -11180,7 +11180,7 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -11344,7 +11344,7 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -11362,7 +11362,7 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -11518,7 +11518,7 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -11536,7 +11536,7 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -11547,7 +11547,7 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<SharedNotebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -11699,7 +11699,7 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -11717,7 +11717,7 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -11874,7 +11874,7 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -11892,7 +11892,7 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -12042,7 +12042,7 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -12060,7 +12060,7 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -12071,7 +12071,7 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<LinkedNotebook> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -12223,7 +12223,7 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -12241,7 +12241,7 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -12398,7 +12398,7 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -12416,7 +12416,7 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -12566,7 +12566,7 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -12584,7 +12584,7 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -12731,7 +12731,7 @@ void NoteStore_emailNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -12749,7 +12749,7 @@ void NoteStore_emailNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -12891,7 +12891,7 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -12909,7 +12909,7 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -13064,7 +13064,7 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -13082,7 +13082,7 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -13231,7 +13231,7 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -13249,7 +13249,7 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -13419,7 +13419,7 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -13437,7 +13437,7 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -13600,7 +13600,7 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -13618,7 +13618,7 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -13775,7 +13775,7 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -13793,7 +13793,7 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -13950,7 +13950,7 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -13968,7 +13968,7 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -14294,7 +14294,7 @@ bool UserStore_checkVersion_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -14312,7 +14312,7 @@ bool UserStore_checkVersion_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -14442,7 +14442,7 @@ BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -14460,7 +14460,7 @@ BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -14620,7 +14620,7 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -14638,7 +14638,7 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -14827,7 +14827,7 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -14845,7 +14845,7 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -14993,7 +14993,7 @@ void UserStore_revokeLongSession_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15011,7 +15011,7 @@ void UserStore_revokeLongSession_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -15128,7 +15128,7 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15146,7 +15146,7 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -15278,7 +15278,7 @@ User UserStore_getUser_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15296,7 +15296,7 @@ User UserStore_getUser_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -15428,7 +15428,7 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15446,7 +15446,7 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -15594,7 +15594,7 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15612,7 +15612,7 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -15749,7 +15749,7 @@ void UserStore_inviteToBusiness_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15767,7 +15767,7 @@ void UserStore_inviteToBusiness_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -15897,7 +15897,7 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -15915,7 +15915,7 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -16062,7 +16062,7 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -16080,7 +16080,7 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -16221,7 +16221,7 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -16239,7 +16239,7 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -16250,7 +16250,7 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
                 resultIsSet = true;
                 QList<UserProfile> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -16392,7 +16392,7 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -16410,7 +16410,7 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {
@@ -16421,7 +16421,7 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
                 resultIsSet = true;
                 QList<BusinessInvitation> v;
                 qint32 size;
-                ThriftFieldType::type elemType;
+                ThriftFieldType elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
@@ -16564,7 +16564,7 @@ AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
     ThriftBinaryBufferReader r(reply);
     qint32 rseqid = 0;
     QString fname;
-    ThriftMessageType::type mtype;
+    ThriftMessageType mtype;
     r.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
         ThriftException e = readThriftException(r);
@@ -16582,7 +16582,7 @@ AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
     while(true) {

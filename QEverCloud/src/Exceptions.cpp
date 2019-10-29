@@ -271,7 +271,7 @@ const char * EDAMNotFoundException::what() const noexcept
 ThriftException readThriftException(ThriftBinaryBufferReader & reader)
 {
     QString name;
-    ThriftFieldType::type fieldType;
+    ThriftFieldType fieldType;
     qint16 fieldId;
 
     reader.readStructBegin(name);

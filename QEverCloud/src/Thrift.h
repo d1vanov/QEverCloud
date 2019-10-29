@@ -21,6 +21,8 @@
 
 namespace qevercloud {
 
+////////////////////////////////////////////////////////////////////////////////
+
 // Use this to get around strict aliasing rules.
 // For example, uint64_t i = bitwise_cast<uint64_t>(returns_double());
 // The most obvious implementation is to just cast a pointer,
@@ -64,44 +66,46 @@ static inline To bitwise_cast(From from)
     return u.t;
 }
 
-struct ThriftFieldType
+////////////////////////////////////////////////////////////////////////////////
+
+enum class ThriftFieldType
 {
-    enum type
-    {
-        T_STOP       = 0,
-        T_VOID       = 1,
-        T_BOOL       = 2,
-        T_BYTE       = 3,
-        T_I08        = 3,
-        T_I16        = 6,
-        T_I32        = 8,
-        T_U64        = 9,
-        T_I64        = 10,
-        T_DOUBLE     = 4,
-        T_STRING     = 11,
-        T_UTF7       = 11,
-        T_STRUCT     = 12,
-        T_MAP        = 13,
-        T_SET        = 14,
-        T_LIST       = 15,
-        T_UTF8       = 16,
-        T_UTF16      = 17
-    };
+    T_STOP       = 0,
+    T_VOID       = 1,
+    T_BOOL       = 2,
+    T_BYTE       = 3,
+    T_I08        = 3,
+    T_I16        = 6,
+    T_I32        = 8,
+    T_U64        = 9,
+    T_I64        = 10,
+    T_DOUBLE     = 4,
+    T_STRING     = 11,
+    T_UTF7       = 11,
+    T_STRUCT     = 12,
+    T_MAP        = 13,
+    T_SET        = 14,
+    T_LIST       = 15,
+    T_UTF8       = 16,
+    T_UTF16      = 17
 };
 
-struct ThriftMessageType
+////////////////////////////////////////////////////////////////////////////////
+
+enum class ThriftMessageType
 {
-    enum type
-    {
-        T_CALL       = 1,
-        T_REPLY      = 2,
-        T_EXCEPTION  = 3,
-        T_ONEWAY     = 4
-    };
+    T_CALL       = 1,
+    T_REPLY      = 2,
+    T_EXCEPTION  = 3,
+    T_ONEWAY     = 4
 };
+
+////////////////////////////////////////////////////////////////////////////////
 
 static const qint32 VERSION_1 = ((qint32)0x80010000);
 static const qint32 VERSION_MASK = ((qint32)0xffff0000);
+
+////////////////////////////////////////////////////////////////////////////////
 
 class ThriftBinaryBufferWriter
 {
@@ -123,9 +127,9 @@ public:
 
     QByteArray buffer() { return m_buf; }
 
-    quint32 writeMessageBegin(QString name,
-                              const ThriftMessageType::type messageType,
-                              const qint32 seqid)
+    quint32 writeMessageBegin(
+        QString name, const ThriftMessageType messageType,
+        const qint32 seqid)
     {
         if (m_strict)
         {
@@ -156,9 +160,9 @@ public:
 
     inline quint32 writeStructEnd() { return 0; }
 
-    inline quint32 writeFieldBegin(QString name,
-                                   const ThriftFieldType::type fieldType,
-                                   const qint16 fieldId)
+    inline quint32 writeFieldBegin(
+        QString name, const ThriftFieldType fieldType,
+        const qint16 fieldId)
     {
         Q_UNUSED(name);
         quint32 wsize = 0;
@@ -174,9 +178,9 @@ public:
         return writeByte((qint8)ThriftFieldType::T_STOP);
     }
 
-    inline quint32 writeMapBegin(const ThriftFieldType::type keyType,
-                                 const ThriftFieldType::type valType,
-                                 const qint32 size)
+    inline quint32 writeMapBegin(
+        const ThriftFieldType keyType, const ThriftFieldType valType,
+        const qint32 size)
     {
         quint32 wsize = 0;
         wsize += writeByte(static_cast<qint8>(keyType));
@@ -187,8 +191,8 @@ public:
 
     inline quint32 writeMapEnd() { return 0; }
 
-    inline quint32 writeListBegin(const ThriftFieldType::type elemType,
-                                  const qint32 size)
+    inline quint32 writeListBegin(
+        const ThriftFieldType elemType, const qint32 size)
     {
         quint32 wsize = 0;
         wsize += writeByte(static_cast<qint8>(elemType));
@@ -198,8 +202,8 @@ public:
 
     inline quint32 writeListEnd() { return 0; }
 
-    inline quint32 writeSetBegin(const ThriftFieldType::type elemType,
-                                 const qint32 size)
+    inline quint32 writeSetBegin(
+        const ThriftFieldType elemType, const qint32 size)
     {
         return writeListBegin(elemType, size);
     }
@@ -245,9 +249,10 @@ public:
 
     inline quint32 writeDouble(const double dub)
     {
-        Q_STATIC_ASSERT_X(sizeof(double) == sizeof(qint64) &&
-                          std::numeric_limits<double>::is_iec559,
-                          "incompatible double type");
+        Q_STATIC_ASSERT_X(
+            sizeof(double) == sizeof(qint64) &&
+            std::numeric_limits<double>::is_iec559,
+            "incompatible double type");
 
         quint64 bits = bitwise_cast<quint64>(dub);
         qToBigEndian(bits, reinterpret_cast<uchar*>(&bits));
@@ -265,8 +270,9 @@ public:
     {
         qint32 size = static_cast<qint32>(bytes.length());
         if (size > std::numeric_limits<qint32>::max()) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("The data is too big"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("The data is too big"));
         }
 
         quint32 result = writeI32(static_cast<qint32>(size));
@@ -276,9 +282,9 @@ public:
 
         return result + static_cast<quint32>(size);
     }
-
 };
 
+////////////////////////////////////////////////////////////////////////////////
 
 class ThriftBinaryBufferReader
 {
@@ -291,17 +297,22 @@ private:
     void read(quint8 * dest, qint32 bytesCount)
     {
         if (Q_UNLIKELY((m_pos + bytesCount) > m_buf.length())) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Unexpected end of data"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Unexpected end of data"));
         }
 
         if (Q_UNLIKELY(bytesCount < 0)) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Negative bytes count"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Negative bytes count"));
         }
 
-        std::memcpy(dest, m_buf.mid(m_pos, bytesCount).constData(),
-                    static_cast<std::size_t>(bytesCount));
+        std::memcpy(
+            dest,
+            m_buf.mid(m_pos, bytesCount).constData(),
+            static_cast<std::size_t>(bytesCount));
+
         m_pos += bytesCount;
     }
 
@@ -315,9 +326,8 @@ public:
     void setStringLimit(qint32 limit) { m_stringLimit = limit; }
     void setStrictMode(bool on) { m_strict = on; }
 
-    quint32 readMessageBegin(QString & name,
-                             ThriftMessageType::type & messageType,
-                             qint32 & seqid)
+    quint32 readMessageBegin(
+        QString & name, ThriftMessageType & messageType, qint32 & seqid)
     {
         quint32 result = 0;
         qint32 sz;
@@ -328,21 +338,23 @@ public:
             // Check for correct version number
             qint32 version = sz & VERSION_MASK;
             if (version != VERSION_1) {
-                throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                      QStringLiteral("Bad version identifier"));
+                throw ThriftException(
+                    ThriftException::Type::PROTOCOL_ERROR,
+                    QStringLiteral("Bad version identifier"));
             }
 
-            messageType = static_cast<ThriftMessageType::type>(sz & 0x000000ff);
+            messageType = static_cast<ThriftMessageType>(sz & 0x000000ff);
             result += readString(name);
             result += readI32(seqid);
         }
         else
         {
             if (m_strict) {
-                throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                      QStringLiteral("No version identifier... "
-                                                     "old protocol client in "
-                                                     "strict mode?"));
+                throw ThriftException(
+                    ThriftException::Type::PROTOCOL_ERROR,
+                    QStringLiteral(
+                        "No version identifier... old protocol client in "
+                        "strict mode?"));
             }
             else {
                 // Handle pre-versioned input
@@ -350,7 +362,7 @@ public:
                 m_pos -= 4;
                 result += readString(name);
                 result += readByte(type);
-                messageType = static_cast<ThriftMessageType::type>(type);
+                messageType = static_cast<ThriftMessageType>(type);
                 result += readI32(seqid);
             }
         }
@@ -363,16 +375,15 @@ public:
     inline quint32 readStructBegin(QString & name) { name.clear(); return 0; }
     inline quint32 readStructEnd() { return 0; }
 
-    inline quint32 readFieldBegin(QString & name,
-                                  ThriftFieldType::type & fieldType,
-                                  qint16 & fieldId)
+    inline quint32 readFieldBegin(
+        QString & name, ThriftFieldType & fieldType, qint16 & fieldId)
     {
         Q_UNUSED(name)
         quint32 result = 0;
         qint8 type;
         result += readByte(type);
 
-        fieldType = static_cast<ThriftFieldType::type>(type);
+        fieldType = static_cast<ThriftFieldType>(type);
         if (fieldType == ThriftFieldType::T_STOP) {
             fieldId = 0;
             return result;
@@ -384,25 +395,26 @@ public:
 
     inline quint32 readFieldEnd() { return 0; }
 
-    inline quint32 readMapBegin(ThriftFieldType::type & keyType,
-                                ThriftFieldType::type & valType,
-                                qint32 & size)
+    inline quint32 readMapBegin(
+        ThriftFieldType & keyType, ThriftFieldType & valType, qint32 & size)
     {
         qint8 k, v;
         quint32 result = 0;
         qint32 sizei;
         result += readByte(k);
-        keyType = static_cast<ThriftFieldType::type>(k);
+        keyType = static_cast<ThriftFieldType>(k);
         result += readByte(v);
-        valType = static_cast<ThriftFieldType::type>(v);
+        valType = static_cast<ThriftFieldType>(v);
         result += readI32(sizei);
         if (sizei < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Negative size!"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Negative size!"));
         }
         else if (m_stringLimit > 0 && sizei > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("The size limit is exceeded."));
         }
         size = sizei;
         return result;
@@ -410,21 +422,23 @@ public:
 
     inline quint32 readMapEnd() {return 0;}
 
-    inline quint32 readListBegin(ThriftFieldType::type & elemType, qint32 & size)
+    inline quint32 readListBegin(ThriftFieldType & elemType, qint32 & size)
     {
         qint8 e;
         quint32 result = 0;
         qint32 sizei;
         result += readByte(e);
-        elemType = static_cast<ThriftFieldType::type>(e);
+        elemType = static_cast<ThriftFieldType>(e);
         result += readI32(sizei);
         if (sizei < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Negative size!"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Negative size!"));
         }
         else if (m_stringLimit > 0 && sizei > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("The size limit is exceeded."));
         }
         size = sizei;
         return result;
@@ -432,7 +446,7 @@ public:
 
     inline quint32 readListEnd() { return 0; }
 
-    inline quint32 readSetBegin(ThriftFieldType::type & elemType, qint32 & size)
+    inline quint32 readSetBegin(ThriftFieldType & elemType, qint32 & size)
     {
         return readListBegin(elemType, size);
     }
@@ -493,9 +507,10 @@ public:
 
     inline quint32 readDouble(double & dub)
     {
-        Q_STATIC_ASSERT_X(sizeof(double) == sizeof(qint64) &&
-                          std::numeric_limits<double>::is_iec559,
-                          "incompatible double type");
+        Q_STATIC_ASSERT_X(
+            sizeof(double) == sizeof(qint64) &&
+            std::numeric_limits<double>::is_iec559,
+            "incompatible double type");
 
         union bytes {
             quint8 b[8];
@@ -515,13 +530,15 @@ public:
         result = readI32(size);
 
         if (size < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Negative size!"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Negative size!"));
         }
 
         if (m_stringLimit > 0 && size > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("The size limit is exceeded."));
         }
 
         // Catch empty string case
@@ -531,8 +548,9 @@ public:
         }
 
         if ((m_pos + size) > m_buf.length()) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Unexpected end of data"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Unexpected end of data"));
         }
 
         str = QString::fromUtf8(m_buf.constData() + m_pos, size);
@@ -549,13 +567,15 @@ public:
         result = readI32(size);
 
         if (size < 0) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Negative size!"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Negative size!"));
         }
 
         if (m_stringLimit > 0 && size > m_stringLimit) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("The size limit is exceeded."));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("The size limit is exceeded."));
         }
 
         // Catch empty string case
@@ -565,8 +585,9 @@ public:
         }
 
         if ((m_pos + size) > m_buf.length()) {
-            throw ThriftException(ThriftException::Type::PROTOCOL_ERROR,
-                                  QStringLiteral("Unexpected end of data"));
+            throw ThriftException(
+                ThriftException::Type::PROTOCOL_ERROR,
+                QStringLiteral("Unexpected end of data"));
         }
 
         str = m_buf.mid(m_pos, size);
@@ -576,7 +597,7 @@ public:
         return result;
     }
 
-    inline quint32 skip(ThriftFieldType::type type)
+    inline quint32 skip(ThriftFieldType type)
     {
         switch (type) {
         case ThriftFieldType::T_BOOL:
@@ -619,7 +640,7 @@ public:
             quint32 result = 0;
             QString name;
             qint16 fid;
-            ThriftFieldType::type ftype;
+            ThriftFieldType ftype;
             result += readStructBegin(name);
             while (true)
             {
@@ -637,8 +658,8 @@ public:
         case ThriftFieldType::T_MAP:
         {
             quint32 result = 0;
-            ThriftFieldType::type keyType;
-            ThriftFieldType::type valType;
+            ThriftFieldType keyType;
+            ThriftFieldType valType;
             qint32 i, size;
             result += readMapBegin(keyType, valType, size);
             for(i = 0; i < size; i++) {
@@ -651,7 +672,7 @@ public:
         case ThriftFieldType::T_SET:
         {
             quint32 result = 0;
-            ThriftFieldType::type elemType;
+            ThriftFieldType elemType;
             qint32 i, size;
             result += readSetBegin(elemType, size);
             for(i = 0; i < size; i++) {
@@ -663,7 +684,7 @@ public:
         case ThriftFieldType::T_LIST:
         {
             quint32 result = 0;
-            ThriftFieldType::type elemType;
+            ThriftFieldType elemType;
             qint32 i, size;
             result += readListBegin(elemType, size);
             for(i = 0; i < size; i++) {
