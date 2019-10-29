@@ -35,11 +35,9 @@ const char * EverCloudException::what() const throw()
     return m_error.constData();
 }
 
-QSharedPointer<EverCloudExceptionData>
-QEVERCLOUD_EXPORT EverCloudException::exceptionData() const
+EverCloudExceptionDataPtr EverCloudException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(
-        new EverCloudExceptionData(QString::fromUtf8(what())));
+    return std::make_shared<EverCloudExceptionData>(QString::fromUtf8(what()));
 }
 
 EverCloudExceptionData::EverCloudExceptionData(QString error) :
@@ -67,10 +65,9 @@ EvernoteException::EvernoteException(const char * error) :
     EverCloudException(error)
 {}
 
-QSharedPointer<EverCloudExceptionData> EvernoteException::exceptionData() const
+EverCloudExceptionDataPtr EvernoteException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(
-        new EvernoteExceptionData(QString::fromUtf8(what())));
+    return std::make_shared<EverCloudExceptionData>(QString::fromUtf8(what()));
 }
 
 EvernoteExceptionData::EvernoteExceptionData(QString error) :

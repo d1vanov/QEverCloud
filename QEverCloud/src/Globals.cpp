@@ -8,24 +8,30 @@
  */
 
 #include <Globals.h>
+#include <Exceptions.h>
 
+#include <QMetaType>
 #include <QMutex>
 #include <QMutexLocker>
-#include <QSharedPointer>
+
+#include <memory>
 
 namespace qevercloud {
 
+////////////////////////////////////////////////////////////////////////////////
+
 QNetworkAccessManager * evernoteNetworkAccessManager()
 {
-    static QSharedPointer<QNetworkAccessManager> pNetworkAccessManager;
+    static std::shared_ptr<QNetworkAccessManager> pNetworkAccessManager;
     static QMutex networkAccessManagerMutex;
     QMutexLocker mutexLocker(&networkAccessManagerMutex);
-    if (pNetworkAccessManager.isNull()) {
-        pNetworkAccessManager = QSharedPointer<QNetworkAccessManager>(
-            new QNetworkAccessManager);
+    if (Q_UNLIKELY(!pNetworkAccessManager)) {
+        pNetworkAccessManager = std::make_shared<QNetworkAccessManager>();
     }
-    return pNetworkAccessManager.data();
+    return pNetworkAccessManager.get();
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 static int qevercloudRequestTimeout = 180000;
 
@@ -38,6 +44,8 @@ void setRequestTimeout(int timeout)
 {
     qevercloudRequestTimeout = timeout;
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 int libraryVersion()
 {

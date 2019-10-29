@@ -123,11 +123,11 @@ AsyncResult * Thumbnail::downloadAsync(
     auto res = new AsyncResult(pair.first, pair.second, timeoutMsec);
     QObject::connect(res, &AsyncResult::finished,
                      [=] (const QVariant & value,
-                         const QSharedPointer<EverCloudExceptionData> data)
+                          const EverCloudExceptionDataPtr error)
                      {
                          Q_UNUSED(value)
 
-                         if (data.isNull()) {
+                         if (!error) {
                              QEC_DEBUG("thumbnail", "Finished async download "
                                 << "for guid " << guid);
                              return;
@@ -135,7 +135,7 @@ AsyncResult * Thumbnail::downloadAsync(
 
                          QEC_WARNING("thumbnail", "Async download for guid "
                             << guid << " finished with error: "
-                            << data->errorMessage);
+                            << error->errorMessage);
                      });
     return res;
 }

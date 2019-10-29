@@ -15,7 +15,6 @@
 
 #include <QEventLoop>
 #include <QtNetwork>
-#include <QSharedPointer>
 #include <QUrl>
 
 /** @cond HIDDEN_SYMBOLS  */
@@ -55,21 +54,23 @@ void ReplyFetcher::start(
     m_ticker->start(1000);
 
     if (postData.isNull()) {
-        m_reply = QSharedPointer<QNetworkReply>(
-            nam->get(request), &QObject::deleteLater);
+        m_reply = std::shared_ptr<QNetworkReply>(
+            nam->get(request),
+            [] (QNetworkReply * reply) { reply->deleteLater(); });
     }
     else {
-        m_reply = QSharedPointer<QNetworkReply>(
-            nam->post(request, postData), &QObject::deleteLater);
+        m_reply = std::shared_ptr<QNetworkReply>(
+            nam->post(request, postData),
+            [] (QNetworkReply * reply) { reply->deleteLater(); });
     }
 
-    QObject::connect(m_reply.data(), &QNetworkReply::finished,
+    QObject::connect(m_reply.get(), &QNetworkReply::finished,
                      this, &ReplyFetcher::onFinished);
-    QObject::connect(m_reply.data(), SIGNAL(error(QNetworkReply::NetworkError)),
+    QObject::connect(m_reply.get(), SIGNAL(error(QNetworkReply::NetworkError)),
                      this, SLOT(onError(QNetworkReply::NetworkError)));
-    QObject::connect(m_reply.data(), &QNetworkReply::sslErrors,
+    QObject::connect(m_reply.get(), &QNetworkReply::sslErrors,
                      this, &ReplyFetcher::onSslErrors);
-    QObject::connect(m_reply.data(), &QNetworkReply::downloadProgress,
+    QObject::connect(m_reply.get(), &QNetworkReply::downloadProgress,
                      this, &ReplyFetcher::onDownloadProgress);
 }
 
@@ -104,7 +105,7 @@ void ReplyFetcher::onFinished()
     m_httpStatusCode = m_reply->attribute(
         QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    QObject::disconnect(m_reply.data());
+    QObject::disconnect(m_reply.get());
     emit replyFetched(this);
 }
 
@@ -130,7 +131,7 @@ void ReplyFetcher::setError(
 {
     m_ticker->stop();
     m_errorText = errorText;
-    QObject::disconnect(m_reply.data());
+    QObject::disconnect(m_reply.get());
     emit replyFetched(this);
 }
 

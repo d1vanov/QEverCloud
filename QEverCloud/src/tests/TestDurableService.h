@@ -22,6 +22,8 @@ public:
     explicit DurableServiceTester(QObject * parent = nullptr);
 
 private Q_SLOTS:
+    void initTestCase();
+
     void shouldExecuteSyncServiceCall();
     void shouldExecuteAsyncServiceCall();
     void shouldRetrySyncServiceCalls();

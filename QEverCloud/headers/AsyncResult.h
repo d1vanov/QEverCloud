@@ -33,16 +33,15 @@ NoteStore* ns;
 Note note;
 ...
 QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished,
-                 [ns](QVariant result,
-                      QSharedPointer<EverCloudExceptionData> error)
+                 [ns](QVariant result, EverCloudExceptionDataPtr error)
                  {
-                    if(!error.isNull()) {
-                        // do something in case of an error
-                    }
-                    else {
-                        Note note = result.value<Note>();
-                        // process returned result
-                    }
+                     if (error) {
+                         // do something in case of an error
+                     }
+                     else {
+                         Note note = result.value<Note>();
+                         // process returned result
+                     }
                  });
  @endcode
  */
@@ -67,7 +66,7 @@ public:
      * Constructor accepting already prepared value and/or exception,
      * for use in tests
      */
-    AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
+    AsyncResult(QVariant result, EverCloudExceptionDataPtr error,
                 bool autoDelete = true, QObject * parent = nullptr);
 
     ~AsyncResult();
@@ -85,14 +84,23 @@ Q_SIGNALS:
      * @brief Emitted upon asyncronous call completition.
      * @param result
      * @param error
-     * error.isNull() != true in case of an error. See EverCloudExceptionData
+     * error != nullptr in case of an error. See EverCloudExceptionData
      * for more details.
      *
      * AsyncResult deletes itself after emitting this signal (if autoDelete
      * parameter passed to its constructor was set to true). You don't have to
      * manage it's lifetime explicitly.
+     *
+     * NOTE: in order to use this signal with queued connections (either via
+     * explicit specification of Qt::QueuedConnection connection type or just
+     * via connecting signals and slots of objects living in different threads),
+     * you must make this call before creating any such connection:
+     *
+     * @code
+     * qRegisterMetaType<EverCloudExceptionDataPtr>("EverCloudExceptionDataPtr");
+     * @endcode
      */
-    void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
+    void finished(QVariant result, EverCloudExceptionDataPtr error);
 
 private:
     friend class DurableService;

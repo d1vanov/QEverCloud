@@ -26,7 +26,7 @@ namespace qevercloud {
 struct QEVERCLOUD_EXPORT IRetryPolicy
 {
     virtual bool shouldRetry(
-        QSharedPointer<EverCloudExceptionData> exceptionData) = 0;
+        EverCloudExceptionDataPtr exceptionData) = 0;
 };
 
 using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
@@ -38,7 +38,7 @@ QT_FORWARD_DECLARE_CLASS(DurableServicePrivate)
 class QEVERCLOUD_EXPORT IDurableService
 {
 public:
-    using SyncResult = std::pair<QVariant, QSharedPointer<EverCloudExceptionData>>;
+    using SyncResult = std::pair<QVariant, EverCloudExceptionDataPtr>;
     using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
     using AsyncServiceCall = std::function<AsyncResult*(IRequestContextPtr)>;
 

@@ -16,12 +16,13 @@
 #include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QSharedPointer>
 #include <QSslError>
 #include <QString>
 #include <QtEndian>
 #include <QTimer>
 #include <QTypeInfo>
+
+#include <memory>
 
 /** @cond HIDDEN_SYMBOLS  */
 
@@ -68,7 +69,7 @@ private:
     void setError(QNetworkReply::NetworkError errorType, QString errorText);
 
 private:
-    QSharedPointer<QNetworkReply>   m_reply;
+    std::shared_ptr<QNetworkReply>  m_reply;
 
     QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
     QString     m_errorText;

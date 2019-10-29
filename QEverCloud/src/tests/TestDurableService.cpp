@@ -12,6 +12,7 @@
 #include <Exceptions.h>
 
 #include <QEventLoop>
+#include <QMetaType>
 #include <QtTest/QtTest>
 
 namespace qevercloud {
@@ -27,13 +28,13 @@ public:
     {}
 
     QVariant m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(QVariant value, EverCloudExceptionDataPtr data)
     {
         m_value = value;
         m_exceptionData = data;
@@ -46,6 +47,11 @@ public Q_SLOTS:
 DurableServiceTester::DurableServiceTester(QObject * parent) :
     QObject(parent)
 {}
+
+void DurableServiceTester::initTestCase()
+{
+    qRegisterMetaType<EverCloudExceptionDataPtr>("EverCloudExceptionDataPtr");
+}
 
 void DurableServiceTester::shouldExecuteSyncServiceCall()
 {
@@ -67,7 +73,7 @@ void DurableServiceTester::shouldExecuteSyncServiceCall()
 
     QVERIFY(serviceCallDetected);
     QVERIFY(result.first == value);
-    QVERIFY(result.second.isNull());
+    QVERIFY(!result.second);
 }
 
 void DurableServiceTester::shouldExecuteAsyncServiceCall()
@@ -99,7 +105,7 @@ void DurableServiceTester::shouldExecuteAsyncServiceCall()
 
     QVERIFY(serviceCallDetected);
     QVERIFY(valueFetcher.m_value == value);
-    QVERIFY(valueFetcher.m_exceptionData.isNull());
+    QVERIFY(!valueFetcher.m_exceptionData);
 }
 
 void DurableServiceTester::shouldRetrySyncServiceCalls()
@@ -126,7 +132,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             ++serviceCallCounter;
             if (serviceCallCounter < maxServiceCallCounter)
             {
-                QSharedPointer<EverCloudExceptionData> data;
+                EverCloudExceptionDataPtr data;
                 try {
                     throw NetworkException(QNetworkReply::TimeoutError);
                 }
@@ -144,7 +150,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(result.first == value);
-    QVERIFY(result.second.isNull());
+    QVERIFY(!result.second);
 }
 
 void DurableServiceTester::shouldRetryAsyncServiceCalls()
@@ -171,7 +177,7 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
             ++serviceCallCounter;
             if (serviceCallCounter < maxServiceCallCounter)
             {
-                QSharedPointer<EverCloudExceptionData> data;
+                EverCloudExceptionDataPtr data;
                 try {
                     throw NetworkException(QNetworkReply::TimeoutError);
                 }
@@ -200,7 +206,7 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(valueFetcher.m_value == value);
-    QVERIFY(valueFetcher.m_exceptionData.isNull());
+    QVERIFY(!valueFetcher.m_exceptionData);
 }
 
 void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
@@ -223,7 +229,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 throw NetworkException(QNetworkReply::TimeoutError);
             }
@@ -238,7 +244,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!result.first.isValid());
-    QVERIFY(!result.second.isNull());
+    QVERIFY(result.second);
 
     bool exceptionCaught = false;
     try {
@@ -271,7 +277,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 throw NetworkException(QNetworkReply::TimeoutError);
             }
@@ -297,7 +303,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!valueFetcher.m_value.isValid());
-    QVERIFY(!valueFetcher.m_exceptionData.isNull());
+    QVERIFY(valueFetcher.m_exceptionData);
 
     bool exceptionCaught = false;
     try {
@@ -330,7 +336,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 EDAMUserException e;
                 e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
@@ -347,7 +353,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!result.first.isValid());
-    QVERIFY(!result.second.isNull());
+    QVERIFY(result.second);
 
     bool exceptionCaught = false;
     try {
@@ -380,7 +386,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 EDAMUserException e;
                 e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
@@ -408,7 +414,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!valueFetcher.m_value.isValid());
-    QVERIFY(!valueFetcher.m_exceptionData.isNull());
+    QVERIFY(valueFetcher.m_exceptionData);
 
     bool exceptionCaught = false;
     try {

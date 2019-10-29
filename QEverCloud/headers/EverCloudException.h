@@ -14,13 +14,19 @@
 
 #include <QObject>
 #include <QString>
-#include <QSharedPointer>
 
 #include <exception>
+#include <memory>
 
 namespace qevercloud {
 
+////////////////////////////////////////////////////////////////////////////////
+
 class QEVERCLOUD_EXPORT EverCloudExceptionData;
+
+using EverCloudExceptionDataPtr = std::shared_ptr<EverCloudExceptionData>;
+
+////////////////////////////////////////////////////////////////////////////////
 
 /**
  * All exceptions thrown by the library are of this class or its descendants.
@@ -40,8 +46,10 @@ public:
 
     const char * what() const noexcept;
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const;
+    virtual EverCloudExceptionDataPtr exceptionData() const;
 };
+
+////////////////////////////////////////////////////////////////////////////////
 
 /**
  * @brief EverCloudException counterpart for asynchronous API.
@@ -63,47 +71,54 @@ public:
 NoteStore* ns;
 ...
 QObject::connect(ns->getNotebook(notebookGuid), &AsyncResult::finished,
-                 [](QVariant result,
-                    QSharedPointer<EverCloudExceptionData> error)
+                 [](QVariant result, EverCloudExceptionDataPtr error)
                  {
-                    if(!error.isNull()) {
-                        QSharedPointer<EDAMNotFoundExceptionData> errorNotFound =
-                            error.objectCast<EDAMNotFoundExceptionData>();
-                        QSharedPointer<EDAMUserExceptionData> errorUser =
-                            error.objectCast<EDAMUserExceptionData>();
-                        QSharedPointer<EDAMSystemExceptionData> errorSystem =
-                            error.objectCast<EDAMSystemExceptionData>();
-                        if(!errorNotFound.isNull()) {
-                            qDebug() << "notebook not found"
-                                << errorNotFound.identifier << errorNotFound.key;
-                        }
-                        else if(!errorUser.isNull()) {
-                            qDebug() << errorUser.errorMessage;
-                        }
-                        else if(!errorSystem.isNull()) {
-                            if(errorSystem.errorCode ==
-                               EDAMErrorCode::RATE_LIMIT_REACHED)
-                            {
-                                qDebug() << "Evernote API rate limits are reached";
-                            }
-                            else if(errorSystem.errorCode ==
-                                    EDAMErrorCode::AUTH_EXPIRED)
-                            {
-                                qDebug() << "Authorization token is inspired";
-                            }
-                            else {
-                                // some other Evernote trouble
-                                qDebug() << errorSystem.errorMessage;
-                            }
-                        }
-                        else {
-                            // some unexpected error
-                            qDebug() << error.errorMessage;
-                        }
-                    }
-                    else {
-                        // success
-                    }
+                     if (error)
+                     {
+                         std::shared_ptr<EDAMNotFoundExceptionData> errorNotFound =
+                             error.objectCast<EDAMNotFoundExceptionData>();
+                         std::shared_ptr<EDAMUserExceptionData> errorUser =
+                             error.objectCast<EDAMUserExceptionData>();
+                         std::shared_ptr<EDAMSystemExceptionData> errorSystem =
+                             error.objectCast<EDAMSystemExceptionData>();
+
+                         if (!errorNotFound.isNull())
+                         {
+                             qDebug() << "notebook not found"
+                                 << errorNotFound.identifier << errorNotFound.key;
+                         }
+                         else if (!errorUser.isNull())
+                         {
+                             qDebug() << errorUser.errorMessage;
+                         }
+                         else if (!errorSystem.isNull())
+                         {
+                             if (errorSystem.errorCode ==
+                                EDAMErrorCode::RATE_LIMIT_REACHED)
+                             {
+                                 qDebug() << "Evernote API rate limits are reached";
+                             }
+                             else if (errorSystem.errorCode ==
+                                      EDAMErrorCode::AUTH_EXPIRED)
+                             {
+                                 qDebug() << "Authorization token is inspired";
+                             }
+                             else
+                             {
+                                 // some other Evernote trouble
+                                 qDebug() << errorSystem.errorMessage;
+                             }
+                         }
+                         else
+                         {
+                             // some unexpected error
+                             qDebug() << error.errorMessage;
+                         }
+                     }
+                     else
+                     {
+                         // success
+                     }
                  });
 
  @endcode
@@ -128,6 +143,8 @@ public:
     virtual void throwException() const;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
 /**
  * All exception sent by Evernote servers (as opposed to other error conditions,
  * for example http errors) are descendants of this class.
@@ -140,8 +157,10 @@ public:
     explicit EvernoteException(const std::string & error);
     explicit EvernoteException(const char * error);
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
+    virtual EverCloudExceptionDataPtr exceptionData() const Q_DECL_OVERRIDE;
 };
+
+////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Asynchronous API conterpart of EvernoteException. See EverCloudExceptionData
