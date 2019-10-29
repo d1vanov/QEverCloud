@@ -8,27 +8,18 @@
  */
 
 #include <Globals.h>
-#include <Exceptions.h>
 
-#include <QMetaType>
-#include <QMutex>
-#include <QMutexLocker>
-
-#include <memory>
+#include <QGlobalStatic>
 
 namespace qevercloud {
+
+Q_GLOBAL_STATIC(QNetworkAccessManager, globalEvernoteNetworkAccessManager)
 
 ////////////////////////////////////////////////////////////////////////////////
 
 QNetworkAccessManager * evernoteNetworkAccessManager()
 {
-    static std::shared_ptr<QNetworkAccessManager> pNetworkAccessManager;
-    static QMutex networkAccessManagerMutex;
-    QMutexLocker mutexLocker(&networkAccessManagerMutex);
-    if (Q_UNLIKELY(!pNetworkAccessManager)) {
-        pNetworkAccessManager = std::make_shared<QNetworkAccessManager>();
-    }
-    return pNetworkAccessManager.get();
+    return globalEvernoteNetworkAccessManager;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
