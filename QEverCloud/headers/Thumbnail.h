@@ -17,6 +17,8 @@
 #include <QNetworkAccessManager>
 #include <QString>
 
+#include <utility>
+
 namespace qevercloud {
 
 /** @cond HIDDEN_SYMBOLS  */
@@ -162,7 +164,7 @@ public:
      * @return a pair of QNetworkRequest for the POST request and data that must
      * be posted with the request.
      */
-    QPair<QNetworkRequest, QByteArray> createPostRequest(
+    std::pair<QNetworkRequest, QByteArray> createPostRequest(
         qevercloud::Guid guid, bool isPublic = false, bool isResourceGuid = false);
 
 private:

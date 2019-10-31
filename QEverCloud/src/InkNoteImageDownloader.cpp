@@ -17,14 +17,16 @@
 #include <QPainter>
 #include <QSize>
 
+#include <utility>
+
 namespace qevercloud {
 
 class InkNoteImageDownloaderPrivate
 {
 public:
-    QPair<QNetworkRequest, QByteArray> createPostRequest(const QString & urlPart,
-                                                         const int sliceNumber,
-                                                         const bool isPublic = false);
+    std::pair<QNetworkRequest, QByteArray> createPostRequest(
+        const QString & urlPart, const int sliceNumber,
+        const bool isPublic = false);
 
     QString m_host;
     QString m_shardId;
@@ -104,8 +106,7 @@ QByteArray InkNoteImageDownloader::download(
     while(true)
     {
         int httpStatusCode = 0;
-        QPair<QNetworkRequest, QByteArray> postRequest =
-            d->createPostRequest(urlPart, sliceCounter, isPublic);
+        auto postRequest = d->createPostRequest(urlPart, sliceCounter, isPublic);
 
         QEC_DEBUG("ink_note_image", "Sending download request to url: "
             << postRequest.first.url());
@@ -170,7 +171,8 @@ QByteArray InkNoteImageDownloader::download(
     return imageData;
 }
 
-QPair<QNetworkRequest, QByteArray> InkNoteImageDownloaderPrivate::createPostRequest(
+std::pair<QNetworkRequest, QByteArray>
+InkNoteImageDownloaderPrivate::createPostRequest(
     const QString & urlPart, const int sliceNumber, const bool isPublic)
 {
     QNetworkRequest request;
@@ -183,7 +185,7 @@ QPair<QNetworkRequest, QByteArray> InkNoteImageDownloaderPrivate::createPostRequ
         postData = QByteArray("auth=")+ QUrl::toPercentEncoding(m_authenticationToken);
     }
 
-    return qMakePair(request, postData);
+    return std::make_pair(request, postData);
 }
 
 } // namespace qevercloud

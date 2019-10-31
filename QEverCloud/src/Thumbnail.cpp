@@ -91,8 +91,7 @@ QByteArray Thumbnail::download(
         << (isResourceGuid ? "resource guid" : "not a resource guid"));
 
     int httpStatusCode = 0;
-    QPair<QNetworkRequest, QByteArray> request =
-        createPostRequest(guid, isPublic, isResourceGuid);
+    auto request = createPostRequest(guid, isPublic, isResourceGuid);
 
     QByteArray reply = simpleDownload(
         evernoteNetworkAccessManager(),
@@ -122,8 +121,7 @@ AsyncResult * Thumbnail::downloadAsync(
         << (isPublic ? "public" : "non-public") << ", "
         << (isResourceGuid ? "resource guid" : "not a resource guid"));
 
-    QPair<QNetworkRequest, QByteArray> pair =
-        createPostRequest(guid, isPublic, isResourceGuid);
+    auto pair = createPostRequest(guid, isPublic, isResourceGuid);
     auto res = new AsyncResult(pair.first, pair.second, timeoutMsec);
     QObject::connect(res, &AsyncResult::finished,
                      [=] (const QVariant & value,
@@ -144,7 +142,7 @@ AsyncResult * Thumbnail::downloadAsync(
     return res;
 }
 
-QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
+std::pair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
     Guid guid, bool isPublic, bool isResourceGuid)
 {
     Q_D(Thumbnail);
@@ -195,7 +193,7 @@ QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
             QByteArray("auth=") + QUrl::toPercentEncoding(d->m_authenticationToken);
     }
 
-    return qMakePair(request, postData);
+    return std::make_pair(request, postData);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
