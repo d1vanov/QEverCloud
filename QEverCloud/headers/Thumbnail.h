@@ -49,9 +49,19 @@ public:
      *
      * Can be PNG, JPEG, GIF or BMP.
      */
-    struct ImageType {
-        enum type {PNG, JPEG, GIF, BMP};
+    enum class ImageType
+    {
+        PNG,
+        JPEG,
+        GIF,
+        BMP
     };
+
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const ImageType imageType);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const ImageType imageType);
 
     /**
      * @brief Default constructor.
@@ -79,7 +89,7 @@ public:
      * Thumbnail image type. See ImageType. By default PNG is used.
      */
     Thumbnail(QString host, QString shardId, QString authenticationToken,
-              int size = 300, ImageType::type imageType = ImageType::PNG);
+              int size = 300, ImageType imageType = ImageType::PNG);
 
     virtual ~Thumbnail();
 
@@ -115,7 +125,7 @@ public:
      * @param imageType
      * Thumbnail image type. See ImageType. By default PNG is used.
      */
-    Thumbnail & setImageType(ImageType::type imageType);
+    Thumbnail & setImageType(ImageType imageType);
 
     /**
      * @brief Downloads the thumbnail for a resource or a note.

@@ -14,6 +14,8 @@
 
 namespace qevercloud {
 
+////////////////////////////////////////////////////////////////////////////////
+
 class ThumbnailPrivate
 {
 public:
@@ -21,8 +23,10 @@ public:
     QString m_shardId;
     QString m_authenticationToken;
     int m_size;
-    Thumbnail::ImageType::type m_imageType;
+    Thumbnail::ImageType m_imageType;
 };
+
+////////////////////////////////////////////////////////////////////////////////
 
 Thumbnail::Thumbnail():
     d_ptr(new ThumbnailPrivate)
@@ -33,7 +37,7 @@ Thumbnail::Thumbnail():
 
 
 Thumbnail::Thumbnail(QString host, QString shardId, QString authenticationToken,
-                     int size, Thumbnail::ImageType::type imageType) :
+                     int size, Thumbnail::ImageType imageType) :
     d_ptr(new ThumbnailPrivate)
 {
     d_ptr->m_host = host;
@@ -72,7 +76,7 @@ Thumbnail & Thumbnail::setSize(int size)
     return *this;
 }
 
-Thumbnail & Thumbnail::setImageType(ImageType::type imageType)
+Thumbnail & Thumbnail::setImageType(ImageType imageType)
 {
     d_ptr->m_imageType = imageType;
     return *this;
@@ -192,6 +196,49 @@ QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
     }
 
     return qMakePair(request, postData);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+namespace {
+
+template <typename T>
+void printImageType(T & strm, const Thumbnail::ImageType imageType)
+{
+    switch(imageType)
+    {
+    case Thumbnail::ImageType::PNG:
+        strm << "PNG";
+        break;
+    case Thumbnail::ImageType::JPEG:
+        strm << "JPEG";
+        break;
+    case Thumbnail::ImageType::GIF:
+        strm << "GIF";
+        break;
+    case Thumbnail::ImageType::BMP:
+        strm << "BMP";
+        break;
+    default:
+        strm << "Unknown (" << static_cast<qint64>(imageType) << ")";
+        break;
+    }
+}
+
+} // namespace
+
+////////////////////////////////////////////////////////////////////////////////
+
+QTextStream & operator<<(QTextStream & strm, const Thumbnail::ImageType imageType)
+{
+    printImageType(strm, imageType);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Thumbnail::ImageType imageType)
+{
+    printImageType(dbg, imageType);
+    return dbg;
 }
 
 } // namespace qevercloud
