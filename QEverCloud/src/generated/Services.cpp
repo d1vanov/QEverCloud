@@ -779,20 +779,27 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncState v;
                 readSyncState(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -802,7 +809,8 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -812,18 +820,23 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getSyncState: missing result"));
     }
+
     return result;
 }
 
@@ -950,20 +963,27 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncChunk v;
                 readSyncChunk(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -973,7 +993,8 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -983,18 +1004,23 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getFilteredSyncChunk: missing result"));
     }
+
     return result;
 }
 
@@ -1127,20 +1153,27 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncState v;
                 readSyncState(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -1150,7 +1183,8 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -1160,7 +1194,8 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -1170,18 +1205,23 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getLinkedNotebookSyncState: missing result"));
     }
+
     return result;
 }
 
@@ -1323,20 +1363,27 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncChunk v;
                 readSyncChunk(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -1346,7 +1393,8 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -1356,7 +1404,8 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -1366,18 +1415,23 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getLinkedNotebookSyncChunk: missing result"));
     }
+
     return result;
 }
 
@@ -1509,10 +1563,15 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<Notebook> v;
@@ -1532,11 +1591,13 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -1546,7 +1607,8 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -1556,18 +1618,23 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listNotebooks: missing result"));
     }
+
     return result;
 }
 
@@ -1673,10 +1740,15 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<Notebook> v;
@@ -1696,11 +1768,13 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -1710,7 +1784,8 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -1720,18 +1795,23 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listAccessibleBusinessNotebooks: missing result"));
     }
+
     return result;
 }
 
@@ -1844,20 +1924,27 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
                 readNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -1867,7 +1954,8 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -1877,7 +1965,8 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -1887,18 +1976,23 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -2012,20 +2106,27 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
                 readNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -2035,7 +2136,8 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -2045,18 +2147,23 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getDefaultNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -2169,20 +2276,27 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
                 readNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -2192,7 +2306,8 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -2202,7 +2317,8 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -2212,18 +2328,23 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("createNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -2344,20 +2465,27 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -2367,7 +2495,8 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -2377,7 +2506,8 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -2387,18 +2517,23 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -2519,20 +2654,27 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -2542,7 +2684,8 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -2552,7 +2695,8 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -2562,18 +2706,23 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("expungeNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -2687,10 +2836,15 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<Tag> v;
@@ -2710,11 +2864,13 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -2724,7 +2880,8 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -2734,18 +2891,23 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listTags: missing result"));
     }
+
     return result;
 }
 
@@ -2858,10 +3020,15 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<Tag> v;
@@ -2881,11 +3048,13 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -2895,7 +3064,8 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -2905,7 +3075,8 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -2915,18 +3086,23 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listTagsByNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -3047,20 +3223,27 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Tag v;
                 readTag(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -3070,7 +3253,8 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -3080,7 +3264,8 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -3090,18 +3275,23 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getTag: missing result"));
     }
+
     return result;
 }
 
@@ -3222,20 +3412,27 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Tag v;
                 readTag(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -3245,7 +3442,8 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -3255,7 +3453,8 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -3265,18 +3464,23 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("createTag: missing result"));
     }
+
     return result;
 }
 
@@ -3397,20 +3601,27 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -3420,7 +3631,8 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -3430,7 +3642,8 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -3440,18 +3653,23 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateTag: missing result"));
     }
+
     return result;
 }
 
@@ -3570,10 +3788,15 @@ void NoteStore_untagAll_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -3583,7 +3806,8 @@ void NoteStore_untagAll_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -3593,7 +3817,8 @@ void NoteStore_untagAll_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -3603,13 +3828,17 @@ void NoteStore_untagAll_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant NoteStore_untagAll_readReplyAsync(QByteArray reply)
@@ -3730,20 +3959,27 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -3753,7 +3989,8 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -3763,7 +4000,8 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -3773,18 +4011,23 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("expungeTag: missing result"));
     }
+
     return result;
 }
 
@@ -3898,10 +4141,15 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<SavedSearch> v;
@@ -3921,11 +4169,13 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -3935,7 +4185,8 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -3945,18 +4196,23 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listSearches: missing result"));
     }
+
     return result;
 }
 
@@ -4069,20 +4325,27 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SavedSearch v;
                 readSavedSearch(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -4092,7 +4355,8 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -4102,7 +4366,8 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -4112,18 +4377,23 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getSearch: missing result"));
     }
+
     return result;
 }
 
@@ -4244,20 +4514,27 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SavedSearch v;
                 readSavedSearch(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -4267,7 +4544,8 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -4277,18 +4555,23 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("createSearch: missing result"));
     }
+
     return result;
 }
 
@@ -4409,20 +4692,27 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -4432,7 +4722,8 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -4442,7 +4733,8 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -4452,18 +4744,23 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateSearch: missing result"));
     }
+
     return result;
 }
 
@@ -4584,20 +4881,27 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -4607,7 +4911,8 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -4617,7 +4922,8 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -4627,18 +4933,23 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("expungeSearch: missing result"));
     }
+
     return result;
 }
 
@@ -4766,20 +5077,27 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -4789,7 +5107,8 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -4799,7 +5118,8 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -4809,18 +5129,23 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("findNoteOffset: missing result"));
     }
+
     return result;
 }
 
@@ -4968,20 +5293,27 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 NotesMetadataList v;
                 readNotesMetadataList(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -4991,7 +5323,8 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -5001,7 +5334,8 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -5011,18 +5345,23 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("findNotesMetadata: missing result"));
     }
+
     return result;
 }
 
@@ -5168,20 +5507,27 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 NoteCollectionCounts v;
                 readNoteCollectionCounts(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -5191,7 +5537,8 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -5201,7 +5548,8 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -5211,18 +5559,23 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("findNoteCounts: missing result"));
     }
+
     return result;
 }
 
@@ -5356,20 +5709,27 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
                 readNote(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -5379,7 +5739,8 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -5389,7 +5750,8 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -5399,18 +5761,23 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteWithResultSpec: missing result"));
     }
+
     return result;
 }
 
@@ -5565,20 +5932,27 @@ Note NoteStore_getNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
                 readNote(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -5588,7 +5962,8 @@ Note NoteStore_getNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -5598,7 +5973,8 @@ Note NoteStore_getNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -5608,18 +5984,23 @@ Note NoteStore_getNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNote: missing result"));
     }
+
     return result;
 }
 
@@ -5764,20 +6145,27 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 LazyMap v;
                 readLazyMap(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -5787,7 +6175,8 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -5797,7 +6186,8 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -5807,18 +6197,23 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteApplicationData: missing result"));
     }
+
     return result;
 }
 
@@ -5946,20 +6341,27 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
                 r.readString(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -5969,7 +6371,8 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -5979,7 +6382,8 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -5989,18 +6393,23 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteApplicationDataEntry: missing result"));
     }
+
     return result;
 }
 
@@ -6141,20 +6550,27 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -6164,7 +6580,8 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -6174,7 +6591,8 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -6184,18 +6602,23 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("setNoteApplicationDataEntry: missing result"));
     }
+
     return result;
 }
 
@@ -6335,20 +6758,27 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -6358,7 +6788,8 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -6368,7 +6799,8 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -6378,18 +6810,23 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("unsetNoteApplicationDataEntry: missing result"));
     }
+
     return result;
 }
 
@@ -6516,20 +6953,27 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
                 r.readString(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -6539,7 +6983,8 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -6549,7 +6994,8 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -6559,18 +7005,23 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteContent: missing result"));
     }
+
     return result;
 }
 
@@ -6705,20 +7156,27 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
                 r.readString(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -6728,7 +7186,8 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -6738,7 +7197,8 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -6748,18 +7208,23 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteSearchText: missing result"));
     }
+
     return result;
 }
 
@@ -6892,20 +7357,27 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
                 r.readString(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -6915,7 +7387,8 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -6925,7 +7398,8 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -6935,18 +7409,23 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceSearchText: missing result"));
     }
+
     return result;
 }
 
@@ -7067,10 +7546,15 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QStringList v;
@@ -7090,11 +7574,13 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -7104,7 +7590,8 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -7114,7 +7601,8 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -7124,18 +7612,23 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteTagNames: missing result"));
     }
+
     return result;
 }
 
@@ -7256,20 +7749,27 @@ Note NoteStore_createNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
                 readNote(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -7279,7 +7779,8 @@ Note NoteStore_createNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -7289,7 +7790,8 @@ Note NoteStore_createNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -7299,18 +7801,23 @@ Note NoteStore_createNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("createNote: missing result"));
     }
+
     return result;
 }
 
@@ -7431,20 +7938,27 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
                 readNote(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -7454,7 +7968,8 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -7464,7 +7979,8 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -7474,18 +7990,23 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateNote: missing result"));
     }
+
     return result;
 }
 
@@ -7606,20 +8127,27 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -7629,7 +8157,8 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -7639,7 +8168,8 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -7649,18 +8179,23 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("deleteNote: missing result"));
     }
+
     return result;
 }
 
@@ -7781,20 +8316,27 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -7804,7 +8346,8 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -7814,7 +8357,8 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -7824,18 +8368,23 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("expungeNote: missing result"));
     }
+
     return result;
 }
 
@@ -7963,20 +8512,27 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
                 readNote(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -7986,7 +8542,8 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -7996,7 +8553,8 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -8006,18 +8564,23 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("copyNote: missing result"));
     }
+
     return result;
 }
 
@@ -8144,10 +8707,15 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<NoteVersionId> v;
@@ -8167,11 +8735,13 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -8181,7 +8751,8 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -8191,7 +8762,8 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -8201,18 +8773,23 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listNoteVersions: missing result"));
     }
+
     return result;
 }
 
@@ -8361,20 +8938,27 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
                 readNote(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -8384,7 +8968,8 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -8394,7 +8979,8 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -8404,18 +8990,23 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNoteVersion: missing result"));
     }
+
     return result;
 }
 
@@ -8588,20 +9179,27 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Resource v;
                 readResource(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -8611,7 +9209,8 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -8621,7 +9220,8 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -8631,18 +9231,23 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResource: missing result"));
     }
+
     return result;
 }
 
@@ -8787,20 +9392,27 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 LazyMap v;
                 readLazyMap(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -8810,7 +9422,8 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -8820,7 +9433,8 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -8830,18 +9444,23 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceApplicationData: missing result"));
     }
+
     return result;
 }
 
@@ -8969,20 +9588,27 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
                 r.readString(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -8992,7 +9618,8 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -9002,7 +9629,8 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -9012,18 +9640,23 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceApplicationDataEntry: missing result"));
     }
+
     return result;
 }
 
@@ -9164,20 +9797,27 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -9187,7 +9827,8 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -9197,7 +9838,8 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -9207,18 +9849,23 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("setResourceApplicationDataEntry: missing result"));
     }
+
     return result;
 }
 
@@ -9358,20 +10005,27 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -9381,7 +10035,8 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -9391,7 +10046,8 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -9401,18 +10057,23 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("unsetResourceApplicationDataEntry: missing result"));
     }
+
     return result;
 }
 
@@ -9539,20 +10200,27 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -9562,7 +10230,8 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -9572,7 +10241,8 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -9582,18 +10252,23 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateResource: missing result"));
     }
+
     return result;
 }
 
@@ -9714,20 +10389,27 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QByteArray v;
                 r.readBinary(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -9737,7 +10419,8 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -9747,7 +10430,8 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -9757,18 +10441,23 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceData: missing result"));
     }
+
     return result;
 }
 
@@ -9917,20 +10606,27 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Resource v;
                 readResource(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -9940,7 +10636,8 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -9950,7 +10647,8 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -9960,18 +10658,23 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceByHash: missing result"));
     }
+
     return result;
 }
 
@@ -10116,20 +10819,27 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QByteArray v;
                 r.readBinary(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -10139,7 +10849,8 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -10149,7 +10860,8 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -10159,18 +10871,23 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceRecognition: missing result"));
     }
+
     return result;
 }
 
@@ -10291,20 +11008,27 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QByteArray v;
                 r.readBinary(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -10314,7 +11038,8 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -10324,7 +11049,8 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -10334,18 +11060,23 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceAlternateData: missing result"));
     }
+
     return result;
 }
 
@@ -10466,20 +11197,27 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 ResourceAttributes v;
                 readResourceAttributes(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -10489,7 +11227,8 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -10499,7 +11238,8 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -10509,18 +11249,23 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getResourceAttributes: missing result"));
     }
+
     return result;
 }
 
@@ -10641,20 +11386,27 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
                 readNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -10664,7 +11416,8 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -10674,18 +11427,23 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getPublicNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -10817,20 +11575,27 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SharedNotebook v;
                 readSharedNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -10840,7 +11605,8 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -10850,7 +11616,8 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -10860,18 +11627,23 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("shareNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -10998,20 +11770,27 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 CreateOrUpdateNotebookSharesResult v;
                 readCreateOrUpdateNotebookSharesResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -11021,7 +11800,8 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -11031,7 +11811,8 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -11041,7 +11822,8 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 4) {
+        else if (fieldId == 4)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMInvalidContactsException e;
                 readEDAMInvalidContactsException(r, e);
@@ -11051,18 +11833,23 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("createOrUpdateNotebookShares: missing result"));
     }
+
     return result;
 }
 
@@ -11183,20 +11970,27 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -11206,7 +12000,8 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -11216,7 +12011,8 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -11226,18 +12022,23 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateSharedNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -11365,20 +12166,27 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
                 readNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -11388,7 +12196,8 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -11398,7 +12207,8 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -11408,18 +12218,23 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("setNotebookRecipientSettings: missing result"));
     }
+
     return result;
 }
 
@@ -11539,10 +12354,15 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<SharedNotebook> v;
@@ -11562,11 +12382,13 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -11576,7 +12398,8 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -11586,7 +12409,8 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -11596,18 +12420,23 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listSharedNotebooks: missing result"));
     }
+
     return result;
 }
 
@@ -11720,20 +12549,27 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 LinkedNotebook v;
                 readLinkedNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -11743,7 +12579,8 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -11753,7 +12590,8 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -11763,18 +12601,23 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("createLinkedNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -11895,20 +12738,27 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -11918,7 +12768,8 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -11928,7 +12779,8 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -11938,18 +12790,23 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateLinkedNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -12063,10 +12920,15 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<LinkedNotebook> v;
@@ -12086,11 +12948,13 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -12100,7 +12964,8 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -12110,7 +12975,8 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -12120,18 +12986,23 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listLinkedNotebooks: missing result"));
     }
+
     return result;
 }
 
@@ -12244,20 +13115,27 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
                 r.readI32(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -12267,7 +13145,8 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -12277,7 +13156,8 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -12287,18 +13167,23 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("expungeLinkedNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -12419,20 +13304,27 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
                 readAuthenticationResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -12442,7 +13334,8 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -12452,7 +13345,8 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -12462,18 +13356,23 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("authenticateToSharedNotebook: missing result"));
     }
+
     return result;
 }
 
@@ -12587,20 +13486,27 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SharedNotebook v;
                 readSharedNotebook(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -12610,7 +13516,8 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -12620,7 +13527,8 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -12630,18 +13538,23 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getSharedNotebookByAuth: missing result"));
     }
+
     return result;
 }
 
@@ -12752,10 +13665,15 @@ void NoteStore_emailNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -12765,7 +13683,8 @@ void NoteStore_emailNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -12775,7 +13694,8 @@ void NoteStore_emailNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -12785,13 +13705,17 @@ void NoteStore_emailNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant NoteStore_emailNote_readReplyAsync(QByteArray reply)
@@ -12912,20 +13836,27 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
                 r.readString(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -12935,7 +13866,8 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -12945,7 +13877,8 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -12955,18 +13888,23 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("shareNote: missing result"));
     }
+
     return result;
 }
 
@@ -13085,10 +14023,15 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -13098,7 +14041,8 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -13108,7 +14052,8 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -13118,13 +14063,17 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant NoteStore_stopSharingNote_readReplyAsync(QByteArray reply)
@@ -13252,20 +14201,27 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
                 readAuthenticationResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -13275,7 +14231,8 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -13285,7 +14242,8 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -13295,18 +14253,23 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("authenticateToSharedNote: missing result"));
     }
+
     return result;
 }
 
@@ -13440,20 +14403,27 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 RelatedResult v;
                 readRelatedResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -13463,7 +14433,8 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -13473,7 +14444,8 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -13483,18 +14455,23 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("findRelated: missing result"));
     }
+
     return result;
 }
 
@@ -13621,20 +14598,27 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 UpdateNoteIfUsnMatchesResult v;
                 readUpdateNoteIfUsnMatchesResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -13644,7 +14628,8 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -13654,7 +14639,8 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -13664,18 +14650,23 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("updateNoteIfUsnMatches: missing result"));
     }
+
     return result;
 }
 
@@ -13796,20 +14787,27 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 ManageNotebookSharesResult v;
                 readManageNotebookSharesResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -13819,7 +14817,8 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -13829,7 +14828,8 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -13839,18 +14839,23 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("manageNotebookShares: missing result"));
     }
+
     return result;
 }
 
@@ -13971,20 +14976,27 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 ShareRelationships v;
                 readShareRelationships(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -13994,7 +15006,8 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -14004,7 +15017,8 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -14014,18 +15028,23 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getNotebookShares: missing result"));
     }
+
     return result;
 }
 
@@ -14315,31 +15334,42 @@ bool UserStore_checkVersion_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_BOOL) {
                 resultIsSet = true;
                 bool v;
                 r.readBool(v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("checkVersion: missing result"));
     }
+
     return result;
 }
 
@@ -14463,31 +15493,42 @@ BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 BootstrapInfo v;
                 readBootstrapInfo(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getBootstrapInfo: missing result"));
     }
+
     return result;
 }
 
@@ -14641,20 +15682,27 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
                 readAuthenticationResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -14664,7 +15712,8 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -14674,18 +15723,23 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("authenticateLongSession: missing result"));
     }
+
     return result;
 }
 
@@ -14848,20 +15902,27 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
                 readAuthenticationResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -14871,7 +15932,8 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -14881,18 +15943,23 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("completeTwoFactorAuthentication: missing result"));
     }
+
     return result;
 }
 
@@ -15014,10 +16081,15 @@ void UserStore_revokeLongSession_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15027,7 +16099,8 @@ void UserStore_revokeLongSession_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15037,13 +16110,17 @@ void UserStore_revokeLongSession_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant UserStore_revokeLongSession_readReplyAsync(QByteArray reply)
@@ -15149,20 +16226,27 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
                 readAuthenticationResult(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15172,7 +16256,8 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15182,18 +16267,23 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("authenticateToBusiness: missing result"));
     }
+
     return result;
 }
 
@@ -15299,20 +16389,27 @@ User UserStore_getUser_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 User v;
                 readUser(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15322,7 +16419,8 @@ User UserStore_getUser_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15332,18 +16430,23 @@ User UserStore_getUser_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getUser: missing result"));
     }
+
     return result;
 }
 
@@ -15449,20 +16552,27 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 PublicUserInfo v;
                 readPublicUserInfo(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -15472,7 +16582,8 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15482,7 +16593,8 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15492,18 +16604,23 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getPublicUserInfo: missing result"));
     }
+
     return result;
 }
 
@@ -15615,20 +16732,27 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 UserUrls v;
                 readUserUrls(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15638,7 +16762,8 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15648,18 +16773,23 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getUserUrls: missing result"));
     }
+
     return result;
 }
 
@@ -15770,10 +16900,15 @@ void UserStore_inviteToBusiness_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15783,7 +16918,8 @@ void UserStore_inviteToBusiness_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15793,13 +16929,17 @@ void UserStore_inviteToBusiness_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant UserStore_inviteToBusiness_readReplyAsync(QByteArray reply)
@@ -15918,10 +17058,15 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -15931,7 +17076,8 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -15941,7 +17087,8 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -15951,13 +17098,17 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant UserStore_removeFromBusiness_readReplyAsync(QByteArray reply)
@@ -16083,10 +17234,15 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 1) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -16096,7 +17252,8 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -16106,7 +17263,8 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 3) {
+        else if (fieldId == 3)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
                 readEDAMNotFoundException(r, e);
@@ -16116,13 +17274,17 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
 }
 
 QVariant UserStore_updateBusinessUserIdentifier_readReplyAsync(QByteArray reply)
@@ -16242,10 +17404,15 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<UserProfile> v;
@@ -16265,11 +17432,13 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -16279,7 +17448,8 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -16289,18 +17459,23 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listBusinessUsers: missing result"));
     }
+
     return result;
 }
 
@@ -16413,10 +17588,15 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList<BusinessInvitation> v;
@@ -16436,11 +17616,13 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
                 }
                 r.readListEnd();
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -16450,7 +17632,8 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 2) {
+        else if (fieldId == 2)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
                 readEDAMSystemException(r, e);
@@ -16460,18 +17643,23 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("listBusinessInvitations: missing result"));
     }
+
     return result;
 }
 
@@ -16585,20 +17773,27 @@ AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
     ThriftFieldType fieldType;
     qint16 fieldId;
     r.readStructBegin(fname);
-    while(true) {
+    while(true)
+    {
         r.readFieldBegin(fname, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) break;
-        if (fieldId == 0) {
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 0)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AccountLimits v;
                 readAccountLimits(r, v);
                 result = v;
-            } else {
+            }
+            else {
                 r.skip(fieldType);
             }
         }
-       else if (fieldId == 1) {
+        else if (fieldId == 1)
+        {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
                 readEDAMUserException(r, e);
@@ -16608,18 +17803,23 @@ AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
                 r.skip(fieldType);
             }
         }
-        else {
+        else
+        {
             r.skip(fieldType);
         }
+
         r.readFieldEnd();
     }
+
     r.readStructEnd();
     r.readMessageEnd();
+
     if (!resultIsSet) {
         throw ThriftException(
             ThriftException::Type::MISSING_RESULT,
             QStringLiteral("getAccountLimits: missing result"));
     }
+
     return result;
 }
 
