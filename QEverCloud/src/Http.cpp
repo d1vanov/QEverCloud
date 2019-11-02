@@ -54,14 +54,10 @@ void ReplyFetcher::start(
     m_ticker->start(1000);
 
     if (postData.isNull()) {
-        m_reply = std::shared_ptr<QNetworkReply>(
-            nam->get(request),
-            [] (QNetworkReply * reply) { reply->deleteLater(); });
+        m_reply = QNetworkReplyPtr(nam->get(request));
     }
     else {
-        m_reply = std::shared_ptr<QNetworkReply>(
-            nam->post(request, postData),
-            [] (QNetworkReply * reply) { reply->deleteLater(); });
+        m_reply = QNetworkReplyPtr(nam->post(request, postData));
     }
 
     QObject::connect(m_reply.get(), &QNetworkReply::finished,

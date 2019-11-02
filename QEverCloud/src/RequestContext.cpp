@@ -87,7 +87,7 @@ IRequestContextPtr newRequestContext(
     qint64 maxRequestTimeout,
     quint32 maxRequestRetryCount)
 {
-    return std::make_shared<RequestContext>(
+    return QSharedPointer<RequestContext>::create(
         std::move(authenticationToken),
         requestTimeout,
         increaseRequestTimeoutExponentially,

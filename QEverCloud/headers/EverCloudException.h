@@ -13,18 +13,16 @@
 #include "Helpers.h"
 
 #include <QObject>
+#include <QSharedPointer>
 #include <QString>
 
 #include <exception>
-#include <memory>
 
 namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
 class QEVERCLOUD_EXPORT EverCloudExceptionData;
-
-using EverCloudExceptionDataPtr = std::shared_ptr<EverCloudExceptionData>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -46,7 +44,7 @@ public:
 
     const char * what() const noexcept;
 
-    virtual EverCloudExceptionDataPtr exceptionData() const;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,15 +69,15 @@ public:
 NoteStore* ns;
 ...
 QObject::connect(ns->getNotebook(notebookGuid), &AsyncResult::finished,
-                 [](QVariant result, EverCloudExceptionDataPtr error)
+                 [](QVariant result, EverCloudExceptionData error)
                  {
-                     if (error)
+                     if (!error.isNull())
                      {
-                         std::shared_ptr<EDAMNotFoundExceptionData> errorNotFound =
+                         QSharedPointer<EDAMNotFoundExceptionData> errorNotFound =
                              error.objectCast<EDAMNotFoundExceptionData>();
-                         std::shared_ptr<EDAMUserExceptionData> errorUser =
+                         QSharedPointer<EDAMUserExceptionData> errorUser =
                              error.objectCast<EDAMUserExceptionData>();
-                         std::shared_ptr<EDAMSystemExceptionData> errorSystem =
+                         QSharedPointer<EDAMSystemExceptionData> errorSystem =
                              error.objectCast<EDAMSystemExceptionData>();
 
                          if (!errorNotFound.isNull())
@@ -157,7 +155,7 @@ public:
     explicit EvernoteException(const std::string & error);
     explicit EvernoteException(const char * error);
 
-    virtual EverCloudExceptionDataPtr exceptionData() const Q_DECL_OVERRIDE;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -13,10 +13,10 @@
 #include "RequestContext.h"
 
 #include <QDateTime>
+#include <QSharedPointer>
 #include <QVariant>
 
 #include <functional>
-#include <memory>
 #include <utility>
 
 namespace qevercloud {
@@ -26,10 +26,10 @@ namespace qevercloud {
 struct QEVERCLOUD_EXPORT IRetryPolicy
 {
     virtual bool shouldRetry(
-        EverCloudExceptionDataPtr exceptionData) = 0;
+        QSharedPointer<EverCloudExceptionData> exceptionData) = 0;
 };
 
-using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
+using IRetryPolicyPtr = QSharedPointer<IRetryPolicy>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +38,7 @@ QT_FORWARD_DECLARE_CLASS(DurableServicePrivate)
 class QEVERCLOUD_EXPORT IDurableService
 {
 public:
-    using SyncResult = std::pair<QVariant, EverCloudExceptionDataPtr>;
+    using SyncResult = std::pair<QVariant, QSharedPointer<EverCloudExceptionData>>;
     using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
     using AsyncServiceCall = std::function<AsyncResult*(IRequestContextPtr)>;
 
@@ -78,7 +78,7 @@ public:
         AsyncRequest && asyncRequest, IRequestContextPtr ctx) = 0;
 };
 
-using IDurableServicePtr = std::shared_ptr<IDurableService>;
+using IDurableServicePtr = QSharedPointer<IDurableService>;
 
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -49,7 +49,7 @@ AsyncResult::AsyncResult(
     QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }
 
-AsyncResult::AsyncResult(QVariant result, EverCloudExceptionDataPtr error,
+AsyncResult::AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
                          bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(result, error, autoDelete, this))
@@ -64,7 +64,7 @@ bool AsyncResult::waitForFinished(int timeout)
 {
     QEventLoop loop;
     QObject::connect(this,
-                     SIGNAL(finished(QVariant,EverCloudExceptionDataPtr)),
+                     SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)),
                      &loop, SLOT(quit()));
 
     if(timeout >= 0) {

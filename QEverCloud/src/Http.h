@@ -69,7 +69,17 @@ private:
     void setError(QNetworkReply::NetworkError errorType, QString errorText);
 
 private:
-    std::shared_ptr<QNetworkReply>  m_reply;
+    struct QNetworkReplyDeleter
+    {
+        void operator()(QNetworkReply * reply)
+        {
+            reply->deleteLater();
+        }
+    };
+
+    using QNetworkReplyPtr = std::unique_ptr<QNetworkReply, QNetworkReplyDeleter>;
+
+    QNetworkReplyPtr    m_reply;
 
     QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
     QString     m_errorText;

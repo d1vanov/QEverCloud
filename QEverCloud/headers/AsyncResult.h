@@ -33,7 +33,7 @@ NoteStore* ns;
 Note note;
 ...
 QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished,
-                 [ns](QVariant result, EverCloudExceptionDataPtr error)
+                 [ns](QVariant result, QSharedPointer<EverCloudExceptionData> error)
                  {
                      if (error) {
                          // do something in case of an error
@@ -66,7 +66,7 @@ public:
      * Constructor accepting already prepared value and/or exception,
      * for use in tests
      */
-    AsyncResult(QVariant result, EverCloudExceptionDataPtr error,
+    AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
                 bool autoDelete = true, QObject * parent = nullptr);
 
     ~AsyncResult();
@@ -90,17 +90,8 @@ Q_SIGNALS:
      * AsyncResult deletes itself after emitting this signal (if autoDelete
      * parameter passed to its constructor was set to true). You don't have to
      * manage it's lifetime explicitly.
-     *
-     * NOTE: in order to use this signal with queued connections (either via
-     * explicit specification of Qt::QueuedConnection connection type or just
-     * via connecting signals and slots of objects living in different threads),
-     * you must make this call before creating any such connection:
-     *
-     * @code
-     * qRegisterMetaType<EverCloudExceptionDataPtr>("EverCloudExceptionDataPtr");
-     * @endcode
      */
-    void finished(QVariant result, EverCloudExceptionDataPtr error);
+    void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
 
 private:
     friend class DurableService;

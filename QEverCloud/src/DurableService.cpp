@@ -40,7 +40,7 @@ quint64 exponentiallyIncreasedTimeoutMsec(
 struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
 {
     virtual bool shouldRetry(
-        EverCloudExceptionDataPtr exceptionData) override
+        QSharedPointer<EverCloudExceptionData> exceptionData) override
     {
         if (Q_UNLIKELY(!exceptionData)) {
             return true;
@@ -166,7 +166,7 @@ DurableService::SyncResult DurableService::executeSyncRequest(
             result.second = e.exceptionData();
         }
         catch(const std::exception & e) {
-            result.second = std::make_shared<EverCloudExceptionData>(
+            result.second = QSharedPointer<EverCloudExceptionData>::create(
                 QString::fromLocal8Bit(e.what()));
             return result;
         }
@@ -252,7 +252,7 @@ void DurableService::doExecuteAsyncRequest(
         result,
         [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
             QVariant value,
-            EverCloudExceptionDataPtr exceptionData) mutable
+            QSharedPointer<EverCloudExceptionData> exceptionData) mutable
         {
             if (!exceptionData) {
                 QEC_DEBUG("durable_service", "Successfully executed async "
@@ -305,15 +305,14 @@ void DurableService::doExecuteAsyncRequest(
 
 IRetryPolicyPtr newRetryPolicy()
 {
-    return std::make_shared<RetryPolicy>();
+    return QSharedPointer<RetryPolicy>::create();
 }
 
 IDurableServicePtr newDurableService(
     IRetryPolicyPtr retryPolicy,
     IRequestContextPtr ctx)
 {
-    return std::make_shared<DurableService>(
-        retryPolicy, ctx);
+    return QSharedPointer<DurableService>::create(retryPolicy, ctx);
 }
 
 } // namespace qevercloud

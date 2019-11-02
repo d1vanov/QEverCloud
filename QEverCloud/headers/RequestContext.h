@@ -11,9 +11,8 @@
 #include "Export.h"
 
 #include <QDebug>
+#include <QSharedPointer>
 #include <QTextStream>
-
-#include <memory>
 
 namespace qevercloud {
 
@@ -61,7 +60,7 @@ public:
         QDebug & dbg, const IRequestContext & ctx);
 };
 
-using IRequestContextPtr = std::shared_ptr<IRequestContext>;
+using IRequestContextPtr = QSharedPointer<IRequestContext>;
 
 ////////////////////////////////////////////////////////////////////////////////
 

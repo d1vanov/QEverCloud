@@ -189,7 +189,7 @@ ILoggerPtr logger()
 {
     if (globalLogger.exists() &&
         !globalLogger.isDestroyed() &&
-        (globalLogger->get() != nullptr))
+        !globalLogger->isNull())
     {
         return *globalLogger;
     }
@@ -206,12 +206,12 @@ void setLogger(ILoggerPtr logger)
 
 ILoggerPtr newNullLogger()
 {
-    return std::make_shared<NullLogger>();
+    return QSharedPointer<NullLogger>::create();
 }
 
 ILoggerPtr newStdErrLogger(LogLevel level)
 {
-    return std::make_shared<StdErrLogger>(level);
+    return QSharedPointer<StdErrLogger>::create(level);
 }
 
 QTextStream & operator<<(QTextStream & out, const LogLevel level)
