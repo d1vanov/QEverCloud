@@ -37,6 +37,7 @@ endif()
 set(GENERATED_HEADERS
     headers/generated/Constants.h
     headers/generated/Services.h
+    headers/generated/Servers.h
     headers/generated/Types.h
     headers/generated/EDAMErrorCode.h)
 
@@ -64,6 +65,7 @@ set(SOURCES
     src/generated/Constants.cpp
     src/generated/EDAMErrorCode.cpp
     src/generated/Services.cpp
+    src/generated/Servers.cpp
     src/generated/Types.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
