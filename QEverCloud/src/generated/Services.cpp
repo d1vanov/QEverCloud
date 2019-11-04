@@ -726,62 +726,68 @@ private:
 
 namespace {
 
-QByteArray NoteStore_getSyncState_prepareParams(
+QByteArray NoteStoreGetSyncStatePrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_getSyncState_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetSyncStatePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getSyncState"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getSyncState"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getSyncState_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SyncState NoteStore_getSyncState_readReply(QByteArray reply)
+SyncState NoteStoreGetSyncStateReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getSyncState_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetSyncStateReadReply");
 
     bool resultIsSet = false;
     SyncState result = SyncState();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getSyncState")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -791,45 +797,45 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncState v;
-                readSyncState(r, v);
+                readSyncState(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -840,9 +846,9 @@ SyncState NoteStore_getSyncState_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getSyncState_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetSyncStateReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getSyncState_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetSyncStateReadReply(reply));
 }
 
 } // namespace
@@ -855,7 +861,7 @@ SyncState NoteStore::getSyncState(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getSyncState_prepareParams(
+    QByteArray params = NoteStoreGetSyncStatePrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -863,7 +869,7 @@ SyncState NoteStore::getSyncState(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getSyncState_readReply(reply);
+    return NoteStoreGetSyncStateReadReply(reply);
 }
 
 AsyncResult * NoteStore::getSyncStateAsync(
@@ -875,97 +881,109 @@ AsyncResult * NoteStore::getSyncStateAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getSyncState_prepareParams(
+    QByteArray params = NoteStoreGetSyncStatePrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getSyncState_readReplyAsync);
+        NoteStoreGetSyncStateReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getFilteredSyncChunk_prepareParams(
+QByteArray NoteStoreGetFilteredSyncChunkPrepareParams(
     QString authenticationToken,
     qint32 afterUSN,
     qint32 maxEntries,
     const SyncChunkFilter & filter)
 {
-    QEC_DEBUG("note_store", "NoteStore_getFilteredSyncChunk_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetFilteredSyncChunkPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getFilteredSyncChunk"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getFilteredSyncChunk"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getFilteredSyncChunk_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("afterUSN"),
         ThriftFieldType::T_I32,
         2);
-    w.writeI32(afterUSN);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(afterUSN);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("maxEntries"),
         ThriftFieldType::T_I32,
         3);
-    w.writeI32(maxEntries);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(maxEntries);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("filter"),
         ThriftFieldType::T_STRUCT,
         4);
-    writeSyncChunkFilter(w, filter);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeSyncChunkFilter(writer, filter);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
+SyncChunk NoteStoreGetFilteredSyncChunkReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getFilteredSyncChunk_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetFilteredSyncChunkReadReply");
 
     bool resultIsSet = false;
     SyncChunk result = SyncChunk();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getFilteredSyncChunk")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -975,45 +993,45 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncChunk v;
-                readSyncChunk(r, v);
+                readSyncChunk(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -1024,9 +1042,9 @@ SyncChunk NoteStore_getFilteredSyncChunk_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getFilteredSyncChunk_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetFilteredSyncChunkReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getFilteredSyncChunk_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetFilteredSyncChunkReadReply(reply));
 }
 
 } // namespace
@@ -1046,7 +1064,7 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getFilteredSyncChunk_prepareParams(
+    QByteArray params = NoteStoreGetFilteredSyncChunkPrepareParams(
         ctx->authenticationToken(),
         afterUSN,
         maxEntries,
@@ -1057,7 +1075,7 @@ SyncChunk NoteStore::getFilteredSyncChunk(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getFilteredSyncChunk_readReply(reply);
+    return NoteStoreGetFilteredSyncChunkReadReply(reply);
 }
 
 AsyncResult * NoteStore::getFilteredSyncChunkAsync(
@@ -1076,7 +1094,7 @@ AsyncResult * NoteStore::getFilteredSyncChunkAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getFilteredSyncChunk_prepareParams(
+    QByteArray params = NoteStoreGetFilteredSyncChunkPrepareParams(
         ctx->authenticationToken(),
         afterUSN,
         maxEntries,
@@ -1086,76 +1104,84 @@ AsyncResult * NoteStore::getFilteredSyncChunkAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getFilteredSyncChunk_readReplyAsync);
+        NoteStoreGetFilteredSyncChunkReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getLinkedNotebookSyncState_prepareParams(
+QByteArray NoteStoreGetLinkedNotebookSyncStatePrepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook)
 {
-    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncState_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetLinkedNotebookSyncStatePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getLinkedNotebookSyncState"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getLinkedNotebookSyncState"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getLinkedNotebookSyncState_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("linkedNotebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeLinkedNotebook(w, linkedNotebook);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeLinkedNotebook(writer, linkedNotebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
+SyncState NoteStoreGetLinkedNotebookSyncStateReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncState_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetLinkedNotebookSyncStateReadReply");
 
     bool resultIsSet = false;
     SyncState result = SyncState();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getLinkedNotebookSyncState")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -1165,56 +1191,56 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncState v;
-                readSyncState(r, v);
+                readSyncState(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -1225,9 +1251,9 @@ SyncState NoteStore_getLinkedNotebookSyncState_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getLinkedNotebookSyncState_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetLinkedNotebookSyncStateReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getLinkedNotebookSyncState_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetLinkedNotebookSyncStateReadReply(reply));
 }
 
 } // namespace
@@ -1243,7 +1269,7 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getLinkedNotebookSyncState_prepareParams(
+    QByteArray params = NoteStoreGetLinkedNotebookSyncStatePrepareParams(
         ctx->authenticationToken(),
         linkedNotebook);
 
@@ -1252,7 +1278,7 @@ SyncState NoteStore::getLinkedNotebookSyncState(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getLinkedNotebookSyncState_readReply(reply);
+    return NoteStoreGetLinkedNotebookSyncStateReadReply(reply);
 }
 
 AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
@@ -1267,7 +1293,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getLinkedNotebookSyncState_prepareParams(
+    QByteArray params = NoteStoreGetLinkedNotebookSyncStatePrepareParams(
         ctx->authenticationToken(),
         linkedNotebook);
 
@@ -1275,97 +1301,111 @@ AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getLinkedNotebookSyncState_readReplyAsync);
+        NoteStoreGetLinkedNotebookSyncStateReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getLinkedNotebookSyncChunk_prepareParams(
+QByteArray NoteStoreGetLinkedNotebookSyncChunkPrepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
     bool fullSyncOnly)
 {
-    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncChunk_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetLinkedNotebookSyncChunkPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getLinkedNotebookSyncChunk"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getLinkedNotebookSyncChunk"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getLinkedNotebookSyncChunk_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("linkedNotebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeLinkedNotebook(w, linkedNotebook);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writeLinkedNotebook(writer, linkedNotebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("afterUSN"),
         ThriftFieldType::T_I32,
         3);
-    w.writeI32(afterUSN);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(afterUSN);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("maxEntries"),
         ThriftFieldType::T_I32,
         4);
-    w.writeI32(maxEntries);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(maxEntries);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("fullSyncOnly"),
         ThriftFieldType::T_BOOL,
         5);
-    w.writeBool(fullSyncOnly);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(fullSyncOnly);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
+SyncChunk NoteStoreGetLinkedNotebookSyncChunkReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getLinkedNotebookSyncChunk_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetLinkedNotebookSyncChunkReadReply");
 
     bool resultIsSet = false;
     SyncChunk result = SyncChunk();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getLinkedNotebookSyncChunk")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -1375,56 +1415,56 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SyncChunk v;
-                readSyncChunk(r, v);
+                readSyncChunk(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -1435,9 +1475,9 @@ SyncChunk NoteStore_getLinkedNotebookSyncChunk_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getLinkedNotebookSyncChunk_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetLinkedNotebookSyncChunkReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getLinkedNotebookSyncChunk_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetLinkedNotebookSyncChunkReadReply(reply));
 }
 
 } // namespace
@@ -1459,7 +1499,7 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getLinkedNotebookSyncChunk_prepareParams(
+    QByteArray params = NoteStoreGetLinkedNotebookSyncChunkPrepareParams(
         ctx->authenticationToken(),
         linkedNotebook,
         afterUSN,
@@ -1471,7 +1511,7 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getLinkedNotebookSyncChunk_readReply(reply);
+    return NoteStoreGetLinkedNotebookSyncChunkReadReply(reply);
 }
 
 AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
@@ -1492,7 +1532,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getLinkedNotebookSyncChunk_prepareParams(
+    QByteArray params = NoteStoreGetLinkedNotebookSyncChunkPrepareParams(
         ctx->authenticationToken(),
         linkedNotebook,
         afterUSN,
@@ -1503,69 +1543,75 @@ AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getLinkedNotebookSyncChunk_readReplyAsync);
+        NoteStoreGetLinkedNotebookSyncChunkReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listNotebooks_prepareParams(
+QByteArray NoteStoreListNotebooksPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_listNotebooks_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListNotebooksPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listNotebooks"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listNotebooks"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listNotebooks_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
+QList<Notebook> NoteStoreListNotebooksReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listNotebooks_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListNotebooksReadReply");
 
     bool resultIsSet = false;
     QList<Notebook> result = QList<Notebook>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listNotebooks")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -1577,7 +1623,7 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
                 QList<Notebook> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -1586,48 +1632,48 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     Notebook elem;
-                    readNotebook(r, elem);
+                    readNotebook(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -1638,9 +1684,9 @@ QList<Notebook> NoteStore_listNotebooks_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listNotebooks_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListNotebooksReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listNotebooks_readReply(reply));
+    return QVariant::fromValue(NoteStoreListNotebooksReadReply(reply));
 }
 
 } // namespace
@@ -1653,7 +1699,7 @@ QList<Notebook> NoteStore::listNotebooks(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listNotebooks_prepareParams(
+    QByteArray params = NoteStoreListNotebooksPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -1661,7 +1707,7 @@ QList<Notebook> NoteStore::listNotebooks(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listNotebooks_readReply(reply);
+    return NoteStoreListNotebooksReadReply(reply);
 }
 
 AsyncResult * NoteStore::listNotebooksAsync(
@@ -1673,76 +1719,82 @@ AsyncResult * NoteStore::listNotebooksAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listNotebooks_prepareParams(
+    QByteArray params = NoteStoreListNotebooksPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listNotebooks_readReplyAsync);
+        NoteStoreListNotebooksReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listAccessibleBusinessNotebooks_prepareParams(
+QByteArray NoteStoreListAccessibleBusinessNotebooksPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_listAccessibleBusinessNotebooks_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListAccessibleBusinessNotebooksPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listAccessibleBusinessNotebooks"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listAccessibleBusinessNotebooks"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listAccessibleBusinessNotebooks_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray reply)
+QList<Notebook> NoteStoreListAccessibleBusinessNotebooksReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listAccessibleBusinessNotebooks_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListAccessibleBusinessNotebooksReadReply");
 
     bool resultIsSet = false;
     QList<Notebook> result = QList<Notebook>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listAccessibleBusinessNotebooks")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -1754,7 +1806,7 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
                 QList<Notebook> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -1763,48 +1815,48 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
                 }
                 for(qint32 i = 0; i < size; i++) {
                     Notebook elem;
-                    readNotebook(r, elem);
+                    readNotebook(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -1815,9 +1867,9 @@ QList<Notebook> NoteStore_listAccessibleBusinessNotebooks_readReply(QByteArray r
     return result;
 }
 
-QVariant NoteStore_listAccessibleBusinessNotebooks_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListAccessibleBusinessNotebooksReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listAccessibleBusinessNotebooks_readReply(reply));
+    return QVariant::fromValue(NoteStoreListAccessibleBusinessNotebooksReadReply(reply));
 }
 
 } // namespace
@@ -1830,7 +1882,7 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listAccessibleBusinessNotebooks_prepareParams(
+    QByteArray params = NoteStoreListAccessibleBusinessNotebooksPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -1838,7 +1890,7 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listAccessibleBusinessNotebooks_readReply(reply);
+    return NoteStoreListAccessibleBusinessNotebooksReadReply(reply);
 }
 
 AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
@@ -1850,83 +1902,91 @@ AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listAccessibleBusinessNotebooks_prepareParams(
+    QByteArray params = NoteStoreListAccessibleBusinessNotebooksPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listAccessibleBusinessNotebooks_readReplyAsync);
+        NoteStoreListAccessibleBusinessNotebooksReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNotebook_prepareParams(
+QByteArray NoteStoreGetNotebookPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Notebook NoteStore_getNotebook_readReply(QByteArray reply)
+Notebook NoteStoreGetNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNotebookReadReply");
 
     bool resultIsSet = false;
     Notebook result = Notebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -1936,56 +1996,56 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
-                readNotebook(r, v);
+                readNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -1996,9 +2056,9 @@ Notebook NoteStore_getNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNotebookReadReply(reply));
 }
 
 } // namespace
@@ -2014,7 +2074,7 @@ Notebook NoteStore::getNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNotebook_prepareParams(
+    QByteArray params = NoteStoreGetNotebookPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -2023,7 +2083,7 @@ Notebook NoteStore::getNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNotebook_readReply(reply);
+    return NoteStoreGetNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNotebookAsync(
@@ -2038,7 +2098,7 @@ AsyncResult * NoteStore::getNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNotebook_prepareParams(
+    QByteArray params = NoteStoreGetNotebookPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -2046,69 +2106,75 @@ AsyncResult * NoteStore::getNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNotebook_readReplyAsync);
+        NoteStoreGetNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getDefaultNotebook_prepareParams(
+QByteArray NoteStoreGetDefaultNotebookPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_getDefaultNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetDefaultNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getDefaultNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getDefaultNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getDefaultNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
+Notebook NoteStoreGetDefaultNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getDefaultNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetDefaultNotebookReadReply");
 
     bool resultIsSet = false;
     Notebook result = Notebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getDefaultNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -2118,45 +2184,45 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
-                readNotebook(r, v);
+                readNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -2167,9 +2233,9 @@ Notebook NoteStore_getDefaultNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getDefaultNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetDefaultNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getDefaultNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetDefaultNotebookReadReply(reply));
 }
 
 } // namespace
@@ -2182,7 +2248,7 @@ Notebook NoteStore::getDefaultNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getDefaultNotebook_prepareParams(
+    QByteArray params = NoteStoreGetDefaultNotebookPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -2190,7 +2256,7 @@ Notebook NoteStore::getDefaultNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getDefaultNotebook_readReply(reply);
+    return NoteStoreGetDefaultNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::getDefaultNotebookAsync(
@@ -2202,83 +2268,91 @@ AsyncResult * NoteStore::getDefaultNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getDefaultNotebook_prepareParams(
+    QByteArray params = NoteStoreGetDefaultNotebookPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getDefaultNotebook_readReplyAsync);
+        NoteStoreGetDefaultNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_createNotebook_prepareParams(
+QByteArray NoteStoreCreateNotebookPrepareParams(
     QString authenticationToken,
     const Notebook & notebook)
 {
-    QEC_DEBUG("note_store", "NoteStore_createNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCreateNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("createNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("createNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_createNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("notebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNotebook(w, notebook);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNotebook(writer, notebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Notebook NoteStore_createNotebook_readReply(QByteArray reply)
+Notebook NoteStoreCreateNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_createNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCreateNotebookReadReply");
 
     bool resultIsSet = false;
     Notebook result = Notebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("createNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -2288,56 +2362,56 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
-                readNotebook(r, v);
+                readNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -2348,9 +2422,9 @@ Notebook NoteStore_createNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_createNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCreateNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_createNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreCreateNotebookReadReply(reply));
 }
 
 } // namespace
@@ -2366,7 +2440,7 @@ Notebook NoteStore::createNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_createNotebook_prepareParams(
+    QByteArray params = NoteStoreCreateNotebookPrepareParams(
         ctx->authenticationToken(),
         notebook);
 
@@ -2375,7 +2449,7 @@ Notebook NoteStore::createNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_createNotebook_readReply(reply);
+    return NoteStoreCreateNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::createNotebookAsync(
@@ -2390,7 +2464,7 @@ AsyncResult * NoteStore::createNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_createNotebook_prepareParams(
+    QByteArray params = NoteStoreCreateNotebookPrepareParams(
         ctx->authenticationToken(),
         notebook);
 
@@ -2398,76 +2472,84 @@ AsyncResult * NoteStore::createNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_createNotebook_readReplyAsync);
+        NoteStoreCreateNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateNotebook_prepareParams(
+QByteArray NoteStoreUpdateNotebookPrepareParams(
     QString authenticationToken,
     const Notebook & notebook)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("notebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNotebook(w, notebook);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNotebook(writer, notebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
+qint32 NoteStoreUpdateNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateNotebookReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -2477,56 +2559,56 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -2537,9 +2619,9 @@ qint32 NoteStore_updateNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateNotebookReadReply(reply));
 }
 
 } // namespace
@@ -2555,7 +2637,7 @@ qint32 NoteStore::updateNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateNotebook_prepareParams(
+    QByteArray params = NoteStoreUpdateNotebookPrepareParams(
         ctx->authenticationToken(),
         notebook);
 
@@ -2564,7 +2646,7 @@ qint32 NoteStore::updateNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateNotebook_readReply(reply);
+    return NoteStoreUpdateNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateNotebookAsync(
@@ -2579,7 +2661,7 @@ AsyncResult * NoteStore::updateNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateNotebook_prepareParams(
+    QByteArray params = NoteStoreUpdateNotebookPrepareParams(
         ctx->authenticationToken(),
         notebook);
 
@@ -2587,76 +2669,84 @@ AsyncResult * NoteStore::updateNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateNotebook_readReplyAsync);
+        NoteStoreUpdateNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_expungeNotebook_prepareParams(
+QByteArray NoteStoreExpungeNotebookPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreExpungeNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("expungeNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_expungeNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
+qint32 NoteStoreExpungeNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreExpungeNotebookReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("expungeNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -2666,56 +2756,56 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -2726,9 +2816,9 @@ qint32 NoteStore_expungeNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_expungeNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreExpungeNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_expungeNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreExpungeNotebookReadReply(reply));
 }
 
 } // namespace
@@ -2744,7 +2834,7 @@ qint32 NoteStore::expungeNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_expungeNotebook_prepareParams(
+    QByteArray params = NoteStoreExpungeNotebookPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -2753,7 +2843,7 @@ qint32 NoteStore::expungeNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_expungeNotebook_readReply(reply);
+    return NoteStoreExpungeNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::expungeNotebookAsync(
@@ -2768,7 +2858,7 @@ AsyncResult * NoteStore::expungeNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_expungeNotebook_prepareParams(
+    QByteArray params = NoteStoreExpungeNotebookPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -2776,69 +2866,75 @@ AsyncResult * NoteStore::expungeNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_expungeNotebook_readReplyAsync);
+        NoteStoreExpungeNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listTags_prepareParams(
+QByteArray NoteStoreListTagsPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_listTags_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListTagsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listTags"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listTags"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listTags_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
+QList<Tag> NoteStoreListTagsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listTags_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListTagsReadReply");
 
     bool resultIsSet = false;
     QList<Tag> result = QList<Tag>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listTags")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -2850,7 +2946,7 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
                 QList<Tag> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -2859,48 +2955,48 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     Tag elem;
-                    readTag(r, elem);
+                    readTag(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -2911,9 +3007,9 @@ QList<Tag> NoteStore_listTags_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listTags_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListTagsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listTags_readReply(reply));
+    return QVariant::fromValue(NoteStoreListTagsReadReply(reply));
 }
 
 } // namespace
@@ -2926,7 +3022,7 @@ QList<Tag> NoteStore::listTags(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listTags_prepareParams(
+    QByteArray params = NoteStoreListTagsPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -2934,7 +3030,7 @@ QList<Tag> NoteStore::listTags(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listTags_readReply(reply);
+    return NoteStoreListTagsReadReply(reply);
 }
 
 AsyncResult * NoteStore::listTagsAsync(
@@ -2946,83 +3042,91 @@ AsyncResult * NoteStore::listTagsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listTags_prepareParams(
+    QByteArray params = NoteStoreListTagsPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listTags_readReplyAsync);
+        NoteStoreListTagsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listTagsByNotebook_prepareParams(
+QByteArray NoteStoreListTagsByNotebookPrepareParams(
     QString authenticationToken,
     Guid notebookGuid)
 {
-    QEC_DEBUG("note_store", "NoteStore_listTagsByNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListTagsByNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listTagsByNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listTagsByNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listTagsByNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("notebookGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(notebookGuid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(notebookGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
+QList<Tag> NoteStoreListTagsByNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listTagsByNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListTagsByNotebookReadReply");
 
     bool resultIsSet = false;
     QList<Tag> result = QList<Tag>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listTagsByNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -3034,7 +3138,7 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 QList<Tag> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -3043,59 +3147,59 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     Tag elem;
-                    readTag(r, elem);
+                    readTag(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -3106,9 +3210,9 @@ QList<Tag> NoteStore_listTagsByNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listTagsByNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListTagsByNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listTagsByNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreListTagsByNotebookReadReply(reply));
 }
 
 } // namespace
@@ -3124,7 +3228,7 @@ QList<Tag> NoteStore::listTagsByNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listTagsByNotebook_prepareParams(
+    QByteArray params = NoteStoreListTagsByNotebookPrepareParams(
         ctx->authenticationToken(),
         notebookGuid);
 
@@ -3133,7 +3237,7 @@ QList<Tag> NoteStore::listTagsByNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listTagsByNotebook_readReply(reply);
+    return NoteStoreListTagsByNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::listTagsByNotebookAsync(
@@ -3148,7 +3252,7 @@ AsyncResult * NoteStore::listTagsByNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listTagsByNotebook_prepareParams(
+    QByteArray params = NoteStoreListTagsByNotebookPrepareParams(
         ctx->authenticationToken(),
         notebookGuid);
 
@@ -3156,76 +3260,84 @@ AsyncResult * NoteStore::listTagsByNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listTagsByNotebook_readReplyAsync);
+        NoteStoreListTagsByNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getTag_prepareParams(
+QByteArray NoteStoreGetTagPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getTag_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetTagPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getTag"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getTag"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getTag_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Tag NoteStore_getTag_readReply(QByteArray reply)
+Tag NoteStoreGetTagReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getTag_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetTagReadReply");
 
     bool resultIsSet = false;
     Tag result = Tag();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getTag")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -3235,56 +3347,56 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Tag v;
-                readTag(r, v);
+                readTag(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -3295,9 +3407,9 @@ Tag NoteStore_getTag_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getTag_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetTagReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getTag_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetTagReadReply(reply));
 }
 
 } // namespace
@@ -3313,7 +3425,7 @@ Tag NoteStore::getTag(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getTag_prepareParams(
+    QByteArray params = NoteStoreGetTagPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -3322,7 +3434,7 @@ Tag NoteStore::getTag(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getTag_readReply(reply);
+    return NoteStoreGetTagReadReply(reply);
 }
 
 AsyncResult * NoteStore::getTagAsync(
@@ -3337,7 +3449,7 @@ AsyncResult * NoteStore::getTagAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getTag_prepareParams(
+    QByteArray params = NoteStoreGetTagPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -3345,76 +3457,84 @@ AsyncResult * NoteStore::getTagAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getTag_readReplyAsync);
+        NoteStoreGetTagReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_createTag_prepareParams(
+QByteArray NoteStoreCreateTagPrepareParams(
     QString authenticationToken,
     const Tag & tag)
 {
-    QEC_DEBUG("note_store", "NoteStore_createTag_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCreateTagPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("createTag"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("createTag"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_createTag_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("tag"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeTag(w, tag);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeTag(writer, tag);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Tag NoteStore_createTag_readReply(QByteArray reply)
+Tag NoteStoreCreateTagReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_createTag_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCreateTagReadReply");
 
     bool resultIsSet = false;
     Tag result = Tag();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("createTag")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -3424,56 +3544,56 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Tag v;
-                readTag(r, v);
+                readTag(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -3484,9 +3604,9 @@ Tag NoteStore_createTag_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_createTag_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCreateTagReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_createTag_readReply(reply));
+    return QVariant::fromValue(NoteStoreCreateTagReadReply(reply));
 }
 
 } // namespace
@@ -3502,7 +3622,7 @@ Tag NoteStore::createTag(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_createTag_prepareParams(
+    QByteArray params = NoteStoreCreateTagPrepareParams(
         ctx->authenticationToken(),
         tag);
 
@@ -3511,7 +3631,7 @@ Tag NoteStore::createTag(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_createTag_readReply(reply);
+    return NoteStoreCreateTagReadReply(reply);
 }
 
 AsyncResult * NoteStore::createTagAsync(
@@ -3526,7 +3646,7 @@ AsyncResult * NoteStore::createTagAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_createTag_prepareParams(
+    QByteArray params = NoteStoreCreateTagPrepareParams(
         ctx->authenticationToken(),
         tag);
 
@@ -3534,76 +3654,84 @@ AsyncResult * NoteStore::createTagAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_createTag_readReplyAsync);
+        NoteStoreCreateTagReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateTag_prepareParams(
+QByteArray NoteStoreUpdateTagPrepareParams(
     QString authenticationToken,
     const Tag & tag)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateTag_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateTagPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateTag"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateTag"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateTag_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("tag"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeTag(w, tag);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeTag(writer, tag);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_updateTag_readReply(QByteArray reply)
+qint32 NoteStoreUpdateTagReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateTag_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateTagReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateTag")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -3613,56 +3741,56 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -3673,9 +3801,9 @@ qint32 NoteStore_updateTag_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateTag_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateTagReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateTag_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateTagReadReply(reply));
 }
 
 } // namespace
@@ -3691,7 +3819,7 @@ qint32 NoteStore::updateTag(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateTag_prepareParams(
+    QByteArray params = NoteStoreUpdateTagPrepareParams(
         ctx->authenticationToken(),
         tag);
 
@@ -3700,7 +3828,7 @@ qint32 NoteStore::updateTag(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateTag_readReply(reply);
+    return NoteStoreUpdateTagReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateTagAsync(
@@ -3715,7 +3843,7 @@ AsyncResult * NoteStore::updateTagAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateTag_prepareParams(
+    QByteArray params = NoteStoreUpdateTagPrepareParams(
         ctx->authenticationToken(),
         tag);
 
@@ -3723,74 +3851,82 @@ AsyncResult * NoteStore::updateTagAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateTag_readReplyAsync);
+        NoteStoreUpdateTagReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_untagAll_prepareParams(
+QByteArray NoteStoreUntagAllPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_untagAll_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUntagAllPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("untagAll"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("untagAll"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_untagAll_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void NoteStore_untagAll_readReply(QByteArray reply)
+void NoteStoreUntagAllReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_untagAll_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUntagAllReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("untagAll")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -3799,51 +3935,51 @@ void NoteStore_untagAll_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant NoteStore_untagAll_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUntagAllReadReplyAsync(QByteArray reply)
 {
-    NoteStore_untagAll_readReply(reply);
+    NoteStoreUntagAllReadReply(reply);
     return QVariant();
 }
 
@@ -3860,7 +3996,7 @@ void NoteStore::untagAll(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_untagAll_prepareParams(
+    QByteArray params = NoteStoreUntagAllPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -3869,7 +4005,7 @@ void NoteStore::untagAll(
         params,
         ctx->requestTimeout());
 
-    NoteStore_untagAll_readReply(reply);
+    NoteStoreUntagAllReadReply(reply);
 }
 
 AsyncResult * NoteStore::untagAllAsync(
@@ -3884,7 +4020,7 @@ AsyncResult * NoteStore::untagAllAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_untagAll_prepareParams(
+    QByteArray params = NoteStoreUntagAllPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -3892,76 +4028,84 @@ AsyncResult * NoteStore::untagAllAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_untagAll_readReplyAsync);
+        NoteStoreUntagAllReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_expungeTag_prepareParams(
+QByteArray NoteStoreExpungeTagPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeTag_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreExpungeTagPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("expungeTag"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeTag"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_expungeTag_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_expungeTag_readReply(QByteArray reply)
+qint32 NoteStoreExpungeTagReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeTag_readReply");
+    QEC_DEBUG("note_store", "NoteStoreExpungeTagReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("expungeTag")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -3971,56 +4115,56 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -4031,9 +4175,9 @@ qint32 NoteStore_expungeTag_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_expungeTag_readReplyAsync(QByteArray reply)
+QVariant NoteStoreExpungeTagReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_expungeTag_readReply(reply));
+    return QVariant::fromValue(NoteStoreExpungeTagReadReply(reply));
 }
 
 } // namespace
@@ -4049,7 +4193,7 @@ qint32 NoteStore::expungeTag(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_expungeTag_prepareParams(
+    QByteArray params = NoteStoreExpungeTagPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -4058,7 +4202,7 @@ qint32 NoteStore::expungeTag(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_expungeTag_readReply(reply);
+    return NoteStoreExpungeTagReadReply(reply);
 }
 
 AsyncResult * NoteStore::expungeTagAsync(
@@ -4073,7 +4217,7 @@ AsyncResult * NoteStore::expungeTagAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_expungeTag_prepareParams(
+    QByteArray params = NoteStoreExpungeTagPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -4081,69 +4225,75 @@ AsyncResult * NoteStore::expungeTagAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_expungeTag_readReplyAsync);
+        NoteStoreExpungeTagReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listSearches_prepareParams(
+QByteArray NoteStoreListSearchesPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_listSearches_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListSearchesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listSearches"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listSearches"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listSearches_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
+QList<SavedSearch> NoteStoreListSearchesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listSearches_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListSearchesReadReply");
 
     bool resultIsSet = false;
     QList<SavedSearch> result = QList<SavedSearch>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listSearches")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -4155,7 +4305,7 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
                 QList<SavedSearch> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -4164,48 +4314,48 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     SavedSearch elem;
-                    readSavedSearch(r, elem);
+                    readSavedSearch(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -4216,9 +4366,9 @@ QList<SavedSearch> NoteStore_listSearches_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listSearches_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListSearchesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listSearches_readReply(reply));
+    return QVariant::fromValue(NoteStoreListSearchesReadReply(reply));
 }
 
 } // namespace
@@ -4231,7 +4381,7 @@ QList<SavedSearch> NoteStore::listSearches(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listSearches_prepareParams(
+    QByteArray params = NoteStoreListSearchesPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -4239,7 +4389,7 @@ QList<SavedSearch> NoteStore::listSearches(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listSearches_readReply(reply);
+    return NoteStoreListSearchesReadReply(reply);
 }
 
 AsyncResult * NoteStore::listSearchesAsync(
@@ -4251,83 +4401,91 @@ AsyncResult * NoteStore::listSearchesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listSearches_prepareParams(
+    QByteArray params = NoteStoreListSearchesPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listSearches_readReplyAsync);
+        NoteStoreListSearchesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getSearch_prepareParams(
+QByteArray NoteStoreGetSearchPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getSearch_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetSearchPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getSearch"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getSearch"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getSearch_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
+SavedSearch NoteStoreGetSearchReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getSearch_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetSearchReadReply");
 
     bool resultIsSet = false;
     SavedSearch result = SavedSearch();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getSearch")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -4337,56 +4495,56 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SavedSearch v;
-                readSavedSearch(r, v);
+                readSavedSearch(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -4397,9 +4555,9 @@ SavedSearch NoteStore_getSearch_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getSearch_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetSearchReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getSearch_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetSearchReadReply(reply));
 }
 
 } // namespace
@@ -4415,7 +4573,7 @@ SavedSearch NoteStore::getSearch(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getSearch_prepareParams(
+    QByteArray params = NoteStoreGetSearchPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -4424,7 +4582,7 @@ SavedSearch NoteStore::getSearch(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getSearch_readReply(reply);
+    return NoteStoreGetSearchReadReply(reply);
 }
 
 AsyncResult * NoteStore::getSearchAsync(
@@ -4439,7 +4597,7 @@ AsyncResult * NoteStore::getSearchAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getSearch_prepareParams(
+    QByteArray params = NoteStoreGetSearchPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -4447,76 +4605,84 @@ AsyncResult * NoteStore::getSearchAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getSearch_readReplyAsync);
+        NoteStoreGetSearchReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_createSearch_prepareParams(
+QByteArray NoteStoreCreateSearchPrepareParams(
     QString authenticationToken,
     const SavedSearch & search)
 {
-    QEC_DEBUG("note_store", "NoteStore_createSearch_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCreateSearchPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("createSearch"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("createSearch"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_createSearch_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("search"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeSavedSearch(w, search);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeSavedSearch(writer, search);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
+SavedSearch NoteStoreCreateSearchReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_createSearch_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCreateSearchReadReply");
 
     bool resultIsSet = false;
     SavedSearch result = SavedSearch();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("createSearch")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -4526,45 +4692,45 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SavedSearch v;
-                readSavedSearch(r, v);
+                readSavedSearch(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -4575,9 +4741,9 @@ SavedSearch NoteStore_createSearch_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_createSearch_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCreateSearchReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_createSearch_readReply(reply));
+    return QVariant::fromValue(NoteStoreCreateSearchReadReply(reply));
 }
 
 } // namespace
@@ -4593,7 +4759,7 @@ SavedSearch NoteStore::createSearch(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_createSearch_prepareParams(
+    QByteArray params = NoteStoreCreateSearchPrepareParams(
         ctx->authenticationToken(),
         search);
 
@@ -4602,7 +4768,7 @@ SavedSearch NoteStore::createSearch(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_createSearch_readReply(reply);
+    return NoteStoreCreateSearchReadReply(reply);
 }
 
 AsyncResult * NoteStore::createSearchAsync(
@@ -4617,7 +4783,7 @@ AsyncResult * NoteStore::createSearchAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_createSearch_prepareParams(
+    QByteArray params = NoteStoreCreateSearchPrepareParams(
         ctx->authenticationToken(),
         search);
 
@@ -4625,76 +4791,84 @@ AsyncResult * NoteStore::createSearchAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_createSearch_readReplyAsync);
+        NoteStoreCreateSearchReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateSearch_prepareParams(
+QByteArray NoteStoreUpdateSearchPrepareParams(
     QString authenticationToken,
     const SavedSearch & search)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateSearch_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateSearchPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateSearch"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateSearch"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateSearch_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("search"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeSavedSearch(w, search);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeSavedSearch(writer, search);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_updateSearch_readReply(QByteArray reply)
+qint32 NoteStoreUpdateSearchReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateSearch_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateSearchReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateSearch")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -4704,56 +4878,56 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -4764,9 +4938,9 @@ qint32 NoteStore_updateSearch_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateSearch_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateSearchReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateSearch_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateSearchReadReply(reply));
 }
 
 } // namespace
@@ -4782,7 +4956,7 @@ qint32 NoteStore::updateSearch(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateSearch_prepareParams(
+    QByteArray params = NoteStoreUpdateSearchPrepareParams(
         ctx->authenticationToken(),
         search);
 
@@ -4791,7 +4965,7 @@ qint32 NoteStore::updateSearch(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateSearch_readReply(reply);
+    return NoteStoreUpdateSearchReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateSearchAsync(
@@ -4806,7 +4980,7 @@ AsyncResult * NoteStore::updateSearchAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateSearch_prepareParams(
+    QByteArray params = NoteStoreUpdateSearchPrepareParams(
         ctx->authenticationToken(),
         search);
 
@@ -4814,76 +4988,84 @@ AsyncResult * NoteStore::updateSearchAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateSearch_readReplyAsync);
+        NoteStoreUpdateSearchReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_expungeSearch_prepareParams(
+QByteArray NoteStoreExpungeSearchPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeSearch_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreExpungeSearchPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("expungeSearch"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeSearch"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_expungeSearch_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
+qint32 NoteStoreExpungeSearchReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeSearch_readReply");
+    QEC_DEBUG("note_store", "NoteStoreExpungeSearchReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("expungeSearch")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -4893,56 +5075,56 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -4953,9 +5135,9 @@ qint32 NoteStore_expungeSearch_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_expungeSearch_readReplyAsync(QByteArray reply)
+QVariant NoteStoreExpungeSearchReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_expungeSearch_readReply(reply));
+    return QVariant::fromValue(NoteStoreExpungeSearchReadReply(reply));
 }
 
 } // namespace
@@ -4971,7 +5153,7 @@ qint32 NoteStore::expungeSearch(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_expungeSearch_prepareParams(
+    QByteArray params = NoteStoreExpungeSearchPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -4980,7 +5162,7 @@ qint32 NoteStore::expungeSearch(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_expungeSearch_readReply(reply);
+    return NoteStoreExpungeSearchReadReply(reply);
 }
 
 AsyncResult * NoteStore::expungeSearchAsync(
@@ -4995,7 +5177,7 @@ AsyncResult * NoteStore::expungeSearchAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_expungeSearch_prepareParams(
+    QByteArray params = NoteStoreExpungeSearchPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -5003,83 +5185,93 @@ AsyncResult * NoteStore::expungeSearchAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_expungeSearch_readReplyAsync);
+        NoteStoreExpungeSearchReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_findNoteOffset_prepareParams(
+QByteArray NoteStoreFindNoteOffsetPrepareParams(
     QString authenticationToken,
     const NoteFilter & filter,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_findNoteOffset_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreFindNoteOffsetPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("findNoteOffset"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("findNoteOffset"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_findNoteOffset_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("filter"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNoteFilter(w, filter);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writeNoteFilter(writer, filter);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
+qint32 NoteStoreFindNoteOffsetReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_findNoteOffset_readReply");
+    QEC_DEBUG("note_store", "NoteStoreFindNoteOffsetReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("findNoteOffset")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -5089,56 +5281,56 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -5149,9 +5341,9 @@ qint32 NoteStore_findNoteOffset_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_findNoteOffset_readReplyAsync(QByteArray reply)
+QVariant NoteStoreFindNoteOffsetReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_findNoteOffset_readReply(reply));
+    return QVariant::fromValue(NoteStoreFindNoteOffsetReadReply(reply));
 }
 
 } // namespace
@@ -5169,7 +5361,7 @@ qint32 NoteStore::findNoteOffset(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_findNoteOffset_prepareParams(
+    QByteArray params = NoteStoreFindNoteOffsetPrepareParams(
         ctx->authenticationToken(),
         filter,
         guid);
@@ -5179,7 +5371,7 @@ qint32 NoteStore::findNoteOffset(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_findNoteOffset_readReply(reply);
+    return NoteStoreFindNoteOffsetReadReply(reply);
 }
 
 AsyncResult * NoteStore::findNoteOffsetAsync(
@@ -5196,7 +5388,7 @@ AsyncResult * NoteStore::findNoteOffsetAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_findNoteOffset_prepareParams(
+    QByteArray params = NoteStoreFindNoteOffsetPrepareParams(
         ctx->authenticationToken(),
         filter,
         guid);
@@ -5205,97 +5397,111 @@ AsyncResult * NoteStore::findNoteOffsetAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_findNoteOffset_readReplyAsync);
+        NoteStoreFindNoteOffsetReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_findNotesMetadata_prepareParams(
+QByteArray NoteStoreFindNotesMetadataPrepareParams(
     QString authenticationToken,
     const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
     const NotesMetadataResultSpec & resultSpec)
 {
-    QEC_DEBUG("note_store", "NoteStore_findNotesMetadata_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreFindNotesMetadataPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("findNotesMetadata"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("findNotesMetadata"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_findNotesMetadata_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("filter"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNoteFilter(w, filter);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writeNoteFilter(writer, filter);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("offset"),
         ThriftFieldType::T_I32,
         3);
-    w.writeI32(offset);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(offset);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("maxNotes"),
         ThriftFieldType::T_I32,
         4);
-    w.writeI32(maxNotes);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(maxNotes);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("resultSpec"),
         ThriftFieldType::T_STRUCT,
         5);
-    writeNotesMetadataResultSpec(w, resultSpec);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNotesMetadataResultSpec(writer, resultSpec);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
+NotesMetadataList NoteStoreFindNotesMetadataReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_findNotesMetadata_readReply");
+    QEC_DEBUG("note_store", "NoteStoreFindNotesMetadataReadReply");
 
     bool resultIsSet = false;
     NotesMetadataList result = NotesMetadataList();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("findNotesMetadata")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -5305,56 +5511,56 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 NotesMetadataList v;
-                readNotesMetadataList(r, v);
+                readNotesMetadataList(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -5365,9 +5571,9 @@ NotesMetadataList NoteStore_findNotesMetadata_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_findNotesMetadata_readReplyAsync(QByteArray reply)
+QVariant NoteStoreFindNotesMetadataReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_findNotesMetadata_readReply(reply));
+    return QVariant::fromValue(NoteStoreFindNotesMetadataReadReply(reply));
 }
 
 } // namespace
@@ -5389,7 +5595,7 @@ NotesMetadataList NoteStore::findNotesMetadata(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_findNotesMetadata_prepareParams(
+    QByteArray params = NoteStoreFindNotesMetadataPrepareParams(
         ctx->authenticationToken(),
         filter,
         offset,
@@ -5401,7 +5607,7 @@ NotesMetadataList NoteStore::findNotesMetadata(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_findNotesMetadata_readReply(reply);
+    return NoteStoreFindNotesMetadataReadReply(reply);
 }
 
 AsyncResult * NoteStore::findNotesMetadataAsync(
@@ -5422,7 +5628,7 @@ AsyncResult * NoteStore::findNotesMetadataAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_findNotesMetadata_prepareParams(
+    QByteArray params = NoteStoreFindNotesMetadataPrepareParams(
         ctx->authenticationToken(),
         filter,
         offset,
@@ -5433,83 +5639,93 @@ AsyncResult * NoteStore::findNotesMetadataAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_findNotesMetadata_readReplyAsync);
+        NoteStoreFindNotesMetadataReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_findNoteCounts_prepareParams(
+QByteArray NoteStoreFindNoteCountsPrepareParams(
     QString authenticationToken,
     const NoteFilter & filter,
     bool withTrash)
 {
-    QEC_DEBUG("note_store", "NoteStore_findNoteCounts_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreFindNoteCountsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("findNoteCounts"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("findNoteCounts"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_findNoteCounts_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("filter"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNoteFilter(w, filter);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writeNoteFilter(writer, filter);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withTrash"),
         ThriftFieldType::T_BOOL,
         3);
-    w.writeBool(withTrash);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(withTrash);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
+NoteCollectionCounts NoteStoreFindNoteCountsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_findNoteCounts_readReply");
+    QEC_DEBUG("note_store", "NoteStoreFindNoteCountsReadReply");
 
     bool resultIsSet = false;
     NoteCollectionCounts result = NoteCollectionCounts();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("findNoteCounts")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -5519,56 +5735,56 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 NoteCollectionCounts v;
-                readNoteCollectionCounts(r, v);
+                readNoteCollectionCounts(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -5579,9 +5795,9 @@ NoteCollectionCounts NoteStore_findNoteCounts_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_findNoteCounts_readReplyAsync(QByteArray reply)
+QVariant NoteStoreFindNoteCountsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_findNoteCounts_readReply(reply));
+    return QVariant::fromValue(NoteStoreFindNoteCountsReadReply(reply));
 }
 
 } // namespace
@@ -5599,7 +5815,7 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_findNoteCounts_prepareParams(
+    QByteArray params = NoteStoreFindNoteCountsPrepareParams(
         ctx->authenticationToken(),
         filter,
         withTrash);
@@ -5609,7 +5825,7 @@ NoteCollectionCounts NoteStore::findNoteCounts(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_findNoteCounts_readReply(reply);
+    return NoteStoreFindNoteCountsReadReply(reply);
 }
 
 AsyncResult * NoteStore::findNoteCountsAsync(
@@ -5626,7 +5842,7 @@ AsyncResult * NoteStore::findNoteCountsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_findNoteCounts_prepareParams(
+    QByteArray params = NoteStoreFindNoteCountsPrepareParams(
         ctx->authenticationToken(),
         filter,
         withTrash);
@@ -5635,83 +5851,93 @@ AsyncResult * NoteStore::findNoteCountsAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_findNoteCounts_readReplyAsync);
+        NoteStoreFindNoteCountsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteWithResultSpec_prepareParams(
+QByteArray NoteStoreGetNoteWithResultSpecPrepareParams(
     QString authenticationToken,
     Guid guid,
     const NoteResultSpec & resultSpec)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteWithResultSpec_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteWithResultSpecPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteWithResultSpec"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteWithResultSpec"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteWithResultSpec_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("resultSpec"),
         ThriftFieldType::T_STRUCT,
         3);
-    writeNoteResultSpec(w, resultSpec);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNoteResultSpec(writer, resultSpec);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
+Note NoteStoreGetNoteWithResultSpecReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteWithResultSpec_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteWithResultSpecReadReply");
 
     bool resultIsSet = false;
     Note result = Note();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteWithResultSpec")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -5721,56 +5947,56 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
-                readNote(r, v);
+                readNote(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -5781,9 +6007,9 @@ Note NoteStore_getNoteWithResultSpec_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteWithResultSpec_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteWithResultSpecReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteWithResultSpec_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteWithResultSpecReadReply(reply));
 }
 
 } // namespace
@@ -5801,7 +6027,7 @@ Note NoteStore::getNoteWithResultSpec(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteWithResultSpec_prepareParams(
+    QByteArray params = NoteStoreGetNoteWithResultSpecPrepareParams(
         ctx->authenticationToken(),
         guid,
         resultSpec);
@@ -5811,7 +6037,7 @@ Note NoteStore::getNoteWithResultSpec(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteWithResultSpec_readReply(reply);
+    return NoteStoreGetNoteWithResultSpecReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteWithResultSpecAsync(
@@ -5828,7 +6054,7 @@ AsyncResult * NoteStore::getNoteWithResultSpecAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteWithResultSpec_prepareParams(
+    QByteArray params = NoteStoreGetNoteWithResultSpecPrepareParams(
         ctx->authenticationToken(),
         guid,
         resultSpec);
@@ -5837,14 +6063,14 @@ AsyncResult * NoteStore::getNoteWithResultSpecAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteWithResultSpec_readReplyAsync);
+        NoteStoreGetNoteWithResultSpecReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNote_prepareParams(
+QByteArray NoteStoreGetNotePrepareParams(
     QString authenticationToken,
     Guid guid,
     bool withContent,
@@ -5852,89 +6078,105 @@ QByteArray NoteStore_getNote_prepareParams(
     bool withResourcesRecognition,
     bool withResourcesAlternateData)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withContent"),
         ThriftFieldType::T_BOOL,
         3);
-    w.writeBool(withContent);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withContent);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withResourcesData"),
         ThriftFieldType::T_BOOL,
         4);
-    w.writeBool(withResourcesData);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withResourcesData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withResourcesRecognition"),
         ThriftFieldType::T_BOOL,
         5);
-    w.writeBool(withResourcesRecognition);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withResourcesRecognition);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withResourcesAlternateData"),
         ThriftFieldType::T_BOOL,
         6);
-    w.writeBool(withResourcesAlternateData);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(withResourcesAlternateData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Note NoteStore_getNote_readReply(QByteArray reply)
+Note NoteStoreGetNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteReadReply");
 
     bool resultIsSet = false;
     Note result = Note();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -5944,56 +6186,56 @@ Note NoteStore_getNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
-                readNote(r, v);
+                readNote(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -6004,9 +6246,9 @@ Note NoteStore_getNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteReadReply(reply));
 }
 
 } // namespace
@@ -6030,7 +6272,7 @@ Note NoteStore::getNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNote_prepareParams(
+    QByteArray params = NoteStoreGetNotePrepareParams(
         ctx->authenticationToken(),
         guid,
         withContent,
@@ -6043,7 +6285,7 @@ Note NoteStore::getNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNote_readReply(reply);
+    return NoteStoreGetNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteAsync(
@@ -6066,7 +6308,7 @@ AsyncResult * NoteStore::getNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNote_prepareParams(
+    QByteArray params = NoteStoreGetNotePrepareParams(
         ctx->authenticationToken(),
         guid,
         withContent,
@@ -6078,76 +6320,84 @@ AsyncResult * NoteStore::getNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNote_readReplyAsync);
+        NoteStoreGetNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteApplicationData_prepareParams(
+QByteArray NoteStoreGetNoteApplicationDataPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationData_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteApplicationDataPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteApplicationData"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteApplicationData"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteApplicationData_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
+LazyMap NoteStoreGetNoteApplicationDataReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationData_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteApplicationDataReadReply");
 
     bool resultIsSet = false;
     LazyMap result = LazyMap();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteApplicationData")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -6157,56 +6407,56 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 LazyMap v;
-                readLazyMap(r, v);
+                readLazyMap(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -6217,9 +6467,9 @@ LazyMap NoteStore_getNoteApplicationData_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteApplicationData_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteApplicationDataReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteApplicationData_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteApplicationDataReadReply(reply));
 }
 
 } // namespace
@@ -6235,7 +6485,7 @@ LazyMap NoteStore::getNoteApplicationData(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteApplicationData_prepareParams(
+    QByteArray params = NoteStoreGetNoteApplicationDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -6244,7 +6494,7 @@ LazyMap NoteStore::getNoteApplicationData(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteApplicationData_readReply(reply);
+    return NoteStoreGetNoteApplicationDataReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteApplicationDataAsync(
@@ -6259,7 +6509,7 @@ AsyncResult * NoteStore::getNoteApplicationDataAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteApplicationData_prepareParams(
+    QByteArray params = NoteStoreGetNoteApplicationDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -6267,83 +6517,93 @@ AsyncResult * NoteStore::getNoteApplicationDataAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteApplicationData_readReplyAsync);
+        NoteStoreGetNoteApplicationDataReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteApplicationDataEntry_prepareParams(
+QByteArray NoteStoreGetNoteApplicationDataEntryPrepareParams(
     QString authenticationToken,
     Guid guid,
     QString key)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationDataEntry_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteApplicationDataEntryPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteApplicationDataEntry"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteApplicationDataEntry"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteApplicationDataEntry_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("key"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(key);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(key);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
+QString NoteStoreGetNoteApplicationDataEntryReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteApplicationDataEntry_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteApplicationDataEntryReadReply");
 
     bool resultIsSet = false;
     QString result = QString();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteApplicationDataEntry")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -6353,56 +6613,56 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
-                r.readString(v);
+                reader.readString(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -6413,9 +6673,9 @@ QString NoteStore_getNoteApplicationDataEntry_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteApplicationDataEntry_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteApplicationDataEntryReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteApplicationDataEntry_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteApplicationDataEntryReadReply(reply));
 }
 
 } // namespace
@@ -6433,7 +6693,7 @@ QString NoteStore::getNoteApplicationDataEntry(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreGetNoteApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -6443,7 +6703,7 @@ QString NoteStore::getNoteApplicationDataEntry(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteApplicationDataEntry_readReply(reply);
+    return NoteStoreGetNoteApplicationDataEntryReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
@@ -6460,7 +6720,7 @@ AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreGetNoteApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -6469,90 +6729,102 @@ AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteApplicationDataEntry_readReplyAsync);
+        NoteStoreGetNoteApplicationDataEntryReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_setNoteApplicationDataEntry_prepareParams(
+QByteArray NoteStoreSetNoteApplicationDataEntryPrepareParams(
     QString authenticationToken,
     Guid guid,
     QString key,
     QString value)
 {
-    QEC_DEBUG("note_store", "NoteStore_setNoteApplicationDataEntry_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreSetNoteApplicationDataEntryPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("setNoteApplicationDataEntry"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("setNoteApplicationDataEntry"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_setNoteApplicationDataEntry_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("key"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(key);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(key);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("value"),
         ThriftFieldType::T_STRING,
         4);
-    w.writeString(value);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
+qint32 NoteStoreSetNoteApplicationDataEntryReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_setNoteApplicationDataEntry_readReply");
+    QEC_DEBUG("note_store", "NoteStoreSetNoteApplicationDataEntryReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("setNoteApplicationDataEntry")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -6562,56 +6834,56 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -6622,9 +6894,9 @@ qint32 NoteStore_setNoteApplicationDataEntry_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_setNoteApplicationDataEntry_readReplyAsync(QByteArray reply)
+QVariant NoteStoreSetNoteApplicationDataEntryReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_setNoteApplicationDataEntry_readReply(reply));
+    return QVariant::fromValue(NoteStoreSetNoteApplicationDataEntryReadReply(reply));
 }
 
 } // namespace
@@ -6644,7 +6916,7 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_setNoteApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreSetNoteApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key,
@@ -6655,7 +6927,7 @@ qint32 NoteStore::setNoteApplicationDataEntry(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_setNoteApplicationDataEntry_readReply(reply);
+    return NoteStoreSetNoteApplicationDataEntryReadReply(reply);
 }
 
 AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
@@ -6674,7 +6946,7 @@ AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_setNoteApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreSetNoteApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key,
@@ -6684,83 +6956,93 @@ AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_setNoteApplicationDataEntry_readReplyAsync);
+        NoteStoreSetNoteApplicationDataEntryReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_unsetNoteApplicationDataEntry_prepareParams(
+QByteArray NoteStoreUnsetNoteApplicationDataEntryPrepareParams(
     QString authenticationToken,
     Guid guid,
     QString key)
 {
-    QEC_DEBUG("note_store", "NoteStore_unsetNoteApplicationDataEntry_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUnsetNoteApplicationDataEntryPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("unsetNoteApplicationDataEntry"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("unsetNoteApplicationDataEntry"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_unsetNoteApplicationDataEntry_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("key"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(key);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(key);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
+qint32 NoteStoreUnsetNoteApplicationDataEntryReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_unsetNoteApplicationDataEntry_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUnsetNoteApplicationDataEntryReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("unsetNoteApplicationDataEntry")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -6770,56 +7052,56 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -6830,9 +7112,9 @@ qint32 NoteStore_unsetNoteApplicationDataEntry_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_unsetNoteApplicationDataEntry_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUnsetNoteApplicationDataEntryReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_unsetNoteApplicationDataEntry_readReply(reply));
+    return QVariant::fromValue(NoteStoreUnsetNoteApplicationDataEntryReadReply(reply));
 }
 
 } // namespace
@@ -6850,7 +7132,7 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_unsetNoteApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreUnsetNoteApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -6860,7 +7142,7 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_unsetNoteApplicationDataEntry_readReply(reply);
+    return NoteStoreUnsetNoteApplicationDataEntryReadReply(reply);
 }
 
 AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
@@ -6877,7 +7159,7 @@ AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_unsetNoteApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreUnsetNoteApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -6886,76 +7168,84 @@ AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_unsetNoteApplicationDataEntry_readReplyAsync);
+        NoteStoreUnsetNoteApplicationDataEntryReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteContent_prepareParams(
+QByteArray NoteStoreGetNoteContentPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteContent_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteContentPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteContent"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteContent"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteContent_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QString NoteStore_getNoteContent_readReply(QByteArray reply)
+QString NoteStoreGetNoteContentReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteContent_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteContentReadReply");
 
     bool resultIsSet = false;
     QString result = QString();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteContent")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -6965,56 +7255,56 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
-                r.readString(v);
+                reader.readString(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -7025,9 +7315,9 @@ QString NoteStore_getNoteContent_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteContent_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteContentReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteContent_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteContentReadReply(reply));
 }
 
 } // namespace
@@ -7043,7 +7333,7 @@ QString NoteStore::getNoteContent(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteContent_prepareParams(
+    QByteArray params = NoteStoreGetNoteContentPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -7052,7 +7342,7 @@ QString NoteStore::getNoteContent(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteContent_readReply(reply);
+    return NoteStoreGetNoteContentReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteContentAsync(
@@ -7067,7 +7357,7 @@ AsyncResult * NoteStore::getNoteContentAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteContent_prepareParams(
+    QByteArray params = NoteStoreGetNoteContentPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -7075,90 +7365,102 @@ AsyncResult * NoteStore::getNoteContentAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteContent_readReplyAsync);
+        NoteStoreGetNoteContentReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteSearchText_prepareParams(
+QByteArray NoteStoreGetNoteSearchTextPrepareParams(
     QString authenticationToken,
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteSearchText_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteSearchTextPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteSearchText"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteSearchText"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteSearchText_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("noteOnly"),
         ThriftFieldType::T_BOOL,
         3);
-    w.writeBool(noteOnly);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(noteOnly);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("tokenizeForIndexing"),
         ThriftFieldType::T_BOOL,
         4);
-    w.writeBool(tokenizeForIndexing);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(tokenizeForIndexing);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
+QString NoteStoreGetNoteSearchTextReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteSearchText_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteSearchTextReadReply");
 
     bool resultIsSet = false;
     QString result = QString();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteSearchText")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -7168,56 +7470,56 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
-                r.readString(v);
+                reader.readString(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -7228,9 +7530,9 @@ QString NoteStore_getNoteSearchText_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteSearchText_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteSearchTextReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteSearchText_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteSearchTextReadReply(reply));
 }
 
 } // namespace
@@ -7250,7 +7552,7 @@ QString NoteStore::getNoteSearchText(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteSearchText_prepareParams(
+    QByteArray params = NoteStoreGetNoteSearchTextPrepareParams(
         ctx->authenticationToken(),
         guid,
         noteOnly,
@@ -7261,7 +7563,7 @@ QString NoteStore::getNoteSearchText(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteSearchText_readReply(reply);
+    return NoteStoreGetNoteSearchTextReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteSearchTextAsync(
@@ -7280,7 +7582,7 @@ AsyncResult * NoteStore::getNoteSearchTextAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteSearchText_prepareParams(
+    QByteArray params = NoteStoreGetNoteSearchTextPrepareParams(
         ctx->authenticationToken(),
         guid,
         noteOnly,
@@ -7290,76 +7592,84 @@ AsyncResult * NoteStore::getNoteSearchTextAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteSearchText_readReplyAsync);
+        NoteStoreGetNoteSearchTextReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceSearchText_prepareParams(
+QByteArray NoteStoreGetResourceSearchTextPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceSearchText_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceSearchTextPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceSearchText"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceSearchText"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceSearchText_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
+QString NoteStoreGetResourceSearchTextReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceSearchText_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceSearchTextReadReply");
 
     bool resultIsSet = false;
     QString result = QString();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceSearchText")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -7369,56 +7679,56 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
-                r.readString(v);
+                reader.readString(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -7429,9 +7739,9 @@ QString NoteStore_getResourceSearchText_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceSearchText_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceSearchTextReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceSearchText_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceSearchTextReadReply(reply));
 }
 
 } // namespace
@@ -7447,7 +7757,7 @@ QString NoteStore::getResourceSearchText(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceSearchText_prepareParams(
+    QByteArray params = NoteStoreGetResourceSearchTextPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -7456,7 +7766,7 @@ QString NoteStore::getResourceSearchText(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceSearchText_readReply(reply);
+    return NoteStoreGetResourceSearchTextReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceSearchTextAsync(
@@ -7471,7 +7781,7 @@ AsyncResult * NoteStore::getResourceSearchTextAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceSearchText_prepareParams(
+    QByteArray params = NoteStoreGetResourceSearchTextPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -7479,76 +7789,84 @@ AsyncResult * NoteStore::getResourceSearchTextAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceSearchText_readReplyAsync);
+        NoteStoreGetResourceSearchTextReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteTagNames_prepareParams(
+QByteArray NoteStoreGetNoteTagNamesPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteTagNames_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteTagNamesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteTagNames"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteTagNames"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteTagNames_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
+QStringList NoteStoreGetNoteTagNamesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteTagNames_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteTagNamesReadReply");
 
     bool resultIsSet = false;
     QStringList result = QStringList();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteTagNames")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -7560,7 +7878,7 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 QStringList v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRING) {
                     throw ThriftException(
@@ -7569,59 +7887,59 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     QString elem;
-                    r.readString(elem);
+                    reader.readString(elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -7632,9 +7950,9 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteTagNames_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteTagNamesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteTagNames_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteTagNamesReadReply(reply));
 }
 
 } // namespace
@@ -7650,7 +7968,7 @@ QStringList NoteStore::getNoteTagNames(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteTagNames_prepareParams(
+    QByteArray params = NoteStoreGetNoteTagNamesPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -7659,7 +7977,7 @@ QStringList NoteStore::getNoteTagNames(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteTagNames_readReply(reply);
+    return NoteStoreGetNoteTagNamesReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteTagNamesAsync(
@@ -7674,7 +7992,7 @@ AsyncResult * NoteStore::getNoteTagNamesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteTagNames_prepareParams(
+    QByteArray params = NoteStoreGetNoteTagNamesPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -7682,76 +8000,84 @@ AsyncResult * NoteStore::getNoteTagNamesAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteTagNames_readReplyAsync);
+        NoteStoreGetNoteTagNamesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_createNote_prepareParams(
+QByteArray NoteStoreCreateNotePrepareParams(
     QString authenticationToken,
     const Note & note)
 {
-    QEC_DEBUG("note_store", "NoteStore_createNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCreateNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("createNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("createNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_createNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("note"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNote(w, note);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNote(writer, note);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Note NoteStore_createNote_readReply(QByteArray reply)
+Note NoteStoreCreateNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_createNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCreateNoteReadReply");
 
     bool resultIsSet = false;
     Note result = Note();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("createNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -7761,56 +8087,56 @@ Note NoteStore_createNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
-                readNote(r, v);
+                readNote(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -7821,9 +8147,9 @@ Note NoteStore_createNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_createNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCreateNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_createNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreCreateNoteReadReply(reply));
 }
 
 } // namespace
@@ -7839,7 +8165,7 @@ Note NoteStore::createNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_createNote_prepareParams(
+    QByteArray params = NoteStoreCreateNotePrepareParams(
         ctx->authenticationToken(),
         note);
 
@@ -7848,7 +8174,7 @@ Note NoteStore::createNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_createNote_readReply(reply);
+    return NoteStoreCreateNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::createNoteAsync(
@@ -7863,7 +8189,7 @@ AsyncResult * NoteStore::createNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_createNote_prepareParams(
+    QByteArray params = NoteStoreCreateNotePrepareParams(
         ctx->authenticationToken(),
         note);
 
@@ -7871,76 +8197,84 @@ AsyncResult * NoteStore::createNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_createNote_readReplyAsync);
+        NoteStoreCreateNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateNote_prepareParams(
+QByteArray NoteStoreUpdateNotePrepareParams(
     QString authenticationToken,
     const Note & note)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("note"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNote(w, note);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNote(writer, note);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Note NoteStore_updateNote_readReply(QByteArray reply)
+Note NoteStoreUpdateNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateNoteReadReply");
 
     bool resultIsSet = false;
     Note result = Note();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -7950,56 +8284,56 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
-                readNote(r, v);
+                readNote(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -8010,9 +8344,9 @@ Note NoteStore_updateNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateNoteReadReply(reply));
 }
 
 } // namespace
@@ -8028,7 +8362,7 @@ Note NoteStore::updateNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateNote_prepareParams(
+    QByteArray params = NoteStoreUpdateNotePrepareParams(
         ctx->authenticationToken(),
         note);
 
@@ -8037,7 +8371,7 @@ Note NoteStore::updateNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateNote_readReply(reply);
+    return NoteStoreUpdateNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateNoteAsync(
@@ -8052,7 +8386,7 @@ AsyncResult * NoteStore::updateNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateNote_prepareParams(
+    QByteArray params = NoteStoreUpdateNotePrepareParams(
         ctx->authenticationToken(),
         note);
 
@@ -8060,76 +8394,84 @@ AsyncResult * NoteStore::updateNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateNote_readReplyAsync);
+        NoteStoreUpdateNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_deleteNote_prepareParams(
+QByteArray NoteStoreDeleteNotePrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_deleteNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreDeleteNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("deleteNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("deleteNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_deleteNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_deleteNote_readReply(QByteArray reply)
+qint32 NoteStoreDeleteNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_deleteNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreDeleteNoteReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("deleteNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -8139,56 +8481,56 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -8199,9 +8541,9 @@ qint32 NoteStore_deleteNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_deleteNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreDeleteNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_deleteNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreDeleteNoteReadReply(reply));
 }
 
 } // namespace
@@ -8217,7 +8559,7 @@ qint32 NoteStore::deleteNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_deleteNote_prepareParams(
+    QByteArray params = NoteStoreDeleteNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -8226,7 +8568,7 @@ qint32 NoteStore::deleteNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_deleteNote_readReply(reply);
+    return NoteStoreDeleteNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::deleteNoteAsync(
@@ -8241,7 +8583,7 @@ AsyncResult * NoteStore::deleteNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_deleteNote_prepareParams(
+    QByteArray params = NoteStoreDeleteNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -8249,76 +8591,84 @@ AsyncResult * NoteStore::deleteNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_deleteNote_readReplyAsync);
+        NoteStoreDeleteNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_expungeNote_prepareParams(
+QByteArray NoteStoreExpungeNotePrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreExpungeNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("expungeNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_expungeNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_expungeNote_readReply(QByteArray reply)
+qint32 NoteStoreExpungeNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreExpungeNoteReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("expungeNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -8328,56 +8678,56 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -8388,9 +8738,9 @@ qint32 NoteStore_expungeNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_expungeNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreExpungeNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_expungeNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreExpungeNoteReadReply(reply));
 }
 
 } // namespace
@@ -8406,7 +8756,7 @@ qint32 NoteStore::expungeNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_expungeNote_prepareParams(
+    QByteArray params = NoteStoreExpungeNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -8415,7 +8765,7 @@ qint32 NoteStore::expungeNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_expungeNote_readReply(reply);
+    return NoteStoreExpungeNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::expungeNoteAsync(
@@ -8430,7 +8780,7 @@ AsyncResult * NoteStore::expungeNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_expungeNote_prepareParams(
+    QByteArray params = NoteStoreExpungeNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -8438,83 +8788,93 @@ AsyncResult * NoteStore::expungeNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_expungeNote_readReplyAsync);
+        NoteStoreExpungeNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_copyNote_prepareParams(
+QByteArray NoteStoreCopyNotePrepareParams(
     QString authenticationToken,
     Guid noteGuid,
     Guid toNotebookGuid)
 {
-    QEC_DEBUG("note_store", "NoteStore_copyNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCopyNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("copyNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("copyNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_copyNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("noteGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(noteGuid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(noteGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("toNotebookGuid"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(toNotebookGuid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(toNotebookGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Note NoteStore_copyNote_readReply(QByteArray reply)
+Note NoteStoreCopyNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_copyNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCopyNoteReadReply");
 
     bool resultIsSet = false;
     Note result = Note();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("copyNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -8524,56 +8884,56 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
-                readNote(r, v);
+                readNote(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -8584,9 +8944,9 @@ Note NoteStore_copyNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_copyNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCopyNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_copyNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreCopyNoteReadReply(reply));
 }
 
 } // namespace
@@ -8604,7 +8964,7 @@ Note NoteStore::copyNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_copyNote_prepareParams(
+    QByteArray params = NoteStoreCopyNotePrepareParams(
         ctx->authenticationToken(),
         noteGuid,
         toNotebookGuid);
@@ -8614,7 +8974,7 @@ Note NoteStore::copyNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_copyNote_readReply(reply);
+    return NoteStoreCopyNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::copyNoteAsync(
@@ -8631,7 +8991,7 @@ AsyncResult * NoteStore::copyNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_copyNote_prepareParams(
+    QByteArray params = NoteStoreCopyNotePrepareParams(
         ctx->authenticationToken(),
         noteGuid,
         toNotebookGuid);
@@ -8640,76 +9000,84 @@ AsyncResult * NoteStore::copyNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_copyNote_readReplyAsync);
+        NoteStoreCopyNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listNoteVersions_prepareParams(
+QByteArray NoteStoreListNoteVersionsPrepareParams(
     QString authenticationToken,
     Guid noteGuid)
 {
-    QEC_DEBUG("note_store", "NoteStore_listNoteVersions_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListNoteVersionsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listNoteVersions"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listNoteVersions"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listNoteVersions_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("noteGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(noteGuid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(noteGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
+QList<NoteVersionId> NoteStoreListNoteVersionsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listNoteVersions_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListNoteVersionsReadReply");
 
     bool resultIsSet = false;
     QList<NoteVersionId> result = QList<NoteVersionId>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listNoteVersions")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -8721,7 +9089,7 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 QList<NoteVersionId> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -8730,59 +9098,59 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     NoteVersionId elem;
-                    readNoteVersionId(r, elem);
+                    readNoteVersionId(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -8793,9 +9161,9 @@ QList<NoteVersionId> NoteStore_listNoteVersions_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listNoteVersions_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListNoteVersionsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listNoteVersions_readReply(reply));
+    return QVariant::fromValue(NoteStoreListNoteVersionsReadReply(reply));
 }
 
 } // namespace
@@ -8811,7 +9179,7 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listNoteVersions_prepareParams(
+    QByteArray params = NoteStoreListNoteVersionsPrepareParams(
         ctx->authenticationToken(),
         noteGuid);
 
@@ -8820,7 +9188,7 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listNoteVersions_readReply(reply);
+    return NoteStoreListNoteVersionsReadReply(reply);
 }
 
 AsyncResult * NoteStore::listNoteVersionsAsync(
@@ -8835,7 +9203,7 @@ AsyncResult * NoteStore::listNoteVersionsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listNoteVersions_prepareParams(
+    QByteArray params = NoteStoreListNoteVersionsPrepareParams(
         ctx->authenticationToken(),
         noteGuid);
 
@@ -8843,14 +9211,14 @@ AsyncResult * NoteStore::listNoteVersionsAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listNoteVersions_readReplyAsync);
+        NoteStoreListNoteVersionsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNoteVersion_prepareParams(
+QByteArray NoteStoreGetNoteVersionPrepareParams(
     QString authenticationToken,
     Guid noteGuid,
     qint32 updateSequenceNum,
@@ -8858,89 +9226,105 @@ QByteArray NoteStore_getNoteVersion_prepareParams(
     bool withResourcesRecognition,
     bool withResourcesAlternateData)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteVersion_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteVersionPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNoteVersion"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteVersion"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNoteVersion_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("noteGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(noteGuid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(noteGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("updateSequenceNum"),
         ThriftFieldType::T_I32,
         3);
-    w.writeI32(updateSequenceNum);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(updateSequenceNum);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withResourcesData"),
         ThriftFieldType::T_BOOL,
         4);
-    w.writeBool(withResourcesData);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withResourcesData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withResourcesRecognition"),
         ThriftFieldType::T_BOOL,
         5);
-    w.writeBool(withResourcesRecognition);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withResourcesRecognition);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withResourcesAlternateData"),
         ThriftFieldType::T_BOOL,
         6);
-    w.writeBool(withResourcesAlternateData);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(withResourcesAlternateData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Note NoteStore_getNoteVersion_readReply(QByteArray reply)
+Note NoteStoreGetNoteVersionReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNoteVersion_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNoteVersionReadReply");
 
     bool resultIsSet = false;
     Note result = Note();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNoteVersion")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -8950,56 +9334,56 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Note v;
-                readNote(r, v);
+                readNote(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -9010,9 +9394,9 @@ Note NoteStore_getNoteVersion_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNoteVersion_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNoteVersionReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNoteVersion_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNoteVersionReadReply(reply));
 }
 
 } // namespace
@@ -9036,7 +9420,7 @@ Note NoteStore::getNoteVersion(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNoteVersion_prepareParams(
+    QByteArray params = NoteStoreGetNoteVersionPrepareParams(
         ctx->authenticationToken(),
         noteGuid,
         updateSequenceNum,
@@ -9049,7 +9433,7 @@ Note NoteStore::getNoteVersion(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNoteVersion_readReply(reply);
+    return NoteStoreGetNoteVersionReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNoteVersionAsync(
@@ -9072,7 +9456,7 @@ AsyncResult * NoteStore::getNoteVersionAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNoteVersion_prepareParams(
+    QByteArray params = NoteStoreGetNoteVersionPrepareParams(
         ctx->authenticationToken(),
         noteGuid,
         updateSequenceNum,
@@ -9084,14 +9468,14 @@ AsyncResult * NoteStore::getNoteVersionAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNoteVersion_readReplyAsync);
+        NoteStoreGetNoteVersionReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResource_prepareParams(
+QByteArray NoteStoreGetResourcePrepareParams(
     QString authenticationToken,
     Guid guid,
     bool withData,
@@ -9099,89 +9483,105 @@ QByteArray NoteStore_getResource_prepareParams(
     bool withAttributes,
     bool withAlternateData)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResource_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourcePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResource"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResource"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResource_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withData"),
         ThriftFieldType::T_BOOL,
         3);
-    w.writeBool(withData);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withRecognition"),
         ThriftFieldType::T_BOOL,
         4);
-    w.writeBool(withRecognition);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withRecognition);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withAttributes"),
         ThriftFieldType::T_BOOL,
         5);
-    w.writeBool(withAttributes);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withAttributes);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withAlternateData"),
         ThriftFieldType::T_BOOL,
         6);
-    w.writeBool(withAlternateData);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(withAlternateData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Resource NoteStore_getResource_readReply(QByteArray reply)
+Resource NoteStoreGetResourceReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResource_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceReadReply");
 
     bool resultIsSet = false;
     Resource result = Resource();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResource")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -9191,56 +9591,56 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Resource v;
-                readResource(r, v);
+                readResource(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -9251,9 +9651,9 @@ Resource NoteStore_getResource_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResource_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResource_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceReadReply(reply));
 }
 
 } // namespace
@@ -9277,7 +9677,7 @@ Resource NoteStore::getResource(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResource_prepareParams(
+    QByteArray params = NoteStoreGetResourcePrepareParams(
         ctx->authenticationToken(),
         guid,
         withData,
@@ -9290,7 +9690,7 @@ Resource NoteStore::getResource(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResource_readReply(reply);
+    return NoteStoreGetResourceReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceAsync(
@@ -9313,7 +9713,7 @@ AsyncResult * NoteStore::getResourceAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResource_prepareParams(
+    QByteArray params = NoteStoreGetResourcePrepareParams(
         ctx->authenticationToken(),
         guid,
         withData,
@@ -9325,76 +9725,84 @@ AsyncResult * NoteStore::getResourceAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResource_readReplyAsync);
+        NoteStoreGetResourceReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceApplicationData_prepareParams(
+QByteArray NoteStoreGetResourceApplicationDataPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationData_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceApplicationDataPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceApplicationData"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceApplicationData"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceApplicationData_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
+LazyMap NoteStoreGetResourceApplicationDataReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationData_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceApplicationDataReadReply");
 
     bool resultIsSet = false;
     LazyMap result = LazyMap();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceApplicationData")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -9404,56 +9812,56 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 LazyMap v;
-                readLazyMap(r, v);
+                readLazyMap(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -9464,9 +9872,9 @@ LazyMap NoteStore_getResourceApplicationData_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceApplicationData_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceApplicationDataReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceApplicationData_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceApplicationDataReadReply(reply));
 }
 
 } // namespace
@@ -9482,7 +9890,7 @@ LazyMap NoteStore::getResourceApplicationData(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceApplicationData_prepareParams(
+    QByteArray params = NoteStoreGetResourceApplicationDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -9491,7 +9899,7 @@ LazyMap NoteStore::getResourceApplicationData(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceApplicationData_readReply(reply);
+    return NoteStoreGetResourceApplicationDataReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceApplicationDataAsync(
@@ -9506,7 +9914,7 @@ AsyncResult * NoteStore::getResourceApplicationDataAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceApplicationData_prepareParams(
+    QByteArray params = NoteStoreGetResourceApplicationDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -9514,83 +9922,93 @@ AsyncResult * NoteStore::getResourceApplicationDataAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceApplicationData_readReplyAsync);
+        NoteStoreGetResourceApplicationDataReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceApplicationDataEntry_prepareParams(
+QByteArray NoteStoreGetResourceApplicationDataEntryPrepareParams(
     QString authenticationToken,
     Guid guid,
     QString key)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationDataEntry_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceApplicationDataEntryPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceApplicationDataEntry"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceApplicationDataEntry"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceApplicationDataEntry_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("key"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(key);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(key);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
+QString NoteStoreGetResourceApplicationDataEntryReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceApplicationDataEntry_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceApplicationDataEntryReadReply");
 
     bool resultIsSet = false;
     QString result = QString();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceApplicationDataEntry")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -9600,56 +10018,56 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
-                r.readString(v);
+                reader.readString(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -9660,9 +10078,9 @@ QString NoteStore_getResourceApplicationDataEntry_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceApplicationDataEntry_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceApplicationDataEntryReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceApplicationDataEntry_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceApplicationDataEntryReadReply(reply));
 }
 
 } // namespace
@@ -9680,7 +10098,7 @@ QString NoteStore::getResourceApplicationDataEntry(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreGetResourceApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -9690,7 +10108,7 @@ QString NoteStore::getResourceApplicationDataEntry(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceApplicationDataEntry_readReply(reply);
+    return NoteStoreGetResourceApplicationDataEntryReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
@@ -9707,7 +10125,7 @@ AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreGetResourceApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -9716,90 +10134,102 @@ AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceApplicationDataEntry_readReplyAsync);
+        NoteStoreGetResourceApplicationDataEntryReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_setResourceApplicationDataEntry_prepareParams(
+QByteArray NoteStoreSetResourceApplicationDataEntryPrepareParams(
     QString authenticationToken,
     Guid guid,
     QString key,
     QString value)
 {
-    QEC_DEBUG("note_store", "NoteStore_setResourceApplicationDataEntry_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreSetResourceApplicationDataEntryPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("setResourceApplicationDataEntry"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("setResourceApplicationDataEntry"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_setResourceApplicationDataEntry_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("key"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(key);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(key);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("value"),
         ThriftFieldType::T_STRING,
         4);
-    w.writeString(value);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
+qint32 NoteStoreSetResourceApplicationDataEntryReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_setResourceApplicationDataEntry_readReply");
+    QEC_DEBUG("note_store", "NoteStoreSetResourceApplicationDataEntryReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("setResourceApplicationDataEntry")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -9809,56 +10239,56 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -9869,9 +10299,9 @@ qint32 NoteStore_setResourceApplicationDataEntry_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_setResourceApplicationDataEntry_readReplyAsync(QByteArray reply)
+QVariant NoteStoreSetResourceApplicationDataEntryReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_setResourceApplicationDataEntry_readReply(reply));
+    return QVariant::fromValue(NoteStoreSetResourceApplicationDataEntryReadReply(reply));
 }
 
 } // namespace
@@ -9891,7 +10321,7 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_setResourceApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreSetResourceApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key,
@@ -9902,7 +10332,7 @@ qint32 NoteStore::setResourceApplicationDataEntry(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_setResourceApplicationDataEntry_readReply(reply);
+    return NoteStoreSetResourceApplicationDataEntryReadReply(reply);
 }
 
 AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
@@ -9921,7 +10351,7 @@ AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_setResourceApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreSetResourceApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key,
@@ -9931,83 +10361,93 @@ AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_setResourceApplicationDataEntry_readReplyAsync);
+        NoteStoreSetResourceApplicationDataEntryReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_unsetResourceApplicationDataEntry_prepareParams(
+QByteArray NoteStoreUnsetResourceApplicationDataEntryPrepareParams(
     QString authenticationToken,
     Guid guid,
     QString key)
 {
-    QEC_DEBUG("note_store", "NoteStore_unsetResourceApplicationDataEntry_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUnsetResourceApplicationDataEntryPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("unsetResourceApplicationDataEntry"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("unsetResourceApplicationDataEntry"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_unsetResourceApplicationDataEntry_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("key"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(key);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(key);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
+qint32 NoteStoreUnsetResourceApplicationDataEntryReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_unsetResourceApplicationDataEntry_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUnsetResourceApplicationDataEntryReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("unsetResourceApplicationDataEntry")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -10017,56 +10457,56 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -10077,9 +10517,9 @@ qint32 NoteStore_unsetResourceApplicationDataEntry_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_unsetResourceApplicationDataEntry_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUnsetResourceApplicationDataEntryReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_unsetResourceApplicationDataEntry_readReply(reply));
+    return QVariant::fromValue(NoteStoreUnsetResourceApplicationDataEntryReadReply(reply));
 }
 
 } // namespace
@@ -10097,7 +10537,7 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_unsetResourceApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreUnsetResourceApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -10107,7 +10547,7 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_unsetResourceApplicationDataEntry_readReply(reply);
+    return NoteStoreUnsetResourceApplicationDataEntryReadReply(reply);
 }
 
 AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
@@ -10124,7 +10564,7 @@ AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_unsetResourceApplicationDataEntry_prepareParams(
+    QByteArray params = NoteStoreUnsetResourceApplicationDataEntryPrepareParams(
         ctx->authenticationToken(),
         guid,
         key);
@@ -10133,76 +10573,84 @@ AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_unsetResourceApplicationDataEntry_readReplyAsync);
+        NoteStoreUnsetResourceApplicationDataEntryReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateResource_prepareParams(
+QByteArray NoteStoreUpdateResourcePrepareParams(
     QString authenticationToken,
     const Resource & resource)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateResource_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateResourcePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateResource"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateResource"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateResource_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("resource"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeResource(w, resource);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeResource(writer, resource);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_updateResource_readReply(QByteArray reply)
+qint32 NoteStoreUpdateResourceReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateResource_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateResourceReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateResource")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -10212,56 +10660,56 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -10272,9 +10720,9 @@ qint32 NoteStore_updateResource_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateResource_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateResourceReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateResource_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateResourceReadReply(reply));
 }
 
 } // namespace
@@ -10290,7 +10738,7 @@ qint32 NoteStore::updateResource(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateResource_prepareParams(
+    QByteArray params = NoteStoreUpdateResourcePrepareParams(
         ctx->authenticationToken(),
         resource);
 
@@ -10299,7 +10747,7 @@ qint32 NoteStore::updateResource(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateResource_readReply(reply);
+    return NoteStoreUpdateResourceReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateResourceAsync(
@@ -10314,7 +10762,7 @@ AsyncResult * NoteStore::updateResourceAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateResource_prepareParams(
+    QByteArray params = NoteStoreUpdateResourcePrepareParams(
         ctx->authenticationToken(),
         resource);
 
@@ -10322,76 +10770,84 @@ AsyncResult * NoteStore::updateResourceAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateResource_readReplyAsync);
+        NoteStoreUpdateResourceReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceData_prepareParams(
+QByteArray NoteStoreGetResourceDataPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceData_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceDataPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceData"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceData"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceData_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
+QByteArray NoteStoreGetResourceDataReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceData_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceDataReadReply");
 
     bool resultIsSet = false;
     QByteArray result = QByteArray();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceData")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -10401,56 +10857,56 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QByteArray v;
-                r.readBinary(v);
+                reader.readBinary(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -10461,9 +10917,9 @@ QByteArray NoteStore_getResourceData_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceData_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceDataReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceData_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceDataReadReply(reply));
 }
 
 } // namespace
@@ -10479,7 +10935,7 @@ QByteArray NoteStore::getResourceData(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceData_prepareParams(
+    QByteArray params = NoteStoreGetResourceDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -10488,7 +10944,7 @@ QByteArray NoteStore::getResourceData(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceData_readReply(reply);
+    return NoteStoreGetResourceDataReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceDataAsync(
@@ -10503,7 +10959,7 @@ AsyncResult * NoteStore::getResourceDataAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceData_prepareParams(
+    QByteArray params = NoteStoreGetResourceDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -10511,14 +10967,14 @@ AsyncResult * NoteStore::getResourceDataAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceData_readReplyAsync);
+        NoteStoreGetResourceDataReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceByHash_prepareParams(
+QByteArray NoteStoreGetResourceByHashPrepareParams(
     QString authenticationToken,
     Guid noteGuid,
     QByteArray contentHash,
@@ -10526,89 +10982,105 @@ QByteArray NoteStore_getResourceByHash_prepareParams(
     bool withRecognition,
     bool withAlternateData)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceByHash_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceByHashPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceByHash"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceByHash"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceByHash_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("noteGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(noteGuid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(noteGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("contentHash"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeBinary(contentHash);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBinary(contentHash);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withData"),
         ThriftFieldType::T_BOOL,
         4);
-    w.writeBool(withData);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withRecognition"),
         ThriftFieldType::T_BOOL,
         5);
-    w.writeBool(withRecognition);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeBool(withRecognition);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("withAlternateData"),
         ThriftFieldType::T_BOOL,
         6);
-    w.writeBool(withAlternateData);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(withAlternateData);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
+Resource NoteStoreGetResourceByHashReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceByHash_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceByHashReadReply");
 
     bool resultIsSet = false;
     Resource result = Resource();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceByHash")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -10618,56 +11090,56 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Resource v;
-                readResource(r, v);
+                readResource(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -10678,9 +11150,9 @@ Resource NoteStore_getResourceByHash_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceByHash_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceByHashReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceByHash_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceByHashReadReply(reply));
 }
 
 } // namespace
@@ -10704,7 +11176,7 @@ Resource NoteStore::getResourceByHash(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceByHash_prepareParams(
+    QByteArray params = NoteStoreGetResourceByHashPrepareParams(
         ctx->authenticationToken(),
         noteGuid,
         contentHash,
@@ -10717,7 +11189,7 @@ Resource NoteStore::getResourceByHash(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceByHash_readReply(reply);
+    return NoteStoreGetResourceByHashReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceByHashAsync(
@@ -10740,7 +11212,7 @@ AsyncResult * NoteStore::getResourceByHashAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceByHash_prepareParams(
+    QByteArray params = NoteStoreGetResourceByHashPrepareParams(
         ctx->authenticationToken(),
         noteGuid,
         contentHash,
@@ -10752,76 +11224,84 @@ AsyncResult * NoteStore::getResourceByHashAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceByHash_readReplyAsync);
+        NoteStoreGetResourceByHashReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceRecognition_prepareParams(
+QByteArray NoteStoreGetResourceRecognitionPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceRecognition_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceRecognitionPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceRecognition"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceRecognition"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceRecognition_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
+QByteArray NoteStoreGetResourceRecognitionReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceRecognition_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceRecognitionReadReply");
 
     bool resultIsSet = false;
     QByteArray result = QByteArray();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceRecognition")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -10831,56 +11311,56 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QByteArray v;
-                r.readBinary(v);
+                reader.readBinary(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -10891,9 +11371,9 @@ QByteArray NoteStore_getResourceRecognition_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceRecognition_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceRecognitionReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceRecognition_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceRecognitionReadReply(reply));
 }
 
 } // namespace
@@ -10909,7 +11389,7 @@ QByteArray NoteStore::getResourceRecognition(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceRecognition_prepareParams(
+    QByteArray params = NoteStoreGetResourceRecognitionPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -10918,7 +11398,7 @@ QByteArray NoteStore::getResourceRecognition(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceRecognition_readReply(reply);
+    return NoteStoreGetResourceRecognitionReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceRecognitionAsync(
@@ -10933,7 +11413,7 @@ AsyncResult * NoteStore::getResourceRecognitionAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceRecognition_prepareParams(
+    QByteArray params = NoteStoreGetResourceRecognitionPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -10941,76 +11421,84 @@ AsyncResult * NoteStore::getResourceRecognitionAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceRecognition_readReplyAsync);
+        NoteStoreGetResourceRecognitionReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceAlternateData_prepareParams(
+QByteArray NoteStoreGetResourceAlternateDataPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceAlternateData_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceAlternateDataPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceAlternateData"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceAlternateData"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceAlternateData_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
+QByteArray NoteStoreGetResourceAlternateDataReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceAlternateData_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceAlternateDataReadReply");
 
     bool resultIsSet = false;
     QByteArray result = QByteArray();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceAlternateData")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -11020,56 +11508,56 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QByteArray v;
-                r.readBinary(v);
+                reader.readBinary(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -11080,9 +11568,9 @@ QByteArray NoteStore_getResourceAlternateData_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceAlternateData_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceAlternateDataReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceAlternateData_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceAlternateDataReadReply(reply));
 }
 
 } // namespace
@@ -11098,7 +11586,7 @@ QByteArray NoteStore::getResourceAlternateData(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceAlternateData_prepareParams(
+    QByteArray params = NoteStoreGetResourceAlternateDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -11107,7 +11595,7 @@ QByteArray NoteStore::getResourceAlternateData(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceAlternateData_readReply(reply);
+    return NoteStoreGetResourceAlternateDataReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceAlternateDataAsync(
@@ -11122,7 +11610,7 @@ AsyncResult * NoteStore::getResourceAlternateDataAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceAlternateData_prepareParams(
+    QByteArray params = NoteStoreGetResourceAlternateDataPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -11130,76 +11618,84 @@ AsyncResult * NoteStore::getResourceAlternateDataAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceAlternateData_readReplyAsync);
+        NoteStoreGetResourceAlternateDataReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getResourceAttributes_prepareParams(
+QByteArray NoteStoreGetResourceAttributesPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceAttributes_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceAttributesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getResourceAttributes"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceAttributes"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getResourceAttributes_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
+ResourceAttributes NoteStoreGetResourceAttributesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getResourceAttributes_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetResourceAttributesReadReply");
 
     bool resultIsSet = false;
     ResourceAttributes result = ResourceAttributes();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getResourceAttributes")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -11209,56 +11705,56 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 ResourceAttributes v;
-                readResourceAttributes(r, v);
+                readResourceAttributes(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -11269,9 +11765,9 @@ ResourceAttributes NoteStore_getResourceAttributes_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getResourceAttributes_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetResourceAttributesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getResourceAttributes_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetResourceAttributesReadReply(reply));
 }
 
 } // namespace
@@ -11287,7 +11783,7 @@ ResourceAttributes NoteStore::getResourceAttributes(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getResourceAttributes_prepareParams(
+    QByteArray params = NoteStoreGetResourceAttributesPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -11296,7 +11792,7 @@ ResourceAttributes NoteStore::getResourceAttributes(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getResourceAttributes_readReply(reply);
+    return NoteStoreGetResourceAttributesReadReply(reply);
 }
 
 AsyncResult * NoteStore::getResourceAttributesAsync(
@@ -11311,7 +11807,7 @@ AsyncResult * NoteStore::getResourceAttributesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getResourceAttributes_prepareParams(
+    QByteArray params = NoteStoreGetResourceAttributesPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -11319,76 +11815,84 @@ AsyncResult * NoteStore::getResourceAttributesAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getResourceAttributes_readReplyAsync);
+        NoteStoreGetResourceAttributesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getPublicNotebook_prepareParams(
+QByteArray NoteStoreGetPublicNotebookPrepareParams(
     UserID userId,
     QString publicUri)
 {
-    QEC_DEBUG("note_store", "NoteStore_getPublicNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetPublicNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getPublicNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getPublicNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getPublicNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("userId"),
         ThriftFieldType::T_I32,
         1);
-    w.writeI32(userId);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI32(userId);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("publicUri"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(publicUri);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(publicUri);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
+Notebook NoteStoreGetPublicNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getPublicNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetPublicNotebookReadReply");
 
     bool resultIsSet = false;
     Notebook result = Notebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getPublicNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -11398,45 +11902,45 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
-                readNotebook(r, v);
+                readNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -11447,9 +11951,9 @@ Notebook NoteStore_getPublicNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getPublicNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetPublicNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getPublicNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetPublicNotebookReadReply(reply));
 }
 
 } // namespace
@@ -11467,7 +11971,7 @@ Notebook NoteStore::getPublicNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getPublicNotebook_prepareParams(
+    QByteArray params = NoteStoreGetPublicNotebookPrepareParams(
         userId,
         publicUri);
 
@@ -11476,7 +11980,7 @@ Notebook NoteStore::getPublicNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getPublicNotebook_readReply(reply);
+    return NoteStoreGetPublicNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::getPublicNotebookAsync(
@@ -11493,7 +11997,7 @@ AsyncResult * NoteStore::getPublicNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getPublicNotebook_prepareParams(
+    QByteArray params = NoteStoreGetPublicNotebookPrepareParams(
         userId,
         publicUri);
 
@@ -11501,83 +12005,93 @@ AsyncResult * NoteStore::getPublicNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getPublicNotebook_readReplyAsync);
+        NoteStoreGetPublicNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_shareNotebook_prepareParams(
+QByteArray NoteStoreShareNotebookPrepareParams(
     QString authenticationToken,
     const SharedNotebook & sharedNotebook,
     QString message)
 {
-    QEC_DEBUG("note_store", "NoteStore_shareNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreShareNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("shareNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("shareNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_shareNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("sharedNotebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeSharedNotebook(w, sharedNotebook);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writeSharedNotebook(writer, sharedNotebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("message"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(message);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(message);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
+SharedNotebook NoteStoreShareNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_shareNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreShareNotebookReadReply");
 
     bool resultIsSet = false;
     SharedNotebook result = SharedNotebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("shareNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -11587,56 +12101,56 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SharedNotebook v;
-                readSharedNotebook(r, v);
+                readSharedNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -11647,9 +12161,9 @@ SharedNotebook NoteStore_shareNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_shareNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreShareNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_shareNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreShareNotebookReadReply(reply));
 }
 
 } // namespace
@@ -11667,7 +12181,7 @@ SharedNotebook NoteStore::shareNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_shareNotebook_prepareParams(
+    QByteArray params = NoteStoreShareNotebookPrepareParams(
         ctx->authenticationToken(),
         sharedNotebook,
         message);
@@ -11677,7 +12191,7 @@ SharedNotebook NoteStore::shareNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_shareNotebook_readReply(reply);
+    return NoteStoreShareNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::shareNotebookAsync(
@@ -11694,7 +12208,7 @@ AsyncResult * NoteStore::shareNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_shareNotebook_prepareParams(
+    QByteArray params = NoteStoreShareNotebookPrepareParams(
         ctx->authenticationToken(),
         sharedNotebook,
         message);
@@ -11703,76 +12217,84 @@ AsyncResult * NoteStore::shareNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_shareNotebook_readReplyAsync);
+        NoteStoreShareNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_createOrUpdateNotebookShares_prepareParams(
+QByteArray NoteStoreCreateOrUpdateNotebookSharesPrepareParams(
     QString authenticationToken,
     const NotebookShareTemplate & shareTemplate)
 {
-    QEC_DEBUG("note_store", "NoteStore_createOrUpdateNotebookShares_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCreateOrUpdateNotebookSharesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("createOrUpdateNotebookShares"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("createOrUpdateNotebookShares"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_createOrUpdateNotebookShares_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("shareTemplate"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNotebookShareTemplate(w, shareTemplate);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNotebookShareTemplate(writer, shareTemplate);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readReply(QByteArray reply)
+CreateOrUpdateNotebookSharesResult NoteStoreCreateOrUpdateNotebookSharesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_createOrUpdateNotebookShares_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCreateOrUpdateNotebookSharesReadReply");
 
     bool resultIsSet = false;
     CreateOrUpdateNotebookSharesResult result = CreateOrUpdateNotebookSharesResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("createOrUpdateNotebookShares")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -11782,67 +12304,67 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 CreateOrUpdateNotebookSharesResult v;
-                readCreateOrUpdateNotebookSharesResult(r, v);
+                readCreateOrUpdateNotebookSharesResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 4)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMInvalidContactsException e;
-                readEDAMInvalidContactsException(r, e);
+                readEDAMInvalidContactsException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -11853,9 +12375,9 @@ CreateOrUpdateNotebookSharesResult NoteStore_createOrUpdateNotebookShares_readRe
     return result;
 }
 
-QVariant NoteStore_createOrUpdateNotebookShares_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCreateOrUpdateNotebookSharesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_createOrUpdateNotebookShares_readReply(reply));
+    return QVariant::fromValue(NoteStoreCreateOrUpdateNotebookSharesReadReply(reply));
 }
 
 } // namespace
@@ -11871,7 +12393,7 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_createOrUpdateNotebookShares_prepareParams(
+    QByteArray params = NoteStoreCreateOrUpdateNotebookSharesPrepareParams(
         ctx->authenticationToken(),
         shareTemplate);
 
@@ -11880,7 +12402,7 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_createOrUpdateNotebookShares_readReply(reply);
+    return NoteStoreCreateOrUpdateNotebookSharesReadReply(reply);
 }
 
 AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
@@ -11895,7 +12417,7 @@ AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_createOrUpdateNotebookShares_prepareParams(
+    QByteArray params = NoteStoreCreateOrUpdateNotebookSharesPrepareParams(
         ctx->authenticationToken(),
         shareTemplate);
 
@@ -11903,76 +12425,84 @@ AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_createOrUpdateNotebookShares_readReplyAsync);
+        NoteStoreCreateOrUpdateNotebookSharesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateSharedNotebook_prepareParams(
+QByteArray NoteStoreUpdateSharedNotebookPrepareParams(
     QString authenticationToken,
     const SharedNotebook & sharedNotebook)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateSharedNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateSharedNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateSharedNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateSharedNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateSharedNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("sharedNotebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeSharedNotebook(w, sharedNotebook);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeSharedNotebook(writer, sharedNotebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
+qint32 NoteStoreUpdateSharedNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateSharedNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateSharedNotebookReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateSharedNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -11982,56 +12512,56 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -12042,9 +12572,9 @@ qint32 NoteStore_updateSharedNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateSharedNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateSharedNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateSharedNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateSharedNotebookReadReply(reply));
 }
 
 } // namespace
@@ -12060,7 +12590,7 @@ qint32 NoteStore::updateSharedNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateSharedNotebook_prepareParams(
+    QByteArray params = NoteStoreUpdateSharedNotebookPrepareParams(
         ctx->authenticationToken(),
         sharedNotebook);
 
@@ -12069,7 +12599,7 @@ qint32 NoteStore::updateSharedNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateSharedNotebook_readReply(reply);
+    return NoteStoreUpdateSharedNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateSharedNotebookAsync(
@@ -12084,7 +12614,7 @@ AsyncResult * NoteStore::updateSharedNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateSharedNotebook_prepareParams(
+    QByteArray params = NoteStoreUpdateSharedNotebookPrepareParams(
         ctx->authenticationToken(),
         sharedNotebook);
 
@@ -12092,83 +12622,93 @@ AsyncResult * NoteStore::updateSharedNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateSharedNotebook_readReplyAsync);
+        NoteStoreUpdateSharedNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_setNotebookRecipientSettings_prepareParams(
+QByteArray NoteStoreSetNotebookRecipientSettingsPrepareParams(
     QString authenticationToken,
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings)
 {
-    QEC_DEBUG("note_store", "NoteStore_setNotebookRecipientSettings_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreSetNotebookRecipientSettingsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("setNotebookRecipientSettings"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("setNotebookRecipientSettings"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_setNotebookRecipientSettings_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("notebookGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(notebookGuid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(notebookGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("recipientSettings"),
         ThriftFieldType::T_STRUCT,
         3);
-    writeNotebookRecipientSettings(w, recipientSettings);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNotebookRecipientSettings(writer, recipientSettings);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
+Notebook NoteStoreSetNotebookRecipientSettingsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_setNotebookRecipientSettings_readReply");
+    QEC_DEBUG("note_store", "NoteStoreSetNotebookRecipientSettingsReadReply");
 
     bool resultIsSet = false;
     Notebook result = Notebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("setNotebookRecipientSettings")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -12178,56 +12718,56 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 Notebook v;
-                readNotebook(r, v);
+                readNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -12238,9 +12778,9 @@ Notebook NoteStore_setNotebookRecipientSettings_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_setNotebookRecipientSettings_readReplyAsync(QByteArray reply)
+QVariant NoteStoreSetNotebookRecipientSettingsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_setNotebookRecipientSettings_readReply(reply));
+    return QVariant::fromValue(NoteStoreSetNotebookRecipientSettingsReadReply(reply));
 }
 
 } // namespace
@@ -12258,7 +12798,7 @@ Notebook NoteStore::setNotebookRecipientSettings(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_setNotebookRecipientSettings_prepareParams(
+    QByteArray params = NoteStoreSetNotebookRecipientSettingsPrepareParams(
         ctx->authenticationToken(),
         notebookGuid,
         recipientSettings);
@@ -12268,7 +12808,7 @@ Notebook NoteStore::setNotebookRecipientSettings(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_setNotebookRecipientSettings_readReply(reply);
+    return NoteStoreSetNotebookRecipientSettingsReadReply(reply);
 }
 
 AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
@@ -12285,7 +12825,7 @@ AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_setNotebookRecipientSettings_prepareParams(
+    QByteArray params = NoteStoreSetNotebookRecipientSettingsPrepareParams(
         ctx->authenticationToken(),
         notebookGuid,
         recipientSettings);
@@ -12294,69 +12834,75 @@ AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_setNotebookRecipientSettings_readReplyAsync);
+        NoteStoreSetNotebookRecipientSettingsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listSharedNotebooks_prepareParams(
+QByteArray NoteStoreListSharedNotebooksPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_listSharedNotebooks_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListSharedNotebooksPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listSharedNotebooks"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listSharedNotebooks"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listSharedNotebooks_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
+QList<SharedNotebook> NoteStoreListSharedNotebooksReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listSharedNotebooks_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListSharedNotebooksReadReply");
 
     bool resultIsSet = false;
     QList<SharedNotebook> result = QList<SharedNotebook>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listSharedNotebooks")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -12368,7 +12914,7 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 QList<SharedNotebook> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -12377,59 +12923,59 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     SharedNotebook elem;
-                    readSharedNotebook(r, elem);
+                    readSharedNotebook(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -12440,9 +12986,9 @@ QList<SharedNotebook> NoteStore_listSharedNotebooks_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listSharedNotebooks_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListSharedNotebooksReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listSharedNotebooks_readReply(reply));
+    return QVariant::fromValue(NoteStoreListSharedNotebooksReadReply(reply));
 }
 
 } // namespace
@@ -12455,7 +13001,7 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listSharedNotebooks_prepareParams(
+    QByteArray params = NoteStoreListSharedNotebooksPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -12463,7 +13009,7 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listSharedNotebooks_readReply(reply);
+    return NoteStoreListSharedNotebooksReadReply(reply);
 }
 
 AsyncResult * NoteStore::listSharedNotebooksAsync(
@@ -12475,83 +13021,91 @@ AsyncResult * NoteStore::listSharedNotebooksAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listSharedNotebooks_prepareParams(
+    QByteArray params = NoteStoreListSharedNotebooksPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listSharedNotebooks_readReplyAsync);
+        NoteStoreListSharedNotebooksReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_createLinkedNotebook_prepareParams(
+QByteArray NoteStoreCreateLinkedNotebookPrepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook)
 {
-    QEC_DEBUG("note_store", "NoteStore_createLinkedNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreCreateLinkedNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("createLinkedNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("createLinkedNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_createLinkedNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("linkedNotebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeLinkedNotebook(w, linkedNotebook);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeLinkedNotebook(writer, linkedNotebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
+LinkedNotebook NoteStoreCreateLinkedNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_createLinkedNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreCreateLinkedNotebookReadReply");
 
     bool resultIsSet = false;
     LinkedNotebook result = LinkedNotebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("createLinkedNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -12561,56 +13115,56 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 LinkedNotebook v;
-                readLinkedNotebook(r, v);
+                readLinkedNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -12621,9 +13175,9 @@ LinkedNotebook NoteStore_createLinkedNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_createLinkedNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreCreateLinkedNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_createLinkedNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreCreateLinkedNotebookReadReply(reply));
 }
 
 } // namespace
@@ -12639,7 +13193,7 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_createLinkedNotebook_prepareParams(
+    QByteArray params = NoteStoreCreateLinkedNotebookPrepareParams(
         ctx->authenticationToken(),
         linkedNotebook);
 
@@ -12648,7 +13202,7 @@ LinkedNotebook NoteStore::createLinkedNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_createLinkedNotebook_readReply(reply);
+    return NoteStoreCreateLinkedNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::createLinkedNotebookAsync(
@@ -12663,7 +13217,7 @@ AsyncResult * NoteStore::createLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_createLinkedNotebook_prepareParams(
+    QByteArray params = NoteStoreCreateLinkedNotebookPrepareParams(
         ctx->authenticationToken(),
         linkedNotebook);
 
@@ -12671,76 +13225,84 @@ AsyncResult * NoteStore::createLinkedNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_createLinkedNotebook_readReplyAsync);
+        NoteStoreCreateLinkedNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateLinkedNotebook_prepareParams(
+QByteArray NoteStoreUpdateLinkedNotebookPrepareParams(
     QString authenticationToken,
     const LinkedNotebook & linkedNotebook)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateLinkedNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateLinkedNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateLinkedNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateLinkedNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateLinkedNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("linkedNotebook"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeLinkedNotebook(w, linkedNotebook);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeLinkedNotebook(writer, linkedNotebook);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
+qint32 NoteStoreUpdateLinkedNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateLinkedNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateLinkedNotebookReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateLinkedNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -12750,56 +13312,56 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -12810,9 +13372,9 @@ qint32 NoteStore_updateLinkedNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_updateLinkedNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateLinkedNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateLinkedNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateLinkedNotebookReadReply(reply));
 }
 
 } // namespace
@@ -12828,7 +13390,7 @@ qint32 NoteStore::updateLinkedNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateLinkedNotebook_prepareParams(
+    QByteArray params = NoteStoreUpdateLinkedNotebookPrepareParams(
         ctx->authenticationToken(),
         linkedNotebook);
 
@@ -12837,7 +13399,7 @@ qint32 NoteStore::updateLinkedNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateLinkedNotebook_readReply(reply);
+    return NoteStoreUpdateLinkedNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateLinkedNotebookAsync(
@@ -12852,7 +13414,7 @@ AsyncResult * NoteStore::updateLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateLinkedNotebook_prepareParams(
+    QByteArray params = NoteStoreUpdateLinkedNotebookPrepareParams(
         ctx->authenticationToken(),
         linkedNotebook);
 
@@ -12860,69 +13422,75 @@ AsyncResult * NoteStore::updateLinkedNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateLinkedNotebook_readReplyAsync);
+        NoteStoreUpdateLinkedNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_listLinkedNotebooks_prepareParams(
+QByteArray NoteStoreListLinkedNotebooksPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_listLinkedNotebooks_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreListLinkedNotebooksPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listLinkedNotebooks"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listLinkedNotebooks"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_listLinkedNotebooks_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
+QList<LinkedNotebook> NoteStoreListLinkedNotebooksReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_listLinkedNotebooks_readReply");
+    QEC_DEBUG("note_store", "NoteStoreListLinkedNotebooksReadReply");
 
     bool resultIsSet = false;
     QList<LinkedNotebook> result = QList<LinkedNotebook>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listLinkedNotebooks")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -12934,7 +13502,7 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 QList<LinkedNotebook> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -12943,59 +13511,59 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     LinkedNotebook elem;
-                    readLinkedNotebook(r, elem);
+                    readLinkedNotebook(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -13006,9 +13574,9 @@ QList<LinkedNotebook> NoteStore_listLinkedNotebooks_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_listLinkedNotebooks_readReplyAsync(QByteArray reply)
+QVariant NoteStoreListLinkedNotebooksReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_listLinkedNotebooks_readReply(reply));
+    return QVariant::fromValue(NoteStoreListLinkedNotebooksReadReply(reply));
 }
 
 } // namespace
@@ -13021,7 +13589,7 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_listLinkedNotebooks_prepareParams(
+    QByteArray params = NoteStoreListLinkedNotebooksPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -13029,7 +13597,7 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_listLinkedNotebooks_readReply(reply);
+    return NoteStoreListLinkedNotebooksReadReply(reply);
 }
 
 AsyncResult * NoteStore::listLinkedNotebooksAsync(
@@ -13041,83 +13609,91 @@ AsyncResult * NoteStore::listLinkedNotebooksAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_listLinkedNotebooks_prepareParams(
+    QByteArray params = NoteStoreListLinkedNotebooksPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_listLinkedNotebooks_readReplyAsync);
+        NoteStoreListLinkedNotebooksReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_expungeLinkedNotebook_prepareParams(
+QByteArray NoteStoreExpungeLinkedNotebookPrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeLinkedNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreExpungeLinkedNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("expungeLinkedNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeLinkedNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_expungeLinkedNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
+qint32 NoteStoreExpungeLinkedNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_expungeLinkedNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreExpungeLinkedNotebookReadReply");
 
     bool resultIsSet = false;
     qint32 result = qint32();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("expungeLinkedNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -13127,56 +13703,56 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_I32) {
                 resultIsSet = true;
                 qint32 v;
-                r.readI32(v);
+                reader.readI32(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -13187,9 +13763,9 @@ qint32 NoteStore_expungeLinkedNotebook_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_expungeLinkedNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreExpungeLinkedNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_expungeLinkedNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreExpungeLinkedNotebookReadReply(reply));
 }
 
 } // namespace
@@ -13205,7 +13781,7 @@ qint32 NoteStore::expungeLinkedNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_expungeLinkedNotebook_prepareParams(
+    QByteArray params = NoteStoreExpungeLinkedNotebookPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -13214,7 +13790,7 @@ qint32 NoteStore::expungeLinkedNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_expungeLinkedNotebook_readReply(reply);
+    return NoteStoreExpungeLinkedNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::expungeLinkedNotebookAsync(
@@ -13229,7 +13805,7 @@ AsyncResult * NoteStore::expungeLinkedNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_expungeLinkedNotebook_prepareParams(
+    QByteArray params = NoteStoreExpungeLinkedNotebookPrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -13237,76 +13813,84 @@ AsyncResult * NoteStore::expungeLinkedNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_expungeLinkedNotebook_readReplyAsync);
+        NoteStoreExpungeLinkedNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_authenticateToSharedNotebook_prepareParams(
+QByteArray NoteStoreAuthenticateToSharedNotebookPrepareParams(
     QString shareKeyOrGlobalId,
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNotebook_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreAuthenticateToSharedNotebookPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("authenticateToSharedNotebook"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateToSharedNotebook"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_authenticateToSharedNotebook_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("shareKeyOrGlobalId"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(shareKeyOrGlobalId);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(shareKeyOrGlobalId);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray reply)
+AuthenticationResult NoteStoreAuthenticateToSharedNotebookReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNotebook_readReply");
+    QEC_DEBUG("note_store", "NoteStoreAuthenticateToSharedNotebookReadReply");
 
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("authenticateToSharedNotebook")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -13316,56 +13900,56 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
-                readAuthenticationResult(r, v);
+                readAuthenticationResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -13376,9 +13960,9 @@ AuthenticationResult NoteStore_authenticateToSharedNotebook_readReply(QByteArray
     return result;
 }
 
-QVariant NoteStore_authenticateToSharedNotebook_readReplyAsync(QByteArray reply)
+QVariant NoteStoreAuthenticateToSharedNotebookReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_authenticateToSharedNotebook_readReply(reply));
+    return QVariant::fromValue(NoteStoreAuthenticateToSharedNotebookReadReply(reply));
 }
 
 } // namespace
@@ -13394,7 +13978,7 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_authenticateToSharedNotebook_prepareParams(
+    QByteArray params = NoteStoreAuthenticateToSharedNotebookPrepareParams(
         shareKeyOrGlobalId,
         ctx->authenticationToken());
 
@@ -13403,7 +13987,7 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_authenticateToSharedNotebook_readReply(reply);
+    return NoteStoreAuthenticateToSharedNotebookReadReply(reply);
 }
 
 AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
@@ -13418,7 +14002,7 @@ AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_authenticateToSharedNotebook_prepareParams(
+    QByteArray params = NoteStoreAuthenticateToSharedNotebookPrepareParams(
         shareKeyOrGlobalId,
         ctx->authenticationToken());
 
@@ -13426,69 +14010,75 @@ AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_authenticateToSharedNotebook_readReplyAsync);
+        NoteStoreAuthenticateToSharedNotebookReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getSharedNotebookByAuth_prepareParams(
+QByteArray NoteStoreGetSharedNotebookByAuthPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_getSharedNotebookByAuth_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetSharedNotebookByAuthPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getSharedNotebookByAuth"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getSharedNotebookByAuth"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getSharedNotebookByAuth_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
+SharedNotebook NoteStoreGetSharedNotebookByAuthReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getSharedNotebookByAuth_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetSharedNotebookByAuthReadReply");
 
     bool resultIsSet = false;
     SharedNotebook result = SharedNotebook();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getSharedNotebookByAuth")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -13498,56 +14088,56 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 SharedNotebook v;
-                readSharedNotebook(r, v);
+                readSharedNotebook(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -13558,9 +14148,9 @@ SharedNotebook NoteStore_getSharedNotebookByAuth_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getSharedNotebookByAuth_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetSharedNotebookByAuthReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getSharedNotebookByAuth_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetSharedNotebookByAuthReadReply(reply));
 }
 
 } // namespace
@@ -13573,7 +14163,7 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getSharedNotebookByAuth_prepareParams(
+    QByteArray params = NoteStoreGetSharedNotebookByAuthPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -13581,7 +14171,7 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getSharedNotebookByAuth_readReply(reply);
+    return NoteStoreGetSharedNotebookByAuthReadReply(reply);
 }
 
 AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
@@ -13593,81 +14183,89 @@ AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getSharedNotebookByAuth_prepareParams(
+    QByteArray params = NoteStoreGetSharedNotebookByAuthPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getSharedNotebookByAuth_readReplyAsync);
+        NoteStoreGetSharedNotebookByAuthReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_emailNote_prepareParams(
+QByteArray NoteStoreEmailNotePrepareParams(
     QString authenticationToken,
     const NoteEmailParameters & parameters)
 {
-    QEC_DEBUG("note_store", "NoteStore_emailNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreEmailNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("emailNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("emailNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_emailNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("parameters"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNoteEmailParameters(w, parameters);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNoteEmailParameters(writer, parameters);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void NoteStore_emailNote_readReply(QByteArray reply)
+void NoteStoreEmailNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_emailNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreEmailNoteReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("emailNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -13676,51 +14274,51 @@ void NoteStore_emailNote_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant NoteStore_emailNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreEmailNoteReadReplyAsync(QByteArray reply)
 {
-    NoteStore_emailNote_readReply(reply);
+    NoteStoreEmailNoteReadReply(reply);
     return QVariant();
 }
 
@@ -13737,7 +14335,7 @@ void NoteStore::emailNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_emailNote_prepareParams(
+    QByteArray params = NoteStoreEmailNotePrepareParams(
         ctx->authenticationToken(),
         parameters);
 
@@ -13746,7 +14344,7 @@ void NoteStore::emailNote(
         params,
         ctx->requestTimeout());
 
-    NoteStore_emailNote_readReply(reply);
+    NoteStoreEmailNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::emailNoteAsync(
@@ -13761,7 +14359,7 @@ AsyncResult * NoteStore::emailNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_emailNote_prepareParams(
+    QByteArray params = NoteStoreEmailNotePrepareParams(
         ctx->authenticationToken(),
         parameters);
 
@@ -13769,76 +14367,84 @@ AsyncResult * NoteStore::emailNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_emailNote_readReplyAsync);
+        NoteStoreEmailNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_shareNote_prepareParams(
+QByteArray NoteStoreShareNotePrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_shareNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreShareNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("shareNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("shareNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_shareNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QString NoteStore_shareNote_readReply(QByteArray reply)
+QString NoteStoreShareNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_shareNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreShareNoteReadReply");
 
     bool resultIsSet = false;
     QString result = QString();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("shareNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -13848,56 +14454,56 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRING) {
                 resultIsSet = true;
                 QString v;
-                r.readString(v);
+                reader.readString(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -13908,9 +14514,9 @@ QString NoteStore_shareNote_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_shareNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreShareNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_shareNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreShareNoteReadReply(reply));
 }
 
 } // namespace
@@ -13926,7 +14532,7 @@ QString NoteStore::shareNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_shareNote_prepareParams(
+    QByteArray params = NoteStoreShareNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -13935,7 +14541,7 @@ QString NoteStore::shareNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_shareNote_readReply(reply);
+    return NoteStoreShareNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::shareNoteAsync(
@@ -13950,7 +14556,7 @@ AsyncResult * NoteStore::shareNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_shareNote_prepareParams(
+    QByteArray params = NoteStoreShareNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -13958,74 +14564,82 @@ AsyncResult * NoteStore::shareNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_shareNote_readReplyAsync);
+        NoteStoreShareNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_stopSharingNote_prepareParams(
+QByteArray NoteStoreStopSharingNotePrepareParams(
     QString authenticationToken,
     Guid guid)
 {
-    QEC_DEBUG("note_store", "NoteStore_stopSharingNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreStopSharingNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("stopSharingNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("stopSharingNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_stopSharingNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void NoteStore_stopSharingNote_readReply(QByteArray reply)
+void NoteStoreStopSharingNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_stopSharingNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreStopSharingNoteReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("stopSharingNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -14034,51 +14648,51 @@ void NoteStore_stopSharingNote_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant NoteStore_stopSharingNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreStopSharingNoteReadReplyAsync(QByteArray reply)
 {
-    NoteStore_stopSharingNote_readReply(reply);
+    NoteStoreStopSharingNoteReadReply(reply);
     return QVariant();
 }
 
@@ -14095,7 +14709,7 @@ void NoteStore::stopSharingNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_stopSharingNote_prepareParams(
+    QByteArray params = NoteStoreStopSharingNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -14104,7 +14718,7 @@ void NoteStore::stopSharingNote(
         params,
         ctx->requestTimeout());
 
-    NoteStore_stopSharingNote_readReply(reply);
+    NoteStoreStopSharingNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::stopSharingNoteAsync(
@@ -14119,7 +14733,7 @@ AsyncResult * NoteStore::stopSharingNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_stopSharingNote_prepareParams(
+    QByteArray params = NoteStoreStopSharingNotePrepareParams(
         ctx->authenticationToken(),
         guid);
 
@@ -14127,83 +14741,93 @@ AsyncResult * NoteStore::stopSharingNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_stopSharingNote_readReplyAsync);
+        NoteStoreStopSharingNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_authenticateToSharedNote_prepareParams(
+QByteArray NoteStoreAuthenticateToSharedNotePrepareParams(
     QString guid,
     QString noteKey,
     QString authenticationToken)
 {
-    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNote_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreAuthenticateToSharedNotePrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("authenticateToSharedNote"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateToSharedNote"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_authenticateToSharedNote_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("guid"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(guid);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(guid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("noteKey"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(noteKey);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(noteKey);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray reply)
+AuthenticationResult NoteStoreAuthenticateToSharedNoteReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_authenticateToSharedNote_readReply");
+    QEC_DEBUG("note_store", "NoteStoreAuthenticateToSharedNoteReadReply");
 
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("authenticateToSharedNote")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -14213,56 +14837,56 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
-                readAuthenticationResult(r, v);
+                readAuthenticationResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -14273,9 +14897,9 @@ AuthenticationResult NoteStore_authenticateToSharedNote_readReply(QByteArray rep
     return result;
 }
 
-QVariant NoteStore_authenticateToSharedNote_readReplyAsync(QByteArray reply)
+QVariant NoteStoreAuthenticateToSharedNoteReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_authenticateToSharedNote_readReply(reply));
+    return QVariant::fromValue(NoteStoreAuthenticateToSharedNoteReadReply(reply));
 }
 
 } // namespace
@@ -14293,7 +14917,7 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_authenticateToSharedNote_prepareParams(
+    QByteArray params = NoteStoreAuthenticateToSharedNotePrepareParams(
         guid,
         noteKey,
         ctx->authenticationToken());
@@ -14303,7 +14927,7 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_authenticateToSharedNote_readReply(reply);
+    return NoteStoreAuthenticateToSharedNoteReadReply(reply);
 }
 
 AsyncResult * NoteStore::authenticateToSharedNoteAsync(
@@ -14320,7 +14944,7 @@ AsyncResult * NoteStore::authenticateToSharedNoteAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_authenticateToSharedNote_prepareParams(
+    QByteArray params = NoteStoreAuthenticateToSharedNotePrepareParams(
         guid,
         noteKey,
         ctx->authenticationToken());
@@ -14329,83 +14953,93 @@ AsyncResult * NoteStore::authenticateToSharedNoteAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_authenticateToSharedNote_readReplyAsync);
+        NoteStoreAuthenticateToSharedNoteReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_findRelated_prepareParams(
+QByteArray NoteStoreFindRelatedPrepareParams(
     QString authenticationToken,
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec)
 {
-    QEC_DEBUG("note_store", "NoteStore_findRelated_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreFindRelatedPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("findRelated"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("findRelated"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_findRelated_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("query"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeRelatedQuery(w, query);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writeRelatedQuery(writer, query);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("resultSpec"),
         ThriftFieldType::T_STRUCT,
         3);
-    writeRelatedResultSpec(w, resultSpec);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeRelatedResultSpec(writer, resultSpec);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
+RelatedResult NoteStoreFindRelatedReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_findRelated_readReply");
+    QEC_DEBUG("note_store", "NoteStoreFindRelatedReadReply");
 
     bool resultIsSet = false;
     RelatedResult result = RelatedResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("findRelated")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -14415,56 +15049,56 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 RelatedResult v;
-                readRelatedResult(r, v);
+                readRelatedResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -14475,9 +15109,9 @@ RelatedResult NoteStore_findRelated_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_findRelated_readReplyAsync(QByteArray reply)
+QVariant NoteStoreFindRelatedReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_findRelated_readReply(reply));
+    return QVariant::fromValue(NoteStoreFindRelatedReadReply(reply));
 }
 
 } // namespace
@@ -14495,7 +15129,7 @@ RelatedResult NoteStore::findRelated(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_findRelated_prepareParams(
+    QByteArray params = NoteStoreFindRelatedPrepareParams(
         ctx->authenticationToken(),
         query,
         resultSpec);
@@ -14505,7 +15139,7 @@ RelatedResult NoteStore::findRelated(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_findRelated_readReply(reply);
+    return NoteStoreFindRelatedReadReply(reply);
 }
 
 AsyncResult * NoteStore::findRelatedAsync(
@@ -14522,7 +15156,7 @@ AsyncResult * NoteStore::findRelatedAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_findRelated_prepareParams(
+    QByteArray params = NoteStoreFindRelatedPrepareParams(
         ctx->authenticationToken(),
         query,
         resultSpec);
@@ -14531,76 +15165,84 @@ AsyncResult * NoteStore::findRelatedAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_findRelated_readReplyAsync);
+        NoteStoreFindRelatedReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_updateNoteIfUsnMatches_prepareParams(
+QByteArray NoteStoreUpdateNoteIfUsnMatchesPrepareParams(
     QString authenticationToken,
     const Note & note)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateNoteIfUsnMatches_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreUpdateNoteIfUsnMatchesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateNoteIfUsnMatches"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateNoteIfUsnMatches"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_updateNoteIfUsnMatches_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("note"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeNote(w, note);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeNote(writer, note);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArray reply)
+UpdateNoteIfUsnMatchesResult NoteStoreUpdateNoteIfUsnMatchesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_updateNoteIfUsnMatches_readReply");
+    QEC_DEBUG("note_store", "NoteStoreUpdateNoteIfUsnMatchesReadReply");
 
     bool resultIsSet = false;
     UpdateNoteIfUsnMatchesResult result = UpdateNoteIfUsnMatchesResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateNoteIfUsnMatches")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -14610,56 +15252,56 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 UpdateNoteIfUsnMatchesResult v;
-                readUpdateNoteIfUsnMatchesResult(r, v);
+                readUpdateNoteIfUsnMatchesResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -14670,9 +15312,9 @@ UpdateNoteIfUsnMatchesResult NoteStore_updateNoteIfUsnMatches_readReply(QByteArr
     return result;
 }
 
-QVariant NoteStore_updateNoteIfUsnMatches_readReplyAsync(QByteArray reply)
+QVariant NoteStoreUpdateNoteIfUsnMatchesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_updateNoteIfUsnMatches_readReply(reply));
+    return QVariant::fromValue(NoteStoreUpdateNoteIfUsnMatchesReadReply(reply));
 }
 
 } // namespace
@@ -14688,7 +15330,7 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_updateNoteIfUsnMatches_prepareParams(
+    QByteArray params = NoteStoreUpdateNoteIfUsnMatchesPrepareParams(
         ctx->authenticationToken(),
         note);
 
@@ -14697,7 +15339,7 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_updateNoteIfUsnMatches_readReply(reply);
+    return NoteStoreUpdateNoteIfUsnMatchesReadReply(reply);
 }
 
 AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
@@ -14712,7 +15354,7 @@ AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_updateNoteIfUsnMatches_prepareParams(
+    QByteArray params = NoteStoreUpdateNoteIfUsnMatchesPrepareParams(
         ctx->authenticationToken(),
         note);
 
@@ -14720,76 +15362,84 @@ AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_updateNoteIfUsnMatches_readReplyAsync);
+        NoteStoreUpdateNoteIfUsnMatchesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_manageNotebookShares_prepareParams(
+QByteArray NoteStoreManageNotebookSharesPrepareParams(
     QString authenticationToken,
     const ManageNotebookSharesParameters & parameters)
 {
-    QEC_DEBUG("note_store", "NoteStore_manageNotebookShares_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreManageNotebookSharesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("manageNotebookShares"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("manageNotebookShares"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_manageNotebookShares_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("parameters"),
         ThriftFieldType::T_STRUCT,
         2);
-    writeManageNotebookSharesParameters(w, parameters);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writeManageNotebookSharesParameters(writer, parameters);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray reply)
+ManageNotebookSharesResult NoteStoreManageNotebookSharesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_manageNotebookShares_readReply");
+    QEC_DEBUG("note_store", "NoteStoreManageNotebookSharesReadReply");
 
     bool resultIsSet = false;
     ManageNotebookSharesResult result = ManageNotebookSharesResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("manageNotebookShares")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -14799,56 +15449,56 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 ManageNotebookSharesResult v;
-                readManageNotebookSharesResult(r, v);
+                readManageNotebookSharesResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -14859,9 +15509,9 @@ ManageNotebookSharesResult NoteStore_manageNotebookShares_readReply(QByteArray r
     return result;
 }
 
-QVariant NoteStore_manageNotebookShares_readReplyAsync(QByteArray reply)
+QVariant NoteStoreManageNotebookSharesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_manageNotebookShares_readReply(reply));
+    return QVariant::fromValue(NoteStoreManageNotebookSharesReadReply(reply));
 }
 
 } // namespace
@@ -14877,7 +15527,7 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_manageNotebookShares_prepareParams(
+    QByteArray params = NoteStoreManageNotebookSharesPrepareParams(
         ctx->authenticationToken(),
         parameters);
 
@@ -14886,7 +15536,7 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_manageNotebookShares_readReply(reply);
+    return NoteStoreManageNotebookSharesReadReply(reply);
 }
 
 AsyncResult * NoteStore::manageNotebookSharesAsync(
@@ -14901,7 +15551,7 @@ AsyncResult * NoteStore::manageNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_manageNotebookShares_prepareParams(
+    QByteArray params = NoteStoreManageNotebookSharesPrepareParams(
         ctx->authenticationToken(),
         parameters);
 
@@ -14909,76 +15559,84 @@ AsyncResult * NoteStore::manageNotebookSharesAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_manageNotebookShares_readReplyAsync);
+        NoteStoreManageNotebookSharesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray NoteStore_getNotebookShares_prepareParams(
+QByteArray NoteStoreGetNotebookSharesPrepareParams(
     QString authenticationToken,
     QString notebookGuid)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNotebookShares_prepareParams");
+    QEC_DEBUG("note_store", "NoteStoreGetNotebookSharesPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getNotebookShares"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNotebookShares"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("NoteStore_getNotebookShares_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("notebookGuid"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(notebookGuid);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(notebookGuid);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
+ShareRelationships NoteStoreGetNotebookSharesReadReply(QByteArray reply)
 {
-    QEC_DEBUG("note_store", "NoteStore_getNotebookShares_readReply");
+    QEC_DEBUG("note_store", "NoteStoreGetNotebookSharesReadReply");
 
     bool resultIsSet = false;
     ShareRelationships result = ShareRelationships();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getNotebookShares")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -14988,56 +15646,56 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 ShareRelationships v;
-                readShareRelationships(r, v);
+                readShareRelationships(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -15048,9 +15706,9 @@ ShareRelationships NoteStore_getNotebookShares_readReply(QByteArray reply)
     return result;
 }
 
-QVariant NoteStore_getNotebookShares_readReplyAsync(QByteArray reply)
+QVariant NoteStoreGetNotebookSharesReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(NoteStore_getNotebookShares_readReply(reply));
+    return QVariant::fromValue(NoteStoreGetNotebookSharesReadReply(reply));
 }
 
 } // namespace
@@ -15066,7 +15724,7 @@ ShareRelationships NoteStore::getNotebookShares(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = NoteStore_getNotebookShares_prepareParams(
+    QByteArray params = NoteStoreGetNotebookSharesPrepareParams(
         ctx->authenticationToken(),
         notebookGuid);
 
@@ -15075,7 +15733,7 @@ ShareRelationships NoteStore::getNotebookShares(
         params,
         ctx->requestTimeout());
 
-    return NoteStore_getNotebookShares_readReply(reply);
+    return NoteStoreGetNotebookSharesReadReply(reply);
 }
 
 AsyncResult * NoteStore::getNotebookSharesAsync(
@@ -15090,7 +15748,7 @@ AsyncResult * NoteStore::getNotebookSharesAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = NoteStore_getNotebookShares_prepareParams(
+    QByteArray params = NoteStoreGetNotebookSharesPrepareParams(
         ctx->authenticationToken(),
         notebookGuid);
 
@@ -15098,7 +15756,7 @@ AsyncResult * NoteStore::getNotebookSharesAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        NoteStore_getNotebookShares_readReplyAsync);
+        NoteStoreGetNotebookSharesReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15267,76 +15925,86 @@ private:
 
 namespace {
 
-QByteArray UserStore_checkVersion_prepareParams(
+QByteArray UserStoreCheckVersionPrepareParams(
     QString clientName,
     qint16 edamVersionMajor,
     qint16 edamVersionMinor)
 {
-    QEC_DEBUG("user_store", "UserStore_checkVersion_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreCheckVersionPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("checkVersion"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("checkVersion"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_checkVersion_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("clientName"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(clientName);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(clientName);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("edamVersionMajor"),
         ThriftFieldType::T_I16,
         2);
-    w.writeI16(edamVersionMajor);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeI16(edamVersionMajor);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("edamVersionMinor"),
         ThriftFieldType::T_I16,
         3);
-    w.writeI16(edamVersionMinor);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeI16(edamVersionMinor);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-bool UserStore_checkVersion_readReply(QByteArray reply)
+bool UserStoreCheckVersionReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_checkVersion_readReply");
+    QEC_DEBUG("user_store", "UserStoreCheckVersionReadReply");
 
     bool resultIsSet = false;
     bool result = bool();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("checkVersion")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -15346,23 +16014,23 @@ bool UserStore_checkVersion_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_BOOL) {
                 resultIsSet = true;
                 bool v;
-                r.readBool(v);
+                reader.readBool(v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -15373,9 +16041,9 @@ bool UserStore_checkVersion_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_checkVersion_readReplyAsync(QByteArray reply)
+QVariant UserStoreCheckVersionReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_checkVersion_readReply(reply));
+    return QVariant::fromValue(UserStoreCheckVersionReadReply(reply));
 }
 
 } // namespace
@@ -15395,7 +16063,7 @@ bool UserStore::checkVersion(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_checkVersion_prepareParams(
+    QByteArray params = UserStoreCheckVersionPrepareParams(
         clientName,
         edamVersionMajor,
         edamVersionMinor);
@@ -15405,7 +16073,7 @@ bool UserStore::checkVersion(
         params,
         ctx->requestTimeout());
 
-    return UserStore_checkVersion_readReply(reply);
+    return UserStoreCheckVersionReadReply(reply);
 }
 
 AsyncResult * UserStore::checkVersionAsync(
@@ -15424,7 +16092,7 @@ AsyncResult * UserStore::checkVersionAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_checkVersion_prepareParams(
+    QByteArray params = UserStoreCheckVersionPrepareParams(
         clientName,
         edamVersionMajor,
         edamVersionMinor);
@@ -15433,69 +16101,75 @@ AsyncResult * UserStore::checkVersionAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_checkVersion_readReplyAsync);
+        UserStoreCheckVersionReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_getBootstrapInfo_prepareParams(
+QByteArray UserStoreGetBootstrapInfoPrepareParams(
     QString locale)
 {
-    QEC_DEBUG("user_store", "UserStore_getBootstrapInfo_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreGetBootstrapInfoPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getBootstrapInfo"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getBootstrapInfo"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_getBootstrapInfo_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("locale"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(locale);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(locale);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
+BootstrapInfo UserStoreGetBootstrapInfoReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_getBootstrapInfo_readReply");
+    QEC_DEBUG("user_store", "UserStoreGetBootstrapInfoReadReply");
 
     bool resultIsSet = false;
     BootstrapInfo result = BootstrapInfo();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getBootstrapInfo")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -15505,23 +16179,23 @@ BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 BootstrapInfo v;
-                readBootstrapInfo(r, v);
+                readBootstrapInfo(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -15532,9 +16206,9 @@ BootstrapInfo UserStore_getBootstrapInfo_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_getBootstrapInfo_readReplyAsync(QByteArray reply)
+QVariant UserStoreGetBootstrapInfoReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_getBootstrapInfo_readReply(reply));
+    return QVariant::fromValue(UserStoreGetBootstrapInfoReadReply(reply));
 }
 
 } // namespace
@@ -15550,7 +16224,7 @@ BootstrapInfo UserStore::getBootstrapInfo(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_getBootstrapInfo_prepareParams(
+    QByteArray params = UserStoreGetBootstrapInfoPrepareParams(
         locale);
 
     QByteArray reply = askEvernote(
@@ -15558,7 +16232,7 @@ BootstrapInfo UserStore::getBootstrapInfo(
         params,
         ctx->requestTimeout());
 
-    return UserStore_getBootstrapInfo_readReply(reply);
+    return UserStoreGetBootstrapInfoReadReply(reply);
 }
 
 AsyncResult * UserStore::getBootstrapInfoAsync(
@@ -15573,21 +16247,21 @@ AsyncResult * UserStore::getBootstrapInfoAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_getBootstrapInfo_prepareParams(
+    QByteArray params = UserStoreGetBootstrapInfoPrepareParams(
         locale);
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_getBootstrapInfo_readReplyAsync);
+        UserStoreGetBootstrapInfoReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_authenticateLongSession_prepareParams(
+QByteArray UserStoreAuthenticateLongSessionPrepareParams(
     QString username,
     QString password,
     QString consumerKey,
@@ -15596,95 +16270,113 @@ QByteArray UserStore_authenticateLongSession_prepareParams(
     QString deviceDescription,
     bool supportsTwoFactor)
 {
-    QEC_DEBUG("user_store", "UserStore_authenticateLongSession_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreAuthenticateLongSessionPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("authenticateLongSession"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateLongSession"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_authenticateLongSession_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("username"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(username);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(username);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("password"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(password);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(password);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("consumerKey"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(consumerKey);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(consumerKey);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("consumerSecret"),
         ThriftFieldType::T_STRING,
         4);
-    w.writeString(consumerSecret);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(consumerSecret);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("deviceIdentifier"),
         ThriftFieldType::T_STRING,
         5);
-    w.writeString(deviceIdentifier);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(deviceIdentifier);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("deviceDescription"),
         ThriftFieldType::T_STRING,
         6);
-    w.writeString(deviceDescription);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(deviceDescription);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("supportsTwoFactor"),
         ThriftFieldType::T_BOOL,
         7);
-    w.writeBool(supportsTwoFactor);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(supportsTwoFactor);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray reply)
+AuthenticationResult UserStoreAuthenticateLongSessionReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_authenticateLongSession_readReply");
+    QEC_DEBUG("user_store", "UserStoreAuthenticateLongSessionReadReply");
 
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("authenticateLongSession")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -15694,45 +16386,45 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
-                readAuthenticationResult(r, v);
+                readAuthenticationResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -15743,9 +16435,9 @@ AuthenticationResult UserStore_authenticateLongSession_readReply(QByteArray repl
     return result;
 }
 
-QVariant UserStore_authenticateLongSession_readReplyAsync(QByteArray reply)
+QVariant UserStoreAuthenticateLongSessionReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_authenticateLongSession_readReply(reply));
+    return QVariant::fromValue(UserStoreAuthenticateLongSessionReadReply(reply));
 }
 
 } // namespace
@@ -15770,7 +16462,7 @@ AuthenticationResult UserStore::authenticateLongSession(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_authenticateLongSession_prepareParams(
+    QByteArray params = UserStoreAuthenticateLongSessionPrepareParams(
         username,
         password,
         consumerKey,
@@ -15784,7 +16476,7 @@ AuthenticationResult UserStore::authenticateLongSession(
         params,
         ctx->requestTimeout());
 
-    return UserStore_authenticateLongSession_readReply(reply);
+    return UserStoreAuthenticateLongSessionReadReply(reply);
 }
 
 AsyncResult * UserStore::authenticateLongSessionAsync(
@@ -15808,7 +16500,7 @@ AsyncResult * UserStore::authenticateLongSessionAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_authenticateLongSession_prepareParams(
+    QByteArray params = UserStoreAuthenticateLongSessionPrepareParams(
         username,
         password,
         consumerKey,
@@ -15821,90 +16513,102 @@ AsyncResult * UserStore::authenticateLongSessionAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_authenticateLongSession_readReplyAsync);
+        UserStoreAuthenticateLongSessionReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_completeTwoFactorAuthentication_prepareParams(
+QByteArray UserStoreCompleteTwoFactorAuthenticationPrepareParams(
     QString authenticationToken,
     QString oneTimeCode,
     QString deviceIdentifier,
     QString deviceDescription)
 {
-    QEC_DEBUG("user_store", "UserStore_completeTwoFactorAuthentication_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreCompleteTwoFactorAuthenticationPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("completeTwoFactorAuthentication"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("completeTwoFactorAuthentication"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_completeTwoFactorAuthentication_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("oneTimeCode"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(oneTimeCode);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(oneTimeCode);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("deviceIdentifier"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(deviceIdentifier);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(deviceIdentifier);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("deviceDescription"),
         ThriftFieldType::T_STRING,
         4);
-    w.writeString(deviceDescription);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(deviceDescription);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteArray reply)
+AuthenticationResult UserStoreCompleteTwoFactorAuthenticationReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_completeTwoFactorAuthentication_readReply");
+    QEC_DEBUG("user_store", "UserStoreCompleteTwoFactorAuthenticationReadReply");
 
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("completeTwoFactorAuthentication")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -15914,45 +16618,45 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
-                readAuthenticationResult(r, v);
+                readAuthenticationResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -15963,9 +16667,9 @@ AuthenticationResult UserStore_completeTwoFactorAuthentication_readReply(QByteAr
     return result;
 }
 
-QVariant UserStore_completeTwoFactorAuthentication_readReplyAsync(QByteArray reply)
+QVariant UserStoreCompleteTwoFactorAuthenticationReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_completeTwoFactorAuthentication_readReply(reply));
+    return QVariant::fromValue(UserStoreCompleteTwoFactorAuthenticationReadReply(reply));
 }
 
 } // namespace
@@ -15984,7 +16688,7 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_completeTwoFactorAuthentication_prepareParams(
+    QByteArray params = UserStoreCompleteTwoFactorAuthenticationPrepareParams(
         ctx->authenticationToken(),
         oneTimeCode,
         deviceIdentifier,
@@ -15995,7 +16699,7 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
         params,
         ctx->requestTimeout());
 
-    return UserStore_completeTwoFactorAuthentication_readReply(reply);
+    return UserStoreCompleteTwoFactorAuthenticationReadReply(reply);
 }
 
 AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
@@ -16013,7 +16717,7 @@ AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_completeTwoFactorAuthentication_prepareParams(
+    QByteArray params = UserStoreCompleteTwoFactorAuthenticationPrepareParams(
         ctx->authenticationToken(),
         oneTimeCode,
         deviceIdentifier,
@@ -16023,67 +16727,73 @@ AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_completeTwoFactorAuthentication_readReplyAsync);
+        UserStoreCompleteTwoFactorAuthenticationReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_revokeLongSession_prepareParams(
+QByteArray UserStoreRevokeLongSessionPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("user_store", "UserStore_revokeLongSession_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreRevokeLongSessionPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("revokeLongSession"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("revokeLongSession"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_revokeLongSession_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void UserStore_revokeLongSession_readReply(QByteArray reply)
+void UserStoreRevokeLongSessionReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_revokeLongSession_readReply");
+    QEC_DEBUG("user_store", "UserStoreRevokeLongSessionReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("revokeLongSession")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -16092,40 +16802,40 @@ void UserStore_revokeLongSession_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant UserStore_revokeLongSession_readReplyAsync(QByteArray reply)
+QVariant UserStoreRevokeLongSessionReadReplyAsync(QByteArray reply)
 {
-    UserStore_revokeLongSession_readReply(reply);
+    UserStoreRevokeLongSessionReadReply(reply);
     return QVariant();
 }
 
@@ -16139,7 +16849,7 @@ void UserStore::revokeLongSession(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_revokeLongSession_prepareParams(
+    QByteArray params = UserStoreRevokeLongSessionPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -16147,7 +16857,7 @@ void UserStore::revokeLongSession(
         params,
         ctx->requestTimeout());
 
-    UserStore_revokeLongSession_readReply(reply);
+    UserStoreRevokeLongSessionReadReply(reply);
 }
 
 AsyncResult * UserStore::revokeLongSessionAsync(
@@ -16159,76 +16869,82 @@ AsyncResult * UserStore::revokeLongSessionAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_revokeLongSession_prepareParams(
+    QByteArray params = UserStoreRevokeLongSessionPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_revokeLongSession_readReplyAsync);
+        UserStoreRevokeLongSessionReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_authenticateToBusiness_prepareParams(
+QByteArray UserStoreAuthenticateToBusinessPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("user_store", "UserStore_authenticateToBusiness_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreAuthenticateToBusinessPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("authenticateToBusiness"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateToBusiness"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_authenticateToBusiness_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply)
+AuthenticationResult UserStoreAuthenticateToBusinessReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_authenticateToBusiness_readReply");
+    QEC_DEBUG("user_store", "UserStoreAuthenticateToBusinessReadReply");
 
     bool resultIsSet = false;
     AuthenticationResult result = AuthenticationResult();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("authenticateToBusiness")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -16238,45 +16954,45 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AuthenticationResult v;
-                readAuthenticationResult(r, v);
+                readAuthenticationResult(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -16287,9 +17003,9 @@ AuthenticationResult UserStore_authenticateToBusiness_readReply(QByteArray reply
     return result;
 }
 
-QVariant UserStore_authenticateToBusiness_readReplyAsync(QByteArray reply)
+QVariant UserStoreAuthenticateToBusinessReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_authenticateToBusiness_readReply(reply));
+    return QVariant::fromValue(UserStoreAuthenticateToBusinessReadReply(reply));
 }
 
 } // namespace
@@ -16302,7 +17018,7 @@ AuthenticationResult UserStore::authenticateToBusiness(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_authenticateToBusiness_prepareParams(
+    QByteArray params = UserStoreAuthenticateToBusinessPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -16310,7 +17026,7 @@ AuthenticationResult UserStore::authenticateToBusiness(
         params,
         ctx->requestTimeout());
 
-    return UserStore_authenticateToBusiness_readReply(reply);
+    return UserStoreAuthenticateToBusinessReadReply(reply);
 }
 
 AsyncResult * UserStore::authenticateToBusinessAsync(
@@ -16322,76 +17038,82 @@ AsyncResult * UserStore::authenticateToBusinessAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_authenticateToBusiness_prepareParams(
+    QByteArray params = UserStoreAuthenticateToBusinessPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_authenticateToBusiness_readReplyAsync);
+        UserStoreAuthenticateToBusinessReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_getUser_prepareParams(
+QByteArray UserStoreGetUserPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("user_store", "UserStore_getUser_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreGetUserPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getUser"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getUser"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_getUser_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-User UserStore_getUser_readReply(QByteArray reply)
+User UserStoreGetUserReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_getUser_readReply");
+    QEC_DEBUG("user_store", "UserStoreGetUserReadReply");
 
     bool resultIsSet = false;
     User result = User();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getUser")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -16401,45 +17123,45 @@ User UserStore_getUser_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 User v;
-                readUser(r, v);
+                readUser(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -16450,9 +17172,9 @@ User UserStore_getUser_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_getUser_readReplyAsync(QByteArray reply)
+QVariant UserStoreGetUserReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_getUser_readReply(reply));
+    return QVariant::fromValue(UserStoreGetUserReadReply(reply));
 }
 
 } // namespace
@@ -16465,7 +17187,7 @@ User UserStore::getUser(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_getUser_prepareParams(
+    QByteArray params = UserStoreGetUserPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -16473,7 +17195,7 @@ User UserStore::getUser(
         params,
         ctx->requestTimeout());
 
-    return UserStore_getUser_readReply(reply);
+    return UserStoreGetUserReadReply(reply);
 }
 
 AsyncResult * UserStore::getUserAsync(
@@ -16485,76 +17207,82 @@ AsyncResult * UserStore::getUserAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_getUser_prepareParams(
+    QByteArray params = UserStoreGetUserPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_getUser_readReplyAsync);
+        UserStoreGetUserReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_getPublicUserInfo_prepareParams(
+QByteArray UserStoreGetPublicUserInfoPrepareParams(
     QString username)
 {
-    QEC_DEBUG("user_store", "UserStore_getPublicUserInfo_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreGetPublicUserInfoPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getPublicUserInfo"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getPublicUserInfo"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_getPublicUserInfo_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("username"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(username);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(username);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
+PublicUserInfo UserStoreGetPublicUserInfoReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_getPublicUserInfo_readReply");
+    QEC_DEBUG("user_store", "UserStoreGetPublicUserInfoReadReply");
 
     bool resultIsSet = false;
     PublicUserInfo result = PublicUserInfo();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getPublicUserInfo")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -16564,56 +17292,56 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 PublicUserInfo v;
-                readPublicUserInfo(r, v);
+                readPublicUserInfo(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -16624,9 +17352,9 @@ PublicUserInfo UserStore_getPublicUserInfo_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_getPublicUserInfo_readReplyAsync(QByteArray reply)
+QVariant UserStoreGetPublicUserInfoReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_getPublicUserInfo_readReply(reply));
+    return QVariant::fromValue(UserStoreGetPublicUserInfoReadReply(reply));
 }
 
 } // namespace
@@ -16642,7 +17370,7 @@ PublicUserInfo UserStore::getPublicUserInfo(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_getPublicUserInfo_prepareParams(
+    QByteArray params = UserStoreGetPublicUserInfoPrepareParams(
         username);
 
     QByteArray reply = askEvernote(
@@ -16650,7 +17378,7 @@ PublicUserInfo UserStore::getPublicUserInfo(
         params,
         ctx->requestTimeout());
 
-    return UserStore_getPublicUserInfo_readReply(reply);
+    return UserStoreGetPublicUserInfoReadReply(reply);
 }
 
 AsyncResult * UserStore::getPublicUserInfoAsync(
@@ -16665,76 +17393,82 @@ AsyncResult * UserStore::getPublicUserInfoAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_getPublicUserInfo_prepareParams(
+    QByteArray params = UserStoreGetPublicUserInfoPrepareParams(
         username);
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_getPublicUserInfo_readReplyAsync);
+        UserStoreGetPublicUserInfoReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_getUserUrls_prepareParams(
+QByteArray UserStoreGetUserUrlsPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("user_store", "UserStore_getUserUrls_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreGetUserUrlsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getUserUrls"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getUserUrls"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_getUserUrls_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
+UserUrls UserStoreGetUserUrlsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_getUserUrls_readReply");
+    QEC_DEBUG("user_store", "UserStoreGetUserUrlsReadReply");
 
     bool resultIsSet = false;
     UserUrls result = UserUrls();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getUserUrls")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -16744,45 +17478,45 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 UserUrls v;
-                readUserUrls(r, v);
+                readUserUrls(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -16793,9 +17527,9 @@ UserUrls UserStore_getUserUrls_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_getUserUrls_readReplyAsync(QByteArray reply)
+QVariant UserStoreGetUserUrlsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_getUserUrls_readReply(reply));
+    return QVariant::fromValue(UserStoreGetUserUrlsReadReply(reply));
 }
 
 } // namespace
@@ -16808,7 +17542,7 @@ UserUrls UserStore::getUserUrls(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_getUserUrls_prepareParams(
+    QByteArray params = UserStoreGetUserUrlsPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -16816,7 +17550,7 @@ UserUrls UserStore::getUserUrls(
         params,
         ctx->requestTimeout());
 
-    return UserStore_getUserUrls_readReply(reply);
+    return UserStoreGetUserUrlsReadReply(reply);
 }
 
 AsyncResult * UserStore::getUserUrlsAsync(
@@ -16828,81 +17562,89 @@ AsyncResult * UserStore::getUserUrlsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_getUserUrls_prepareParams(
+    QByteArray params = UserStoreGetUserUrlsPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_getUserUrls_readReplyAsync);
+        UserStoreGetUserUrlsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_inviteToBusiness_prepareParams(
+QByteArray UserStoreInviteToBusinessPrepareParams(
     QString authenticationToken,
     QString emailAddress)
 {
-    QEC_DEBUG("user_store", "UserStore_inviteToBusiness_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreInviteToBusinessPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("inviteToBusiness"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("inviteToBusiness"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_inviteToBusiness_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("emailAddress"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(emailAddress);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(emailAddress);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void UserStore_inviteToBusiness_readReply(QByteArray reply)
+void UserStoreInviteToBusinessReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_inviteToBusiness_readReply");
+    QEC_DEBUG("user_store", "UserStoreInviteToBusinessReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("inviteToBusiness")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -16911,40 +17653,40 @@ void UserStore_inviteToBusiness_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant UserStore_inviteToBusiness_readReplyAsync(QByteArray reply)
+QVariant UserStoreInviteToBusinessReadReplyAsync(QByteArray reply)
 {
-    UserStore_inviteToBusiness_readReply(reply);
+    UserStoreInviteToBusinessReadReply(reply);
     return QVariant();
 }
 
@@ -16961,7 +17703,7 @@ void UserStore::inviteToBusiness(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_inviteToBusiness_prepareParams(
+    QByteArray params = UserStoreInviteToBusinessPrepareParams(
         ctx->authenticationToken(),
         emailAddress);
 
@@ -16970,7 +17712,7 @@ void UserStore::inviteToBusiness(
         params,
         ctx->requestTimeout());
 
-    UserStore_inviteToBusiness_readReply(reply);
+    UserStoreInviteToBusinessReadReply(reply);
 }
 
 AsyncResult * UserStore::inviteToBusinessAsync(
@@ -16985,7 +17727,7 @@ AsyncResult * UserStore::inviteToBusinessAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_inviteToBusiness_prepareParams(
+    QByteArray params = UserStoreInviteToBusinessPrepareParams(
         ctx->authenticationToken(),
         emailAddress);
 
@@ -16993,74 +17735,82 @@ AsyncResult * UserStore::inviteToBusinessAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_inviteToBusiness_readReplyAsync);
+        UserStoreInviteToBusinessReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_removeFromBusiness_prepareParams(
+QByteArray UserStoreRemoveFromBusinessPrepareParams(
     QString authenticationToken,
     QString emailAddress)
 {
-    QEC_DEBUG("user_store", "UserStore_removeFromBusiness_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreRemoveFromBusinessPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("removeFromBusiness"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("removeFromBusiness"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_removeFromBusiness_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("emailAddress"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(emailAddress);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(emailAddress);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void UserStore_removeFromBusiness_readReply(QByteArray reply)
+void UserStoreRemoveFromBusinessReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_removeFromBusiness_readReply");
+    QEC_DEBUG("user_store", "UserStoreRemoveFromBusinessReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("removeFromBusiness")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -17069,51 +17819,51 @@ void UserStore_removeFromBusiness_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant UserStore_removeFromBusiness_readReplyAsync(QByteArray reply)
+QVariant UserStoreRemoveFromBusinessReadReplyAsync(QByteArray reply)
 {
-    UserStore_removeFromBusiness_readReply(reply);
+    UserStoreRemoveFromBusinessReadReply(reply);
     return QVariant();
 }
 
@@ -17130,7 +17880,7 @@ void UserStore::removeFromBusiness(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_removeFromBusiness_prepareParams(
+    QByteArray params = UserStoreRemoveFromBusinessPrepareParams(
         ctx->authenticationToken(),
         emailAddress);
 
@@ -17139,7 +17889,7 @@ void UserStore::removeFromBusiness(
         params,
         ctx->requestTimeout());
 
-    UserStore_removeFromBusiness_readReply(reply);
+    UserStoreRemoveFromBusinessReadReply(reply);
 }
 
 AsyncResult * UserStore::removeFromBusinessAsync(
@@ -17154,7 +17904,7 @@ AsyncResult * UserStore::removeFromBusinessAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_removeFromBusiness_prepareParams(
+    QByteArray params = UserStoreRemoveFromBusinessPrepareParams(
         ctx->authenticationToken(),
         emailAddress);
 
@@ -17162,81 +17912,91 @@ AsyncResult * UserStore::removeFromBusinessAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_removeFromBusiness_readReplyAsync);
+        UserStoreRemoveFromBusinessReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_updateBusinessUserIdentifier_prepareParams(
+QByteArray UserStoreUpdateBusinessUserIdentifierPrepareParams(
     QString authenticationToken,
     QString oldEmailAddress,
     QString newEmailAddress)
 {
-    QEC_DEBUG("user_store", "UserStore_updateBusinessUserIdentifier_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreUpdateBusinessUserIdentifierPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("updateBusinessUserIdentifier"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateBusinessUserIdentifier"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_updateBusinessUserIdentifier_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("oldEmailAddress"),
         ThriftFieldType::T_STRING,
         2);
-    w.writeString(oldEmailAddress);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(oldEmailAddress);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("newEmailAddress"),
         ThriftFieldType::T_STRING,
         3);
-    w.writeString(newEmailAddress);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(newEmailAddress);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
+void UserStoreUpdateBusinessUserIdentifierReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_updateBusinessUserIdentifier_readReply");
+    QEC_DEBUG("user_store", "UserStoreUpdateBusinessUserIdentifierReadReply");
 
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("updateBusinessUserIdentifier")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -17245,51 +18005,51 @@ void UserStore_updateBusinessUserIdentifier_readReply(QByteArray reply)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 3)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException e;
-                readEDAMNotFoundException(r, e);
+                readEDAMNotFoundException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
 }
 
-QVariant UserStore_updateBusinessUserIdentifier_readReplyAsync(QByteArray reply)
+QVariant UserStoreUpdateBusinessUserIdentifierReadReplyAsync(QByteArray reply)
 {
-    UserStore_updateBusinessUserIdentifier_readReply(reply);
+    UserStoreUpdateBusinessUserIdentifierReadReply(reply);
     return QVariant();
 }
 
@@ -17308,7 +18068,7 @@ void UserStore::updateBusinessUserIdentifier(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_updateBusinessUserIdentifier_prepareParams(
+    QByteArray params = UserStoreUpdateBusinessUserIdentifierPrepareParams(
         ctx->authenticationToken(),
         oldEmailAddress,
         newEmailAddress);
@@ -17318,7 +18078,7 @@ void UserStore::updateBusinessUserIdentifier(
         params,
         ctx->requestTimeout());
 
-    UserStore_updateBusinessUserIdentifier_readReply(reply);
+    UserStoreUpdateBusinessUserIdentifierReadReply(reply);
 }
 
 AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
@@ -17335,7 +18095,7 @@ AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_updateBusinessUserIdentifier_prepareParams(
+    QByteArray params = UserStoreUpdateBusinessUserIdentifierPrepareParams(
         ctx->authenticationToken(),
         oldEmailAddress,
         newEmailAddress);
@@ -17344,69 +18104,75 @@ AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_updateBusinessUserIdentifier_readReplyAsync);
+        UserStoreUpdateBusinessUserIdentifierReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_listBusinessUsers_prepareParams(
+QByteArray UserStoreListBusinessUsersPrepareParams(
     QString authenticationToken)
 {
-    QEC_DEBUG("user_store", "UserStore_listBusinessUsers_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreListBusinessUsersPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listBusinessUsers"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listBusinessUsers"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_listBusinessUsers_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
+QList<UserProfile> UserStoreListBusinessUsersReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_listBusinessUsers_readReply");
+    QEC_DEBUG("user_store", "UserStoreListBusinessUsersReadReply");
 
     bool resultIsSet = false;
     QList<UserProfile> result = QList<UserProfile>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listBusinessUsers")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -17418,7 +18184,7 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
                 QList<UserProfile> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -17427,48 +18193,48 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
                 }
                 for(qint32 i = 0; i < size; i++) {
                     UserProfile elem;
-                    readUserProfile(r, elem);
+                    readUserProfile(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -17479,9 +18245,9 @@ QList<UserProfile> UserStore_listBusinessUsers_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_listBusinessUsers_readReplyAsync(QByteArray reply)
+QVariant UserStoreListBusinessUsersReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_listBusinessUsers_readReply(reply));
+    return QVariant::fromValue(UserStoreListBusinessUsersReadReply(reply));
 }
 
 } // namespace
@@ -17494,7 +18260,7 @@ QList<UserProfile> UserStore::listBusinessUsers(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_listBusinessUsers_prepareParams(
+    QByteArray params = UserStoreListBusinessUsersPrepareParams(
         ctx->authenticationToken());
 
     QByteArray reply = askEvernote(
@@ -17502,7 +18268,7 @@ QList<UserProfile> UserStore::listBusinessUsers(
         params,
         ctx->requestTimeout());
 
-    return UserStore_listBusinessUsers_readReply(reply);
+    return UserStoreListBusinessUsersReadReply(reply);
 }
 
 AsyncResult * UserStore::listBusinessUsersAsync(
@@ -17514,83 +18280,91 @@ AsyncResult * UserStore::listBusinessUsersAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_listBusinessUsers_prepareParams(
+    QByteArray params = UserStoreListBusinessUsersPrepareParams(
         ctx->authenticationToken());
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_listBusinessUsers_readReplyAsync);
+        UserStoreListBusinessUsersReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_listBusinessInvitations_prepareParams(
+QByteArray UserStoreListBusinessInvitationsPrepareParams(
     QString authenticationToken,
     bool includeRequestedInvitations)
 {
-    QEC_DEBUG("user_store", "UserStore_listBusinessInvitations_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreListBusinessInvitationsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("listBusinessInvitations"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("listBusinessInvitations"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_listBusinessInvitations_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
-    w.writeString(authenticationToken);
-    w.writeFieldEnd();
-    w.writeFieldBegin(
+
+    writer.writeString(authenticationToken);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(
         QStringLiteral("includeRequestedInvitations"),
         ThriftFieldType::T_BOOL,
         2);
-    w.writeBool(includeRequestedInvitations);
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeBool(includeRequestedInvitations);
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray reply)
+QList<BusinessInvitation> UserStoreListBusinessInvitationsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_listBusinessInvitations_readReply");
+    QEC_DEBUG("user_store", "UserStoreListBusinessInvitationsReadReply");
 
     bool resultIsSet = false;
     QList<BusinessInvitation> result = QList<BusinessInvitation>();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("listBusinessInvitations")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -17602,7 +18376,7 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
                 QList<BusinessInvitation> v;
                 qint32 size;
                 ThriftFieldType elemType;
-                r.readListBegin(elemType, size);
+                reader.readListBegin(elemType, size);
                 v.reserve(size);
                 if (elemType != ThriftFieldType::T_STRUCT) {
                     throw ThriftException(
@@ -17611,48 +18385,48 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
                 }
                 for(qint32 i = 0; i < size; i++) {
                     BusinessInvitation elem;
-                    readBusinessInvitation(r, elem);
+                    readBusinessInvitation(reader, elem);
                     v.append(elem);
                 }
-                r.readListEnd();
+                reader.readListEnd();
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 2)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMSystemException e;
-                readEDAMSystemException(r, e);
+                readEDAMSystemException(reader, e);
                 throwEDAMSystemException(e);
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -17663,9 +18437,9 @@ QList<BusinessInvitation> UserStore_listBusinessInvitations_readReply(QByteArray
     return result;
 }
 
-QVariant UserStore_listBusinessInvitations_readReplyAsync(QByteArray reply)
+QVariant UserStoreListBusinessInvitationsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_listBusinessInvitations_readReply(reply));
+    return QVariant::fromValue(UserStoreListBusinessInvitationsReadReply(reply));
 }
 
 } // namespace
@@ -17681,7 +18455,7 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_listBusinessInvitations_prepareParams(
+    QByteArray params = UserStoreListBusinessInvitationsPrepareParams(
         ctx->authenticationToken(),
         includeRequestedInvitations);
 
@@ -17690,7 +18464,7 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
         params,
         ctx->requestTimeout());
 
-    return UserStore_listBusinessInvitations_readReply(reply);
+    return UserStoreListBusinessInvitationsReadReply(reply);
 }
 
 AsyncResult * UserStore::listBusinessInvitationsAsync(
@@ -17705,7 +18479,7 @@ AsyncResult * UserStore::listBusinessInvitationsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_listBusinessInvitations_prepareParams(
+    QByteArray params = UserStoreListBusinessInvitationsPrepareParams(
         ctx->authenticationToken(),
         includeRequestedInvitations);
 
@@ -17713,69 +18487,75 @@ AsyncResult * UserStore::listBusinessInvitationsAsync(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_listBusinessInvitations_readReplyAsync);
+        UserStoreListBusinessInvitationsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace {
 
-QByteArray UserStore_getAccountLimits_prepareParams(
+QByteArray UserStoreGetAccountLimitsPrepareParams(
     ServiceLevel serviceLevel)
 {
-    QEC_DEBUG("user_store", "UserStore_getAccountLimits_prepareParams");
+    QEC_DEBUG("user_store", "UserStoreGetAccountLimitsPrepareParams");
 
-    ThriftBinaryBufferWriter w;
+    ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
-    w.writeMessageBegin(
-        QStringLiteral("getAccountLimits"), ThriftMessageType::T_CALL, cseqid);
-    w.writeStructBegin(
+
+    writer.writeMessageBegin(
+        QStringLiteral("getAccountLimits"),
+        ThriftMessageType::T_CALL,
+        cseqid);
+
+    writer.writeStructBegin(
         QStringLiteral("UserStore_getAccountLimits_pargs"));
-    w.writeFieldBegin(
+    writer.writeFieldBegin(
         QStringLiteral("serviceLevel"),
         ThriftFieldType::T_I32,
         1);
-    w.writeI32(static_cast<qint32>(serviceLevel));
-    w.writeFieldEnd();
-    w.writeFieldStop();
-    w.writeStructEnd();
-    w.writeMessageEnd();
-    return w.buffer();
+
+    writer.writeI32(static_cast<qint32>(serviceLevel));
+    writer.writeFieldEnd();
+
+    writer.writeFieldStop();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+    return writer.buffer();
 }
 
-AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
+AccountLimits UserStoreGetAccountLimitsReadReply(QByteArray reply)
 {
-    QEC_DEBUG("user_store", "UserStore_getAccountLimits_readReply");
+    QEC_DEBUG("user_store", "UserStoreGetAccountLimitsReadReply");
 
     bool resultIsSet = false;
     AccountLimits result = AccountLimits();
-    ThriftBinaryBufferReader r(reply);
+    ThriftBinaryBufferReader reader(reply);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
     if (mtype == ThriftMessageType::T_EXCEPTION) {
-        ThriftException e = readThriftException(r);
-        r.readMessageEnd();
+        ThriftException e = readThriftException(reader);
+        reader.readMessageEnd();
         throw e;
     }
     if (mtype != ThriftMessageType::T_REPLY) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
     }
     if (fname.compare(QStringLiteral("getAccountLimits")) != 0) {
-        r.skip(ThriftFieldType::T_STRUCT);
-        r.readMessageEnd();
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
         throw ThriftException(ThriftException::Type::WRONG_METHOD_NAME);
     }
 
     ThriftFieldType fieldType;
     qint16 fieldId;
-    r.readStructBegin(fname);
+    reader.readStructBegin(fname);
     while(true)
     {
-        r.readFieldBegin(fname, fieldType, fieldId);
+        reader.readFieldBegin(fname, fieldType, fieldId);
         if (fieldType == ThriftFieldType::T_STOP) {
             break;
         }
@@ -17785,34 +18565,34 @@ AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 resultIsSet = true;
                 AccountLimits v;
-                readAccountLimits(r, v);
+                readAccountLimits(reader, v);
                 result = v;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else if (fieldId == 1)
         {
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException e;
-                readEDAMUserException(r, e);
+                readEDAMUserException(reader, e);
                 throw e;
             }
             else {
-                r.skip(fieldType);
+                reader.skip(fieldType);
             }
         }
         else
         {
-            r.skip(fieldType);
+            reader.skip(fieldType);
         }
 
-        r.readFieldEnd();
+        reader.readFieldEnd();
     }
 
-    r.readStructEnd();
-    r.readMessageEnd();
+    reader.readStructEnd();
+    reader.readMessageEnd();
 
     if (!resultIsSet) {
         throw ThriftException(
@@ -17823,9 +18603,9 @@ AccountLimits UserStore_getAccountLimits_readReply(QByteArray reply)
     return result;
 }
 
-QVariant UserStore_getAccountLimits_readReplyAsync(QByteArray reply)
+QVariant UserStoreGetAccountLimitsReadReplyAsync(QByteArray reply)
 {
-    return QVariant::fromValue(UserStore_getAccountLimits_readReply(reply));
+    return QVariant::fromValue(UserStoreGetAccountLimitsReadReply(reply));
 }
 
 } // namespace
@@ -17841,7 +18621,7 @@ AccountLimits UserStore::getAccountLimits(
     if (!ctx) {
         ctx = m_ctx;
     }
-    QByteArray params = UserStore_getAccountLimits_prepareParams(
+    QByteArray params = UserStoreGetAccountLimitsPrepareParams(
         serviceLevel);
 
     QByteArray reply = askEvernote(
@@ -17849,7 +18629,7 @@ AccountLimits UserStore::getAccountLimits(
         params,
         ctx->requestTimeout());
 
-    return UserStore_getAccountLimits_readReply(reply);
+    return UserStoreGetAccountLimitsReadReply(reply);
 }
 
 AsyncResult * UserStore::getAccountLimitsAsync(
@@ -17864,14 +18644,14 @@ AsyncResult * UserStore::getAccountLimitsAsync(
         ctx = m_ctx;
     }
 
-    QByteArray params = UserStore_getAccountLimits_prepareParams(
+    QByteArray params = UserStoreGetAccountLimitsPrepareParams(
         serviceLevel);
 
     return new AsyncResult(
         m_url,
         params,
         ctx->requestTimeout(),
-        UserStore_getAccountLimits_readReplyAsync);
+        UserStoreGetAccountLimitsReadReplyAsync);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

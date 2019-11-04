@@ -12,6 +12,7 @@
 #include <generated/Servers.h>
 #include "../Impl.h"
 #include "../Thrift.h"
+#include "Types_io.h"
 
 namespace qevercloud {
 
@@ -20,1067 +21,4811 @@ namespace {
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetSyncStateParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getSyncState_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetFilteredSyncChunkParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     qint32 & afterUSN,
     qint32 & maxEntries,
     SyncChunkFilter & filter,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(afterUSN)
-    Q_UNUSED(maxEntries)
-    Q_UNUSED(filter)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getFilteredSyncChunk_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                afterUSN = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                maxEntries = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                SyncChunkFilter v;
+                readSyncChunkFilter(reader, v);
+                filter = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetLinkedNotebookSyncStateParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(linkedNotebook)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getLinkedNotebookSyncState_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                LinkedNotebook v;
+                readLinkedNotebook(reader, v);
+                linkedNotebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetLinkedNotebookSyncChunkParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
     qint32 & afterUSN,
     qint32 & maxEntries,
     bool & fullSyncOnly,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(linkedNotebook)
-    Q_UNUSED(afterUSN)
-    Q_UNUSED(maxEntries)
-    Q_UNUSED(fullSyncOnly)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getLinkedNotebookSyncChunk_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                LinkedNotebook v;
+                readLinkedNotebook(reader, v);
+                linkedNotebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                afterUSN = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                maxEntries = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                fullSyncOnly = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListNotebooksParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listNotebooks_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListAccessibleBusinessNotebooksParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listAccessibleBusinessNotebooks_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetDefaultNotebookParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getDefaultNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCreateNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Notebook & notebook,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(notebook)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_createNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Notebook v;
+                readNotebook(reader, v);
+                notebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Notebook & notebook,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(notebook)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Notebook v;
+                readNotebook(reader, v);
+                notebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreExpungeNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_expungeNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListTagsParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listTags_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListTagsByNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & notebookGuid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(notebookGuid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listTagsByNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                notebookGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetTagParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getTag_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCreateTagParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Tag & tag,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(tag)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_createTag_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Tag v;
+                readTag(reader, v);
+                tag = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateTagParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Tag & tag,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(tag)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateTag_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Tag v;
+                readTag(reader, v);
+                tag = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUntagAllParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_untagAll_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreExpungeTagParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_expungeTag_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListSearchesParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listSearches_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetSearchParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getSearch_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCreateSearchParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     SavedSearch & search,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(search)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_createSearch_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                SavedSearch v;
+                readSavedSearch(reader, v);
+                search = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateSearchParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     SavedSearch & search,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(search)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateSearch_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                SavedSearch v;
+                readSavedSearch(reader, v);
+                search = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreExpungeSearchParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_expungeSearch_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreFindNoteOffsetParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     NoteFilter & filter,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(filter)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_findNoteOffset_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NoteFilter v;
+                readNoteFilter(reader, v);
+                filter = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreFindNotesMetadataParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     NoteFilter & filter,
     qint32 & offset,
     qint32 & maxNotes,
     NotesMetadataResultSpec & resultSpec,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(filter)
-    Q_UNUSED(offset)
-    Q_UNUSED(maxNotes)
-    Q_UNUSED(resultSpec)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_findNotesMetadata_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NoteFilter v;
+                readNoteFilter(reader, v);
+                filter = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                offset = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                maxNotes = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NotesMetadataResultSpec v;
+                readNotesMetadataResultSpec(reader, v);
+                resultSpec = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreFindNoteCountsParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     NoteFilter & filter,
     bool & withTrash,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(filter)
-    Q_UNUSED(withTrash)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_findNoteCounts_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NoteFilter v;
+                readNoteFilter(reader, v);
+                filter = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withTrash = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteWithResultSpecParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     NoteResultSpec & resultSpec,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(resultSpec)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteWithResultSpec_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NoteResultSpec v;
+                readNoteResultSpec(reader, v);
+                resultSpec = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     bool & withContent,
     bool & withResourcesData,
     bool & withResourcesRecognition,
     bool & withResourcesAlternateData,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(withContent)
-    Q_UNUSED(withResourcesData)
-    Q_UNUSED(withResourcesRecognition)
-    Q_UNUSED(withResourcesAlternateData)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withContent = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withResourcesData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withResourcesRecognition = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 6)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withResourcesAlternateData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteApplicationDataParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteApplicationData_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteApplicationDataEntryParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(key)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteApplicationDataEntry_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                key = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreSetNoteApplicationDataEntryParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
     QString & value,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(key)
-    Q_UNUSED(value)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_setNoteApplicationDataEntry_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                key = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                value = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUnsetNoteApplicationDataEntryParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(key)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_unsetNoteApplicationDataEntry_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                key = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteContentParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteContent_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteSearchTextParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     bool & noteOnly,
     bool & tokenizeForIndexing,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(noteOnly)
-    Q_UNUSED(tokenizeForIndexing)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteSearchText_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                noteOnly = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                tokenizeForIndexing = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceSearchTextParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceSearchText_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteTagNamesParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteTagNames_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCreateNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Note & note,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(note)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_createNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Note v;
+                readNote(reader, v);
+                note = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Note & note,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(note)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Note v;
+                readNote(reader, v);
+                note = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreDeleteNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_deleteNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreExpungeNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_expungeNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCopyNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & noteGuid,
     Guid & toNotebookGuid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(noteGuid)
-    Q_UNUSED(toNotebookGuid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_copyNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                noteGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                toNotebookGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListNoteVersionsParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & noteGuid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(noteGuid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listNoteVersions_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                noteGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNoteVersionParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & noteGuid,
     qint32 & updateSequenceNum,
     bool & withResourcesData,
     bool & withResourcesRecognition,
     bool & withResourcesAlternateData,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(noteGuid)
-    Q_UNUSED(updateSequenceNum)
-    Q_UNUSED(withResourcesData)
-    Q_UNUSED(withResourcesRecognition)
-    Q_UNUSED(withResourcesAlternateData)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNoteVersion_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                noteGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                qint32 v;
+                reader.readI32(v);
+                updateSequenceNum = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withResourcesData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withResourcesRecognition = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 6)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withResourcesAlternateData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     bool & withData,
     bool & withRecognition,
     bool & withAttributes,
     bool & withAlternateData,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(withData)
-    Q_UNUSED(withRecognition)
-    Q_UNUSED(withAttributes)
-    Q_UNUSED(withAlternateData)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResource_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withRecognition = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withAttributes = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 6)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withAlternateData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceApplicationDataParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceApplicationData_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceApplicationDataEntryParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(key)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceApplicationDataEntry_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                key = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreSetResourceApplicationDataEntryParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
     QString & value,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(key)
-    Q_UNUSED(value)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_setResourceApplicationDataEntry_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                key = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                value = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUnsetResourceApplicationDataEntryParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
     QString & key,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(key)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_unsetResourceApplicationDataEntry_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                key = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateResourceParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Resource & resource,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(resource)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateResource_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Resource v;
+                readResource(reader, v);
+                resource = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceDataParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceData_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceByHashParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & noteGuid,
     QByteArray & contentHash,
     bool & withData,
     bool & withRecognition,
     bool & withAlternateData,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(noteGuid)
-    Q_UNUSED(contentHash)
-    Q_UNUSED(withData)
-    Q_UNUSED(withRecognition)
-    Q_UNUSED(withAlternateData)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceByHash_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                noteGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QByteArray v;
+                reader.readBinary(v);
+                contentHash = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withRecognition = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 6)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                withAlternateData = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceRecognitionParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceRecognition_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceAlternateDataParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceAlternateData_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetResourceAttributesParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getResourceAttributes_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetPublicNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     UserID & userId,
     QString & publicUri,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(userId)
-    Q_UNUSED(publicUri)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getPublicNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                UserID v;
+                reader.readI32(v);
+                userId = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                publicUri = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreShareNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     SharedNotebook & sharedNotebook,
     QString & message,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(sharedNotebook)
-    Q_UNUSED(message)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_shareNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                SharedNotebook v;
+                readSharedNotebook(reader, v);
+                sharedNotebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                message = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCreateOrUpdateNotebookSharesParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     NotebookShareTemplate & shareTemplate,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(shareTemplate)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_createOrUpdateNotebookShares_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NotebookShareTemplate v;
+                readNotebookShareTemplate(reader, v);
+                shareTemplate = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateSharedNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     SharedNotebook & sharedNotebook,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(sharedNotebook)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateSharedNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                SharedNotebook v;
+                readSharedNotebook(reader, v);
+                sharedNotebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreSetNotebookRecipientSettingsParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & notebookGuid,
     NotebookRecipientSettings & recipientSettings,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(notebookGuid)
-    Q_UNUSED(recipientSettings)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_setNotebookRecipientSettings_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                notebookGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NotebookRecipientSettings v;
+                readNotebookRecipientSettings(reader, v);
+                recipientSettings = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListSharedNotebooksParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listSharedNotebooks_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreCreateLinkedNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(linkedNotebook)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_createLinkedNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                LinkedNotebook v;
+                readLinkedNotebook(reader, v);
+                linkedNotebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateLinkedNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     LinkedNotebook & linkedNotebook,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(linkedNotebook)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateLinkedNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                LinkedNotebook v;
+                readLinkedNotebook(reader, v);
+                linkedNotebook = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreListLinkedNotebooksParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_listLinkedNotebooks_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreExpungeLinkedNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_expungeLinkedNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreAuthenticateToSharedNotebookParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & shareKeyOrGlobalId,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(shareKeyOrGlobalId)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_authenticateToSharedNotebook_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                shareKeyOrGlobalId = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetSharedNotebookByAuthParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getSharedNotebookByAuth_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreEmailNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     NoteEmailParameters & parameters,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(parameters)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_emailNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                NoteEmailParameters v;
+                readNoteEmailParameters(reader, v);
+                parameters = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreShareNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_shareNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreStopSharingNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Guid & guid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_stopSharingNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                Guid v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreAuthenticateToSharedNoteParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & guid,
     QString & noteKey,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(guid)
-    Q_UNUSED(noteKey)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_authenticateToSharedNote_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                guid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                noteKey = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreFindRelatedParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     RelatedQuery & query,
     RelatedResultSpec & resultSpec,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(query)
-    Q_UNUSED(resultSpec)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_findRelated_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                RelatedQuery v;
+                readRelatedQuery(reader, v);
+                query = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                RelatedResultSpec v;
+                readRelatedResultSpec(reader, v);
+                resultSpec = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreUpdateNoteIfUsnMatchesParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     Note & note,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(note)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_updateNoteIfUsnMatches_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                Note v;
+                readNote(reader, v);
+                note = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreManageNotebookSharesParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     ManageNotebookSharesParameters & parameters,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(parameters)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_manageNotebookShares_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRUCT) {
+                ManageNotebookSharesParameters v;
+                readManageNotebookSharesParameters(reader, v);
+                parameters = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseNoteStoreGetNotebookSharesParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & notebookGuid,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(notebookGuid)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("NoteStore_getNotebookShares_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                notebookGuid = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreCheckVersionParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & clientName,
     qint16 & edamVersionMajor,
     qint16 & edamVersionMinor,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(clientName)
-    Q_UNUSED(edamVersionMajor)
-    Q_UNUSED(edamVersionMinor)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+
+    QString fname = 
+        QStringLiteral("UserStore_checkVersion_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                clientName = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_I16) {
+                qint16 v;
+                reader.readI16(v);
+                edamVersionMajor = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_I16) {
+                qint16 v;
+                reader.readI16(v);
+                edamVersionMinor = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetBootstrapInfoParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & locale,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(locale)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+
+    QString fname = 
+        QStringLiteral("UserStore_getBootstrapInfo_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                locale = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreAuthenticateLongSessionParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & username,
     QString & password,
     QString & consumerKey,
@@ -1088,170 +4833,759 @@ void parseUserStoreAuthenticateLongSessionParams(
     QString & deviceIdentifier,
     QString & deviceDescription,
     bool & supportsTwoFactor,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(username)
-    Q_UNUSED(password)
-    Q_UNUSED(consumerKey)
-    Q_UNUSED(consumerSecret)
-    Q_UNUSED(deviceIdentifier)
-    Q_UNUSED(deviceDescription)
-    Q_UNUSED(supportsTwoFactor)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+
+    QString fname = 
+        QStringLiteral("UserStore_authenticateLongSession_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                username = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                password = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                consumerKey = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                consumerSecret = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 5)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                deviceIdentifier = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 6)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                deviceDescription = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 7)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                supportsTwoFactor = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreCompleteTwoFactorAuthenticationParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & oneTimeCode,
     QString & deviceIdentifier,
     QString & deviceDescription,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(oneTimeCode)
-    Q_UNUSED(deviceIdentifier)
-    Q_UNUSED(deviceDescription)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_completeTwoFactorAuthentication_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                oneTimeCode = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                deviceIdentifier = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 4)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                deviceDescription = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreRevokeLongSessionParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_revokeLongSession_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreAuthenticateToBusinessParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_authenticateToBusiness_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetUserParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_getUser_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetPublicUserInfoParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & username,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(username)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+
+    QString fname = 
+        QStringLiteral("UserStore_getPublicUserInfo_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                username = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetUserUrlsParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_getUserUrls_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreInviteToBusinessParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & emailAddress,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(emailAddress)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_inviteToBusiness_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                emailAddress = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreRemoveFromBusinessParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & emailAddress,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(emailAddress)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_removeFromBusiness_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                emailAddress = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreUpdateBusinessUserIdentifierParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     QString & oldEmailAddress,
     QString & newEmailAddress,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(oldEmailAddress)
-    Q_UNUSED(newEmailAddress)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_updateBusinessUserIdentifier_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                oldEmailAddress = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 3)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                newEmailAddress = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreListBusinessUsersParams(
-    ThriftBinaryBufferReader & r,
-    IRequestContextPtr ctx)
+    ThriftBinaryBufferReader & reader,
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_listBusinessUsers_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreListBusinessInvitationsParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     bool & includeRequestedInvitations,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(includeRequestedInvitations)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+    QString authenticationToken;
+
+    QString fname = 
+        QStringLiteral("UserStore_listBusinessInvitations_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_STRING) {
+                QString v;
+                reader.readString(v);
+                authenticationToken = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else if (fieldId == 2)
+        {
+            if (fieldType == ThriftFieldType::T_BOOL) {
+                bool v;
+                reader.readBool(v);
+                includeRequestedInvitations = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext(authenticationToken);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 void parseUserStoreGetAccountLimitsParams(
-    ThriftBinaryBufferReader & r,
+    ThriftBinaryBufferReader & reader,
     ServiceLevel & serviceLevel,
-    IRequestContextPtr ctx)
+    IRequestContextPtr & ctx)
 {
-    // TODO: implement
-    Q_UNUSED(r)
-    Q_UNUSED(serviceLevel)
-    Q_UNUSED(ctx)
+    ThriftFieldType fieldType;
+    qint16 fieldId;
+
+    QString fname = 
+        QStringLiteral("UserStore_getAccountLimits_pargs");
+
+    reader.readStructBegin(fname);
+    while(true)
+    {
+        reader.readFieldBegin(fname, fieldType, fieldId);
+        if (fieldType == ThriftFieldType::T_STOP) {
+            break;
+        }
+
+        if (fieldId == 1)
+        {
+            if (fieldType == ThriftFieldType::T_I32) {
+                ServiceLevel v;
+                readEnumServiceLevel(reader, v);
+                serviceLevel = v;
+            }
+            else {
+                reader.skip(fieldType);
+            }
+        }
+        else
+        {
+            reader.skip(fieldType);
+        }
+
+        reader.readFieldEnd();
+    }
+
+    reader.readStructEnd();
+    reader.readMessageEnd();
+
+    ctx = newRequestContext();
 }
 
 } // namespace
@@ -1264,17 +5598,24 @@ NoteStoreServer::NoteStoreServer(QObject * parent) :
 
 void NoteStoreServer::onRequest(QByteArray data)
 {
-    ThriftBinaryBufferReader r(data);
+    ThriftBinaryBufferReader reader(data);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
+
+    if (mtype != ThriftMessageType::T_CALL) {
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
+        throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
+    }
 
     if (fname == QStringLiteral("getSyncState"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreGetSyncStateParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT getSyncStateRequest(
@@ -1286,8 +5627,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         qint32 maxEntries;
         SyncChunkFilter filter;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetFilteredSyncChunkParams(
-            r,
+            reader,
             afterUSN,
             maxEntries,
             filter,
@@ -1303,8 +5645,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         LinkedNotebook linkedNotebook;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetLinkedNotebookSyncStateParams(
-            r,
+            reader,
             linkedNotebook,
             ctx);
 
@@ -1319,8 +5662,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         qint32 maxEntries;
         bool fullSyncOnly;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetLinkedNotebookSyncChunkParams(
-            r,
+            reader,
             linkedNotebook,
             afterUSN,
             maxEntries,
@@ -1337,8 +5681,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listNotebooks"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreListNotebooksParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listNotebooksRequest(
@@ -1347,8 +5692,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listAccessibleBusinessNotebooks"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreListAccessibleBusinessNotebooksParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listAccessibleBusinessNotebooksRequest(
@@ -1358,8 +5704,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNotebookParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1370,8 +5717,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getDefaultNotebook"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreGetDefaultNotebookParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT getDefaultNotebookRequest(
@@ -1381,8 +5729,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Notebook notebook;
         IRequestContextPtr ctx;
+
         parseNoteStoreCreateNotebookParams(
-            r,
+            reader,
             notebook,
             ctx);
 
@@ -1394,8 +5743,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Notebook notebook;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateNotebookParams(
-            r,
+            reader,
             notebook,
             ctx);
 
@@ -1407,8 +5757,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreExpungeNotebookParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1419,8 +5770,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listTags"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreListTagsParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listTagsRequest(
@@ -1430,8 +5782,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid notebookGuid;
         IRequestContextPtr ctx;
+
         parseNoteStoreListTagsByNotebookParams(
-            r,
+            reader,
             notebookGuid,
             ctx);
 
@@ -1443,8 +5796,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetTagParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1456,8 +5810,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Tag tag;
         IRequestContextPtr ctx;
+
         parseNoteStoreCreateTagParams(
-            r,
+            reader,
             tag,
             ctx);
 
@@ -1469,8 +5824,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Tag tag;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateTagParams(
-            r,
+            reader,
             tag,
             ctx);
 
@@ -1482,8 +5838,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreUntagAllParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1495,8 +5852,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreExpungeTagParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1507,8 +5865,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listSearches"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreListSearchesParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listSearchesRequest(
@@ -1518,8 +5877,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetSearchParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1531,8 +5891,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         SavedSearch search;
         IRequestContextPtr ctx;
+
         parseNoteStoreCreateSearchParams(
-            r,
+            reader,
             search,
             ctx);
 
@@ -1544,8 +5905,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         SavedSearch search;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateSearchParams(
-            r,
+            reader,
             search,
             ctx);
 
@@ -1557,8 +5919,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreExpungeSearchParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1571,8 +5934,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         NoteFilter filter;
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreFindNoteOffsetParams(
-            r,
+            reader,
             filter,
             guid,
             ctx);
@@ -1589,8 +5953,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         qint32 maxNotes;
         NotesMetadataResultSpec resultSpec;
         IRequestContextPtr ctx;
+
         parseNoteStoreFindNotesMetadataParams(
-            r,
+            reader,
             filter,
             offset,
             maxNotes,
@@ -1609,8 +5974,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         NoteFilter filter;
         bool withTrash;
         IRequestContextPtr ctx;
+
         parseNoteStoreFindNoteCountsParams(
-            r,
+            reader,
             filter,
             withTrash,
             ctx);
@@ -1625,8 +5991,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         Guid guid;
         NoteResultSpec resultSpec;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteWithResultSpecParams(
-            r,
+            reader,
             guid,
             resultSpec,
             ctx);
@@ -1644,8 +6011,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         bool withResourcesRecognition;
         bool withResourcesAlternateData;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteParams(
-            r,
+            reader,
             guid,
             withContent,
             withResourcesData,
@@ -1665,8 +6033,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteApplicationDataParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1679,8 +6048,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         Guid guid;
         QString key;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteApplicationDataEntryParams(
-            r,
+            reader,
             guid,
             key,
             ctx);
@@ -1696,8 +6066,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         QString key;
         QString value;
         IRequestContextPtr ctx;
+
         parseNoteStoreSetNoteApplicationDataEntryParams(
-            r,
+            reader,
             guid,
             key,
             value,
@@ -1714,8 +6085,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         Guid guid;
         QString key;
         IRequestContextPtr ctx;
+
         parseNoteStoreUnsetNoteApplicationDataEntryParams(
-            r,
+            reader,
             guid,
             key,
             ctx);
@@ -1729,8 +6101,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteContentParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1744,8 +6117,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         bool noteOnly;
         bool tokenizeForIndexing;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteSearchTextParams(
-            r,
+            reader,
             guid,
             noteOnly,
             tokenizeForIndexing,
@@ -1761,8 +6135,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceSearchTextParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1774,8 +6149,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteTagNamesParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1787,8 +6163,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Note note;
         IRequestContextPtr ctx;
+
         parseNoteStoreCreateNoteParams(
-            r,
+            reader,
             note,
             ctx);
 
@@ -1800,8 +6177,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Note note;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateNoteParams(
-            r,
+            reader,
             note,
             ctx);
 
@@ -1813,8 +6191,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreDeleteNoteParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1826,8 +6205,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreExpungeNoteParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1840,8 +6220,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         Guid noteGuid;
         Guid toNotebookGuid;
         IRequestContextPtr ctx;
+
         parseNoteStoreCopyNoteParams(
-            r,
+            reader,
             noteGuid,
             toNotebookGuid,
             ctx);
@@ -1855,8 +6236,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid noteGuid;
         IRequestContextPtr ctx;
+
         parseNoteStoreListNoteVersionsParams(
-            r,
+            reader,
             noteGuid,
             ctx);
 
@@ -1872,8 +6254,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         bool withResourcesRecognition;
         bool withResourcesAlternateData;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNoteVersionParams(
-            r,
+            reader,
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -1897,8 +6280,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         bool withAttributes;
         bool withAlternateData;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceParams(
-            r,
+            reader,
             guid,
             withData,
             withRecognition,
@@ -1918,8 +6302,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceApplicationDataParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -1932,8 +6317,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         Guid guid;
         QString key;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceApplicationDataEntryParams(
-            r,
+            reader,
             guid,
             key,
             ctx);
@@ -1949,8 +6335,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         QString key;
         QString value;
         IRequestContextPtr ctx;
+
         parseNoteStoreSetResourceApplicationDataEntryParams(
-            r,
+            reader,
             guid,
             key,
             value,
@@ -1967,8 +6354,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         Guid guid;
         QString key;
         IRequestContextPtr ctx;
+
         parseNoteStoreUnsetResourceApplicationDataEntryParams(
-            r,
+            reader,
             guid,
             key,
             ctx);
@@ -1982,8 +6370,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Resource resource;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateResourceParams(
-            r,
+            reader,
             resource,
             ctx);
 
@@ -1995,8 +6384,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceDataParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2012,8 +6402,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         bool withRecognition;
         bool withAlternateData;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceByHashParams(
-            r,
+            reader,
             noteGuid,
             contentHash,
             withData,
@@ -2033,8 +6424,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceRecognitionParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2046,8 +6438,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceAlternateDataParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2059,8 +6452,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetResourceAttributesParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2073,8 +6467,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         UserID userId;
         QString publicUri;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetPublicNotebookParams(
-            r,
+            reader,
             userId,
             publicUri,
             ctx);
@@ -2089,8 +6484,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         SharedNotebook sharedNotebook;
         QString message;
         IRequestContextPtr ctx;
+
         parseNoteStoreShareNotebookParams(
-            r,
+            reader,
             sharedNotebook,
             message,
             ctx);
@@ -2104,8 +6500,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         NotebookShareTemplate shareTemplate;
         IRequestContextPtr ctx;
+
         parseNoteStoreCreateOrUpdateNotebookSharesParams(
-            r,
+            reader,
             shareTemplate,
             ctx);
 
@@ -2117,8 +6514,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         SharedNotebook sharedNotebook;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateSharedNotebookParams(
-            r,
+            reader,
             sharedNotebook,
             ctx);
 
@@ -2131,8 +6529,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         QString notebookGuid;
         NotebookRecipientSettings recipientSettings;
         IRequestContextPtr ctx;
+
         parseNoteStoreSetNotebookRecipientSettingsParams(
-            r,
+            reader,
             notebookGuid,
             recipientSettings,
             ctx);
@@ -2145,8 +6544,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listSharedNotebooks"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreListSharedNotebooksParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listSharedNotebooksRequest(
@@ -2156,8 +6556,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         LinkedNotebook linkedNotebook;
         IRequestContextPtr ctx;
+
         parseNoteStoreCreateLinkedNotebookParams(
-            r,
+            reader,
             linkedNotebook,
             ctx);
 
@@ -2169,8 +6570,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         LinkedNotebook linkedNotebook;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateLinkedNotebookParams(
-            r,
+            reader,
             linkedNotebook,
             ctx);
 
@@ -2181,8 +6583,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listLinkedNotebooks"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreListLinkedNotebooksParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listLinkedNotebooksRequest(
@@ -2192,8 +6595,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreExpungeLinkedNotebookParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2205,8 +6609,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         QString shareKeyOrGlobalId;
         IRequestContextPtr ctx;
+
         parseNoteStoreAuthenticateToSharedNotebookParams(
-            r,
+            reader,
             shareKeyOrGlobalId,
             ctx);
 
@@ -2217,8 +6622,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getSharedNotebookByAuth"))
     {
         IRequestContextPtr ctx;
+
         parseNoteStoreGetSharedNotebookByAuthParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT getSharedNotebookByAuthRequest(
@@ -2228,8 +6634,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         NoteEmailParameters parameters;
         IRequestContextPtr ctx;
+
         parseNoteStoreEmailNoteParams(
-            r,
+            reader,
             parameters,
             ctx);
 
@@ -2241,8 +6648,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreShareNoteParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2254,8 +6662,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid guid;
         IRequestContextPtr ctx;
+
         parseNoteStoreStopSharingNoteParams(
-            r,
+            reader,
             guid,
             ctx);
 
@@ -2268,8 +6677,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         QString guid;
         QString noteKey;
         IRequestContextPtr ctx;
+
         parseNoteStoreAuthenticateToSharedNoteParams(
-            r,
+            reader,
             guid,
             noteKey,
             ctx);
@@ -2284,8 +6694,9 @@ void NoteStoreServer::onRequest(QByteArray data)
         RelatedQuery query;
         RelatedResultSpec resultSpec;
         IRequestContextPtr ctx;
+
         parseNoteStoreFindRelatedParams(
-            r,
+            reader,
             query,
             resultSpec,
             ctx);
@@ -2299,8 +6710,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Note note;
         IRequestContextPtr ctx;
+
         parseNoteStoreUpdateNoteIfUsnMatchesParams(
-            r,
+            reader,
             note,
             ctx);
 
@@ -2312,8 +6724,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         ManageNotebookSharesParameters parameters;
         IRequestContextPtr ctx;
+
         parseNoteStoreManageNotebookSharesParams(
-            r,
+            reader,
             parameters,
             ctx);
 
@@ -2325,8 +6738,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         QString notebookGuid;
         IRequestContextPtr ctx;
+
         parseNoteStoreGetNotebookSharesParams(
-            r,
+            reader,
             notebookGuid,
             ctx);
 
@@ -2785,11 +7199,17 @@ UserStoreServer::UserStoreServer(QObject * parent) :
 
 void UserStoreServer::onRequest(QByteArray data)
 {
-    ThriftBinaryBufferReader r(data);
+    ThriftBinaryBufferReader reader(data);
     qint32 rseqid = 0;
     QString fname;
     ThriftMessageType mtype;
-    r.readMessageBegin(fname, mtype, rseqid);
+    reader.readMessageBegin(fname, mtype, rseqid);
+
+    if (mtype != ThriftMessageType::T_CALL) {
+        reader.skip(ThriftFieldType::T_STRUCT);
+        reader.readMessageEnd();
+        throw ThriftException(ThriftException::Type::INVALID_MESSAGE_TYPE);
+    }
 
     if (fname == QStringLiteral("checkVersion"))
     {
@@ -2797,8 +7217,9 @@ void UserStoreServer::onRequest(QByteArray data)
         qint16 edamVersionMajor;
         qint16 edamVersionMinor;
         IRequestContextPtr ctx;
+
         parseUserStoreCheckVersionParams(
-            r,
+            reader,
             clientName,
             edamVersionMajor,
             edamVersionMinor,
@@ -2814,8 +7235,9 @@ void UserStoreServer::onRequest(QByteArray data)
     {
         QString locale;
         IRequestContextPtr ctx;
+
         parseUserStoreGetBootstrapInfoParams(
-            r,
+            reader,
             locale,
             ctx);
 
@@ -2833,8 +7255,9 @@ void UserStoreServer::onRequest(QByteArray data)
         QString deviceDescription;
         bool supportsTwoFactor;
         IRequestContextPtr ctx;
+
         parseUserStoreAuthenticateLongSessionParams(
-            r,
+            reader,
             username,
             password,
             consumerKey,
@@ -2860,8 +7283,9 @@ void UserStoreServer::onRequest(QByteArray data)
         QString deviceIdentifier;
         QString deviceDescription;
         IRequestContextPtr ctx;
+
         parseUserStoreCompleteTwoFactorAuthenticationParams(
-            r,
+            reader,
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
@@ -2876,8 +7300,9 @@ void UserStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("revokeLongSession"))
     {
         IRequestContextPtr ctx;
+
         parseUserStoreRevokeLongSessionParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT revokeLongSessionRequest(
@@ -2886,8 +7311,9 @@ void UserStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("authenticateToBusiness"))
     {
         IRequestContextPtr ctx;
+
         parseUserStoreAuthenticateToBusinessParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT authenticateToBusinessRequest(
@@ -2896,8 +7322,9 @@ void UserStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getUser"))
     {
         IRequestContextPtr ctx;
+
         parseUserStoreGetUserParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT getUserRequest(
@@ -2907,8 +7334,9 @@ void UserStoreServer::onRequest(QByteArray data)
     {
         QString username;
         IRequestContextPtr ctx;
+
         parseUserStoreGetPublicUserInfoParams(
-            r,
+            reader,
             username,
             ctx);
 
@@ -2919,8 +7347,9 @@ void UserStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getUserUrls"))
     {
         IRequestContextPtr ctx;
+
         parseUserStoreGetUserUrlsParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT getUserUrlsRequest(
@@ -2930,8 +7359,9 @@ void UserStoreServer::onRequest(QByteArray data)
     {
         QString emailAddress;
         IRequestContextPtr ctx;
+
         parseUserStoreInviteToBusinessParams(
-            r,
+            reader,
             emailAddress,
             ctx);
 
@@ -2943,8 +7373,9 @@ void UserStoreServer::onRequest(QByteArray data)
     {
         QString emailAddress;
         IRequestContextPtr ctx;
+
         parseUserStoreRemoveFromBusinessParams(
-            r,
+            reader,
             emailAddress,
             ctx);
 
@@ -2957,8 +7388,9 @@ void UserStoreServer::onRequest(QByteArray data)
         QString oldEmailAddress;
         QString newEmailAddress;
         IRequestContextPtr ctx;
+
         parseUserStoreUpdateBusinessUserIdentifierParams(
-            r,
+            reader,
             oldEmailAddress,
             newEmailAddress,
             ctx);
@@ -2971,8 +7403,9 @@ void UserStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("listBusinessUsers"))
     {
         IRequestContextPtr ctx;
+
         parseUserStoreListBusinessUsersParams(
-            r,
+            reader,
             ctx);
 
         Q_EMIT listBusinessUsersRequest(
@@ -2982,8 +7415,9 @@ void UserStoreServer::onRequest(QByteArray data)
     {
         bool includeRequestedInvitations;
         IRequestContextPtr ctx;
+
         parseUserStoreListBusinessInvitationsParams(
-            r,
+            reader,
             includeRequestedInvitations,
             ctx);
 
@@ -2995,8 +7429,9 @@ void UserStoreServer::onRequest(QByteArray data)
     {
         ServiceLevel serviceLevel;
         IRequestContextPtr ctx;
+
         parseUserStoreGetAccountLimitsParams(
-            r,
+            reader,
             serviceLevel,
             ctx);
 
