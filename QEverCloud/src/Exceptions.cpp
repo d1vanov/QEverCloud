@@ -320,6 +320,22 @@ ThriftException readThriftException(ThriftBinaryBufferReader & reader)
     return ThriftException(type, error);
 }
 
+void writeThriftException(
+    ThriftBinaryBufferWriter & writer, const ThriftException & exception)
+{
+    writer.writeStructBegin(QStringLiteral("ThriftException"));
+
+    writer.writeFieldBegin(QStringLiteral("error"), ThriftFieldType::T_STRING, 1);
+    writer.writeString(QString::fromUtf8(exception.what()));
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QStringLiteral("type"), ThriftFieldType::T_I32, 2);
+    writer.writeI32(static_cast<qint32>(exception.type()));
+    writer.writeFieldEnd();
+
+    writer.writeStructEnd();
+}
+
 QSharedPointer<EverCloudExceptionData> EDAMInvalidContactsException::exceptionData() const
 {
     return QSharedPointer<EDAMInvalidContactsExceptionData>::create(

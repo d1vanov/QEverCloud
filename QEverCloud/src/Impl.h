@@ -39,6 +39,9 @@ namespace qevercloud {
 
 ThriftException readThriftException(ThriftBinaryBufferReader & reader);
 
+void writeThriftException(
+    ThriftBinaryBufferWriter & writer, const ThriftException & exception);
+
 void throwEDAMSystemException(const EDAMSystemException & baseException);
 
 /** @endcond */
