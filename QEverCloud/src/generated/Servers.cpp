@@ -6750,444 +6750,3342 @@ void NoteStoreServer::onRequest(QByteArray data)
     }
 }
 
-void NoteStoreServer::onGetSyncStateRequestReady(SyncState value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetFilteredSyncChunkRequestReady(SyncChunk value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(SyncState value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(SyncChunk value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListNotebooksRequestReady(QList<Notebook> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(QList<Notebook> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNotebookRequestReady(Notebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetDefaultNotebookRequestReady(Notebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCreateNotebookRequestReady(Notebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateNotebookRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onExpungeNotebookRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListTagsRequestReady(QList<Tag> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListTagsByNotebookRequestReady(QList<Tag> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetTagRequestReady(Tag value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCreateTagRequestReady(Tag value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateTagRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUntagAllRequestReady()
-{
-    // TODO: implement
-}
-
-void NoteStoreServer::onExpungeTagRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListSearchesRequestReady(QList<SavedSearch> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetSearchRequestReady(SavedSearch value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCreateSearchRequestReady(SavedSearch value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateSearchRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onExpungeSearchRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onFindNoteOffsetRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onFindNotesMetadataRequestReady(NotesMetadataList value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onFindNoteCountsRequestReady(NoteCollectionCounts value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteWithResultSpecRequestReady(Note value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteRequestReady(Note value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteApplicationDataRequestReady(LazyMap value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(QString value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteContentRequestReady(QString value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteSearchTextRequestReady(QString value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceSearchTextRequestReady(QString value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteTagNamesRequestReady(QStringList value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCreateNoteRequestReady(Note value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateNoteRequestReady(Note value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onDeleteNoteRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onExpungeNoteRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCopyNoteRequestReady(Note value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListNoteVersionsRequestReady(QList<NoteVersionId> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNoteVersionRequestReady(Note value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceRequestReady(Resource value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceApplicationDataRequestReady(LazyMap value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(QString value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateResourceRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceDataRequestReady(QByteArray value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceByHashRequestReady(Resource value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceRecognitionRequestReady(QByteArray value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceAlternateDataRequestReady(QByteArray value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetResourceAttributesRequestReady(ResourceAttributes value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetPublicNotebookRequestReady(Notebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onShareNotebookRequestReady(SharedNotebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(CreateOrUpdateNotebookSharesResult value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateSharedNotebookRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(Notebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListSharedNotebooksRequestReady(QList<SharedNotebook> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onCreateLinkedNotebookRequestReady(LinkedNotebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateLinkedNotebookRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onListLinkedNotebooksRequestReady(QList<LinkedNotebook> value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onExpungeLinkedNotebookRequestReady(qint32 value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(AuthenticationResult value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(SharedNotebook value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onEmailNoteRequestReady()
-{
-    // TODO: implement
-}
-
-void NoteStoreServer::onShareNoteRequestReady(QString value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onStopSharingNoteRequestReady()
-{
-    // TODO: implement
-}
-
-void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(AuthenticationResult value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onFindRelatedRequestReady(RelatedResult value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(UpdateNoteIfUsnMatchesResult value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
+void NoteStoreServer::onGetSyncStateRequestReady(
+    SyncState value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getSyncState"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getSyncState"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getSyncState"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
+    SyncChunk value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getFilteredSyncChunk"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getFilteredSyncChunk"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getFilteredSyncChunk"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
+    SyncState value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getLinkedNotebookSyncState"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getLinkedNotebookSyncState"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getLinkedNotebookSyncState"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
+    SyncChunk value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getLinkedNotebookSyncChunk"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getLinkedNotebookSyncChunk"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getLinkedNotebookSyncChunk"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListNotebooksRequestReady(
+    QList<Notebook> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listNotebooks"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listNotebooks"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listNotebooks"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
+    QList<Notebook> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listAccessibleBusinessNotebooks"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listAccessibleBusinessNotebooks"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listAccessibleBusinessNotebooks"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNotebookRequestReady(
+    Notebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetDefaultNotebookRequestReady(
+    Notebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getDefaultNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getDefaultNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getDefaultNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCreateNotebookRequestReady(
+    Notebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("createNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("createNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("createNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateNotebookRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onExpungeNotebookRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("expungeNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("expungeNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListTagsRequestReady(
+    QList<Tag> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listTags"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listTags"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listTags"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListTagsByNotebookRequestReady(
+    QList<Tag> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listTagsByNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listTagsByNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listTagsByNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetTagRequestReady(
+    Tag value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getTag"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getTag"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getTag"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCreateTagRequestReady(
+    Tag value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("createTag"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("createTag"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("createTag"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateTagRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateTag"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateTag"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateTag"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUntagAllRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("untagAll"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("untagAll"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("untagAll"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+}
+
+void NoteStoreServer::onExpungeTagRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("expungeTag"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeTag"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("expungeTag"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListSearchesRequestReady(
+    QList<SavedSearch> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listSearches"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listSearches"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listSearches"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetSearchRequestReady(
+    SavedSearch value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getSearch"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getSearch"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getSearch"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCreateSearchRequestReady(
+    SavedSearch value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("createSearch"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("createSearch"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("createSearch"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateSearchRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateSearch"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateSearch"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateSearch"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onExpungeSearchRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("expungeSearch"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeSearch"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("expungeSearch"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onFindNoteOffsetRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("findNoteOffset"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("findNoteOffset"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("findNoteOffset"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onFindNotesMetadataRequestReady(
+    NotesMetadataList value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("findNotesMetadata"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("findNotesMetadata"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("findNotesMetadata"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onFindNoteCountsRequestReady(
+    NoteCollectionCounts value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("findNoteCounts"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("findNoteCounts"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("findNoteCounts"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
+    Note value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteWithResultSpec"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteWithResultSpec"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteWithResultSpec"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteRequestReady(
+    Note value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteApplicationDataRequestReady(
+    LazyMap value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteApplicationData"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteApplicationData"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteApplicationData"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
+    QString value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteApplicationDataEntry"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteApplicationDataEntry"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteApplicationDataEntry"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("setNoteApplicationDataEntry"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("setNoteApplicationDataEntry"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("setNoteApplicationDataEntry"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("unsetNoteApplicationDataEntry"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("unsetNoteApplicationDataEntry"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("unsetNoteApplicationDataEntry"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteContentRequestReady(
+    QString value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteContent"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteContent"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteContent"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteSearchTextRequestReady(
+    QString value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteSearchText"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteSearchText"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteSearchText"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceSearchTextRequestReady(
+    QString value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceSearchText"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceSearchText"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceSearchText"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteTagNamesRequestReady(
+    QStringList value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteTagNames"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteTagNames"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteTagNames"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCreateNoteRequestReady(
+    Note value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("createNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("createNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("createNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateNoteRequestReady(
+    Note value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onDeleteNoteRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("deleteNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("deleteNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("deleteNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onExpungeNoteRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("expungeNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("expungeNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCopyNoteRequestReady(
+    Note value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("copyNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("copyNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("copyNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListNoteVersionsRequestReady(
+    QList<NoteVersionId> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listNoteVersions"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listNoteVersions"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listNoteVersions"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNoteVersionRequestReady(
+    Note value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNoteVersion"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNoteVersion"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNoteVersion"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceRequestReady(
+    Resource value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResource"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResource"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResource"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceApplicationDataRequestReady(
+    LazyMap value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceApplicationData"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceApplicationData"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceApplicationData"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
+    QString value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceApplicationDataEntry"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceApplicationDataEntry"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceApplicationDataEntry"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("setResourceApplicationDataEntry"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("setResourceApplicationDataEntry"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("setResourceApplicationDataEntry"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("unsetResourceApplicationDataEntry"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("unsetResourceApplicationDataEntry"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("unsetResourceApplicationDataEntry"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateResourceRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateResource"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateResource"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateResource"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceDataRequestReady(
+    QByteArray value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceData"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceData"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceData"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceByHashRequestReady(
+    Resource value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceByHash"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceByHash"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceByHash"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceRecognitionRequestReady(
+    QByteArray value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceRecognition"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceRecognition"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceRecognition"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceAlternateDataRequestReady(
+    QByteArray value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceAlternateData"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceAlternateData"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceAlternateData"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetResourceAttributesRequestReady(
+    ResourceAttributes value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getResourceAttributes"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getResourceAttributes"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getResourceAttributes"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetPublicNotebookRequestReady(
+    Notebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getPublicNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getPublicNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getPublicNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onShareNotebookRequestReady(
+    SharedNotebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("shareNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("shareNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("shareNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
+    CreateOrUpdateNotebookSharesResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("createOrUpdateNotebookShares"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("createOrUpdateNotebookShares"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("createOrUpdateNotebookShares"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateSharedNotebookRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateSharedNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateSharedNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateSharedNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
+    Notebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("setNotebookRecipientSettings"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("setNotebookRecipientSettings"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("setNotebookRecipientSettings"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListSharedNotebooksRequestReady(
+    QList<SharedNotebook> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listSharedNotebooks"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listSharedNotebooks"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listSharedNotebooks"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onCreateLinkedNotebookRequestReady(
+    LinkedNotebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("createLinkedNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("createLinkedNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("createLinkedNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateLinkedNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateLinkedNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateLinkedNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onListLinkedNotebooksRequestReady(
+    QList<LinkedNotebook> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listLinkedNotebooks"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listLinkedNotebooks"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listLinkedNotebooks"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
+    qint32 value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("expungeLinkedNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("expungeLinkedNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("expungeLinkedNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
+    AuthenticationResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("authenticateToSharedNotebook"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateToSharedNotebook"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("authenticateToSharedNotebook"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
+    SharedNotebook value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getSharedNotebookByAuth"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getSharedNotebookByAuth"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getSharedNotebookByAuth"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onEmailNoteRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("emailNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("emailNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("emailNote"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+}
+
+void NoteStoreServer::onShareNoteRequestReady(
+    QString value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("shareNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("shareNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("shareNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onStopSharingNoteRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("stopSharingNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("stopSharingNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("stopSharingNote"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+}
+
+void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
+    AuthenticationResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("authenticateToSharedNote"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateToSharedNote"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("authenticateToSharedNote"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onFindRelatedRequestReady(
+    RelatedResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("findRelated"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("findRelated"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("findRelated"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
+    UpdateNoteIfUsnMatchesResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateNoteIfUsnMatches"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateNoteIfUsnMatches"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateNoteIfUsnMatches"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onManageNotebookSharesRequestReady(
+    ManageNotebookSharesResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("manageNotebookShares"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("manageNotebookShares"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("manageNotebookShares"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
+    Q_UNUSED(value)
+}
+
+void NoteStoreServer::onGetNotebookSharesRequestReady(
+    ShareRelationships value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
+{
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getNotebookShares"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getNotebookShares"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getNotebookShares"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
 
-void NoteStoreServer::onManageNotebookSharesRequestReady(ManageNotebookSharesResult value)
-{
-    // TODO: implement
-    Q_UNUSED(value)
-}
-
-void NoteStoreServer::onGetNotebookSharesRequestReady(ShareRelationships value)
-{
-    // TODO: implement
     Q_UNUSED(value)
 }
 
@@ -7441,89 +10339,690 @@ void UserStoreServer::onRequest(QByteArray data)
     }
 }
 
-void UserStoreServer::onCheckVersionRequestReady(bool value)
+void UserStoreServer::onCheckVersionRequestReady(
+    bool value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("checkVersion"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("checkVersion"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("checkVersion"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onGetBootstrapInfoRequestReady(BootstrapInfo value)
+void UserStoreServer::onGetBootstrapInfoRequestReady(
+    BootstrapInfo value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getBootstrapInfo"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getBootstrapInfo"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getBootstrapInfo"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onAuthenticateLongSessionRequestReady(AuthenticationResult value)
+void UserStoreServer::onAuthenticateLongSessionRequestReady(
+    AuthenticationResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("authenticateLongSession"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateLongSession"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("authenticateLongSession"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(AuthenticationResult value)
+void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
+    AuthenticationResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("completeTwoFactorAuthentication"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("completeTwoFactorAuthentication"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("completeTwoFactorAuthentication"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onRevokeLongSessionRequestReady()
+void UserStoreServer::onRevokeLongSessionRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("revokeLongSession"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("revokeLongSession"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("revokeLongSession"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
 }
 
-void UserStoreServer::onAuthenticateToBusinessRequestReady(AuthenticationResult value)
+void UserStoreServer::onAuthenticateToBusinessRequestReady(
+    AuthenticationResult value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("authenticateToBusiness"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("authenticateToBusiness"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("authenticateToBusiness"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onGetUserRequestReady(User value)
+void UserStoreServer::onGetUserRequestReady(
+    User value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getUser"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getUser"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getUser"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onGetPublicUserInfoRequestReady(PublicUserInfo value)
+void UserStoreServer::onGetPublicUserInfoRequestReady(
+    PublicUserInfo value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getPublicUserInfo"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getPublicUserInfo"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getPublicUserInfo"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onGetUserUrlsRequestReady(UserUrls value)
+void UserStoreServer::onGetUserUrlsRequestReady(
+    UserUrls value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getUserUrls"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getUserUrls"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getUserUrls"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onInviteToBusinessRequestReady()
+void UserStoreServer::onInviteToBusinessRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("inviteToBusiness"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("inviteToBusiness"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("inviteToBusiness"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
 }
 
-void UserStoreServer::onRemoveFromBusinessRequestReady()
+void UserStoreServer::onRemoveFromBusinessRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("removeFromBusiness"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("removeFromBusiness"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("removeFromBusiness"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
 }
 
-void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady()
+void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("updateBusinessUserIdentifier"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("updateBusinessUserIdentifier"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("updateBusinessUserIdentifier"));
+
+    // TODO: implement further
+
+    writer.writeFieldBegin(
+        QLatin1String(),
+        ThriftFieldType::T_VOID,
+        0);
+    writer.writeFieldEnd();
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
 }
 
-void UserStoreServer::onListBusinessUsersRequestReady(QList<UserProfile> value)
+void UserStoreServer::onListBusinessUsersRequestReady(
+    QList<UserProfile> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listBusinessUsers"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listBusinessUsers"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listBusinessUsers"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onListBusinessInvitationsRequestReady(QList<BusinessInvitation> value)
+void UserStoreServer::onListBusinessInvitationsRequestReady(
+    QList<BusinessInvitation> value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("listBusinessInvitations"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("listBusinessInvitations"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("listBusinessInvitations"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
-void UserStoreServer::onGetAccountLimitsRequestReady(AccountLimits value)
+void UserStoreServer::onGetAccountLimitsRequestReady(
+    AccountLimits value,
+    QSharedPointer<EverCloudExceptionData> exceptionData)
 {
-    // TODO: implement
+    ThriftBinaryBufferWriter writer;
+    qint32 cseqid = 0;
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const ThriftException & exception)
+        {
+            writer.writeMessageBegin(
+                QStringLiteral("getAccountLimits"),
+                ThriftMessageType::T_EXCEPTION,
+                cseqid);
+            writeThriftException(writer, exception);
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(...)
+        {
+            // Will be handled below
+        }
+    }
+
+    writer.writeMessageBegin(
+        QStringLiteral("getAccountLimits"),
+        ThriftMessageType::T_REPLY,
+        cseqid);
+
+    writer.writeStructBegin(
+        QStringLiteral("getAccountLimits"));
+
+    // TODO: implement further
+
+    writer.writeStructEnd();
+    writer.writeMessageEnd();
+
     Q_UNUSED(value)
 }
 
