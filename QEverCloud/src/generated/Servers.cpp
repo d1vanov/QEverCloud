@@ -13,6 +13,7 @@
 #include "../Impl.h"
 #include "../Thrift.h"
 #include "Types_io.h"
+#include <Log.h>
 
 namespace qevercloud {
 
@@ -6787,6 +6788,54 @@ void NoteStoreServer::onGetSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSyncState"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -6831,6 +6880,54 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getFilteredSyncChunk"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -6877,6 +6974,69 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncState"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -6921,6 +7081,69 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncChunk"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -6967,6 +7190,54 @@ void NoteStoreServer::onListNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNotebooks"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7011,6 +7282,54 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("listAccessibleBusinessNotebooks"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7057,6 +7376,69 @@ void NoteStoreServer::onGetNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7101,6 +7483,54 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getDefaultNotebook"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7147,6 +7577,69 @@ void NoteStoreServer::onCreateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7191,6 +7684,69 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("updateNotebook"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7237,6 +7793,69 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7281,6 +7900,54 @@ void NoteStoreServer::onListTagsRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("listTags"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7327,6 +7994,69 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTagsByNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7371,6 +8101,69 @@ void NoteStoreServer::onGetTagRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getTag"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7417,6 +8210,69 @@ void NoteStoreServer::onCreateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createTag"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7462,6 +8318,69 @@ void NoteStoreServer::onUpdateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateTag"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7505,6 +8424,69 @@ void NoteStoreServer::onUntagAllRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("untagAll"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7555,6 +8537,69 @@ void NoteStoreServer::onExpungeTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeTag"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7599,6 +8644,54 @@ void NoteStoreServer::onListSearchesRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("listSearches"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7645,6 +8738,69 @@ void NoteStoreServer::onGetSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSearch"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7689,6 +8845,54 @@ void NoteStoreServer::onCreateSearchRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("createSearch"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7735,6 +8939,69 @@ void NoteStoreServer::onUpdateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSearch"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7779,6 +9046,69 @@ void NoteStoreServer::onExpungeSearchRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("expungeSearch"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7825,6 +9155,69 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteOffset"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7869,6 +9262,69 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("findNotesMetadata"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -7915,6 +9371,69 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteCounts"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -7959,6 +9478,69 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getNoteWithResultSpec"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8005,6 +9587,69 @@ void NoteStoreServer::onGetNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNote"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8049,6 +9694,69 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationData"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8095,6 +9803,69 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationDataEntry"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8139,6 +9910,69 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("setNoteApplicationDataEntry"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8185,6 +10019,69 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetNoteApplicationDataEntry"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8229,6 +10126,69 @@ void NoteStoreServer::onGetNoteContentRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getNoteContent"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8275,6 +10235,69 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteSearchText"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8319,6 +10342,69 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getResourceSearchText"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8365,6 +10451,69 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteTagNames"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8409,6 +10558,69 @@ void NoteStoreServer::onCreateNoteRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("createNote"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8455,6 +10667,69 @@ void NoteStoreServer::onUpdateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNote"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8499,6 +10774,69 @@ void NoteStoreServer::onDeleteNoteRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("deleteNote"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8545,6 +10883,69 @@ void NoteStoreServer::onExpungeNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNote"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8589,6 +10990,69 @@ void NoteStoreServer::onCopyNoteRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("copyNote"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8635,6 +11099,69 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNoteVersions"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8679,6 +11206,69 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getNoteVersion"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8725,6 +11315,69 @@ void NoteStoreServer::onGetResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResource"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8769,6 +11422,69 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationData"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8815,6 +11531,69 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationDataEntry"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8859,6 +11638,69 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("setResourceApplicationDataEntry"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8905,6 +11747,69 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetResourceApplicationDataEntry"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -8949,6 +11854,69 @@ void NoteStoreServer::onUpdateResourceRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("updateResource"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -8995,6 +11963,69 @@ void NoteStoreServer::onGetResourceDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceData"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9039,6 +12070,69 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getResourceByHash"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9085,6 +12179,69 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceRecognition"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9129,6 +12286,69 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getResourceAlternateData"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9175,6 +12395,69 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAttributes"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9219,6 +12502,54 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getPublicNotebook"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9265,6 +12596,69 @@ void NoteStoreServer::onShareNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9309,6 +12703,84 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("createOrUpdateNotebookShares"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMInvalidContactsException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMInvalidContactsException"),
+                ThriftFieldType::T_STRUCT,
+                4);
+
+            writeEDAMInvalidContactsException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9355,6 +12827,69 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSharedNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9399,6 +12934,69 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("setNotebookRecipientSettings"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9445,6 +13043,69 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSharedNotebooks"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9489,6 +13150,69 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("createLinkedNotebook"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9535,6 +13259,69 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateLinkedNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9579,6 +13366,69 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("listLinkedNotebooks"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9625,6 +13475,69 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeLinkedNotebook"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9669,6 +13582,69 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNotebook"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9715,6 +13691,69 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSharedNotebookByAuth"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9758,6 +13797,69 @@ void NoteStoreServer::onEmailNoteRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("emailNote"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9808,6 +13910,69 @@ void NoteStoreServer::onShareNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNote"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9851,6 +14016,69 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("stopSharingNote"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9901,6 +14129,69 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNote"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -9945,6 +14236,69 @@ void NoteStoreServer::onFindRelatedRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("findRelated"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -9991,6 +14345,69 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNoteIfUsnMatches"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10036,6 +14453,69 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("manageNotebookShares"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10080,6 +14560,69 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getNotebookShares"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -10466,6 +15009,54 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateLongSession"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10511,6 +15102,54 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     writer.writeStructBegin(
         QStringLiteral("completeTwoFactorAuthentication"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10554,6 +15193,54 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("revokeLongSession"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -10604,6 +15291,54 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToBusiness"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10648,6 +15383,54 @@ void UserStoreServer::onGetUserRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getUser"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -10694,6 +15477,69 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getPublicUserInfo"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10739,6 +15585,54 @@ void UserStoreServer::onGetUserUrlsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getUserUrls"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10782,6 +15676,54 @@ void UserStoreServer::onInviteToBusinessRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("inviteToBusiness"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -10831,6 +15773,69 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("removeFromBusiness"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeFieldBegin(
@@ -10878,6 +15883,69 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("updateBusinessUserIdentifier"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMNotFoundException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMNotFoundException"),
+                ThriftFieldType::T_STRUCT,
+                3);
+
+            writeEDAMNotFoundException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
@@ -10928,6 +15996,54 @@ void UserStoreServer::onListBusinessUsersRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listBusinessUsers"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -10973,6 +16089,54 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listBusinessInvitations"));
 
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const EDAMSystemException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMSystemException"),
+                ThriftFieldType::T_STRUCT,
+                2);
+
+            writeEDAMSystemException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
+
     // TODO: implement further
 
     writer.writeStructEnd();
@@ -11017,6 +16181,39 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
 
     writer.writeStructBegin(
         QStringLiteral("getAccountLimits"));
+
+    if (!exceptionData.isNull())
+    {
+        try
+        {
+            exceptionData->throwException();
+        }
+        catch(const EDAMUserException & e)
+        {
+            writer.writeFieldBegin(
+                QStringLiteral("EDAMUserException"),
+                ThriftFieldType::T_STRUCT,
+                1);
+
+            writeEDAMUserException(writer, e);
+            writer.writeFieldEnd();
+
+            // Finalize message and return immediately
+            writer.writeStructEnd();
+            writer.writeMessageEnd();
+            return;
+        }
+        catch(const std::exception & e)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception: " << e.what());
+        }
+        catch(...)
+        {
+            // TODO: more proper error handling
+            QEC_ERROR("server", "Unknown exception");
+        }
+    }
 
     // TODO: implement further
 
