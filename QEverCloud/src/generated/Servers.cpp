@@ -6836,12 +6836,15 @@ void NoteStoreServer::onGetSyncStateRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getSyncState"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSyncState(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
@@ -6929,12 +6932,15 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getFilteredSyncChunk"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSyncChunk(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
@@ -7037,12 +7043,15 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getLinkedNotebookSyncState"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSyncState(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
@@ -7145,12 +7154,15 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getLinkedNotebookSyncChunk"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSyncChunk(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListNotebooksRequestReady(
@@ -7238,12 +7250,19 @@ void NoteStoreServer::onListNotebooksRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listNotebooks"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeNotebook(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
@@ -7331,12 +7350,19 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listAccessibleBusinessNotebooks"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeNotebook(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNotebookRequestReady(
@@ -7439,12 +7465,15 @@ void NoteStoreServer::onGetNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetDefaultNotebookRequestReady(
@@ -7532,12 +7561,15 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getDefaultNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCreateNotebookRequestReady(
@@ -7640,12 +7672,15 @@ void NoteStoreServer::onCreateNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("createNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateNotebookRequestReady(
@@ -7748,12 +7783,15 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateNotebook"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onExpungeNotebookRequestReady(
@@ -7856,12 +7894,15 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("expungeNotebook"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListTagsRequestReady(
@@ -7949,12 +7990,19 @@ void NoteStoreServer::onListTagsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listTags"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeTag(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListTagsByNotebookRequestReady(
@@ -8057,12 +8105,19 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listTagsByNotebook"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeTag(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetTagRequestReady(
@@ -8165,12 +8220,15 @@ void NoteStoreServer::onGetTagRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getTag"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeTag(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCreateTagRequestReady(
@@ -8273,12 +8331,15 @@ void NoteStoreServer::onCreateTagRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("createTag"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeTag(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateTagRequestReady(
@@ -8381,12 +8442,15 @@ void NoteStoreServer::onUpdateTagRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateTag"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUntagAllRequestReady(
@@ -8488,16 +8552,14 @@ void NoteStoreServer::onUntagAllRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("untagAll"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void NoteStoreServer::onExpungeTagRequestReady(
@@ -8600,12 +8662,15 @@ void NoteStoreServer::onExpungeTagRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("expungeTag"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListSearchesRequestReady(
@@ -8693,12 +8758,19 @@ void NoteStoreServer::onListSearchesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listSearches"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeSavedSearch(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetSearchRequestReady(
@@ -8801,12 +8873,15 @@ void NoteStoreServer::onGetSearchRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getSearch"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSavedSearch(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCreateSearchRequestReady(
@@ -8894,12 +8969,15 @@ void NoteStoreServer::onCreateSearchRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("createSearch"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSavedSearch(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateSearchRequestReady(
@@ -9002,12 +9080,15 @@ void NoteStoreServer::onUpdateSearchRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateSearch"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onExpungeSearchRequestReady(
@@ -9110,12 +9191,15 @@ void NoteStoreServer::onExpungeSearchRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("expungeSearch"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onFindNoteOffsetRequestReady(
@@ -9218,12 +9302,15 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("findNoteOffset"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onFindNotesMetadataRequestReady(
@@ -9326,12 +9413,15 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("findNotesMetadata"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNotesMetadataList(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onFindNoteCountsRequestReady(
@@ -9434,12 +9524,15 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("findNoteCounts"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNoteCollectionCounts(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
@@ -9542,12 +9635,15 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteWithResultSpec"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNote(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteRequestReady(
@@ -9650,12 +9746,15 @@ void NoteStoreServer::onGetNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNote"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNote(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteApplicationDataRequestReady(
@@ -9758,12 +9857,15 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteApplicationData"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeLazyMap(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
@@ -9866,12 +9968,15 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteApplicationDataEntry"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeString(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
@@ -9974,12 +10079,15 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("setNoteApplicationDataEntry"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
@@ -10082,12 +10190,15 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("unsetNoteApplicationDataEntry"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteContentRequestReady(
@@ -10190,12 +10301,15 @@ void NoteStoreServer::onGetNoteContentRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteContent"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeString(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteSearchTextRequestReady(
@@ -10298,12 +10412,15 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteSearchText"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeString(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceSearchTextRequestReady(
@@ -10406,12 +10523,15 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceSearchText"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeString(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteTagNamesRequestReady(
@@ -10514,12 +10634,19 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteTagNames"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRING, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writer.writeString(v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCreateNoteRequestReady(
@@ -10622,12 +10749,15 @@ void NoteStoreServer::onCreateNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("createNote"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNote(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateNoteRequestReady(
@@ -10730,12 +10860,15 @@ void NoteStoreServer::onUpdateNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateNote"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNote(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onDeleteNoteRequestReady(
@@ -10838,12 +10971,15 @@ void NoteStoreServer::onDeleteNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("deleteNote"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onExpungeNoteRequestReady(
@@ -10946,12 +11082,15 @@ void NoteStoreServer::onExpungeNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("expungeNote"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCopyNoteRequestReady(
@@ -11054,12 +11193,15 @@ void NoteStoreServer::onCopyNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("copyNote"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNote(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListNoteVersionsRequestReady(
@@ -11162,12 +11304,19 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listNoteVersions"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeNoteVersionId(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNoteVersionRequestReady(
@@ -11270,12 +11419,15 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNoteVersion"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNote(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceRequestReady(
@@ -11378,12 +11530,15 @@ void NoteStoreServer::onGetResourceRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResource"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeResource(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceApplicationDataRequestReady(
@@ -11486,12 +11641,15 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceApplicationData"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeLazyMap(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
@@ -11594,12 +11752,15 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceApplicationDataEntry"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeString(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
@@ -11702,12 +11863,15 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("setResourceApplicationDataEntry"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
@@ -11810,12 +11974,15 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("unsetResourceApplicationDataEntry"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateResourceRequestReady(
@@ -11918,12 +12085,15 @@ void NoteStoreServer::onUpdateResourceRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateResource"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceDataRequestReady(
@@ -12026,12 +12196,15 @@ void NoteStoreServer::onGetResourceDataRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceData"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeBinary(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceByHashRequestReady(
@@ -12134,12 +12307,15 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceByHash"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeResource(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceRecognitionRequestReady(
@@ -12242,12 +12418,15 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceRecognition"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeBinary(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceAlternateDataRequestReady(
@@ -12350,12 +12529,15 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceAlternateData"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeBinary(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetResourceAttributesRequestReady(
@@ -12458,12 +12640,15 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getResourceAttributes"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeResourceAttributes(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetPublicNotebookRequestReady(
@@ -12551,12 +12736,15 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getPublicNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onShareNotebookRequestReady(
@@ -12659,12 +12847,15 @@ void NoteStoreServer::onShareNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("shareNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSharedNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
@@ -12782,12 +12973,15 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("createOrUpdateNotebookShares"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeCreateOrUpdateNotebookSharesResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateSharedNotebookRequestReady(
@@ -12890,12 +13084,15 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateSharedNotebook"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
@@ -12998,12 +13195,15 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("setNotebookRecipientSettings"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListSharedNotebooksRequestReady(
@@ -13106,12 +13306,19 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listSharedNotebooks"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeSharedNotebook(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onCreateLinkedNotebookRequestReady(
@@ -13214,12 +13421,15 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("createLinkedNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeLinkedNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
@@ -13322,12 +13532,15 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateLinkedNotebook"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onListLinkedNotebooksRequestReady(
@@ -13430,12 +13643,19 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listLinkedNotebooks"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeLinkedNotebook(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
@@ -13538,12 +13758,15 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("expungeLinkedNotebook"),
+        ThriftFieldType::T_I32,
+        0);
+    writer.writeI32(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
@@ -13646,12 +13869,15 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("authenticateToSharedNotebook"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeAuthenticationResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
@@ -13754,12 +13980,15 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getSharedNotebookByAuth"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeSharedNotebook(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onEmailNoteRequestReady(
@@ -13861,16 +14090,14 @@ void NoteStoreServer::onEmailNoteRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("emailNote"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void NoteStoreServer::onShareNoteRequestReady(
@@ -13973,12 +14200,15 @@ void NoteStoreServer::onShareNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("shareNote"),
+        ThriftFieldType::T_STRING,
+        0);
+    writer.writeString(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onStopSharingNoteRequestReady(
@@ -14080,16 +14310,14 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("stopSharingNote"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
@@ -14192,12 +14420,15 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("authenticateToSharedNote"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeAuthenticationResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onFindRelatedRequestReady(
@@ -14300,12 +14531,15 @@ void NoteStoreServer::onFindRelatedRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("findRelated"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeRelatedResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
@@ -14408,12 +14642,15 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("updateNoteIfUsnMatches"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeUpdateNoteIfUsnMatchesResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onManageNotebookSharesRequestReady(
@@ -14516,12 +14753,15 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("manageNotebookShares"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeManageNotebookSharesResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void NoteStoreServer::onGetNotebookSharesRequestReady(
@@ -14624,12 +14864,15 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getNotebookShares"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeShareRelationships(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14919,12 +15162,15 @@ void UserStoreServer::onCheckVersionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("checkVersion"));
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("checkVersion"),
+        ThriftFieldType::T_BOOL,
+        0);
+    writer.writeBool(value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onGetBootstrapInfoRequestReady(
@@ -14964,12 +15210,15 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getBootstrapInfo"));
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getBootstrapInfo"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeBootstrapInfo(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onAuthenticateLongSessionRequestReady(
@@ -15057,12 +15306,15 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("authenticateLongSession"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeAuthenticationResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
@@ -15150,12 +15402,15 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("completeTwoFactorAuthentication"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeAuthenticationResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onRevokeLongSessionRequestReady(
@@ -15242,16 +15497,14 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("revokeLongSession"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void UserStoreServer::onAuthenticateToBusinessRequestReady(
@@ -15339,12 +15592,15 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("authenticateToBusiness"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeAuthenticationResult(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onGetUserRequestReady(
@@ -15432,12 +15688,15 @@ void UserStoreServer::onGetUserRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getUser"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeUser(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onGetPublicUserInfoRequestReady(
@@ -15540,12 +15799,15 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getPublicUserInfo"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writePublicUserInfo(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onGetUserUrlsRequestReady(
@@ -15633,12 +15895,15 @@ void UserStoreServer::onGetUserUrlsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getUserUrls"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeUserUrls(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onInviteToBusinessRequestReady(
@@ -15725,16 +15990,14 @@ void UserStoreServer::onInviteToBusinessRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("inviteToBusiness"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void UserStoreServer::onRemoveFromBusinessRequestReady(
@@ -15836,16 +16099,14 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("removeFromBusiness"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
@@ -15947,16 +16208,14 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
         }
     }
 
-    // TODO: implement further
-
     writer.writeFieldBegin(
-        QLatin1String(),
+        QStringLiteral("updateBusinessUserIdentifier"),
         ThriftFieldType::T_VOID,
         0);
     writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
 }
 
 void UserStoreServer::onListBusinessUsersRequestReady(
@@ -16044,12 +16303,19 @@ void UserStoreServer::onListBusinessUsersRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listBusinessUsers"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeUserProfile(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onListBusinessInvitationsRequestReady(
@@ -16137,12 +16403,19 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("listBusinessInvitations"),
+        ThriftFieldType::T_LIST,
+        0);
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, value.size());
+    for(const auto & v: qAsConst(value)) {
+        writeBusinessInvitation(writer, v);
+    }
+    writer.writeListEnd();
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 void UserStoreServer::onGetAccountLimitsRequestReady(
@@ -16215,12 +16488,15 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
         }
     }
 
-    // TODO: implement further
+    writer.writeFieldBegin(
+        QStringLiteral("getAccountLimits"),
+        ThriftFieldType::T_STRUCT,
+        0);
+    writeAccountLimits(writer, value);
+    writer.writeFieldEnd();
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
-
-    Q_UNUSED(value)
 }
 
 } // namespace qevercloud
