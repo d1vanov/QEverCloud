@@ -147,6 +147,7 @@ if(Qt5Test_FOUND)
       src/tests/TestDurableService.h
       src/tests/TestOptional.h)
   set(TEST_SOURCES
+      src/tests/Common.cpp
       src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp)
