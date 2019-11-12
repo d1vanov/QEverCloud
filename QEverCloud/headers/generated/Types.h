@@ -171,7 +171,6 @@ struct QEVERCLOUD_EXPORT SyncState: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -310,7 +309,6 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -424,7 +422,6 @@ struct QEVERCLOUD_EXPORT NoteFilter: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -487,7 +484,6 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -529,7 +525,6 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -599,7 +594,6 @@ struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -656,7 +650,6 @@ struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -728,7 +721,6 @@ struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -818,7 +810,6 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /** NO DOC COMMENT ID FOUND */
@@ -848,7 +839,6 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -917,7 +907,6 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -958,7 +947,6 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1015,7 +1003,6 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1066,7 +1053,6 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1106,7 +1092,6 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1166,7 +1151,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1213,7 +1197,6 @@ struct QEVERCLOUD_EXPORT Data: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1467,7 +1450,6 @@ struct QEVERCLOUD_EXPORT UserAttributes: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1525,7 +1507,6 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1677,7 +1658,6 @@ struct QEVERCLOUD_EXPORT Accounting: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1730,7 +1710,6 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1815,7 +1794,6 @@ struct QEVERCLOUD_EXPORT AccountLimits: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -1967,7 +1945,6 @@ struct QEVERCLOUD_EXPORT User: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2035,7 +2012,6 @@ struct QEVERCLOUD_EXPORT Contact: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2116,7 +2092,6 @@ struct QEVERCLOUD_EXPORT Identity: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2182,7 +2157,6 @@ struct QEVERCLOUD_EXPORT Tag: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2229,7 +2203,6 @@ struct QEVERCLOUD_EXPORT LazyMap: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2337,7 +2310,6 @@ struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2446,7 +2418,6 @@ struct QEVERCLOUD_EXPORT Resource: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2694,7 +2665,6 @@ struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2750,7 +2720,6 @@ struct QEVERCLOUD_EXPORT SharedNote: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2828,7 +2797,6 @@ struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -2868,7 +2836,6 @@ struct QEVERCLOUD_EXPORT NoteLimits: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3049,7 +3016,6 @@ struct QEVERCLOUD_EXPORT Note: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3109,7 +3075,6 @@ struct QEVERCLOUD_EXPORT Publishing: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3157,7 +3122,6 @@ struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3196,7 +3160,6 @@ struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3273,7 +3236,6 @@ struct QEVERCLOUD_EXPORT SavedSearch: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3320,7 +3282,6 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3385,7 +3346,6 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3522,7 +3482,6 @@ struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3545,7 +3504,6 @@ struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3746,7 +3704,6 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -3900,7 +3857,6 @@ struct QEVERCLOUD_EXPORT Notebook: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4006,7 +3962,6 @@ struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4055,7 +4010,6 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4127,7 +4081,6 @@ struct QEVERCLOUD_EXPORT UserProfile: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4175,7 +4128,6 @@ struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4284,7 +4236,6 @@ struct QEVERCLOUD_EXPORT RelatedContent: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4348,7 +4299,6 @@ struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4403,7 +4353,6 @@ struct QEVERCLOUD_EXPORT UserIdentity: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4456,7 +4405,6 @@ struct QEVERCLOUD_EXPORT PublicUserInfo: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4524,7 +4472,6 @@ struct QEVERCLOUD_EXPORT UserUrls: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4613,7 +4560,6 @@ struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4710,7 +4656,6 @@ struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4741,7 +4686,6 @@ struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4767,7 +4711,6 @@ struct QEVERCLOUD_EXPORT BootstrapInfo: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4814,7 +4757,6 @@ public:
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4859,7 +4801,6 @@ public:
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4901,7 +4842,6 @@ public:
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -4954,7 +4894,6 @@ public:
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5076,7 +5015,6 @@ struct QEVERCLOUD_EXPORT SyncChunk: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5153,7 +5091,6 @@ struct QEVERCLOUD_EXPORT NoteList: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5224,7 +5161,6 @@ struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5305,7 +5241,6 @@ struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5369,7 +5304,6 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5481,7 +5415,6 @@ struct QEVERCLOUD_EXPORT RelatedResult: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5518,7 +5451,6 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5572,7 +5504,6 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5619,7 +5550,6 @@ struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5691,7 +5621,6 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5739,7 +5668,6 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5767,7 +5695,6 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5815,7 +5742,6 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5863,7 +5789,6 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5897,7 +5822,6 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5952,7 +5876,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 /**
@@ -5980,7 +5903,6 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult: public Printable
     {
         return !(*this == other);
     }
-
 };
 
 } // namespace qevercloud
