@@ -616,242 +616,601 @@ Note generateNote()
 
 Publishing generatePublishing()
 {
-    // TODO: implement
-    return {};
+    Publishing p;
+    p.uri = QStringLiteral("uri");
+    p.order = NoteSortOrder::UPDATED;
+    p.ascending = true;
+    p.publicDescription = QStringLiteral("publicDescription");
+
+    return p;
 }
 
 BusinessNotebook generateBusinessNotebook()
 {
-    // TODO: implement
-    return {};
+    BusinessNotebook notebook;
+    notebook.notebookDescription = QStringLiteral("notebookDescription");
+    notebook.privilege = SharedNotebookPrivilegeLevel::READ_NOTEBOOK;
+    notebook.recommended = true;
+
+    return notebook;
 }
 
 SavedSearchScope generateSavedSearchScope()
 {
-    // TODO: implement
-    return {};
+    SavedSearchScope scope;
+    scope.includeAccount = true;
+    scope.includePersonalLinkedNotebooks = true;
+    scope.includeBusinessLinkedNotebooks = false;
+
+    return scope;
 }
 
 SavedSearch generateSavedSearch()
 {
-    // TODO: implement
-    return {};
+    SavedSearch search;
+    search.guid = QStringLiteral("guid");
+    search.name = QStringLiteral("name");
+    search.query = QStringLiteral("query");
+    search.format = QueryFormat::USER;
+    search.updateSequenceNum = 13;
+    search.scope = generateSavedSearchScope();
+
+    return search;
 }
 
 SharedNotebookRecipientSettings generateSharedNotebookRecipientSettings()
 {
-    // TODO: implement
-    return {};
+    SharedNotebookRecipientSettings s;
+    s.reminderNotifyEmail = true;
+    s.reminderNotifyInApp = false;
+
+    return s;
 }
 
 NotebookRecipientSettings generateNotebookRecipientSettings()
 {
-    // TODO: implement
-    return {};
+    NotebookRecipientSettings s;
+    s.reminderNotifyEmail = true;
+    s.reminderNotifyInApp = false;
+    s.inMyList = true;
+    s.stack = QStringLiteral("stack");
+    s.recipientStatus = RecipientStatus::IN_MY_LIST;
+
+    return s;
 }
 
 SharedNotebook generateSharedNotebook()
 {
-    // TODO: implement
-    return {};
+    SharedNotebook notebook;
+    notebook.id = 201;
+    notebook.userId = 102;
+    notebook.notebookGuid = QStringLiteral("notebookGuid");
+    notebook.email = QStringLiteral("email");
+    notebook.recipientIdentityId = 172;
+    notebook.notebookModifiable = true;
+    notebook.serviceCreated = QDateTime::currentMSecsSinceEpoch() - 200;
+    notebook.serviceUpdated = QDateTime::currentMSecsSinceEpoch() - 100;
+    notebook.globalId = QStringLiteral("globalId");
+    notebook.username = QStringLiteral("username");
+    notebook.privilege = SharedNotebookPrivilegeLevel::FULL_ACCESS;
+    notebook.recipientSettings = generateSharedNotebookRecipientSettings();
+    notebook.sharerUserId = 314;
+    notebook.recipientUsername = QStringLiteral("recipientUsername");
+    notebook.recipientUserId = 635;
+    notebook.serviceAssigned = QDateTime::currentMSecsSinceEpoch() - 50;
+
+    return notebook;
 }
 
 CanMoveToContainerRestrictions generateCanMoveToContainerRestrictions()
 {
-    // TODO: implement
-    return {};
+    CanMoveToContainerRestrictions r;
+    r.canMoveToContainer = CanMoveToContainerStatus::INSUFFICIENT_ENTITY_PRIVILEGE;
+
+    return r;
 }
 
 NotebookRestrictions generateNotebookRestrictions()
 {
-    // TODO: implement
-    return {};
+    NotebookRestrictions r;
+    r.noReadNotes = true;
+    r.noCreateNotes = false;
+    r.noUpdateNotes = false;
+    r.noExpungeNotes = true;
+    r.noShareNotes = false;
+    r.noEmailNotes = true;
+    r.noSendMessageToRecipients = false;
+    r.noUpdateNotebook = true;
+    r.noExpungeNotebook = false;
+    r.noSetDefaultNotebook = true;
+    r.noSetNotebookStack = false;
+    r.noPublishToPublic = true;
+    r.noPublishToBusinessLibrary = false;
+    r.noCreateTags = true;
+    r.noUpdateTags = false;
+    r.noExpungeTags = true;
+    r.noSetParentTag = true;
+    r.noCreateSharedNotebooks = false;
+    r.updateWhichSharedNotebookRestrictions =
+        SharedNotebookInstanceRestrictions::ASSIGNED;
+    r.expungeWhichSharedNotebookRestrictions =
+        SharedNotebookInstanceRestrictions::NO_SHARED_NOTEBOOKS;
+    r.noShareNotesWithBusiness = false;
+    r.noRenameNotebook = true;
+    r.noSetInMyList = false;
+    r.noChangeContact = true;
+    r.canMoveToContainerRestrictions = generateCanMoveToContainerRestrictions();
+    r.noSetReminderNotifyEmail = true;
+    r.noSetReminderNotifyInApp = false;
+    r.noSetRecipientSettingsStack = true;
+    r.noCanMoveNote = false;
+
+    return r;
 }
 
 Notebook generateNotebook()
 {
-    // TODO: implement
-    return {};
+    Notebook notebook;
+    notebook.guid = QStringLiteral("guid");
+    notebook.name = QStringLiteral("name");
+    notebook.updateSequenceNum = 31;
+    notebook.defaultNotebook = false;
+    notebook.serviceCreated = QDateTime::currentMSecsSinceEpoch() - 200;
+    notebook.serviceUpdated = QDateTime::currentMSecsSinceEpoch() - 100;
+    notebook.publishing = generatePublishing();
+    notebook.published = true;
+    notebook.stack = QStringLiteral("stack");
+    notebook.sharedNotebookIds = QList<qint64>() << 45;
+    notebook.sharedNotebooks = QList<SharedNotebook>()
+        << generateSharedNotebook();
+    notebook.businessNotebook = generateBusinessNotebook();
+    notebook.contact = generateUser();
+    notebook.restrictions = generateNotebookRestrictions();
+    notebook.recipientSettings = generateNotebookRecipientSettings();
+
+    return notebook;
 }
 
 LinkedNotebook generateLinkedNotebook()
 {
-    // TODO: implement
-    return {};
+    LinkedNotebook notebook;
+    notebook.shareName = QStringLiteral("shareName");
+    notebook.username = QStringLiteral("username");
+    notebook.shardId = QStringLiteral("shardId");
+    notebook.sharedNotebookGlobalId = QStringLiteral("sharedNotebookGlobalId");
+    notebook.uri = QStringLiteral("uri");
+    notebook.guid = QStringLiteral("guid");
+    notebook.updateSequenceNum = 823;
+    notebook.noteStoreUrl = QStringLiteral("noteStoreUrl");
+    notebook.webApiUrlPrefix = QStringLiteral("webApiUrlPrefix");
+    notebook.stack = QStringLiteral("stack");
+    notebook.businessId = 71;
+
+    return notebook;
 }
 
 NotebookDescriptor generateNotebookDescriptor()
 {
-    // TODO: implement
-    return {};
+    NotebookDescriptor d;
+    d.guid = QStringLiteral("guid");
+    d.notebookDisplayName = QStringLiteral("notebookDisplayName");
+    d.contactName = QStringLiteral("contactName");
+    d.hasSharedNotebook = false;
+    d.joinedUserCount = 23;
+
+    return d;
 }
 
 UserProfile generateUserProfile()
 {
-    // TODO: implement
-    return {};
+    UserProfile p;
+    p.id = 23;
+    p.name = QStringLiteral("name");
+    p.email = QStringLiteral("email");
+    p.username = QStringLiteral("username");
+    p.attributes = generateBusinessUserAttributes();
+    p.joined = QDateTime::currentMSecsSinceEpoch();
+    p.photoLastUpdated = QDateTime::currentMSecsSinceEpoch() - 100;
+    p.photoUrl = QStringLiteral("photoUrl");
+    p.role = BusinessUserRole::NORMAL;
+    p.status = BusinessUserStatus::ACTIVE;
+
+    return p;
 }
 
 RelatedContentImage generateRelatedContentImage()
 {
-    // TODO: implement
-    return {};
+    RelatedContentImage i;
+    i.url = QStringLiteral("url");
+    i.width = 20;
+    i.height = 30;
+    i.pixelRatio = 0.2;
+    i.fileSize = 315;
+
+    return i;
 }
 
 RelatedContent generateRelatedContent()
 {
-    // TODO: implement
-    return {};
+    RelatedContent c;
+    c.contentId = QStringLiteral("contentId");
+    c.title = QStringLiteral("title");
+    c.url = QStringLiteral("url");
+    c.sourceId = QStringLiteral("sourceId");
+    c.sourceUrl = QStringLiteral("sourceUrl");
+    c.sourceFaviconUrl = QStringLiteral("sourceFaviconUrl");
+    c.sourceName = QStringLiteral("sourceName");
+    c.date = QDateTime::currentMSecsSinceEpoch();
+    c.teaser = QStringLiteral("teaser");
+    c.thumbnails = QList<RelatedContentImage>() << generateRelatedContentImage();
+    c.contentType = RelatedContentType::NEWS_ARTICLE;
+    c.accessType = RelatedContentAccess::DIRECT_LINK_ACCESS_OK;
+    c.visibleUrl = QStringLiteral("visibleUrl");
+    c.clipUrl = QStringLiteral("clipUrl");
+    c.contact = generateContact();
+    c.authors = QStringList()
+        << QStringLiteral("author1")
+        << QStringLiteral("author2")
+        << QStringLiteral("author3");
+
+    return c;
 }
 
 BusinessInvitation generateBusinessInvitation()
 {
-    // TODO: implement
-    return {};
+    BusinessInvitation i;
+    i.businessId = 22;
+    i.email = QStringLiteral("email");
+    i.role = BusinessUserRole::NORMAL;
+    i.status = BusinessInvitationStatus::APPROVED;
+    i.requesterId = 13;
+    i.fromWorkChat = false;
+    i.created = QDateTime::currentMSecsSinceEpoch();
+    i.mostRecentReminder = QDateTime::currentMSecsSinceEpoch();
+
+    return i;
 }
 
 UserIdentity generateUserIdentity()
 {
-    // TODO: implement
-    return {};
+    UserIdentity i;
+    i.type = UserIdentityType::EMAIL;
+    i.stringIdentifier = QStringLiteral("stringIdentifier");
+    i.longIdentifier = 346;
+
+    return i;
 }
 
 PublicUserInfo generatePublicUserInfo()
 {
-    // TODO: implement
-    return {};
+    PublicUserInfo i;
+    i.userId = 34;
+    i.serviceLevel = ServiceLevel::BASIC;
+    i.username = QStringLiteral("username");
+    i.noteStoreUrl = QStringLiteral("noteStoreUrl");
+    i.webApiUrlPrefix = QStringLiteral("webApiUrlPrefix");
+
+    return i;
 }
 
 UserUrls generateUserUrls()
 {
-    // TODO: implement
-    return {};
+    UserUrls u;
+    u.noteStoreUrl = QStringLiteral("noteStoreUrl");
+    u.webApiUrlPrefix = QStringLiteral("webApiUrlPrefix");
+    u.userStoreUrl = QStringLiteral("userStoreUrl");
+    u.utilityUrl = QStringLiteral("utilityUrl");
+    u.messageStoreUrl = QStringLiteral("messageStoreUrl");
+    u.userWebSocketUrl = QStringLiteral("userWebSocketUrl");
+
+    return u;
 }
 
 AuthenticationResult generateAuthenticationResult()
 {
-    // TODO: implement
-    return {};
+    AuthenticationResult r;
+    r.currentTime = QDateTime::currentMSecsSinceEpoch();
+    r.authenticationToken = QStringLiteral("authenticationToken");
+    r.expiration = QDateTime::currentMSecsSinceEpoch();
+    r.user = generateUser();
+    r.publicUserInfo = generatePublicUserInfo();
+    r.noteStoreUrl = QStringLiteral("noteStoreUrl");
+    r.webApiUrlPrefix = QStringLiteral("webApiUrlPrefix");
+    r.secondFactorRequired = false;
+    r.secondFactorDeliveryHint = QStringLiteral("secondFactorDeliveryHint");
+    r.urls = generateUserUrls();
+
+    return r;
 }
 
 BootstrapSettings generateBootstrapSettings()
 {
-    // TODO: implement
-    return {};
+    BootstrapSettings s;
+    s.serviceHost = QStringLiteral("serviceHost");
+    s.marketingUrl = QStringLiteral("marketingUrl");
+    s.supportUrl = QStringLiteral("supportUrl");
+    s.accountEmailDomain = QStringLiteral("accountEmailDomain");
+    s.enableFacebookSharing = false;
+    s.enableGiftSubscriptions = true;
+    s.enableSupportTickets = false;
+    s.enableSharedNotebooks = true;
+    s.enableSingleNoteSharing = false;
+    s.enableSponsoredAccounts = true;
+    s.enableTwitterSharing = false;
+    s.enableLinkedInSharing = true;
+    s.enablePublicNotebooks = false;
+    s.enableGoogle = true;
+
+    return s;
 }
 
 BootstrapProfile generateBootstrapProfile()
 {
-    // TODO: implement
-    return {};
+    BootstrapProfile p;
+    p.name = QStringLiteral("name");
+    p.settings = generateBootstrapSettings();
+
+    return p;
 }
 
 BootstrapInfo generateBootstrapInfo()
 {
-    // TODO: implement
-    return {};
+    BootstrapInfo i;
+    i.profiles = QList<BootstrapProfile>() << generateBootstrapProfile();
+
+    return i;
 }
 
 SyncChunk generateSyncChunk()
 {
-    // TODO: implement
-    return {};
+    SyncChunk c;
+    c.currentTime = QDateTime::currentMSecsSinceEpoch();
+    c.chunkHighUSN = 32;
+    c.updateCount = 17;
+    c.notes = QList<Note>() << generateNote();
+    c.notebooks = QList<Notebook>() << generateNotebook();
+    c.tags = QList<Tag>() << generateTag();
+    c.searches = QList<SavedSearch>() << generateSavedSearch();
+    c.resources = QList<Resource>() << generateResource();
+    c.expungedNotes = QList<Guid>() << QStringLiteral("expungedNoteGuid");
+    c.expungedNotebooks = QList<Guid>() << QStringLiteral("expungedNotebookGuid");
+    c.expungedTags = QList<Guid>() << QStringLiteral("expungedTagGuid");
+    c.expungedSearches = QList<Guid>() << QStringLiteral("expungedSearcheGuid");
+    c.linkedNotebooks = QList<LinkedNotebook>() << generateLinkedNotebook();
+    c.expungedLinkedNotebooks = QList<Guid>()
+        << QStringLiteral("expungedLinkedNotebookGuid");
+
+    return c;
 }
 
 NoteList generateNoteList()
 {
-    // TODO: implement
-    return {};
+    NoteList l;
+    l.startIndex = 2;
+    l.totalNotes = 1;
+    l.notes = QList<Note>() << generateNote();
+    l.stoppedWords = QStringList()
+        << QStringLiteral("stoppedWord1")
+        << QStringLiteral("stoppedWord2")
+        << QStringLiteral("stoppedWord3");
+    l.searchedWords = QStringList()
+        << QStringLiteral("seachedWord1")
+        << QStringLiteral("seachedWord2")
+        << QStringLiteral("seachedWord3");
+    l.updateCount = 34;
+    l.searchContextBytes = QStringLiteral("searchContextBytes").toUtf8();
+    l.debugInfo = QStringLiteral("debugInfo");
+
+    return l;
 }
 
 NoteMetadata generateNoteMetadata()
 {
-    // TODO: implement
-    return {};
+    NoteMetadata m;
+    m.guid = QStringLiteral("guid");
+    m.title = QStringLiteral("title");
+    m.contentLength = 23;
+    m.created = QDateTime::currentMSecsSinceEpoch() - 200;
+    m.updated = QDateTime::currentMSecsSinceEpoch() - 100;
+    m.deleted = QDateTime::currentMSecsSinceEpoch() - 50;
+    m.updateSequenceNum = 345;
+    m.notebookGuid = QStringLiteral("notebookGuid");
+    m.tagGuids = QList<Guid>()
+        << QStringLiteral("tagGuid1")
+        << QStringLiteral("tagGuid2")
+        << QStringLiteral("tagGuid3");
+    m.attributes = generateNoteAttributes();
+    m.largestResourceMime = QStringLiteral("largestResourceMime");
+    m.largestResourceSize = 378;
+
+    return m;
 }
 
 NotesMetadataList generateNotesMetadataList()
 {
-    // TODO: implement
-    return {};
+    NotesMetadataList l;
+    l.startIndex = 2;
+    l.totalNotes = 1;
+    l.notes = QList<NoteMetadata>() << generateNoteMetadata();
+    l.stoppedWords = QStringList()
+        << QStringLiteral("stoppedWord1")
+        << QStringLiteral("stoppedWord2")
+        << QStringLiteral("stoppedWord3");
+    l.searchedWords = QStringList()
+        << QStringLiteral("seachedWord1")
+        << QStringLiteral("seachedWord2")
+        << QStringLiteral("seachedWord3");
+    l.updateCount = 34;
+    l.searchContextBytes = QStringLiteral("searchContextBytes").toUtf8();
+    l.debugInfo = QStringLiteral("debugInfo");
+
+    return l;
 }
 
 NoteEmailParameters generateNoteEmailParameters()
 {
-    // TODO: implement
-    return {};
+    NoteEmailParameters p;
+    p.guid = QStringLiteral("guid");
+    p.note = generateNote();
+    p.toAddresses = QStringList()
+        << QStringLiteral("address1")
+        << QStringLiteral("address2")
+        << QStringLiteral("address3");
+    p.ccAddresses = QStringList()
+        << QStringLiteral("ccAddress1")
+        << QStringLiteral("ccAddress2")
+        << QStringLiteral("ccAddress3");
+    p.subject = QStringLiteral("subject");
+    p.message = QStringLiteral("message");
+
+    return p;
 }
 
 RelatedResult generateRelatedResult()
 {
-    // TODO: implement
-    return {};
+    RelatedResult r;
+    r.notes = QList<Note>() << generateNote();
+    r.notebooks = QList<Notebook>() << generateNotebook();
+    r.tags = QList<Tag>() << generateTag();
+    r.containingNotebooks = QList<NotebookDescriptor>()
+        << generateNotebookDescriptor();
+    r.debugInfo = QStringLiteral("debugInfo");
+    r.experts = QList<UserProfile>() << generateUserProfile();
+    r.relatedContent = QList<RelatedContent>() << generateRelatedContent();
+    r.cacheKey = QStringLiteral("cacheKey");
+    r.cacheExpires = 320;
+
+    return r;
 }
 
 UpdateNoteIfUsnMatchesResult generateUpdateNoteIfUsnMatchesResult()
 {
-    // TODO: implement
-    return {};
+    UpdateNoteIfUsnMatchesResult r;
+    r.note = generateNote();
+    r.updated = true;
+
+    return r;
 }
 
 InvitationShareRelationship generateInvitationShareRelationship()
 {
-    // TODO: implement
-    return {};
+    InvitationShareRelationship r;
+    r.displayName = QStringLiteral("displayName");
+    r.recipientUserIdentity = generateUserIdentity();
+    r.privilege = ShareRelationshipPrivilegeLevel::FULL_ACCESS;
+    r.sharerUserId = 341;
+
+    return r;
 }
 
 ShareRelationships generateShareRelationships()
 {
-    // TODO: implement
-    return {};
+    ShareRelationships r;
+    r.invitations = QList<InvitationShareRelationship>()
+        << generateInvitationShareRelationship();
+    r.memberships = QList<MemberShareRelationship>()
+        << generateMemberShareRelationship();
+    r.invitationRestrictions = generateShareRelationshipRestrictions();
+
+    return r;
 }
 
 ManageNotebookSharesParameters generateManageNotebookSharesParameters()
 {
-    // TODO: implement
-    return {};
+    ManageNotebookSharesParameters p;
+    p.notebookGuid = QStringLiteral("notebookGuid");
+    p.inviteMessage = QStringLiteral("inviteMessage");
+    p.membershipsToUpdate = QList<MemberShareRelationship>()
+        << generateMemberShareRelationship();
+    p.invitationsToCreateOrUpdate = QList<InvitationShareRelationship>()
+        << generateInvitationShareRelationship();
+    p.unshares = QList<UserIdentity>() << generateUserIdentity();
+
+    return p;
 }
 
 ManageNotebookSharesError generateManageNotebookSharesError()
 {
-    // TODO: implement
-    return {};
+    ManageNotebookSharesError e;
+    e.userIdentity = generateUserIdentity();
+
+    e.userException = EDAMUserException();
+    e.userException->errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
+    e.userException->parameter = QStringLiteral("userException");
+
+    e.notFoundException = EDAMNotFoundException();
+    e.notFoundException->identifier = QStringLiteral("identfier");
+    e.notFoundException->key = QStringLiteral("key");
+
+    return e;
 }
 
 ManageNotebookSharesResult generateManageNotebookSharesResult()
 {
-    // TODO: implement
-    return {};
+    ManageNotebookSharesResult r;
+    r.errors = QList<ManageNotebookSharesError>()
+        << generateManageNotebookSharesError();
+
+    return r;
 }
 
 SharedNoteTemplate generateSharedNoteTemplate()
 {
-    // TODO: implement
-    return {};
+    SharedNoteTemplate t;
+    t.noteGuid = QStringLiteral("noteGuid");
+    t.recipientThreadId = 23;
+    t.recipientContacts = QList<Contact>()
+        << generateContact();
+    t.privilege = SharedNotePrivilegeLevel::MODIFY_NOTE;
+
+    return t;
 }
 
 NotebookShareTemplate generateNotebookShareTemplate()
 {
-    // TODO: implement
-    return {};
+    NotebookShareTemplate t;
+    t.notebookGuid = QStringLiteral("notebookGuid");
+    t.recipientThreadId = 23;
+    t.recipientContacts = QList<Contact>()
+        << generateContact();
+    t.privilege = SharedNotebookPrivilegeLevel::GROUP;
+
+    return t;
 }
 
 CreateOrUpdateNotebookSharesResult generateCreateOrUpdateNotebookSharesResult()
 {
-    // TODO: implement
-    return {};
+    CreateOrUpdateNotebookSharesResult r;
+    r.updateSequenceNum = 34;
+    r.matchingShares = QList<SharedNotebook>() << generateSharedNotebook();
+
+    return r;
 }
 
 ManageNoteSharesError generateManageNoteSharesError()
 {
-    // TODO: implement
-    return {};
+    ManageNoteSharesError e;
+    e.identityID = 54;
+    e.userID = 34;
+
+    e.userException = EDAMUserException();
+    e.userException->errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
+    e.userException->parameter = QStringLiteral("userException");
+
+    e.notFoundException = EDAMNotFoundException();
+    e.notFoundException->identifier = QStringLiteral("identfier");
+    e.notFoundException->key = QStringLiteral("key");
+
+    return e;
 }
 
 ManageNoteSharesResult generateManageNoteSharesResult()
 {
-    // TODO: implement
-    return {};
+    ManageNoteSharesResult r;
+    r.errors = QList<ManageNoteSharesError>()
+        << generateManageNoteSharesError();
+
+    return r;
 }
 
 } // namespace tests
