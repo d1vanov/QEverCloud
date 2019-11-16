@@ -43,7 +43,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void CheckVersionRequestReady(
+    void checkVersionRequestReady(
         bool value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -61,13 +61,16 @@ public Q_SLOTS:
                 edamVersionMajor,
                 edamVersionMinor,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT checkVersionRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT checkVersionRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -95,7 +98,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void GetBootstrapInfoRequestReady(
+    void getBootstrapInfoRequestReady(
         BootstrapInfo value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -109,13 +112,16 @@ public Q_SLOTS:
             auto v = m_executor(
                 locale,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT getBootstrapInfoRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT getBootstrapInfoRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -149,7 +155,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void AuthenticateLongSessionRequestReady(
+    void authenticateLongSessionRequestReady(
         AuthenticationResult value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -175,13 +181,16 @@ public Q_SLOTS:
                 deviceDescription,
                 supportsTwoFactor,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT authenticateLongSessionRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT authenticateLongSessionRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -211,7 +220,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void CompleteTwoFactorAuthenticationRequestReady(
+    void completeTwoFactorAuthenticationRequestReady(
         AuthenticationResult value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -229,13 +238,16 @@ public Q_SLOTS:
                 deviceIdentifier,
                 deviceDescription,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT completeTwoFactorAuthenticationRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT completeTwoFactorAuthenticationRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -262,7 +274,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void RevokeLongSessionRequestReady(
+    void revokeLongSessionRequestReady(
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
 public Q_SLOTS:
@@ -273,12 +285,14 @@ public Q_SLOTS:
         {
             m_executor(
                 ctx);
-            // TODO: emit finished
+
+            Q_EMIT revokeLongSessionRequestReady(
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT revokeLongSessionRequestReady(
+                e.exceptionData());
         }
     }
 
@@ -305,7 +319,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void AuthenticateToBusinessRequestReady(
+    void authenticateToBusinessRequestReady(
         AuthenticationResult value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -317,13 +331,16 @@ public Q_SLOTS:
         {
             auto v = m_executor(
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT authenticateToBusinessRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT authenticateToBusinessRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -350,7 +367,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void GetUserRequestReady(
+    void getUserRequestReady(
         User value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -362,13 +379,16 @@ public Q_SLOTS:
         {
             auto v = m_executor(
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT getUserRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT getUserRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -396,7 +416,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void GetPublicUserInfoRequestReady(
+    void getPublicUserInfoRequestReady(
         PublicUserInfo value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -410,13 +430,16 @@ public Q_SLOTS:
             auto v = m_executor(
                 username,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT getPublicUserInfoRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT getPublicUserInfoRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -443,7 +466,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void GetUserUrlsRequestReady(
+    void getUserUrlsRequestReady(
         UserUrls value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -455,13 +478,16 @@ public Q_SLOTS:
         {
             auto v = m_executor(
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT getUserUrlsRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT getUserUrlsRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -489,7 +515,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void InviteToBusinessRequestReady(
+    void inviteToBusinessRequestReady(
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
 public Q_SLOTS:
@@ -502,12 +528,14 @@ public Q_SLOTS:
             m_executor(
                 emailAddress,
                 ctx);
-            // TODO: emit finished
+
+            Q_EMIT inviteToBusinessRequestReady(
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT inviteToBusinessRequestReady(
+                e.exceptionData());
         }
     }
 
@@ -535,7 +563,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void RemoveFromBusinessRequestReady(
+    void removeFromBusinessRequestReady(
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
 public Q_SLOTS:
@@ -548,12 +576,14 @@ public Q_SLOTS:
             m_executor(
                 emailAddress,
                 ctx);
-            // TODO: emit finished
+
+            Q_EMIT removeFromBusinessRequestReady(
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT removeFromBusinessRequestReady(
+                e.exceptionData());
         }
     }
 
@@ -582,7 +612,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void UpdateBusinessUserIdentifierRequestReady(
+    void updateBusinessUserIdentifierRequestReady(
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
 public Q_SLOTS:
@@ -597,12 +627,14 @@ public Q_SLOTS:
                 oldEmailAddress,
                 newEmailAddress,
                 ctx);
-            // TODO: emit finished
+
+            Q_EMIT updateBusinessUserIdentifierRequestReady(
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT updateBusinessUserIdentifierRequestReady(
+                e.exceptionData());
         }
     }
 
@@ -629,7 +661,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void ListBusinessUsersRequestReady(
+    void listBusinessUsersRequestReady(
         QList<UserProfile> value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -641,13 +673,16 @@ public Q_SLOTS:
         {
             auto v = m_executor(
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT listBusinessUsersRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT listBusinessUsersRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -675,7 +710,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void ListBusinessInvitationsRequestReady(
+    void listBusinessInvitationsRequestReady(
         QList<BusinessInvitation> value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -689,13 +724,16 @@ public Q_SLOTS:
             auto v = m_executor(
                 includeRequestedInvitations,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT listBusinessInvitationsRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT listBusinessInvitationsRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
@@ -723,7 +761,7 @@ public:
     {}
 
 Q_SIGNALS:
-    void GetAccountLimitsRequestReady(
+    void getAccountLimitsRequestReady(
         AccountLimits value,
         QSharedPointer<EverCloudExceptionData> exceptionData);
 
@@ -737,13 +775,16 @@ public Q_SLOTS:
             auto v = m_executor(
                 serviceLevel,
                 ctx);
-            // TODO: emit finished
-            Q_UNUSED(v)
+
+            Q_EMIT getAccountLimitsRequestReady(
+                v,
+                QSharedPointer<EverCloudExceptionData>());
         }
         catch(const EverCloudException & e)
         {
-            // TODO: emit error
-            Q_UNUSED(e)
+            Q_EMIT getAccountLimitsRequestReady(
+                {},
+                e.exceptionData());
         }
     }
 
