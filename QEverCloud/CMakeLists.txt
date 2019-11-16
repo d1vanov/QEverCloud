@@ -145,12 +145,16 @@ if(Qt5Test_FOUND)
   set(TEST_HEADERS
       src/tests/Common.h
       src/tests/TestDurableService.h
-      src/tests/TestOptional.h)
+      src/tests/TestOptional.h
+      src/tests/generated/TestNoteStore.h
+      src/tests/generated/TestUserStore.h)
   set(TEST_SOURCES
       src/tests/Common.cpp
       src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp
-      src/tests/TestQEverCloud.cpp)
+      src/tests/TestQEverCloud.cpp
+      src/tests/generated/TestNoteStore.cpp
+      src/tests/generated/TestUserStore.cpp)
     add_executable(test_${PROJECT_NAME} ${TEST_HEADERS} ${TEST_SOURCES})
   add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})

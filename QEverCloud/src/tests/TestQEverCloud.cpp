@@ -8,6 +8,8 @@
 
 #include "TestDurableService.h"
 #include "TestOptional.h"
+#include "generated/TestNoteStore.h"
+#include "generated/TestUserStore.h"
 
 #include <QCoreApplication>
 #include <QtTest/QtTest>
@@ -29,6 +31,8 @@ int main(int argc, char *argv[])
 
     RUN_TESTS(DurableServiceTester)
     RUN_TESTS(OptionalTester)
+    RUN_TESTS(NoteStoreTester)
+    RUN_TESTS(UserStoreTester)
 
     return 0;
 }
