@@ -6845,6 +6845,9 @@ void NoteStoreServer::onGetSyncStateRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getSyncStateRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
@@ -6941,6 +6944,9 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getFilteredSyncChunkRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
@@ -7052,6 +7058,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getLinkedNotebookSyncStateRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
@@ -7163,6 +7172,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getLinkedNotebookSyncChunkRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListNotebooksRequestReady(
@@ -7263,6 +7275,9 @@ void NoteStoreServer::onListNotebooksRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listNotebooksRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
@@ -7363,6 +7378,9 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listAccessibleBusinessNotebooksRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNotebookRequestReady(
@@ -7474,6 +7492,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetDefaultNotebookRequestReady(
@@ -7570,6 +7591,9 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getDefaultNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCreateNotebookRequestReady(
@@ -7681,6 +7705,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT createNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateNotebookRequestReady(
@@ -7792,6 +7819,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onExpungeNotebookRequestReady(
@@ -7903,6 +7933,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT expungeNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListTagsRequestReady(
@@ -8003,6 +8036,9 @@ void NoteStoreServer::onListTagsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listTagsRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListTagsByNotebookRequestReady(
@@ -8118,6 +8154,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listTagsByNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetTagRequestReady(
@@ -8229,6 +8268,9 @@ void NoteStoreServer::onGetTagRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getTagRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCreateTagRequestReady(
@@ -8340,6 +8382,9 @@ void NoteStoreServer::onCreateTagRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT createTagRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateTagRequestReady(
@@ -8451,6 +8496,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateTagRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUntagAllRequestReady(
@@ -8560,6 +8608,9 @@ void NoteStoreServer::onUntagAllRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT untagAllRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onExpungeTagRequestReady(
@@ -8671,6 +8722,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT expungeTagRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListSearchesRequestReady(
@@ -8771,6 +8825,9 @@ void NoteStoreServer::onListSearchesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listSearchesRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetSearchRequestReady(
@@ -8882,6 +8939,9 @@ void NoteStoreServer::onGetSearchRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getSearchRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCreateSearchRequestReady(
@@ -8978,6 +9038,9 @@ void NoteStoreServer::onCreateSearchRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT createSearchRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateSearchRequestReady(
@@ -9089,6 +9152,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateSearchRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onExpungeSearchRequestReady(
@@ -9200,6 +9266,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT expungeSearchRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onFindNoteOffsetRequestReady(
@@ -9311,6 +9380,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT findNoteOffsetRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onFindNotesMetadataRequestReady(
@@ -9422,6 +9494,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT findNotesMetadataRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onFindNoteCountsRequestReady(
@@ -9533,6 +9608,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT findNoteCountsRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
@@ -9644,6 +9722,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteWithResultSpecRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteRequestReady(
@@ -9755,6 +9836,9 @@ void NoteStoreServer::onGetNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteApplicationDataRequestReady(
@@ -9866,6 +9950,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteApplicationDataRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
@@ -9977,6 +10064,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteApplicationDataEntryRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
@@ -10088,6 +10178,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT setNoteApplicationDataEntryRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
@@ -10199,6 +10292,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT unsetNoteApplicationDataEntryRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteContentRequestReady(
@@ -10310,6 +10406,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteContentRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteSearchTextRequestReady(
@@ -10421,6 +10520,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteSearchTextRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceSearchTextRequestReady(
@@ -10532,6 +10634,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceSearchTextRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteTagNamesRequestReady(
@@ -10647,6 +10752,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteTagNamesRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCreateNoteRequestReady(
@@ -10758,6 +10866,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT createNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateNoteRequestReady(
@@ -10869,6 +10980,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onDeleteNoteRequestReady(
@@ -10980,6 +11094,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT deleteNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onExpungeNoteRequestReady(
@@ -11091,6 +11208,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT expungeNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCopyNoteRequestReady(
@@ -11202,6 +11322,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT copyNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListNoteVersionsRequestReady(
@@ -11317,6 +11440,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listNoteVersionsRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNoteVersionRequestReady(
@@ -11428,6 +11554,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNoteVersionRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceRequestReady(
@@ -11539,6 +11668,9 @@ void NoteStoreServer::onGetResourceRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceApplicationDataRequestReady(
@@ -11650,6 +11782,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceApplicationDataRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
@@ -11761,6 +11896,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceApplicationDataEntryRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
@@ -11872,6 +12010,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT setResourceApplicationDataEntryRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
@@ -11983,6 +12124,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT unsetResourceApplicationDataEntryRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateResourceRequestReady(
@@ -12094,6 +12238,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateResourceRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceDataRequestReady(
@@ -12205,6 +12352,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceDataRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceByHashRequestReady(
@@ -12316,6 +12466,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceByHashRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceRecognitionRequestReady(
@@ -12427,6 +12580,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceRecognitionRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceAlternateDataRequestReady(
@@ -12538,6 +12694,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceAlternateDataRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetResourceAttributesRequestReady(
@@ -12649,6 +12808,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getResourceAttributesRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetPublicNotebookRequestReady(
@@ -12745,6 +12907,9 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getPublicNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onShareNotebookRequestReady(
@@ -12856,6 +13021,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT shareNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
@@ -12982,6 +13150,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT createOrUpdateNotebookSharesRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateSharedNotebookRequestReady(
@@ -13093,6 +13264,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateSharedNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
@@ -13204,6 +13378,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT setNotebookRecipientSettingsRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListSharedNotebooksRequestReady(
@@ -13319,6 +13496,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listSharedNotebooksRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onCreateLinkedNotebookRequestReady(
@@ -13430,6 +13610,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT createLinkedNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
@@ -13541,6 +13724,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateLinkedNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onListLinkedNotebooksRequestReady(
@@ -13656,6 +13842,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listLinkedNotebooksRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
@@ -13767,6 +13956,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT expungeLinkedNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
@@ -13878,6 +14070,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT authenticateToSharedNotebookRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
@@ -13989,6 +14184,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getSharedNotebookByAuthRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onEmailNoteRequestReady(
@@ -14098,6 +14296,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT emailNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onShareNoteRequestReady(
@@ -14209,6 +14410,9 @@ void NoteStoreServer::onShareNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT shareNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onStopSharingNoteRequestReady(
@@ -14318,6 +14522,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT stopSharingNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
@@ -14429,6 +14636,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT authenticateToSharedNoteRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onFindRelatedRequestReady(
@@ -14540,6 +14750,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT findRelatedRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
@@ -14651,6 +14864,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateNoteIfUsnMatchesRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onManageNotebookSharesRequestReady(
@@ -14762,6 +14978,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT manageNotebookSharesRequestReady(
+        writer.buffer());
 }
 
 void NoteStoreServer::onGetNotebookSharesRequestReady(
@@ -14873,6 +15092,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getNotebookSharesRequestReady(
+        writer.buffer());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15171,6 +15393,9 @@ void UserStoreServer::onCheckVersionRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT checkVersionRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onGetBootstrapInfoRequestReady(
@@ -15219,6 +15444,9 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getBootstrapInfoRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onAuthenticateLongSessionRequestReady(
@@ -15315,6 +15543,9 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT authenticateLongSessionRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
@@ -15411,6 +15642,9 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT completeTwoFactorAuthenticationRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onRevokeLongSessionRequestReady(
@@ -15505,6 +15739,9 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT revokeLongSessionRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onAuthenticateToBusinessRequestReady(
@@ -15601,6 +15838,9 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT authenticateToBusinessRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onGetUserRequestReady(
@@ -15697,6 +15937,9 @@ void UserStoreServer::onGetUserRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getUserRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onGetPublicUserInfoRequestReady(
@@ -15808,6 +16051,9 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getPublicUserInfoRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onGetUserUrlsRequestReady(
@@ -15904,6 +16150,9 @@ void UserStoreServer::onGetUserUrlsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getUserUrlsRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onInviteToBusinessRequestReady(
@@ -15998,6 +16247,9 @@ void UserStoreServer::onInviteToBusinessRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT inviteToBusinessRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onRemoveFromBusinessRequestReady(
@@ -16107,6 +16359,9 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT removeFromBusinessRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
@@ -16216,6 +16471,9 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT updateBusinessUserIdentifierRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onListBusinessUsersRequestReady(
@@ -16316,6 +16574,9 @@ void UserStoreServer::onListBusinessUsersRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listBusinessUsersRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onListBusinessInvitationsRequestReady(
@@ -16416,6 +16677,9 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT listBusinessInvitationsRequestReady(
+        writer.buffer());
 }
 
 void UserStoreServer::onGetAccountLimitsRequestReady(
@@ -16497,6 +16761,9 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
 
     writer.writeStructEnd();
     writer.writeMessageEnd();
+
+    Q_EMIT getAccountLimitsRequestReady(
+        writer.buffer());
 }
 
 } // namespace qevercloud

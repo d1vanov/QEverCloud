@@ -369,6 +369,229 @@ Q_SIGNALS:
         QString notebookGuid,
         IRequestContextPtr ctx);
 
+    // Signals used to send encoded response data
+    void getSyncStateRequestReady(
+        QByteArray data);
+
+    void getFilteredSyncChunkRequestReady(
+        QByteArray data);
+
+    void getLinkedNotebookSyncStateRequestReady(
+        QByteArray data);
+
+    void getLinkedNotebookSyncChunkRequestReady(
+        QByteArray data);
+
+    void listNotebooksRequestReady(
+        QByteArray data);
+
+    void listAccessibleBusinessNotebooksRequestReady(
+        QByteArray data);
+
+    void getNotebookRequestReady(
+        QByteArray data);
+
+    void getDefaultNotebookRequestReady(
+        QByteArray data);
+
+    void createNotebookRequestReady(
+        QByteArray data);
+
+    void updateNotebookRequestReady(
+        QByteArray data);
+
+    void expungeNotebookRequestReady(
+        QByteArray data);
+
+    void listTagsRequestReady(
+        QByteArray data);
+
+    void listTagsByNotebookRequestReady(
+        QByteArray data);
+
+    void getTagRequestReady(
+        QByteArray data);
+
+    void createTagRequestReady(
+        QByteArray data);
+
+    void updateTagRequestReady(
+        QByteArray data);
+
+    void untagAllRequestReady(
+        QByteArray data);
+
+    void expungeTagRequestReady(
+        QByteArray data);
+
+    void listSearchesRequestReady(
+        QByteArray data);
+
+    void getSearchRequestReady(
+        QByteArray data);
+
+    void createSearchRequestReady(
+        QByteArray data);
+
+    void updateSearchRequestReady(
+        QByteArray data);
+
+    void expungeSearchRequestReady(
+        QByteArray data);
+
+    void findNoteOffsetRequestReady(
+        QByteArray data);
+
+    void findNotesMetadataRequestReady(
+        QByteArray data);
+
+    void findNoteCountsRequestReady(
+        QByteArray data);
+
+    void getNoteWithResultSpecRequestReady(
+        QByteArray data);
+
+    void getNoteRequestReady(
+        QByteArray data);
+
+    void getNoteApplicationDataRequestReady(
+        QByteArray data);
+
+    void getNoteApplicationDataEntryRequestReady(
+        QByteArray data);
+
+    void setNoteApplicationDataEntryRequestReady(
+        QByteArray data);
+
+    void unsetNoteApplicationDataEntryRequestReady(
+        QByteArray data);
+
+    void getNoteContentRequestReady(
+        QByteArray data);
+
+    void getNoteSearchTextRequestReady(
+        QByteArray data);
+
+    void getResourceSearchTextRequestReady(
+        QByteArray data);
+
+    void getNoteTagNamesRequestReady(
+        QByteArray data);
+
+    void createNoteRequestReady(
+        QByteArray data);
+
+    void updateNoteRequestReady(
+        QByteArray data);
+
+    void deleteNoteRequestReady(
+        QByteArray data);
+
+    void expungeNoteRequestReady(
+        QByteArray data);
+
+    void copyNoteRequestReady(
+        QByteArray data);
+
+    void listNoteVersionsRequestReady(
+        QByteArray data);
+
+    void getNoteVersionRequestReady(
+        QByteArray data);
+
+    void getResourceRequestReady(
+        QByteArray data);
+
+    void getResourceApplicationDataRequestReady(
+        QByteArray data);
+
+    void getResourceApplicationDataEntryRequestReady(
+        QByteArray data);
+
+    void setResourceApplicationDataEntryRequestReady(
+        QByteArray data);
+
+    void unsetResourceApplicationDataEntryRequestReady(
+        QByteArray data);
+
+    void updateResourceRequestReady(
+        QByteArray data);
+
+    void getResourceDataRequestReady(
+        QByteArray data);
+
+    void getResourceByHashRequestReady(
+        QByteArray data);
+
+    void getResourceRecognitionRequestReady(
+        QByteArray data);
+
+    void getResourceAlternateDataRequestReady(
+        QByteArray data);
+
+    void getResourceAttributesRequestReady(
+        QByteArray data);
+
+    void getPublicNotebookRequestReady(
+        QByteArray data);
+
+    void shareNotebookRequestReady(
+        QByteArray data);
+
+    void createOrUpdateNotebookSharesRequestReady(
+        QByteArray data);
+
+    void updateSharedNotebookRequestReady(
+        QByteArray data);
+
+    void setNotebookRecipientSettingsRequestReady(
+        QByteArray data);
+
+    void listSharedNotebooksRequestReady(
+        QByteArray data);
+
+    void createLinkedNotebookRequestReady(
+        QByteArray data);
+
+    void updateLinkedNotebookRequestReady(
+        QByteArray data);
+
+    void listLinkedNotebooksRequestReady(
+        QByteArray data);
+
+    void expungeLinkedNotebookRequestReady(
+        QByteArray data);
+
+    void authenticateToSharedNotebookRequestReady(
+        QByteArray data);
+
+    void getSharedNotebookByAuthRequestReady(
+        QByteArray data);
+
+    void emailNoteRequestReady(
+        QByteArray data);
+
+    void shareNoteRequestReady(
+        QByteArray data);
+
+    void stopSharingNoteRequestReady(
+        QByteArray data);
+
+    void authenticateToSharedNoteRequestReady(
+        QByteArray data);
+
+    void findRelatedRequestReady(
+        QByteArray data);
+
+    void updateNoteIfUsnMatchesRequestReady(
+        QByteArray data);
+
+    void manageNotebookSharesRequestReady(
+        QByteArray data);
+
+    void getNotebookSharesRequestReady(
+        QByteArray data);
+
 public Q_SLOTS:
     // Slot used to deliver requests to the server
     void onRequest(QByteArray data);
@@ -750,6 +973,52 @@ Q_SIGNALS:
     void getAccountLimitsRequest(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx);
+
+    // Signals used to send encoded response data
+    void checkVersionRequestReady(
+        QByteArray data);
+
+    void getBootstrapInfoRequestReady(
+        QByteArray data);
+
+    void authenticateLongSessionRequestReady(
+        QByteArray data);
+
+    void completeTwoFactorAuthenticationRequestReady(
+        QByteArray data);
+
+    void revokeLongSessionRequestReady(
+        QByteArray data);
+
+    void authenticateToBusinessRequestReady(
+        QByteArray data);
+
+    void getUserRequestReady(
+        QByteArray data);
+
+    void getPublicUserInfoRequestReady(
+        QByteArray data);
+
+    void getUserUrlsRequestReady(
+        QByteArray data);
+
+    void inviteToBusinessRequestReady(
+        QByteArray data);
+
+    void removeFromBusinessRequestReady(
+        QByteArray data);
+
+    void updateBusinessUserIdentifierRequestReady(
+        QByteArray data);
+
+    void listBusinessUsersRequestReady(
+        QByteArray data);
+
+    void listBusinessInvitationsRequestReady(
+        QByteArray data);
+
+    void getAccountLimitsRequestReady(
+        QByteArray data);
 
 public Q_SLOTS:
     // Slot used to deliver requests to the server
