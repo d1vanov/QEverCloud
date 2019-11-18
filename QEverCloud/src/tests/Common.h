@@ -22,6 +22,30 @@
 namespace qevercloud {
 namespace tests {
 
+////////////////////////////////////////////////////////////////////////////////
+
+QString generateRandomString(int len = 10);
+
+qint8 generateRandomInt8();
+
+qint16 generateRandomInt16();
+
+qint32 generateRandomInt32();
+
+qint64 generateRandomInt64();
+
+quint8 generateRandomUint8();
+
+quint16 generateRandomUint16();
+
+quint32 generateRandomUint32();
+
+quint64 generateRandomUint64();
+
+double generateRandomDouble();
+
+////////////////////////////////////////////////////////////////////////////////
+
 SyncState generateSyncState();
 
 SyncChunkFilter generateSyncChunkFilter();

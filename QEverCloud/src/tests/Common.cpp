@@ -11,10 +11,95 @@
 #include <QCryptographicHash>
 #include <QDateTime>
 
+#include <algorithm>
 #include <cstdlib>
+#include <limits>
 
 namespace qevercloud {
 namespace tests {
+
+namespace {
+
+////////////////////////////////////////////////////////////////////////////////
+
+static const QString randomStringAvailableCharacters = QStringLiteral(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+
+template <typename T>
+T generateRandomIntType()
+{
+    return static_cast<T>(rand() % std::numeric_limits<T>::max());
+}
+
+} // namespace
+
+////////////////////////////////////////////////////////////////////////////////
+
+QString generateRandomString(int len)
+{
+    if (len <= 0) {
+        return {};
+    }
+
+    QString res;
+    res.reserve(len);
+    for(int i = 0; i < len; ++i) {
+        int index = rand() % randomStringAvailableCharacters.length();
+        res.append(randomStringAvailableCharacters.at(index));
+    }
+
+    return res;
+}
+
+qint8 generateRandomInt8()
+{
+    return generateRandomIntType<qint8>();
+}
+
+qint16 generateRandomInt16()
+{
+    return generateRandomIntType<qint16>();
+}
+
+qint32 generateRandomInt32()
+{
+    return generateRandomIntType<qint32>();
+}
+
+qint64 generateRandomInt64()
+{
+    return generateRandomIntType<qint64>();
+}
+
+quint8 generateRandomUint8()
+{
+    return generateRandomIntType<quint8>();
+}
+
+quint16 generateRandomUint16()
+{
+    return generateRandomIntType<quint16>();
+}
+
+quint32 generateRandomUint32()
+{
+    return generateRandomIntType<quint32>();
+}
+
+quint64 generateRandomUint64()
+{
+    return generateRandomIntType<quint64>();
+}
+
+double generateRandomDouble()
+{
+    double minval = std::numeric_limits<double>::min();
+    double maxval = std::numeric_limits<double>::max();
+    double f = (double)rand() / RAND_MAX;
+    return minval + f * (maxval - minval);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 SyncState generateSyncState()
 {
