@@ -26,12 +26,12 @@ QVariant AsyncResult::asIs(QByteArray replyData)
 }
 
 AsyncResult::AsyncResult(
-        QString url, QByteArray postData, qint64 timeoutMsec,
+        QString url, QByteArray postData, qint64 timeoutMsec, QUuid requestId,
         AsyncResult::ReadFunctionType readFunction, bool autoDelete,
         QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(
-        url, postData, timeoutMsec, readFunction, autoDelete, this))
+        url, postData, timeoutMsec, requestId, readFunction, autoDelete, this))
 {
     if (!url.isEmpty()) {
         QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
@@ -40,19 +40,20 @@ AsyncResult::AsyncResult(
 
 AsyncResult::AsyncResult(
         QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
-        qevercloud::AsyncResult::ReadFunctionType readFunction, bool autoDelete,
-        QObject * parent) :
+        QUuid requestId, qevercloud::AsyncResult::ReadFunctionType readFunction,
+        bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(
-        request, postData, timeoutMsec, readFunction, autoDelete, this))
+        request, postData, timeoutMsec, requestId, readFunction, autoDelete, this))
 {
     QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }
 
-AsyncResult::AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
-                         bool autoDelete, QObject * parent) :
+AsyncResult::AsyncResult(
+        QVariant result, QSharedPointer<EverCloudExceptionData> error,
+        QUuid requestId, bool autoDelete, QObject * parent) :
     QObject(parent),
-    d_ptr(new AsyncResultPrivate(result, error, autoDelete, this))
+    d_ptr(new AsyncResultPrivate(result, error, requestId, autoDelete, this))
 {}
 
 AsyncResult::~AsyncResult()
@@ -63,14 +64,22 @@ AsyncResult::~AsyncResult()
 bool AsyncResult::waitForFinished(int timeout)
 {
     QEventLoop loop;
-    QObject::connect(this,
-                     SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)),
-                     &loop, SLOT(quit()));
+    QObject::connect(
+        this,
+        SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)),
+        &loop,
+        SLOT(quit()));
 
-    if(timeout >= 0) {
+    if (timeout >= 0)
+    {
         QTimer timer;
         EventLoopFinisher finisher(&loop, 1);
-        connect(&timer, SIGNAL(timeout()), &finisher, SLOT(stopEventLoop()));
+        QObject::connect(
+            &timer,
+            SIGNAL(timeout()),
+            &finisher,
+            SLOT(stopEventLoop()));
+
         timer.setSingleShot(true);
         timer.setInterval(timeout);
         timer.start();

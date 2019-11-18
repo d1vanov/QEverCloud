@@ -15,6 +15,7 @@
 
 #include <QNetworkRequest>
 #include <QObject>
+#include <QUuid>
 
 namespace qevercloud {
 
@@ -54,11 +55,13 @@ public:
 
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
-    AsyncResult(QString url, QByteArray postData, qint64 timeoutMsec,
+    AsyncResult(QString url, QByteArray postData,
+                qint64 timeoutMsec, QUuid requestId,
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 
-    AsyncResult(QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
+    AsyncResult(QNetworkRequest request, QByteArray postData,
+                qint64 timeoutMsec, QUuid requestId,
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 
@@ -67,7 +70,8 @@ public:
      * for use in tests
      */
     AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
-                bool autoDelete = true, QObject * parent = nullptr);
+                QUuid requestId, bool autoDelete = true,
+                QObject * parent = nullptr);
 
     ~AsyncResult();
 

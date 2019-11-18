@@ -122,7 +122,12 @@ AsyncResult * Thumbnail::downloadAsync(
         << (isResourceGuid ? "resource guid" : "not a resource guid"));
 
     auto pair = createPostRequest(guid, isPublic, isResourceGuid);
-    auto res = new AsyncResult(pair.first, pair.second, timeoutMsec);
+    auto res = new AsyncResult(
+        pair.first,
+        pair.second,
+        timeoutMsec,
+        QUuid::createUuid());
+
     QObject::connect(res, &AsyncResult::finished,
                      [=] (const QVariant & value,
                           const QSharedPointer<EverCloudExceptionData> error)

@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QSharedPointer>
 #include <QTextStream>
+#include <QUuid>
 
 namespace qevercloud {
 
@@ -35,6 +36,9 @@ static constexpr quint32 DEFAULT_MAX_REQUEST_RETRY_COUNT = 10;
 class QEVERCLOUD_EXPORT IRequestContext
 {
 public:
+    /** Automatically generated unique identifier for each request */
+    virtual QUuid requestId() const = 0;
+
     /** Authentication token to use along with the request */
     virtual QString authenticationToken() const = 0;
 

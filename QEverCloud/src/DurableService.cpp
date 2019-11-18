@@ -228,7 +228,7 @@ AsyncResult * DurableService::executeAsyncRequest(
     RetryState state;
     state.m_retryCount = ctx->maxRequestRetryCount();
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray(), 0);
+    AsyncResult * result = new AsyncResult(QString(), QByteArray(), 0, ctx->requestId());
     doExecuteAsyncRequest(std::move(asyncRequest), std::move(ctx),
                           std::move(state), result);
 
@@ -241,7 +241,7 @@ void DurableService::doExecuteAsyncRequest(
 {
     QEC_DEBUG("durable_service", "Executing async " << asyncRequest.m_name
         << " request: " << retryState.m_retryCount << " attempts left, timeout = "
-        << ctx->requestTimeout());
+        << ctx->requestTimeout() << ", request id = " << ctx->requestId());
     QEC_TRACE("durable_service", "Request details: "
         << asyncRequest.m_description);
 
@@ -256,12 +256,14 @@ void DurableService::doExecuteAsyncRequest(
         {
             if (!exceptionData) {
                 QEC_DEBUG("durable_service", "Successfully executed async "
-                    << asyncRequest.m_name << " request");
+                    << asyncRequest.m_name << " request with id "
+                    << ctx->requestId());
                 result->d_ptr->setValue(value, {});
                 return;
             }
 
-            QEC_WARNING("durable_service", "Sync request " << asyncRequest.m_name
+            QEC_WARNING("durable_service", "Sync request "
+                << asyncRequest.m_name << " with id " << ctx->requestId()
                 << " failed: " << exceptionData->errorMessage
                 << "; request details: " << asyncRequest.m_description);
 

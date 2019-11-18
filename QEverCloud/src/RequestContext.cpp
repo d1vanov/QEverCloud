@@ -4,13 +4,14 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class Q_DECL_HIDDEN RequestContext Q_DECL_FINAL: public IRequestContext
+class Q_DECL_HIDDEN RequestContext final: public IRequestContext
 {
 public:
     RequestContext(QString authenticationToken, qint64 requestTimeout,
                    bool increaseRequestTimeoutExponentially,
                    qint64 maxRequestTimeout,
                    quint32 maxRequestRetryCount) :
+        m_requestId(QUuid::createUuid()),
         m_authenticationToken(std::move(authenticationToken)),
         m_requestTimeout(requestTimeout),
         m_increaseRequestTimeoutExponentially(increaseRequestTimeoutExponentially),
@@ -18,32 +19,38 @@ public:
         m_maxRequestRetryCount(maxRequestRetryCount)
     {}
 
-    virtual QString authenticationToken() const Q_DECL_OVERRIDE
+    virtual QUuid requestId() const override
+    {
+        return m_requestId;
+    }
+
+    virtual QString authenticationToken() const override
     {
         return m_authenticationToken;
     }
 
-    virtual qint64 requestTimeout() const Q_DECL_OVERRIDE
+    virtual qint64 requestTimeout() const override
     {
         return m_requestTimeout;
     }
 
-    virtual bool increaseRequestTimeoutExponentially() const Q_DECL_OVERRIDE
+    virtual bool increaseRequestTimeoutExponentially() const override
     {
         return m_increaseRequestTimeoutExponentially;
     }
 
-    virtual qint64 maxRequestTimeout() const Q_DECL_OVERRIDE
+    virtual qint64 maxRequestTimeout() const override
     {
         return m_maxRequestTimeout;
     }
 
-    virtual quint32 maxRequestRetryCount() const Q_DECL_OVERRIDE
+    virtual quint32 maxRequestRetryCount() const override
     {
         return m_maxRequestRetryCount;
     }
 
 private:
+    QUuid       m_requestId;
     QString     m_authenticationToken;
     qint64      m_requestTimeout;
     bool        m_increaseRequestTimeoutExponentially;

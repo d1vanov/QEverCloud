@@ -81,7 +81,7 @@ void DurableServiceTester::shouldExecuteAsyncServiceCall()
         [&] (IRequestContextPtr ctx) -> AsyncResult* {
             Q_ASSERT(ctx);
             serviceCallDetected = true;
-            return new AsyncResult(value, {});
+            return new AsyncResult(value, {}, ctx->requestId());
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
@@ -179,10 +179,10 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
                     data = e.exceptionData();
                 }
 
-                return new AsyncResult(QVariant(), data);
+                return new AsyncResult(QVariant(), data, ctx->requestId());
             }
 
-            return new AsyncResult(value, {});
+            return new AsyncResult(value, {}, ctx->requestId());
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
@@ -279,7 +279,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
                 data = e.exceptionData();
             }
 
-            return new AsyncResult(QVariant(), data);
+            return new AsyncResult(QVariant(), data, ctx->requestId());
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
@@ -390,7 +390,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
                 data = e.exceptionData();
             }
 
-            return new AsyncResult(QVariant(), data);
+            return new AsyncResult(QVariant(), data, ctx->requestId());
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
