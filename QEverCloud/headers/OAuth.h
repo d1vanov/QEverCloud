@@ -112,7 +112,7 @@ public:
     /** The method is useful to specify default size for a EverOAuthWebView. */
     void setSizeHint(QSize sizeHint);
 
-    virtual QSize sizeHint() const Q_DECL_OVERRIDE;
+    virtual QSize sizeHint() const override;
 
 Q_SIGNALS:
     /** Emitted when the OAuth sequence started with authenticate() call is finished */
@@ -221,19 +221,11 @@ public:
      * @return
      *   QDialog::Accepted on a successful authentication.
      */
-#if QT_VERSION < 0x050000
-    int exec();
-#else
-    virtual int exec() Q_DECL_OVERRIDE;
-#endif
+    virtual int exec() override;
 
     /** Shows the dialog as a window modal dialog, returning immediately.
      */
-#if QT_VERSION < 0x050000
-    void open();
-#else
-    virtual void open() Q_DECL_OVERRIDE;
-#endif
+    virtual void open() override;
 
 private:
     EvernoteOAuthDialogPrivate * const d_ptr;

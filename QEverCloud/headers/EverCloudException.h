@@ -155,7 +155,7 @@ public:
     explicit EvernoteException(const std::string & error);
     explicit EvernoteException(const char * error);
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
+    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -170,7 +170,7 @@ class QEVERCLOUD_EXPORT EvernoteExceptionData: public EverCloudExceptionData
     Q_DISABLE_COPY(EvernoteExceptionData)
 public:
     explicit EvernoteExceptionData(QString error);
-    virtual void throwException() const Q_DECL_OVERRIDE;
+    virtual void throwException() const override;
 };
 
 } // namespace qevercloud
