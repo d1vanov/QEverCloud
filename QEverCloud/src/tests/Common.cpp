@@ -101,6 +101,20 @@ double generateRandomDouble()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+QByteArray extractBodyFromHttpRequest(const QByteArray & requestData)
+{
+    QString requestDataStr = QString::fromUtf8(requestData);
+    int index = requestDataStr.indexOf(QStringLiteral("\r\n\r\n"));
+    if (index < 0) {
+        return {};
+    }
+
+    requestDataStr.remove(0, index);
+    return requestDataStr.trimmed().toUtf8();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 SyncState generateSyncState()
 {
     SyncState state;
