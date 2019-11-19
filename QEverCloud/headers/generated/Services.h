@@ -3310,6 +3310,7 @@ INoteStore * newNoteStore(
 
 IUserStore * newUserStore(
     QString host,
+    quint16 port,
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr);
 

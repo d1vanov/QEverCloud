@@ -15990,6 +15990,7 @@ class Q_DECL_HIDDEN UserStore: public IUserStore
 public:
     explicit UserStore(
             QString host,
+            quint16 port,
             IRequestContextPtr ctx = {},
             QObject * parent = nullptr) :
         IUserStore(parent),
@@ -16002,6 +16003,7 @@ public:
         QUrl url;
         url.setScheme(QStringLiteral("https"));
         url.setHost(host);
+        url.setPort(static_cast<int>(port));
         url.setPath(QStringLiteral("/edam/user"));
         m_url = url.toString(QUrl::StripTrailingSlash);
     }
@@ -25750,10 +25752,11 @@ INoteStore * newNoteStore(
 
 IUserStore * newUserStore(
     QString host,
+    quint16 port,
     IRequestContextPtr ctx,
     QObject * parent)
 {
-    return new UserStore(host, ctx, parent);
+    return new UserStore(host, port, ctx, parent);
 }
 
 } // namespace qevercloud
