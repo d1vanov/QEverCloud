@@ -3311,6 +3311,7 @@ INoteStore * newNoteStore(
 IUserStore * newUserStore(
     QString host,
     quint16 port,
+    QString urlScheme = QStringLiteral("https"),
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr);
 
