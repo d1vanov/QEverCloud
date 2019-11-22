@@ -11,6 +11,8 @@
 
 #include <generated/Types.h>
 
+#include <QTcpSocket>
+
 #ifdef QEVERCLOUD_SHARED_LIBRARY
 #undef QEVERCLOUD_SHARED_LIBRARY
 #endif
@@ -21,6 +23,10 @@
 
 namespace qevercloud {
 namespace tests {
+
+////////////////////////////////////////////////////////////////////////////////
+
+QByteArray readThriftRequestFromSocket(QTcpSocket & socket);
 
 ////////////////////////////////////////////////////////////////////////////////
 
