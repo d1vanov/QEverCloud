@@ -29,7 +29,7 @@ void parseNoteStoreGetSyncStateParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getSyncState_pargs");
 
     reader.readStructBegin(fname);
@@ -78,7 +78,7 @@ void parseNoteStoreGetFilteredSyncChunkParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getFilteredSyncChunk_pargs");
 
     reader.readStructBegin(fname);
@@ -158,7 +158,7 @@ void parseNoteStoreGetLinkedNotebookSyncStateParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getLinkedNotebookSyncState_pargs");
 
     reader.readStructBegin(fname);
@@ -219,7 +219,7 @@ void parseNoteStoreGetLinkedNotebookSyncChunkParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getLinkedNotebookSyncChunk_pargs");
 
     reader.readStructBegin(fname);
@@ -309,7 +309,7 @@ void parseNoteStoreListNotebooksParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listNotebooks_pargs");
 
     reader.readStructBegin(fname);
@@ -355,7 +355,7 @@ void parseNoteStoreListAccessibleBusinessNotebooksParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listAccessibleBusinessNotebooks_pargs");
 
     reader.readStructBegin(fname);
@@ -402,7 +402,7 @@ void parseNoteStoreGetNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -459,7 +459,7 @@ void parseNoteStoreGetDefaultNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getDefaultNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -506,7 +506,7 @@ void parseNoteStoreCreateNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_createNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -564,7 +564,7 @@ void parseNoteStoreUpdateNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -622,7 +622,7 @@ void parseNoteStoreExpungeNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_expungeNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -679,7 +679,7 @@ void parseNoteStoreListTagsParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listTags_pargs");
 
     reader.readStructBegin(fname);
@@ -726,7 +726,7 @@ void parseNoteStoreListTagsByNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listTagsByNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -784,7 +784,7 @@ void parseNoteStoreGetTagParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getTag_pargs");
 
     reader.readStructBegin(fname);
@@ -842,7 +842,7 @@ void parseNoteStoreCreateTagParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_createTag_pargs");
 
     reader.readStructBegin(fname);
@@ -900,7 +900,7 @@ void parseNoteStoreUpdateTagParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateTag_pargs");
 
     reader.readStructBegin(fname);
@@ -958,7 +958,7 @@ void parseNoteStoreUntagAllParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_untagAll_pargs");
 
     reader.readStructBegin(fname);
@@ -1016,7 +1016,7 @@ void parseNoteStoreExpungeTagParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_expungeTag_pargs");
 
     reader.readStructBegin(fname);
@@ -1073,7 +1073,7 @@ void parseNoteStoreListSearchesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listSearches_pargs");
 
     reader.readStructBegin(fname);
@@ -1120,7 +1120,7 @@ void parseNoteStoreGetSearchParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getSearch_pargs");
 
     reader.readStructBegin(fname);
@@ -1178,7 +1178,7 @@ void parseNoteStoreCreateSearchParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_createSearch_pargs");
 
     reader.readStructBegin(fname);
@@ -1236,7 +1236,7 @@ void parseNoteStoreUpdateSearchParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateSearch_pargs");
 
     reader.readStructBegin(fname);
@@ -1294,7 +1294,7 @@ void parseNoteStoreExpungeSearchParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_expungeSearch_pargs");
 
     reader.readStructBegin(fname);
@@ -1353,7 +1353,7 @@ void parseNoteStoreFindNoteOffsetParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_findNoteOffset_pargs");
 
     reader.readStructBegin(fname);
@@ -1425,7 +1425,7 @@ void parseNoteStoreFindNotesMetadataParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_findNotesMetadata_pargs");
 
     reader.readStructBegin(fname);
@@ -1517,7 +1517,7 @@ void parseNoteStoreFindNoteCountsParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_findNoteCounts_pargs");
 
     reader.readStructBegin(fname);
@@ -1587,7 +1587,7 @@ void parseNoteStoreGetNoteWithResultSpecParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteWithResultSpec_pargs");
 
     reader.readStructBegin(fname);
@@ -1660,7 +1660,7 @@ void parseNoteStoreGetNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNote_pargs");
 
     reader.readStructBegin(fname);
@@ -1762,7 +1762,7 @@ void parseNoteStoreGetNoteApplicationDataParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteApplicationData_pargs");
 
     reader.readStructBegin(fname);
@@ -1821,7 +1821,7 @@ void parseNoteStoreGetNoteApplicationDataEntryParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteApplicationDataEntry_pargs");
 
     reader.readStructBegin(fname);
@@ -1892,7 +1892,7 @@ void parseNoteStoreSetNoteApplicationDataEntryParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_setNoteApplicationDataEntry_pargs");
 
     reader.readStructBegin(fname);
@@ -1973,7 +1973,7 @@ void parseNoteStoreUnsetNoteApplicationDataEntryParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_unsetNoteApplicationDataEntry_pargs");
 
     reader.readStructBegin(fname);
@@ -2042,7 +2042,7 @@ void parseNoteStoreGetNoteContentParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteContent_pargs");
 
     reader.readStructBegin(fname);
@@ -2102,7 +2102,7 @@ void parseNoteStoreGetNoteSearchTextParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteSearchText_pargs");
 
     reader.readStructBegin(fname);
@@ -2182,7 +2182,7 @@ void parseNoteStoreGetResourceSearchTextParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceSearchText_pargs");
 
     reader.readStructBegin(fname);
@@ -2240,7 +2240,7 @@ void parseNoteStoreGetNoteTagNamesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteTagNames_pargs");
 
     reader.readStructBegin(fname);
@@ -2298,7 +2298,7 @@ void parseNoteStoreCreateNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_createNote_pargs");
 
     reader.readStructBegin(fname);
@@ -2356,7 +2356,7 @@ void parseNoteStoreUpdateNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateNote_pargs");
 
     reader.readStructBegin(fname);
@@ -2414,7 +2414,7 @@ void parseNoteStoreDeleteNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_deleteNote_pargs");
 
     reader.readStructBegin(fname);
@@ -2472,7 +2472,7 @@ void parseNoteStoreExpungeNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_expungeNote_pargs");
 
     reader.readStructBegin(fname);
@@ -2531,7 +2531,7 @@ void parseNoteStoreCopyNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_copyNote_pargs");
 
     reader.readStructBegin(fname);
@@ -2600,7 +2600,7 @@ void parseNoteStoreListNoteVersionsParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listNoteVersions_pargs");
 
     reader.readStructBegin(fname);
@@ -2662,7 +2662,7 @@ void parseNoteStoreGetNoteVersionParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNoteVersion_pargs");
 
     reader.readStructBegin(fname);
@@ -2768,7 +2768,7 @@ void parseNoteStoreGetResourceParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResource_pargs");
 
     reader.readStructBegin(fname);
@@ -2870,7 +2870,7 @@ void parseNoteStoreGetResourceApplicationDataParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceApplicationData_pargs");
 
     reader.readStructBegin(fname);
@@ -2929,7 +2929,7 @@ void parseNoteStoreGetResourceApplicationDataEntryParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceApplicationDataEntry_pargs");
 
     reader.readStructBegin(fname);
@@ -3000,7 +3000,7 @@ void parseNoteStoreSetResourceApplicationDataEntryParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_setResourceApplicationDataEntry_pargs");
 
     reader.readStructBegin(fname);
@@ -3081,7 +3081,7 @@ void parseNoteStoreUnsetResourceApplicationDataEntryParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_unsetResourceApplicationDataEntry_pargs");
 
     reader.readStructBegin(fname);
@@ -3150,7 +3150,7 @@ void parseNoteStoreUpdateResourceParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateResource_pargs");
 
     reader.readStructBegin(fname);
@@ -3208,7 +3208,7 @@ void parseNoteStoreGetResourceDataParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceData_pargs");
 
     reader.readStructBegin(fname);
@@ -3270,7 +3270,7 @@ void parseNoteStoreGetResourceByHashParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceByHash_pargs");
 
     reader.readStructBegin(fname);
@@ -3372,7 +3372,7 @@ void parseNoteStoreGetResourceRecognitionParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceRecognition_pargs");
 
     reader.readStructBegin(fname);
@@ -3430,7 +3430,7 @@ void parseNoteStoreGetResourceAlternateDataParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceAlternateData_pargs");
 
     reader.readStructBegin(fname);
@@ -3488,7 +3488,7 @@ void parseNoteStoreGetResourceAttributesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getResourceAttributes_pargs");
 
     reader.readStructBegin(fname);
@@ -3546,7 +3546,7 @@ void parseNoteStoreGetPublicNotebookParams(
     ThriftFieldType fieldType;
     qint16 fieldId;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getPublicNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -3605,7 +3605,7 @@ void parseNoteStoreShareNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_shareNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -3674,7 +3674,7 @@ void parseNoteStoreCreateOrUpdateNotebookSharesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_createOrUpdateNotebookShares_pargs");
 
     reader.readStructBegin(fname);
@@ -3732,7 +3732,7 @@ void parseNoteStoreUpdateSharedNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateSharedNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -3791,7 +3791,7 @@ void parseNoteStoreSetNotebookRecipientSettingsParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_setNotebookRecipientSettings_pargs");
 
     reader.readStructBegin(fname);
@@ -3859,7 +3859,7 @@ void parseNoteStoreListSharedNotebooksParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listSharedNotebooks_pargs");
 
     reader.readStructBegin(fname);
@@ -3906,7 +3906,7 @@ void parseNoteStoreCreateLinkedNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_createLinkedNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -3964,7 +3964,7 @@ void parseNoteStoreUpdateLinkedNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateLinkedNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -4021,7 +4021,7 @@ void parseNoteStoreListLinkedNotebooksParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_listLinkedNotebooks_pargs");
 
     reader.readStructBegin(fname);
@@ -4068,7 +4068,7 @@ void parseNoteStoreExpungeLinkedNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_expungeLinkedNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -4126,7 +4126,7 @@ void parseNoteStoreAuthenticateToSharedNotebookParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_authenticateToSharedNotebook_pargs");
 
     reader.readStructBegin(fname);
@@ -4183,7 +4183,7 @@ void parseNoteStoreGetSharedNotebookByAuthParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getSharedNotebookByAuth_pargs");
 
     reader.readStructBegin(fname);
@@ -4230,7 +4230,7 @@ void parseNoteStoreEmailNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_emailNote_pargs");
 
     reader.readStructBegin(fname);
@@ -4288,7 +4288,7 @@ void parseNoteStoreShareNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_shareNote_pargs");
 
     reader.readStructBegin(fname);
@@ -4346,7 +4346,7 @@ void parseNoteStoreStopSharingNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_stopSharingNote_pargs");
 
     reader.readStructBegin(fname);
@@ -4405,7 +4405,7 @@ void parseNoteStoreAuthenticateToSharedNoteParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_authenticateToSharedNote_pargs");
 
     reader.readStructBegin(fname);
@@ -4475,7 +4475,7 @@ void parseNoteStoreFindRelatedParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_findRelated_pargs");
 
     reader.readStructBegin(fname);
@@ -4544,7 +4544,7 @@ void parseNoteStoreUpdateNoteIfUsnMatchesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_updateNoteIfUsnMatches_pargs");
 
     reader.readStructBegin(fname);
@@ -4602,7 +4602,7 @@ void parseNoteStoreManageNotebookSharesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_manageNotebookShares_pargs");
 
     reader.readStructBegin(fname);
@@ -4660,7 +4660,7 @@ void parseNoteStoreGetNotebookSharesParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("NoteStore_getNotebookShares_pargs");
 
     reader.readStructBegin(fname);
@@ -4719,7 +4719,7 @@ void parseUserStoreCheckVersionParams(
     ThriftFieldType fieldType;
     qint16 fieldId;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_checkVersion_pargs");
 
     reader.readStructBegin(fname);
@@ -4787,7 +4787,7 @@ void parseUserStoreGetBootstrapInfoParams(
     ThriftFieldType fieldType;
     qint16 fieldId;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_getBootstrapInfo_pargs");
 
     reader.readStructBegin(fname);
@@ -4839,7 +4839,7 @@ void parseUserStoreAuthenticateLongSessionParams(
     ThriftFieldType fieldType;
     qint16 fieldId;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_authenticateLongSession_pargs");
 
     reader.readStructBegin(fname);
@@ -4954,7 +4954,7 @@ void parseUserStoreCompleteTwoFactorAuthenticationParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_completeTwoFactorAuthentication_pargs");
 
     reader.readStructBegin(fname);
@@ -5033,7 +5033,7 @@ void parseUserStoreRevokeLongSessionParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_revokeLongSession_pargs");
 
     reader.readStructBegin(fname);
@@ -5079,7 +5079,7 @@ void parseUserStoreAuthenticateToBusinessParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_authenticateToBusiness_pargs");
 
     reader.readStructBegin(fname);
@@ -5125,7 +5125,7 @@ void parseUserStoreGetUserParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_getUser_pargs");
 
     reader.readStructBegin(fname);
@@ -5171,7 +5171,7 @@ void parseUserStoreGetPublicUserInfoParams(
     ThriftFieldType fieldType;
     qint16 fieldId;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_getPublicUserInfo_pargs");
 
     reader.readStructBegin(fname);
@@ -5217,7 +5217,7 @@ void parseUserStoreGetUserUrlsParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_getUserUrls_pargs");
 
     reader.readStructBegin(fname);
@@ -5264,7 +5264,7 @@ void parseUserStoreInviteToBusinessParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_inviteToBusiness_pargs");
 
     reader.readStructBegin(fname);
@@ -5322,7 +5322,7 @@ void parseUserStoreRemoveFromBusinessParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_removeFromBusiness_pargs");
 
     reader.readStructBegin(fname);
@@ -5381,7 +5381,7 @@ void parseUserStoreUpdateBusinessUserIdentifierParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_updateBusinessUserIdentifier_pargs");
 
     reader.readStructBegin(fname);
@@ -5449,7 +5449,7 @@ void parseUserStoreListBusinessUsersParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_listBusinessUsers_pargs");
 
     reader.readStructBegin(fname);
@@ -5496,7 +5496,7 @@ void parseUserStoreListBusinessInvitationsParams(
     qint16 fieldId;
     QString authenticationToken;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_listBusinessInvitations_pargs");
 
     reader.readStructBegin(fname);
@@ -5553,7 +5553,7 @@ void parseUserStoreGetAccountLimitsParams(
     ThriftFieldType fieldType;
     qint16 fieldId;
 
-    QString fname = 
+    QString fname =
         QStringLiteral("UserStore_getAccountLimits_pargs");
 
     reader.readStructBegin(fname);
@@ -6843,6 +6843,9 @@ void NoteStoreServer::onGetSyncStateRequestReady(
     writeSyncState(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -6940,6 +6943,9 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeSyncChunk(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -7056,6 +7062,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     writeSyncState(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -7170,6 +7179,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     writeSyncChunk(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -7273,6 +7285,9 @@ void NoteStoreServer::onListNotebooksRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -7374,6 +7389,9 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
         writeNotebook(writer, v);
     }
     writer.writeListEnd();
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -7490,6 +7508,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
     writeNotebook(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -7587,6 +7608,9 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNotebook(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -7703,6 +7727,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
     writeNotebook(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -7815,6 +7842,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -7931,6 +7961,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -8032,6 +8065,9 @@ void NoteStoreServer::onListTagsRequestReady(
         writeTag(writer, v);
     }
     writer.writeListEnd();
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -8152,6 +8188,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -8264,6 +8303,9 @@ void NoteStoreServer::onGetTagRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeTag(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -8380,6 +8422,9 @@ void NoteStoreServer::onCreateTagRequestReady(
     writeTag(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -8494,6 +8539,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -8604,6 +8652,9 @@ void NoteStoreServer::onUntagAllRequestReady(
         QStringLiteral("untagAll"),
         ThriftFieldType::T_VOID,
         0);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -8720,6 +8771,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -8821,6 +8875,9 @@ void NoteStoreServer::onListSearchesRequestReady(
         writeSavedSearch(writer, v);
     }
     writer.writeListEnd();
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -8937,6 +8994,9 @@ void NoteStoreServer::onGetSearchRequestReady(
     writeSavedSearch(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -9034,6 +9094,9 @@ void NoteStoreServer::onCreateSearchRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeSavedSearch(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -9150,6 +9213,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -9262,6 +9328,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -9378,6 +9447,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -9490,6 +9562,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNotesMetadataList(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -9606,6 +9681,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
     writeNoteCollectionCounts(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -9718,6 +9796,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNote(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -9834,6 +9915,9 @@ void NoteStoreServer::onGetNoteRequestReady(
     writeNote(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -9946,6 +10030,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeLazyMap(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -10062,6 +10149,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     writer.writeString(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -10174,6 +10264,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -10290,6 +10383,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -10402,6 +10498,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
         ThriftFieldType::T_STRING,
         0);
     writer.writeString(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -10518,6 +10617,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
     writer.writeString(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -10630,6 +10732,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
         ThriftFieldType::T_STRING,
         0);
     writer.writeString(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -10750,6 +10855,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -10862,6 +10970,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNote(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -10978,6 +11089,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
     writeNote(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -11090,6 +11204,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -11206,6 +11323,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -11318,6 +11438,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNote(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -11438,6 +11561,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -11550,6 +11676,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNote(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -11666,6 +11795,9 @@ void NoteStoreServer::onGetResourceRequestReady(
     writeResource(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -11778,6 +11910,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeLazyMap(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -11894,6 +12029,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     writer.writeString(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -12006,6 +12144,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -12122,6 +12263,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -12234,6 +12378,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -12350,6 +12497,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
     writer.writeBinary(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -12462,6 +12612,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeResource(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -12578,6 +12731,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
     writer.writeBinary(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -12690,6 +12846,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
         ThriftFieldType::T_STRING,
         0);
     writer.writeBinary(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -12806,6 +12965,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
     writeResourceAttributes(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -12903,6 +13065,9 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNotebook(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -13017,6 +13182,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeSharedNotebook(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -13148,6 +13316,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     writeCreateOrUpdateNotebookSharesResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -13262,6 +13433,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     writer.writeI32(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -13374,6 +13548,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeNotebook(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -13494,6 +13671,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -13608,6 +13788,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     writeLinkedNotebook(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -13720,6 +13903,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -13840,6 +14026,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -13952,6 +14141,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
         ThriftFieldType::T_I32,
         0);
     writer.writeI32(value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -14068,6 +14260,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     writeAuthenticationResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -14182,6 +14377,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     writeSharedNotebook(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -14292,6 +14490,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
         QStringLiteral("emailNote"),
         ThriftFieldType::T_VOID,
         0);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -14408,6 +14609,9 @@ void NoteStoreServer::onShareNoteRequestReady(
     writer.writeString(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -14518,6 +14722,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
         QStringLiteral("stopSharingNote"),
         ThriftFieldType::T_VOID,
         0);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -14634,6 +14841,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     writeAuthenticationResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -14746,6 +14956,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeRelatedResult(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -14862,6 +15075,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     writeUpdateNoteIfUsnMatchesResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -14976,6 +15192,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
     writeManageNotebookSharesResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -15088,6 +15307,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeShareRelationships(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -15391,6 +15613,9 @@ void UserStoreServer::onCheckVersionRequestReady(
     writer.writeBool(value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -15440,6 +15665,9 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeBootstrapInfo(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -15541,6 +15769,9 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
     writeAuthenticationResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -15640,6 +15871,9 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     writeAuthenticationResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -15735,6 +15969,9 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
         QStringLiteral("revokeLongSession"),
         ThriftFieldType::T_VOID,
         0);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -15836,6 +16073,9 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
     writeAuthenticationResult(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -15933,6 +16173,9 @@ void UserStoreServer::onGetUserRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeUser(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -16049,6 +16292,9 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
     writePublicUserInfo(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -16148,6 +16394,9 @@ void UserStoreServer::onGetUserUrlsRequestReady(
     writeUserUrls(writer, value);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -16243,6 +16492,9 @@ void UserStoreServer::onInviteToBusinessRequestReady(
         QStringLiteral("inviteToBusiness"),
         ThriftFieldType::T_VOID,
         0);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -16357,6 +16609,9 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
         0);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -16469,6 +16724,9 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
         0);
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -16570,6 +16828,9 @@ void UserStoreServer::onListBusinessUsersRequestReady(
         writeUserProfile(writer, v);
     }
     writer.writeListEnd();
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
@@ -16675,6 +16936,9 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
     writer.writeListEnd();
     writer.writeFieldEnd();
 
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
+    writer.writeFieldEnd();
+
     writer.writeStructEnd();
     writer.writeMessageEnd();
 
@@ -16757,6 +17021,9 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
         ThriftFieldType::T_STRUCT,
         0);
     writeAccountLimits(writer, value);
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
