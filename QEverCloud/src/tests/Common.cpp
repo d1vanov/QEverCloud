@@ -159,6 +159,29 @@ QByteArray readThriftRequestFromSocket(QTcpSocket & socket)
     return extractor.data();
 }
 
+bool writeBufferToSocket(const QByteArray & data, QTcpSocket & socket)
+{
+    int remaining = data.size();
+    const char * pData = data.constData();
+    while(socket.isOpen() && remaining>0)
+    {
+        // If the output buffer has become large, then wait until it has been sent.
+        if (socket.bytesToWrite() > 16384)
+        {
+            socket.waitForBytesWritten(-1);
+        }
+
+        qint64 written = socket.write(pData, remaining);
+        if (written < 0) {
+            return false;
+        }
+
+        pData += written;
+        remaining -= written;
+    }
+    return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 QString generateRandomString(int len)

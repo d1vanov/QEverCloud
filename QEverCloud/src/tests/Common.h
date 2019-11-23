@@ -28,6 +28,8 @@ namespace tests {
 
 QByteArray readThriftRequestFromSocket(QTcpSocket & socket);
 
+bool writeBufferToSocket(const QByteArray & data, QTcpSocket & socket);
+
 ////////////////////////////////////////////////////////////////////////////////
 
 QString generateRandomString(int len = 10);
