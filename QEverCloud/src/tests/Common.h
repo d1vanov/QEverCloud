@@ -52,6 +52,8 @@ quint64 generateRandomUint64();
 
 double generateRandomDouble();
 
+bool generateRandomBool();
+
 ////////////////////////////////////////////////////////////////////////////////
 
 QByteArray extractBodyFromHttpRequest(QByteArray requestData);

@@ -248,6 +248,11 @@ double generateRandomDouble()
     return minval + f * (maxval - minval);
 }
 
+bool generateRandomBool()
+{
+    return generateRandomInt8() >= 0;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 QByteArray extractBodyFromHttpRequest(QByteArray requestData)
