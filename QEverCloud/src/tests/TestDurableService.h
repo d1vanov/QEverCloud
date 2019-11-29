@@ -9,8 +9,6 @@
 #ifndef QEVERCLOUD_TEST_DURABLE_SERVICE_H
 #define QEVERCLOUD_TEST_DURABLE_SERVICE_H
 
-#include "Common.h"
-
 #include <QObject>
 
 namespace qevercloud {

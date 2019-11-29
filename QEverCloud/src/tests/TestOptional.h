@@ -9,8 +9,6 @@
 #ifndef QEVERCLOUD_TEST_OPTIONAL_H
 #define QEVERCLOUD_TEST_OPTIONAL_H
 
-#include "Common.h"
-
 #include <QObject>
 
 namespace qevercloud {

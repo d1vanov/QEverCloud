@@ -14,10 +14,15 @@
 #include <QCoreApplication>
 #include <QtTest/QtTest>
 
+#include <cstdlib>
+
 using namespace qevercloud;
 
 int main(int argc, char *argv[])
 {
+    // Fixed seed for rand() calls
+    std::srand(1575003691);
+
     int res = 0;
 
     QCoreApplication app(argc, argv);

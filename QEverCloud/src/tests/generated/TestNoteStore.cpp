@@ -11,7 +11,8 @@
 
 #include "TestNoteStore.h"
 #include "../../Impl.h"
-#include "../Common.h"
+#include "../SocketHelpers.h"
+#include "RandomDataGenerators.h"
 #include <generated/Servers.h>
 #include <generated/Services.h>
 #include <QTcpServer>
@@ -3899,7 +3900,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SyncState response = tests::generateSyncState();
+    SyncState response = generateRandomSyncState();
 
     NoteStoreGetSyncStateTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -3940,7 +3941,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -3957,7 +3958,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -3973,13 +3974,13 @@ void NoteStoreTester::shouldExecuteGetSyncState()
 
 void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
 {
-    qint32 afterUSN = tests::generateRandomInt32();
-    qint32 maxEntries = tests::generateRandomInt32();
-    SyncChunkFilter filter = tests::generateSyncChunkFilter();
+    qint32 afterUSN = generateRandomInt32();
+    qint32 maxEntries = generateRandomInt32();
+    SyncChunkFilter filter = generateRandomSyncChunkFilter();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SyncChunk response = tests::generateSyncChunk();
+    SyncChunk response = generateRandomSyncChunk();
 
     NoteStoreGetFilteredSyncChunkTesterHelper helper(
         [&] (qint32 afterUSNParam,
@@ -4026,7 +4027,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4043,7 +4044,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4062,11 +4063,11 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
 
 void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
 {
-    LinkedNotebook linkedNotebook = tests::generateLinkedNotebook();
+    LinkedNotebook linkedNotebook = generateRandomLinkedNotebook();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SyncState response = tests::generateSyncState();
+    SyncState response = generateRandomSyncState();
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -4109,7 +4110,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4126,7 +4127,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4143,14 +4144,14 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
 
 void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
 {
-    LinkedNotebook linkedNotebook = tests::generateLinkedNotebook();
-    qint32 afterUSN = tests::generateRandomInt32();
-    qint32 maxEntries = tests::generateRandomInt32();
-    bool fullSyncOnly = tests::generateRandomBool();
+    LinkedNotebook linkedNotebook = generateRandomLinkedNotebook();
+    qint32 afterUSN = generateRandomInt32();
+    qint32 maxEntries = generateRandomInt32();
+    bool fullSyncOnly = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SyncChunk response = tests::generateSyncChunk();
+    SyncChunk response = generateRandomSyncChunk();
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -4199,7 +4200,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4216,7 +4217,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4240,9 +4241,9 @@ void NoteStoreTester::shouldExecuteListNotebooks()
         QStringLiteral("authenticationToken"));
 
     QList<Notebook> response;
-    response << tests::generateNotebook();
-    response << tests::generateNotebook();
-    response << tests::generateNotebook();
+    response << generateRandomNotebook();
+    response << generateRandomNotebook();
+    response << generateRandomNotebook();
 
     NoteStoreListNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -4283,7 +4284,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4300,7 +4301,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4320,9 +4321,9 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
         QStringLiteral("authenticationToken"));
 
     QList<Notebook> response;
-    response << tests::generateNotebook();
-    response << tests::generateNotebook();
-    response << tests::generateNotebook();
+    response << generateRandomNotebook();
+    response << generateRandomNotebook();
+    response << generateRandomNotebook();
 
     NoteStoreListAccessibleBusinessNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -4363,7 +4364,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4380,7 +4381,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4396,11 +4397,11 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
 
 void NoteStoreTester::shouldExecuteGetNotebook()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Notebook response = tests::generateNotebook();
+    Notebook response = generateRandomNotebook();
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -4443,7 +4444,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4460,7 +4461,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4480,7 +4481,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Notebook response = tests::generateNotebook();
+    Notebook response = generateRandomNotebook();
 
     NoteStoreGetDefaultNotebookTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -4521,7 +4522,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4538,7 +4539,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4554,11 +4555,11 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
 
 void NoteStoreTester::shouldExecuteCreateNotebook()
 {
-    Notebook notebook = tests::generateNotebook();
+    Notebook notebook = generateRandomNotebook();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Notebook response = tests::generateNotebook();
+    Notebook response = generateRandomNotebook();
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -4601,7 +4602,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4618,7 +4619,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4635,11 +4636,11 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
 
 void NoteStoreTester::shouldExecuteUpdateNotebook()
 {
-    Notebook notebook = tests::generateNotebook();
+    Notebook notebook = generateRandomNotebook();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -4682,7 +4683,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4699,7 +4700,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4716,11 +4717,11 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
 
 void NoteStoreTester::shouldExecuteExpungeNotebook()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -4763,7 +4764,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4780,7 +4781,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4801,9 +4802,9 @@ void NoteStoreTester::shouldExecuteListTags()
         QStringLiteral("authenticationToken"));
 
     QList<Tag> response;
-    response << tests::generateTag();
-    response << tests::generateTag();
-    response << tests::generateTag();
+    response << generateRandomTag();
+    response << generateRandomTag();
+    response << generateRandomTag();
 
     NoteStoreListTagsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -4844,7 +4845,7 @@ void NoteStoreTester::shouldExecuteListTags()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4861,7 +4862,7 @@ void NoteStoreTester::shouldExecuteListTags()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4877,14 +4878,14 @@ void NoteStoreTester::shouldExecuteListTags()
 
 void NoteStoreTester::shouldExecuteListTagsByNotebook()
 {
-    Guid notebookGuid = tests::generateRandomString();
+    Guid notebookGuid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
     QList<Tag> response;
-    response << tests::generateTag();
-    response << tests::generateTag();
-    response << tests::generateTag();
+    response << generateRandomTag();
+    response << generateRandomTag();
+    response << generateRandomTag();
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -4927,7 +4928,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -4944,7 +4945,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -4961,11 +4962,11 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
 
 void NoteStoreTester::shouldExecuteGetTag()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Tag response = tests::generateTag();
+    Tag response = generateRandomTag();
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -5008,7 +5009,7 @@ void NoteStoreTester::shouldExecuteGetTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5025,7 +5026,7 @@ void NoteStoreTester::shouldExecuteGetTag()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5042,11 +5043,11 @@ void NoteStoreTester::shouldExecuteGetTag()
 
 void NoteStoreTester::shouldExecuteCreateTag()
 {
-    Tag tag = tests::generateTag();
+    Tag tag = generateRandomTag();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Tag response = tests::generateTag();
+    Tag response = generateRandomTag();
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -5089,7 +5090,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5106,7 +5107,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5123,11 +5124,11 @@ void NoteStoreTester::shouldExecuteCreateTag()
 
 void NoteStoreTester::shouldExecuteUpdateTag()
 {
-    Tag tag = tests::generateTag();
+    Tag tag = generateRandomTag();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -5170,7 +5171,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5187,7 +5188,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5204,7 +5205,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
 
 void NoteStoreTester::shouldExecuteUntagAll()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -5249,7 +5250,7 @@ void NoteStoreTester::shouldExecuteUntagAll()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5266,7 +5267,7 @@ void NoteStoreTester::shouldExecuteUntagAll()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5282,11 +5283,11 @@ void NoteStoreTester::shouldExecuteUntagAll()
 
 void NoteStoreTester::shouldExecuteExpungeTag()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -5329,7 +5330,7 @@ void NoteStoreTester::shouldExecuteExpungeTag()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5346,7 +5347,7 @@ void NoteStoreTester::shouldExecuteExpungeTag()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5367,9 +5368,9 @@ void NoteStoreTester::shouldExecuteListSearches()
         QStringLiteral("authenticationToken"));
 
     QList<SavedSearch> response;
-    response << tests::generateSavedSearch();
-    response << tests::generateSavedSearch();
-    response << tests::generateSavedSearch();
+    response << generateRandomSavedSearch();
+    response << generateRandomSavedSearch();
+    response << generateRandomSavedSearch();
 
     NoteStoreListSearchesTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -5410,7 +5411,7 @@ void NoteStoreTester::shouldExecuteListSearches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5427,7 +5428,7 @@ void NoteStoreTester::shouldExecuteListSearches()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5443,11 +5444,11 @@ void NoteStoreTester::shouldExecuteListSearches()
 
 void NoteStoreTester::shouldExecuteGetSearch()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SavedSearch response = tests::generateSavedSearch();
+    SavedSearch response = generateRandomSavedSearch();
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -5490,7 +5491,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5507,7 +5508,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5524,11 +5525,11 @@ void NoteStoreTester::shouldExecuteGetSearch()
 
 void NoteStoreTester::shouldExecuteCreateSearch()
 {
-    SavedSearch search = tests::generateSavedSearch();
+    SavedSearch search = generateRandomSavedSearch();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SavedSearch response = tests::generateSavedSearch();
+    SavedSearch response = generateRandomSavedSearch();
 
     NoteStoreCreateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -5571,7 +5572,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5588,7 +5589,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5605,11 +5606,11 @@ void NoteStoreTester::shouldExecuteCreateSearch()
 
 void NoteStoreTester::shouldExecuteUpdateSearch()
 {
-    SavedSearch search = tests::generateSavedSearch();
+    SavedSearch search = generateRandomSavedSearch();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -5652,7 +5653,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5669,7 +5670,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5686,11 +5687,11 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
 
 void NoteStoreTester::shouldExecuteExpungeSearch()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -5733,7 +5734,7 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5750,7 +5751,7 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5767,12 +5768,12 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
 
 void NoteStoreTester::shouldExecuteFindNoteOffset()
 {
-    NoteFilter filter = tests::generateNoteFilter();
-    Guid guid = tests::generateRandomString();
+    NoteFilter filter = generateRandomNoteFilter();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -5817,7 +5818,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5834,7 +5835,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5852,14 +5853,14 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
 
 void NoteStoreTester::shouldExecuteFindNotesMetadata()
 {
-    NoteFilter filter = tests::generateNoteFilter();
-    qint32 offset = tests::generateRandomInt32();
-    qint32 maxNotes = tests::generateRandomInt32();
-    NotesMetadataResultSpec resultSpec = tests::generateNotesMetadataResultSpec();
+    NoteFilter filter = generateRandomNoteFilter();
+    qint32 offset = generateRandomInt32();
+    qint32 maxNotes = generateRandomInt32();
+    NotesMetadataResultSpec resultSpec = generateRandomNotesMetadataResultSpec();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    NotesMetadataList response = tests::generateNotesMetadataList();
+    NotesMetadataList response = generateRandomNotesMetadataList();
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -5908,7 +5909,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -5925,7 +5926,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -5945,12 +5946,12 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
 
 void NoteStoreTester::shouldExecuteFindNoteCounts()
 {
-    NoteFilter filter = tests::generateNoteFilter();
-    bool withTrash = tests::generateRandomBool();
+    NoteFilter filter = generateRandomNoteFilter();
+    bool withTrash = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    NoteCollectionCounts response = tests::generateNoteCollectionCounts();
+    NoteCollectionCounts response = generateRandomNoteCollectionCounts();
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -5995,7 +5996,7 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6012,7 +6013,7 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6030,12 +6031,12 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
 
 void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
 {
-    Guid guid = tests::generateRandomString();
-    NoteResultSpec resultSpec = tests::generateNoteResultSpec();
+    Guid guid = generateRandomString();
+    NoteResultSpec resultSpec = generateRandomNoteResultSpec();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Note response = tests::generateNote();
+    Note response = generateRandomNote();
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6080,7 +6081,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6097,7 +6098,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6115,15 +6116,15 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
 
 void NoteStoreTester::shouldExecuteGetNote()
 {
-    Guid guid = tests::generateRandomString();
-    bool withContent = tests::generateRandomBool();
-    bool withResourcesData = tests::generateRandomBool();
-    bool withResourcesRecognition = tests::generateRandomBool();
-    bool withResourcesAlternateData = tests::generateRandomBool();
+    Guid guid = generateRandomString();
+    bool withContent = generateRandomBool();
+    bool withResourcesData = generateRandomBool();
+    bool withResourcesRecognition = generateRandomBool();
+    bool withResourcesAlternateData = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Note response = tests::generateNote();
+    Note response = generateRandomNote();
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6174,7 +6175,7 @@ void NoteStoreTester::shouldExecuteGetNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6191,7 +6192,7 @@ void NoteStoreTester::shouldExecuteGetNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6212,11 +6213,11 @@ void NoteStoreTester::shouldExecuteGetNote()
 
 void NoteStoreTester::shouldExecuteGetNoteApplicationData()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    LazyMap response = tests::generateLazyMap();
+    LazyMap response = generateRandomLazyMap();
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6259,7 +6260,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6276,7 +6277,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6293,12 +6294,12 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
 
 void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
 {
-    Guid guid = tests::generateRandomString();
-    QString key = tests::generateRandomString();
+    Guid guid = generateRandomString();
+    QString key = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QString response = tests::generateRandomString();
+    QString response = generateRandomString();
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6343,7 +6344,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6360,7 +6361,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6378,13 +6379,13 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
 
 void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
 {
-    Guid guid = tests::generateRandomString();
-    QString key = tests::generateRandomString();
-    QString value = tests::generateRandomString();
+    Guid guid = generateRandomString();
+    QString key = generateRandomString();
+    QString value = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6431,7 +6432,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6448,7 +6449,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6467,12 +6468,12 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
 
 void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
 {
-    Guid guid = tests::generateRandomString();
-    QString key = tests::generateRandomString();
+    Guid guid = generateRandomString();
+    QString key = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6517,7 +6518,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6534,7 +6535,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6552,11 +6553,11 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
 
 void NoteStoreTester::shouldExecuteGetNoteContent()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QString response = tests::generateRandomString();
+    QString response = generateRandomString();
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6599,7 +6600,7 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6616,7 +6617,7 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6633,13 +6634,13 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
 
 void NoteStoreTester::shouldExecuteGetNoteSearchText()
 {
-    Guid guid = tests::generateRandomString();
-    bool noteOnly = tests::generateRandomBool();
-    bool tokenizeForIndexing = tests::generateRandomBool();
+    Guid guid = generateRandomString();
+    bool noteOnly = generateRandomBool();
+    bool tokenizeForIndexing = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QString response = tests::generateRandomString();
+    QString response = generateRandomString();
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6686,7 +6687,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6703,7 +6704,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6722,11 +6723,11 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
 
 void NoteStoreTester::shouldExecuteGetResourceSearchText()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QString response = tests::generateRandomString();
+    QString response = generateRandomString();
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6769,7 +6770,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6786,7 +6787,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6803,14 +6804,14 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
 
 void NoteStoreTester::shouldExecuteGetNoteTagNames()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
     QStringList response;
-    response << tests::generateRandomString();
-    response << tests::generateRandomString();
-    response << tests::generateRandomString();
+    response << generateRandomString();
+    response << generateRandomString();
+    response << generateRandomString();
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -6853,7 +6854,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6870,7 +6871,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6887,11 +6888,11 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
 
 void NoteStoreTester::shouldExecuteCreateNote()
 {
-    Note note = tests::generateNote();
+    Note note = generateRandomNote();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Note response = tests::generateNote();
+    Note response = generateRandomNote();
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -6934,7 +6935,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -6951,7 +6952,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -6968,11 +6969,11 @@ void NoteStoreTester::shouldExecuteCreateNote()
 
 void NoteStoreTester::shouldExecuteUpdateNote()
 {
-    Note note = tests::generateNote();
+    Note note = generateRandomNote();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Note response = tests::generateNote();
+    Note response = generateRandomNote();
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -7015,7 +7016,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7032,7 +7033,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7049,11 +7050,11 @@ void NoteStoreTester::shouldExecuteUpdateNote()
 
 void NoteStoreTester::shouldExecuteDeleteNote()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7096,7 +7097,7 @@ void NoteStoreTester::shouldExecuteDeleteNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7113,7 +7114,7 @@ void NoteStoreTester::shouldExecuteDeleteNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7130,11 +7131,11 @@ void NoteStoreTester::shouldExecuteDeleteNote()
 
 void NoteStoreTester::shouldExecuteExpungeNote()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7177,7 +7178,7 @@ void NoteStoreTester::shouldExecuteExpungeNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7194,7 +7195,7 @@ void NoteStoreTester::shouldExecuteExpungeNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7211,12 +7212,12 @@ void NoteStoreTester::shouldExecuteExpungeNote()
 
 void NoteStoreTester::shouldExecuteCopyNote()
 {
-    Guid noteGuid = tests::generateRandomString();
-    Guid toNotebookGuid = tests::generateRandomString();
+    Guid noteGuid = generateRandomString();
+    Guid toNotebookGuid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Note response = tests::generateNote();
+    Note response = generateRandomNote();
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -7261,7 +7262,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7278,7 +7279,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7296,14 +7297,14 @@ void NoteStoreTester::shouldExecuteCopyNote()
 
 void NoteStoreTester::shouldExecuteListNoteVersions()
 {
-    Guid noteGuid = tests::generateRandomString();
+    Guid noteGuid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
     QList<NoteVersionId> response;
-    response << tests::generateNoteVersionId();
-    response << tests::generateNoteVersionId();
-    response << tests::generateNoteVersionId();
+    response << generateRandomNoteVersionId();
+    response << generateRandomNoteVersionId();
+    response << generateRandomNoteVersionId();
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -7346,7 +7347,7 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7363,7 +7364,7 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7380,15 +7381,15 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
 
 void NoteStoreTester::shouldExecuteGetNoteVersion()
 {
-    Guid noteGuid = tests::generateRandomString();
-    qint32 updateSequenceNum = tests::generateRandomInt32();
-    bool withResourcesData = tests::generateRandomBool();
-    bool withResourcesRecognition = tests::generateRandomBool();
-    bool withResourcesAlternateData = tests::generateRandomBool();
+    Guid noteGuid = generateRandomString();
+    qint32 updateSequenceNum = generateRandomInt32();
+    bool withResourcesData = generateRandomBool();
+    bool withResourcesRecognition = generateRandomBool();
+    bool withResourcesAlternateData = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Note response = tests::generateNote();
+    Note response = generateRandomNote();
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -7439,7 +7440,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7456,7 +7457,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7477,15 +7478,15 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
 
 void NoteStoreTester::shouldExecuteGetResource()
 {
-    Guid guid = tests::generateRandomString();
-    bool withData = tests::generateRandomBool();
-    bool withRecognition = tests::generateRandomBool();
-    bool withAttributes = tests::generateRandomBool();
-    bool withAlternateData = tests::generateRandomBool();
+    Guid guid = generateRandomString();
+    bool withData = generateRandomBool();
+    bool withRecognition = generateRandomBool();
+    bool withAttributes = generateRandomBool();
+    bool withAlternateData = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Resource response = tests::generateResource();
+    Resource response = generateRandomResource();
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7536,7 +7537,7 @@ void NoteStoreTester::shouldExecuteGetResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7553,7 +7554,7 @@ void NoteStoreTester::shouldExecuteGetResource()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7574,11 +7575,11 @@ void NoteStoreTester::shouldExecuteGetResource()
 
 void NoteStoreTester::shouldExecuteGetResourceApplicationData()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    LazyMap response = tests::generateLazyMap();
+    LazyMap response = generateRandomLazyMap();
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7621,7 +7622,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7638,7 +7639,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7655,12 +7656,12 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
 
 void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
 {
-    Guid guid = tests::generateRandomString();
-    QString key = tests::generateRandomString();
+    Guid guid = generateRandomString();
+    QString key = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QString response = tests::generateRandomString();
+    QString response = generateRandomString();
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7705,7 +7706,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7722,7 +7723,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7740,13 +7741,13 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
 
 void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
 {
-    Guid guid = tests::generateRandomString();
-    QString key = tests::generateRandomString();
-    QString value = tests::generateRandomString();
+    Guid guid = generateRandomString();
+    QString key = generateRandomString();
+    QString value = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7793,7 +7794,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7810,7 +7811,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7829,12 +7830,12 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
 
 void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
 {
-    Guid guid = tests::generateRandomString();
-    QString key = tests::generateRandomString();
+    Guid guid = generateRandomString();
+    QString key = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -7879,7 +7880,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7896,7 +7897,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7914,11 +7915,11 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
 
 void NoteStoreTester::shouldExecuteUpdateResource()
 {
-    Resource resource = tests::generateResource();
+    Resource resource = generateRandomResource();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -7961,7 +7962,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -7978,7 +7979,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -7995,11 +7996,11 @@ void NoteStoreTester::shouldExecuteUpdateResource()
 
 void NoteStoreTester::shouldExecuteGetResourceData()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QByteArray response = tests::generateRandomString().toUtf8();
+    QByteArray response = generateRandomString().toUtf8();
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -8042,7 +8043,7 @@ void NoteStoreTester::shouldExecuteGetResourceData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8059,7 +8060,7 @@ void NoteStoreTester::shouldExecuteGetResourceData()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8076,15 +8077,15 @@ void NoteStoreTester::shouldExecuteGetResourceData()
 
 void NoteStoreTester::shouldExecuteGetResourceByHash()
 {
-    Guid noteGuid = tests::generateRandomString();
-    QByteArray contentHash = tests::generateRandomString().toUtf8();
-    bool withData = tests::generateRandomBool();
-    bool withRecognition = tests::generateRandomBool();
-    bool withAlternateData = tests::generateRandomBool();
+    Guid noteGuid = generateRandomString();
+    QByteArray contentHash = generateRandomString().toUtf8();
+    bool withData = generateRandomBool();
+    bool withRecognition = generateRandomBool();
+    bool withAlternateData = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Resource response = tests::generateResource();
+    Resource response = generateRandomResource();
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -8135,7 +8136,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8152,7 +8153,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8173,11 +8174,11 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
 
 void NoteStoreTester::shouldExecuteGetResourceRecognition()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QByteArray response = tests::generateRandomString().toUtf8();
+    QByteArray response = generateRandomString().toUtf8();
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -8220,7 +8221,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8237,7 +8238,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8254,11 +8255,11 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
 
 void NoteStoreTester::shouldExecuteGetResourceAlternateData()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QByteArray response = tests::generateRandomString().toUtf8();
+    QByteArray response = generateRandomString().toUtf8();
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -8301,7 +8302,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8318,7 +8319,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8335,11 +8336,11 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
 
 void NoteStoreTester::shouldExecuteGetResourceAttributes()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    ResourceAttributes response = tests::generateResourceAttributes();
+    ResourceAttributes response = generateRandomResourceAttributes();
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -8382,7 +8383,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8399,7 +8400,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8416,11 +8417,11 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
 
 void NoteStoreTester::shouldExecuteGetPublicNotebook()
 {
-    UserID userId = tests::generateRandomInt32();
-    QString publicUri = tests::generateRandomString();
+    UserID userId = generateRandomInt32();
+    QString publicUri = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    Notebook response = tests::generateNotebook();
+    Notebook response = generateRandomNotebook();
 
     NoteStoreGetPublicNotebookTesterHelper helper(
         [&] (const UserID & userIdParam,
@@ -8464,7 +8465,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8481,7 +8482,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8499,12 +8500,12 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
 
 void NoteStoreTester::shouldExecuteShareNotebook()
 {
-    SharedNotebook sharedNotebook = tests::generateSharedNotebook();
-    QString message = tests::generateRandomString();
+    SharedNotebook sharedNotebook = generateRandomSharedNotebook();
+    QString message = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SharedNotebook response = tests::generateSharedNotebook();
+    SharedNotebook response = generateRandomSharedNotebook();
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -8549,7 +8550,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8566,7 +8567,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8584,11 +8585,11 @@ void NoteStoreTester::shouldExecuteShareNotebook()
 
 void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
 {
-    NotebookShareTemplate shareTemplate = tests::generateNotebookShareTemplate();
+    NotebookShareTemplate shareTemplate = generateRandomNotebookShareTemplate();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    CreateOrUpdateNotebookSharesResult response = tests::generateCreateOrUpdateNotebookSharesResult();
+    CreateOrUpdateNotebookSharesResult response = generateRandomCreateOrUpdateNotebookSharesResult();
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -8631,7 +8632,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8648,7 +8649,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8665,11 +8666,11 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
 
 void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
 {
-    SharedNotebook sharedNotebook = tests::generateSharedNotebook();
+    SharedNotebook sharedNotebook = generateRandomSharedNotebook();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -8712,7 +8713,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8729,7 +8730,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8746,12 +8747,12 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
 
 void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
 {
-    QString notebookGuid = tests::generateRandomString();
-    NotebookRecipientSettings recipientSettings = tests::generateNotebookRecipientSettings();
+    QString notebookGuid = generateRandomString();
+    NotebookRecipientSettings recipientSettings = generateRandomNotebookRecipientSettings();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    Notebook response = tests::generateNotebook();
+    Notebook response = generateRandomNotebook();
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -8796,7 +8797,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8813,7 +8814,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8835,9 +8836,9 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
         QStringLiteral("authenticationToken"));
 
     QList<SharedNotebook> response;
-    response << tests::generateSharedNotebook();
-    response << tests::generateSharedNotebook();
-    response << tests::generateSharedNotebook();
+    response << generateRandomSharedNotebook();
+    response << generateRandomSharedNotebook();
+    response << generateRandomSharedNotebook();
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -8878,7 +8879,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8895,7 +8896,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8911,11 +8912,11 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
 
 void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
 {
-    LinkedNotebook linkedNotebook = tests::generateLinkedNotebook();
+    LinkedNotebook linkedNotebook = generateRandomLinkedNotebook();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    LinkedNotebook response = tests::generateLinkedNotebook();
+    LinkedNotebook response = generateRandomLinkedNotebook();
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -8958,7 +8959,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -8975,7 +8976,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -8992,11 +8993,11 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
 
 void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
 {
-    LinkedNotebook linkedNotebook = tests::generateLinkedNotebook();
+    LinkedNotebook linkedNotebook = generateRandomLinkedNotebook();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -9039,7 +9040,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9056,7 +9057,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9077,9 +9078,9 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
         QStringLiteral("authenticationToken"));
 
     QList<LinkedNotebook> response;
-    response << tests::generateLinkedNotebook();
-    response << tests::generateLinkedNotebook();
-    response << tests::generateLinkedNotebook();
+    response << generateRandomLinkedNotebook();
+    response << generateRandomLinkedNotebook();
+    response << generateRandomLinkedNotebook();
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -9120,7 +9121,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9137,7 +9138,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9153,11 +9154,11 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
 
 void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    qint32 response = tests::generateRandomInt32();
+    qint32 response = generateRandomInt32();
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -9200,7 +9201,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9217,7 +9218,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9234,11 +9235,11 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
 
 void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
 {
-    QString shareKeyOrGlobalId = tests::generateRandomString();
+    QString shareKeyOrGlobalId = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    AuthenticationResult response = tests::generateAuthenticationResult();
+    AuthenticationResult response = generateRandomAuthenticationResult();
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -9281,7 +9282,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9298,7 +9299,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9318,7 +9319,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    SharedNotebook response = tests::generateSharedNotebook();
+    SharedNotebook response = generateRandomSharedNotebook();
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -9359,7 +9360,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9376,7 +9377,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9392,7 +9393,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
 
 void NoteStoreTester::shouldExecuteEmailNote()
 {
-    NoteEmailParameters parameters = tests::generateNoteEmailParameters();
+    NoteEmailParameters parameters = generateRandomNoteEmailParameters();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -9437,7 +9438,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9454,7 +9455,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9470,11 +9471,11 @@ void NoteStoreTester::shouldExecuteEmailNote()
 
 void NoteStoreTester::shouldExecuteShareNote()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    QString response = tests::generateRandomString();
+    QString response = generateRandomString();
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -9517,7 +9518,7 @@ void NoteStoreTester::shouldExecuteShareNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9534,7 +9535,7 @@ void NoteStoreTester::shouldExecuteShareNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9551,7 +9552,7 @@ void NoteStoreTester::shouldExecuteShareNote()
 
 void NoteStoreTester::shouldExecuteStopSharingNote()
 {
-    Guid guid = tests::generateRandomString();
+    Guid guid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -9596,7 +9597,7 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9613,7 +9614,7 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9629,12 +9630,12 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
 
 void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
 {
-    QString guid = tests::generateRandomString();
-    QString noteKey = tests::generateRandomString();
+    QString guid = generateRandomString();
+    QString noteKey = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    AuthenticationResult response = tests::generateAuthenticationResult();
+    AuthenticationResult response = generateRandomAuthenticationResult();
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -9679,7 +9680,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9696,7 +9697,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9714,12 +9715,12 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
 
 void NoteStoreTester::shouldExecuteFindRelated()
 {
-    RelatedQuery query = tests::generateRelatedQuery();
-    RelatedResultSpec resultSpec = tests::generateRelatedResultSpec();
+    RelatedQuery query = generateRandomRelatedQuery();
+    RelatedResultSpec resultSpec = generateRandomRelatedResultSpec();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    RelatedResult response = tests::generateRelatedResult();
+    RelatedResult response = generateRandomRelatedResult();
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -9764,7 +9765,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9781,7 +9782,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9799,11 +9800,11 @@ void NoteStoreTester::shouldExecuteFindRelated()
 
 void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
 {
-    Note note = tests::generateNote();
+    Note note = generateRandomNote();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    UpdateNoteIfUsnMatchesResult response = tests::generateUpdateNoteIfUsnMatchesResult();
+    UpdateNoteIfUsnMatchesResult response = generateRandomUpdateNoteIfUsnMatchesResult();
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -9846,7 +9847,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9863,7 +9864,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9880,11 +9881,11 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
 
 void NoteStoreTester::shouldExecuteManageNotebookShares()
 {
-    ManageNotebookSharesParameters parameters = tests::generateManageNotebookSharesParameters();
+    ManageNotebookSharesParameters parameters = generateRandomManageNotebookSharesParameters();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    ManageNotebookSharesResult response = tests::generateManageNotebookSharesResult();
+    ManageNotebookSharesResult response = generateRandomManageNotebookSharesResult();
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -9927,7 +9928,7 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -9944,7 +9945,7 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -9961,11 +9962,11 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
 
 void NoteStoreTester::shouldExecuteGetNotebookShares()
 {
-    QString notebookGuid = tests::generateRandomString();
+    QString notebookGuid = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    ShareRelationships response = tests::generateShareRelationships();
+    ShareRelationships response = generateRandomShareRelationships();
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -10008,7 +10009,7 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -10025,7 +10026,7 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });

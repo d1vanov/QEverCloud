@@ -143,16 +143,18 @@ add_definitions("-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM
 find_package(Qt5Test QUIET)
 if(Qt5Test_FOUND)
   set(TEST_HEADERS
-      src/tests/Common.h
+      src/tests/SocketHelpers.h
       src/tests/TestDurableService.h
       src/tests/TestOptional.h
+      src/tests/generated/RandomDataGenerators.h
       src/tests/generated/TestNoteStore.h
       src/tests/generated/TestUserStore.h)
   set(TEST_SOURCES
-      src/tests/Common.cpp
+      src/tests/SocketHelpers.cpp
       src/tests/TestDurableService.cpp
       src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp
+      src/tests/generated/RandomDataGenerators.cpp
       src/tests/generated/TestNoteStore.cpp
       src/tests/generated/TestUserStore.cpp)
     add_executable(test_${PROJECT_NAME} ${TEST_HEADERS} ${TEST_SOURCES})

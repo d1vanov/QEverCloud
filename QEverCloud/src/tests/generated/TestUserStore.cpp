@@ -11,7 +11,8 @@
 
 #include "TestUserStore.h"
 #include "../../Impl.h"
-#include "../Common.h"
+#include "../SocketHelpers.h"
+#include "RandomDataGenerators.h"
 #include <generated/Servers.h>
 #include <generated/Services.h>
 #include <QTcpServer>
@@ -800,12 +801,12 @@ private:
 
 void UserStoreTester::shouldExecuteCheckVersion()
 {
-    QString clientName = tests::generateRandomString();
-    qint16 edamVersionMajor = tests::generateRandomInt16();
-    qint16 edamVersionMinor = tests::generateRandomInt16();
+    QString clientName = generateRandomString();
+    qint16 edamVersionMajor = generateRandomInt16();
+    qint16 edamVersionMinor = generateRandomInt16();
     IRequestContextPtr ctx = newRequestContext();
 
-    bool response = tests::generateRandomBool();
+    bool response = generateRandomBool();
 
     UserStoreCheckVersionTesterHelper helper(
         [&] (const QString & clientNameParam,
@@ -851,7 +852,7 @@ void UserStoreTester::shouldExecuteCheckVersion()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -868,7 +869,7 @@ void UserStoreTester::shouldExecuteCheckVersion()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -889,10 +890,10 @@ void UserStoreTester::shouldExecuteCheckVersion()
 
 void UserStoreTester::shouldExecuteGetBootstrapInfo()
 {
-    QString locale = tests::generateRandomString();
+    QString locale = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    BootstrapInfo response = tests::generateBootstrapInfo();
+    BootstrapInfo response = generateRandomBootstrapInfo();
 
     UserStoreGetBootstrapInfoTesterHelper helper(
         [&] (const QString & localeParam,
@@ -934,7 +935,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -951,7 +952,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -970,16 +971,16 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
 
 void UserStoreTester::shouldExecuteAuthenticateLongSession()
 {
-    QString username = tests::generateRandomString();
-    QString password = tests::generateRandomString();
-    QString consumerKey = tests::generateRandomString();
-    QString consumerSecret = tests::generateRandomString();
-    QString deviceIdentifier = tests::generateRandomString();
-    QString deviceDescription = tests::generateRandomString();
-    bool supportsTwoFactor = tests::generateRandomBool();
+    QString username = generateRandomString();
+    QString password = generateRandomString();
+    QString consumerKey = generateRandomString();
+    QString consumerSecret = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    bool supportsTwoFactor = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext();
 
-    AuthenticationResult response = tests::generateAuthenticationResult();
+    AuthenticationResult response = generateRandomAuthenticationResult();
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -1033,7 +1034,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1050,7 +1051,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1075,13 +1076,13 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
 
 void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
 {
-    QString oneTimeCode = tests::generateRandomString();
-    QString deviceIdentifier = tests::generateRandomString();
-    QString deviceDescription = tests::generateRandomString();
+    QString oneTimeCode = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    AuthenticationResult response = tests::generateAuthenticationResult();
+    AuthenticationResult response = generateRandomAuthenticationResult();
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
         [&] (const QString & oneTimeCodeParam,
@@ -1128,7 +1129,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1145,7 +1146,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1208,7 +1209,7 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1225,7 +1226,7 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1245,7 +1246,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    AuthenticationResult response = tests::generateAuthenticationResult();
+    AuthenticationResult response = generateRandomAuthenticationResult();
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -1286,7 +1287,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1303,7 +1304,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1324,7 +1325,7 @@ void UserStoreTester::shouldExecuteGetUser()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    User response = tests::generateUser();
+    User response = generateRandomUser();
 
     UserStoreGetUserTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -1365,7 +1366,7 @@ void UserStoreTester::shouldExecuteGetUser()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1382,7 +1383,7 @@ void UserStoreTester::shouldExecuteGetUser()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1400,10 +1401,10 @@ void UserStoreTester::shouldExecuteGetUser()
 
 void UserStoreTester::shouldExecuteGetPublicUserInfo()
 {
-    QString username = tests::generateRandomString();
+    QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    PublicUserInfo response = tests::generatePublicUserInfo();
+    PublicUserInfo response = generateRandomPublicUserInfo();
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -1445,7 +1446,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1462,7 +1463,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1484,7 +1485,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    UserUrls response = tests::generateUserUrls();
+    UserUrls response = generateRandomUserUrls();
 
     UserStoreGetUserUrlsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -1525,7 +1526,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1542,7 +1543,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1560,7 +1561,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
 
 void UserStoreTester::shouldExecuteInviteToBusiness()
 {
-    QString emailAddress = tests::generateRandomString();
+    QString emailAddress = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -1605,7 +1606,7 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1622,7 +1623,7 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1640,7 +1641,7 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
 
 void UserStoreTester::shouldExecuteRemoveFromBusiness()
 {
-    QString emailAddress = tests::generateRandomString();
+    QString emailAddress = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -1685,7 +1686,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1702,7 +1703,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1720,8 +1721,8 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
 
 void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
 {
-    QString oldEmailAddress = tests::generateRandomString();
-    QString newEmailAddress = tests::generateRandomString();
+    QString oldEmailAddress = generateRandomString();
+    QString newEmailAddress = generateRandomString();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -1768,7 +1769,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1785,7 +1786,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1808,9 +1809,9 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
         QStringLiteral("authenticationToken"));
 
     QList<UserProfile> response;
-    response << tests::generateUserProfile();
-    response << tests::generateUserProfile();
-    response << tests::generateUserProfile();
+    response << generateRandomUserProfile();
+    response << generateRandomUserProfile();
+    response << generateRandomUserProfile();
 
     UserStoreListBusinessUsersTesterHelper helper(
         [&] (IRequestContextPtr ctxParam)
@@ -1851,7 +1852,7 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1868,7 +1869,7 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1886,14 +1887,14 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
 
 void UserStoreTester::shouldExecuteListBusinessInvitations()
 {
-    bool includeRequestedInvitations = tests::generateRandomBool();
+    bool includeRequestedInvitations = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
     QList<BusinessInvitation> response;
-    response << tests::generateBusinessInvitation();
-    response << tests::generateBusinessInvitation();
-    response << tests::generateBusinessInvitation();
+    response << generateRandomBusinessInvitation();
+    response << generateRandomBusinessInvitation();
+    response << generateRandomBusinessInvitation();
 
     UserStoreListBusinessInvitationsTesterHelper helper(
         [&] (bool includeRequestedInvitationsParam,
@@ -1936,7 +1937,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -1953,7 +1954,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
@@ -1972,10 +1973,10 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
 
 void UserStoreTester::shouldExecuteGetAccountLimits()
 {
-    ServiceLevel serviceLevel = ServiceLevel::BASIC;
+    ServiceLevel serviceLevel = ServiceLevel::BUSINESS;
     IRequestContextPtr ctx = newRequestContext();
 
-    AccountLimits response = tests::generateAccountLimits();
+    AccountLimits response = generateRandomAccountLimits();
 
     UserStoreGetAccountLimitsTesterHelper helper(
         [&] (const ServiceLevel & serviceLevelParam,
@@ -2017,7 +2018,7 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
                 QFAIL("Failed to establish connection");
             }
 
-            QByteArray requestData = tests::readThriftRequestFromSocket(*pSocket);
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
             server.onRequest(requestData);
         });
 
@@ -2034,7 +2035,7 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
             buffer.append("Content-Type: application/x-thrift\r\n\r\n");
             buffer.append(responseData);
 
-            if (!tests::writeBufferToSocket(buffer, *pSocket)) {
+            if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
         });
