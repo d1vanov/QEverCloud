@@ -45,6 +45,11 @@ bool NetworkException::operator==(const NetworkException & other) const
     return m_type == other.m_type && m_error == other.m_error;
 }
 
+bool NetworkException::operator!=(const NetworkException & other) const
+{
+    return !operator==(other);
+}
+
 QNetworkReply::NetworkError NetworkException::type() const
 {
     return m_type;
@@ -175,6 +180,11 @@ ThriftException::~ThriftException() noexcept
 bool ThriftException::operator==(const ThriftException & other) const
 {
     return m_type == other.m_type && m_error == other.m_error;
+}
+
+bool ThriftException::operator!=(const ThriftException & other) const
+{
+    return !operator==(other);
 }
 
 ThriftException::Type ThriftException::type() const

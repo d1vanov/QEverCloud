@@ -35,6 +35,7 @@ public:
     virtual ~NetworkException() noexcept override;
 
     bool operator==(const NetworkException & other) const;
+    bool operator!=(const NetworkException & other) const;
 
     QNetworkReply::NetworkError type() const;
 
@@ -89,6 +90,7 @@ public:
     virtual ~ThriftException() noexcept override;
 
     bool operator==(const ThriftException & other) const;
+    bool operator!=(const ThriftException & other) const;
 
     Type type() const;
 
