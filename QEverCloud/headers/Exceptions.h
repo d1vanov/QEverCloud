@@ -32,6 +32,9 @@ public:
     NetworkException();
     NetworkException(QNetworkReply::NetworkError error);
     NetworkException(QNetworkReply::NetworkError error, QString message);
+    virtual ~NetworkException() noexcept override;
+
+    bool operator==(const NetworkException & other) const;
 
     QNetworkReply::NetworkError type() const;
 
@@ -83,6 +86,9 @@ public:
     ThriftException();
     ThriftException(Type type);
     ThriftException(Type type, QString message);
+    virtual ~ThriftException() noexcept override;
+
+    bool operator==(const ThriftException & other) const;
 
     Type type() const;
 

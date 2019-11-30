@@ -37,6 +37,14 @@ NetworkException::NetworkException(
     m_type(type)
 {}
 
+NetworkException::~NetworkException() noexcept
+{}
+
+bool NetworkException::operator==(const NetworkException & other) const
+{
+    return m_type == other.m_type && m_error == other.m_error;
+}
+
 QNetworkReply::NetworkError NetworkException::type() const
 {
     return m_type;
@@ -160,6 +168,14 @@ ThriftException::ThriftException(ThriftException::Type type, QString message) :
     EverCloudException(message),
     m_type(type)
 {}
+
+ThriftException::~ThriftException() noexcept
+{}
+
+bool ThriftException::operator==(const ThriftException & other) const
+{
+    return m_type == other.m_type && m_error == other.m_error;
+}
 
 ThriftException::Type ThriftException::type() const
 {
