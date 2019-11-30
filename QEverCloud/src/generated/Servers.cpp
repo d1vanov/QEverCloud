@@ -6772,6 +6772,9 @@ void NoteStoreServer::onGetSyncStateRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -6807,6 +6810,9 @@ void NoteStoreServer::onGetSyncStateRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6822,6 +6828,9 @@ void NoteStoreServer::onGetSyncStateRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -6874,6 +6883,9 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getFilteredSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -6909,6 +6921,9 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getFilteredSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -6924,6 +6939,9 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getFilteredSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -6976,6 +6994,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7011,6 +7032,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7026,6 +7050,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7041,6 +7068,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncStateRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7093,6 +7123,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7128,6 +7161,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7143,6 +7179,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7158,6 +7197,9 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getLinkedNotebookSyncChunkRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7210,6 +7252,9 @@ void NoteStoreServer::onListNotebooksRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7245,6 +7290,9 @@ void NoteStoreServer::onListNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7260,6 +7308,9 @@ void NoteStoreServer::onListNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7316,6 +7367,9 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listAccessibleBusinessNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7351,6 +7405,9 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listAccessibleBusinessNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7366,6 +7423,9 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listAccessibleBusinessNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7422,6 +7482,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7457,6 +7520,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7472,6 +7538,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7487,6 +7556,9 @@ void NoteStoreServer::onGetNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7539,6 +7611,9 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getDefaultNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7574,6 +7649,9 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getDefaultNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7589,6 +7667,9 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getDefaultNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7641,6 +7722,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT createNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7676,6 +7760,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7691,6 +7778,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7706,6 +7796,9 @@ void NoteStoreServer::onCreateNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7758,6 +7851,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7793,6 +7889,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7808,6 +7907,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7823,6 +7925,9 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7875,6 +7980,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -7910,6 +8018,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -7925,6 +8036,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -7940,6 +8054,9 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -7992,6 +8109,9 @@ void NoteStoreServer::onListTagsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8027,6 +8147,9 @@ void NoteStoreServer::onListTagsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8042,6 +8165,9 @@ void NoteStoreServer::onListTagsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8098,6 +8224,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsByNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8133,6 +8262,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsByNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8148,6 +8280,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsByNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8163,6 +8298,9 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listTagsByNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8219,6 +8357,9 @@ void NoteStoreServer::onGetTagRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8254,6 +8395,9 @@ void NoteStoreServer::onGetTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8269,6 +8413,9 @@ void NoteStoreServer::onGetTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8284,6 +8431,9 @@ void NoteStoreServer::onGetTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8336,6 +8486,9 @@ void NoteStoreServer::onCreateTagRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT createTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8371,6 +8524,9 @@ void NoteStoreServer::onCreateTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8386,6 +8542,9 @@ void NoteStoreServer::onCreateTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8401,6 +8560,9 @@ void NoteStoreServer::onCreateTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8453,6 +8615,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8488,6 +8653,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8503,6 +8671,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8518,6 +8689,9 @@ void NoteStoreServer::onUpdateTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8569,6 +8743,9 @@ void NoteStoreServer::onUntagAllRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT untagAllRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8604,6 +8781,9 @@ void NoteStoreServer::onUntagAllRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT untagAllRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8619,6 +8799,9 @@ void NoteStoreServer::onUntagAllRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT untagAllRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8634,6 +8817,9 @@ void NoteStoreServer::onUntagAllRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT untagAllRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8685,6 +8871,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT expungeTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8720,6 +8909,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8735,6 +8927,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8750,6 +8945,9 @@ void NoteStoreServer::onExpungeTagRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeTagRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8802,6 +9000,9 @@ void NoteStoreServer::onListSearchesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listSearchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8837,6 +9038,9 @@ void NoteStoreServer::onListSearchesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listSearchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8852,6 +9056,9 @@ void NoteStoreServer::onListSearchesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listSearchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -8908,6 +9115,9 @@ void NoteStoreServer::onGetSearchRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -8943,6 +9153,9 @@ void NoteStoreServer::onGetSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -8958,6 +9171,9 @@ void NoteStoreServer::onGetSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -8973,6 +9189,9 @@ void NoteStoreServer::onGetSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9025,6 +9244,9 @@ void NoteStoreServer::onCreateSearchRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT createSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9060,6 +9282,9 @@ void NoteStoreServer::onCreateSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9075,6 +9300,9 @@ void NoteStoreServer::onCreateSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9127,6 +9355,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9162,6 +9393,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9177,6 +9411,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9192,6 +9429,9 @@ void NoteStoreServer::onUpdateSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9244,6 +9484,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT expungeSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9279,6 +9522,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9294,6 +9540,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9309,6 +9558,9 @@ void NoteStoreServer::onExpungeSearchRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeSearchRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9361,6 +9613,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteOffsetRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9396,6 +9651,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteOffsetRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9411,6 +9669,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteOffsetRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9426,6 +9687,9 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteOffsetRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9478,6 +9742,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT findNotesMetadataRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9513,6 +9780,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNotesMetadataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9528,6 +9798,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNotesMetadataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9543,6 +9816,9 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNotesMetadataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9595,6 +9871,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteCountsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9630,6 +9909,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteCountsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9645,6 +9927,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteCountsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9660,6 +9945,9 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findNoteCountsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9712,6 +10000,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteWithResultSpecRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9747,6 +10038,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteWithResultSpecRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9762,6 +10056,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteWithResultSpecRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9777,6 +10074,9 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteWithResultSpecRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9829,6 +10129,9 @@ void NoteStoreServer::onGetNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9864,6 +10167,9 @@ void NoteStoreServer::onGetNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9879,6 +10185,9 @@ void NoteStoreServer::onGetNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -9894,6 +10203,9 @@ void NoteStoreServer::onGetNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -9946,6 +10258,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -9981,6 +10296,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -9996,6 +10314,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10011,6 +10332,9 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10063,6 +10387,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10098,6 +10425,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10113,6 +10443,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10128,6 +10461,9 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10180,6 +10516,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT setNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10215,6 +10554,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10230,6 +10572,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10245,6 +10590,9 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10297,6 +10645,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT unsetNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10332,6 +10683,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT unsetNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10347,6 +10701,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT unsetNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10362,6 +10719,9 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT unsetNoteApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10414,6 +10774,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteContentRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10449,6 +10812,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteContentRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10464,6 +10830,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteContentRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10479,6 +10848,9 @@ void NoteStoreServer::onGetNoteContentRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteContentRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10531,6 +10903,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10566,6 +10941,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10581,6 +10959,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10596,6 +10977,9 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10648,6 +11032,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10683,6 +11070,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10698,6 +11088,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10713,6 +11106,9 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceSearchTextRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10765,6 +11161,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteTagNamesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10800,6 +11199,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteTagNamesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10815,6 +11217,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteTagNamesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10830,6 +11235,9 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteTagNamesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -10886,6 +11294,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT createNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -10921,6 +11332,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -10936,6 +11350,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -10951,6 +11368,9 @@ void NoteStoreServer::onCreateNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11003,6 +11423,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11038,6 +11461,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11053,6 +11479,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11068,6 +11497,9 @@ void NoteStoreServer::onUpdateNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11120,6 +11552,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT deleteNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11155,6 +11590,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT deleteNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11170,6 +11608,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT deleteNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11185,6 +11626,9 @@ void NoteStoreServer::onDeleteNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT deleteNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11237,6 +11681,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11272,6 +11719,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11287,6 +11737,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11302,6 +11755,9 @@ void NoteStoreServer::onExpungeNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11354,6 +11810,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT copyNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11389,6 +11848,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT copyNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11404,6 +11866,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT copyNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11419,6 +11884,9 @@ void NoteStoreServer::onCopyNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT copyNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11471,6 +11939,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listNoteVersionsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11506,6 +11977,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listNoteVersionsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11521,6 +11995,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listNoteVersionsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11536,6 +12013,9 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listNoteVersionsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11592,6 +12072,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteVersionRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11627,6 +12110,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteVersionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11642,6 +12128,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteVersionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11657,6 +12146,9 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNoteVersionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11709,6 +12201,9 @@ void NoteStoreServer::onGetResourceRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11744,6 +12239,9 @@ void NoteStoreServer::onGetResourceRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11759,6 +12257,9 @@ void NoteStoreServer::onGetResourceRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11774,6 +12275,9 @@ void NoteStoreServer::onGetResourceRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11826,6 +12330,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11861,6 +12368,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11876,6 +12386,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -11891,6 +12404,9 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -11943,6 +12459,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -11978,6 +12497,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -11993,6 +12515,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12008,6 +12533,9 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12060,6 +12588,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT setResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12095,6 +12626,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12110,6 +12644,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12125,6 +12662,9 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12177,6 +12717,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT unsetResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12212,6 +12755,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT unsetResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12227,6 +12773,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT unsetResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12242,6 +12791,9 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT unsetResourceApplicationDataEntryRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12294,6 +12846,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12329,6 +12884,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12344,6 +12902,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12359,6 +12920,9 @@ void NoteStoreServer::onUpdateResourceRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateResourceRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12411,6 +12975,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12446,6 +13013,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12461,6 +13031,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12476,6 +13049,9 @@ void NoteStoreServer::onGetResourceDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12528,6 +13104,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceByHashRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12563,6 +13142,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceByHashRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12578,6 +13160,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceByHashRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12593,6 +13178,9 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceByHashRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12645,6 +13233,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRecognitionRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12680,6 +13271,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRecognitionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12695,6 +13289,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRecognitionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12710,6 +13307,9 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceRecognitionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12762,6 +13362,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAlternateDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12797,6 +13400,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAlternateDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12812,6 +13418,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAlternateDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12827,6 +13436,9 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAlternateDataRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12879,6 +13491,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAttributesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -12914,6 +13529,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAttributesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -12929,6 +13547,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAttributesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -12944,6 +13565,9 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getResourceAttributesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -12996,6 +13620,9 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13031,6 +13658,9 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13046,6 +13676,9 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13098,6 +13731,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT shareNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13133,6 +13769,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT shareNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13148,6 +13787,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT shareNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13163,6 +13805,9 @@ void NoteStoreServer::onShareNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT shareNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13215,6 +13860,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT createOrUpdateNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13250,6 +13898,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createOrUpdateNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13265,6 +13916,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createOrUpdateNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13280,6 +13934,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createOrUpdateNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMInvalidContactsException & e)
@@ -13295,6 +13952,9 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createOrUpdateNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13347,6 +14007,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13382,6 +14045,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13397,6 +14063,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13412,6 +14081,9 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13464,6 +14136,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT setNotebookRecipientSettingsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13499,6 +14174,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setNotebookRecipientSettingsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13514,6 +14192,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setNotebookRecipientSettingsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13529,6 +14210,9 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT setNotebookRecipientSettingsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13581,6 +14265,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listSharedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13616,6 +14303,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listSharedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13631,6 +14321,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listSharedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13646,6 +14339,9 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listSharedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13702,6 +14398,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT createLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13737,6 +14436,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13752,6 +14454,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13767,6 +14472,9 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT createLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13819,6 +14527,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13854,6 +14565,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13869,6 +14583,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -13884,6 +14601,9 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -13936,6 +14656,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listLinkedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -13971,6 +14694,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listLinkedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -13986,6 +14712,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listLinkedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14001,6 +14730,9 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listLinkedNotebooksRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14057,6 +14789,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT expungeLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14092,6 +14827,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14107,6 +14845,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14122,6 +14863,9 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT expungeLinkedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14174,6 +14918,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14209,6 +14956,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14224,6 +14974,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14239,6 +14992,9 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNotebookRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14291,6 +15047,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getSharedNotebookByAuthRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14326,6 +15085,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSharedNotebookByAuthRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14341,6 +15103,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSharedNotebookByAuthRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14356,6 +15121,9 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getSharedNotebookByAuthRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14407,6 +15175,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT emailNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14442,6 +15213,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT emailNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14457,6 +15231,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT emailNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14472,6 +15249,9 @@ void NoteStoreServer::onEmailNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT emailNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14523,6 +15303,9 @@ void NoteStoreServer::onShareNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT shareNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14558,6 +15341,9 @@ void NoteStoreServer::onShareNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT shareNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14573,6 +15359,9 @@ void NoteStoreServer::onShareNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT shareNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14588,6 +15377,9 @@ void NoteStoreServer::onShareNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT shareNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14639,6 +15431,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT stopSharingNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14674,6 +15469,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT stopSharingNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14689,6 +15487,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT stopSharingNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14704,6 +15505,9 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT stopSharingNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14755,6 +15559,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14790,6 +15597,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14805,6 +15615,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14820,6 +15633,9 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToSharedNoteRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14872,6 +15688,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT findRelatedRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -14907,6 +15726,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findRelatedRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -14922,6 +15744,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findRelatedRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -14937,6 +15762,9 @@ void NoteStoreServer::onFindRelatedRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT findRelatedRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -14989,6 +15817,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteIfUsnMatchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15024,6 +15855,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteIfUsnMatchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -15039,6 +15873,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteIfUsnMatchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15054,6 +15891,9 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateNoteIfUsnMatchesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -15106,6 +15946,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT manageNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15141,6 +15984,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT manageNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -15156,6 +16002,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT manageNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15171,6 +16020,9 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT manageNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -15223,6 +16075,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15258,6 +16113,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -15273,6 +16131,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15288,6 +16149,9 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getNotebookSharesRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -15590,6 +16454,9 @@ void UserStoreServer::onCheckVersionRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT checkVersionRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15644,6 +16511,9 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getBootstrapInfoRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15698,6 +16568,9 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateLongSessionRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15733,6 +16606,9 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateLongSessionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15748,6 +16624,9 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateLongSessionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -15800,6 +16679,9 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT completeTwoFactorAuthenticationRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15835,6 +16717,9 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT completeTwoFactorAuthenticationRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15850,6 +16735,9 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT completeTwoFactorAuthenticationRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -15901,6 +16789,9 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT revokeLongSessionRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -15936,6 +16827,9 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT revokeLongSessionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -15951,6 +16845,9 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT revokeLongSessionRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16002,6 +16899,9 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16037,6 +16937,9 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16052,6 +16955,9 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT authenticateToBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16104,6 +17010,9 @@ void UserStoreServer::onGetUserRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getUserRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16139,6 +17048,9 @@ void UserStoreServer::onGetUserRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getUserRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16154,6 +17066,9 @@ void UserStoreServer::onGetUserRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getUserRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16206,6 +17121,9 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicUserInfoRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16241,6 +17159,9 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicUserInfoRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16256,6 +17177,9 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicUserInfoRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMUserException & e)
@@ -16271,6 +17195,9 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getPublicUserInfoRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16323,6 +17250,9 @@ void UserStoreServer::onGetUserUrlsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getUserUrlsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16358,6 +17288,9 @@ void UserStoreServer::onGetUserUrlsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getUserUrlsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16373,6 +17306,9 @@ void UserStoreServer::onGetUserUrlsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getUserUrlsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16424,6 +17360,9 @@ void UserStoreServer::onInviteToBusinessRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT inviteToBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16459,6 +17398,9 @@ void UserStoreServer::onInviteToBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT inviteToBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16474,6 +17416,9 @@ void UserStoreServer::onInviteToBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT inviteToBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16524,6 +17469,9 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT removeFromBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16559,6 +17507,9 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT removeFromBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16574,6 +17525,9 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT removeFromBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -16589,6 +17543,9 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT removeFromBusinessRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16639,6 +17596,9 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT updateBusinessUserIdentifierRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16674,6 +17634,9 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateBusinessUserIdentifierRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16689,6 +17652,9 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateBusinessUserIdentifierRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMNotFoundException & e)
@@ -16704,6 +17670,9 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT updateBusinessUserIdentifierRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16755,6 +17724,9 @@ void UserStoreServer::onListBusinessUsersRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listBusinessUsersRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16790,6 +17762,9 @@ void UserStoreServer::onListBusinessUsersRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listBusinessUsersRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16805,6 +17780,9 @@ void UserStoreServer::onListBusinessUsersRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listBusinessUsersRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16861,6 +17839,9 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT listBusinessInvitationsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -16896,6 +17877,9 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listBusinessInvitationsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const EDAMSystemException & e)
@@ -16911,6 +17895,9 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT listBusinessInvitationsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
@@ -16967,6 +17954,9 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
                 cseqid);
             writeThriftException(writer, exception);
             writer.writeMessageEnd();
+
+            Q_EMIT getAccountLimitsRequestReady(
+                writer.buffer());
             return;
         }
         catch(...)
@@ -17002,6 +17992,9 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
             // Finalize message and return immediately
             writer.writeStructEnd();
             writer.writeMessageEnd();
+
+            Q_EMIT getAccountLimitsRequestReady(
+                writer.buffer());
             return;
         }
         catch(const std::exception & e)
