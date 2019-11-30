@@ -40,9 +40,9 @@ public:
     explicit EverCloudException(const std::string & error);
     explicit EverCloudException(const char * error);
 
-    ~EverCloudException() noexcept;
+    virtual ~EverCloudException() noexcept override;
 
-    const char * what() const noexcept;
+    virtual const char * what() const noexcept override;
 
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const;
 };
