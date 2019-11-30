@@ -210,6 +210,10 @@ const char * ThriftException::what() const noexcept
             return "ThriftException: Bad sequence identifier";
         case Type::MISSING_RESULT:
             return "ThriftException: Missing result";
+        case Type::INTERNAL_ERROR:
+            return "ThriftException: Internal error";
+        case Type::PROTOCOL_ERROR:
+            return "ThriftException: Protocol error";
         case Type::INVALID_DATA:
             return "ThriftException: Invalid data";
         default:
@@ -357,6 +361,9 @@ void writeThriftException(
 
     writer.writeFieldBegin(QStringLiteral("type"), ThriftFieldType::T_I32, 2);
     writer.writeI32(static_cast<qint32>(exception.type()));
+    writer.writeFieldEnd();
+
+    writer.writeFieldBegin(QString(), ThriftFieldType::T_STOP, 0);
     writer.writeFieldEnd();
 
     writer.writeStructEnd();
