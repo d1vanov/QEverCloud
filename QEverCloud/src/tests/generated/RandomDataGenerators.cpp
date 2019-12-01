@@ -419,9 +419,9 @@ RelatedResultSpec generateRandomRelatedResultSpec()
     result.maxExperts = generateRandomInt32();
     result.maxRelatedContent = generateRandomInt32();
     result.relatedContentTypes = QSet<RelatedContentType>();
-    result.relatedContentTypes->insert(RelatedContentType::PROFILE_PERSON);
-    result.relatedContentTypes->insert(RelatedContentType::PROFILE_ORGANIZATION);
     result.relatedContentTypes->insert(RelatedContentType::NEWS_ARTICLE);
+    result.relatedContentTypes->insert(RelatedContentType::NEWS_ARTICLE);
+    result.relatedContentTypes->insert(RelatedContentType::PROFILE_PERSON);
     return result;
 }
 
@@ -448,7 +448,7 @@ InvitationShareRelationship generateRandomInvitationShareRelationship()
     InvitationShareRelationship result;
     result.displayName = generateRandomString();
     result.recipientUserIdentity = generateRandomUserIdentity();
-    result.privilege = ShareRelationshipPrivilegeLevel::MODIFY_NOTEBOOK_PLUS_ACTIVITY;
+    result.privilege = ShareRelationshipPrivilegeLevel::READ_NOTEBOOK_PLUS_ACTIVITY;
     result.sharerUserId = generateRandomInt32();
     return result;
 }
@@ -459,7 +459,7 @@ MemberShareRelationship generateRandomMemberShareRelationship()
     result.displayName = generateRandomString();
     result.recipientUserId = generateRandomInt32();
     result.bestPrivilege = ShareRelationshipPrivilegeLevel::READ_NOTEBOOK;
-    result.individualPrivilege = ShareRelationshipPrivilegeLevel::FULL_ACCESS;
+    result.individualPrivilege = ShareRelationshipPrivilegeLevel::READ_NOTEBOOK;
     result.restrictions = generateRandomShareRelationshipRestrictions();
     result.sharerUserId = generateRandomInt32();
     return result;
@@ -505,7 +505,7 @@ ManageNotebookSharesError generateRandomManageNotebookSharesError()
     ManageNotebookSharesError result;
     result.userIdentity = generateRandomUserIdentity();
     result.userException = EDAMUserException();
-    result.userException->errorCode = EDAMErrorCode::TOO_FEW;
+    result.userException->errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
     result.userException->parameter = generateRandomString();
     result.notFoundException = EDAMNotFoundException();
     result.notFoundException->identifier = generateRandomString();
@@ -532,7 +532,7 @@ SharedNoteTemplate generateRandomSharedNoteTemplate()
     result.recipientContacts.ref() << generateRandomContact();
     result.recipientContacts.ref() << generateRandomContact();
     result.recipientContacts.ref() << generateRandomContact();
-    result.privilege = SharedNotePrivilegeLevel::MODIFY_NOTE;
+    result.privilege = SharedNotePrivilegeLevel::READ_NOTE;
     return result;
 }
 
@@ -545,7 +545,7 @@ NotebookShareTemplate generateRandomNotebookShareTemplate()
     result.recipientContacts.ref() << generateRandomContact();
     result.recipientContacts.ref() << generateRandomContact();
     result.recipientContacts.ref() << generateRandomContact();
-    result.privilege = SharedNotebookPrivilegeLevel::FULL_ACCESS;
+    result.privilege = SharedNotebookPrivilegeLevel::MODIFY_NOTEBOOK_PLUS_ACTIVITY;
     return result;
 }
 
@@ -574,7 +574,7 @@ NoteMemberShareRelationship generateRandomNoteMemberShareRelationship()
     NoteMemberShareRelationship result;
     result.displayName = generateRandomString();
     result.recipientUserId = generateRandomInt32();
-    result.privilege = SharedNotePrivilegeLevel::READ_NOTE;
+    result.privilege = SharedNotePrivilegeLevel::FULL_ACCESS;
     result.restrictions = generateRandomNoteShareRelationshipRestrictions();
     result.sharerUserId = generateRandomInt32();
     return result;
@@ -634,7 +634,7 @@ ManageNoteSharesError generateRandomManageNoteSharesError()
     result.identityID = generateRandomInt64();
     result.userID = generateRandomInt32();
     result.userException = EDAMUserException();
-    result.userException->errorCode = EDAMErrorCode::UNKNOWN;
+    result.userException->errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
     result.userException->parameter = generateRandomString();
     result.notFoundException = EDAMNotFoundException();
     result.notFoundException->identifier = generateRandomString();
@@ -699,7 +699,7 @@ UserAttributes generateRandomUserAttributes()
     result.businessAddress = generateRandomString();
     result.hideSponsorBilling = generateRandomBool();
     result.useEmailAutoFiling = generateRandomBool();
-    result.reminderEmailConfig = ReminderEmailConfig::SEND_DAILY_EMAIL;
+    result.reminderEmailConfig = ReminderEmailConfig::DO_NOT_SEND;
     result.emailAddressLastConfirmed = generateRandomInt64();
     result.passwordUpdated = generateRandomInt64();
     result.salesforcePushEnabled = generateRandomBool();
@@ -787,7 +787,7 @@ User generateRandomUser()
     result.name = generateRandomString();
     result.timezone = generateRandomString();
     result.privilege = PrivilegeLevel::MANAGER;
-    result.serviceLevel = ServiceLevel::BASIC;
+    result.serviceLevel = ServiceLevel::PLUS;
     result.created = generateRandomInt64();
     result.updated = generateRandomInt64();
     result.deleted = generateRandomInt64();
@@ -925,7 +925,7 @@ SharedNote generateRandomSharedNote()
     SharedNote result;
     result.sharerUserID = generateRandomInt32();
     result.recipientIdentity = generateRandomIdentity();
-    result.privilege = SharedNotePrivilegeLevel::READ_NOTE;
+    result.privilege = SharedNotePrivilegeLevel::FULL_ACCESS;
     result.serviceCreated = generateRandomInt64();
     result.serviceUpdated = generateRandomInt64();
     result.serviceAssigned = generateRandomInt64();
@@ -994,7 +994,7 @@ Publishing generateRandomPublishing()
 {
     Publishing result;
     result.uri = generateRandomString();
-    result.order = NoteSortOrder::CREATED;
+    result.order = NoteSortOrder::UPDATED;
     result.ascending = generateRandomBool();
     result.publicDescription = generateRandomString();
     return result;
@@ -1004,7 +1004,7 @@ BusinessNotebook generateRandomBusinessNotebook()
 {
     BusinessNotebook result;
     result.notebookDescription = generateRandomString();
-    result.privilege = SharedNotebookPrivilegeLevel::FULL_ACCESS;
+    result.privilege = SharedNotebookPrivilegeLevel::GROUP;
     result.recommended = generateRandomBool();
     return result;
 }
@@ -1062,7 +1062,7 @@ SharedNotebook generateRandomSharedNotebook()
     result.serviceUpdated = generateRandomInt64();
     result.globalId = generateRandomString();
     result.username = generateRandomString();
-    result.privilege = SharedNotebookPrivilegeLevel::READ_NOTEBOOK_PLUS_ACTIVITY;
+    result.privilege = SharedNotebookPrivilegeLevel::GROUP;
     result.recipientSettings = generateRandomSharedNotebookRecipientSettings();
     result.sharerUserId = generateRandomInt32();
     result.recipientUsername = generateRandomString();
@@ -1100,7 +1100,7 @@ NotebookRestrictions generateRandomNotebookRestrictions()
     result.noSetParentTag = generateRandomBool();
     result.noCreateSharedNotebooks = generateRandomBool();
     result.updateWhichSharedNotebookRestrictions = SharedNotebookInstanceRestrictions::ASSIGNED;
-    result.expungeWhichSharedNotebookRestrictions = SharedNotebookInstanceRestrictions::ASSIGNED;
+    result.expungeWhichSharedNotebookRestrictions = SharedNotebookInstanceRestrictions::NO_SHARED_NOTEBOOKS;
     result.noShareNotesWithBusiness = generateRandomBool();
     result.noRenameNotebook = generateRandomBool();
     result.noSetInMyList = generateRandomBool();
@@ -1179,7 +1179,7 @@ UserProfile generateRandomUserProfile()
     result.joined = generateRandomInt64();
     result.photoLastUpdated = generateRandomInt64();
     result.photoUrl = generateRandomString();
-    result.role = BusinessUserRole::ADMIN;
+    result.role = BusinessUserRole::NORMAL;
     result.status = BusinessUserStatus::ACTIVE;
     return result;
 }
@@ -1211,8 +1211,8 @@ RelatedContent generateRandomRelatedContent()
     result.thumbnails.ref() << generateRandomRelatedContentImage();
     result.thumbnails.ref() << generateRandomRelatedContentImage();
     result.thumbnails.ref() << generateRandomRelatedContentImage();
-    result.contentType = RelatedContentType::PROFILE_ORGANIZATION;
-    result.accessType = RelatedContentAccess::DIRECT_LINK_ACCESS_OK;
+    result.contentType = RelatedContentType::NEWS_ARTICLE;
+    result.accessType = RelatedContentAccess::DIRECT_LINK_EMBEDDED_VIEW;
     result.visibleUrl = generateRandomString();
     result.clipUrl = generateRandomString();
     result.contact = generateRandomContact();
@@ -1229,7 +1229,7 @@ BusinessInvitation generateRandomBusinessInvitation()
     result.businessId = generateRandomInt32();
     result.email = generateRandomString();
     result.role = BusinessUserRole::ADMIN;
-    result.status = BusinessInvitationStatus::REQUESTED;
+    result.status = BusinessInvitationStatus::APPROVED;
     result.requesterId = generateRandomInt32();
     result.fromWorkChat = generateRandomBool();
     result.created = generateRandomInt64();
@@ -1240,7 +1240,7 @@ BusinessInvitation generateRandomBusinessInvitation()
 UserIdentity generateRandomUserIdentity()
 {
     UserIdentity result;
-    result.type = UserIdentityType::EMAIL;
+    result.type = UserIdentityType::IDENTITYID;
     result.stringIdentifier = generateRandomString();
     result.longIdentifier = generateRandomInt64();
     return result;

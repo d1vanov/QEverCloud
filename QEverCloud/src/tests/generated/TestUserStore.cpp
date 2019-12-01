@@ -799,6 +799,373 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
+class UserStoreCheckVersionAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreCheckVersionAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    bool m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<bool>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreGetBootstrapInfoAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreGetBootstrapInfoAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    BootstrapInfo m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<BootstrapInfo>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreAuthenticateLongSessionAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreAuthenticateLongSessionAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    AuthenticationResult m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<AuthenticationResult>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    AuthenticationResult m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<AuthenticationResult>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreRevokeLongSessionAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreRevokeLongSessionAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreAuthenticateToBusinessAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreAuthenticateToBusinessAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    AuthenticationResult m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<AuthenticationResult>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreGetUserAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreGetUserAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    User m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<User>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreGetPublicUserInfoAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreGetPublicUserInfoAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    PublicUserInfo m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<PublicUserInfo>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreGetUserUrlsAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreGetUserUrlsAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    UserUrls m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<UserUrls>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreInviteToBusinessAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreInviteToBusinessAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreRemoveFromBusinessAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreRemoveFromBusinessAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreListBusinessUsersAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreListBusinessUsersAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    QList<UserProfile> m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<QList<UserProfile>>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreListBusinessInvitationsAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreListBusinessInvitationsAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    QList<BusinessInvitation> m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<QList<BusinessInvitation>>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
+class UserStoreGetAccountLimitsAsyncValueFetcher: public QObject
+{
+    Q_OBJECT
+public:
+    explicit UserStoreGetAccountLimitsAsyncValueFetcher(QObject * parent = nullptr) :
+        QObject(parent)
+    {}
+
+    AccountLimits m_value;
+    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+
+Q_SIGNALS:
+    void finished();
+
+public Q_SLOTS:
+    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    {
+        m_value = qvariant_cast<AccountLimits>(value);
+        m_exceptionData = data;
+        Q_EMIT finished();
+    }
+};
+
+////////////////////////////////////////////////////////////////////////////////
+
 void UserStoreTester::shouldExecuteCheckVersion()
 {
     QString clientName = generateRandomString();
@@ -893,7 +1260,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
     qint16 edamVersionMinor = generateRandomInt16();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreCheckVersionTesterHelper helper(
         [&] (const QString & clientNameParam,
@@ -974,6 +1343,229 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
             edamVersionMinor,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteCheckVersionAsync()
+{
+    QString clientName = generateRandomString();
+    qint16 edamVersionMajor = generateRandomInt16();
+    qint16 edamVersionMinor = generateRandomInt16();
+    IRequestContextPtr ctx = newRequestContext();
+
+    bool response = generateRandomBool();
+
+    UserStoreCheckVersionTesterHelper helper(
+        [&] (const QString & clientNameParam,
+             qint16 edamVersionMajorParam,
+             qint16 edamVersionMinorParam,
+             IRequestContextPtr ctxParam) -> bool
+        {
+            Q_ASSERT(clientName == clientNameParam);
+            Q_ASSERT(edamVersionMajor == edamVersionMajorParam);
+            Q_ASSERT(edamVersionMinor == edamVersionMinorParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::checkVersionRequest,
+        &helper,
+        &UserStoreCheckVersionTesterHelper::onCheckVersionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreCheckVersionTesterHelper::checkVersionRequestReady,
+        &server,
+        &UserStoreServer::onCheckVersionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::checkVersionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->checkVersionAsync(
+        clientName,
+        edamVersionMajor,
+        edamVersionMinor,
+        ctx);
+
+    UserStoreCheckVersionAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreCheckVersionAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreCheckVersionAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
+{
+    QString clientName = generateRandomString();
+    qint16 edamVersionMajor = generateRandomInt16();
+    qint16 edamVersionMinor = generateRandomInt16();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreCheckVersionTesterHelper helper(
+        [&] (const QString & clientNameParam,
+             qint16 edamVersionMajorParam,
+             qint16 edamVersionMinorParam,
+             IRequestContextPtr ctxParam) -> bool
+        {
+            Q_ASSERT(clientName == clientNameParam);
+            Q_ASSERT(edamVersionMajor == edamVersionMajorParam);
+            Q_ASSERT(edamVersionMinor == edamVersionMinorParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::checkVersionRequest,
+        &helper,
+        &UserStoreCheckVersionTesterHelper::onCheckVersionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreCheckVersionTesterHelper::checkVersionRequestReady,
+        &server,
+        &UserStoreServer::onCheckVersionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::checkVersionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->checkVersionAsync(
+            clientName,
+            edamVersionMajor,
+            edamVersionMinor,
+            ctx);
+
+        UserStoreCheckVersionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreCheckVersionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreCheckVersionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -1070,7 +1662,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
     QString locale = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreGetBootstrapInfoTesterHelper helper(
         [&] (const QString & localeParam,
@@ -1145,6 +1739,213 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
             locale,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
+{
+    QString locale = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    BootstrapInfo response = generateRandomBootstrapInfo();
+
+    UserStoreGetBootstrapInfoTesterHelper helper(
+        [&] (const QString & localeParam,
+             IRequestContextPtr ctxParam) -> BootstrapInfo
+        {
+            Q_ASSERT(locale == localeParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getBootstrapInfoRequest,
+        &helper,
+        &UserStoreGetBootstrapInfoTesterHelper::onGetBootstrapInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetBootstrapInfoTesterHelper::getBootstrapInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetBootstrapInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getBootstrapInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->getBootstrapInfoAsync(
+        locale,
+        ctx);
+
+    UserStoreGetBootstrapInfoAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreGetBootstrapInfoAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreGetBootstrapInfoAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
+{
+    QString locale = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreGetBootstrapInfoTesterHelper helper(
+        [&] (const QString & localeParam,
+             IRequestContextPtr ctxParam) -> BootstrapInfo
+        {
+            Q_ASSERT(locale == localeParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getBootstrapInfoRequest,
+        &helper,
+        &UserStoreGetBootstrapInfoTesterHelper::onGetBootstrapInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetBootstrapInfoTesterHelper::getBootstrapInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetBootstrapInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getBootstrapInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getBootstrapInfoAsync(
+            locale,
+            ctx);
+
+        UserStoreGetBootstrapInfoAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetBootstrapInfoAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetBootstrapInfoAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -1272,7 +2073,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
     IRequestContextPtr ctx = newRequestContext();
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
+    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
     userException.parameter = generateRandomString();
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
@@ -1388,7 +2189,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
     IRequestContextPtr ctx = newRequestContext();
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
+    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -1504,7 +2305,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
     bool supportsTwoFactor = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -1597,6 +2400,530 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
             supportsTwoFactor,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
+{
+    QString username = generateRandomString();
+    QString password = generateRandomString();
+    QString consumerKey = generateRandomString();
+    QString consumerSecret = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    bool supportsTwoFactor = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext();
+
+    AuthenticationResult response = generateRandomAuthenticationResult();
+
+    UserStoreAuthenticateLongSessionTesterHelper helper(
+        [&] (const QString & usernameParam,
+             const QString & passwordParam,
+             const QString & consumerKeyParam,
+             const QString & consumerSecretParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             bool supportsTwoFactorParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(username == usernameParam);
+            Q_ASSERT(password == passwordParam);
+            Q_ASSERT(consumerKey == consumerKeyParam);
+            Q_ASSERT(consumerSecret == consumerSecretParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            Q_ASSERT(supportsTwoFactor == supportsTwoFactorParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequest,
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::onAuthenticateLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::authenticateLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->authenticateLongSessionAsync(
+        username,
+        password,
+        consumerKey,
+        consumerSecret,
+        deviceIdentifier,
+        deviceDescription,
+        supportsTwoFactor,
+        ctx);
+
+    UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsync()
+{
+    QString username = generateRandomString();
+    QString password = generateRandomString();
+    QString consumerKey = generateRandomString();
+    QString consumerSecret = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    bool supportsTwoFactor = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
+    userException.parameter = generateRandomString();
+
+    UserStoreAuthenticateLongSessionTesterHelper helper(
+        [&] (const QString & usernameParam,
+             const QString & passwordParam,
+             const QString & consumerKeyParam,
+             const QString & consumerSecretParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             bool supportsTwoFactorParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(username == usernameParam);
+            Q_ASSERT(password == passwordParam);
+            Q_ASSERT(consumerKey == consumerKeyParam);
+            Q_ASSERT(consumerSecret == consumerSecretParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            Q_ASSERT(supportsTwoFactor == supportsTwoFactorParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequest,
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::onAuthenticateLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::authenticateLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->authenticateLongSessionAsync(
+            username,
+            password,
+            consumerKey,
+            consumerSecret,
+            deviceIdentifier,
+            deviceDescription,
+            supportsTwoFactor,
+            ctx);
+
+        UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionAsync()
+{
+    QString username = generateRandomString();
+    QString password = generateRandomString();
+    QString consumerKey = generateRandomString();
+    QString consumerSecret = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    bool supportsTwoFactor = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreAuthenticateLongSessionTesterHelper helper(
+        [&] (const QString & usernameParam,
+             const QString & passwordParam,
+             const QString & consumerKeyParam,
+             const QString & consumerSecretParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             bool supportsTwoFactorParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(username == usernameParam);
+            Q_ASSERT(password == passwordParam);
+            Q_ASSERT(consumerKey == consumerKeyParam);
+            Q_ASSERT(consumerSecret == consumerSecretParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            Q_ASSERT(supportsTwoFactor == supportsTwoFactorParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequest,
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::onAuthenticateLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::authenticateLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->authenticateLongSessionAsync(
+            username,
+            password,
+            consumerKey,
+            consumerSecret,
+            deviceIdentifier,
+            deviceDescription,
+            supportsTwoFactor,
+            ctx);
+
+        UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync()
+{
+    QString username = generateRandomString();
+    QString password = generateRandomString();
+    QString consumerKey = generateRandomString();
+    QString consumerSecret = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    bool supportsTwoFactor = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreAuthenticateLongSessionTesterHelper helper(
+        [&] (const QString & usernameParam,
+             const QString & passwordParam,
+             const QString & consumerKeyParam,
+             const QString & consumerSecretParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             bool supportsTwoFactorParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(username == usernameParam);
+            Q_ASSERT(password == passwordParam);
+            Q_ASSERT(consumerKey == consumerKeyParam);
+            Q_ASSERT(consumerSecret == consumerSecretParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            Q_ASSERT(supportsTwoFactor == supportsTwoFactorParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequest,
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::onAuthenticateLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateLongSessionTesterHelper::authenticateLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->authenticateLongSessionAsync(
+            username,
+            password,
+            consumerKey,
+            consumerSecret,
+            deviceIdentifier,
+            deviceDescription,
+            supportsTwoFactor,
+            ctx);
+
+        UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -1707,7 +3034,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
+    userException.errorCode = EDAMErrorCode::UNKNOWN;
     userException.parameter = generateRandomString();
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
@@ -1809,7 +3136,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
+    systemException.errorCode = EDAMErrorCode::TOO_MANY;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -1911,7 +3238,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
         [&] (const QString & oneTimeCodeParam,
@@ -1993,6 +3322,474 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             deviceDescription,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
+{
+    QString oneTimeCode = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    AuthenticationResult response = generateRandomAuthenticationResult();
+
+    UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
+        [&] (const QString & oneTimeCodeParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oneTimeCode == oneTimeCodeParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequest,
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::onCompleteTwoFactorAuthenticationRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::completeTwoFactorAuthenticationRequestReady,
+        &server,
+        &UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+        oneTimeCode,
+        deviceIdentifier,
+        deviceDescription,
+        ctx);
+
+    UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthenticationAsync()
+{
+    QString oneTimeCode = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
+    userException.parameter = generateRandomString();
+
+    UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
+        [&] (const QString & oneTimeCodeParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oneTimeCode == oneTimeCodeParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequest,
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::onCompleteTwoFactorAuthenticationRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::completeTwoFactorAuthenticationRequestReady,
+        &server,
+        &UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+            oneTimeCode,
+            deviceIdentifier,
+            deviceDescription,
+            ctx);
+
+        UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthenticationAsync()
+{
+    QString oneTimeCode = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
+        [&] (const QString & oneTimeCodeParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oneTimeCode == oneTimeCodeParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequest,
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::onCompleteTwoFactorAuthenticationRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::completeTwoFactorAuthenticationRequestReady,
+        &server,
+        &UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+            oneTimeCode,
+            deviceIdentifier,
+            deviceDescription,
+            ctx);
+
+        UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticationAsync()
+{
+    QString oneTimeCode = generateRandomString();
+    QString deviceIdentifier = generateRandomString();
+    QString deviceDescription = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
+        [&] (const QString & oneTimeCodeParam,
+             const QString & deviceIdentifierParam,
+             const QString & deviceDescriptionParam,
+             IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oneTimeCode == oneTimeCodeParam);
+            Q_ASSERT(deviceIdentifier == deviceIdentifierParam);
+            Q_ASSERT(deviceDescription == deviceDescriptionParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequest,
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::onCompleteTwoFactorAuthenticationRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreCompleteTwoFactorAuthenticationTesterHelper::completeTwoFactorAuthenticationRequestReady,
+        &server,
+        &UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+            oneTimeCode,
+            deviceIdentifier,
+            deviceDescription,
+            ctx);
+
+        UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -2085,7 +3882,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
+    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
     userException.parameter = generateRandomString();
 
     UserStoreRevokeLongSessionTesterHelper helper(
@@ -2174,7 +3971,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
+    systemException.errorCode = EDAMErrorCode::TOO_MANY;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -2263,7 +4060,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreRevokeLongSessionTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> void
@@ -2335,6 +4134,423 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
     {
         userStore->revokeLongSession(
             ctx);
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    UserStoreRevokeLongSessionTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            return;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequest,
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::onRevokeLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::revokeLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onRevokeLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->revokeLongSessionAsync(
+        ctx);
+
+    UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
+    userException.parameter = generateRandomString();
+
+    UserStoreRevokeLongSessionTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequest,
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::onRevokeLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::revokeLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onRevokeLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->revokeLongSessionAsync(
+            ctx);
+
+        UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreRevokeLongSessionTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequest,
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::onRevokeLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::revokeLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onRevokeLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->revokeLongSessionAsync(
+            ctx);
+
+        UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreRevokeLongSessionTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequest,
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::onRevokeLongSessionRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRevokeLongSessionTesterHelper::revokeLongSessionRequestReady,
+        &server,
+        &UserStoreServer::onRevokeLongSessionRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::revokeLongSessionRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->revokeLongSessionAsync(
+            ctx);
+
+        UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -2430,7 +4646,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
+    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
     userException.parameter = generateRandomString();
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
@@ -2520,7 +4736,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
+    systemException.errorCode = EDAMErrorCode::UNKNOWN;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -2610,7 +4826,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
@@ -2683,6 +4901,426 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
         AuthenticationResult res = userStore->authenticateToBusiness(
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    AuthenticationResult response = generateRandomAuthenticationResult();
+
+    UserStoreAuthenticateToBusinessTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequest,
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::onAuthenticateToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::authenticateToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->authenticateToBusinessAsync(
+        ctx);
+
+    UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::TOO_MANY;
+    userException.parameter = generateRandomString();
+
+    UserStoreAuthenticateToBusinessTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequest,
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::onAuthenticateToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::authenticateToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->authenticateToBusinessAsync(
+            ctx);
+
+        UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreAuthenticateToBusinessTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequest,
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::onAuthenticateToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::authenticateToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->authenticateToBusinessAsync(
+            ctx);
+
+        UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreAuthenticateToBusinessTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequest,
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::onAuthenticateToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreAuthenticateToBusinessTesterHelper::authenticateToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onAuthenticateToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::authenticateToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->authenticateToBusinessAsync(
+            ctx);
+
+        UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -2778,7 +5416,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
+    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
     userException.parameter = generateRandomString();
 
     UserStoreGetUserTesterHelper helper(
@@ -2868,7 +5506,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
+    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -2958,7 +5596,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreGetUserTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> User
@@ -3031,6 +5671,426 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
         User res = userStore->getUser(
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteGetUserAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    User response = generateRandomUser();
+
+    UserStoreGetUserTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> User
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequest,
+        &helper,
+        &UserStoreGetUserTesterHelper::onGetUserRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserTesterHelper::getUserRequestReady,
+        &server,
+        &UserStoreServer::onGetUserRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->getUserAsync(
+        ctx);
+
+    UserStoreGetUserAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreGetUserAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreGetUserAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
+    userException.parameter = generateRandomString();
+
+    UserStoreGetUserTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> User
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequest,
+        &helper,
+        &UserStoreGetUserTesterHelper::onGetUserRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserTesterHelper::getUserRequestReady,
+        &server,
+        &UserStoreServer::onGetUserRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getUserAsync(
+            ctx);
+
+        UserStoreGetUserAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetUserAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetUserAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::DATA_REQUIRED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreGetUserTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> User
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequest,
+        &helper,
+        &UserStoreGetUserTesterHelper::onGetUserRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserTesterHelper::getUserRequestReady,
+        &server,
+        &UserStoreServer::onGetUserRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getUserAsync(
+            ctx);
+
+        UserStoreGetUserAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetUserAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetUserAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreGetUserTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> User
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequest,
+        &helper,
+        &UserStoreGetUserTesterHelper::onGetUserRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserTesterHelper::getUserRequestReady,
+        &server,
+        &UserStoreServer::onGetUserRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getUserAsync(
+            ctx);
+
+        UserStoreGetUserAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetUserAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetUserAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -3220,7 +6280,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
     IRequestContextPtr ctx = newRequestContext();
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
+    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -3313,7 +6373,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
     IRequestContextPtr ctx = newRequestContext();
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
+    userException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
     userException.parameter = generateRandomString();
 
     UserStoreGetPublicUserInfoTesterHelper helper(
@@ -3404,7 +6464,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -3479,6 +6541,544 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
             username,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
+{
+    QString username = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    PublicUserInfo response = generateRandomPublicUserInfo();
+
+    UserStoreGetPublicUserInfoTesterHelper helper(
+        [&] (const QString & usernameParam,
+             IRequestContextPtr ctxParam) -> PublicUserInfo
+        {
+            Q_ASSERT(username == usernameParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequest,
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::onGetPublicUserInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::getPublicUserInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetPublicUserInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->getPublicUserInfoAsync(
+        username,
+        ctx);
+
+    UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync()
+{
+    QString username = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto notFoundException = EDAMNotFoundException();
+    notFoundException.identifier = generateRandomString();
+    notFoundException.key = generateRandomString();
+
+    UserStoreGetPublicUserInfoTesterHelper helper(
+        [&] (const QString & usernameParam,
+             IRequestContextPtr ctxParam) -> PublicUserInfo
+        {
+            Q_ASSERT(username == usernameParam);
+            throw notFoundException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequest,
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::onGetPublicUserInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::getPublicUserInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetPublicUserInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getPublicUserInfoAsync(
+            username,
+            ctx);
+
+        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMNotFoundException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == notFoundException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
+{
+    QString username = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreGetPublicUserInfoTesterHelper helper(
+        [&] (const QString & usernameParam,
+             IRequestContextPtr ctxParam) -> PublicUserInfo
+        {
+            Q_ASSERT(username == usernameParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequest,
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::onGetPublicUserInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::getPublicUserInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetPublicUserInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getPublicUserInfoAsync(
+            username,
+            ctx);
+
+        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
+{
+    QString username = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
+    userException.parameter = generateRandomString();
+
+    UserStoreGetPublicUserInfoTesterHelper helper(
+        [&] (const QString & usernameParam,
+             IRequestContextPtr ctxParam) -> PublicUserInfo
+        {
+            Q_ASSERT(username == usernameParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequest,
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::onGetPublicUserInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::getPublicUserInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetPublicUserInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getPublicUserInfoAsync(
+            username,
+            ctx);
+
+        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
+{
+    QString username = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreGetPublicUserInfoTesterHelper helper(
+        [&] (const QString & usernameParam,
+             IRequestContextPtr ctxParam) -> PublicUserInfo
+        {
+            Q_ASSERT(username == usernameParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequest,
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::onGetPublicUserInfoRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetPublicUserInfoTesterHelper::getPublicUserInfoRequestReady,
+        &server,
+        &UserStoreServer::onGetPublicUserInfoRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getPublicUserInfoRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getPublicUserInfoAsync(
+            username,
+            ctx);
+
+        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -3574,7 +7174,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
+    userException.errorCode = EDAMErrorCode::UNKNOWN;
     userException.parameter = generateRandomString();
 
     UserStoreGetUserUrlsTesterHelper helper(
@@ -3664,7 +7264,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
+    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -3754,7 +7354,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreGetUserUrlsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> UserUrls
@@ -3827,6 +7429,426 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
         UserUrls res = userStore->getUserUrls(
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteGetUserUrlsAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    UserUrls response = generateRandomUserUrls();
+
+    UserStoreGetUserUrlsTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> UserUrls
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequest,
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::onGetUserUrlsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::getUserUrlsRequestReady,
+        &server,
+        &UserStoreServer::onGetUserUrlsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->getUserUrlsAsync(
+        ctx);
+
+    UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreGetUserUrlsAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
+    userException.parameter = generateRandomString();
+
+    UserStoreGetUserUrlsTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> UserUrls
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequest,
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::onGetUserUrlsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::getUserUrlsRequestReady,
+        &server,
+        &UserStoreServer::onGetUserUrlsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getUserUrlsAsync(
+            ctx);
+
+        UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetUserUrlsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreGetUserUrlsTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> UserUrls
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequest,
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::onGetUserUrlsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::getUserUrlsRequestReady,
+        &server,
+        &UserStoreServer::onGetUserUrlsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getUserUrlsAsync(
+            ctx);
+
+        UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetUserUrlsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreGetUserUrlsTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> UserUrls
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequest,
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::onGetUserUrlsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetUserUrlsTesterHelper::getUserUrlsRequestReady,
+        &server,
+        &UserStoreServer::onGetUserUrlsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getUserUrlsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getUserUrlsAsync(
+            ctx);
+
+        UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetUserUrlsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -3924,7 +7946,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
+    userException.errorCode = EDAMErrorCode::TAKEN_DOWN;
     userException.parameter = generateRandomString();
 
     UserStoreInviteToBusinessTesterHelper helper(
@@ -4017,7 +8039,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
+    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -4110,7 +8132,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreInviteToBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -4185,6 +8209,439 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
         userStore->inviteToBusiness(
             emailAddress,
             ctx);
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteInviteToBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    UserStoreInviteToBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            return;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequest,
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::onInviteToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::inviteToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onInviteToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->inviteToBusinessAsync(
+        emailAddress,
+        ctx);
+
+    UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreInviteToBusinessAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::TOO_FEW;
+    userException.parameter = generateRandomString();
+
+    UserStoreInviteToBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequest,
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::onInviteToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::inviteToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onInviteToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->inviteToBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreInviteToBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreInviteToBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequest,
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::onInviteToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::inviteToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onInviteToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->inviteToBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreInviteToBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreInviteToBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequest,
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::onInviteToBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreInviteToBusinessTesterHelper::inviteToBusinessRequestReady,
+        &server,
+        &UserStoreServer::onInviteToBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::inviteToBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->inviteToBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreInviteToBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -4282,7 +8739,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
+    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
     userException.parameter = generateRandomString();
 
     UserStoreRemoveFromBusinessTesterHelper helper(
@@ -4375,7 +8832,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
+    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -4561,7 +9018,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -4636,6 +9095,551 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
         userStore->removeFromBusiness(
             emailAddress,
             ctx);
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    UserStoreRemoveFromBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            return;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequest,
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::onRemoveFromBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::removeFromBusinessRequestReady,
+        &server,
+        &UserStoreServer::onRemoveFromBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->removeFromBusinessAsync(
+        emailAddress,
+        ctx);
+
+    UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
+    userException.parameter = generateRandomString();
+
+    UserStoreRemoveFromBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequest,
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::onRemoveFromBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::removeFromBusinessRequestReady,
+        &server,
+        &UserStoreServer::onRemoveFromBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->removeFromBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreRemoveFromBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequest,
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::onRemoveFromBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::removeFromBusinessRequestReady,
+        &server,
+        &UserStoreServer::onRemoveFromBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->removeFromBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto notFoundException = EDAMNotFoundException();
+    notFoundException.identifier = generateRandomString();
+    notFoundException.key = generateRandomString();
+
+    UserStoreRemoveFromBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw notFoundException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequest,
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::onRemoveFromBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::removeFromBusinessRequestReady,
+        &server,
+        &UserStoreServer::onRemoveFromBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->removeFromBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMNotFoundException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == notFoundException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
+{
+    QString emailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreRemoveFromBusinessTesterHelper helper(
+        [&] (const QString & emailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(emailAddress == emailAddressParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequest,
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::onRemoveFromBusinessRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreRemoveFromBusinessTesterHelper::removeFromBusinessRequestReady,
+        &server,
+        &UserStoreServer::onRemoveFromBusinessRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::removeFromBusinessRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->removeFromBusinessAsync(
+            emailAddress,
+            ctx);
+
+        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -4738,7 +9742,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
+    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
     userException.parameter = generateRandomString();
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
@@ -4835,7 +9839,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
+    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -5029,7 +10033,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -5107,6 +10113,571 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             oldEmailAddress,
             newEmailAddress,
             ctx);
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
+{
+    QString oldEmailAddress = generateRandomString();
+    QString newEmailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
+        [&] (const QString & oldEmailAddressParam,
+             const QString & newEmailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oldEmailAddress == oldEmailAddressParam);
+            Q_ASSERT(newEmailAddress == newEmailAddressParam);
+            return;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequest,
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::onUpdateBusinessUserIdentifierRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::updateBusinessUserIdentifierRequestReady,
+        &server,
+        &UserStoreServer::onUpdateBusinessUserIdentifierRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+        oldEmailAddress,
+        newEmailAddress,
+        ctx);
+
+    UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifierAsync()
+{
+    QString oldEmailAddress = generateRandomString();
+    QString newEmailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
+    userException.parameter = generateRandomString();
+
+    UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
+        [&] (const QString & oldEmailAddressParam,
+             const QString & newEmailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oldEmailAddress == oldEmailAddressParam);
+            Q_ASSERT(newEmailAddress == newEmailAddressParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequest,
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::onUpdateBusinessUserIdentifierRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::updateBusinessUserIdentifierRequestReady,
+        &server,
+        &UserStoreServer::onUpdateBusinessUserIdentifierRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+            oldEmailAddress,
+            newEmailAddress,
+            ctx);
+
+        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdentifierAsync()
+{
+    QString oldEmailAddress = generateRandomString();
+    QString newEmailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::UNKNOWN;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
+        [&] (const QString & oldEmailAddressParam,
+             const QString & newEmailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oldEmailAddress == oldEmailAddressParam);
+            Q_ASSERT(newEmailAddress == newEmailAddressParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequest,
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::onUpdateBusinessUserIdentifierRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::updateBusinessUserIdentifierRequestReady,
+        &server,
+        &UserStoreServer::onUpdateBusinessUserIdentifierRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+            oldEmailAddress,
+            newEmailAddress,
+            ctx);
+
+        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIdentifierAsync()
+{
+    QString oldEmailAddress = generateRandomString();
+    QString newEmailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto notFoundException = EDAMNotFoundException();
+    notFoundException.identifier = generateRandomString();
+    notFoundException.key = generateRandomString();
+
+    UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
+        [&] (const QString & oldEmailAddressParam,
+             const QString & newEmailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oldEmailAddress == oldEmailAddressParam);
+            Q_ASSERT(newEmailAddress == newEmailAddressParam);
+            throw notFoundException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequest,
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::onUpdateBusinessUserIdentifierRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::updateBusinessUserIdentifierRequestReady,
+        &server,
+        &UserStoreServer::onUpdateBusinessUserIdentifierRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+            oldEmailAddress,
+            newEmailAddress,
+            ctx);
+
+        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMNotFoundException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == notFoundException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifierAsync()
+{
+    QString oldEmailAddress = generateRandomString();
+    QString newEmailAddress = generateRandomString();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
+        [&] (const QString & oldEmailAddressParam,
+             const QString & newEmailAddressParam,
+             IRequestContextPtr ctxParam) -> void
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(oldEmailAddress == oldEmailAddressParam);
+            Q_ASSERT(newEmailAddress == newEmailAddressParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequest,
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::onUpdateBusinessUserIdentifierRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreUpdateBusinessUserIdentifierTesterHelper::updateBusinessUserIdentifierRequestReady,
+        &server,
+        &UserStoreServer::onUpdateBusinessUserIdentifierRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+            oldEmailAddress,
+            newEmailAddress,
+            ctx);
+
+        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -5205,7 +10776,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
+    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
     userException.parameter = generateRandomString();
 
     UserStoreListBusinessUsersTesterHelper helper(
@@ -5295,7 +10866,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_REQUIRED;
+    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -5385,7 +10956,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreListBusinessUsersTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
@@ -5458,6 +11031,429 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
         QList<UserProfile> res = userStore->listBusinessUsers(
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteListBusinessUsersAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    QList<UserProfile> response;
+    response << generateRandomUserProfile();
+    response << generateRandomUserProfile();
+    response << generateRandomUserProfile();
+
+    UserStoreListBusinessUsersTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequest,
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::onListBusinessUsersRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::listBusinessUsersRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessUsersRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->listBusinessUsersAsync(
+        ctx);
+
+    UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreListBusinessUsersAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
+    userException.parameter = generateRandomString();
+
+    UserStoreListBusinessUsersTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequest,
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::onListBusinessUsersRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::listBusinessUsersRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessUsersRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->listBusinessUsersAsync(
+            ctx);
+
+        UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreListBusinessUsersAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreListBusinessUsersTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequest,
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::onListBusinessUsersRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::listBusinessUsersRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessUsersRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->listBusinessUsersAsync(
+            ctx);
+
+        UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreListBusinessUsersAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
+{
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreListBusinessUsersTesterHelper helper(
+        [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequest,
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::onListBusinessUsersRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessUsersTesterHelper::listBusinessUsersRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessUsersRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessUsersRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->listBusinessUsersAsync(
+            ctx);
+
+        UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreListBusinessUsersAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -5561,7 +11557,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
         QStringLiteral("authenticationToken"));
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
+    userException.errorCode = EDAMErrorCode::TOO_FEW;
     userException.parameter = generateRandomString();
 
     UserStoreListBusinessInvitationsTesterHelper helper(
@@ -5655,7 +11651,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
         QStringLiteral("authenticationToken"));
 
     auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
+    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
     systemException.message = generateRandomString();
     systemException.rateLimitDuration = generateRandomInt32();
 
@@ -5749,7 +11745,9 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreListBusinessInvitationsTesterHelper helper(
         [&] (bool includeRequestedInvitationsParam,
@@ -5825,6 +11823,445 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
             includeRequestedInvitations,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
+{
+    bool includeRequestedInvitations = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    QList<BusinessInvitation> response;
+    response << generateRandomBusinessInvitation();
+    response << generateRandomBusinessInvitation();
+    response << generateRandomBusinessInvitation();
+
+    UserStoreListBusinessInvitationsTesterHelper helper(
+        [&] (bool includeRequestedInvitationsParam,
+             IRequestContextPtr ctxParam) -> QList<BusinessInvitation>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(includeRequestedInvitations == includeRequestedInvitationsParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequest,
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::onListBusinessInvitationsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::listBusinessInvitationsRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessInvitationsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->listBusinessInvitationsAsync(
+        includeRequestedInvitations,
+        ctx);
+
+    UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsync()
+{
+    bool includeRequestedInvitations = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
+    userException.parameter = generateRandomString();
+
+    UserStoreListBusinessInvitationsTesterHelper helper(
+        [&] (bool includeRequestedInvitationsParam,
+             IRequestContextPtr ctxParam) -> QList<BusinessInvitation>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(includeRequestedInvitations == includeRequestedInvitationsParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequest,
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::onListBusinessInvitationsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::listBusinessInvitationsRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessInvitationsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->listBusinessInvitationsAsync(
+            includeRequestedInvitations,
+            ctx);
+
+        UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsAsync()
+{
+    bool includeRequestedInvitations = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto systemException = EDAMSystemException();
+    systemException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
+    systemException.message = generateRandomString();
+    systemException.rateLimitDuration = generateRandomInt32();
+
+    UserStoreListBusinessInvitationsTesterHelper helper(
+        [&] (bool includeRequestedInvitationsParam,
+             IRequestContextPtr ctxParam) -> QList<BusinessInvitation>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(includeRequestedInvitations == includeRequestedInvitationsParam);
+            throw systemException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequest,
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::onListBusinessInvitationsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::listBusinessInvitationsRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessInvitationsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->listBusinessInvitationsAsync(
+            includeRequestedInvitations,
+            ctx);
+
+        UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMSystemException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == systemException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync()
+{
+    bool includeRequestedInvitations = generateRandomBool();
+    IRequestContextPtr ctx = newRequestContext(
+        QStringLiteral("authenticationToken"));
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreListBusinessInvitationsTesterHelper helper(
+        [&] (bool includeRequestedInvitationsParam,
+             IRequestContextPtr ctxParam) -> QList<BusinessInvitation>
+        {
+            Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
+            Q_ASSERT(includeRequestedInvitations == includeRequestedInvitationsParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequest,
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::onListBusinessInvitationsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreListBusinessInvitationsTesterHelper::listBusinessInvitationsRequestReady,
+        &server,
+        &UserStoreServer::onListBusinessInvitationsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::listBusinessInvitationsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->listBusinessInvitationsAsync(
+            includeRequestedInvitations,
+            ctx);
+
+        UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
@@ -5918,11 +12355,11 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
 {
-    ServiceLevel serviceLevel = ServiceLevel::BUSINESS;
+    ServiceLevel serviceLevel = ServiceLevel::PREMIUM;
     IRequestContextPtr ctx = newRequestContext();
 
     auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
+    userException.errorCode = EDAMErrorCode::UNKNOWN;
     userException.parameter = generateRandomString();
 
     UserStoreGetAccountLimitsTesterHelper helper(
@@ -6010,10 +12447,12 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
 {
-    ServiceLevel serviceLevel = ServiceLevel::PLUS;
+    ServiceLevel serviceLevel = ServiceLevel::BASIC;
     IRequestContextPtr ctx = newRequestContext();
 
-    auto thriftException = ThriftException(ThriftException::Type::INTERNAL_ERROR, QStringLiteral("Internal error"));
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
 
     UserStoreGetAccountLimitsTesterHelper helper(
         [&] (const ServiceLevel & serviceLevelParam,
@@ -6088,6 +12527,323 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
             serviceLevel,
             ctx);
         Q_UNUSED(res)
+    }
+    catch(const ThriftException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == thriftException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
+{
+    ServiceLevel serviceLevel = ServiceLevel::BASIC;
+    IRequestContextPtr ctx = newRequestContext();
+
+    AccountLimits response = generateRandomAccountLimits();
+
+    UserStoreGetAccountLimitsTesterHelper helper(
+        [&] (const ServiceLevel & serviceLevelParam,
+             IRequestContextPtr ctxParam) -> AccountLimits
+        {
+            Q_ASSERT(serviceLevel == serviceLevelParam);
+            return response;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getAccountLimitsRequest,
+        &helper,
+        &UserStoreGetAccountLimitsTesterHelper::onGetAccountLimitsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetAccountLimitsTesterHelper::getAccountLimitsRequestReady,
+        &server,
+        &UserStoreServer::onGetAccountLimitsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getAccountLimitsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    AsyncResult * result = userStore->getAccountLimitsAsync(
+        serviceLevel,
+        ctx);
+
+    UserStoreGetAccountLimitsAsyncValueFetcher valueFetcher;
+    QObject::connect(
+        result,
+        &AsyncResult::finished,
+        &valueFetcher,
+        &UserStoreGetAccountLimitsAsyncValueFetcher::onFinished);
+
+    QEventLoop loop;
+    QObject::connect(
+        &valueFetcher,
+        &UserStoreGetAccountLimitsAsyncValueFetcher::finished,
+        &loop,
+        &QEventLoop::quit);
+
+    loop.exec();
+
+    QVERIFY(valueFetcher.m_value == response);
+    QVERIFY(!valueFetcher.m_exceptionData);
+}
+
+void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
+{
+    ServiceLevel serviceLevel = ServiceLevel::PREMIUM;
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto userException = EDAMUserException();
+    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
+    userException.parameter = generateRandomString();
+
+    UserStoreGetAccountLimitsTesterHelper helper(
+        [&] (const ServiceLevel & serviceLevelParam,
+             IRequestContextPtr ctxParam) -> AccountLimits
+        {
+            Q_ASSERT(serviceLevel == serviceLevelParam);
+            throw userException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getAccountLimitsRequest,
+        &helper,
+        &UserStoreGetAccountLimitsTesterHelper::onGetAccountLimitsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetAccountLimitsTesterHelper::getAccountLimitsRequestReady,
+        &server,
+        &UserStoreServer::onGetAccountLimitsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getAccountLimitsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getAccountLimitsAsync(
+            serviceLevel,
+            ctx);
+
+        UserStoreGetAccountLimitsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetAccountLimitsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetAccountLimitsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
+    }
+    catch(const EDAMUserException & e)
+    {
+        caughtException = true;
+        QVERIFY(e == userException);
+    }
+
+    QVERIFY(caughtException);
+}
+
+void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
+{
+    ServiceLevel serviceLevel = ServiceLevel::BASIC;
+    IRequestContextPtr ctx = newRequestContext();
+
+    auto thriftException = ThriftException(
+        ThriftException::Type::INTERNAL_ERROR,
+        QStringLiteral("Internal error"));
+
+    UserStoreGetAccountLimitsTesterHelper helper(
+        [&] (const ServiceLevel & serviceLevelParam,
+             IRequestContextPtr ctxParam) -> AccountLimits
+        {
+            Q_ASSERT(serviceLevel == serviceLevelParam);
+            throw thriftException;
+        });
+
+    UserStoreServer server;
+    QObject::connect(
+        &server,
+        &UserStoreServer::getAccountLimitsRequest,
+        &helper,
+        &UserStoreGetAccountLimitsTesterHelper::onGetAccountLimitsRequestReceived);
+    QObject::connect(
+        &helper,
+        &UserStoreGetAccountLimitsTesterHelper::getAccountLimitsRequestReady,
+        &server,
+        &UserStoreServer::onGetAccountLimitsRequestReady);
+
+    QTcpServer tcpServer;
+    QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    quint16 port = tcpServer.serverPort();
+
+    QTcpSocket * pSocket = nullptr;
+    QObject::connect(
+        &tcpServer,
+        &QTcpServer::newConnection,
+        [&] {
+            pSocket = tcpServer.nextPendingConnection();
+            Q_ASSERT(pSocket);
+            QObject::connect(
+                pSocket,
+                &QAbstractSocket::disconnected,
+                pSocket,
+                &QAbstractSocket::deleteLater);
+            if (!pSocket->waitForConnected()) {
+                QFAIL("Failed to establish connection");
+            }
+
+            QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            server.onRequest(requestData);
+        });
+
+    QObject::connect(
+        &server,
+        &UserStoreServer::getAccountLimitsRequestReady,
+        [&] (QByteArray responseData)
+        {
+            QByteArray buffer;
+            buffer.append("HTTP/1.1 200 OK\r\n");
+            buffer.append("Content-Length: ");
+            buffer.append(QString::number(responseData.size()).toUtf8());
+            buffer.append("\r\n");
+            buffer.append("Content-Type: application/x-thrift\r\n\r\n");
+            buffer.append(responseData);
+
+            if (!writeBufferToSocket(buffer, *pSocket)) {
+                QFAIL("Failed to write response to socket");
+            }
+        });
+
+    auto userStore = newUserStore(
+        QStringLiteral("127.0.0.1"),
+        port,
+        QStringLiteral("http"));
+    bool caughtException = false;
+    try
+    {
+        AsyncResult * result = userStore->getAccountLimitsAsync(
+            serviceLevel,
+            ctx);
+
+        UserStoreGetAccountLimitsAsyncValueFetcher valueFetcher;
+        QObject::connect(
+            result,
+            &AsyncResult::finished,
+            &valueFetcher,
+            &UserStoreGetAccountLimitsAsyncValueFetcher::onFinished);
+
+        QEventLoop loop;
+        QObject::connect(
+            &valueFetcher,
+            &UserStoreGetAccountLimitsAsyncValueFetcher::finished,
+            &loop,
+            &QEventLoop::quit);
+
+        loop.exec();
+
+        QVERIFY(valueFetcher.m_exceptionData);
+        valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
     {
