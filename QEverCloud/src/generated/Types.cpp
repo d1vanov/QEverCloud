@@ -14,6 +14,8 @@
 #include "../Impl.h"
 #include "Types_io.h"
 #include <Helpers.h>
+#include <QDebug>
+#include <QUuid>
 
 namespace qevercloud {
 
@@ -381,6 +383,40 @@ void readEnumUserIdentityType(
     }
 }
 
+EverCloudLocalData::EverCloudLocalData()
+{
+    id = QUuid::createUuid().toString();
+    // Remove curvy braces
+    id.remove(id.size() - 1, 1);
+    id.remove(0, 1);
+}
+
+EverCloudLocalData::~EverCloudLocalData() noexcept
+{}
+
+void EverCloudLocalData::print(QTextStream & strm) const
+{
+    strm << "    localData.id = " << id << "\n"
+        << "    localData.dirty = " << (dirty ? "true" : "false") << "\n"
+        << "    localData.local = " << (local ? "true" : "false") << "\n"
+        << "    localData.favorited = " << (favorited ? "true" : "false") << "\n";
+
+    if (!dict.isEmpty())
+    {
+        strm << "    localData.dict:" << "\n";
+        QString valueStr;
+        for(const auto & it: toRange(dict)) {
+            strm << "        [" << it.key() << "] = ";
+            valueStr.resize(0);
+            QDebug dbg(&valueStr);
+            dbg.noquote();
+            dbg.nospace();
+            dbg << it.value();
+            strm << valueStr << "\n";
+        }
+    }
+}
+
 void writeSyncState(
     ThriftBinaryBufferWriter & writer,
     const SyncState & s)
@@ -530,6 +566,7 @@ void readSyncState(
 void SyncState::print(QTextStream & strm) const
 {
     strm << "SyncState: {\n";
+    localData.print(strm);
     strm << "    currentTime = "
         << currentTime << "\n";
     strm << "    fullSyncBefore = "
@@ -1075,6 +1112,7 @@ void readSyncChunk(
 void SyncChunk::print(QTextStream & strm) const
 {
     strm << "SyncChunk: {\n";
+    localData.print(strm);
     strm << "    currentTime = "
         << currentTime << "\n";
 
@@ -1581,6 +1619,7 @@ void readSyncChunkFilter(
 void SyncChunkFilter::print(QTextStream & strm) const
 {
     strm << "SyncChunkFilter: {\n";
+    localData.print(strm);
 
     if (includeNotes.isSet()) {
         strm << "    includeNotes = "
@@ -2017,6 +2056,7 @@ void readNoteFilter(
 void NoteFilter::print(QTextStream & strm) const
 {
     strm << "NoteFilter: {\n";
+    localData.print(strm);
 
     if (order.isSet()) {
         strm << "    order = "
@@ -2375,6 +2415,7 @@ void readNoteList(
 void NoteList::print(QTextStream & strm) const
 {
     strm << "NoteList: {\n";
+    localData.print(strm);
     strm << "    startIndex = "
         << startIndex << "\n";
     strm << "    totalNotes = "
@@ -2719,6 +2760,7 @@ void readNoteMetadata(
 void NoteMetadata::print(QTextStream & strm) const
 {
     strm << "NoteMetadata: {\n";
+    localData.print(strm);
     strm << "    guid = "
         << guid << "\n";
 
@@ -3063,6 +3105,7 @@ void readNotesMetadataList(
 void NotesMetadataList::print(QTextStream & strm) const
 {
     strm << "NotesMetadataList: {\n";
+    localData.print(strm);
     strm << "    startIndex = "
         << startIndex << "\n";
     strm << "    totalNotes = "
@@ -3368,6 +3411,7 @@ void readNotesMetadataResultSpec(
 void NotesMetadataResultSpec::print(QTextStream & strm) const
 {
     strm << "NotesMetadataResultSpec: {\n";
+    localData.print(strm);
 
     if (includeTitle.isSet()) {
         strm << "    includeTitle = "
@@ -3589,6 +3633,7 @@ void readNoteCollectionCounts(
 void NoteCollectionCounts::print(QTextStream & strm) const
 {
     strm << "NoteCollectionCounts: {\n";
+    localData.print(strm);
 
     if (notebookCounts.isSet()) {
         strm << "    notebookCounts = "
@@ -3811,6 +3856,7 @@ void readNoteResultSpec(
 void NoteResultSpec::print(QTextStream & strm) const
 {
     strm << "NoteResultSpec: {\n";
+    localData.print(strm);
 
     if (includeContent.isSet()) {
         strm << "    includeContent = "
@@ -4065,6 +4111,7 @@ void readNoteEmailParameters(
 void NoteEmailParameters::print(QTextStream & strm) const
 {
     strm << "NoteEmailParameters: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -4258,6 +4305,7 @@ void readNoteVersionId(
 void NoteVersionId::print(QTextStream & strm) const
 {
     strm << "NoteVersionId: {\n";
+    localData.print(strm);
     strm << "    updateSequenceNum = "
         << updateSequenceNum << "\n";
     strm << "    updated = "
@@ -4426,6 +4474,7 @@ void readRelatedQuery(
 void RelatedQuery::print(QTextStream & strm) const
 {
     strm << "RelatedQuery: {\n";
+    localData.print(strm);
 
     if (noteGuid.isSet()) {
         strm << "    noteGuid = "
@@ -4797,6 +4846,7 @@ void readRelatedResult(
 void RelatedResult::print(QTextStream & strm) const
 {
     strm << "RelatedResult: {\n";
+    localData.print(strm);
 
     if (notes.isSet()) {
         strm << "    notes = "
@@ -5121,6 +5171,7 @@ void readRelatedResultSpec(
 void RelatedResultSpec::print(QTextStream & strm) const
 {
     strm << "RelatedResultSpec: {\n";
+    localData.print(strm);
 
     if (maxNotes.isSet()) {
         strm << "    maxNotes = "
@@ -5273,6 +5324,7 @@ void readUpdateNoteIfUsnMatchesResult(
 void UpdateNoteIfUsnMatchesResult::print(QTextStream & strm) const
 {
     strm << "UpdateNoteIfUsnMatchesResult: {\n";
+    localData.print(strm);
 
     if (note.isSet()) {
         strm << "    note = "
@@ -5403,6 +5455,7 @@ void readShareRelationshipRestrictions(
 void ShareRelationshipRestrictions::print(QTextStream & strm) const
 {
     strm << "ShareRelationshipRestrictions: {\n";
+    localData.print(strm);
 
     if (noSetReadOnly.isSet()) {
         strm << "    noSetReadOnly = "
@@ -5549,6 +5602,7 @@ void readInvitationShareRelationship(
 void InvitationShareRelationship::print(QTextStream & strm) const
 {
     strm << "InvitationShareRelationship: {\n";
+    localData.print(strm);
 
     if (displayName.isSet()) {
         strm << "    displayName = "
@@ -5733,6 +5787,7 @@ void readMemberShareRelationship(
 void MemberShareRelationship::print(QTextStream & strm) const
 {
     strm << "MemberShareRelationship: {\n";
+    localData.print(strm);
 
     if (displayName.isSet()) {
         strm << "    displayName = "
@@ -5914,6 +5969,7 @@ void readShareRelationships(
 void ShareRelationships::print(QTextStream & strm) const
 {
     strm << "ShareRelationships: {\n";
+    localData.print(strm);
 
     if (invitations.isSet()) {
         strm << "    invitations = "
@@ -6136,6 +6192,7 @@ void readManageNotebookSharesParameters(
 void ManageNotebookSharesParameters::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesParameters: {\n";
+    localData.print(strm);
 
     if (notebookGuid.isSet()) {
         strm << "    notebookGuid = "
@@ -6283,6 +6340,7 @@ void readManageNotebookSharesError(
 void ManageNotebookSharesError::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesError: {\n";
+    localData.print(strm);
 
     if (userIdentity.isSet()) {
         strm << "    userIdentity = "
@@ -6383,6 +6441,7 @@ void readManageNotebookSharesResult(
 void ManageNotebookSharesResult::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesResult: {\n";
+    localData.print(strm);
 
     if (errors.isSet()) {
         strm << "    errors = "
@@ -6528,6 +6587,7 @@ void readSharedNoteTemplate(
 void SharedNoteTemplate::print(QTextStream & strm) const
 {
     strm << "SharedNoteTemplate: {\n";
+    localData.print(strm);
 
     if (noteGuid.isSet()) {
         strm << "    noteGuid = "
@@ -6697,6 +6757,7 @@ void readNotebookShareTemplate(
 void NotebookShareTemplate::print(QTextStream & strm) const
 {
     strm << "NotebookShareTemplate: {\n";
+    localData.print(strm);
 
     if (notebookGuid.isSet()) {
         strm << "    notebookGuid = "
@@ -6828,6 +6889,7 @@ void readCreateOrUpdateNotebookSharesResult(
 void CreateOrUpdateNotebookSharesResult::print(QTextStream & strm) const
 {
     strm << "CreateOrUpdateNotebookSharesResult: {\n";
+    localData.print(strm);
 
     if (updateSequenceNum.isSet()) {
         strm << "    updateSequenceNum = "
@@ -6943,6 +7005,7 @@ void readNoteShareRelationshipRestrictions(
 void NoteShareRelationshipRestrictions::print(QTextStream & strm) const
 {
     strm << "NoteShareRelationshipRestrictions: {\n";
+    localData.print(strm);
 
     if (noSetReadNote.isSet()) {
         strm << "    noSetReadNote = "
@@ -7100,6 +7163,7 @@ void readNoteMemberShareRelationship(
 void NoteMemberShareRelationship::print(QTextStream & strm) const
 {
     strm << "NoteMemberShareRelationship: {\n";
+    localData.print(strm);
 
     if (displayName.isSet()) {
         strm << "    displayName = "
@@ -7254,6 +7318,7 @@ void readNoteInvitationShareRelationship(
 void NoteInvitationShareRelationship::print(QTextStream & strm) const
 {
     strm << "NoteInvitationShareRelationship: {\n";
+    localData.print(strm);
 
     if (displayName.isSet()) {
         strm << "    displayName = "
@@ -7419,6 +7484,7 @@ void readNoteShareRelationships(
 void NoteShareRelationships::print(QTextStream & strm) const
 {
     strm << "NoteShareRelationships: {\n";
+    localData.print(strm);
 
     if (invitations.isSet()) {
         strm << "    invitations = "
@@ -7660,6 +7726,7 @@ void readManageNoteSharesParameters(
 void ManageNoteSharesParameters::print(QTextStream & strm) const
 {
     strm << "ManageNoteSharesParameters: {\n";
+    localData.print(strm);
 
     if (noteGuid.isSet()) {
         strm << "    noteGuid = "
@@ -7830,6 +7897,7 @@ void readManageNoteSharesError(
 void ManageNoteSharesError::print(QTextStream & strm) const
 {
     strm << "ManageNoteSharesError: {\n";
+    localData.print(strm);
 
     if (identityID.isSet()) {
         strm << "    identityID = "
@@ -7938,6 +8006,7 @@ void readManageNoteSharesResult(
 void ManageNoteSharesResult::print(QTextStream & strm) const
 {
     strm << "ManageNoteSharesResult: {\n";
+    localData.print(strm);
 
     if (errors.isSet()) {
         strm << "    errors = "
@@ -8045,6 +8114,7 @@ void readData(
 void Data::print(QTextStream & strm) const
 {
     strm << "Data: {\n";
+    localData.print(strm);
 
     if (bodyHash.isSet()) {
         strm << "    bodyHash = "
@@ -8810,6 +8880,7 @@ void readUserAttributes(
 void UserAttributes::print(QTextStream & strm) const
 {
     strm << "UserAttributes: {\n";
+    localData.print(strm);
 
     if (defaultLocationName.isSet()) {
         strm << "    defaultLocationName = "
@@ -9269,6 +9340,7 @@ void readBusinessUserAttributes(
 void BusinessUserAttributes::print(QTextStream & strm) const
 {
     strm << "BusinessUserAttributes: {\n";
+    localData.print(strm);
 
     if (title.isSet()) {
         strm << "    title = "
@@ -9800,6 +9872,7 @@ void readAccounting(
 void Accounting::print(QTextStream & strm) const
 {
     strm << "Accounting: {\n";
+    localData.print(strm);
 
     if (uploadLimitEnd.isSet()) {
         strm << "    uploadLimitEnd = "
@@ -10117,6 +10190,7 @@ void readBusinessUserInfo(
 void BusinessUserInfo::print(QTextStream & strm) const
 {
     strm << "BusinessUserInfo: {\n";
+    localData.print(strm);
 
     if (businessId.isSet()) {
         strm << "    businessId = "
@@ -10404,6 +10478,7 @@ void readAccountLimits(
 void AccountLimits::print(QTextStream & strm) const
 {
     strm << "AccountLimits: {\n";
+    localData.print(strm);
 
     if (userMailLimitDaily.isSet()) {
         strm << "    userMailLimitDaily = "
@@ -10872,6 +10947,7 @@ void readUser(
 void User::print(QTextStream & strm) const
 {
     strm << "User: {\n";
+    localData.print(strm);
 
     if (id.isSet()) {
         strm << "    id = "
@@ -11187,6 +11263,7 @@ void readContact(
 void Contact::print(QTextStream & strm) const
 {
     strm << "Contact: {\n";
+    localData.print(strm);
 
     if (name.isSet()) {
         strm << "    name = "
@@ -11434,6 +11511,7 @@ void readIdentity(
 void Identity::print(QTextStream & strm) const
 {
     strm << "Identity: {\n";
+    localData.print(strm);
     strm << "    id = "
         << id << "\n";
 
@@ -11606,6 +11684,7 @@ void readTag(
 void Tag::print(QTextStream & strm) const
 {
     strm << "Tag: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -11752,6 +11831,7 @@ void readLazyMap(
 void LazyMap::print(QTextStream & strm) const
 {
     strm << "LazyMap: {\n";
+    localData.print(strm);
 
     if (keysOnly.isSet()) {
         strm << "    keysOnly = "
@@ -12042,6 +12122,7 @@ void readResourceAttributes(
 void ResourceAttributes::print(QTextStream & strm) const
 {
     strm << "ResourceAttributes: {\n";
+    localData.print(strm);
 
     if (sourceURL.isSet()) {
         strm << "    sourceURL = "
@@ -12404,6 +12485,7 @@ void readResource(
 void Resource::print(QTextStream & strm) const
 {
     strm << "Resource: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -12975,6 +13057,7 @@ void readNoteAttributes(
 void NoteAttributes::print(QTextStream & strm) const
 {
     strm << "NoteAttributes: {\n";
+    localData.print(strm);
 
     if (subjectDate.isSet()) {
         strm << "    subjectDate = "
@@ -13307,6 +13390,7 @@ void readSharedNote(
 void SharedNote::print(QTextStream & strm) const
 {
     strm << "SharedNote: {\n";
+    localData.print(strm);
 
     if (sharerUserID.isSet()) {
         strm << "    sharerUserID = "
@@ -13488,6 +13572,7 @@ void readNoteRestrictions(
 void NoteRestrictions::print(QTextStream & strm) const
 {
     strm << "NoteRestrictions: {\n";
+    localData.print(strm);
 
     if (noUpdateTitle.isSet()) {
         strm << "    noUpdateTitle = "
@@ -13661,6 +13746,7 @@ void readNoteLimits(
 void NoteLimits::print(QTextStream & strm) const
 {
     strm << "NoteLimits: {\n";
+    localData.print(strm);
 
     if (noteResourceCountMax.isSet()) {
         strm << "    noteResourceCountMax = "
@@ -14157,6 +14243,7 @@ void readNote(
 void Note::print(QTextStream & strm) const
 {
     strm << "Note: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -14431,6 +14518,7 @@ void readPublishing(
 void Publishing::print(QTextStream & strm) const
 {
     strm << "Publishing: {\n";
+    localData.print(strm);
 
     if (uri.isSet()) {
         strm << "    uri = "
@@ -14558,6 +14646,7 @@ void readBusinessNotebook(
 void BusinessNotebook::print(QTextStream & strm) const
 {
     strm << "BusinessNotebook: {\n";
+    localData.print(strm);
 
     if (notebookDescription.isSet()) {
         strm << "    notebookDescription = "
@@ -14677,6 +14766,7 @@ void readSavedSearchScope(
 void SavedSearchScope::print(QTextStream & strm) const
 {
     strm << "SavedSearchScope: {\n";
+    localData.print(strm);
 
     if (includeAccount.isSet()) {
         strm << "    includeAccount = "
@@ -14853,6 +14943,7 @@ void readSavedSearch(
 void SavedSearch::print(QTextStream & strm) const
 {
     strm << "SavedSearch: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -14977,6 +15068,7 @@ void readSharedNotebookRecipientSettings(
 void SharedNotebookRecipientSettings::print(QTextStream & strm) const
 {
     strm << "SharedNotebookRecipientSettings: {\n";
+    localData.print(strm);
 
     if (reminderNotifyEmail.isSet()) {
         strm << "    reminderNotifyEmail = "
@@ -15126,6 +15218,7 @@ void readNotebookRecipientSettings(
 void NotebookRecipientSettings::print(QTextStream & strm) const
 {
     strm << "NotebookRecipientSettings: {\n";
+    localData.print(strm);
 
     if (reminderNotifyEmail.isSet()) {
         strm << "    reminderNotifyEmail = "
@@ -15508,6 +15601,7 @@ void readSharedNotebook(
 void SharedNotebook::print(QTextStream & strm) const
 {
     strm << "SharedNotebook: {\n";
+    localData.print(strm);
 
     if (id.isSet()) {
         strm << "    id = "
@@ -15693,6 +15787,7 @@ void readCanMoveToContainerRestrictions(
 void CanMoveToContainerRestrictions::print(QTextStream & strm) const
 {
     strm << "CanMoveToContainerRestrictions: {\n";
+    localData.print(strm);
 
     if (canMoveToContainer.isSet()) {
         strm << "    canMoveToContainer = "
@@ -16290,6 +16385,7 @@ void readNotebookRestrictions(
 void NotebookRestrictions::print(QTextStream & strm) const
 {
     strm << "NotebookRestrictions: {\n";
+    localData.print(strm);
 
     if (noReadNotes.isSet()) {
         strm << "    noReadNotes = "
@@ -16883,6 +16979,7 @@ void readNotebook(
 void Notebook::print(QTextStream & strm) const
 {
     strm << "Notebook: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -17258,6 +17355,7 @@ void readLinkedNotebook(
 void LinkedNotebook::print(QTextStream & strm) const
 {
     strm << "LinkedNotebook: {\n";
+    localData.print(strm);
 
     if (shareName.isSet()) {
         strm << "    shareName = "
@@ -17479,6 +17577,7 @@ void readNotebookDescriptor(
 void NotebookDescriptor::print(QTextStream & strm) const
 {
     strm << "NotebookDescriptor: {\n";
+    localData.print(strm);
 
     if (guid.isSet()) {
         strm << "    guid = "
@@ -17747,6 +17846,7 @@ void readUserProfile(
 void UserProfile::print(QTextStream & strm) const
 {
     strm << "UserProfile: {\n";
+    localData.print(strm);
 
     if (id.isSet()) {
         strm << "    id = "
@@ -17960,6 +18060,7 @@ void readRelatedContentImage(
 void RelatedContentImage::print(QTextStream & strm) const
 {
     strm << "RelatedContentImage: {\n";
+    localData.print(strm);
 
     if (url.isSet()) {
         strm << "    url = "
@@ -18380,6 +18481,7 @@ void readRelatedContent(
 void RelatedContent::print(QTextStream & strm) const
 {
     strm << "RelatedContent: {\n";
+    localData.print(strm);
 
     if (contentId.isSet()) {
         strm << "    contentId = "
@@ -18706,6 +18808,7 @@ void readBusinessInvitation(
 void BusinessInvitation::print(QTextStream & strm) const
 {
     strm << "BusinessInvitation: {\n";
+    localData.print(strm);
 
     if (businessId.isSet()) {
         strm << "    businessId = "
@@ -18865,6 +18968,7 @@ void readUserIdentity(
 void UserIdentity::print(QTextStream & strm) const
 {
     strm << "UserIdentity: {\n";
+    localData.print(strm);
 
     if (type.isSet()) {
         strm << "    type = "
@@ -19023,6 +19127,7 @@ void readPublicUserInfo(
 void PublicUserInfo::print(QTextStream & strm) const
 {
     strm << "PublicUserInfo: {\n";
+    localData.print(strm);
     strm << "    userId = "
         << userId << "\n";
 
@@ -19209,6 +19314,7 @@ void readUserUrls(
 void UserUrls::print(QTextStream & strm) const
 {
     strm << "UserUrls: {\n";
+    localData.print(strm);
 
     if (noteStoreUrl.isSet()) {
         strm << "    noteStoreUrl = "
@@ -19488,6 +19594,7 @@ void readAuthenticationResult(
 void AuthenticationResult::print(QTextStream & strm) const
 {
     strm << "AuthenticationResult: {\n";
+    localData.print(strm);
     strm << "    currentTime = "
         << currentTime << "\n";
     strm << "    authenticationToken = "
@@ -19858,6 +19965,7 @@ void readBootstrapSettings(
 void BootstrapSettings::print(QTextStream & strm) const
 {
     strm << "BootstrapSettings: {\n";
+    localData.print(strm);
     strm << "    serviceHost = "
         << serviceHost << "\n";
     strm << "    marketingUrl = "
@@ -20024,6 +20132,7 @@ void readBootstrapProfile(
 void BootstrapProfile::print(QTextStream & strm) const
 {
     strm << "BootstrapProfile: {\n";
+    localData.print(strm);
     strm << "    name = "
         << name << "\n";
     strm << "    settings = "
@@ -20104,6 +20213,7 @@ void readBootstrapInfo(
 void BootstrapInfo::print(QTextStream & strm) const
 {
     strm << "BootstrapInfo: {\n";
+    localData.print(strm);
     strm << "    profiles = "
         << "QList<BootstrapProfile> {";
     for(const auto & v: profiles) {
@@ -20116,7 +20226,7 @@ void BootstrapInfo::print(QTextStream & strm) const
 ////////////////////////////////////////////////////////////////////////////////
 
 EDAMUserException::EDAMUserException() {}
-EDAMUserException::~EDAMUserException() throw() {}
+EDAMUserException::~EDAMUserException() noexcept {}
 EDAMUserException::EDAMUserException(const EDAMUserException& other) : EvernoteException(other)
 {
    errorCode = other.errorCode;
@@ -20210,7 +20320,7 @@ void EDAMUserException::print(QTextStream & strm) const
 ////////////////////////////////////////////////////////////////////////////////
 
 EDAMSystemException::EDAMSystemException() {}
-EDAMSystemException::~EDAMSystemException() throw() {}
+EDAMSystemException::~EDAMSystemException() noexcept {}
 EDAMSystemException::EDAMSystemException(const EDAMSystemException& other) : EvernoteException(other)
 {
    errorCode = other.errorCode;
@@ -20332,7 +20442,7 @@ void EDAMSystemException::print(QTextStream & strm) const
 ////////////////////////////////////////////////////////////////////////////////
 
 EDAMNotFoundException::EDAMNotFoundException() {}
-EDAMNotFoundException::~EDAMNotFoundException() throw() {}
+EDAMNotFoundException::~EDAMNotFoundException() noexcept {}
 EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException& other) : EvernoteException(other)
 {
    identifier = other.identifier;
@@ -20431,7 +20541,7 @@ void EDAMNotFoundException::print(QTextStream & strm) const
 ////////////////////////////////////////////////////////////////////////////////
 
 EDAMInvalidContactsException::EDAMInvalidContactsException() {}
-EDAMInvalidContactsException::~EDAMInvalidContactsException() throw() {}
+EDAMInvalidContactsException::~EDAMInvalidContactsException() noexcept {}
 EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException& other) : EvernoteException(other)
 {
    contacts = other.contacts;

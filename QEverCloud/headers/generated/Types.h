@@ -19,12 +19,14 @@
 #include "Printable.h"
 #include <QByteArray>
 #include <QDateTime>
+#include <QHash>
 #include <QList>
 #include <QMap>
 #include <QMetaType>
 #include <QMetaType>
 #include <QSet>
 #include <QStringList>
+#include <QVariant>
 
 namespace qevercloud {
 
@@ -90,11 +92,70 @@ using MessageThreadID = qint64;
 
 
 /**
+ * @brief The EverCloudLocalData struct contains several
+ * data elements which are not synchronized with Evernote service
+ * but which are nevertheless useful in applications using
+ * QEverCloud to implement feature rich full sync Evernote clients.
+ * Values of this struct's types are contained within QEverCloud
+ * types corresponding to actual Evernote API types
+ */
+struct QEVERCLOUD_EXPORT EverCloudLocalData: public Printable
+{
+    EverCloudLocalData();
+    virtual ~EverCloudLocalData() noexcept override;
+
+    virtual void print(QTextStream & strm) const override;
+
+    /**
+     * @brief id property can be used as a local unique identifier
+     * for any data item before it has been synchronized with
+     * Evernote and thus before it can be identified using its guid.
+     *
+     * id property is generated automatically on EverCloudLocalData
+     * construction for convenience but can be overridden manually
+     */
+    QString id;
+
+    /**
+     * @brief dirty property can be used to keep track which
+     * objects have been modified locally and thus need to be synchronized
+     * with Evernote service
+     */
+    bool dirty = false;
+
+    /**
+     * @brief local property can be used to keep track which
+     * data items are meant to be local only and thus never be synchronized
+     * with Evernote service
+     */
+    bool local = false;
+
+    /**
+     * @brief favorited property can be used to keep track which
+     * data items were favorited in the client. Unfortunately,
+     * Evernote has never provided a way to synchronize such
+     * property between different clients
+     */
+    bool favorited = false;
+
+    /**
+     * @brief dict can be used for storage of any other auxiliary
+     * values associated with objects of QEverCloud types
+     */
+    QHash<QString, QVariant> dict;
+};
+
+/**
  * This structure encapsulates the information about the state of the
  * user's account for the purpose of "state based" synchronization.
  * */
 struct QEVERCLOUD_EXPORT SyncState: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The server's current date and time.
     */
@@ -182,6 +243,11 @@ struct QEVERCLOUD_EXPORT SyncState: public Printable
  **/
 struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     If true, then the server will include the SyncChunks.notes field
     */
@@ -320,6 +386,11 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
 struct QEVERCLOUD_EXPORT NoteFilter: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The NoteSortOrder value indicating what criterion should be
        used to sort the results of the filter.
     */
@@ -439,6 +510,11 @@ struct QEVERCLOUD_EXPORT NoteFilter: public Printable
  */
 struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /** NOT DOCUMENTED */
     Optional<bool> includeTitle;
     /** NOT DOCUMENTED */
@@ -494,6 +570,11 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
 struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     A mapping from the Notebook GUID to the number of
        notes (from some selection) that are in the corresponding notebook.
     */
@@ -539,6 +620,11 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     If true, the Note.content field will be populated with the note's ENML contents.
     */
@@ -605,6 +691,11 @@ struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
 struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The update sequence number for the Note when it last had this content.
         This serves to uniquely identify each version of the note, since USN
         values are unique within an account for each update.
@@ -662,6 +753,11 @@ struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The GUID of an existing note in your account for which related
          entities will be found.
@@ -732,6 +828,11 @@ struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedResultSpec: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     Return notes that are related to the query, but no more than
          this many.  Any value greater than EDAM_RELATED_MAX_NOTES
@@ -815,6 +916,11 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec: public Printable
 /** NO DOC COMMENT ID FOUND */
 struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /** NOT DOCUMENTED */
     Optional<bool> noSetReadOnly;
     /** NOT DOCUMENTED */
@@ -848,6 +954,11 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The string that clients should show to users to represent this
      member.
@@ -918,6 +1029,11 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
 struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     This value is true if the user is not allowed to set the privilege
      level to SharedNotePrivilegeLevel.READ_NOTE.
     */
@@ -956,6 +1072,11 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The string that clients should show to users to represent this
      member.
@@ -1013,6 +1134,11 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
 struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The string that clients should show to users to represent this
      invitation.
     */
@@ -1065,6 +1191,11 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
 struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     A list of open invitations that can be redeemed into
      memberships to the note.
     */
@@ -1106,6 +1237,11 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The GUID of the note whose shares are being managed.
     */
@@ -1165,6 +1301,11 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
 struct QEVERCLOUD_EXPORT Data: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     This field carries a one-way hash of the contents of the
        data body, in binary form.  The hash function is MD5<br/>
        Length:  EDAM_HASH_LEN (exactly)
@@ -1206,6 +1347,11 @@ struct QEVERCLOUD_EXPORT Data: public Printable
  **/
 struct QEVERCLOUD_EXPORT UserAttributes: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     the location string that should be associated
        with the user in order to determine where notes are taken if not otherwise
@@ -1460,6 +1606,11 @@ struct QEVERCLOUD_EXPORT UserAttributes: public Printable
 struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     Free form text of this user's title in the business
     */
     Optional<QString> title;
@@ -1515,6 +1666,11 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
  **/
 struct QEVERCLOUD_EXPORT Accounting: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The date and time when the current upload limit
        expires.  At this time, the monthly upload count reverts to 0 and a new
@@ -1668,6 +1824,11 @@ struct QEVERCLOUD_EXPORT Accounting: public Printable
 struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The ID of the Evernote Business account that the user is a member of.
      <dt>businessName
        The human-readable name of the Evernote Business account that the user
@@ -1717,6 +1878,11 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
  **/
 struct QEVERCLOUD_EXPORT AccountLimits: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The number of emails of any type that can be sent by a user from the
            service per day.  If an email is sent to two different recipients, this
@@ -1801,6 +1967,11 @@ struct QEVERCLOUD_EXPORT AccountLimits: public Printable
  **/
 struct QEVERCLOUD_EXPORT User: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The unique numeric identifier for the account, which will not
        change for the lifetime of the account.
@@ -1955,6 +2126,11 @@ struct QEVERCLOUD_EXPORT User: public Printable
 struct QEVERCLOUD_EXPORT Contact: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The displayable name of this contact. This field is filled in by the service and
          is read-only to clients.
     */
@@ -2021,6 +2197,11 @@ struct QEVERCLOUD_EXPORT Contact: public Printable
  * */
 struct QEVERCLOUD_EXPORT Identity: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The unique identifier for this mapping.
     */
@@ -2100,6 +2281,11 @@ struct QEVERCLOUD_EXPORT Identity: public Printable
  **/
 struct QEVERCLOUD_EXPORT Tag: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The unique identifier of this tag. Will be set by the service,
        so may be omitted by the client when creating the Tag.
@@ -2181,6 +2367,11 @@ struct QEVERCLOUD_EXPORT Tag: public Printable
 struct QEVERCLOUD_EXPORT LazyMap: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The set of keys for the map.  This field is ignored by the
            server when set.
     */
@@ -2210,6 +2401,11 @@ struct QEVERCLOUD_EXPORT LazyMap: public Printable
  * */
 struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     the original location where the resource was hosted
        <br/>
@@ -2319,6 +2515,11 @@ struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
 struct QEVERCLOUD_EXPORT Resource: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The unique identifier of this resource.  Will be set whenever
        a resource is retrieved from the service, but may be null when a client
        is creating a resource.
@@ -2425,6 +2626,11 @@ struct QEVERCLOUD_EXPORT Resource: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     time that the note refers to
     */
@@ -2676,6 +2882,11 @@ struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
 struct QEVERCLOUD_EXPORT SharedNote: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The user ID of the user who shared the note with the recipient.
     */
     Optional<UserID> sharerUserID;
@@ -2762,6 +2973,11 @@ struct QEVERCLOUD_EXPORT SharedNote: public Printable
 struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The client may not update the note's title (Note.title).
     */
     Optional<bool> noUpdateTitle;
@@ -2809,6 +3025,11 @@ struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
  */
 struct QEVERCLOUD_EXPORT NoteLimits: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /** NOT DOCUMENTED */
     Optional<qint32> noteResourceCountMax;
     /** NOT DOCUMENTED */
@@ -2844,6 +3065,11 @@ struct QEVERCLOUD_EXPORT NoteLimits: public Printable
  * */
 struct QEVERCLOUD_EXPORT Note: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The unique identifier of this note.  Will be set by the
        server, but will be omitted by clients calling NoteStore.createNote()
@@ -3026,6 +3252,11 @@ struct QEVERCLOUD_EXPORT Note: public Printable
 struct QEVERCLOUD_EXPORT Publishing: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     If this field is present, then the notebook is published for
        mass consumption on the Internet under the provided URI, which is
        relative to a defined base publishing URI defined by the service.
@@ -3087,6 +3318,11 @@ struct QEVERCLOUD_EXPORT Publishing: public Printable
 struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     A short description of the notebook's content that will be displayed
            in the business library user interface. The description may not begin
            or end with whitespace.
@@ -3131,6 +3367,11 @@ struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
 struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The search should include notes from the account that contains the SavedSearch.
     */
     Optional<bool> includeAccount;
@@ -3167,6 +3408,11 @@ struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
  * */
 struct QEVERCLOUD_EXPORT SavedSearch: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The unique identifier of this search.  Will be set by the
        service, so may be omitted by the client when creating.
@@ -3255,6 +3501,11 @@ struct QEVERCLOUD_EXPORT SavedSearch: public Printable
 struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     Indicates that the user wishes to receive daily e-mail notifications
          for reminders associated with the notebook. This may be true only for
          business notebooks that belong to the business of which the user is a
@@ -3296,6 +3547,11 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
  * */
 struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     Indicates that the user wishes to receive daily e-mail notifications
          for reminders associated with the notebook. This may be
@@ -3354,6 +3610,11 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
  * */
 struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The primary identifier of the share, which is not globally unique.
     */
@@ -3489,6 +3750,11 @@ struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
  */
 struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /** NOT DOCUMENTED */
     Optional<CanMoveToContainerStatus> canMoveToContainer;
 
@@ -3534,6 +3800,11 @@ struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The client is not able to read notes from the service and
        the notebook is write-only.
@@ -3712,6 +3983,11 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
 struct QEVERCLOUD_EXPORT Notebook: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The unique identifier of this notebook.
        <br/>
        Length:  EDAM_GUID_LEN_MIN - EDAM_GUID_LEN_MAX
@@ -3867,6 +4143,11 @@ struct QEVERCLOUD_EXPORT Notebook: public Printable
 struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The display name of the shared notebook. The link owner can change this.
     */
     Optional<QString> shareName;
@@ -3972,6 +4253,11 @@ struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
 struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The unique identifier of the notebook.
     */
     Optional<Guid> guid;
@@ -4018,6 +4304,11 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
  * */
 struct QEVERCLOUD_EXPORT UserProfile: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The numeric identifier that uniquely identifies a user.
     */
@@ -4092,6 +4383,11 @@ struct QEVERCLOUD_EXPORT UserProfile: public Printable
 struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The external URL of the image
     */
     Optional<QString> url;
@@ -4137,6 +4433,11 @@ struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedContent: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     An identifier that uniquely identifies the content.
     */
@@ -4245,6 +4546,11 @@ struct QEVERCLOUD_EXPORT RelatedContent: public Printable
 struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The ID of the business to which the invitation grants access.
     */
     Optional<qint32> businessId;
@@ -4332,6 +4638,11 @@ struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
  */
 struct QEVERCLOUD_EXPORT UserIdentity: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /** NOT DOCUMENTED */
     Optional<UserIdentityType> type;
     /** NOT DOCUMENTED */
@@ -4361,6 +4672,11 @@ struct QEVERCLOUD_EXPORT UserIdentity: public Printable
  **/
 struct QEVERCLOUD_EXPORT PublicUserInfo: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The unique numeric user identifier for the user account.
     */
@@ -4411,6 +4727,11 @@ struct QEVERCLOUD_EXPORT PublicUserInfo: public Printable
  * */
 struct QEVERCLOUD_EXPORT UserUrls: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     This field will contain the full URL that clients should use to make
        NoteStore requests to the server shard that contains that user's data.
@@ -4480,6 +4801,11 @@ struct QEVERCLOUD_EXPORT UserUrls: public Printable
  **/
 struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The server-side date and time when this result was
        generated.
@@ -4567,6 +4893,11 @@ struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
  **/
 struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The hostname and optional port for composing Evernote web service URLs.
        This URL can be used to access the UserStore and related services,
@@ -4664,6 +4995,11 @@ struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
 struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The unique name of the profile, which is guaranteed to remain consistent across
        calls to getBootstrapInfo.
     */
@@ -4693,6 +5029,11 @@ struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
  **/
 struct QEVERCLOUD_EXPORT BootstrapInfo: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     List of one or more bootstrap profiles, in descending
        preference order.
@@ -4738,10 +5079,10 @@ public:
     Optional<QString> parameter;
 
     EDAMUserException();
-    virtual ~EDAMUserException() throw() override;
+    virtual ~EDAMUserException() noexcept override;
 
     EDAMUserException(const EDAMUserException & other);
-    const char * what() const throw() override;
+    const char * what() const noexcept override;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
@@ -4781,10 +5122,10 @@ public:
     Optional<qint32> rateLimitDuration;
 
     EDAMSystemException();
-    virtual ~EDAMSystemException() throw() override;
+    virtual ~EDAMSystemException() noexcept override;
 
     EDAMSystemException(const EDAMSystemException & other);
-    const char * what() const throw() override;
+    const char * what() const noexcept override;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
@@ -4823,10 +5164,10 @@ public:
     Optional<QString> key;
 
     EDAMNotFoundException();
-    virtual ~EDAMNotFoundException() throw() override;
+    virtual ~EDAMNotFoundException() noexcept override;
 
     EDAMNotFoundException(const EDAMNotFoundException & other);
-    const char * what() const throw() override;
+    const char * what() const noexcept override;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
@@ -4874,10 +5215,10 @@ public:
     Optional<QList<EDAMInvalidContactReason>> reasons;
 
     EDAMInvalidContactsException();
-    virtual ~EDAMInvalidContactsException() throw() override;
+    virtual ~EDAMInvalidContactsException() noexcept override;
 
     EDAMInvalidContactsException(const EDAMInvalidContactsException & other);
-    const char * what() const throw() override;
+    const char * what() const noexcept override;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
@@ -4909,6 +5250,11 @@ public:
  **/
 struct QEVERCLOUD_EXPORT SyncChunk: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The server's current date and time.
     */
@@ -5024,6 +5370,11 @@ struct QEVERCLOUD_EXPORT SyncChunk: public Printable
 struct QEVERCLOUD_EXPORT NoteList: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The starting index within the overall set of notes.  This
        is also the number of notes that are "before" this list in the set.
     */
@@ -5105,6 +5456,11 @@ struct QEVERCLOUD_EXPORT NoteList: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /** NOT DOCUMENTED */
     Guid guid;
     /** NOT DOCUMENTED */
@@ -5171,6 +5527,11 @@ struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
  **/
 struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The starting index within the overall set of notes.  This
        is also the number of notes that are "before" this list in the set.
@@ -5251,6 +5612,11 @@ struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
 struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     If set, this must be the GUID of a note within the user's account that
           should be retrieved from the service and sent as email.  If not set,
           the 'note' field must be provided instead.
@@ -5316,6 +5682,11 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedResult: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     If notes have been requested to be included, this will be the
          list of notes.
@@ -5425,6 +5796,11 @@ struct QEVERCLOUD_EXPORT RelatedResult: public Printable
 struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     Either the current state of the note if <tt>updated</tt> is false or the
      result of updating the note as would be done via the <tt>updateNote</tt> method.
      If the note was not updated, you will receive a Note that does not include note
@@ -5460,6 +5836,11 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The string that clients should show to users to represent this
      invitation.
@@ -5516,6 +5897,11 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
 struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     A list of open invitations that can be redeemed into
      memberships to the notebook.
     */
@@ -5559,6 +5945,11 @@ struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The GUID of the notebook whose shares are being managed.
     */
@@ -5637,6 +6028,11 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
 struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The identity of the share relationship whose update encountered
      an error.
     */
@@ -5677,6 +6073,11 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
 struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     If the method completed without throwing exceptions, some errors
      might still have occurred, and in that case, this field will contain
      the list of those errors the occurred.
@@ -5703,6 +6104,11 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The GUID of the note.
     */
@@ -5751,6 +6157,11 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
 struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The GUID of the notebook.
     */
     Optional<Guid> notebookGuid;
@@ -5798,6 +6209,11 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
 struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
 {
     /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
+    /**
     The USN of the notebook after the call.
     */
     Optional<qint32> updateSequenceNum;
@@ -5837,6 +6253,11 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     The identity ID of an outstanding invitation that was not updated
          due to the error.
@@ -5884,6 +6305,11 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNoteSharesResult: public Printable
 {
+    /**
+     * See the declaration of EverCloudLocalData for details
+     */
+    EverCloudLocalData localData;
+
     /**
     If the call succeeded without throwing an exception, some errors
          might still have occurred. In that case, this field will contain the
