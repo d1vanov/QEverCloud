@@ -15989,24 +15989,32 @@ class Q_DECL_HIDDEN UserStore: public IUserStore
     Q_DISABLE_COPY(UserStore)
 public:
     explicit UserStore(
-            QString host,
-            quint16 port,
-            QString urlScheme,
+            QString userStoreUrl = {},
             IRequestContextPtr ctx = {},
             QObject * parent = nullptr) :
         IUserStore(parent),
+        m_url(std::move(userStoreUrl)),
         m_ctx(std::move(ctx))
     {
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
+    }
 
-        QUrl url;
-        url.setScheme(urlScheme);
-        url.setHost(host);
-        url.setPort(static_cast<int>(port));
-        url.setPath(QStringLiteral("/edam/user"));
-        m_url = url.toString(QUrl::StripTrailingSlash);
+    explicit UserStore(QObject * parent) :
+        IUserStore(parent)
+    {
+        m_ctx = newRequestContext();
+    }
+
+    void setUserStoreUrl(QString userStoreUrl)
+    {
+        m_url = std::move(userStoreUrl);
+    }
+
+    QString userStoreUrl()
+    {
+        return m_url;
     }
 
     virtual bool checkVersion(
@@ -19630,7 +19638,6 @@ public:
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
-
     }
 
     virtual bool checkVersion(
@@ -25752,13 +25759,11 @@ INoteStore * newNoteStore(
 }
 
 IUserStore * newUserStore(
-    QString host,
-    quint16 port,
-    QString urlScheme,
+    QString userStoreUrl,
     IRequestContextPtr ctx,
     QObject * parent)
 {
-    return new UserStore(host, port, urlScheme, ctx, parent);
+    return new UserStore(userStoreUrl, ctx, parent);
 }
 
 } // namespace qevercloud

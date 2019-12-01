@@ -3303,15 +3303,13 @@ using IUserStorePtr = QSharedPointer<IUserStore>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-INoteStore * newNoteStore(
-    QString noteStoreUrl = QString(),
+QEVERCLOUD_EXPORT INoteStore * newNoteStore(
+    QString noteStoreUrl = {},
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr);
 
-IUserStore * newUserStore(
-    QString host,
-    quint16 port,
-    QString urlScheme = QStringLiteral("https"),
+QEVERCLOUD_EXPORT IUserStore * newUserStore(
+    QString userStoreUrl = {},
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr);
 
