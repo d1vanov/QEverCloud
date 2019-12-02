@@ -77,9 +77,9 @@ void OptionalTester::shouldAssignFromOtherOptionals()
     QVERIFY(y == 10);
     Optional<double> d;
     d = y;
-    QVERIFY(d == 10);
+    QVERIFY(d == 10.0);
     d = ' ';
-    QVERIFY(d == 32);
+    QVERIFY(d == 32.0);
 }
 
 void OptionalTester::shouldProcessEqualityChecks()
@@ -88,9 +88,9 @@ void OptionalTester::shouldProcessEqualityChecks()
     Optional<int> d = 32;
 
     Optional<double> d2(y), d3(' '), d4(d);
-    QVERIFY(d2 == 10);
-    QVERIFY(d3 == 32);
-    QVERIFY(d4 == d);
+    QVERIFY(d2 == 10.0);
+    QVERIFY(d3 == 32.0);
+    QVERIFY(d4.ref() == d.ref());
 
     Optional<int> oi;
     Optional<double> od;

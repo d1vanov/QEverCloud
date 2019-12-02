@@ -341,17 +341,38 @@ public:
     /**
      * Two optionals are equal if they are both not set or have
      * equal values.
-     *
-     * I do not define `operator==` due to not easily resolvable conflicts with
-     * `operator T&`.
-     *
-     * Note that `optional == other_optional` may throw but
-     * `optional.isEqual(other_optional)` will not.
      */
     bool isEqual(const Optional<T> & other) const
     {
-        if(m_isSet != other.m_isSet) return false;
+        if (m_isSet != other.m_isSet) {
+            return false;
+        }
+
         return !m_isSet || (m_value == other.m_value);
+    }
+
+    bool operator==(const Optional<T> & other) const
+    {
+        return isEqual(other);
+    }
+
+    bool operator!=(const Optional<T> & other) const
+    {
+        return !operator==(other);
+    }
+
+    bool operator==(const T & other) const
+    {
+        if (!m_isSet) {
+            return false;
+        }
+
+        return m_value == other;
+    }
+
+    bool operator!=(const T & other) const
+    {
+        return !operator==(other);
     }
 
     template<typename X> friend class Optional;
