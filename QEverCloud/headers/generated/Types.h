@@ -92,20 +92,24 @@ using MessageThreadID = qint64;
 
 
 /**
- * @brief The EverCloudLocalData struct contains several
+ * @brief The EverCloudLocalData class contains several
  * data elements which are not synchronized with Evernote service
  * but which are nevertheless useful in applications using
  * QEverCloud to implement feature rich full sync Evernote clients.
- * Values of this struct's types are contained within QEverCloud
+ * Values of this class' types are contained within QEverCloud
  * types corresponding to actual Evernote API types
  */
-struct QEVERCLOUD_EXPORT EverCloudLocalData: public Printable
+class QEVERCLOUD_EXPORT EverCloudLocalData: public Printable
 {
+    Q_GADGET
+public:
     EverCloudLocalData();
     virtual ~EverCloudLocalData() noexcept override;
 
     virtual void print(QTextStream & strm) const override;
 
+    bool operator==(const EverCloudLocalData & other) const;
+    bool operator!=(const EverCloudLocalData & other) const;
     /**
      * @brief id property can be used as a local unique identifier
      * for any data item before it has been synchronized with
@@ -143,6 +147,13 @@ struct QEVERCLOUD_EXPORT EverCloudLocalData: public Printable
      * values associated with objects of QEverCloud types
      */
     QHash<QString, QVariant> dict;
+
+    // Properties declaration for meta-object system
+    Q_PROPERTY(QString id MEMBER id USER true)
+    Q_PROPERTY(bool dirty MEMBER dirty)
+    Q_PROPERTY(bool local MEMBER local)
+    Q_PROPERTY(bool favorited MEMBER favorited)
+    Q_PROPERTY(QHash<QString, QVariant> dict MEMBER dict)
 };
 
 /**
@@ -151,6 +162,9 @@ struct QEVERCLOUD_EXPORT EverCloudLocalData: public Printable
  * */
 struct QEVERCLOUD_EXPORT SyncState: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -232,6 +246,14 @@ struct QEVERCLOUD_EXPORT SyncState: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Timestamp currentTime MEMBER currentTime)
+    Q_PROPERTY(Timestamp fullSyncBefore MEMBER fullSyncBefore)
+    Q_PROPERTY(qint32 updateCount MEMBER updateCount)
+    Q_PROPERTY(Optional<qint64> uploaded MEMBER uploaded)
+    Q_PROPERTY(Optional<Timestamp> userLastUpdated MEMBER userLastUpdated)
+    Q_PROPERTY(Optional<MessageEventID> userMaxMessageEventId MEMBER userMaxMessageEventId)
 };
 
 /**
@@ -243,6 +265,9 @@ struct QEVERCLOUD_EXPORT SyncState: public Printable
  **/
 struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -375,6 +400,24 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> includeNotes MEMBER includeNotes)
+    Q_PROPERTY(Optional<bool> includeNoteResources MEMBER includeNoteResources)
+    Q_PROPERTY(Optional<bool> includeNoteAttributes MEMBER includeNoteAttributes)
+    Q_PROPERTY(Optional<bool> includeNotebooks MEMBER includeNotebooks)
+    Q_PROPERTY(Optional<bool> includeTags MEMBER includeTags)
+    Q_PROPERTY(Optional<bool> includeSearches MEMBER includeSearches)
+    Q_PROPERTY(Optional<bool> includeResources MEMBER includeResources)
+    Q_PROPERTY(Optional<bool> includeLinkedNotebooks MEMBER includeLinkedNotebooks)
+    Q_PROPERTY(Optional<bool> includeExpunged MEMBER includeExpunged)
+    Q_PROPERTY(Optional<bool> includeNoteApplicationDataFullMap MEMBER includeNoteApplicationDataFullMap)
+    Q_PROPERTY(Optional<bool> includeResourceApplicationDataFullMap MEMBER includeResourceApplicationDataFullMap)
+    Q_PROPERTY(Optional<bool> includeNoteResourceApplicationDataFullMap MEMBER includeNoteResourceApplicationDataFullMap)
+    Q_PROPERTY(Optional<bool> includeSharedNotes MEMBER includeSharedNotes)
+    Q_PROPERTY(Optional<bool> omitSharedNotebooks MEMBER omitSharedNotebooks)
+    Q_PROPERTY(Optional<QString> requireNoteContentClass MEMBER requireNoteContentClass)
+    Q_PROPERTY(Optional<QSet<QString>> notebookGuids MEMBER notebookGuids)
 };
 
 /**
@@ -385,6 +428,9 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter: public Printable
  **/
 struct QEVERCLOUD_EXPORT NoteFilter: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -493,6 +539,21 @@ struct QEVERCLOUD_EXPORT NoteFilter: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> order MEMBER order)
+    Q_PROPERTY(Optional<bool> ascending MEMBER ascending)
+    Q_PROPERTY(Optional<QString> words MEMBER words)
+    Q_PROPERTY(Optional<Guid> notebookGuid MEMBER notebookGuid)
+    Q_PROPERTY(Optional<QList<Guid>> tagGuids MEMBER tagGuids)
+    Q_PROPERTY(Optional<QString> timeZone MEMBER timeZone)
+    Q_PROPERTY(Optional<bool> inactive MEMBER inactive)
+    Q_PROPERTY(Optional<QString> emphasized MEMBER emphasized)
+    Q_PROPERTY(Optional<bool> includeAllReadableNotebooks MEMBER includeAllReadableNotebooks)
+    Q_PROPERTY(Optional<bool> includeAllReadableWorkspaces MEMBER includeAllReadableWorkspaces)
+    Q_PROPERTY(Optional<QString> context MEMBER context)
+    Q_PROPERTY(Optional<QString> rawWords MEMBER rawWords)
+    Q_PROPERTY(Optional<QByteArray> searchContextBytes MEMBER searchContextBytes)
 };
 
 /**
@@ -510,6 +571,9 @@ struct QEVERCLOUD_EXPORT NoteFilter: public Printable
  */
 struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -560,6 +624,19 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> includeTitle MEMBER includeTitle)
+    Q_PROPERTY(Optional<bool> includeContentLength MEMBER includeContentLength)
+    Q_PROPERTY(Optional<bool> includeCreated MEMBER includeCreated)
+    Q_PROPERTY(Optional<bool> includeUpdated MEMBER includeUpdated)
+    Q_PROPERTY(Optional<bool> includeDeleted MEMBER includeDeleted)
+    Q_PROPERTY(Optional<bool> includeUpdateSequenceNum MEMBER includeUpdateSequenceNum)
+    Q_PROPERTY(Optional<bool> includeNotebookGuid MEMBER includeNotebookGuid)
+    Q_PROPERTY(Optional<bool> includeTagGuids MEMBER includeTagGuids)
+    Q_PROPERTY(Optional<bool> includeAttributes MEMBER includeAttributes)
+    Q_PROPERTY(Optional<bool> includeLargestResourceMime MEMBER includeLargestResourceMime)
+    Q_PROPERTY(Optional<bool> includeLargestResourceSize MEMBER includeLargestResourceSize)
 };
 
 /**
@@ -569,6 +646,9 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec: public Printable
  **/
 struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -606,6 +686,11 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QMap<Guid, qint32>> notebookCounts MEMBER notebookCounts)
+    Q_PROPERTY(Optional<QMap<Guid, qint32>> tagCounts MEMBER tagCounts)
+    Q_PROPERTY(Optional<qint32> trashCount MEMBER trashCount)
 };
 
 /**
@@ -620,6 +705,9 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -680,6 +768,16 @@ struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> includeContent MEMBER includeContent)
+    Q_PROPERTY(Optional<bool> includeResourcesData MEMBER includeResourcesData)
+    Q_PROPERTY(Optional<bool> includeResourcesRecognition MEMBER includeResourcesRecognition)
+    Q_PROPERTY(Optional<bool> includeResourcesAlternateData MEMBER includeResourcesAlternateData)
+    Q_PROPERTY(Optional<bool> includeSharedNotes MEMBER includeSharedNotes)
+    Q_PROPERTY(Optional<bool> includeNoteAppDataValues MEMBER includeNoteAppDataValues)
+    Q_PROPERTY(Optional<bool> includeResourceAppDataValues MEMBER includeResourceAppDataValues)
+    Q_PROPERTY(Optional<bool> includeAccountLimits MEMBER includeAccountLimits)
 };
 
 /**
@@ -690,6 +788,9 @@ struct QEVERCLOUD_EXPORT NoteResultSpec: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -741,6 +842,13 @@ struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(qint32 updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Timestamp updated MEMBER updated)
+    Q_PROPERTY(Timestamp saved MEMBER saved)
+    Q_PROPERTY(QString title MEMBER title)
+    Q_PROPERTY(Optional<UserID> lastEditorId MEMBER lastEditorId)
 };
 
 /**
@@ -753,6 +861,9 @@ struct QEVERCLOUD_EXPORT NoteVersionId: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -817,6 +928,14 @@ struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> noteGuid MEMBER noteGuid)
+    Q_PROPERTY(Optional<QString> plainText MEMBER plainText)
+    Q_PROPERTY(Optional<NoteFilter> filter MEMBER filter)
+    Q_PROPERTY(Optional<QString> referenceUri MEMBER referenceUri)
+    Q_PROPERTY(Optional<QString> context MEMBER context)
+    Q_PROPERTY(Optional<QString> cacheKey MEMBER cacheKey)
 };
 
 /**
@@ -828,6 +947,9 @@ struct QEVERCLOUD_EXPORT RelatedQuery: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedResultSpec: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -911,11 +1033,25 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> maxNotes MEMBER maxNotes)
+    Q_PROPERTY(Optional<qint32> maxNotebooks MEMBER maxNotebooks)
+    Q_PROPERTY(Optional<qint32> maxTags MEMBER maxTags)
+    Q_PROPERTY(Optional<bool> writableNotebooksOnly MEMBER writableNotebooksOnly)
+    Q_PROPERTY(Optional<bool> includeContainingNotebooks MEMBER includeContainingNotebooks)
+    Q_PROPERTY(Optional<bool> includeDebugInfo MEMBER includeDebugInfo)
+    Q_PROPERTY(Optional<qint32> maxExperts MEMBER maxExperts)
+    Q_PROPERTY(Optional<qint32> maxRelatedContent MEMBER maxRelatedContent)
+    Q_PROPERTY(Optional<QSet<RelatedContentType>> relatedContentTypes MEMBER relatedContentTypes)
 };
 
 /** NO DOC COMMENT ID FOUND */
 struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -945,6 +1081,12 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> noSetReadOnly MEMBER noSetReadOnly)
+    Q_PROPERTY(Optional<bool> noSetReadPlusActivity MEMBER noSetReadPlusActivity)
+    Q_PROPERTY(Optional<bool> noSetModify MEMBER noSetModify)
+    Q_PROPERTY(Optional<bool> noSetFullAccess MEMBER noSetFullAccess)
 };
 
 /**
@@ -954,6 +1096,9 @@ struct QEVERCLOUD_EXPORT ShareRelationshipRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1018,6 +1163,14 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> displayName MEMBER displayName)
+    Q_PROPERTY(Optional<UserID> recipientUserId MEMBER recipientUserId)
+    Q_PROPERTY(Optional<ShareRelationshipPrivilegeLevel> bestPrivilege MEMBER bestPrivilege)
+    Q_PROPERTY(Optional<ShareRelationshipPrivilegeLevel> individualPrivilege MEMBER individualPrivilege)
+    Q_PROPERTY(Optional<ShareRelationshipRestrictions> restrictions MEMBER restrictions)
+    Q_PROPERTY(Optional<UserID> sharerUserId MEMBER sharerUserId)
 };
 
 /**
@@ -1028,6 +1181,9 @@ struct QEVERCLOUD_EXPORT MemberShareRelationship: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1063,6 +1219,11 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> noSetReadNote MEMBER noSetReadNote)
+    Q_PROPERTY(Optional<bool> noSetModifyNote MEMBER noSetModifyNote)
+    Q_PROPERTY(Optional<bool> noSetFullAccess MEMBER noSetFullAccess)
 };
 
 /**
@@ -1072,6 +1233,9 @@ struct QEVERCLOUD_EXPORT NoteShareRelationshipRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1124,6 +1288,13 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> displayName MEMBER displayName)
+    Q_PROPERTY(Optional<UserID> recipientUserId MEMBER recipientUserId)
+    Q_PROPERTY(Optional<SharedNotePrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<NoteShareRelationshipRestrictions> restrictions MEMBER restrictions)
+    Q_PROPERTY(Optional<UserID> sharerUserId MEMBER sharerUserId)
 };
 
 /**
@@ -1133,6 +1304,9 @@ struct QEVERCLOUD_EXPORT NoteMemberShareRelationship: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1179,6 +1353,12 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> displayName MEMBER displayName)
+    Q_PROPERTY(Optional<IdentityID> recipientIdentityId MEMBER recipientIdentityId)
+    Q_PROPERTY(Optional<SharedNotePrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<UserID> sharerUserId MEMBER sharerUserId)
 };
 
 /**
@@ -1190,6 +1370,9 @@ struct QEVERCLOUD_EXPORT NoteInvitationShareRelationship: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1223,6 +1406,11 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QList<NoteInvitationShareRelationship>> invitations MEMBER invitations)
+    Q_PROPERTY(Optional<QList<NoteMemberShareRelationship>> memberships MEMBER memberships)
+    Q_PROPERTY(Optional<NoteShareRelationshipRestrictions> invitationRestrictions MEMBER invitationRestrictions)
 };
 
 /**
@@ -1237,6 +1425,9 @@ struct QEVERCLOUD_EXPORT NoteShareRelationships: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1287,6 +1478,13 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> noteGuid MEMBER noteGuid)
+    Q_PROPERTY(Optional<QList<NoteMemberShareRelationship>> membershipsToUpdate MEMBER membershipsToUpdate)
+    Q_PROPERTY(Optional<QList<NoteInvitationShareRelationship>> invitationsToUpdate MEMBER invitationsToUpdate)
+    Q_PROPERTY(Optional<QList<UserID>> membershipsToUnshare MEMBER membershipsToUnshare)
+    Q_PROPERTY(Optional<QList<IdentityID>> invitationsToUnshare MEMBER invitationsToUnshare)
 };
 
 /**
@@ -1300,6 +1498,9 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesParameters: public Printable
  **/
 struct QEVERCLOUD_EXPORT Data: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1338,6 +1539,11 @@ struct QEVERCLOUD_EXPORT Data: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QByteArray> bodyHash MEMBER bodyHash)
+    Q_PROPERTY(Optional<qint32> size MEMBER size)
+    Q_PROPERTY(Optional<QByteArray> body MEMBER body)
 };
 
 /**
@@ -1347,6 +1553,9 @@ struct QEVERCLOUD_EXPORT Data: public Printable
  **/
 struct QEVERCLOUD_EXPORT UserAttributes: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1596,6 +1805,43 @@ struct QEVERCLOUD_EXPORT UserAttributes: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> defaultLocationName MEMBER defaultLocationName)
+    Q_PROPERTY(Optional<double> defaultLatitude MEMBER defaultLatitude)
+    Q_PROPERTY(Optional<double> defaultLongitude MEMBER defaultLongitude)
+    Q_PROPERTY(Optional<bool> preactivation MEMBER preactivation)
+    Q_PROPERTY(Optional<QStringList> viewedPromotions MEMBER viewedPromotions)
+    Q_PROPERTY(Optional<QString> incomingEmailAddress MEMBER incomingEmailAddress)
+    Q_PROPERTY(Optional<QStringList> recentMailedAddresses MEMBER recentMailedAddresses)
+    Q_PROPERTY(Optional<QString> comments MEMBER comments)
+    Q_PROPERTY(Optional<Timestamp> dateAgreedToTermsOfService MEMBER dateAgreedToTermsOfService)
+    Q_PROPERTY(Optional<qint32> maxReferrals MEMBER maxReferrals)
+    Q_PROPERTY(Optional<qint32> referralCount MEMBER referralCount)
+    Q_PROPERTY(Optional<QString> refererCode MEMBER refererCode)
+    Q_PROPERTY(Optional<Timestamp> sentEmailDate MEMBER sentEmailDate)
+    Q_PROPERTY(Optional<qint32> sentEmailCount MEMBER sentEmailCount)
+    Q_PROPERTY(Optional<qint32> dailyEmailLimit MEMBER dailyEmailLimit)
+    Q_PROPERTY(Optional<Timestamp> emailOptOutDate MEMBER emailOptOutDate)
+    Q_PROPERTY(Optional<Timestamp> partnerEmailOptInDate MEMBER partnerEmailOptInDate)
+    Q_PROPERTY(Optional<QString> preferredLanguage MEMBER preferredLanguage)
+    Q_PROPERTY(Optional<QString> preferredCountry MEMBER preferredCountry)
+    Q_PROPERTY(Optional<bool> clipFullPage MEMBER clipFullPage)
+    Q_PROPERTY(Optional<QString> twitterUserName MEMBER twitterUserName)
+    Q_PROPERTY(Optional<QString> twitterId MEMBER twitterId)
+    Q_PROPERTY(Optional<QString> groupName MEMBER groupName)
+    Q_PROPERTY(Optional<QString> recognitionLanguage MEMBER recognitionLanguage)
+    Q_PROPERTY(Optional<QString> referralProof MEMBER referralProof)
+    Q_PROPERTY(Optional<bool> educationalDiscount MEMBER educationalDiscount)
+    Q_PROPERTY(Optional<QString> businessAddress MEMBER businessAddress)
+    Q_PROPERTY(Optional<bool> hideSponsorBilling MEMBER hideSponsorBilling)
+    Q_PROPERTY(Optional<bool> useEmailAutoFiling MEMBER useEmailAutoFiling)
+    Q_PROPERTY(Optional<ReminderEmailConfig> reminderEmailConfig MEMBER reminderEmailConfig)
+    Q_PROPERTY(Optional<Timestamp> emailAddressLastConfirmed MEMBER emailAddressLastConfirmed)
+    Q_PROPERTY(Optional<Timestamp> passwordUpdated MEMBER passwordUpdated)
+    Q_PROPERTY(Optional<bool> salesforcePushEnabled MEMBER salesforcePushEnabled)
+    Q_PROPERTY(Optional<bool> shouldLogClientEvent MEMBER shouldLogClientEvent)
+    Q_PROPERTY(Optional<bool> optOutMachineLearning MEMBER optOutMachineLearning)
 };
 
 /**
@@ -1605,6 +1851,9 @@ struct QEVERCLOUD_EXPORT UserAttributes: public Printable
  * */
 struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1658,6 +1907,15 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> title MEMBER title)
+    Q_PROPERTY(Optional<QString> location MEMBER location)
+    Q_PROPERTY(Optional<QString> department MEMBER department)
+    Q_PROPERTY(Optional<QString> mobilePhone MEMBER mobilePhone)
+    Q_PROPERTY(Optional<QString> linkedInProfileUrl MEMBER linkedInProfileUrl)
+    Q_PROPERTY(Optional<QString> workPhone MEMBER workPhone)
+    Q_PROPERTY(Optional<Timestamp> companyStartDate MEMBER companyStartDate)
 };
 
 /**
@@ -1666,6 +1924,9 @@ struct QEVERCLOUD_EXPORT BusinessUserAttributes: public Printable
  **/
 struct QEVERCLOUD_EXPORT Accounting: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1814,6 +2075,31 @@ struct QEVERCLOUD_EXPORT Accounting: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Timestamp> uploadLimitEnd MEMBER uploadLimitEnd)
+    Q_PROPERTY(Optional<qint64> uploadLimitNextMonth MEMBER uploadLimitNextMonth)
+    Q_PROPERTY(Optional<PremiumOrderStatus> premiumServiceStatus MEMBER premiumServiceStatus)
+    Q_PROPERTY(Optional<QString> premiumOrderNumber MEMBER premiumOrderNumber)
+    Q_PROPERTY(Optional<QString> premiumCommerceService MEMBER premiumCommerceService)
+    Q_PROPERTY(Optional<Timestamp> premiumServiceStart MEMBER premiumServiceStart)
+    Q_PROPERTY(Optional<QString> premiumServiceSKU MEMBER premiumServiceSKU)
+    Q_PROPERTY(Optional<Timestamp> lastSuccessfulCharge MEMBER lastSuccessfulCharge)
+    Q_PROPERTY(Optional<Timestamp> lastFailedCharge MEMBER lastFailedCharge)
+    Q_PROPERTY(Optional<QString> lastFailedChargeReason MEMBER lastFailedChargeReason)
+    Q_PROPERTY(Optional<Timestamp> nextPaymentDue MEMBER nextPaymentDue)
+    Q_PROPERTY(Optional<Timestamp> premiumLockUntil MEMBER premiumLockUntil)
+    Q_PROPERTY(Optional<Timestamp> updated MEMBER updated)
+    Q_PROPERTY(Optional<QString> premiumSubscriptionNumber MEMBER premiumSubscriptionNumber)
+    Q_PROPERTY(Optional<Timestamp> lastRequestedCharge MEMBER lastRequestedCharge)
+    Q_PROPERTY(Optional<QString> currency MEMBER currency)
+    Q_PROPERTY(Optional<qint32> unitPrice MEMBER unitPrice)
+    Q_PROPERTY(Optional<qint32> businessId MEMBER businessId)
+    Q_PROPERTY(Optional<QString> businessName MEMBER businessName)
+    Q_PROPERTY(Optional<BusinessUserRole> businessRole MEMBER businessRole)
+    Q_PROPERTY(Optional<qint32> unitDiscount MEMBER unitDiscount)
+    Q_PROPERTY(Optional<Timestamp> nextChargeDate MEMBER nextChargeDate)
+    Q_PROPERTY(Optional<qint32> availablePoints MEMBER availablePoints)
 };
 
 /**
@@ -1823,6 +2109,9 @@ struct QEVERCLOUD_EXPORT Accounting: public Printable
  * */
 struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1871,6 +2160,13 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> businessId MEMBER businessId)
+    Q_PROPERTY(Optional<QString> businessName MEMBER businessName)
+    Q_PROPERTY(Optional<BusinessUserRole> role MEMBER role)
+    Q_PROPERTY(Optional<QString> email MEMBER email)
+    Q_PROPERTY(Optional<Timestamp> updated MEMBER updated)
 };
 
 /**
@@ -1878,6 +2174,9 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo: public Printable
  **/
 struct QEVERCLOUD_EXPORT AccountLimits: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -1960,6 +2259,19 @@ struct QEVERCLOUD_EXPORT AccountLimits: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> userMailLimitDaily MEMBER userMailLimitDaily)
+    Q_PROPERTY(Optional<qint64> noteSizeMax MEMBER noteSizeMax)
+    Q_PROPERTY(Optional<qint64> resourceSizeMax MEMBER resourceSizeMax)
+    Q_PROPERTY(Optional<qint32> userLinkedNotebookMax MEMBER userLinkedNotebookMax)
+    Q_PROPERTY(Optional<qint64> uploadLimit MEMBER uploadLimit)
+    Q_PROPERTY(Optional<qint32> userNoteCountMax MEMBER userNoteCountMax)
+    Q_PROPERTY(Optional<qint32> userNotebookCountMax MEMBER userNotebookCountMax)
+    Q_PROPERTY(Optional<qint32> userTagCountMax MEMBER userTagCountMax)
+    Q_PROPERTY(Optional<qint32> noteTagCountMax MEMBER noteTagCountMax)
+    Q_PROPERTY(Optional<qint32> userSavedSearchesMax MEMBER userSavedSearchesMax)
+    Q_PROPERTY(Optional<qint32> noteResourceCountMax MEMBER noteResourceCountMax)
 };
 
 /**
@@ -1967,6 +2279,9 @@ struct QEVERCLOUD_EXPORT AccountLimits: public Printable
  **/
 struct QEVERCLOUD_EXPORT User: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2116,6 +2431,26 @@ struct QEVERCLOUD_EXPORT User: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<UserID> id MEMBER id)
+    Q_PROPERTY(Optional<QString> username MEMBER username)
+    Q_PROPERTY(Optional<QString> email MEMBER email)
+    Q_PROPERTY(Optional<QString> name MEMBER name)
+    Q_PROPERTY(Optional<QString> timezone MEMBER timezone)
+    Q_PROPERTY(Optional<PrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<ServiceLevel> serviceLevel MEMBER serviceLevel)
+    Q_PROPERTY(Optional<Timestamp> created MEMBER created)
+    Q_PROPERTY(Optional<Timestamp> updated MEMBER updated)
+    Q_PROPERTY(Optional<Timestamp> deleted MEMBER deleted)
+    Q_PROPERTY(Optional<bool> active MEMBER active)
+    Q_PROPERTY(Optional<QString> shardId MEMBER shardId)
+    Q_PROPERTY(Optional<UserAttributes> attributes MEMBER attributes)
+    Q_PROPERTY(Optional<Accounting> accounting MEMBER accounting)
+    Q_PROPERTY(Optional<BusinessUserInfo> businessUserInfo MEMBER businessUserInfo)
+    Q_PROPERTY(Optional<QString> photoUrl MEMBER photoUrl)
+    Q_PROPERTY(Optional<Timestamp> photoLastUpdated MEMBER photoLastUpdated)
+    Q_PROPERTY(Optional<AccountLimits> accountLimits MEMBER accountLimits)
 };
 
 /**
@@ -2125,6 +2460,9 @@ struct QEVERCLOUD_EXPORT User: public Printable
  * */
 struct QEVERCLOUD_EXPORT Contact: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2188,6 +2526,15 @@ struct QEVERCLOUD_EXPORT Contact: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> name MEMBER name)
+    Q_PROPERTY(Optional<QString> id MEMBER id)
+    Q_PROPERTY(Optional<ContactType> type MEMBER type)
+    Q_PROPERTY(Optional<QString> photoUrl MEMBER photoUrl)
+    Q_PROPERTY(Optional<Timestamp> photoLastUpdated MEMBER photoLastUpdated)
+    Q_PROPERTY(Optional<QByteArray> messagingPermit MEMBER messagingPermit)
+    Q_PROPERTY(Optional<Timestamp> messagingPermitExpires MEMBER messagingPermitExpires)
 };
 
 /**
@@ -2197,6 +2544,9 @@ struct QEVERCLOUD_EXPORT Contact: public Printable
  * */
 struct QEVERCLOUD_EXPORT Identity: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2273,6 +2623,16 @@ struct QEVERCLOUD_EXPORT Identity: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(IdentityID id MEMBER id)
+    Q_PROPERTY(Optional<Contact> contact MEMBER contact)
+    Q_PROPERTY(Optional<UserID> userId MEMBER userId)
+    Q_PROPERTY(Optional<bool> deactivated MEMBER deactivated)
+    Q_PROPERTY(Optional<bool> sameBusiness MEMBER sameBusiness)
+    Q_PROPERTY(Optional<bool> blocked MEMBER blocked)
+    Q_PROPERTY(Optional<bool> userConnected MEMBER userConnected)
+    Q_PROPERTY(Optional<MessageEventID> eventId MEMBER eventId)
 };
 
 /**
@@ -2281,6 +2641,9 @@ struct QEVERCLOUD_EXPORT Identity: public Printable
  **/
 struct QEVERCLOUD_EXPORT Tag: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2343,6 +2706,12 @@ struct QEVERCLOUD_EXPORT Tag: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<QString> name MEMBER name)
+    Q_PROPERTY(Optional<Guid> parentGuid MEMBER parentGuid)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
 };
 
 /**
@@ -2366,6 +2735,9 @@ struct QEVERCLOUD_EXPORT Tag: public Printable
  * */
 struct QEVERCLOUD_EXPORT LazyMap: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2394,6 +2766,10 @@ struct QEVERCLOUD_EXPORT LazyMap: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QSet<QString>> keysOnly MEMBER keysOnly)
+    Q_PROPERTY(Optional<QMap<QString, QString>> fullMap MEMBER fullMap)
 };
 
 /**
@@ -2401,6 +2777,9 @@ struct QEVERCLOUD_EXPORT LazyMap: public Printable
  * */
 struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2506,6 +2885,20 @@ struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> sourceURL MEMBER sourceURL)
+    Q_PROPERTY(Optional<Timestamp> timestamp MEMBER timestamp)
+    Q_PROPERTY(Optional<double> latitude MEMBER latitude)
+    Q_PROPERTY(Optional<double> longitude MEMBER longitude)
+    Q_PROPERTY(Optional<double> altitude MEMBER altitude)
+    Q_PROPERTY(Optional<QString> cameraMake MEMBER cameraMake)
+    Q_PROPERTY(Optional<QString> cameraModel MEMBER cameraModel)
+    Q_PROPERTY(Optional<bool> clientWillIndex MEMBER clientWillIndex)
+    Q_PROPERTY(Optional<QString> recoType MEMBER recoType)
+    Q_PROPERTY(Optional<QString> fileName MEMBER fileName)
+    Q_PROPERTY(Optional<bool> attachment MEMBER attachment)
+    Q_PROPERTY(Optional<LazyMap> applicationData MEMBER applicationData)
 };
 
 /**
@@ -2514,6 +2907,9 @@ struct QEVERCLOUD_EXPORT ResourceAttributes: public Printable
  * */
 struct QEVERCLOUD_EXPORT Resource: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2619,6 +3015,20 @@ struct QEVERCLOUD_EXPORT Resource: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<Guid> noteGuid MEMBER noteGuid)
+    Q_PROPERTY(Optional<Data> data MEMBER data)
+    Q_PROPERTY(Optional<QString> mime MEMBER mime)
+    Q_PROPERTY(Optional<qint16> width MEMBER width)
+    Q_PROPERTY(Optional<qint16> height MEMBER height)
+    Q_PROPERTY(Optional<qint16> duration MEMBER duration)
+    Q_PROPERTY(Optional<bool> active MEMBER active)
+    Q_PROPERTY(Optional<Data> recognition MEMBER recognition)
+    Q_PROPERTY(Optional<ResourceAttributes> attributes MEMBER attributes)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<Data> alternateData MEMBER alternateData)
 };
 
 /**
@@ -2626,6 +3036,9 @@ struct QEVERCLOUD_EXPORT Resource: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2871,6 +3284,30 @@ struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Timestamp> subjectDate MEMBER subjectDate)
+    Q_PROPERTY(Optional<double> latitude MEMBER latitude)
+    Q_PROPERTY(Optional<double> longitude MEMBER longitude)
+    Q_PROPERTY(Optional<double> altitude MEMBER altitude)
+    Q_PROPERTY(Optional<QString> author MEMBER author)
+    Q_PROPERTY(Optional<QString> source MEMBER source)
+    Q_PROPERTY(Optional<QString> sourceURL MEMBER sourceURL)
+    Q_PROPERTY(Optional<QString> sourceApplication MEMBER sourceApplication)
+    Q_PROPERTY(Optional<Timestamp> shareDate MEMBER shareDate)
+    Q_PROPERTY(Optional<qint64> reminderOrder MEMBER reminderOrder)
+    Q_PROPERTY(Optional<Timestamp> reminderDoneTime MEMBER reminderDoneTime)
+    Q_PROPERTY(Optional<Timestamp> reminderTime MEMBER reminderTime)
+    Q_PROPERTY(Optional<QString> placeName MEMBER placeName)
+    Q_PROPERTY(Optional<QString> contentClass MEMBER contentClass)
+    Q_PROPERTY(Optional<LazyMap> applicationData MEMBER applicationData)
+    Q_PROPERTY(Optional<QString> lastEditedBy MEMBER lastEditedBy)
+    Q_PROPERTY(Optional<QMap<QString, QString>> classifications MEMBER classifications)
+    Q_PROPERTY(Optional<UserID> creatorId MEMBER creatorId)
+    Q_PROPERTY(Optional<UserID> lastEditorId MEMBER lastEditorId)
+    Q_PROPERTY(Optional<bool> sharedWithBusiness MEMBER sharedWithBusiness)
+    Q_PROPERTY(Optional<Guid> conflictSourceNoteGuid MEMBER conflictSourceNoteGuid)
+    Q_PROPERTY(Optional<qint32> noteTitleQuality MEMBER noteTitleQuality)
 };
 
 /**
@@ -2881,6 +3318,9 @@ struct QEVERCLOUD_EXPORT NoteAttributes: public Printable
  * */
 struct QEVERCLOUD_EXPORT SharedNote: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -2931,6 +3371,14 @@ struct QEVERCLOUD_EXPORT SharedNote: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<UserID> sharerUserID MEMBER sharerUserID)
+    Q_PROPERTY(Optional<Identity> recipientIdentity MEMBER recipientIdentity)
+    Q_PROPERTY(Optional<SharedNotePrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<Timestamp> serviceCreated MEMBER serviceCreated)
+    Q_PROPERTY(Optional<Timestamp> serviceUpdated MEMBER serviceUpdated)
+    Q_PROPERTY(Optional<Timestamp> serviceAssigned MEMBER serviceAssigned)
 };
 
 /**
@@ -2972,6 +3420,9 @@ struct QEVERCLOUD_EXPORT SharedNote: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3013,6 +3464,13 @@ struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> noUpdateTitle MEMBER noUpdateTitle)
+    Q_PROPERTY(Optional<bool> noUpdateContent MEMBER noUpdateContent)
+    Q_PROPERTY(Optional<bool> noEmail MEMBER noEmail)
+    Q_PROPERTY(Optional<bool> noShare MEMBER noShare)
+    Q_PROPERTY(Optional<bool> noSharePublicly MEMBER noSharePublicly)
 };
 
 /**
@@ -3025,6 +3483,9 @@ struct QEVERCLOUD_EXPORT NoteRestrictions: public Printable
  */
 struct QEVERCLOUD_EXPORT NoteLimits: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3057,6 +3518,13 @@ struct QEVERCLOUD_EXPORT NoteLimits: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> noteResourceCountMax MEMBER noteResourceCountMax)
+    Q_PROPERTY(Optional<qint64> uploadLimit MEMBER uploadLimit)
+    Q_PROPERTY(Optional<qint64> resourceSizeMax MEMBER resourceSizeMax)
+    Q_PROPERTY(Optional<qint64> noteSizeMax MEMBER noteSizeMax)
+    Q_PROPERTY(Optional<qint64> uploaded MEMBER uploaded)
 };
 
 /**
@@ -3065,6 +3533,9 @@ struct QEVERCLOUD_EXPORT NoteLimits: public Printable
  * */
 struct QEVERCLOUD_EXPORT Note: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3242,6 +3713,26 @@ struct QEVERCLOUD_EXPORT Note: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<QString> title MEMBER title)
+    Q_PROPERTY(Optional<QString> content MEMBER content)
+    Q_PROPERTY(Optional<QByteArray> contentHash MEMBER contentHash)
+    Q_PROPERTY(Optional<qint32> contentLength MEMBER contentLength)
+    Q_PROPERTY(Optional<Timestamp> created MEMBER created)
+    Q_PROPERTY(Optional<Timestamp> updated MEMBER updated)
+    Q_PROPERTY(Optional<Timestamp> deleted MEMBER deleted)
+    Q_PROPERTY(Optional<bool> active MEMBER active)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<QString> notebookGuid MEMBER notebookGuid)
+    Q_PROPERTY(Optional<QList<Guid>> tagGuids MEMBER tagGuids)
+    Q_PROPERTY(Optional<QList<Resource>> resources MEMBER resources)
+    Q_PROPERTY(Optional<NoteAttributes> attributes MEMBER attributes)
+    Q_PROPERTY(Optional<QStringList> tagNames MEMBER tagNames)
+    Q_PROPERTY(Optional<QList<SharedNote>> sharedNotes MEMBER sharedNotes)
+    Q_PROPERTY(Optional<NoteRestrictions> restrictions MEMBER restrictions)
+    Q_PROPERTY(Optional<NoteLimits> limits MEMBER limits)
 };
 
 /**
@@ -3251,6 +3742,9 @@ struct QEVERCLOUD_EXPORT Note: public Printable
  * */
 struct QEVERCLOUD_EXPORT Publishing: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3306,6 +3800,12 @@ struct QEVERCLOUD_EXPORT Publishing: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> uri MEMBER uri)
+    Q_PROPERTY(Optional<NoteSortOrder> order MEMBER order)
+    Q_PROPERTY(Optional<bool> ascending MEMBER ascending)
+    Q_PROPERTY(Optional<QString> publicDescription MEMBER publicDescription)
 };
 
 /**
@@ -3317,6 +3817,9 @@ struct QEVERCLOUD_EXPORT Publishing: public Printable
  * */
 struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3358,6 +3861,11 @@ struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> notebookDescription MEMBER notebookDescription)
+    Q_PROPERTY(Optional<SharedNotebookPrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<bool> recommended MEMBER recommended)
 };
 
 /**
@@ -3366,6 +3874,9 @@ struct QEVERCLOUD_EXPORT BusinessNotebook: public Printable
  * */
 struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3401,6 +3912,11 @@ struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> includeAccount MEMBER includeAccount)
+    Q_PROPERTY(Optional<bool> includePersonalLinkedNotebooks MEMBER includePersonalLinkedNotebooks)
+    Q_PROPERTY(Optional<bool> includeBusinessLinkedNotebooks MEMBER includeBusinessLinkedNotebooks)
 };
 
 /**
@@ -3408,6 +3924,9 @@ struct QEVERCLOUD_EXPORT SavedSearchScope: public Printable
  * */
 struct QEVERCLOUD_EXPORT SavedSearch: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3482,6 +4001,14 @@ struct QEVERCLOUD_EXPORT SavedSearch: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<QString> name MEMBER name)
+    Q_PROPERTY(Optional<QString> query MEMBER query)
+    Q_PROPERTY(Optional<QueryFormat> format MEMBER format)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<SavedSearchScope> scope MEMBER scope)
 };
 
 /**
@@ -3500,6 +4027,9 @@ struct QEVERCLOUD_EXPORT SavedSearch: public Printable
  * */
 struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3533,6 +4063,10 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> reminderNotifyEmail MEMBER reminderNotifyEmail)
+    Q_PROPERTY(Optional<bool> reminderNotifyInApp MEMBER reminderNotifyInApp)
 };
 
 /**
@@ -3547,6 +4081,9 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings: public Printable
  * */
 struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3602,6 +4139,13 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> reminderNotifyEmail MEMBER reminderNotifyEmail)
+    Q_PROPERTY(Optional<bool> reminderNotifyInApp MEMBER reminderNotifyInApp)
+    Q_PROPERTY(Optional<bool> inMyList MEMBER inMyList)
+    Q_PROPERTY(Optional<QString> stack MEMBER stack)
+    Q_PROPERTY(Optional<RecipientStatus> recipientStatus MEMBER recipientStatus)
 };
 
 /**
@@ -3610,6 +4154,9 @@ struct QEVERCLOUD_EXPORT NotebookRecipientSettings: public Printable
  * */
 struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3743,6 +4290,24 @@ struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint64> id MEMBER id)
+    Q_PROPERTY(Optional<UserID> userId MEMBER userId)
+    Q_PROPERTY(Optional<Guid> notebookGuid MEMBER notebookGuid)
+    Q_PROPERTY(Optional<QString> email MEMBER email)
+    Q_PROPERTY(Optional<IdentityID> recipientIdentityId MEMBER recipientIdentityId)
+    Q_PROPERTY(Optional<bool> notebookModifiable MEMBER notebookModifiable)
+    Q_PROPERTY(Optional<Timestamp> serviceCreated MEMBER serviceCreated)
+    Q_PROPERTY(Optional<Timestamp> serviceUpdated MEMBER serviceUpdated)
+    Q_PROPERTY(Optional<QString> globalId MEMBER globalId)
+    Q_PROPERTY(Optional<QString> username MEMBER username)
+    Q_PROPERTY(Optional<SharedNotebookPrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<SharedNotebookRecipientSettings> recipientSettings MEMBER recipientSettings)
+    Q_PROPERTY(Optional<UserID> sharerUserId MEMBER sharerUserId)
+    Q_PROPERTY(Optional<QString> recipientUsername MEMBER recipientUsername)
+    Q_PROPERTY(Optional<UserID> recipientUserId MEMBER recipientUserId)
+    Q_PROPERTY(Optional<Timestamp> serviceAssigned MEMBER serviceAssigned)
 };
 
 /**
@@ -3750,6 +4315,9 @@ struct QEVERCLOUD_EXPORT SharedNotebook: public Printable
  */
 struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3770,6 +4338,9 @@ struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<CanMoveToContainerStatus> canMoveToContainer MEMBER canMoveToContainer)
 };
 
 /**
@@ -3800,6 +4371,9 @@ struct QEVERCLOUD_EXPORT CanMoveToContainerRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -3975,6 +4549,37 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<bool> noReadNotes MEMBER noReadNotes)
+    Q_PROPERTY(Optional<bool> noCreateNotes MEMBER noCreateNotes)
+    Q_PROPERTY(Optional<bool> noUpdateNotes MEMBER noUpdateNotes)
+    Q_PROPERTY(Optional<bool> noExpungeNotes MEMBER noExpungeNotes)
+    Q_PROPERTY(Optional<bool> noShareNotes MEMBER noShareNotes)
+    Q_PROPERTY(Optional<bool> noEmailNotes MEMBER noEmailNotes)
+    Q_PROPERTY(Optional<bool> noSendMessageToRecipients MEMBER noSendMessageToRecipients)
+    Q_PROPERTY(Optional<bool> noUpdateNotebook MEMBER noUpdateNotebook)
+    Q_PROPERTY(Optional<bool> noExpungeNotebook MEMBER noExpungeNotebook)
+    Q_PROPERTY(Optional<bool> noSetDefaultNotebook MEMBER noSetDefaultNotebook)
+    Q_PROPERTY(Optional<bool> noSetNotebookStack MEMBER noSetNotebookStack)
+    Q_PROPERTY(Optional<bool> noPublishToPublic MEMBER noPublishToPublic)
+    Q_PROPERTY(Optional<bool> noPublishToBusinessLibrary MEMBER noPublishToBusinessLibrary)
+    Q_PROPERTY(Optional<bool> noCreateTags MEMBER noCreateTags)
+    Q_PROPERTY(Optional<bool> noUpdateTags MEMBER noUpdateTags)
+    Q_PROPERTY(Optional<bool> noExpungeTags MEMBER noExpungeTags)
+    Q_PROPERTY(Optional<bool> noSetParentTag MEMBER noSetParentTag)
+    Q_PROPERTY(Optional<bool> noCreateSharedNotebooks MEMBER noCreateSharedNotebooks)
+    Q_PROPERTY(Optional<SharedNotebookInstanceRestrictions> updateWhichSharedNotebookRestrictions MEMBER updateWhichSharedNotebookRestrictions)
+    Q_PROPERTY(Optional<SharedNotebookInstanceRestrictions> expungeWhichSharedNotebookRestrictions MEMBER expungeWhichSharedNotebookRestrictions)
+    Q_PROPERTY(Optional<bool> noShareNotesWithBusiness MEMBER noShareNotesWithBusiness)
+    Q_PROPERTY(Optional<bool> noRenameNotebook MEMBER noRenameNotebook)
+    Q_PROPERTY(Optional<bool> noSetInMyList MEMBER noSetInMyList)
+    Q_PROPERTY(Optional<bool> noChangeContact MEMBER noChangeContact)
+    Q_PROPERTY(Optional<CanMoveToContainerRestrictions> canMoveToContainerRestrictions MEMBER canMoveToContainerRestrictions)
+    Q_PROPERTY(Optional<bool> noSetReminderNotifyEmail MEMBER noSetReminderNotifyEmail)
+    Q_PROPERTY(Optional<bool> noSetReminderNotifyInApp MEMBER noSetReminderNotifyInApp)
+    Q_PROPERTY(Optional<bool> noSetRecipientSettingsStack MEMBER noSetRecipientSettingsStack)
+    Q_PROPERTY(Optional<bool> noCanMoveNote MEMBER noCanMoveNote)
 };
 
 /**
@@ -3982,6 +4587,9 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions: public Printable
  * */
 struct QEVERCLOUD_EXPORT Notebook: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4133,6 +4741,23 @@ struct QEVERCLOUD_EXPORT Notebook: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<QString> name MEMBER name)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<bool> defaultNotebook MEMBER defaultNotebook)
+    Q_PROPERTY(Optional<Timestamp> serviceCreated MEMBER serviceCreated)
+    Q_PROPERTY(Optional<Timestamp> serviceUpdated MEMBER serviceUpdated)
+    Q_PROPERTY(Optional<Publishing> publishing MEMBER publishing)
+    Q_PROPERTY(Optional<bool> published MEMBER published)
+    Q_PROPERTY(Optional<QString> stack MEMBER stack)
+    Q_PROPERTY(Optional<QList<qint64>> sharedNotebookIds MEMBER sharedNotebookIds)
+    Q_PROPERTY(Optional<QList<SharedNotebook>> sharedNotebooks MEMBER sharedNotebooks)
+    Q_PROPERTY(Optional<BusinessNotebook> businessNotebook MEMBER businessNotebook)
+    Q_PROPERTY(Optional<User> contact MEMBER contact)
+    Q_PROPERTY(Optional<NotebookRestrictions> restrictions MEMBER restrictions)
+    Q_PROPERTY(Optional<NotebookRecipientSettings> recipientSettings MEMBER recipientSettings)
 };
 
 /**
@@ -4142,6 +4767,9 @@ struct QEVERCLOUD_EXPORT Notebook: public Printable
  * */
 struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4243,6 +4871,19 @@ struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> shareName MEMBER shareName)
+    Q_PROPERTY(Optional<QString> username MEMBER username)
+    Q_PROPERTY(Optional<QString> shardId MEMBER shardId)
+    Q_PROPERTY(Optional<QString> sharedNotebookGlobalId MEMBER sharedNotebookGlobalId)
+    Q_PROPERTY(Optional<QString> uri MEMBER uri)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<QString> noteStoreUrl MEMBER noteStoreUrl)
+    Q_PROPERTY(Optional<QString> webApiUrlPrefix MEMBER webApiUrlPrefix)
+    Q_PROPERTY(Optional<QString> stack MEMBER stack)
+    Q_PROPERTY(Optional<qint32> businessId MEMBER businessId)
 };
 
 /**
@@ -4252,6 +4893,9 @@ struct QEVERCLOUD_EXPORT LinkedNotebook: public Printable
  * */
 struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4296,6 +4940,13 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> guid MEMBER guid)
+    Q_PROPERTY(Optional<QString> notebookDisplayName MEMBER notebookDisplayName)
+    Q_PROPERTY(Optional<QString> contactName MEMBER contactName)
+    Q_PROPERTY(Optional<bool> hasSharedNotebook MEMBER hasSharedNotebook)
+    Q_PROPERTY(Optional<qint32> joinedUserCount MEMBER joinedUserCount)
 };
 
 /**
@@ -4304,6 +4955,9 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor: public Printable
  * */
 struct QEVERCLOUD_EXPORT UserProfile: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4372,6 +5026,18 @@ struct QEVERCLOUD_EXPORT UserProfile: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<UserID> id MEMBER id)
+    Q_PROPERTY(Optional<QString> name MEMBER name)
+    Q_PROPERTY(Optional<QString> email MEMBER email)
+    Q_PROPERTY(Optional<QString> username MEMBER username)
+    Q_PROPERTY(Optional<BusinessUserAttributes> attributes MEMBER attributes)
+    Q_PROPERTY(Optional<Timestamp> joined MEMBER joined)
+    Q_PROPERTY(Optional<Timestamp> photoLastUpdated MEMBER photoLastUpdated)
+    Q_PROPERTY(Optional<QString> photoUrl MEMBER photoUrl)
+    Q_PROPERTY(Optional<BusinessUserRole> role MEMBER role)
+    Q_PROPERTY(Optional<BusinessUserStatus> status MEMBER status)
 };
 
 /**
@@ -4382,6 +5048,9 @@ struct QEVERCLOUD_EXPORT UserProfile: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4424,6 +5093,13 @@ struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> url MEMBER url)
+    Q_PROPERTY(Optional<qint32> width MEMBER width)
+    Q_PROPERTY(Optional<qint32> height MEMBER height)
+    Q_PROPERTY(Optional<double> pixelRatio MEMBER pixelRatio)
+    Q_PROPERTY(Optional<qint32> fileSize MEMBER fileSize)
 };
 
 /**
@@ -4433,6 +5109,9 @@ struct QEVERCLOUD_EXPORT RelatedContentImage: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedContent: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4537,6 +5216,24 @@ struct QEVERCLOUD_EXPORT RelatedContent: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> contentId MEMBER contentId)
+    Q_PROPERTY(Optional<QString> title MEMBER title)
+    Q_PROPERTY(Optional<QString> url MEMBER url)
+    Q_PROPERTY(Optional<QString> sourceId MEMBER sourceId)
+    Q_PROPERTY(Optional<QString> sourceUrl MEMBER sourceUrl)
+    Q_PROPERTY(Optional<QString> sourceFaviconUrl MEMBER sourceFaviconUrl)
+    Q_PROPERTY(Optional<QString> sourceName MEMBER sourceName)
+    Q_PROPERTY(Optional<Timestamp> date MEMBER date)
+    Q_PROPERTY(Optional<QString> teaser MEMBER teaser)
+    Q_PROPERTY(Optional<QList<RelatedContentImage>> thumbnails MEMBER thumbnails)
+    Q_PROPERTY(Optional<RelatedContentType> contentType MEMBER contentType)
+    Q_PROPERTY(Optional<RelatedContentAccess> accessType MEMBER accessType)
+    Q_PROPERTY(Optional<QString> visibleUrl MEMBER visibleUrl)
+    Q_PROPERTY(Optional<QString> clipUrl MEMBER clipUrl)
+    Q_PROPERTY(Optional<Contact> contact MEMBER contact)
+    Q_PROPERTY(Optional<QStringList> authors MEMBER authors)
 };
 
 /**
@@ -4545,6 +5242,9 @@ struct QEVERCLOUD_EXPORT RelatedContent: public Printable
  * */
 struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4605,6 +5305,16 @@ struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> businessId MEMBER businessId)
+    Q_PROPERTY(Optional<QString> email MEMBER email)
+    Q_PROPERTY(Optional<BusinessUserRole> role MEMBER role)
+    Q_PROPERTY(Optional<BusinessInvitationStatus> status MEMBER status)
+    Q_PROPERTY(Optional<UserID> requesterId MEMBER requesterId)
+    Q_PROPERTY(Optional<bool> fromWorkChat MEMBER fromWorkChat)
+    Q_PROPERTY(Optional<Timestamp> created MEMBER created)
+    Q_PROPERTY(Optional<Timestamp> mostRecentReminder MEMBER mostRecentReminder)
 };
 
 /**
@@ -4638,6 +5348,9 @@ struct QEVERCLOUD_EXPORT BusinessInvitation: public Printable
  */
 struct QEVERCLOUD_EXPORT UserIdentity: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4664,6 +5377,11 @@ struct QEVERCLOUD_EXPORT UserIdentity: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<UserIdentityType> type MEMBER type)
+    Q_PROPERTY(Optional<QString> stringIdentifier MEMBER stringIdentifier)
+    Q_PROPERTY(Optional<qint64> longIdentifier MEMBER longIdentifier)
 };
 
 /**
@@ -4672,6 +5390,9 @@ struct QEVERCLOUD_EXPORT UserIdentity: public Printable
  **/
 struct QEVERCLOUD_EXPORT PublicUserInfo: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4721,12 +5442,22 @@ struct QEVERCLOUD_EXPORT PublicUserInfo: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(UserID userId MEMBER userId)
+    Q_PROPERTY(Optional<ServiceLevel> serviceLevel MEMBER serviceLevel)
+    Q_PROPERTY(Optional<QString> username MEMBER username)
+    Q_PROPERTY(Optional<QString> noteStoreUrl MEMBER noteStoreUrl)
+    Q_PROPERTY(Optional<QString> webApiUrlPrefix MEMBER webApiUrlPrefix)
 };
 
 /**
  * */
 struct QEVERCLOUD_EXPORT UserUrls: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4793,6 +5524,14 @@ struct QEVERCLOUD_EXPORT UserUrls: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> noteStoreUrl MEMBER noteStoreUrl)
+    Q_PROPERTY(Optional<QString> webApiUrlPrefix MEMBER webApiUrlPrefix)
+    Q_PROPERTY(Optional<QString> userStoreUrl MEMBER userStoreUrl)
+    Q_PROPERTY(Optional<QString> utilityUrl MEMBER utilityUrl)
+    Q_PROPERTY(Optional<QString> messageStoreUrl MEMBER messageStoreUrl)
+    Q_PROPERTY(Optional<QString> userWebSocketUrl MEMBER userWebSocketUrl)
 };
 
 /**
@@ -4801,6 +5540,9 @@ struct QEVERCLOUD_EXPORT UserUrls: public Printable
  **/
 struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4886,6 +5628,18 @@ struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Timestamp currentTime MEMBER currentTime)
+    Q_PROPERTY(QString authenticationToken MEMBER authenticationToken)
+    Q_PROPERTY(Timestamp expiration MEMBER expiration)
+    Q_PROPERTY(Optional<User> user MEMBER user)
+    Q_PROPERTY(Optional<PublicUserInfo> publicUserInfo MEMBER publicUserInfo)
+    Q_PROPERTY(Optional<QString> noteStoreUrl MEMBER noteStoreUrl)
+    Q_PROPERTY(Optional<QString> webApiUrlPrefix MEMBER webApiUrlPrefix)
+    Q_PROPERTY(Optional<bool> secondFactorRequired MEMBER secondFactorRequired)
+    Q_PROPERTY(Optional<QString> secondFactorDeliveryHint MEMBER secondFactorDeliveryHint)
+    Q_PROPERTY(Optional<UserUrls> urls MEMBER urls)
 };
 
 /**
@@ -4893,6 +5647,9 @@ struct QEVERCLOUD_EXPORT AuthenticationResult: public Printable
  **/
 struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -4987,6 +5744,22 @@ struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(QString serviceHost MEMBER serviceHost)
+    Q_PROPERTY(QString marketingUrl MEMBER marketingUrl)
+    Q_PROPERTY(QString supportUrl MEMBER supportUrl)
+    Q_PROPERTY(QString accountEmailDomain MEMBER accountEmailDomain)
+    Q_PROPERTY(Optional<bool> enableFacebookSharing MEMBER enableFacebookSharing)
+    Q_PROPERTY(Optional<bool> enableGiftSubscriptions MEMBER enableGiftSubscriptions)
+    Q_PROPERTY(Optional<bool> enableSupportTickets MEMBER enableSupportTickets)
+    Q_PROPERTY(Optional<bool> enableSharedNotebooks MEMBER enableSharedNotebooks)
+    Q_PROPERTY(Optional<bool> enableSingleNoteSharing MEMBER enableSingleNoteSharing)
+    Q_PROPERTY(Optional<bool> enableSponsoredAccounts MEMBER enableSponsoredAccounts)
+    Q_PROPERTY(Optional<bool> enableTwitterSharing MEMBER enableTwitterSharing)
+    Q_PROPERTY(Optional<bool> enableLinkedInSharing MEMBER enableLinkedInSharing)
+    Q_PROPERTY(Optional<bool> enablePublicNotebooks MEMBER enablePublicNotebooks)
+    Q_PROPERTY(Optional<bool> enableGoogle MEMBER enableGoogle)
 };
 
 /**
@@ -4994,6 +5767,9 @@ struct QEVERCLOUD_EXPORT BootstrapSettings: public Printable
  **/
 struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5022,6 +5798,10 @@ struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(QString name MEMBER name)
+    Q_PROPERTY(BootstrapSettings settings MEMBER settings)
 };
 
 /**
@@ -5029,6 +5809,9 @@ struct QEVERCLOUD_EXPORT BootstrapProfile: public Printable
  **/
 struct QEVERCLOUD_EXPORT BootstrapInfo: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5052,6 +5835,9 @@ struct QEVERCLOUD_EXPORT BootstrapInfo: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(QList<BootstrapProfile> profiles MEMBER profiles)
 };
 
 /**
@@ -5074,6 +5860,7 @@ struct QEVERCLOUD_EXPORT BootstrapInfo: public Printable
  */
 class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException, public Printable
 {
+    Q_GADGET
 public:
     EDAMErrorCode errorCode;
     Optional<QString> parameter;
@@ -5098,6 +5885,9 @@ public:
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EDAMErrorCode errorCode MEMBER errorCode)
+    Q_PROPERTY(Optional<QString> parameter MEMBER parameter)
 };
 
 /**
@@ -5116,6 +5906,7 @@ public:
  */
 class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException, public Printable
 {
+    Q_GADGET
 public:
     EDAMErrorCode errorCode;
     Optional<QString> message;
@@ -5142,6 +5933,10 @@ public:
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EDAMErrorCode errorCode MEMBER errorCode)
+    Q_PROPERTY(Optional<QString> message MEMBER message)
+    Q_PROPERTY(Optional<qint32> rateLimitDuration MEMBER rateLimitDuration)
 };
 
 /**
@@ -5159,6 +5954,7 @@ public:
  */
 class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException, public Printable
 {
+    Q_GADGET
 public:
     Optional<QString> identifier;
     Optional<QString> key;
@@ -5183,6 +5979,9 @@ public:
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(Optional<QString> identifier MEMBER identifier)
+    Q_PROPERTY(Optional<QString> key MEMBER key)
 };
 
 /**
@@ -5209,6 +6008,7 @@ public:
  */
 class QEVERCLOUD_EXPORT EDAMInvalidContactsException: public EvernoteException, public Printable
 {
+    Q_GADGET
 public:
     QList<Contact> contacts;
     Optional<QString> parameter;
@@ -5235,6 +6035,10 @@ public:
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(QList<Contact> contacts MEMBER contacts)
+    Q_PROPERTY(Optional<QString> parameter MEMBER parameter)
+    Q_PROPERTY(Optional<QList<EDAMInvalidContactReason>> reasons MEMBER reasons)
 };
 
 /**
@@ -5250,6 +6054,9 @@ public:
  **/
 struct QEVERCLOUD_EXPORT SyncChunk: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5361,6 +6168,22 @@ struct QEVERCLOUD_EXPORT SyncChunk: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Timestamp currentTime MEMBER currentTime)
+    Q_PROPERTY(Optional<qint32> chunkHighUSN MEMBER chunkHighUSN)
+    Q_PROPERTY(qint32 updateCount MEMBER updateCount)
+    Q_PROPERTY(Optional<QList<Note>> notes MEMBER notes)
+    Q_PROPERTY(Optional<QList<Notebook>> notebooks MEMBER notebooks)
+    Q_PROPERTY(Optional<QList<Tag>> tags MEMBER tags)
+    Q_PROPERTY(Optional<QList<SavedSearch>> searches MEMBER searches)
+    Q_PROPERTY(Optional<QList<Resource>> resources MEMBER resources)
+    Q_PROPERTY(Optional<QList<Guid>> expungedNotes MEMBER expungedNotes)
+    Q_PROPERTY(Optional<QList<Guid>> expungedNotebooks MEMBER expungedNotebooks)
+    Q_PROPERTY(Optional<QList<Guid>> expungedTags MEMBER expungedTags)
+    Q_PROPERTY(Optional<QList<Guid>> expungedSearches MEMBER expungedSearches)
+    Q_PROPERTY(Optional<QList<LinkedNotebook>> linkedNotebooks MEMBER linkedNotebooks)
+    Q_PROPERTY(Optional<QList<Guid>> expungedLinkedNotebooks MEMBER expungedLinkedNotebooks)
 };
 
 /**
@@ -5369,6 +6192,9 @@ struct QEVERCLOUD_EXPORT SyncChunk: public Printable
  **/
 struct QEVERCLOUD_EXPORT NoteList: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5442,6 +6268,16 @@ struct QEVERCLOUD_EXPORT NoteList: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(qint32 startIndex MEMBER startIndex)
+    Q_PROPERTY(qint32 totalNotes MEMBER totalNotes)
+    Q_PROPERTY(QList<Note> notes MEMBER notes)
+    Q_PROPERTY(Optional<QStringList> stoppedWords MEMBER stoppedWords)
+    Q_PROPERTY(Optional<QStringList> searchedWords MEMBER searchedWords)
+    Q_PROPERTY(Optional<qint32> updateCount MEMBER updateCount)
+    Q_PROPERTY(Optional<QByteArray> searchContextBytes MEMBER searchContextBytes)
+    Q_PROPERTY(Optional<QString> debugInfo MEMBER debugInfo)
 };
 
 /**
@@ -5456,6 +6292,9 @@ struct QEVERCLOUD_EXPORT NoteList: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5517,6 +6356,20 @@ struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Guid guid MEMBER guid)
+    Q_PROPERTY(Optional<QString> title MEMBER title)
+    Q_PROPERTY(Optional<qint32> contentLength MEMBER contentLength)
+    Q_PROPERTY(Optional<Timestamp> created MEMBER created)
+    Q_PROPERTY(Optional<Timestamp> updated MEMBER updated)
+    Q_PROPERTY(Optional<Timestamp> deleted MEMBER deleted)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<QString> notebookGuid MEMBER notebookGuid)
+    Q_PROPERTY(Optional<QList<Guid>> tagGuids MEMBER tagGuids)
+    Q_PROPERTY(Optional<NoteAttributes> attributes MEMBER attributes)
+    Q_PROPERTY(Optional<QString> largestResourceMime MEMBER largestResourceMime)
+    Q_PROPERTY(Optional<qint32> largestResourceSize MEMBER largestResourceSize)
 };
 
 /**
@@ -5527,6 +6380,9 @@ struct QEVERCLOUD_EXPORT NoteMetadata: public Printable
  **/
 struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5602,6 +6458,16 @@ struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(qint32 startIndex MEMBER startIndex)
+    Q_PROPERTY(qint32 totalNotes MEMBER totalNotes)
+    Q_PROPERTY(QList<NoteMetadata> notes MEMBER notes)
+    Q_PROPERTY(Optional<QStringList> stoppedWords MEMBER stoppedWords)
+    Q_PROPERTY(Optional<QStringList> searchedWords MEMBER searchedWords)
+    Q_PROPERTY(Optional<qint32> updateCount MEMBER updateCount)
+    Q_PROPERTY(Optional<QByteArray> searchContextBytes MEMBER searchContextBytes)
+    Q_PROPERTY(Optional<QString> debugInfo MEMBER debugInfo)
 };
 
 /**
@@ -5611,6 +6477,9 @@ struct QEVERCLOUD_EXPORT NotesMetadataList: public Printable
  * */
 struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5670,6 +6539,14 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> guid MEMBER guid)
+    Q_PROPERTY(Optional<Note> note MEMBER note)
+    Q_PROPERTY(Optional<QStringList> toAddresses MEMBER toAddresses)
+    Q_PROPERTY(Optional<QStringList> ccAddresses MEMBER ccAddresses)
+    Q_PROPERTY(Optional<QString> subject MEMBER subject)
+    Q_PROPERTY(Optional<QString> message MEMBER message)
 };
 
 /**
@@ -5682,6 +6559,9 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters: public Printable
  * */
 struct QEVERCLOUD_EXPORT RelatedResult: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5786,6 +6666,17 @@ struct QEVERCLOUD_EXPORT RelatedResult: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QList<Note>> notes MEMBER notes)
+    Q_PROPERTY(Optional<QList<Notebook>> notebooks MEMBER notebooks)
+    Q_PROPERTY(Optional<QList<Tag>> tags MEMBER tags)
+    Q_PROPERTY(Optional<QList<NotebookDescriptor>> containingNotebooks MEMBER containingNotebooks)
+    Q_PROPERTY(Optional<QString> debugInfo MEMBER debugInfo)
+    Q_PROPERTY(Optional<QList<UserProfile>> experts MEMBER experts)
+    Q_PROPERTY(Optional<QList<RelatedContent>> relatedContent MEMBER relatedContent)
+    Q_PROPERTY(Optional<QString> cacheKey MEMBER cacheKey)
+    Q_PROPERTY(Optional<qint32> cacheExpires MEMBER cacheExpires)
 };
 
 /**
@@ -5795,6 +6686,9 @@ struct QEVERCLOUD_EXPORT RelatedResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5827,6 +6721,10 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Note> note MEMBER note)
+    Q_PROPERTY(Optional<bool> updated MEMBER updated)
 };
 
 /**
@@ -5836,6 +6734,9 @@ struct QEVERCLOUD_EXPORT UpdateNoteIfUsnMatchesResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5885,6 +6786,12 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> displayName MEMBER displayName)
+    Q_PROPERTY(Optional<UserIdentity> recipientUserIdentity MEMBER recipientUserIdentity)
+    Q_PROPERTY(Optional<ShareRelationshipPrivilegeLevel> privilege MEMBER privilege)
+    Q_PROPERTY(Optional<UserID> sharerUserId MEMBER sharerUserId)
 };
 
 /**
@@ -5896,6 +6803,9 @@ struct QEVERCLOUD_EXPORT InvitationShareRelationship: public Printable
  * */
 struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -5936,6 +6846,11 @@ struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QList<InvitationShareRelationship>> invitations MEMBER invitations)
+    Q_PROPERTY(Optional<QList<MemberShareRelationship>> memberships MEMBER memberships)
+    Q_PROPERTY(Optional<ShareRelationshipRestrictions> invitationRestrictions MEMBER invitationRestrictions)
 };
 
 /**
@@ -5945,6 +6860,9 @@ struct QEVERCLOUD_EXPORT ShareRelationships: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6012,6 +6930,13 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QString> notebookGuid MEMBER notebookGuid)
+    Q_PROPERTY(Optional<QString> inviteMessage MEMBER inviteMessage)
+    Q_PROPERTY(Optional<QList<MemberShareRelationship>> membershipsToUpdate MEMBER membershipsToUpdate)
+    Q_PROPERTY(Optional<QList<InvitationShareRelationship>> invitationsToCreateOrUpdate MEMBER invitationsToCreateOrUpdate)
+    Q_PROPERTY(Optional<QList<UserIdentity>> unshares MEMBER unshares)
 };
 
 /**
@@ -6027,6 +6952,9 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesParameters: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6064,6 +6992,11 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<UserIdentity> userIdentity MEMBER userIdentity)
+    Q_PROPERTY(Optional<EDAMUserException> userException MEMBER userException)
+    Q_PROPERTY(Optional<EDAMNotFoundException> notFoundException MEMBER notFoundException)
 };
 
 /**
@@ -6072,6 +7005,9 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesError: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6096,6 +7032,9 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QList<ManageNotebookSharesError>> errors MEMBER errors)
 };
 
 /**
@@ -6104,6 +7043,9 @@ struct QEVERCLOUD_EXPORT ManageNotebookSharesResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6148,6 +7090,12 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> noteGuid MEMBER noteGuid)
+    Q_PROPERTY(Optional<MessageThreadID> recipientThreadId MEMBER recipientThreadId)
+    Q_PROPERTY(Optional<QList<Contact>> recipientContacts MEMBER recipientContacts)
+    Q_PROPERTY(Optional<SharedNotePrivilegeLevel> privilege MEMBER privilege)
 };
 
 /**
@@ -6156,6 +7104,9 @@ struct QEVERCLOUD_EXPORT SharedNoteTemplate: public Printable
  * */
 struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6200,6 +7151,12 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<Guid> notebookGuid MEMBER notebookGuid)
+    Q_PROPERTY(Optional<MessageThreadID> recipientThreadId MEMBER recipientThreadId)
+    Q_PROPERTY(Optional<QList<Contact>> recipientContacts MEMBER recipientContacts)
+    Q_PROPERTY(Optional<SharedNotebookPrivilegeLevel> privilege MEMBER privilege)
 };
 
 /**
@@ -6208,6 +7165,9 @@ struct QEVERCLOUD_EXPORT NotebookShareTemplate: public Printable
  * */
 struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6238,6 +7198,10 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<qint32> updateSequenceNum MEMBER updateSequenceNum)
+    Q_PROPERTY(Optional<QList<SharedNotebook>> matchingShares MEMBER matchingShares)
 };
 
 /**
@@ -6253,6 +7217,9 @@ struct QEVERCLOUD_EXPORT CreateOrUpdateNotebookSharesResult: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6297,6 +7264,12 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<IdentityID> identityID MEMBER identityID)
+    Q_PROPERTY(Optional<UserID> userID MEMBER userID)
+    Q_PROPERTY(Optional<EDAMUserException> userException MEMBER userException)
+    Q_PROPERTY(Optional<EDAMNotFoundException> notFoundException MEMBER notFoundException)
 };
 
 /**
@@ -6305,6 +7278,9 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesError: public Printable
  * */
 struct QEVERCLOUD_EXPORT ManageNoteSharesResult: public Printable
 {
+private:
+    Q_GADGET
+public:
     /**
      * See the declaration of EverCloudLocalData for details
      */
@@ -6329,10 +7305,14 @@ struct QEVERCLOUD_EXPORT ManageNoteSharesResult: public Printable
     {
         return !(*this == other);
     }
+
+    Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
+    Q_PROPERTY(Optional<QList<ManageNoteSharesError>> errors MEMBER errors)
 };
 
 } // namespace qevercloud
 
+Q_DECLARE_METATYPE(qevercloud::EverCloudLocalData)
 Q_DECLARE_METATYPE(qevercloud::SyncState)
 Q_DECLARE_METATYPE(qevercloud::SyncChunkFilter)
 Q_DECLARE_METATYPE(qevercloud::NoteFilter)

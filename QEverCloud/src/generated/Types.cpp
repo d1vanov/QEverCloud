@@ -417,6 +417,20 @@ void EverCloudLocalData::print(QTextStream & strm) const
     }
 }
 
+bool EverCloudLocalData::operator==(
+    const EverCloudLocalData & other) const
+{
+    return id == other.id && dirty == other.dirty &&
+        local == other.local && favorited == other.favorited &&
+        dict == other.dict;
+}
+
+bool EverCloudLocalData::operator!=(
+    const EverCloudLocalData & other) const
+{
+    return !operator==(other);
+}
+
 void writeSyncState(
     ThriftBinaryBufferWriter & writer,
     const SyncState & s)
