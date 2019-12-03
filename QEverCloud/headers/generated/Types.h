@@ -15,8 +15,8 @@
 #include "../Export.h"
 
 #include "../Optional.h"
+#include "../Printable.h"
 #include "EDAMErrorCode.h"
-#include "Printable.h"
 #include <QByteArray>
 #include <QDateTime>
 #include <QHash>
