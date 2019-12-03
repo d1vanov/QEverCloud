@@ -32,36 +32,45 @@
 
 namespace {
 
-    quint64 random64()
-    {
-        quint64 res = 0;
-        for(int i = 0; i < 8; i++) {
-            res += static_cast<quint64>(qrand() % 256) << i*8;
-        }
+////////////////////////////////////////////////////////////////////////////////
 
-        QByteArray randomData = QUuid::createUuid().toRfc4122();
-        quint64 random;
-        std::memcpy(&random, &randomData.constData()[0], sizeof(random));
-        res ^= random;
-        std::memcpy(&random, &randomData.constData()[sizeof(random)],
-                    sizeof(random));
-        res ^= random;
-
-        return res;
+quint64 random64()
+{
+    quint64 res = 0;
+    for(int i = 0; i < 8; i++) {
+        res += static_cast<quint64>(qrand() % 256) << i*8;
     }
 
-    typedef quint64 (*NonceGenerator)();
-    NonceGenerator nonceGenerator_ = random64;
+    QByteArray randomData = QUuid::createUuid().toRfc4122();
+    quint64 random;
+    std::memcpy(&random, &randomData.constData()[0], sizeof(random));
+    res ^= random;
+    std::memcpy(&random, &randomData.constData()[sizeof(random)],
+                sizeof(random));
+    res ^= random;
 
-    NonceGenerator nonceGenerator() {return nonceGenerator_;}
+    return res;
 }
+
+typedef quint64 (*NonceGenerator)();
+NonceGenerator nonceGenerator_ = random64;
+
+NonceGenerator nonceGenerator() {return nonceGenerator_;}
+
+} // namespace
+
+////////////////////////////////////////////////////////////////////////////////
+
+namespace qevercloud {
+
+////////////////////////////////////////////////////////////////////////////////
 
 void setNonceGenerator(quint64 (*nonceGenerator)())
 {
     nonceGenerator_ = nonceGenerator;
 }
 
-namespace qevercloud {
+////////////////////////////////////////////////////////////////////////////////
 
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
 class EvernoteOAuthWebViewPrivate: public QWebEngineView
@@ -96,6 +105,8 @@ public:
     EvernoteOAuthWebView::OAuthResult   m_oauthResult;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
 EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
     : QWebEngineView(parent)
@@ -116,87 +127,6 @@ void EvernoteOAuthWebViewPrivate::setError(QString errorText)
     m_errorText = errorText;
     emit authenticationFinished(false);
     emit authenticationFailed();
-}
-
-EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
-    QWidget(parent),
-    d_ptr(new EvernoteOAuthWebViewPrivate(this))
-{
-    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFinished,
-                     this, &EvernoteOAuthWebView::authenticationFinished);
-    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationSuceeded,
-                     this, &EvernoteOAuthWebView::authenticationSuceeded);
-    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFailed,
-                     this, &EvernoteOAuthWebView::authenticationFailed);
-
-    QVBoxLayout * pLayout = new QVBoxLayout(this);
-    pLayout->addWidget(d_ptr);
-    setLayout(pLayout);
-}
-
-void EvernoteOAuthWebView::authenticate(
-    QString host, QString consumerKey, QString consumerSecret,
-    const qint64 timeoutMsec)
-{
-    QEC_DEBUG("oauth", "Sending request to acquire temporary token");
-
-    Q_D(EvernoteOAuthWebView);
-    d->m_host = host;
-    d->m_isSucceeded = false;
-    d->m_timeoutMsec = timeoutMsec;
-    d->setHtml(QLatin1String(""));
-    d->history()->clear();
-
-    qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
-    quint64 nonce = nonceGenerator()();
-    d->m_oauthUrlBase =
-        QString::fromUtf8("https://%1/oauth?oauth_consumer_key=%2&"
-                          "oauth_signature=%3&"
-                          "oauth_signature_method=PLAINTEXT&"
-                          "oauth_timestamp=%4&oauth_nonce=%5")
-        .arg(host, consumerKey, consumerSecret).arg(timestamp).arg(nonce);
-
-    // step 1: acquire temporary token
-    ReplyFetcher * replyFetcher = new ReplyFetcher();
-    QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
-                     d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
-    QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
-    replyFetcher->start(evernoteNetworkAccessManager(), url, timeoutMsec);
-#else
-    replyFetcher->start(d->page()->networkAccessManager(), url, timeoutMsec);
-#endif
-}
-
-bool EvernoteOAuthWebView::isSucceeded() const
-{
-    Q_D(const EvernoteOAuthWebView);
-    return d->m_isSucceeded;
-}
-
-QString EvernoteOAuthWebView::oauthError() const
-{
-    Q_D(const EvernoteOAuthWebView);
-    return d->m_errorText;
-}
-
-EvernoteOAuthWebView::OAuthResult EvernoteOAuthWebView::oauthResult() const
-{
-    Q_D(const EvernoteOAuthWebView);
-    return d->m_oauthResult;
-}
-
-void EvernoteOAuthWebView::setSizeHint(QSize sizeHint)
-{
-    Q_D(EvernoteOAuthWebView);
-    d->m_sizeHint = sizeHint;
-    updateGeometry();
-}
-
-QSize EvernoteOAuthWebView::sizeHint() const
-{
-    Q_D(const EvernoteOAuthWebView);
-    return d->m_sizeHint;
 }
 
 void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
@@ -309,6 +239,110 @@ void EvernoteOAuthWebViewPrivate::clearHtml()
     setHtml(QLatin1String(""));
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget * parent) :
+    QWidget(parent),
+    d_ptr(new EvernoteOAuthWebViewPrivate(this))
+{
+    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFinished,
+                     this, &EvernoteOAuthWebView::authenticationFinished);
+    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationSuceeded,
+                     this, &EvernoteOAuthWebView::authenticationSuceeded);
+    QObject::connect(d_ptr, &EvernoteOAuthWebViewPrivate::authenticationFailed,
+                     this, &EvernoteOAuthWebView::authenticationFailed);
+
+    QVBoxLayout * pLayout = new QVBoxLayout(this);
+    pLayout->addWidget(d_ptr);
+    setLayout(pLayout);
+}
+
+void EvernoteOAuthWebView::authenticate(
+    QString host, QString consumerKey, QString consumerSecret,
+    const qint64 timeoutMsec)
+{
+    QEC_DEBUG("oauth", "Sending request to acquire temporary token");
+
+    Q_D(EvernoteOAuthWebView);
+    d->m_host = host;
+    d->m_isSucceeded = false;
+    d->m_timeoutMsec = timeoutMsec;
+    d->setHtml(QLatin1String(""));
+    d->history()->clear();
+
+    qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
+    quint64 nonce = nonceGenerator()();
+    d->m_oauthUrlBase =
+        QString::fromUtf8("https://%1/oauth?oauth_consumer_key=%2&"
+                          "oauth_signature=%3&"
+                          "oauth_signature_method=PLAINTEXT&"
+                          "oauth_timestamp=%4&oauth_nonce=%5")
+        .arg(host, consumerKey, consumerSecret).arg(timestamp).arg(nonce);
+
+    // step 1: acquire temporary token
+    ReplyFetcher * replyFetcher = new ReplyFetcher();
+    QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
+                     d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
+    QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
+    replyFetcher->start(evernoteNetworkAccessManager(), url, timeoutMsec);
+#else
+    replyFetcher->start(d->page()->networkAccessManager(), url, timeoutMsec);
+#endif
+}
+
+bool EvernoteOAuthWebView::isSucceeded() const
+{
+    Q_D(const EvernoteOAuthWebView);
+    return d->m_isSucceeded;
+}
+
+QString EvernoteOAuthWebView::oauthError() const
+{
+    Q_D(const EvernoteOAuthWebView);
+    return d->m_errorText;
+}
+
+EvernoteOAuthWebView::OAuthResult EvernoteOAuthWebView::oauthResult() const
+{
+    Q_D(const EvernoteOAuthWebView);
+    return d->m_oauthResult;
+}
+
+void EvernoteOAuthWebView::setSizeHint(QSize sizeHint)
+{
+    Q_D(EvernoteOAuthWebView);
+    d->m_sizeHint = sizeHint;
+    updateGeometry();
+}
+
+QSize EvernoteOAuthWebView::sizeHint() const
+{
+    Q_D(const EvernoteOAuthWebView);
+    return d->m_sizeHint;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void EvernoteOAuthWebView::OAuthResult::print(QTextStream & strm) const
+{
+    strm << "qevercloud::EvernoteOAuthWebView::OAuthResult {\n";
+
+    strm << "  noteStoreUrl = " << noteStoreUrl << ";\n";
+    strm << "  expires = " << expires << ";\n";
+    strm << "  shardId = " << shardId << ";\n";
+    strm << "  userId = " << QString::number(userId) << ";\n";
+    strm << "  webApiUrlPrefix = " << webApiUrlPrefix << ";\n";
+    strm << "  authenticationToken "
+         << (authenticationToken.isEmpty()
+             ? "is empty"
+             : "is not empty") << ";\n";
+
+    strm << "};\n";
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 class EvernoteOAuthDialogPrivate
 {
 public:
@@ -325,6 +359,8 @@ public:
     QString                 m_consumerKey;
     QString                 m_consumerSecret;
 };
+
+////////////////////////////////////////////////////////////////////////////////
 
 EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey,
                                          QString consumerSecret,

@@ -17,6 +17,7 @@
 #include "Export.h"
 #include "Helpers.h"
 #include "generated/Types.h"
+#include "Printable.h"
 
 #include <QDialog>
 #include <QString>
@@ -95,7 +96,7 @@ public:
     QString oauthError() const;
 
     /** Holds data that is returned by Evernote on a successful authentication */
-    struct OAuthResult
+    struct OAuthResult: public Printable
     {
         QString noteStoreUrl; ///< note store url for the user; no need to
                               /// question UserStore::getNoteStoreUrl for it.
@@ -104,6 +105,8 @@ public:
         UserID userId; ///< same as PublicUserInfo::userId
         QString webApiUrlPrefix; ///< see PublicUserInfo::webApiUrlPrefix
         QString authenticationToken; ///< This is what this all was for!
+
+        virtual void print(QTextStream & strm) const override;
     };
 
     /** @returns the result of the last authentication, i.e. authenticate() call.*/
