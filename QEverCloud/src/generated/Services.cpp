@@ -47,12 +47,12 @@ public:
         m_ctx = newRequestContext();
     }
 
-    void setNoteStoreUrl(QString noteStoreUrl)
+    virtual void setNoteStoreUrl(QString noteStoreUrl) override
     {
         m_url = std::move(noteStoreUrl);
     }
 
-    QString noteStoreUrl()
+    virtual QString noteStoreUrl() const override
     {
         return m_url;
     }
@@ -16007,12 +16007,12 @@ public:
         m_ctx = newRequestContext();
     }
 
-    void setUserStoreUrl(QString userStoreUrl)
+    virtual void setUserStoreUrl(QString userStoreUrl) override
     {
         m_url = std::move(userStoreUrl);
     }
 
-    QString userStoreUrl()
+    virtual QString userStoreUrl() const override
     {
         return m_url;
     }
@@ -18953,6 +18953,16 @@ public:
         }
     }
 
+    virtual void setNoteStoreUrl(QString noteStoreUrl) override
+    {
+        m_service->setNoteStoreUrl(noteStoreUrl);
+    }
+
+    virtual QString noteStoreUrl() const override
+    {
+        return m_service->noteStoreUrl();
+    }
+
     virtual SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
@@ -19638,6 +19648,16 @@ public:
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
+    }
+
+    virtual void setUserStoreUrl(QString userStoreUrl) override
+    {
+        m_service->setUserStoreUrl(userStoreUrl);
+    }
+
+    virtual QString userStoreUrl() const override
+    {
+        return m_service->userStoreUrl();
     }
 
     virtual bool checkVersion(

@@ -61,6 +61,9 @@ protected:
     {}
 
 public:
+    virtual QString noteStoreUrl() const = 0;
+    virtual void setNoteStoreUrl(QString url) = 0;
+
     /**
        * Asks the NoteStore to provide information about the status of the user
        * account corresponding to the provided authentication token.
@@ -2762,6 +2765,9 @@ protected:
     {}
 
 public:
+    virtual QString userStoreUrl() const = 0;
+    virtual void setUserStoreUrl(QString url) = 0;
+
     /**
        * This should be the first call made by a client to the EDAM service.  It
        * tells the service what protocol version is used by the client.  The
