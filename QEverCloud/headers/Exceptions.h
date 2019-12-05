@@ -84,6 +84,9 @@ public:
         INVALID_DATA = 8
     };
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const Type type);
+
     ThriftException();
     ThriftException(Type type);
     ThriftException(Type type, QString message);

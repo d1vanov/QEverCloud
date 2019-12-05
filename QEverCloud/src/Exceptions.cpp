@@ -177,6 +177,45 @@ ThriftException::ThriftException(ThriftException::Type type, QString message) :
 ThriftException::~ThriftException() noexcept
 {}
 
+QTextStream & operator<<(QTextStream & strm, const ThriftException::Type type)
+{
+    switch(type)
+    {
+    case ThriftException::Type::UNKNOWN:
+        strm << "Unknown application exception";
+        break;
+    case ThriftException::Type::UNKNOWN_METHOD:
+        strm << "Unknown method";
+        break;
+    case ThriftException::Type::INVALID_MESSAGE_TYPE:
+        strm << "Invalid message type";
+        break;
+    case ThriftException::Type::WRONG_METHOD_NAME:
+        strm << "Wrong method name";
+        break;
+    case ThriftException::Type::BAD_SEQUENCE_ID:
+        strm << "Bad sequence identifier";
+        break;
+    case ThriftException::Type::MISSING_RESULT:
+        strm << "Missing result";
+        break;
+    case ThriftException::Type::INTERNAL_ERROR:
+        strm << "Internal error";
+        break;
+    case ThriftException::Type::PROTOCOL_ERROR:
+        strm << "Protocol error";
+        break;
+    case ThriftException::Type::INVALID_DATA:
+        strm << "Invalid data";
+        break;
+    default:
+        strm << "Invalid exception type: " << static_cast<int>(type);
+        break;
+    }
+
+    return strm;
+}
+
 bool ThriftException::operator==(const ThriftException & other) const
 {
     return m_type == other.m_type && m_error == other.m_error;
