@@ -19,13 +19,17 @@ QString Printable::toString() const
 
 QTextStream & operator<<(QTextStream & strm, const Printable & printable)
 {
-    strm << printable.toString();
+    printable.print(strm);
     return strm;
 }
 
 QDebug & operator<<(QDebug & dbg, const Printable & printable)
 {
-    dbg << printable.toString();
+    QString str;
+    QTextStream strm(&str);
+    printable.print(strm);
+
+    dbg << str;
     return dbg;
 }
 
