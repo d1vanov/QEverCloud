@@ -855,7 +855,7 @@ SyncState NoteStore::getSyncState(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getSyncState: request id = "
@@ -880,7 +880,7 @@ AsyncResult * NoteStore::getSyncStateAsync(
     QEC_DEBUG("note_store", "NoteStore::getSyncStateAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetSyncStatePrepareParams(
@@ -1057,7 +1057,7 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getFilteredSyncChunk: request id = "
@@ -1096,7 +1096,7 @@ AsyncResult * NoteStore::getFilteredSyncChunkAsync(
         << "    filter = " << filter);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetFilteredSyncChunkPrepareParams(
@@ -1267,7 +1267,7 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getLinkedNotebookSyncState: request id = "
@@ -1298,7 +1298,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
         << "    linkedNotebook = " << linkedNotebook);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetLinkedNotebookSyncStatePrepareParams(
@@ -1497,7 +1497,7 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getLinkedNotebookSyncChunk: request id = "
@@ -1540,7 +1540,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
         << "    fullSyncOnly = " << fullSyncOnly);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetLinkedNotebookSyncChunkPrepareParams(
@@ -1705,7 +1705,7 @@ QList<Notebook> NoteStore::listNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listNotebooks: request id = "
@@ -1730,7 +1730,7 @@ AsyncResult * NoteStore::listNotebooksAsync(
     QEC_DEBUG("note_store", "NoteStore::listNotebooksAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListNotebooksPrepareParams(
@@ -1891,7 +1891,7 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listAccessibleBusinessNotebooks: request id = "
@@ -1916,7 +1916,7 @@ AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
     QEC_DEBUG("note_store", "NoteStore::listAccessibleBusinessNotebooksAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListAccessibleBusinessNotebooksPrepareParams(
@@ -2084,7 +2084,7 @@ Notebook NoteStore::getNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNotebook: request id = "
@@ -2115,7 +2115,7 @@ AsyncResult * NoteStore::getNotebookAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNotebookPrepareParams(
@@ -2263,7 +2263,7 @@ Notebook NoteStore::getDefaultNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getDefaultNotebook: request id = "
@@ -2288,7 +2288,7 @@ AsyncResult * NoteStore::getDefaultNotebookAsync(
     QEC_DEBUG("note_store", "NoteStore::getDefaultNotebookAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetDefaultNotebookPrepareParams(
@@ -2456,7 +2456,7 @@ Notebook NoteStore::createNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::createNotebook: request id = "
@@ -2487,7 +2487,7 @@ AsyncResult * NoteStore::createNotebookAsync(
         << "    notebook = " << notebook);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCreateNotebookPrepareParams(
@@ -2656,7 +2656,7 @@ qint32 NoteStore::updateNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateNotebook: request id = "
@@ -2687,7 +2687,7 @@ AsyncResult * NoteStore::updateNotebookAsync(
         << "    notebook = " << notebook);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateNotebookPrepareParams(
@@ -2856,7 +2856,7 @@ qint32 NoteStore::expungeNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::expungeNotebook: request id = "
@@ -2887,7 +2887,7 @@ AsyncResult * NoteStore::expungeNotebookAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreExpungeNotebookPrepareParams(
@@ -3049,7 +3049,7 @@ QList<Tag> NoteStore::listTags(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listTags: request id = "
@@ -3074,7 +3074,7 @@ AsyncResult * NoteStore::listTagsAsync(
     QEC_DEBUG("note_store", "NoteStore::listTagsAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListTagsPrepareParams(
@@ -3256,7 +3256,7 @@ QList<Tag> NoteStore::listTagsByNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listTagsByNotebook: request id = "
@@ -3287,7 +3287,7 @@ AsyncResult * NoteStore::listTagsByNotebookAsync(
         << "    notebookGuid = " << notebookGuid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListTagsByNotebookPrepareParams(
@@ -3456,7 +3456,7 @@ Tag NoteStore::getTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getTag: request id = "
@@ -3487,7 +3487,7 @@ AsyncResult * NoteStore::getTagAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetTagPrepareParams(
@@ -3656,7 +3656,7 @@ Tag NoteStore::createTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::createTag: request id = "
@@ -3687,7 +3687,7 @@ AsyncResult * NoteStore::createTagAsync(
         << "    tag = " << tag);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCreateTagPrepareParams(
@@ -3856,7 +3856,7 @@ qint32 NoteStore::updateTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateTag: request id = "
@@ -3887,7 +3887,7 @@ AsyncResult * NoteStore::updateTagAsync(
         << "    tag = " << tag);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateTagPrepareParams(
@@ -4036,7 +4036,7 @@ void NoteStore::untagAll(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::untagAll: request id = "
@@ -4067,7 +4067,7 @@ AsyncResult * NoteStore::untagAllAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUntagAllPrepareParams(
@@ -4236,7 +4236,7 @@ qint32 NoteStore::expungeTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::expungeTag: request id = "
@@ -4267,7 +4267,7 @@ AsyncResult * NoteStore::expungeTagAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreExpungeTagPrepareParams(
@@ -4429,7 +4429,7 @@ QList<SavedSearch> NoteStore::listSearches(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listSearches: request id = "
@@ -4454,7 +4454,7 @@ AsyncResult * NoteStore::listSearchesAsync(
     QEC_DEBUG("note_store", "NoteStore::listSearchesAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListSearchesPrepareParams(
@@ -4622,7 +4622,7 @@ SavedSearch NoteStore::getSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getSearch: request id = "
@@ -4653,7 +4653,7 @@ AsyncResult * NoteStore::getSearchAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetSearchPrepareParams(
@@ -4811,7 +4811,7 @@ SavedSearch NoteStore::createSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::createSearch: request id = "
@@ -4842,7 +4842,7 @@ AsyncResult * NoteStore::createSearchAsync(
         << "    search = " << search);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCreateSearchPrepareParams(
@@ -5011,7 +5011,7 @@ qint32 NoteStore::updateSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateSearch: request id = "
@@ -5042,7 +5042,7 @@ AsyncResult * NoteStore::updateSearchAsync(
         << "    search = " << search);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateSearchPrepareParams(
@@ -5211,7 +5211,7 @@ qint32 NoteStore::expungeSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::expungeSearch: request id = "
@@ -5242,7 +5242,7 @@ AsyncResult * NoteStore::expungeSearchAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreExpungeSearchPrepareParams(
@@ -5421,7 +5421,7 @@ qint32 NoteStore::findNoteOffset(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::findNoteOffset: request id = "
@@ -5456,7 +5456,7 @@ AsyncResult * NoteStore::findNoteOffsetAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreFindNoteOffsetPrepareParams(
@@ -5656,7 +5656,7 @@ NotesMetadataList NoteStore::findNotesMetadata(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::findNotesMetadata: request id = "
@@ -5699,7 +5699,7 @@ AsyncResult * NoteStore::findNotesMetadataAsync(
         << "    resultSpec = " << resultSpec);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreFindNotesMetadataPrepareParams(
@@ -5881,7 +5881,7 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::findNoteCounts: request id = "
@@ -5916,7 +5916,7 @@ AsyncResult * NoteStore::findNoteCountsAsync(
         << "    withTrash = " << withTrash);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreFindNoteCountsPrepareParams(
@@ -6096,7 +6096,7 @@ Note NoteStore::getNoteWithResultSpec(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteWithResultSpec: request id = "
@@ -6131,7 +6131,7 @@ AsyncResult * NoteStore::getNoteWithResultSpecAsync(
         << "    resultSpec = " << resultSpec);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteWithResultSpecPrepareParams(
@@ -6341,7 +6341,7 @@ Note NoteStore::getNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNote: request id = "
@@ -6388,7 +6388,7 @@ AsyncResult * NoteStore::getNoteAsync(
         << "    withResourcesAlternateData = " << withResourcesAlternateData);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNotePrepareParams(
@@ -6561,7 +6561,7 @@ LazyMap NoteStore::getNoteApplicationData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteApplicationData: request id = "
@@ -6592,7 +6592,7 @@ AsyncResult * NoteStore::getNoteApplicationDataAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteApplicationDataPrepareParams(
@@ -6771,7 +6771,7 @@ QString NoteStore::getNoteApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteApplicationDataEntry: request id = "
@@ -6806,7 +6806,7 @@ AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
         << "    key = " << key);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteApplicationDataEntryPrepareParams(
@@ -6996,7 +6996,7 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::setNoteApplicationDataEntry: request id = "
@@ -7035,7 +7035,7 @@ AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
         << "    value = " << value);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreSetNoteApplicationDataEntryPrepareParams(
@@ -7216,7 +7216,7 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::unsetNoteApplicationDataEntry: request id = "
@@ -7251,7 +7251,7 @@ AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
         << "    key = " << key);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUnsetNoteApplicationDataEntryPrepareParams(
@@ -7421,7 +7421,7 @@ QString NoteStore::getNoteContent(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteContent: request id = "
@@ -7452,7 +7452,7 @@ AsyncResult * NoteStore::getNoteContentAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteContentPrepareParams(
@@ -7641,7 +7641,7 @@ QString NoteStore::getNoteSearchText(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteSearchText: request id = "
@@ -7680,7 +7680,7 @@ AsyncResult * NoteStore::getNoteSearchTextAsync(
         << "    tokenizeForIndexing = " << tokenizeForIndexing);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteSearchTextPrepareParams(
@@ -7851,7 +7851,7 @@ QString NoteStore::getResourceSearchText(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceSearchText: request id = "
@@ -7882,7 +7882,7 @@ AsyncResult * NoteStore::getResourceSearchTextAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceSearchTextPrepareParams(
@@ -8065,7 +8065,7 @@ QStringList NoteStore::getNoteTagNames(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteTagNames: request id = "
@@ -8096,7 +8096,7 @@ AsyncResult * NoteStore::getNoteTagNamesAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteTagNamesPrepareParams(
@@ -8265,7 +8265,7 @@ Note NoteStore::createNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::createNote: request id = "
@@ -8296,7 +8296,7 @@ AsyncResult * NoteStore::createNoteAsync(
         << "    note = " << note);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCreateNotePrepareParams(
@@ -8465,7 +8465,7 @@ Note NoteStore::updateNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateNote: request id = "
@@ -8496,7 +8496,7 @@ AsyncResult * NoteStore::updateNoteAsync(
         << "    note = " << note);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateNotePrepareParams(
@@ -8665,7 +8665,7 @@ qint32 NoteStore::deleteNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::deleteNote: request id = "
@@ -8696,7 +8696,7 @@ AsyncResult * NoteStore::deleteNoteAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreDeleteNotePrepareParams(
@@ -8865,7 +8865,7 @@ qint32 NoteStore::expungeNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::expungeNote: request id = "
@@ -8896,7 +8896,7 @@ AsyncResult * NoteStore::expungeNoteAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreExpungeNotePrepareParams(
@@ -9075,7 +9075,7 @@ Note NoteStore::copyNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::copyNote: request id = "
@@ -9110,7 +9110,7 @@ AsyncResult * NoteStore::copyNoteAsync(
         << "    toNotebookGuid = " << toNotebookGuid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCopyNotePrepareParams(
@@ -9294,7 +9294,7 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listNoteVersions: request id = "
@@ -9325,7 +9325,7 @@ AsyncResult * NoteStore::listNoteVersionsAsync(
         << "    noteGuid = " << noteGuid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListNoteVersionsPrepareParams(
@@ -9534,7 +9534,7 @@ Note NoteStore::getNoteVersion(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNoteVersion: request id = "
@@ -9581,7 +9581,7 @@ AsyncResult * NoteStore::getNoteVersionAsync(
         << "    withResourcesAlternateData = " << withResourcesAlternateData);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNoteVersionPrepareParams(
@@ -9794,7 +9794,7 @@ Resource NoteStore::getResource(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResource: request id = "
@@ -9841,7 +9841,7 @@ AsyncResult * NoteStore::getResourceAsync(
         << "    withAlternateData = " << withAlternateData);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourcePrepareParams(
@@ -10014,7 +10014,7 @@ LazyMap NoteStore::getResourceApplicationData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceApplicationData: request id = "
@@ -10045,7 +10045,7 @@ AsyncResult * NoteStore::getResourceApplicationDataAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceApplicationDataPrepareParams(
@@ -10224,7 +10224,7 @@ QString NoteStore::getResourceApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceApplicationDataEntry: request id = "
@@ -10259,7 +10259,7 @@ AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
         << "    key = " << key);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceApplicationDataEntryPrepareParams(
@@ -10449,7 +10449,7 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::setResourceApplicationDataEntry: request id = "
@@ -10488,7 +10488,7 @@ AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
         << "    value = " << value);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreSetResourceApplicationDataEntryPrepareParams(
@@ -10669,7 +10669,7 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::unsetResourceApplicationDataEntry: request id = "
@@ -10704,7 +10704,7 @@ AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
         << "    key = " << key);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUnsetResourceApplicationDataEntryPrepareParams(
@@ -10874,7 +10874,7 @@ qint32 NoteStore::updateResource(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateResource: request id = "
@@ -10905,7 +10905,7 @@ AsyncResult * NoteStore::updateResourceAsync(
         << "    resource = " << resource);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateResourcePrepareParams(
@@ -11074,7 +11074,7 @@ QByteArray NoteStore::getResourceData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceData: request id = "
@@ -11105,7 +11105,7 @@ AsyncResult * NoteStore::getResourceDataAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceDataPrepareParams(
@@ -11314,7 +11314,7 @@ Resource NoteStore::getResourceByHash(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceByHash: request id = "
@@ -11361,7 +11361,7 @@ AsyncResult * NoteStore::getResourceByHashAsync(
         << "    withAlternateData = " << withAlternateData);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceByHashPrepareParams(
@@ -11534,7 +11534,7 @@ QByteArray NoteStore::getResourceRecognition(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceRecognition: request id = "
@@ -11565,7 +11565,7 @@ AsyncResult * NoteStore::getResourceRecognitionAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceRecognitionPrepareParams(
@@ -11734,7 +11734,7 @@ QByteArray NoteStore::getResourceAlternateData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceAlternateData: request id = "
@@ -11765,7 +11765,7 @@ AsyncResult * NoteStore::getResourceAlternateDataAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceAlternateDataPrepareParams(
@@ -11934,7 +11934,7 @@ ResourceAttributes NoteStore::getResourceAttributes(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getResourceAttributes: request id = "
@@ -11965,7 +11965,7 @@ AsyncResult * NoteStore::getResourceAttributesAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetResourceAttributesPrepareParams(
@@ -12124,7 +12124,7 @@ Notebook NoteStore::getPublicNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getPublicNotebook: request id = "
@@ -12158,7 +12158,7 @@ AsyncResult * NoteStore::getPublicNotebookAsync(
         << "    publicUri = " << publicUri);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetPublicNotebookPrepareParams(
@@ -12337,7 +12337,7 @@ SharedNotebook NoteStore::shareNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::shareNotebook: request id = "
@@ -12372,7 +12372,7 @@ AsyncResult * NoteStore::shareNotebookAsync(
         << "    message = " << message);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreShareNotebookPrepareParams(
@@ -12553,7 +12553,7 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::createOrUpdateNotebookShares: request id = "
@@ -12584,7 +12584,7 @@ AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
         << "    shareTemplate = " << shareTemplate);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCreateOrUpdateNotebookSharesPrepareParams(
@@ -12753,7 +12753,7 @@ qint32 NoteStore::updateSharedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateSharedNotebook: request id = "
@@ -12784,7 +12784,7 @@ AsyncResult * NoteStore::updateSharedNotebookAsync(
         << "    sharedNotebook = " << sharedNotebook);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateSharedNotebookPrepareParams(
@@ -12963,7 +12963,7 @@ Notebook NoteStore::setNotebookRecipientSettings(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::setNotebookRecipientSettings: request id = "
@@ -12998,7 +12998,7 @@ AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
         << "    recipientSettings = " << recipientSettings);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreSetNotebookRecipientSettingsPrepareParams(
@@ -13172,7 +13172,7 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listSharedNotebooks: request id = "
@@ -13197,7 +13197,7 @@ AsyncResult * NoteStore::listSharedNotebooksAsync(
     QEC_DEBUG("note_store", "NoteStore::listSharedNotebooksAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListSharedNotebooksPrepareParams(
@@ -13365,7 +13365,7 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::createLinkedNotebook: request id = "
@@ -13396,7 +13396,7 @@ AsyncResult * NoteStore::createLinkedNotebookAsync(
         << "    linkedNotebook = " << linkedNotebook);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreCreateLinkedNotebookPrepareParams(
@@ -13565,7 +13565,7 @@ qint32 NoteStore::updateLinkedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateLinkedNotebook: request id = "
@@ -13596,7 +13596,7 @@ AsyncResult * NoteStore::updateLinkedNotebookAsync(
         << "    linkedNotebook = " << linkedNotebook);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateLinkedNotebookPrepareParams(
@@ -13769,7 +13769,7 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::listLinkedNotebooks: request id = "
@@ -13794,7 +13794,7 @@ AsyncResult * NoteStore::listLinkedNotebooksAsync(
     QEC_DEBUG("note_store", "NoteStore::listLinkedNotebooksAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreListLinkedNotebooksPrepareParams(
@@ -13962,7 +13962,7 @@ qint32 NoteStore::expungeLinkedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::expungeLinkedNotebook: request id = "
@@ -13993,7 +13993,7 @@ AsyncResult * NoteStore::expungeLinkedNotebookAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreExpungeLinkedNotebookPrepareParams(
@@ -14162,7 +14162,7 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::authenticateToSharedNotebook: request id = "
@@ -14193,7 +14193,7 @@ AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
         << "    shareKeyOrGlobalId = " << shareKeyOrGlobalId);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreAuthenticateToSharedNotebookPrepareParams(
@@ -14352,7 +14352,7 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getSharedNotebookByAuth: request id = "
@@ -14377,7 +14377,7 @@ AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
     QEC_DEBUG("note_store", "NoteStore::getSharedNotebookByAuthAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetSharedNotebookByAuthPrepareParams(
@@ -14525,7 +14525,7 @@ void NoteStore::emailNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::emailNote: request id = "
@@ -14556,7 +14556,7 @@ AsyncResult * NoteStore::emailNoteAsync(
         << "    parameters = " << parameters);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreEmailNotePrepareParams(
@@ -14725,7 +14725,7 @@ QString NoteStore::shareNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::shareNote: request id = "
@@ -14756,7 +14756,7 @@ AsyncResult * NoteStore::shareNoteAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreShareNotePrepareParams(
@@ -14905,7 +14905,7 @@ void NoteStore::stopSharingNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::stopSharingNote: request id = "
@@ -14936,7 +14936,7 @@ AsyncResult * NoteStore::stopSharingNoteAsync(
         << "    guid = " << guid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreStopSharingNotePrepareParams(
@@ -15115,7 +15115,7 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::authenticateToSharedNote: request id = "
@@ -15150,7 +15150,7 @@ AsyncResult * NoteStore::authenticateToSharedNoteAsync(
         << "    noteKey = " << noteKey);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreAuthenticateToSharedNotePrepareParams(
@@ -15330,7 +15330,7 @@ RelatedResult NoteStore::findRelated(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::findRelated: request id = "
@@ -15365,7 +15365,7 @@ AsyncResult * NoteStore::findRelatedAsync(
         << "    resultSpec = " << resultSpec);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreFindRelatedPrepareParams(
@@ -15535,7 +15535,7 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::updateNoteIfUsnMatches: request id = "
@@ -15566,7 +15566,7 @@ AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
         << "    note = " << note);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreUpdateNoteIfUsnMatchesPrepareParams(
@@ -15735,7 +15735,7 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::manageNotebookShares: request id = "
@@ -15766,7 +15766,7 @@ AsyncResult * NoteStore::manageNotebookSharesAsync(
         << "    parameters = " << parameters);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreManageNotebookSharesPrepareParams(
@@ -15935,7 +15935,7 @@ ShareRelationships NoteStore::getNotebookShares(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("note_store", "NoteStore::getNotebookShares: request id = "
@@ -15966,7 +15966,7 @@ AsyncResult * NoteStore::getNotebookSharesAsync(
         << "    notebookGuid = " << notebookGuid);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = NoteStoreGetNotebookSharesPrepareParams(
@@ -16286,7 +16286,7 @@ bool UserStore::checkVersion(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::checkVersion: request id = "
@@ -16324,7 +16324,7 @@ AsyncResult * UserStore::checkVersionAsync(
         << "    edamVersionMinor = " << edamVersionMinor);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreCheckVersionPrepareParams(
@@ -16452,7 +16452,7 @@ BootstrapInfo UserStore::getBootstrapInfo(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::getBootstrapInfo: request id = "
@@ -16482,7 +16482,7 @@ AsyncResult * UserStore::getBootstrapInfoAsync(
         << "    locale = " << locale);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreGetBootstrapInfoPrepareParams(
@@ -16690,7 +16690,7 @@ AuthenticationResult UserStore::authenticateLongSession(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::authenticateLongSession: request id = "
@@ -16738,7 +16738,7 @@ AsyncResult * UserStore::authenticateLongSessionAsync(
         << "    supportsTwoFactor = " << supportsTwoFactor);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreAuthenticateLongSessionPrepareParams(
@@ -16921,7 +16921,7 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::completeTwoFactorAuthentication: request id = "
@@ -16958,7 +16958,7 @@ AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
         << "    deviceDescription = " << deviceDescription);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreCompleteTwoFactorAuthenticationPrepareParams(
@@ -17088,7 +17088,7 @@ void UserStore::revokeLongSession(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::revokeLongSession: request id = "
@@ -17113,7 +17113,7 @@ AsyncResult * UserStore::revokeLongSessionAsync(
     QEC_DEBUG("user_store", "UserStore::revokeLongSessionAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreRevokeLongSessionPrepareParams(
@@ -17260,7 +17260,7 @@ AuthenticationResult UserStore::authenticateToBusiness(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::authenticateToBusiness: request id = "
@@ -17285,7 +17285,7 @@ AsyncResult * UserStore::authenticateToBusinessAsync(
     QEC_DEBUG("user_store", "UserStore::authenticateToBusinessAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreAuthenticateToBusinessPrepareParams(
@@ -17432,7 +17432,7 @@ User UserStore::getUser(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::getUser: request id = "
@@ -17457,7 +17457,7 @@ AsyncResult * UserStore::getUserAsync(
     QEC_DEBUG("user_store", "UserStore::getUserAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreGetUserPrepareParams(
@@ -17616,7 +17616,7 @@ PublicUserInfo UserStore::getPublicUserInfo(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::getPublicUserInfo: request id = "
@@ -17646,7 +17646,7 @@ AsyncResult * UserStore::getPublicUserInfoAsync(
         << "    username = " << username);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreGetPublicUserInfoPrepareParams(
@@ -17793,7 +17793,7 @@ UserUrls UserStore::getUserUrls(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::getUserUrls: request id = "
@@ -17818,7 +17818,7 @@ AsyncResult * UserStore::getUserUrlsAsync(
     QEC_DEBUG("user_store", "UserStore::getUserUrlsAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreGetUserUrlsPrepareParams(
@@ -17955,7 +17955,7 @@ void UserStore::inviteToBusiness(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::inviteToBusiness: request id = "
@@ -17986,7 +17986,7 @@ AsyncResult * UserStore::inviteToBusinessAsync(
         << "    emailAddress = " << emailAddress);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreInviteToBusinessPrepareParams(
@@ -18135,7 +18135,7 @@ void UserStore::removeFromBusiness(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::removeFromBusiness: request id = "
@@ -18166,7 +18166,7 @@ AsyncResult * UserStore::removeFromBusinessAsync(
         << "    emailAddress = " << emailAddress);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreRemoveFromBusinessPrepareParams(
@@ -18325,7 +18325,7 @@ void UserStore::updateBusinessUserIdentifier(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::updateBusinessUserIdentifier: request id = "
@@ -18360,7 +18360,7 @@ AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
         << "    newEmailAddress = " << newEmailAddress);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreUpdateBusinessUserIdentifierPrepareParams(
@@ -18523,7 +18523,7 @@ QList<UserProfile> UserStore::listBusinessUsers(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::listBusinessUsers: request id = "
@@ -18548,7 +18548,7 @@ AsyncResult * UserStore::listBusinessUsersAsync(
     QEC_DEBUG("user_store", "UserStore::listBusinessUsersAsync");
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreListBusinessUsersPrepareParams(
@@ -18719,7 +18719,7 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::listBusinessInvitations: request id = "
@@ -18750,7 +18750,7 @@ AsyncResult * UserStore::listBusinessInvitationsAsync(
         << "    includeRequestedInvitations = " << includeRequestedInvitations);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreListBusinessInvitationsPrepareParams(
@@ -18888,7 +18888,7 @@ AccountLimits UserStore::getAccountLimits(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QEC_DEBUG("user_store", "UserStore::getAccountLimits: request id = "
@@ -18918,7 +18918,7 @@ AsyncResult * UserStore::getAccountLimitsAsync(
         << "    serviceLevel = " << serviceLevel);
 
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     QByteArray params = UserStoreGetAccountLimitsPrepareParams(
@@ -19804,7 +19804,7 @@ SyncState DurableNoteStore::getSyncState(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -19830,7 +19830,7 @@ AsyncResult * DurableNoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -19857,7 +19857,7 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -19897,7 +19897,7 @@ AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -19933,7 +19933,7 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -19967,7 +19967,7 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20002,7 +20002,7 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20045,7 +20045,7 @@ AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20082,7 +20082,7 @@ QList<Notebook> DurableNoteStore::listNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20108,7 +20108,7 @@ AsyncResult * DurableNoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20132,7 +20132,7 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20158,7 +20158,7 @@ AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20183,7 +20183,7 @@ Notebook DurableNoteStore::getNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20217,7 +20217,7 @@ AsyncResult * DurableNoteStore::getNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20248,7 +20248,7 @@ Notebook DurableNoteStore::getDefaultNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20274,7 +20274,7 @@ AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20299,7 +20299,7 @@ Notebook DurableNoteStore::createNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20333,7 +20333,7 @@ AsyncResult * DurableNoteStore::createNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20365,7 +20365,7 @@ qint32 DurableNoteStore::updateNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20399,7 +20399,7 @@ AsyncResult * DurableNoteStore::updateNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20431,7 +20431,7 @@ qint32 DurableNoteStore::expungeNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20465,7 +20465,7 @@ AsyncResult * DurableNoteStore::expungeNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20496,7 +20496,7 @@ QList<Tag> DurableNoteStore::listTags(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20522,7 +20522,7 @@ AsyncResult * DurableNoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20547,7 +20547,7 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20581,7 +20581,7 @@ AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20613,7 +20613,7 @@ Tag DurableNoteStore::getTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20647,7 +20647,7 @@ AsyncResult * DurableNoteStore::getTagAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20679,7 +20679,7 @@ Tag DurableNoteStore::createTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20713,7 +20713,7 @@ AsyncResult * DurableNoteStore::createTagAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20745,7 +20745,7 @@ qint32 DurableNoteStore::updateTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20779,7 +20779,7 @@ AsyncResult * DurableNoteStore::updateTagAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20811,7 +20811,7 @@ void DurableNoteStore::untagAll(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20845,7 +20845,7 @@ AsyncResult * DurableNoteStore::untagAllAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20877,7 +20877,7 @@ qint32 DurableNoteStore::expungeTag(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20911,7 +20911,7 @@ AsyncResult * DurableNoteStore::expungeTagAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20942,7 +20942,7 @@ QList<SavedSearch> DurableNoteStore::listSearches(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -20968,7 +20968,7 @@ AsyncResult * DurableNoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -20993,7 +20993,7 @@ SavedSearch DurableNoteStore::getSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21027,7 +21027,7 @@ AsyncResult * DurableNoteStore::getSearchAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21059,7 +21059,7 @@ SavedSearch DurableNoteStore::createSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21093,7 +21093,7 @@ AsyncResult * DurableNoteStore::createSearchAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21125,7 +21125,7 @@ qint32 DurableNoteStore::updateSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21159,7 +21159,7 @@ AsyncResult * DurableNoteStore::updateSearchAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21191,7 +21191,7 @@ qint32 DurableNoteStore::expungeSearch(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21225,7 +21225,7 @@ AsyncResult * DurableNoteStore::expungeSearchAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21258,7 +21258,7 @@ qint32 DurableNoteStore::findNoteOffset(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21295,7 +21295,7 @@ AsyncResult * DurableNoteStore::findNoteOffsetAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21332,7 +21332,7 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21375,7 +21375,7 @@ AsyncResult * DurableNoteStore::findNotesMetadataAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21414,7 +21414,7 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21451,7 +21451,7 @@ AsyncResult * DurableNoteStore::findNoteCountsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21486,7 +21486,7 @@ Note DurableNoteStore::getNoteWithResultSpec(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21523,7 +21523,7 @@ AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21561,7 +21561,7 @@ Note DurableNoteStore::getNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21607,7 +21607,7 @@ AsyncResult * DurableNoteStore::getNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21647,7 +21647,7 @@ LazyMap DurableNoteStore::getNoteApplicationData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21681,7 +21681,7 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21714,7 +21714,7 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21751,7 +21751,7 @@ AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21787,7 +21787,7 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21827,7 +21827,7 @@ AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21864,7 +21864,7 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21901,7 +21901,7 @@ AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -21935,7 +21935,7 @@ QString DurableNoteStore::getNoteContent(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -21969,7 +21969,7 @@ AsyncResult * DurableNoteStore::getNoteContentAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22003,7 +22003,7 @@ QString DurableNoteStore::getNoteSearchText(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22043,7 +22043,7 @@ AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22079,7 +22079,7 @@ QString DurableNoteStore::getResourceSearchText(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22113,7 +22113,7 @@ AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22145,7 +22145,7 @@ QStringList DurableNoteStore::getNoteTagNames(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22179,7 +22179,7 @@ AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22211,7 +22211,7 @@ Note DurableNoteStore::createNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22245,7 +22245,7 @@ AsyncResult * DurableNoteStore::createNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22277,7 +22277,7 @@ Note DurableNoteStore::updateNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22311,7 +22311,7 @@ AsyncResult * DurableNoteStore::updateNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22343,7 +22343,7 @@ qint32 DurableNoteStore::deleteNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22377,7 +22377,7 @@ AsyncResult * DurableNoteStore::deleteNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22409,7 +22409,7 @@ qint32 DurableNoteStore::expungeNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22443,7 +22443,7 @@ AsyncResult * DurableNoteStore::expungeNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22476,7 +22476,7 @@ Note DurableNoteStore::copyNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22513,7 +22513,7 @@ AsyncResult * DurableNoteStore::copyNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22547,7 +22547,7 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22581,7 +22581,7 @@ AsyncResult * DurableNoteStore::listNoteVersionsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22617,7 +22617,7 @@ Note DurableNoteStore::getNoteVersion(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22663,7 +22663,7 @@ AsyncResult * DurableNoteStore::getNoteVersionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22707,7 +22707,7 @@ Resource DurableNoteStore::getResource(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22753,7 +22753,7 @@ AsyncResult * DurableNoteStore::getResourceAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22793,7 +22793,7 @@ LazyMap DurableNoteStore::getResourceApplicationData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22827,7 +22827,7 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22860,7 +22860,7 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22897,7 +22897,7 @@ AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -22933,7 +22933,7 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -22973,7 +22973,7 @@ AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23010,7 +23010,7 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23047,7 +23047,7 @@ AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23081,7 +23081,7 @@ qint32 DurableNoteStore::updateResource(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23115,7 +23115,7 @@ AsyncResult * DurableNoteStore::updateResourceAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23147,7 +23147,7 @@ QByteArray DurableNoteStore::getResourceData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23181,7 +23181,7 @@ AsyncResult * DurableNoteStore::getResourceDataAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23217,7 +23217,7 @@ Resource DurableNoteStore::getResourceByHash(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23263,7 +23263,7 @@ AsyncResult * DurableNoteStore::getResourceByHashAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23303,7 +23303,7 @@ QByteArray DurableNoteStore::getResourceRecognition(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23337,7 +23337,7 @@ AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23369,7 +23369,7 @@ QByteArray DurableNoteStore::getResourceAlternateData(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23403,7 +23403,7 @@ AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23435,7 +23435,7 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23469,7 +23469,7 @@ AsyncResult * DurableNoteStore::getResourceAttributesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23502,7 +23502,7 @@ Notebook DurableNoteStore::getPublicNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23539,7 +23539,7 @@ AsyncResult * DurableNoteStore::getPublicNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23574,7 +23574,7 @@ SharedNotebook DurableNoteStore::shareNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23611,7 +23611,7 @@ AsyncResult * DurableNoteStore::shareNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23645,7 +23645,7 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23679,7 +23679,7 @@ AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23711,7 +23711,7 @@ qint32 DurableNoteStore::updateSharedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23745,7 +23745,7 @@ AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23778,7 +23778,7 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23815,7 +23815,7 @@ AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23848,7 +23848,7 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23874,7 +23874,7 @@ AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23899,7 +23899,7 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23933,7 +23933,7 @@ AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -23965,7 +23965,7 @@ qint32 DurableNoteStore::updateLinkedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -23999,7 +23999,7 @@ AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24030,7 +24030,7 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24056,7 +24056,7 @@ AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24081,7 +24081,7 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24115,7 +24115,7 @@ AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24147,7 +24147,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24181,7 +24181,7 @@ AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24212,7 +24212,7 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24238,7 +24238,7 @@ AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24263,7 +24263,7 @@ void DurableNoteStore::emailNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24297,7 +24297,7 @@ AsyncResult * DurableNoteStore::emailNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24329,7 +24329,7 @@ QString DurableNoteStore::shareNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24363,7 +24363,7 @@ AsyncResult * DurableNoteStore::shareNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24395,7 +24395,7 @@ void DurableNoteStore::stopSharingNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24429,7 +24429,7 @@ AsyncResult * DurableNoteStore::stopSharingNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24462,7 +24462,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24499,7 +24499,7 @@ AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24534,7 +24534,7 @@ RelatedResult DurableNoteStore::findRelated(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24571,7 +24571,7 @@ AsyncResult * DurableNoteStore::findRelatedAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24605,7 +24605,7 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24639,7 +24639,7 @@ AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24671,7 +24671,7 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24705,7 +24705,7 @@ AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24737,7 +24737,7 @@ ShareRelationships DurableNoteStore::getNotebookShares(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24771,7 +24771,7 @@ AsyncResult * DurableNoteStore::getNotebookSharesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24807,7 +24807,7 @@ bool DurableUserStore::checkVersion(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24847,7 +24847,7 @@ AsyncResult * DurableUserStore::checkVersionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24883,7 +24883,7 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -24917,7 +24917,7 @@ AsyncResult * DurableUserStore::getBootstrapInfoAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -24955,7 +24955,7 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25004,7 +25004,7 @@ AsyncResult * DurableUserStore::authenticateLongSessionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25047,7 +25047,7 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25086,7 +25086,7 @@ AsyncResult * DurableUserStore::completeTwoFactorAuthenticationAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25120,7 +25120,7 @@ void DurableUserStore::revokeLongSession(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25146,7 +25146,7 @@ AsyncResult * DurableUserStore::revokeLongSessionAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25170,7 +25170,7 @@ AuthenticationResult DurableUserStore::authenticateToBusiness(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25196,7 +25196,7 @@ AsyncResult * DurableUserStore::authenticateToBusinessAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25220,7 +25220,7 @@ User DurableUserStore::getUser(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25246,7 +25246,7 @@ AsyncResult * DurableUserStore::getUserAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25271,7 +25271,7 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25305,7 +25305,7 @@ AsyncResult * DurableUserStore::getPublicUserInfoAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25336,7 +25336,7 @@ UserUrls DurableUserStore::getUserUrls(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25362,7 +25362,7 @@ AsyncResult * DurableUserStore::getUserUrlsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25387,7 +25387,7 @@ void DurableUserStore::inviteToBusiness(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25421,7 +25421,7 @@ AsyncResult * DurableUserStore::inviteToBusinessAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25453,7 +25453,7 @@ void DurableUserStore::removeFromBusiness(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25487,7 +25487,7 @@ AsyncResult * DurableUserStore::removeFromBusinessAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25520,7 +25520,7 @@ void DurableUserStore::updateBusinessUserIdentifier(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25557,7 +25557,7 @@ AsyncResult * DurableUserStore::updateBusinessUserIdentifierAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25590,7 +25590,7 @@ QList<UserProfile> DurableUserStore::listBusinessUsers(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25616,7 +25616,7 @@ AsyncResult * DurableUserStore::listBusinessUsersAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25641,7 +25641,7 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25675,7 +25675,7 @@ AsyncResult * DurableUserStore::listBusinessInvitationsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
@@ -25707,7 +25707,7 @@ AccountLimits DurableUserStore::getAccountLimits(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::SyncServiceCall(
@@ -25741,7 +25741,7 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx.clone();
+        ctx = m_ctx->clone();
     }
 
     auto call = IDurableService::AsyncServiceCall(
