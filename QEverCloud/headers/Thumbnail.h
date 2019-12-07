@@ -41,7 +41,7 @@ QByteArray pngImage = thumb.download(noteGuid);
 
 @endcode
  *
- * By defualt 300x300 PNG images are requested.
+ * By default 300x300 PNG images are requested.
  */
 class QEVERCLOUD_EXPORT Thumbnail
 {
@@ -119,7 +119,7 @@ public:
     /**
      * @param size
      * The size of the thumbnail. Evernote supports values from from 1 to 300.
-     * By defualt 300 is used.
+     * By default 300 is used.
      */
     Thumbnail & setSize(int size);
 
