@@ -26,8 +26,8 @@ namespace qevercloud {
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @brief The NoteStoreServer class represents 
- * customizable server for NoteStore requests. 
+ * @brief The NoteStoreServer class represents
+ * customizable server for NoteStore requests.
  * It is primarily used for testing of QEverCloud
  */
 class QEVERCLOUD_EXPORT NoteStoreServer: public QObject
@@ -895,8 +895,8 @@ public Q_SLOTS:
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @brief The UserStoreServer class represents 
- * customizable server for UserStore requests. 
+ * @brief The UserStoreServer class represents
+ * customizable server for UserStore requests.
  * It is primarily used for testing of QEverCloud
  */
 class QEVERCLOUD_EXPORT UserStoreServer: public QObject
