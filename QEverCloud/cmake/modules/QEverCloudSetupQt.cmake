@@ -1,17 +1,28 @@
 set(QEVERCLOUD_FIND_PACKAGE_ARG "VERBOSE")
 
-find_package(Qt5Core QUIET REQUIRED)
+find_package(Qt5Core 5.5 REQUIRED)
 message(STATUS "Found Qt5 installation, version ${Qt5Core_VERSION}")
 
 include(QEverCloudFindPackageWrapperMacro)
 include(QEverCloudFindQt5DependenciesCore)
 
-list(APPEND QT_INCLUDES ${Qt5Core_INCLUDE_DIRS} ${Qt5Network_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
-list(APPEND QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Network_LIBRARIES} ${Qt5Widgets_LIBRARIES})
-list(APPEND QT_DEFINITIONS ${Qt5Core_DEFINITIONS} ${Qt5Network_DEFINITIONS} ${Qt5Widgets_DEFINITIONS})
+list(APPEND QT_INCLUDES
+  ${Qt5Core_INCLUDE_DIRS}
+  ${Qt5Network_INCLUDE_DIRS}
+  ${Qt5Widgets_INCLUDE_DIRS})
+
+list(APPEND QT_LIBRARIES
+  ${Qt5Core_LIBRARIES}
+  ${Qt5Network_LIBRARIES}
+  ${Qt5Widgets_LIBRARIES})
+
+list(APPEND QT_DEFINITIONS
+  ${Qt5Core_DEFINITIONS}
+  ${Qt5Network_DEFINITIONS}
+  ${Qt5Widgets_DEFINITIONS})
 
 if(BUILD_WITH_OAUTH_SUPPORT)
-  if(USE_QT5_WEBKIT OR (Qt5Core_VERSION VERSION_LESS "5.4.0"))
+  if(USE_QT5_WEBKIT)
     include(QEverCloudFindQt5DependenciesWebKit)
   elseif(Qt5Core_VERSION VERSION_LESS "5.6.0")
     include(QEverCloudFindQt5DependenciesWebEngineNoCore)
@@ -25,22 +36,52 @@ if(BUILD_WITH_OAUTH_SUPPORT)
     add_definitions(-DQEVERCLOUD_USE_QT_WEB_ENGINE)
   endif()
 
-  if(USE_QT5_WEBKIT OR (Qt5Core_VERSION VERSION_LESS "5.4.0"))
-    list(APPEND QT_INCLUDES ${QT_INCLUDES} ${Qt5WebKit_INCLUDE_DIRS} ${Qt5WebKitWidgets_INCLUDE_DIRS})
-    list(APPEND QT_LIBRARIES ${QT_LIBRARIES} ${Qt5WebKit_LIBRARIES} ${Qt5WebKitWidgets_LIBRARIES})
-    list(APPEND QT_DEFINITIONS ${QT_DEFINITIONS} ${Qt5WebKit_DEFINITIONS} ${Qt5WebKitWidgets_DEFINITIONS})
+  if(USE_QT5_WEBKIT)
+    list(APPEND QT_INCLUDES
+      ${QT_INCLUDES}
+      ${Qt5WebKit_INCLUDE_DIRS}
+      ${Qt5WebKitWidgets_INCLUDE_DIRS})
+
+    list(APPEND QT_LIBRARIES
+      ${QT_LIBRARIES}
+      ${Qt5WebKit_LIBRARIES}
+      ${Qt5WebKitWidgets_LIBRARIES})
+
+    list(APPEND QT_DEFINITIONS
+      ${QT_DEFINITIONS}
+      ${Qt5WebKit_DEFINITIONS}
+      ${Qt5WebKitWidgets_DEFINITIONS})
   else()
     if(Qt5WebEngine_VERSION VERSION_LESS "5.6.0")
-      list(APPEND QT_INCLUDES ${QT_INCLUDES} ${Qt5WebEngine_INCLUDE_DIRS} ${Qt5WebEngineWidgets_INCLUDE_DIRS})
-      list(APPEND QT_LIBRARIES ${QT_LIBRARIES} ${Qt5WebEngine_LIBRARIES} ${Qt5WebEngineWidgets_LIBRARIES})
-      list(APPEND QT_DEFINITIONS ${QT_DEFINITIONS} ${Qt5WebEngine_DEFINITIONS} ${Qt5WebEngineWidgets_DEFINITIONS})
+      list(APPEND QT_INCLUDES
+        ${QT_INCLUDES}
+        ${Qt5WebEngine_INCLUDE_DIRS}
+        ${Qt5WebEngineWidgets_INCLUDE_DIRS})
+
+      list(APPEND QT_LIBRARIES
+        ${QT_LIBRARIES}
+        ${Qt5WebEngine_LIBRARIES}
+        ${Qt5WebEngineWidgets_LIBRARIES})
+
+      list(APPEND QT_DEFINITIONS
+        ${QT_DEFINITIONS}
+        ${Qt5WebEngine_DEFINITIONS}
+        ${Qt5WebEngineWidgets_DEFINITIONS})
     else()
-      list(APPEND QT_INCLUDES ${QT_INCLUDES} ${Qt5WebEngineCore_INCLUDE_DIRS})
-      list(APPEND QT_LIBRARIES ${QT_LIBRARIES} ${Qt5WebEngineCore_LIBRARIES})
-      list(APPEND QT_DEFINITIONS ${QT_DEFINITIONS} ${Qt5WebEngineCore_DEFINITIONS})
+      list(APPEND QT_INCLUDES
+        ${QT_INCLUDES}
+        ${Qt5WebEngineCore_INCLUDE_DIRS})
+
+      list(APPEND QT_LIBRARIES
+        ${QT_LIBRARIES}
+        ${Qt5WebEngineCore_LIBRARIES})
+
+      list(APPEND QT_DEFINITIONS
+        ${QT_DEFINITIONS}
+        ${Qt5WebEngineCore_DEFINITIONS})
     endif()
   endif()
-endif(BUILD_WITH_OAUTH_SUPPORT)
+endif()
 
 list(REMOVE_DUPLICATES QT_INCLUDES)
 list(REMOVE_DUPLICATES QT_LIBRARIES)
