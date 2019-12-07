@@ -56,6 +56,16 @@ public:
         return m_maxRequestRetryCount;
     }
 
+    virtual QSharedPointer<IRequestContext> clone() const override
+    {
+        return QSharedPointer<RequestContext>::create(
+            m_authenticationToken,
+            m_requestTimeout,
+            m_increaseRequestTimeoutExponentially,
+            m_maxRequestTimeout,
+            m_maxRequestRetryCount);
+    }
+
 private:
     QUuid       m_requestId;
     QString     m_authenticationToken;
@@ -68,7 +78,7 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-void PrintRequestContext(const IRequestContext & ctx, T & strm)
+void printRequestContext(const IRequestContext & ctx, T & strm)
 {
     strm << "RequestContext:\n"
         << "    authentication token = " << ctx.authenticationToken() << "\n"
@@ -82,13 +92,13 @@ void PrintRequestContext(const IRequestContext & ctx, T & strm)
 
 QTextStream & operator<<(QTextStream & strm, const IRequestContext & ctx)
 {
-    PrintRequestContext(ctx, strm);
+    printRequestContext(ctx, strm);
     return strm;
 }
 
 QDebug & operator<<(QDebug & dbg, const IRequestContext & ctx)
 {
-    PrintRequestContext(ctx, dbg);
+    printRequestContext(ctx, dbg);
     return dbg;
 }
 

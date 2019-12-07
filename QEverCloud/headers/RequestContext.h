@@ -57,6 +57,12 @@ public:
     /** Max number of attempts to retry a request */
     virtual quint32 maxRequestRetryCount() const = 0;
 
+    /**
+     * Create a new instance of IRequestContext with all the same parameters
+     * as in the source but a distinct id
+     */
+    virtual QSharedPointer<IRequestContext> clone() const = 0;
+
     friend QEVERCLOUD_EXPORT QTextStream & operator<<(
         QTextStream & strm, const IRequestContext & ctx);
 
