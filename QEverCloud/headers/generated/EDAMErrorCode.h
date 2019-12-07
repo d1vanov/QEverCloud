@@ -14,6 +14,7 @@
 
 #include "../Export.h"
 
+#include "../Helpers.h"
 #include <QDebug>
 #include <QMetaType>
 #include <QTextStream>
@@ -130,6 +131,10 @@ enum class EDAMErrorCode
     SSO_AUTHENTICATION_REQUIRED = 28
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(EDAMErrorCode)
+#endif
+
 inline uint qHash(EDAMErrorCode value)
 {
     return static_cast<uint>(value);
@@ -187,6 +192,10 @@ enum class EDAMInvalidContactReason
     NO_CONNECTION
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(EDAMInvalidContactReason)
+#endif
+
 inline uint qHash(EDAMInvalidContactReason value)
 {
     return static_cast<uint>(value);
@@ -233,6 +242,10 @@ enum class ShareRelationshipPrivilegeLevel
     FULL_ACCESS = 30
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(ShareRelationshipPrivilegeLevel)
+#endif
+
 inline uint qHash(ShareRelationshipPrivilegeLevel value)
 {
     return static_cast<uint>(value);
@@ -265,6 +278,10 @@ enum class PrivilegeLevel
     ADMIN = 9
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(PrivilegeLevel)
+#endif
+
 inline uint qHash(PrivilegeLevel value)
 {
     return static_cast<uint>(value);
@@ -295,6 +312,10 @@ enum class ServiceLevel
     BUSINESS = 4
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(ServiceLevel)
+#endif
+
 inline uint qHash(ServiceLevel value)
 {
     return static_cast<uint>(value);
@@ -321,6 +342,10 @@ enum class QueryFormat
     USER = 1,
     SEXP = 2
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(QueryFormat)
+#endif
 
 inline uint qHash(QueryFormat value)
 {
@@ -351,6 +376,10 @@ enum class NoteSortOrder
     UPDATE_SEQUENCE_NUMBER = 4,
     TITLE = 5
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(NoteSortOrder)
+#endif
 
 inline uint qHash(NoteSortOrder value)
 {
@@ -398,6 +427,10 @@ enum class PremiumOrderStatus
     CANCELLATION_PENDING = 4,
     CANCELED = 5
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(PremiumOrderStatus)
+#endif
 
 inline uint qHash(PremiumOrderStatus value)
 {
@@ -461,6 +494,10 @@ enum class SharedNotebookPrivilegeLevel
     BUSINESS_FULL_ACCESS = 5
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(SharedNotebookPrivilegeLevel)
+#endif
+
 inline uint qHash(SharedNotebookPrivilegeLevel value)
 {
     return static_cast<uint>(value);
@@ -499,6 +536,10 @@ enum class SharedNotePrivilegeLevel
     FULL_ACCESS = 2
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(SharedNotePrivilegeLevel)
+#endif
+
 inline uint qHash(SharedNotePrivilegeLevel value)
 {
     return static_cast<uint>(value);
@@ -532,6 +573,10 @@ enum class SponsoredGroupRole
     GROUP_OWNER = 3
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(SponsoredGroupRole)
+#endif
+
 inline uint qHash(SponsoredGroupRole value)
 {
     return static_cast<uint>(value);
@@ -561,6 +606,10 @@ enum class BusinessUserRole
     ADMIN = 1,
     NORMAL = 2
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(BusinessUserRole)
+#endif
 
 inline uint qHash(BusinessUserRole value)
 {
@@ -598,6 +647,10 @@ enum class BusinessUserStatus
     DEACTIVATED = 2
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(BusinessUserStatus)
+#endif
+
 inline uint qHash(BusinessUserStatus value)
 {
     return static_cast<uint>(value);
@@ -631,6 +684,10 @@ enum class SharedNotebookInstanceRestrictions
     NO_SHARED_NOTEBOOKS = 2
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(SharedNotebookInstanceRestrictions)
+#endif
+
 inline uint qHash(SharedNotebookInstanceRestrictions value)
 {
     return static_cast<uint>(value);
@@ -663,6 +720,10 @@ enum class ReminderEmailConfig
     DO_NOT_SEND = 1,
     SEND_DAILY_EMAIL = 2
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(ReminderEmailConfig)
+#endif
 
 inline uint qHash(ReminderEmailConfig value)
 {
@@ -701,6 +762,10 @@ enum class BusinessInvitationStatus
     REDEEMED = 2
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(BusinessInvitationStatus)
+#endif
+
 inline uint qHash(BusinessInvitationStatus value)
 {
     return static_cast<uint>(value);
@@ -731,6 +796,10 @@ enum class ContactType
     LINKEDIN = 6
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(ContactType)
+#endif
+
 inline uint qHash(ContactType value)
 {
     return static_cast<uint>(value);
@@ -757,6 +826,10 @@ enum class EntityType
     NOTEBOOK = 2,
     WORKSPACE = 3
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(EntityType)
+#endif
 
 inline uint qHash(EntityType value)
 {
@@ -795,6 +868,10 @@ enum class RecipientStatus
     IN_MY_LIST = 2,
     IN_MY_LIST_AND_DEFAULT_NOTEBOOK = 3
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(RecipientStatus)
+#endif
 
 inline uint qHash(RecipientStatus value)
 {
@@ -838,6 +915,10 @@ enum class CanMoveToContainerStatus
     INSUFFICIENT_CONTAINER_PRIVILEGE = 3
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(CanMoveToContainerStatus)
+#endif
+
 inline uint qHash(CanMoveToContainerStatus value)
 {
     return static_cast<uint>(value);
@@ -870,6 +951,10 @@ enum class RelatedContentType
     PROFILE_ORGANIZATION = 3,
     REFERENCE_MATERIAL = 4
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(RelatedContentType)
+#endif
 
 inline uint qHash(RelatedContentType value)
 {
@@ -915,6 +1000,10 @@ enum class RelatedContentAccess
     DIRECT_LINK_EMBEDDED_VIEW = 3
 };
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(RelatedContentAccess)
+#endif
+
 inline uint qHash(RelatedContentAccess value)
 {
     return static_cast<uint>(value);
@@ -941,6 +1030,10 @@ enum class UserIdentityType
     EMAIL = 2,
     IDENTITYID = 3
 };
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_ENUM_NS(UserIdentityType)
+#endif
 
 inline uint qHash(UserIdentityType value)
 {

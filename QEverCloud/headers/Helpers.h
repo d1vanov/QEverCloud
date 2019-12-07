@@ -27,8 +27,20 @@
 #define QEVERCLOUD_GENERATOR_THRIFT_HELPERS_H
 
 #include <QtGlobal>
+#include <QObject>
 
 namespace qevercloud {
+
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * It appears that Q_NAMESPACE declaration should be present in exactly one file
+ * per namespace, otherwise moc generates multiple definitions of corresponding
+ * meta object, so putting it here
+ */
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+Q_NAMESPACE
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 

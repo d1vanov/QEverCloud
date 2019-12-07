@@ -21902,9 +21902,6 @@ void EDAMInvalidContactsException::print(QTextStream & strm) const
 
 ////////////////////////////////////////////////////////////////////////////////
 
-
 /** @endcond */
-
-
 
 } // namespace qevercloud
