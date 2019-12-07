@@ -24,6 +24,9 @@
   are `enum class` now and require explicit cast for conversion to/from integer
   types. There is also no `structs` wrapping enums called `type` anymore so e.g.
   `EDAMErrorCode::type` values are now simply `EDAMErrorCode` ones.
+  * Enumerations were also marked with [Q_ENUM_NS](https://doc.qt.io/qt-5/qobject.html#Q_ENUM_NS)
+  macro in case build is done with Qt >= 5.8. This macro adds some introspection
+  capabilities for the bespoke enumerations.
   * A dedicated exception class representing network failures was added -
   `NetworkException`. As other QEverCloud's exceptions, it is a subclass of
   `EverCloudException`. By default QEverCloud catches such exceptions on its
