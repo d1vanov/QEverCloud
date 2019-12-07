@@ -27,16 +27,6 @@ namespace qevercloud {
 QEVERCLOUD_EXPORT QNetworkAccessManager * evernoteNetworkAccessManager();
 
 /**
- * Network request timeout in milliseconds
- */
-QEVERCLOUD_EXPORT int requestTimeout();
-
-/**
- * Set network request timeout; negative values mean no timeout
- */
-QEVERCLOUD_EXPORT void setRequestTimeout(int timeout);
-
-/**
  * qevercloud library version.
  */
 QEVERCLOUD_EXPORT int libraryVersion();

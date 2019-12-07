@@ -24,20 +24,6 @@ QNetworkAccessManager * evernoteNetworkAccessManager()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-static int qevercloudRequestTimeout = 180000;
-
-int requestTimeout()
-{
-    return qevercloudRequestTimeout;
-}
-
-void setRequestTimeout(int timeout)
-{
-    qevercloudRequestTimeout = timeout;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 int libraryVersion()
 {
     return 5*10000 + 0*100 + 0;
