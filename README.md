@@ -28,18 +28,18 @@ Prebuilt versions of the library can be downloaded from the following locations:
 
  * Stable version:
    * Windows binaries:
-     * [MSVC 2015 32 bit Qt 5.10](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt510-VS2015_x86.zip)
-     * [MSVC 2017 64 bit Qt 5.10](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt510-VS2017_x64.zip)
+     * [MSVC 2017 32 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt513-VS2017_x86.zip)
+     * [MSVC 2017 64 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt510-VS2017_x64.zip)
      * [MinGW 32 bit Qt 5.5](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt55-MinGW_x86.zip)
    * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud_mac_x86_64.zip) (built with latest Qt from Homebrew)
-   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud_linux_qt_592_x86_64.zip) built on Ubuntu 14.04 with Qt 5.9.2
+   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud_linux_qt_5132_x86_64.zip) built on Ubuntu 16.04 with Qt 5.13
  * Unstable version:
    * Windows binaries:
-     * [MSVC 2015 32 bit Qt 5.10](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt510-VS2015_x86.zip)
-     * [MSVC 2017 64 bit Qt 5.10](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt510-VS2017_x64.zip)
+     * [MSVC 2017 32 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt513-VS2017_x86.zip)
+     * [MSVC 2017 64 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt513-VS2017_x64.zip)
      * [MinGW 32 bit Qt 5.5](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt55-MinGW_x86.zip)
    * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud_mac_x86_64.zip) (built with latest Qt from Homebrew)
-   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud_linux_qt_592_x86_64.zip) built on Ubuntu 14.04 with Qt 5.9.2
+   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud_linux_qt_5132_x86_64.zip) built on Ubuntu 16.04 with Qt 5.13
 
 ## How to build
 
@@ -47,7 +47,7 @@ The project can be built and shipped either as a static library or a shared libr
 
 Dependencies include the following Qt components:
  * Qt5: Qt5Core, Qt5Widgets, Qt5Network and, if the library is built with OAuth support, either:
-   * Qt5WebKit and Qt5WebKitWidgets - for Qt < 5.4
+   * Qt5WebKit and Qt5WebKitWidgets
    * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
    * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
 
