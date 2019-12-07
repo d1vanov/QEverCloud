@@ -9,9 +9,11 @@
 #define QEVERCLOUD_LOG_H
 
 #include "Export.h"
+#include "Helpers.h"
 
 #include <QDateTime>
 #include <QDebug>
+#include <QObject>
 #include <QSharedPointer>
 #include <QTextStream>
 
@@ -27,6 +29,8 @@ enum class LogLevel
     Warn,
     Error
 };
+
+Q_ENUM_NS(LogLevel)
 
 QEVERCLOUD_EXPORT QTextStream & operator<<(
     QTextStream & out, const LogLevel level);
