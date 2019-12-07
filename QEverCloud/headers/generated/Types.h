@@ -5503,7 +5503,7 @@ public:
     Optional<QString> messageStoreUrl;
     /**
     This field will contain the full URL that clients should use when opening a
-       persistent web socket to recieve notification of events for the authenticated user.
+       persistent web socket to receive notification of events for the authenticated user.
     */
     Optional<QString> userWebSocketUrl;
 

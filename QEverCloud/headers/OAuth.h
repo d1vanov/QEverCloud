@@ -52,7 +52,7 @@ class EvernoteOAuthWebViewPrivate;
  *
  * %Note that you have to include QEverCloudOAuth.h header.
  *
- * By deafult EvernoteOAuthWebView uses qrand() for generating nonce so do not
+ * By default EvernoteOAuthWebView uses qrand() for generating nonce so do not
  * forget to call qsrand() in your application. See @link setNonceGenerator @endlink
  * If you want more control over nonce generation.
  */

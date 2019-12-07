@@ -76,7 +76,7 @@ public:
     ~AsyncResult();
 
     /**
-     * @brief Wait for asyncronous operation to complete.
+     * @brief Wait for asynchronous operation to complete.
      * @param timeout
      * Maximum time to wait in milliseconds. Forever if < 0.
      * @return true if finished successfully, false in case of the timeout
@@ -85,7 +85,7 @@ public:
 
 Q_SIGNALS:
     /**
-     * @brief Emitted upon asyncronous call completition.
+     * @brief Emitted upon asynchronous call completition.
      * @param result
      * @param error
      * error != nullptr in case of an error. See EverCloudExceptionData

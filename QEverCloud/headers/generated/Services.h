@@ -2515,7 +2515,7 @@ public:
        *
        * If the Note is not shared, then this function will do nothing.
        *
-       * This function does not remove invididual shares for the note. To remove
+       * This function does not remove individual shares for the note. To remove
        * individual shares, see stopSharingNoteWithRecipients.
        *
        * @param guid
@@ -3086,7 +3086,7 @@ public:
        * <p>Returns the URLs that should be used when sending requests to the service on
        * behalf of the account represented by the provided authenticationToken.</p>
        *
-       * <p>This method isn't needed by most clients, who can retreive the correct set of
+       * <p>This method isn't needed by most clients, who can retrieve the correct set of
        * UserUrls from the AuthenticationResult returned from
        * UserStore#authenticateLongSession(). This method is typically only needed to look up
        * the correct URLs for an existing long-lived authentication token.</p>
