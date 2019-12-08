@@ -54,7 +54,7 @@ make install
 
 The library can be built and shipped either as a static library or a shared library. Dll export/import symbols necessary for Windows platform are supported.
 
-QEverCloud requires the compiler to support certain elements of C++17 standard. CMake automatically checks whether the compiler is capable enough of building QEverCloud so if the pre-build configuration step was successful, the build step should be successful as well.
+QEverCloud requires the compiler to support certain elements of C++17 standard. CMake automatically checks whether the compiler is capable enough of building QEverCloud so if the pre-build configuration step was successful, the build step should be successful as well. Known capable compilers are g++ 5.4 or later and Visual Studio 2017 or later.
 
 QEverCloud depends on the following Qt components:
  * Qt5Core
