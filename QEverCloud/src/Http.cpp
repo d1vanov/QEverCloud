@@ -85,7 +85,7 @@ void ReplyFetcher::checkForTimeout()
     }
 
     if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > m_timeoutMsec) {
-        setError(QNetworkReply::TimeoutError, QStringLiteral("Connection timeout."));
+        setError(QNetworkReply::TimeoutError, QStringLiteral("Request timeout."));
     }
 }
 
