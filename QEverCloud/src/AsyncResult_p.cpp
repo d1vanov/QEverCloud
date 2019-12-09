@@ -14,37 +14,33 @@
 namespace qevercloud {
 
 AsyncResultPrivate::AsyncResultPrivate(
-        QString url, QByteArray postData,
-        qint64 timeoutMsec, QUuid requestId,
+        QString url, QByteArray postData, IRequestContextPtr ctx,
         AsyncResult::ReadFunctionType readFunction, bool autoDelete,
         AsyncResult * q) :
-    m_requestId(requestId),
     m_request(createEvernoteRequest(url)),
-    m_postData(postData),
-    m_timeoutMsec(timeoutMsec),
-    m_readFunction(readFunction),
+    m_postData(std::move(postData)),
+    m_ctx(std::move(ctx)),
+    m_readFunction(std::move(readFunction)),
     m_autoDelete(autoDelete),
     q_ptr(q)
 {}
 
 AsyncResultPrivate::AsyncResultPrivate(
-        QNetworkRequest request, QByteArray postData,
-        qint64 timeoutMsec, QUuid requestId,
+        QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
         AsyncResult::ReadFunctionType readFunction, bool autoDelete,
         AsyncResult * q) :
-    m_requestId(requestId),
-    m_request(request),
-    m_postData(postData),
-    m_timeoutMsec(timeoutMsec),
-    m_readFunction(readFunction),
+    m_request(std::move(request)),
+    m_postData(std::move(postData)),
+    m_ctx(std::move(ctx)),
+    m_readFunction(std::move(readFunction)),
     m_autoDelete(autoDelete),
     q_ptr(q)
 {}
 
 AsyncResultPrivate::AsyncResultPrivate(
         QVariant result, QSharedPointer<EverCloudExceptionData> error,
-        QUuid requestId, bool autoDelete, AsyncResult * q) :
-    m_requestId(requestId),
+        IRequestContextPtr ctx, bool autoDelete, AsyncResult * q) :
+    m_ctx(std::move(ctx)),
     m_autoDelete(autoDelete),
     q_ptr(q)
 {
@@ -67,13 +63,16 @@ void AsyncResultPrivate::start()
     QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                      this, &AsyncResultPrivate::onReplyFetched);
     replyFetcher->start(
-        evernoteNetworkAccessManager(), m_request, m_timeoutMsec, m_postData);
+        evernoteNetworkAccessManager(),
+        m_request,
+        m_ctx->requestTimeout(),
+        m_postData);
 }
 
 void AsyncResultPrivate::onReplyFetched(QObject * rp)
 {
     QEC_DEBUG("async_result", "received reply for request with id "
-        << m_requestId);
+        << m_ctx->requestId());
 
     ReplyFetcher * reply = qobject_cast<ReplyFetcher*>(rp);
     QSharedPointer<EverCloudExceptionData> error;
@@ -124,7 +123,7 @@ void AsyncResultPrivate::setValue(
                      q, &AsyncResult::finished,
                      Qt::QueuedConnection);
 
-    Q_EMIT finished(result, error);
+    Q_EMIT finished(m_ctx, result, error);
 
     if (m_autoDelete) {
         q->deleteLater();

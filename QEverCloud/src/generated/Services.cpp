@@ -889,8 +889,7 @@ AsyncResult * NoteStore::getSyncStateAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetSyncStateReadReplyAsync);
 }
 
@@ -1108,8 +1107,7 @@ AsyncResult * NoteStore::getFilteredSyncChunkAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetFilteredSyncChunkReadReplyAsync);
 }
 
@@ -1308,8 +1306,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetLinkedNotebookSyncStateReadReplyAsync);
 }
 
@@ -1553,8 +1550,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetLinkedNotebookSyncChunkReadReplyAsync);
 }
 
@@ -1739,8 +1735,7 @@ AsyncResult * NoteStore::listNotebooksAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListNotebooksReadReplyAsync);
 }
 
@@ -1925,8 +1920,7 @@ AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListAccessibleBusinessNotebooksReadReplyAsync);
 }
 
@@ -2125,8 +2119,7 @@ AsyncResult * NoteStore::getNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNotebookReadReplyAsync);
 }
 
@@ -2297,8 +2290,7 @@ AsyncResult * NoteStore::getDefaultNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetDefaultNotebookReadReplyAsync);
 }
 
@@ -2497,8 +2489,7 @@ AsyncResult * NoteStore::createNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCreateNotebookReadReplyAsync);
 }
 
@@ -2697,8 +2688,7 @@ AsyncResult * NoteStore::updateNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateNotebookReadReplyAsync);
 }
 
@@ -2897,8 +2887,7 @@ AsyncResult * NoteStore::expungeNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreExpungeNotebookReadReplyAsync);
 }
 
@@ -3083,8 +3072,7 @@ AsyncResult * NoteStore::listTagsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListTagsReadReplyAsync);
 }
 
@@ -3297,8 +3285,7 @@ AsyncResult * NoteStore::listTagsByNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListTagsByNotebookReadReplyAsync);
 }
 
@@ -3497,8 +3484,7 @@ AsyncResult * NoteStore::getTagAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetTagReadReplyAsync);
 }
 
@@ -3697,8 +3683,7 @@ AsyncResult * NoteStore::createTagAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCreateTagReadReplyAsync);
 }
 
@@ -3897,8 +3882,7 @@ AsyncResult * NoteStore::updateTagAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateTagReadReplyAsync);
 }
 
@@ -4077,8 +4061,7 @@ AsyncResult * NoteStore::untagAllAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUntagAllReadReplyAsync);
 }
 
@@ -4277,8 +4260,7 @@ AsyncResult * NoteStore::expungeTagAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreExpungeTagReadReplyAsync);
 }
 
@@ -4463,8 +4445,7 @@ AsyncResult * NoteStore::listSearchesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListSearchesReadReplyAsync);
 }
 
@@ -4663,8 +4644,7 @@ AsyncResult * NoteStore::getSearchAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetSearchReadReplyAsync);
 }
 
@@ -4852,8 +4832,7 @@ AsyncResult * NoteStore::createSearchAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCreateSearchReadReplyAsync);
 }
 
@@ -5052,8 +5031,7 @@ AsyncResult * NoteStore::updateSearchAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateSearchReadReplyAsync);
 }
 
@@ -5252,8 +5230,7 @@ AsyncResult * NoteStore::expungeSearchAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreExpungeSearchReadReplyAsync);
 }
 
@@ -5467,8 +5444,7 @@ AsyncResult * NoteStore::findNoteOffsetAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreFindNoteOffsetReadReplyAsync);
 }
 
@@ -5712,8 +5688,7 @@ AsyncResult * NoteStore::findNotesMetadataAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreFindNotesMetadataReadReplyAsync);
 }
 
@@ -5927,8 +5902,7 @@ AsyncResult * NoteStore::findNoteCountsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreFindNoteCountsReadReplyAsync);
 }
 
@@ -6142,8 +6116,7 @@ AsyncResult * NoteStore::getNoteWithResultSpecAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteWithResultSpecReadReplyAsync);
 }
 
@@ -6402,8 +6375,7 @@ AsyncResult * NoteStore::getNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteReadReplyAsync);
 }
 
@@ -6602,8 +6574,7 @@ AsyncResult * NoteStore::getNoteApplicationDataAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteApplicationDataReadReplyAsync);
 }
 
@@ -6817,8 +6788,7 @@ AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteApplicationDataEntryReadReplyAsync);
 }
 
@@ -7047,8 +7017,7 @@ AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreSetNoteApplicationDataEntryReadReplyAsync);
 }
 
@@ -7262,8 +7231,7 @@ AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUnsetNoteApplicationDataEntryReadReplyAsync);
 }
 
@@ -7462,8 +7430,7 @@ AsyncResult * NoteStore::getNoteContentAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteContentReadReplyAsync);
 }
 
@@ -7692,8 +7659,7 @@ AsyncResult * NoteStore::getNoteSearchTextAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteSearchTextReadReplyAsync);
 }
 
@@ -7892,8 +7858,7 @@ AsyncResult * NoteStore::getResourceSearchTextAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceSearchTextReadReplyAsync);
 }
 
@@ -8106,8 +8071,7 @@ AsyncResult * NoteStore::getNoteTagNamesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteTagNamesReadReplyAsync);
 }
 
@@ -8306,8 +8270,7 @@ AsyncResult * NoteStore::createNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCreateNoteReadReplyAsync);
 }
 
@@ -8506,8 +8469,7 @@ AsyncResult * NoteStore::updateNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateNoteReadReplyAsync);
 }
 
@@ -8706,8 +8668,7 @@ AsyncResult * NoteStore::deleteNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreDeleteNoteReadReplyAsync);
 }
 
@@ -8906,8 +8867,7 @@ AsyncResult * NoteStore::expungeNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreExpungeNoteReadReplyAsync);
 }
 
@@ -9121,8 +9081,7 @@ AsyncResult * NoteStore::copyNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCopyNoteReadReplyAsync);
 }
 
@@ -9335,8 +9294,7 @@ AsyncResult * NoteStore::listNoteVersionsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListNoteVersionsReadReplyAsync);
 }
 
@@ -9595,8 +9553,7 @@ AsyncResult * NoteStore::getNoteVersionAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNoteVersionReadReplyAsync);
 }
 
@@ -9855,8 +9812,7 @@ AsyncResult * NoteStore::getResourceAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceReadReplyAsync);
 }
 
@@ -10055,8 +10011,7 @@ AsyncResult * NoteStore::getResourceApplicationDataAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceApplicationDataReadReplyAsync);
 }
 
@@ -10270,8 +10225,7 @@ AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceApplicationDataEntryReadReplyAsync);
 }
 
@@ -10500,8 +10454,7 @@ AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreSetResourceApplicationDataEntryReadReplyAsync);
 }
 
@@ -10715,8 +10668,7 @@ AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUnsetResourceApplicationDataEntryReadReplyAsync);
 }
 
@@ -10915,8 +10867,7 @@ AsyncResult * NoteStore::updateResourceAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateResourceReadReplyAsync);
 }
 
@@ -11115,8 +11066,7 @@ AsyncResult * NoteStore::getResourceDataAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceDataReadReplyAsync);
 }
 
@@ -11375,8 +11325,7 @@ AsyncResult * NoteStore::getResourceByHashAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceByHashReadReplyAsync);
 }
 
@@ -11575,8 +11524,7 @@ AsyncResult * NoteStore::getResourceRecognitionAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceRecognitionReadReplyAsync);
 }
 
@@ -11775,8 +11723,7 @@ AsyncResult * NoteStore::getResourceAlternateDataAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceAlternateDataReadReplyAsync);
 }
 
@@ -11975,8 +11922,7 @@ AsyncResult * NoteStore::getResourceAttributesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetResourceAttributesReadReplyAsync);
 }
 
@@ -12168,8 +12114,7 @@ AsyncResult * NoteStore::getPublicNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetPublicNotebookReadReplyAsync);
 }
 
@@ -12383,8 +12328,7 @@ AsyncResult * NoteStore::shareNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreShareNotebookReadReplyAsync);
 }
 
@@ -12594,8 +12538,7 @@ AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCreateOrUpdateNotebookSharesReadReplyAsync);
 }
 
@@ -12794,8 +12737,7 @@ AsyncResult * NoteStore::updateSharedNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateSharedNotebookReadReplyAsync);
 }
 
@@ -13009,8 +12951,7 @@ AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreSetNotebookRecipientSettingsReadReplyAsync);
 }
 
@@ -13206,8 +13147,7 @@ AsyncResult * NoteStore::listSharedNotebooksAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListSharedNotebooksReadReplyAsync);
 }
 
@@ -13406,8 +13346,7 @@ AsyncResult * NoteStore::createLinkedNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreCreateLinkedNotebookReadReplyAsync);
 }
 
@@ -13606,8 +13545,7 @@ AsyncResult * NoteStore::updateLinkedNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateLinkedNotebookReadReplyAsync);
 }
 
@@ -13803,8 +13741,7 @@ AsyncResult * NoteStore::listLinkedNotebooksAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreListLinkedNotebooksReadReplyAsync);
 }
 
@@ -14003,8 +13940,7 @@ AsyncResult * NoteStore::expungeLinkedNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreExpungeLinkedNotebookReadReplyAsync);
 }
 
@@ -14203,8 +14139,7 @@ AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreAuthenticateToSharedNotebookReadReplyAsync);
 }
 
@@ -14386,8 +14321,7 @@ AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetSharedNotebookByAuthReadReplyAsync);
 }
 
@@ -14566,8 +14500,7 @@ AsyncResult * NoteStore::emailNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreEmailNoteReadReplyAsync);
 }
 
@@ -14766,8 +14699,7 @@ AsyncResult * NoteStore::shareNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreShareNoteReadReplyAsync);
 }
 
@@ -14946,8 +14878,7 @@ AsyncResult * NoteStore::stopSharingNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreStopSharingNoteReadReplyAsync);
 }
 
@@ -15161,8 +15092,7 @@ AsyncResult * NoteStore::authenticateToSharedNoteAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreAuthenticateToSharedNoteReadReplyAsync);
 }
 
@@ -15376,8 +15306,7 @@ AsyncResult * NoteStore::findRelatedAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreFindRelatedReadReplyAsync);
 }
 
@@ -15576,8 +15505,7 @@ AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreUpdateNoteIfUsnMatchesReadReplyAsync);
 }
 
@@ -15776,8 +15704,7 @@ AsyncResult * NoteStore::manageNotebookSharesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreManageNotebookSharesReadReplyAsync);
 }
 
@@ -15976,8 +15903,7 @@ AsyncResult * NoteStore::getNotebookSharesAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         NoteStoreGetNotebookSharesReadReplyAsync);
 }
 
@@ -16335,8 +16261,7 @@ AsyncResult * UserStore::checkVersionAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreCheckVersionReadReplyAsync);
 }
 
@@ -16491,8 +16416,7 @@ AsyncResult * UserStore::getBootstrapInfoAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreGetBootstrapInfoReadReplyAsync);
 }
 
@@ -16753,8 +16677,7 @@ AsyncResult * UserStore::authenticateLongSessionAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreAuthenticateLongSessionReadReplyAsync);
 }
 
@@ -16970,8 +16893,7 @@ AsyncResult * UserStore::completeTwoFactorAuthenticationAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreCompleteTwoFactorAuthenticationReadReplyAsync);
 }
 
@@ -17122,8 +17044,7 @@ AsyncResult * UserStore::revokeLongSessionAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreRevokeLongSessionReadReplyAsync);
 }
 
@@ -17294,8 +17215,7 @@ AsyncResult * UserStore::authenticateToBusinessAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreAuthenticateToBusinessReadReplyAsync);
 }
 
@@ -17466,8 +17386,7 @@ AsyncResult * UserStore::getUserAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreGetUserReadReplyAsync);
 }
 
@@ -17655,8 +17574,7 @@ AsyncResult * UserStore::getPublicUserInfoAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreGetPublicUserInfoReadReplyAsync);
 }
 
@@ -17827,8 +17745,7 @@ AsyncResult * UserStore::getUserUrlsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreGetUserUrlsReadReplyAsync);
 }
 
@@ -17996,8 +17913,7 @@ AsyncResult * UserStore::inviteToBusinessAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreInviteToBusinessReadReplyAsync);
 }
 
@@ -18176,8 +18092,7 @@ AsyncResult * UserStore::removeFromBusinessAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreRemoveFromBusinessReadReplyAsync);
 }
 
@@ -18371,8 +18286,7 @@ AsyncResult * UserStore::updateBusinessUserIdentifierAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreUpdateBusinessUserIdentifierReadReplyAsync);
 }
 
@@ -18557,8 +18471,7 @@ AsyncResult * UserStore::listBusinessUsersAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreListBusinessUsersReadReplyAsync);
 }
 
@@ -18760,8 +18673,7 @@ AsyncResult * UserStore::listBusinessInvitationsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreListBusinessInvitationsReadReplyAsync);
 }
 
@@ -18927,8 +18839,7 @@ AsyncResult * UserStore::getAccountLimitsAsync(
     return new AsyncResult(
         m_url,
         params,
-        ctx->requestTimeout(),
-        ctx->requestId(),
+        ctx,
         UserStoreGetAccountLimitsReadReplyAsync);
 }
 

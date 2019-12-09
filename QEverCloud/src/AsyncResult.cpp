@@ -26,12 +26,17 @@ QVariant AsyncResult::asIs(QByteArray replyData)
 }
 
 AsyncResult::AsyncResult(
-        QString url, QByteArray postData, qint64 timeoutMsec, QUuid requestId,
+        QString url, QByteArray postData, IRequestContextPtr ctx,
         AsyncResult::ReadFunctionType readFunction, bool autoDelete,
         QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(
-        url, postData, timeoutMsec, requestId, readFunction, autoDelete, this))
+        url,
+        std::move(postData),
+        std::move(ctx),
+        std::move(readFunction),
+        autoDelete,
+        this))
 {
     if (!url.isEmpty()) {
         QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
@@ -39,21 +44,31 @@ AsyncResult::AsyncResult(
 }
 
 AsyncResult::AsyncResult(
-        QNetworkRequest request, QByteArray postData, qint64 timeoutMsec,
-        QUuid requestId, qevercloud::AsyncResult::ReadFunctionType readFunction,
+        QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
+        qevercloud::AsyncResult::ReadFunctionType readFunction,
         bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(
-        request, postData, timeoutMsec, requestId, readFunction, autoDelete, this))
+        std::move(request),
+        std::move(postData),
+        std::move(ctx),
+        std::move(readFunction),
+        autoDelete,
+        this))
 {
     QMetaObject::invokeMethod(d_ptr, "start", Qt::QueuedConnection);
 }
 
 AsyncResult::AsyncResult(
         QVariant result, QSharedPointer<EverCloudExceptionData> error,
-        QUuid requestId, bool autoDelete, QObject * parent) :
+        IRequestContextPtr ctx, bool autoDelete, QObject * parent) :
     QObject(parent),
-    d_ptr(new AsyncResultPrivate(result, error, requestId, autoDelete, this))
+    d_ptr(new AsyncResultPrivate(
+        std::move(result),
+        std::move(error),
+        std::move(ctx),
+        autoDelete,
+        this))
 {}
 
 AsyncResult::~AsyncResult()

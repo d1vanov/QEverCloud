@@ -137,13 +137,17 @@ DurableService::DurableService(IRetryPolicyPtr retryPolicy,
     if (!m_retryPolicy) {
         m_retryPolicy = newRetryPolicy();
     }
+
+    if (!m_ctx) {
+        m_ctx = newRequestContext();
+    }
 }
 
 DurableService::SyncResult DurableService::executeSyncRequest(
     SyncRequest && syncRequest, IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx;
+        ctx = m_ctx->clone();
     }
 
     RetryState state;
@@ -222,13 +226,13 @@ AsyncResult * DurableService::executeAsyncRequest(
     AsyncRequest && asyncRequest, IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx;
+        ctx = m_ctx->clone();
     }
 
     RetryState state;
     state.m_retryCount = ctx->maxRequestRetryCount();
 
-    AsyncResult * result = new AsyncResult(QString(), QByteArray(), 0, ctx->requestId());
+    AsyncResult * result = new AsyncResult(QString(), QByteArray(), ctx);
     doExecuteAsyncRequest(std::move(asyncRequest), std::move(ctx),
                           std::move(state), result);
 
@@ -251,9 +255,12 @@ void DurableService::doExecuteAsyncRequest(
         &AsyncResult::finished,
         result,
         [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
+            QSharedPointer<IRequestContext> c,
             QVariant value,
             QSharedPointer<EverCloudExceptionData> exceptionData) mutable
         {
+            Q_UNUSED(c)
+
             if (!exceptionData) {
                 QEC_DEBUG("durable_service", "Successfully executed async "
                     << asyncRequest.m_name << " request with id "

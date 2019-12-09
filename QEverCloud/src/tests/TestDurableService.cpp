@@ -33,8 +33,12 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
+        Q_UNUSED(ctx)
         m_value = value;
         m_exceptionData = data;
         Q_EMIT finished();
@@ -81,7 +85,7 @@ void DurableServiceTester::shouldExecuteAsyncServiceCall()
         [&] (IRequestContextPtr ctx) -> AsyncResult* {
             Q_ASSERT(ctx);
             serviceCallDetected = true;
-            return new AsyncResult(value, {}, ctx->requestId());
+            return new AsyncResult(value, {}, ctx);
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
@@ -179,10 +183,10 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
                     data = e.exceptionData();
                 }
 
-                return new AsyncResult(QVariant(), data, ctx->requestId());
+                return new AsyncResult(QVariant(), data, ctx);
             }
 
-            return new AsyncResult(value, {}, ctx->requestId());
+            return new AsyncResult(value, {}, ctx);
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
@@ -279,7 +283,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
                 data = e.exceptionData();
             }
 
-            return new AsyncResult(QVariant(), data, ctx->requestId());
+            return new AsyncResult(QVariant(), data, ctx);
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(
@@ -390,7 +394,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
                 data = e.exceptionData();
             }
 
-            return new AsyncResult(QVariant(), data, ctx->requestId());
+            return new AsyncResult(QVariant(), data, ctx);
         });
 
     AsyncResult * result = durableService->executeAsyncRequest(

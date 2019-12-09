@@ -3910,9 +3910,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SyncState>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -3935,9 +3939,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SyncChunk>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -3960,9 +3968,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SyncState>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -3985,9 +3997,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SyncChunk>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4010,9 +4026,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<Notebook>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4035,9 +4055,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<Notebook>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4060,9 +4084,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Notebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4085,9 +4113,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Notebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4110,9 +4142,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Notebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4135,9 +4171,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4160,9 +4200,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4185,9 +4229,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<Tag>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4210,9 +4258,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<Tag>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4235,9 +4287,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Tag>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4260,9 +4316,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Tag>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4285,9 +4345,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4309,8 +4373,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
+        Q_UNUSED(value)
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4333,9 +4402,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4358,9 +4431,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<SavedSearch>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4383,9 +4460,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SavedSearch>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4408,9 +4489,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SavedSearch>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4433,9 +4518,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4458,9 +4547,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4483,9 +4576,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4508,9 +4605,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<NotesMetadataList>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4533,9 +4634,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<NoteCollectionCounts>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4558,9 +4663,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Note>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4583,9 +4692,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Note>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4608,9 +4721,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<LazyMap>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4633,9 +4750,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QString>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4658,9 +4779,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4683,9 +4808,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4708,9 +4837,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QString>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4733,9 +4866,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QString>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4758,9 +4895,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QString>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4783,9 +4924,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QStringList>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4808,9 +4953,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Note>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4833,9 +4982,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Note>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4858,9 +5011,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4883,9 +5040,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4908,9 +5069,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Note>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4933,9 +5098,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<NoteVersionId>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4958,9 +5127,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Note>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -4983,9 +5156,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Resource>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5008,9 +5185,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<LazyMap>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5033,9 +5214,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QString>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5058,9 +5243,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5083,9 +5272,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5108,9 +5301,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5133,9 +5330,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QByteArray>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5158,9 +5359,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Resource>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5183,9 +5388,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QByteArray>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5208,9 +5417,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QByteArray>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5233,9 +5446,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<ResourceAttributes>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5258,9 +5475,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Notebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5283,9 +5504,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SharedNotebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5308,9 +5533,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<CreateOrUpdateNotebookSharesResult>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5333,9 +5562,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5358,9 +5591,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<Notebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5383,9 +5620,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<SharedNotebook>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5408,9 +5649,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<LinkedNotebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5433,9 +5678,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5458,9 +5707,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QList<LinkedNotebook>>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5483,9 +5736,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<qint32>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5508,9 +5765,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5533,9 +5794,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<SharedNotebook>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5557,8 +5822,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
+        Q_UNUSED(value)
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5581,9 +5851,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<QString>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5605,8 +5879,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
+        Q_UNUSED(value)
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5629,9 +5908,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5654,9 +5937,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<RelatedResult>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5679,9 +5966,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<UpdateNoteIfUsnMatchesResult>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5704,9 +5995,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<ManageNotebookSharesResult>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }
@@ -5729,9 +6024,13 @@ Q_SIGNALS:
     void finished();
 
 public Q_SLOTS:
-    void onFinished(QVariant value, QSharedPointer<EverCloudExceptionData> data)
+    void onFinished(
+        QSharedPointer<IRequestContext> ctx,
+        QVariant value,
+        QSharedPointer<EverCloudExceptionData> data)
     {
         m_value = qvariant_cast<ShareRelationships>(value);
+        Q_UNUSED(ctx)
         m_exceptionData = data;
         Q_EMIT finished();
     }

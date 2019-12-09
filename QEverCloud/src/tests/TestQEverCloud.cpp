@@ -11,6 +11,8 @@
 #include "generated/TestNoteStore.h"
 #include "generated/TestUserStore.h"
 
+#include <RequestContext.h>
+
 #include <QCoreApplication>
 #include <QtTest/QtTest>
 
@@ -26,6 +28,12 @@ int main(int argc, char *argv[])
     int res = 0;
 
     QCoreApplication app(argc, argv);
+
+    // FIXME: figure out why things don't work without this
+    qRegisterMetaType<QSharedPointer<IRequestContext>>(
+        "QSharedPointer<IRequestContext>");
+    qRegisterMetaType<QSharedPointer<EverCloudExceptionData>>(
+        "QSharedPointer<EverCloudExceptionData>");
 
 #define RUN_TESTS(tester)                                                      \
     res = QTest::qExec(new tester);                                            \

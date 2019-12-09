@@ -12,6 +12,7 @@
 #include "EverCloudException.h"
 #include "Export.h"
 #include "Helpers.h"
+#include "RequestContext.h"
 
 #include <QNetworkRequest>
 #include <QObject>
@@ -34,7 +35,10 @@ NoteStore* ns;
 Note note;
 ...
 QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished,
-                 [ns](QVariant result, QSharedPointer<EverCloudExceptionData> error)
+                 [ns](
+                     QVariant result,
+                     QSharedPointer<EverCloudExceptionData> error,
+                     QSharedPointer<IRequestContext> ctx)
                  {
                      if (error) {
                          // do something in case of an error
@@ -56,12 +60,12 @@ public:
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
     AsyncResult(QString url, QByteArray postData,
-                qint64 timeoutMsec, QUuid requestId,
+                IRequestContextPtr ctx,
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 
     AsyncResult(QNetworkRequest request, QByteArray postData,
-                qint64 timeoutMsec, QUuid requestId,
+                IRequestContextPtr ctx,
                 ReadFunctionType readFunction = AsyncResult::asIs,
                 bool autoDelete = true, QObject * parent = nullptr);
 
@@ -70,7 +74,7 @@ public:
      * for use in tests
      */
     AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
-                QUuid requestId, bool autoDelete = true,
+                IRequestContextPtr ctx, bool autoDelete = true,
                 QObject * parent = nullptr);
 
     ~AsyncResult();
@@ -86,16 +90,18 @@ public:
 Q_SIGNALS:
     /**
      * @brief Emitted upon asynchronous call completition.
-     * @param result
-     * @param error
-     * error != nullptr in case of an error. See EverCloudExceptionData
-     * for more details.
+     * @param ctx                   Request context used to make the request
+     * @param result                Request result
+     * @param error                 Non-nullptr in case of an error. See
+     *                              EverCloudExceptionData for more details
      *
      * AsyncResult deletes itself after emitting this signal (if autoDelete
      * parameter passed to its constructor was set to true). You don't have to
      * manage it's lifetime explicitly.
      */
-    void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
+    void finished(
+        QSharedPointer<IRequestContext> ctx, QVariant result,
+        QSharedPointer<EverCloudExceptionData> error);
 
 private:
     friend class DurableService;

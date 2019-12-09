@@ -10,6 +10,7 @@
 #include "Http.h"
 
 #include <Log.h>
+#include <RequestContext.h>
 #include <Thumbnail.h>
 
 namespace qevercloud {
@@ -122,17 +123,19 @@ AsyncResult * Thumbnail::downloadAsync(
         << (isResourceGuid ? "resource guid" : "not a resource guid"));
 
     auto pair = createPostRequest(guid, isPublic, isResourceGuid);
+    auto ctx = newRequestContext({}, timeoutMsec);
     auto res = new AsyncResult(
         pair.first,
         pair.second,
-        timeoutMsec,
-        QUuid::createUuid());
+        ctx);
 
     QObject::connect(res, &AsyncResult::finished,
-                     [=] (const QVariant & value,
-                          const QSharedPointer<EverCloudExceptionData> error)
+                     [=] (const QSharedPointer<IRequestContext> & ctx,
+                          const QVariant & value,
+                          const QSharedPointer<EverCloudExceptionData> & error)
                      {
                          Q_UNUSED(value)
+                         Q_UNUSED(ctx)
 
                          if (!error) {
                              QEC_DEBUG("thumbnail", "Finished async download "
