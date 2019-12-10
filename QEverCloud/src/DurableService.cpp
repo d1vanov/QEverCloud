@@ -255,9 +255,9 @@ void DurableService::doExecuteAsyncRequest(
         &AsyncResult::finished,
         result,
         [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
-            QSharedPointer<IRequestContext> c,
             QVariant value,
-            QSharedPointer<EverCloudExceptionData> exceptionData) mutable
+            QSharedPointer<EverCloudExceptionData> exceptionData,
+            IRequestContextPtr c) mutable
         {
             Q_UNUSED(c)
 

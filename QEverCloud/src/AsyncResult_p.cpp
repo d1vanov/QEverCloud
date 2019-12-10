@@ -121,9 +121,9 @@ void AsyncResultPrivate::setValue(
     Q_Q(AsyncResult);
     QObject::connect(this, &AsyncResultPrivate::finished,
                      q, &AsyncResult::finished,
-                     Qt::QueuedConnection);
+                     Qt::DirectConnection);
 
-    Q_EMIT finished(m_ctx, result, error);
+    Q_EMIT finished(result, error, m_ctx);
 
     if (m_autoDelete) {
         q->deleteLater();

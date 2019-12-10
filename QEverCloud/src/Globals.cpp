@@ -8,12 +8,30 @@
  */
 
 #include <Globals.h>
+#include <AsyncResult.h>
+#include <RequestContext.h>
 
+#include <QMetaType>
 #include <QGlobalStatic>
 
 namespace qevercloud {
 
+namespace {
+
+////////////////////////////////////////////////////////////////////////////////
+
 Q_GLOBAL_STATIC(QNetworkAccessManager, globalEvernoteNetworkAccessManager)
+
+////////////////////////////////////////////////////////////////////////////////
+
+void registerMetatypes()
+{
+    qRegisterMetaType<QSharedPointer<EverCloudExceptionData>>(
+        "QSharedPointer<EverCloudExceptionData>");
+    qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
+}
+
+} // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -27,6 +45,13 @@ QNetworkAccessManager * evernoteNetworkAccessManager()
 int libraryVersion()
 {
     return 5*10000 + 0*100 + 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void initializeQEverCloud()
+{
+    registerMetatypes();
 }
 
 } // namespace qevercloud

@@ -11,7 +11,7 @@
 #include "generated/TestNoteStore.h"
 #include "generated/TestUserStore.h"
 
-#include <RequestContext.h>
+#include <Globals.h>
 
 #include <QCoreApplication>
 #include <QtTest/QtTest>
@@ -25,16 +25,11 @@ int main(int argc, char *argv[])
     // Fixed seed for rand() calls
     std::srand(1575003691);
 
-    int res = 0;
-
     QCoreApplication app(argc, argv);
 
-    // FIXME: figure out why things don't work without this
-    qRegisterMetaType<QSharedPointer<IRequestContext>>(
-        "QSharedPointer<IRequestContext>");
-    qRegisterMetaType<QSharedPointer<EverCloudExceptionData>>(
-        "QSharedPointer<EverCloudExceptionData>");
+    initializeQEverCloud();
 
+    int res = 0;
 #define RUN_TESTS(tester)                                                      \
     res = QTest::qExec(new tester);                                            \
     if (res != 0) {                                                            \

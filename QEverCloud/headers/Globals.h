@@ -18,6 +18,8 @@
  */
 namespace qevercloud {
 
+////////////////////////////////////////////////////////////////////////////////
+
 /**
  * All network request made by QEverCloud - including OAuth - are
  * served by this NetworkAccessManager.
@@ -26,10 +28,20 @@ namespace qevercloud {
  */
 QEVERCLOUD_EXPORT QNetworkAccessManager * evernoteNetworkAccessManager();
 
+////////////////////////////////////////////////////////////////////////////////
+
 /**
- * qevercloud library version.
+ * QEverCloud library version.
  */
 QEVERCLOUD_EXPORT int libraryVersion();
+
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Initialization function for QEverCloud, needs to be called once
+ * before using the library. There is no harm if it is called multiple times
+ */
+QEVERCLOUD_EXPORT void initializeQEverCloud();
 
 } // namespace qevercloud
 

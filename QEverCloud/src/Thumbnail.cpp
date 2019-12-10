@@ -130,9 +130,9 @@ AsyncResult * Thumbnail::downloadAsync(
         ctx);
 
     QObject::connect(res, &AsyncResult::finished,
-                     [=] (const QSharedPointer<IRequestContext> & ctx,
-                          const QVariant & value,
-                          const QSharedPointer<EverCloudExceptionData> & error)
+                     [=] (QVariant value,
+                          QSharedPointer<EverCloudExceptionData> error,
+                          IRequestContextPtr ctx)
                      {
                          Q_UNUSED(value)
                          Q_UNUSED(ctx)

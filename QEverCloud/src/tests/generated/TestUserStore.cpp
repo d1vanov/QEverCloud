@@ -815,9 +815,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<bool>(value);
         Q_UNUSED(ctx)
@@ -844,9 +844,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<BootstrapInfo>(value);
         Q_UNUSED(ctx)
@@ -873,9 +873,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
         Q_UNUSED(ctx)
@@ -902,9 +902,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
         Q_UNUSED(ctx)
@@ -930,9 +930,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
         Q_UNUSED(ctx)
@@ -959,9 +959,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
         Q_UNUSED(ctx)
@@ -988,9 +988,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<User>(value);
         Q_UNUSED(ctx)
@@ -1017,9 +1017,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<PublicUserInfo>(value);
         Q_UNUSED(ctx)
@@ -1046,9 +1046,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<UserUrls>(value);
         Q_UNUSED(ctx)
@@ -1074,9 +1074,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
         Q_UNUSED(ctx)
@@ -1102,9 +1102,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
         Q_UNUSED(ctx)
@@ -1130,9 +1130,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
         Q_UNUSED(ctx)
@@ -1159,9 +1159,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<UserProfile>>(value);
         Q_UNUSED(ctx)
@@ -1188,9 +1188,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<BusinessInvitation>>(value);
         Q_UNUSED(ctx)
@@ -1217,9 +1217,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<AccountLimits>(value);
         Q_UNUSED(ctx)

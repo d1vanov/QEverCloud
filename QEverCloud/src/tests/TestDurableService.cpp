@@ -34,9 +34,9 @@ Q_SIGNALS:
 
 public Q_SLOTS:
     void onFinished(
-        QSharedPointer<IRequestContext> ctx,
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data)
+        QSharedPointer<EverCloudExceptionData> data,
+        IRequestContextPtr ctx)
     {
         Q_UNUSED(ctx)
         m_value = value;

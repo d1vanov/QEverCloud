@@ -38,7 +38,7 @@ QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished,
                  [ns](
                      QVariant result,
                      QSharedPointer<EverCloudExceptionData> error,
-                     QSharedPointer<IRequestContext> ctx)
+                     IRequestContextPtr ctx)
                  {
                      if (error) {
                          // do something in case of an error
@@ -90,18 +90,19 @@ public:
 Q_SIGNALS:
     /**
      * @brief Emitted upon asynchronous call completition.
-     * @param ctx                   Request context used to make the request
      * @param result                Request result
      * @param error                 Non-nullptr in case of an error. See
      *                              EverCloudExceptionData for more details
+     * @param ctx                   Request context used to make the request
      *
      * AsyncResult deletes itself after emitting this signal (if autoDelete
      * parameter passed to its constructor was set to true). You don't have to
      * manage it's lifetime explicitly.
      */
     void finished(
-        QSharedPointer<IRequestContext> ctx, QVariant result,
-        QSharedPointer<EverCloudExceptionData> error);
+        QVariant result,
+        QSharedPointer<EverCloudExceptionData> error,
+        IRequestContextPtr ctx);
 
 private:
     friend class DurableService;

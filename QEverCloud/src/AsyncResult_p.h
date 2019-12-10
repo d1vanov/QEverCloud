@@ -35,8 +35,9 @@ public:
 
 Q_SIGNALS:
     void finished(
-        QSharedPointer<IRequestContext> ctx, QVariant result,
-        QSharedPointer<EverCloudExceptionData> error);
+        QVariant result,
+        QSharedPointer<EverCloudExceptionData> error,
+        IRequestContextPtr ctx);
 
 public Q_SLOTS:
     void start();
