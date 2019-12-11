@@ -41,7 +41,7 @@ public:
 
     const char * what() const noexcept override;
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 
 protected:
     QNetworkReply::NetworkError m_type;
@@ -99,7 +99,7 @@ public:
 
     const char * what() const noexcept override;
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 
 protected:
     Type m_type;
@@ -219,7 +219,7 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached:
     public EDAMSystemException
 {
 public:
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -249,7 +249,7 @@ public:
 class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemException
 {
 public:
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

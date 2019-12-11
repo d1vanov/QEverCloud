@@ -15,6 +15,7 @@
 #include <generated/Types.h>
 
 #include <QTextStream>
+#include <memory>
 
 namespace qevercloud {
 
@@ -139,9 +140,9 @@ const char * NetworkException::what() const noexcept
     }
 }
 
-QSharedPointer<EverCloudExceptionData> NetworkException::exceptionData() const
+EverCloudExceptionDataPtr NetworkException::exceptionData() const
 {
-    return QSharedPointer<NetworkExceptionData>::create(
+    return std::make_shared<NetworkExceptionData>(
         QString::fromUtf8(what()), type());
 }
 
@@ -265,9 +266,9 @@ const char * ThriftException::what() const noexcept
     }
 }
 
-QSharedPointer<EverCloudExceptionData> ThriftException::exceptionData() const
+EverCloudExceptionDataPtr ThriftException::exceptionData() const
 {
-    return QSharedPointer<ThriftExceptionData>::create(
+    return std::make_shared<ThriftExceptionData>(
         QString::fromUtf8(what()), type());
 }
 
@@ -408,9 +409,9 @@ void writeThriftException(
     writer.writeStructEnd();
 }
 
-QSharedPointer<EverCloudExceptionData> EDAMInvalidContactsException::exceptionData() const
+EverCloudExceptionDataPtr EDAMInvalidContactsException::exceptionData() const
 {
-    return QSharedPointer<EDAMInvalidContactsExceptionData>::create(
+    return std::make_shared<EDAMInvalidContactsExceptionData>(
         contacts, parameter, reasons);
 }
 
@@ -438,9 +439,9 @@ void EDAMInvalidContactsExceptionData::throwException() const
     throw e;
 }
 
-QSharedPointer<EverCloudExceptionData> EDAMUserException::exceptionData() const
+EverCloudExceptionDataPtr EDAMUserException::exceptionData() const
 {
-    return QSharedPointer<EDAMUserExceptionData>::create(
+    return std::make_shared<EDAMUserExceptionData>(
         QString::fromUtf8(what()), errorCode, parameter);
 }
 
@@ -452,9 +453,9 @@ void EDAMUserExceptionData::throwException() const
     throw e;
 }
 
-QSharedPointer<EverCloudExceptionData> EDAMSystemException::exceptionData() const
+EverCloudExceptionDataPtr EDAMSystemException::exceptionData() const
 {
-    return QSharedPointer<EDAMSystemExceptionData>::create(
+    return std::make_shared<EDAMSystemExceptionData>(
         QString::fromUtf8(what()), errorCode, message, rateLimitDuration);
 }
 
@@ -494,9 +495,9 @@ void EDAMSystemExceptionRateLimitReachedData::throwException() const
     throw e;
 }
 
-QSharedPointer<EverCloudExceptionData> EDAMNotFoundException::exceptionData() const
+EverCloudExceptionDataPtr EDAMNotFoundException::exceptionData() const
 {
-    return QSharedPointer<EDAMNotFoundExceptionData>::create(
+    return std::make_shared<EDAMNotFoundExceptionData>(
         QString::fromUtf8(what()), identifier, key);
 }
 
@@ -538,18 +539,18 @@ void throwEDAMSystemException(const EDAMSystemException & baseException)
     throw baseException;
 }
 
-QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionRateLimitReached::exceptionData() const
+EverCloudExceptionDataPtr EDAMSystemExceptionRateLimitReached::exceptionData() const
 {
-    return QSharedPointer<EDAMSystemExceptionRateLimitReachedData>::create(
+    return std::make_shared<EDAMSystemExceptionRateLimitReachedData>(
         QString::fromUtf8(what()),
         errorCode,
         message,
         rateLimitDuration);
 }
 
-QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionAuthExpired::exceptionData() const
+EverCloudExceptionDataPtr EDAMSystemExceptionAuthExpired::exceptionData() const
 {
-    return QSharedPointer<EDAMSystemExceptionAuthExpiredData>::create(
+    return std::make_shared<EDAMSystemExceptionAuthExpiredData>(
         QString::fromUtf8(what()),
         errorCode,
         message,

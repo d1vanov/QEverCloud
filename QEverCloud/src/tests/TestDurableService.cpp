@@ -27,7 +27,7 @@ public:
     {}
 
     QVariant m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -35,7 +35,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         Q_UNUSED(ctx)
@@ -130,7 +130,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             ++serviceCallCounter;
             if (serviceCallCounter < maxServiceCallCounter)
             {
-                QSharedPointer<EverCloudExceptionData> data;
+                EverCloudExceptionDataPtr data;
                 try {
                     throw NetworkException(QNetworkReply::TimeoutError);
                 }
@@ -175,7 +175,7 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
             ++serviceCallCounter;
             if (serviceCallCounter < maxServiceCallCounter)
             {
-                QSharedPointer<EverCloudExceptionData> data;
+                EverCloudExceptionDataPtr data;
                 try {
                     throw NetworkException(QNetworkReply::TimeoutError);
                 }
@@ -227,7 +227,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 throw NetworkException(QNetworkReply::TimeoutError);
             }
@@ -275,7 +275,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 throw NetworkException(QNetworkReply::TimeoutError);
             }
@@ -334,7 +334,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 EDAMUserException e;
                 e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
@@ -384,7 +384,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            QSharedPointer<EverCloudExceptionData> data;
+            EverCloudExceptionDataPtr data;
             try {
                 EDAMUserException e;
                 e.errorCode = EDAMErrorCode::AUTH_EXPIRED;

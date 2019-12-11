@@ -28,7 +28,7 @@ public:
         AsyncResult * q);
 
     explicit AsyncResultPrivate(
-        QVariant result, QSharedPointer<EverCloudExceptionData> error,
+        QVariant result, EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx, bool autoDelete, AsyncResult * q);
 
     virtual ~AsyncResultPrivate();
@@ -36,7 +36,7 @@ public:
 Q_SIGNALS:
     void finished(
         QVariant result,
-        QSharedPointer<EverCloudExceptionData> error,
+        EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx);
 
 public Q_SLOTS:
@@ -44,7 +44,7 @@ public Q_SLOTS:
 
     void onReplyFetched(QObject * rp);
 
-    void setValue(QVariant result, QSharedPointer<EverCloudExceptionData> error);
+    void setValue(QVariant result, EverCloudExceptionDataPtr error);
 
 public:
     QNetworkRequest                 m_request;

@@ -60,7 +60,7 @@ AsyncResult::AsyncResult(
 }
 
 AsyncResult::AsyncResult(
-        QVariant result, QSharedPointer<EverCloudExceptionData> error,
+        QVariant result, EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx, bool autoDelete, QObject * parent) :
     QObject(parent),
     d_ptr(new AsyncResultPrivate(
@@ -81,7 +81,7 @@ bool AsyncResult::waitForFinished(int timeout)
     QEventLoop loop;
     QObject::connect(
         this,
-        SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)),
+        SIGNAL(finished(QVariant,EverCloudExceptionDataPtr,IRequestContextPtr)),
         &loop,
         SLOT(quit()));
 

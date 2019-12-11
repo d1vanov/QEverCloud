@@ -8,6 +8,7 @@
  */
 
 #include <EverCloudException.h>
+#include <memory>
 
 namespace qevercloud {
 
@@ -35,9 +36,9 @@ const char * EverCloudException::what() const throw()
     return m_error.constData();
 }
 
-QSharedPointer<EverCloudExceptionData> EverCloudException::exceptionData() const
+EverCloudExceptionDataPtr EverCloudException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>::create(
+    return std::make_shared<EverCloudExceptionData>(
         QString::fromUtf8(what()));
 }
 
@@ -66,9 +67,9 @@ EvernoteException::EvernoteException(const char * error) :
     EverCloudException(error)
 {}
 
-QSharedPointer<EverCloudExceptionData> EvernoteException::exceptionData() const
+EverCloudExceptionDataPtr EvernoteException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>::create(
+    return std::make_shared<EverCloudExceptionData>(
         QString::fromUtf8(what()));
 }
 

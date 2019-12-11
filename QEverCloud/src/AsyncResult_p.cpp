@@ -10,6 +10,7 @@
 #include "Http.h"
 
 #include <Log.h>
+#include <memory>
 
 namespace qevercloud {
 
@@ -38,7 +39,7 @@ AsyncResultPrivate::AsyncResultPrivate(
 {}
 
 AsyncResultPrivate::AsyncResultPrivate(
-        QVariant result, QSharedPointer<EverCloudExceptionData> error,
+        QVariant result, EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx, bool autoDelete, AsyncResult * q) :
     m_ctx(std::move(ctx)),
     m_autoDelete(autoDelete),
@@ -46,7 +47,7 @@ AsyncResultPrivate::AsyncResultPrivate(
 {
     QMetaObject::invokeMethod(this, "setValue", Qt::QueuedConnection,
                               Q_ARG(QVariant, result),
-                              Q_ARG(QSharedPointer<EverCloudExceptionData>, error));
+                              Q_ARG(EverCloudExceptionDataPtr, error));
 }
 
 AsyncResultPrivate::~AsyncResultPrivate()
@@ -75,19 +76,19 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
         << m_ctx->requestId());
 
     ReplyFetcher * reply = qobject_cast<ReplyFetcher*>(rp);
-    QSharedPointer<EverCloudExceptionData> error;
+    EverCloudExceptionDataPtr error;
     QVariant result;
 
     try
     {
         if (reply->isError())
         {
-            error = QSharedPointer<EverCloudExceptionData>::create(
+            error = std::make_shared<EverCloudExceptionData>(
                 reply->errorText());
         }
         else if (reply->httpStatusCode() != 200)
         {
-            error = QSharedPointer<EverCloudExceptionData>::create(
+            error = std::make_shared<EverCloudExceptionData>(
                 QString::fromUtf8("HTTP Status Code = %1")
                 .arg(reply->httpStatusCode()));
         }
@@ -102,13 +103,13 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
     }
     catch(const std::exception & e)
     {
-        error = QSharedPointer<EverCloudExceptionData>::create(
+        error = std::make_shared<EverCloudExceptionData>(
             QString::fromUtf8("Exception of type \"%1\" with the message: %2")
             .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what())));
     }
     catch(...)
     {
-        error = QSharedPointer<EverCloudExceptionData>::create(
+        error = std::make_shared<EverCloudExceptionData>(
             QStringLiteral("Unknown exception"));
     }
 
@@ -116,7 +117,7 @@ void AsyncResultPrivate::onReplyFetched(QObject * rp)
 }
 
 void AsyncResultPrivate::setValue(
-    QVariant result, QSharedPointer<EverCloudExceptionData> error)
+    QVariant result, EverCloudExceptionDataPtr error)
 {
     Q_Q(AsyncResult);
     QObject::connect(this, &AsyncResultPrivate::finished,

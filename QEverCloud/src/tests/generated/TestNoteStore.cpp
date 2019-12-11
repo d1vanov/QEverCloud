@@ -47,7 +47,7 @@ public:
 Q_SIGNALS:
     void getSyncStateRequestReady(
         SyncState value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetSyncStateRequestReceived(
@@ -60,7 +60,7 @@ public Q_SLOTS:
 
             Q_EMIT getSyncStateRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -98,7 +98,7 @@ public:
 Q_SIGNALS:
     void getFilteredSyncChunkRequestReady(
         SyncChunk value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetFilteredSyncChunkRequestReceived(
@@ -117,7 +117,7 @@ public Q_SLOTS:
 
             Q_EMIT getFilteredSyncChunkRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -153,7 +153,7 @@ public:
 Q_SIGNALS:
     void getLinkedNotebookSyncStateRequestReady(
         SyncState value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetLinkedNotebookSyncStateRequestReceived(
@@ -168,7 +168,7 @@ public Q_SLOTS:
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -207,7 +207,7 @@ public:
 Q_SIGNALS:
     void getLinkedNotebookSyncChunkRequestReady(
         SyncChunk value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetLinkedNotebookSyncChunkRequestReceived(
@@ -228,7 +228,7 @@ public Q_SLOTS:
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -263,7 +263,7 @@ public:
 Q_SIGNALS:
     void listNotebooksRequestReady(
         QList<Notebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListNotebooksRequestReceived(
@@ -276,7 +276,7 @@ public Q_SLOTS:
 
             Q_EMIT listNotebooksRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -311,7 +311,7 @@ public:
 Q_SIGNALS:
     void listAccessibleBusinessNotebooksRequestReady(
         QList<Notebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListAccessibleBusinessNotebooksRequestReceived(
@@ -324,7 +324,7 @@ public Q_SLOTS:
 
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -360,7 +360,7 @@ public:
 Q_SIGNALS:
     void getNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNotebookRequestReceived(
@@ -375,7 +375,7 @@ public Q_SLOTS:
 
             Q_EMIT getNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -410,7 +410,7 @@ public:
 Q_SIGNALS:
     void getDefaultNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetDefaultNotebookRequestReceived(
@@ -423,7 +423,7 @@ public Q_SLOTS:
 
             Q_EMIT getDefaultNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -459,7 +459,7 @@ public:
 Q_SIGNALS:
     void createNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCreateNotebookRequestReceived(
@@ -474,7 +474,7 @@ public Q_SLOTS:
 
             Q_EMIT createNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -510,7 +510,7 @@ public:
 Q_SIGNALS:
     void updateNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateNotebookRequestReceived(
@@ -525,7 +525,7 @@ public Q_SLOTS:
 
             Q_EMIT updateNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -561,7 +561,7 @@ public:
 Q_SIGNALS:
     void expungeNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onExpungeNotebookRequestReceived(
@@ -576,7 +576,7 @@ public Q_SLOTS:
 
             Q_EMIT expungeNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -611,7 +611,7 @@ public:
 Q_SIGNALS:
     void listTagsRequestReady(
         QList<Tag> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListTagsRequestReceived(
@@ -624,7 +624,7 @@ public Q_SLOTS:
 
             Q_EMIT listTagsRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -660,7 +660,7 @@ public:
 Q_SIGNALS:
     void listTagsByNotebookRequestReady(
         QList<Tag> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListTagsByNotebookRequestReceived(
@@ -675,7 +675,7 @@ public Q_SLOTS:
 
             Q_EMIT listTagsByNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -711,7 +711,7 @@ public:
 Q_SIGNALS:
     void getTagRequestReady(
         Tag value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetTagRequestReceived(
@@ -726,7 +726,7 @@ public Q_SLOTS:
 
             Q_EMIT getTagRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -762,7 +762,7 @@ public:
 Q_SIGNALS:
     void createTagRequestReady(
         Tag value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCreateTagRequestReceived(
@@ -777,7 +777,7 @@ public Q_SLOTS:
 
             Q_EMIT createTagRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -813,7 +813,7 @@ public:
 Q_SIGNALS:
     void updateTagRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateTagRequestReceived(
@@ -828,7 +828,7 @@ public Q_SLOTS:
 
             Q_EMIT updateTagRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -863,7 +863,7 @@ public:
 
 Q_SIGNALS:
     void untagAllRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUntagAllRequestReceived(
@@ -877,7 +877,7 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT untagAllRequestReady(
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -912,7 +912,7 @@ public:
 Q_SIGNALS:
     void expungeTagRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onExpungeTagRequestReceived(
@@ -927,7 +927,7 @@ public Q_SLOTS:
 
             Q_EMIT expungeTagRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -962,7 +962,7 @@ public:
 Q_SIGNALS:
     void listSearchesRequestReady(
         QList<SavedSearch> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListSearchesRequestReceived(
@@ -975,7 +975,7 @@ public Q_SLOTS:
 
             Q_EMIT listSearchesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1011,7 +1011,7 @@ public:
 Q_SIGNALS:
     void getSearchRequestReady(
         SavedSearch value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetSearchRequestReceived(
@@ -1026,7 +1026,7 @@ public Q_SLOTS:
 
             Q_EMIT getSearchRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1062,7 +1062,7 @@ public:
 Q_SIGNALS:
     void createSearchRequestReady(
         SavedSearch value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCreateSearchRequestReceived(
@@ -1077,7 +1077,7 @@ public Q_SLOTS:
 
             Q_EMIT createSearchRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1113,7 +1113,7 @@ public:
 Q_SIGNALS:
     void updateSearchRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateSearchRequestReceived(
@@ -1128,7 +1128,7 @@ public Q_SLOTS:
 
             Q_EMIT updateSearchRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1164,7 +1164,7 @@ public:
 Q_SIGNALS:
     void expungeSearchRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onExpungeSearchRequestReceived(
@@ -1179,7 +1179,7 @@ public Q_SLOTS:
 
             Q_EMIT expungeSearchRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1216,7 +1216,7 @@ public:
 Q_SIGNALS:
     void findNoteOffsetRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onFindNoteOffsetRequestReceived(
@@ -1233,7 +1233,7 @@ public Q_SLOTS:
 
             Q_EMIT findNoteOffsetRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1272,7 +1272,7 @@ public:
 Q_SIGNALS:
     void findNotesMetadataRequestReady(
         NotesMetadataList value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onFindNotesMetadataRequestReceived(
@@ -1293,7 +1293,7 @@ public Q_SLOTS:
 
             Q_EMIT findNotesMetadataRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1330,7 +1330,7 @@ public:
 Q_SIGNALS:
     void findNoteCountsRequestReady(
         NoteCollectionCounts value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onFindNoteCountsRequestReceived(
@@ -1347,7 +1347,7 @@ public Q_SLOTS:
 
             Q_EMIT findNoteCountsRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1384,7 +1384,7 @@ public:
 Q_SIGNALS:
     void getNoteWithResultSpecRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteWithResultSpecRequestReceived(
@@ -1401,7 +1401,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteWithResultSpecRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1441,7 +1441,7 @@ public:
 Q_SIGNALS:
     void getNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteRequestReceived(
@@ -1464,7 +1464,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1500,7 +1500,7 @@ public:
 Q_SIGNALS:
     void getNoteApplicationDataRequestReady(
         LazyMap value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteApplicationDataRequestReceived(
@@ -1515,7 +1515,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteApplicationDataRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1552,7 +1552,7 @@ public:
 Q_SIGNALS:
     void getNoteApplicationDataEntryRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteApplicationDataEntryRequestReceived(
@@ -1569,7 +1569,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1607,7 +1607,7 @@ public:
 Q_SIGNALS:
     void setNoteApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onSetNoteApplicationDataEntryRequestReceived(
@@ -1626,7 +1626,7 @@ public Q_SLOTS:
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1663,7 +1663,7 @@ public:
 Q_SIGNALS:
     void unsetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUnsetNoteApplicationDataEntryRequestReceived(
@@ -1680,7 +1680,7 @@ public Q_SLOTS:
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1716,7 +1716,7 @@ public:
 Q_SIGNALS:
     void getNoteContentRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteContentRequestReceived(
@@ -1731,7 +1731,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteContentRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1769,7 +1769,7 @@ public:
 Q_SIGNALS:
     void getNoteSearchTextRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteSearchTextRequestReceived(
@@ -1788,7 +1788,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteSearchTextRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1824,7 +1824,7 @@ public:
 Q_SIGNALS:
     void getResourceSearchTextRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceSearchTextRequestReceived(
@@ -1839,7 +1839,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceSearchTextRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1875,7 +1875,7 @@ public:
 Q_SIGNALS:
     void getNoteTagNamesRequestReady(
         QStringList value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteTagNamesRequestReceived(
@@ -1890,7 +1890,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteTagNamesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1926,7 +1926,7 @@ public:
 Q_SIGNALS:
     void createNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCreateNoteRequestReceived(
@@ -1941,7 +1941,7 @@ public Q_SLOTS:
 
             Q_EMIT createNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -1977,7 +1977,7 @@ public:
 Q_SIGNALS:
     void updateNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateNoteRequestReceived(
@@ -1992,7 +1992,7 @@ public Q_SLOTS:
 
             Q_EMIT updateNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2028,7 +2028,7 @@ public:
 Q_SIGNALS:
     void deleteNoteRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onDeleteNoteRequestReceived(
@@ -2043,7 +2043,7 @@ public Q_SLOTS:
 
             Q_EMIT deleteNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2079,7 +2079,7 @@ public:
 Q_SIGNALS:
     void expungeNoteRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onExpungeNoteRequestReceived(
@@ -2094,7 +2094,7 @@ public Q_SLOTS:
 
             Q_EMIT expungeNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2131,7 +2131,7 @@ public:
 Q_SIGNALS:
     void copyNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCopyNoteRequestReceived(
@@ -2148,7 +2148,7 @@ public Q_SLOTS:
 
             Q_EMIT copyNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2184,7 +2184,7 @@ public:
 Q_SIGNALS:
     void listNoteVersionsRequestReady(
         QList<NoteVersionId> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListNoteVersionsRequestReceived(
@@ -2199,7 +2199,7 @@ public Q_SLOTS:
 
             Q_EMIT listNoteVersionsRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2239,7 +2239,7 @@ public:
 Q_SIGNALS:
     void getNoteVersionRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNoteVersionRequestReceived(
@@ -2262,7 +2262,7 @@ public Q_SLOTS:
 
             Q_EMIT getNoteVersionRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2302,7 +2302,7 @@ public:
 Q_SIGNALS:
     void getResourceRequestReady(
         Resource value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceRequestReceived(
@@ -2325,7 +2325,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2361,7 +2361,7 @@ public:
 Q_SIGNALS:
     void getResourceApplicationDataRequestReady(
         LazyMap value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceApplicationDataRequestReceived(
@@ -2376,7 +2376,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceApplicationDataRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2413,7 +2413,7 @@ public:
 Q_SIGNALS:
     void getResourceApplicationDataEntryRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceApplicationDataEntryRequestReceived(
@@ -2430,7 +2430,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2468,7 +2468,7 @@ public:
 Q_SIGNALS:
     void setResourceApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onSetResourceApplicationDataEntryRequestReceived(
@@ -2487,7 +2487,7 @@ public Q_SLOTS:
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2524,7 +2524,7 @@ public:
 Q_SIGNALS:
     void unsetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUnsetResourceApplicationDataEntryRequestReceived(
@@ -2541,7 +2541,7 @@ public Q_SLOTS:
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2577,7 +2577,7 @@ public:
 Q_SIGNALS:
     void updateResourceRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateResourceRequestReceived(
@@ -2592,7 +2592,7 @@ public Q_SLOTS:
 
             Q_EMIT updateResourceRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2628,7 +2628,7 @@ public:
 Q_SIGNALS:
     void getResourceDataRequestReady(
         QByteArray value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceDataRequestReceived(
@@ -2643,7 +2643,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceDataRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2683,7 +2683,7 @@ public:
 Q_SIGNALS:
     void getResourceByHashRequestReady(
         Resource value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceByHashRequestReceived(
@@ -2706,7 +2706,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceByHashRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2742,7 +2742,7 @@ public:
 Q_SIGNALS:
     void getResourceRecognitionRequestReady(
         QByteArray value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceRecognitionRequestReceived(
@@ -2757,7 +2757,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceRecognitionRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2793,7 +2793,7 @@ public:
 Q_SIGNALS:
     void getResourceAlternateDataRequestReady(
         QByteArray value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceAlternateDataRequestReceived(
@@ -2808,7 +2808,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceAlternateDataRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2844,7 +2844,7 @@ public:
 Q_SIGNALS:
     void getResourceAttributesRequestReady(
         ResourceAttributes value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetResourceAttributesRequestReceived(
@@ -2859,7 +2859,7 @@ public Q_SLOTS:
 
             Q_EMIT getResourceAttributesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2896,7 +2896,7 @@ public:
 Q_SIGNALS:
     void getPublicNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetPublicNotebookRequestReceived(
@@ -2913,7 +2913,7 @@ public Q_SLOTS:
 
             Q_EMIT getPublicNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -2950,7 +2950,7 @@ public:
 Q_SIGNALS:
     void shareNotebookRequestReady(
         SharedNotebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onShareNotebookRequestReceived(
@@ -2967,7 +2967,7 @@ public Q_SLOTS:
 
             Q_EMIT shareNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3003,7 +3003,7 @@ public:
 Q_SIGNALS:
     void createOrUpdateNotebookSharesRequestReady(
         CreateOrUpdateNotebookSharesResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCreateOrUpdateNotebookSharesRequestReceived(
@@ -3018,7 +3018,7 @@ public Q_SLOTS:
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3054,7 +3054,7 @@ public:
 Q_SIGNALS:
     void updateSharedNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateSharedNotebookRequestReceived(
@@ -3069,7 +3069,7 @@ public Q_SLOTS:
 
             Q_EMIT updateSharedNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3106,7 +3106,7 @@ public:
 Q_SIGNALS:
     void setNotebookRecipientSettingsRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onSetNotebookRecipientSettingsRequestReceived(
@@ -3123,7 +3123,7 @@ public Q_SLOTS:
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3158,7 +3158,7 @@ public:
 Q_SIGNALS:
     void listSharedNotebooksRequestReady(
         QList<SharedNotebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListSharedNotebooksRequestReceived(
@@ -3171,7 +3171,7 @@ public Q_SLOTS:
 
             Q_EMIT listSharedNotebooksRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3207,7 +3207,7 @@ public:
 Q_SIGNALS:
     void createLinkedNotebookRequestReady(
         LinkedNotebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onCreateLinkedNotebookRequestReceived(
@@ -3222,7 +3222,7 @@ public Q_SLOTS:
 
             Q_EMIT createLinkedNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3258,7 +3258,7 @@ public:
 Q_SIGNALS:
     void updateLinkedNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateLinkedNotebookRequestReceived(
@@ -3273,7 +3273,7 @@ public Q_SLOTS:
 
             Q_EMIT updateLinkedNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3308,7 +3308,7 @@ public:
 Q_SIGNALS:
     void listLinkedNotebooksRequestReady(
         QList<LinkedNotebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onListLinkedNotebooksRequestReceived(
@@ -3321,7 +3321,7 @@ public Q_SLOTS:
 
             Q_EMIT listLinkedNotebooksRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3357,7 +3357,7 @@ public:
 Q_SIGNALS:
     void expungeLinkedNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onExpungeLinkedNotebookRequestReceived(
@@ -3372,7 +3372,7 @@ public Q_SLOTS:
 
             Q_EMIT expungeLinkedNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3408,7 +3408,7 @@ public:
 Q_SIGNALS:
     void authenticateToSharedNotebookRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onAuthenticateToSharedNotebookRequestReceived(
@@ -3423,7 +3423,7 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3458,7 +3458,7 @@ public:
 Q_SIGNALS:
     void getSharedNotebookByAuthRequestReady(
         SharedNotebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetSharedNotebookByAuthRequestReceived(
@@ -3471,7 +3471,7 @@ public Q_SLOTS:
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3506,7 +3506,7 @@ public:
 
 Q_SIGNALS:
     void emailNoteRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onEmailNoteRequestReceived(
@@ -3520,7 +3520,7 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT emailNoteRequestReady(
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3555,7 +3555,7 @@ public:
 Q_SIGNALS:
     void shareNoteRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onShareNoteRequestReceived(
@@ -3570,7 +3570,7 @@ public Q_SLOTS:
 
             Q_EMIT shareNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3605,7 +3605,7 @@ public:
 
 Q_SIGNALS:
     void stopSharingNoteRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onStopSharingNoteRequestReceived(
@@ -3619,7 +3619,7 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT stopSharingNoteRequestReady(
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3655,7 +3655,7 @@ public:
 Q_SIGNALS:
     void authenticateToSharedNoteRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onAuthenticateToSharedNoteRequestReceived(
@@ -3672,7 +3672,7 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToSharedNoteRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3709,7 +3709,7 @@ public:
 Q_SIGNALS:
     void findRelatedRequestReady(
         RelatedResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onFindRelatedRequestReceived(
@@ -3726,7 +3726,7 @@ public Q_SLOTS:
 
             Q_EMIT findRelatedRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3762,7 +3762,7 @@ public:
 Q_SIGNALS:
     void updateNoteIfUsnMatchesRequestReady(
         UpdateNoteIfUsnMatchesResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onUpdateNoteIfUsnMatchesRequestReceived(
@@ -3777,7 +3777,7 @@ public Q_SLOTS:
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3813,7 +3813,7 @@ public:
 Q_SIGNALS:
     void manageNotebookSharesRequestReady(
         ManageNotebookSharesResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onManageNotebookSharesRequestReceived(
@@ -3828,7 +3828,7 @@ public Q_SLOTS:
 
             Q_EMIT manageNotebookSharesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3864,7 +3864,7 @@ public:
 Q_SIGNALS:
     void getNotebookSharesRequestReady(
         ShareRelationships value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 public Q_SLOTS:
     void onGetNotebookSharesRequestReceived(
@@ -3879,7 +3879,7 @@ public Q_SLOTS:
 
             Q_EMIT getNotebookSharesRequestReady(
                 v,
-                QSharedPointer<EverCloudExceptionData>());
+                EverCloudExceptionDataPtr());
         }
         catch(const EverCloudException & e)
         {
@@ -3904,7 +3904,7 @@ public:
     {}
 
     SyncState m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -3912,7 +3912,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SyncState>(value);
@@ -3933,7 +3933,7 @@ public:
     {}
 
     SyncChunk m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -3941,7 +3941,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SyncChunk>(value);
@@ -3962,7 +3962,7 @@ public:
     {}
 
     SyncState m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -3970,7 +3970,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SyncState>(value);
@@ -3991,7 +3991,7 @@ public:
     {}
 
     SyncChunk m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -3999,7 +3999,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SyncChunk>(value);
@@ -4020,7 +4020,7 @@ public:
     {}
 
     QList<Notebook> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4028,7 +4028,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<Notebook>>(value);
@@ -4049,7 +4049,7 @@ public:
     {}
 
     QList<Notebook> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4057,7 +4057,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<Notebook>>(value);
@@ -4078,7 +4078,7 @@ public:
     {}
 
     Notebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4086,7 +4086,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Notebook>(value);
@@ -4107,7 +4107,7 @@ public:
     {}
 
     Notebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4115,7 +4115,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Notebook>(value);
@@ -4136,7 +4136,7 @@ public:
     {}
 
     Notebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4144,7 +4144,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Notebook>(value);
@@ -4165,7 +4165,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4173,7 +4173,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4194,7 +4194,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4202,7 +4202,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4223,7 +4223,7 @@ public:
     {}
 
     QList<Tag> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4231,7 +4231,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<Tag>>(value);
@@ -4252,7 +4252,7 @@ public:
     {}
 
     QList<Tag> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4260,7 +4260,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<Tag>>(value);
@@ -4281,7 +4281,7 @@ public:
     {}
 
     Tag m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4289,7 +4289,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Tag>(value);
@@ -4310,7 +4310,7 @@ public:
     {}
 
     Tag m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4318,7 +4318,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Tag>(value);
@@ -4339,7 +4339,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4347,7 +4347,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4367,7 +4367,7 @@ public:
         QObject(parent)
     {}
 
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4375,7 +4375,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
@@ -4396,7 +4396,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4404,7 +4404,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4425,7 +4425,7 @@ public:
     {}
 
     QList<SavedSearch> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4433,7 +4433,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<SavedSearch>>(value);
@@ -4454,7 +4454,7 @@ public:
     {}
 
     SavedSearch m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4462,7 +4462,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SavedSearch>(value);
@@ -4483,7 +4483,7 @@ public:
     {}
 
     SavedSearch m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4491,7 +4491,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SavedSearch>(value);
@@ -4512,7 +4512,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4520,7 +4520,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4541,7 +4541,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4549,7 +4549,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4570,7 +4570,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4578,7 +4578,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4599,7 +4599,7 @@ public:
     {}
 
     NotesMetadataList m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4607,7 +4607,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<NotesMetadataList>(value);
@@ -4628,7 +4628,7 @@ public:
     {}
 
     NoteCollectionCounts m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4636,7 +4636,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<NoteCollectionCounts>(value);
@@ -4657,7 +4657,7 @@ public:
     {}
 
     Note m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4665,7 +4665,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Note>(value);
@@ -4686,7 +4686,7 @@ public:
     {}
 
     Note m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4694,7 +4694,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Note>(value);
@@ -4715,7 +4715,7 @@ public:
     {}
 
     LazyMap m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4723,7 +4723,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<LazyMap>(value);
@@ -4744,7 +4744,7 @@ public:
     {}
 
     QString m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4752,7 +4752,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QString>(value);
@@ -4773,7 +4773,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4781,7 +4781,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4802,7 +4802,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4810,7 +4810,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -4831,7 +4831,7 @@ public:
     {}
 
     QString m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4839,7 +4839,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QString>(value);
@@ -4860,7 +4860,7 @@ public:
     {}
 
     QString m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4868,7 +4868,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QString>(value);
@@ -4889,7 +4889,7 @@ public:
     {}
 
     QString m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4897,7 +4897,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QString>(value);
@@ -4918,7 +4918,7 @@ public:
     {}
 
     QStringList m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4926,7 +4926,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QStringList>(value);
@@ -4947,7 +4947,7 @@ public:
     {}
 
     Note m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4955,7 +4955,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Note>(value);
@@ -4976,7 +4976,7 @@ public:
     {}
 
     Note m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -4984,7 +4984,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Note>(value);
@@ -5005,7 +5005,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5013,7 +5013,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5034,7 +5034,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5042,7 +5042,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5063,7 +5063,7 @@ public:
     {}
 
     Note m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5071,7 +5071,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Note>(value);
@@ -5092,7 +5092,7 @@ public:
     {}
 
     QList<NoteVersionId> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5100,7 +5100,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<NoteVersionId>>(value);
@@ -5121,7 +5121,7 @@ public:
     {}
 
     Note m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5129,7 +5129,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Note>(value);
@@ -5150,7 +5150,7 @@ public:
     {}
 
     Resource m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5158,7 +5158,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Resource>(value);
@@ -5179,7 +5179,7 @@ public:
     {}
 
     LazyMap m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5187,7 +5187,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<LazyMap>(value);
@@ -5208,7 +5208,7 @@ public:
     {}
 
     QString m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5216,7 +5216,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QString>(value);
@@ -5237,7 +5237,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5245,7 +5245,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5266,7 +5266,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5274,7 +5274,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5295,7 +5295,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5303,7 +5303,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5324,7 +5324,7 @@ public:
     {}
 
     QByteArray m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5332,7 +5332,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QByteArray>(value);
@@ -5353,7 +5353,7 @@ public:
     {}
 
     Resource m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5361,7 +5361,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Resource>(value);
@@ -5382,7 +5382,7 @@ public:
     {}
 
     QByteArray m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5390,7 +5390,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QByteArray>(value);
@@ -5411,7 +5411,7 @@ public:
     {}
 
     QByteArray m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5419,7 +5419,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QByteArray>(value);
@@ -5440,7 +5440,7 @@ public:
     {}
 
     ResourceAttributes m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5448,7 +5448,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<ResourceAttributes>(value);
@@ -5469,7 +5469,7 @@ public:
     {}
 
     Notebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5477,7 +5477,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Notebook>(value);
@@ -5498,7 +5498,7 @@ public:
     {}
 
     SharedNotebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5506,7 +5506,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SharedNotebook>(value);
@@ -5527,7 +5527,7 @@ public:
     {}
 
     CreateOrUpdateNotebookSharesResult m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5535,7 +5535,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<CreateOrUpdateNotebookSharesResult>(value);
@@ -5556,7 +5556,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5564,7 +5564,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5585,7 +5585,7 @@ public:
     {}
 
     Notebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5593,7 +5593,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<Notebook>(value);
@@ -5614,7 +5614,7 @@ public:
     {}
 
     QList<SharedNotebook> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5622,7 +5622,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<SharedNotebook>>(value);
@@ -5643,7 +5643,7 @@ public:
     {}
 
     LinkedNotebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5651,7 +5651,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<LinkedNotebook>(value);
@@ -5672,7 +5672,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5680,7 +5680,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5701,7 +5701,7 @@ public:
     {}
 
     QList<LinkedNotebook> m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5709,7 +5709,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QList<LinkedNotebook>>(value);
@@ -5730,7 +5730,7 @@ public:
     {}
 
     qint32 m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5738,7 +5738,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<qint32>(value);
@@ -5759,7 +5759,7 @@ public:
     {}
 
     AuthenticationResult m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5767,7 +5767,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
@@ -5788,7 +5788,7 @@ public:
     {}
 
     SharedNotebook m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5796,7 +5796,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<SharedNotebook>(value);
@@ -5816,7 +5816,7 @@ public:
         QObject(parent)
     {}
 
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5824,7 +5824,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
@@ -5845,7 +5845,7 @@ public:
     {}
 
     QString m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5853,7 +5853,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<QString>(value);
@@ -5873,7 +5873,7 @@ public:
         QObject(parent)
     {}
 
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5881,7 +5881,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         Q_UNUSED(value)
@@ -5902,7 +5902,7 @@ public:
     {}
 
     AuthenticationResult m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5910,7 +5910,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<AuthenticationResult>(value);
@@ -5931,7 +5931,7 @@ public:
     {}
 
     RelatedResult m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5939,7 +5939,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<RelatedResult>(value);
@@ -5960,7 +5960,7 @@ public:
     {}
 
     UpdateNoteIfUsnMatchesResult m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5968,7 +5968,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<UpdateNoteIfUsnMatchesResult>(value);
@@ -5989,7 +5989,7 @@ public:
     {}
 
     ManageNotebookSharesResult m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -5997,7 +5997,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<ManageNotebookSharesResult>(value);
@@ -6018,7 +6018,7 @@ public:
     {}
 
     ShareRelationships m_value;
-    QSharedPointer<EverCloudExceptionData> m_exceptionData;
+    EverCloudExceptionDataPtr m_exceptionData;
 
 Q_SIGNALS:
     void finished();
@@ -6026,7 +6026,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void onFinished(
         QVariant value,
-        QSharedPointer<EverCloudExceptionData> data,
+        EverCloudExceptionDataPtr data,
         IRequestContextPtr ctx)
     {
         m_value = qvariant_cast<ShareRelationships>(value);

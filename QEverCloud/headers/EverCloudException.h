@@ -13,10 +13,10 @@
 #include "Helpers.h"
 
 #include <QObject>
-#include <QSharedPointer>
 #include <QString>
 
 #include <exception>
+#include <memory>
 
 namespace qevercloud {
 
@@ -44,7 +44,7 @@ public:
 
     virtual const char * what() const noexcept override;
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const;
+    virtual std::shared_ptr<EverCloudExceptionData> exceptionData() const;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,12 +73,17 @@ QObject::connect(ns->getNotebook(notebookGuid), &AsyncResult::finished,
                  {
                      if (!error.isNull())
                      {
-                         QSharedPointer<EDAMNotFoundExceptionData> errorNotFound =
-                             error.objectCast<EDAMNotFoundExceptionData>();
-                         QSharedPointer<EDAMUserExceptionData> errorUser =
-                             error.objectCast<EDAMUserExceptionData>();
-                         QSharedPointer<EDAMSystemExceptionData> errorSystem =
-                             error.objectCast<EDAMSystemExceptionData>();
+                         auto errorNotFound =
+                            std::dynamic_pointer_cast<EDAMNotFoundExceptionData>(
+                                error);
+
+                         auto errorUser =
+                            std::dynamic_pointer_cast<EDAMUserExceptionData>(
+                                error);
+
+                         auto errorSystem =
+                            std::dynamic_pointer_cast<EDAMSystemExceptionData>(
+                                error);
 
                          if (!errorNotFound.isNull())
                          {
@@ -141,6 +146,8 @@ public:
     virtual void throwException() const;
 };
 
+using EverCloudExceptionDataPtr = std::shared_ptr<EverCloudExceptionData>;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -155,7 +162,7 @@ public:
     explicit EvernoteException(const std::string & error);
     explicit EvernoteException(const char * error);
 
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

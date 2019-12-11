@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <memory>
 
 namespace qevercloud {
 
@@ -40,7 +41,7 @@ quint64 exponentiallyIncreasedTimeoutMsec(
 struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
 {
     virtual bool shouldRetry(
-        QSharedPointer<EverCloudExceptionData> exceptionData) override
+        const EverCloudExceptionDataPtr & exceptionData) override
     {
         if (Q_UNLIKELY(!exceptionData)) {
             return true;
@@ -147,7 +148,7 @@ DurableService::SyncResult DurableService::executeSyncRequest(
     SyncRequest && syncRequest, IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx->clone();
+        ctx.reset(m_ctx->clone());
     }
 
     RetryState state;
@@ -170,7 +171,7 @@ DurableService::SyncResult DurableService::executeSyncRequest(
             result.second = e.exceptionData();
         }
         catch(const std::exception & e) {
-            result.second = QSharedPointer<EverCloudExceptionData>::create(
+            result.second = std::make_shared<EverCloudExceptionData>(
                 QString::fromLocal8Bit(e.what()));
             return result;
         }
@@ -226,7 +227,7 @@ AsyncResult * DurableService::executeAsyncRequest(
     AsyncRequest && asyncRequest, IRequestContextPtr ctx)
 {
     if (!ctx) {
-        ctx = m_ctx->clone();
+        ctx.reset(m_ctx->clone());
     }
 
     RetryState state;
@@ -256,7 +257,7 @@ void DurableService::doExecuteAsyncRequest(
         result,
         [=, retryState = std::move(retryState), retryPolicy = m_retryPolicy] (
             QVariant value,
-            QSharedPointer<EverCloudExceptionData> exceptionData,
+            EverCloudExceptionDataPtr exceptionData,
             IRequestContextPtr c) mutable
         {
             Q_UNUSED(c)
@@ -314,14 +315,14 @@ void DurableService::doExecuteAsyncRequest(
 
 IRetryPolicyPtr newRetryPolicy()
 {
-    return QSharedPointer<RetryPolicy>::create();
+    return std::make_shared<RetryPolicy>();
 }
 
 IDurableServicePtr newDurableService(
     IRetryPolicyPtr retryPolicy,
     IRequestContextPtr ctx)
 {
-    return QSharedPointer<DurableService>::create(retryPolicy, ctx);
+    return std::make_shared<DurableService>(retryPolicy, ctx);
 }
 
 } // namespace qevercloud

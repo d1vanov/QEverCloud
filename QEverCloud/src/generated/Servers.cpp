@@ -6753,12 +6753,12 @@ void NoteStoreServer::onRequest(QByteArray data)
 
 void NoteStoreServer::onGetSyncStateRequestReady(
     SyncState value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -6791,7 +6791,7 @@ void NoteStoreServer::onGetSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSyncState"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -6864,12 +6864,12 @@ void NoteStoreServer::onGetSyncStateRequestReady(
 
 void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     SyncChunk value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -6902,7 +6902,7 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getFilteredSyncChunk"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -6975,12 +6975,12 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
 
 void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     SyncState value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7013,7 +7013,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncState"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7104,12 +7104,12 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
 
 void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     SyncChunk value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7142,7 +7142,7 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncChunk"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7233,12 +7233,12 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
 
 void NoteStoreServer::onListNotebooksRequestReady(
     QList<Notebook> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7271,7 +7271,7 @@ void NoteStoreServer::onListNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNotebooks"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7348,12 +7348,12 @@ void NoteStoreServer::onListNotebooksRequestReady(
 
 void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     QList<Notebook> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7386,7 +7386,7 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listAccessibleBusinessNotebooks"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7463,12 +7463,12 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
 
 void NoteStoreServer::onGetNotebookRequestReady(
     Notebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7501,7 +7501,7 @@ void NoteStoreServer::onGetNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7592,12 +7592,12 @@ void NoteStoreServer::onGetNotebookRequestReady(
 
 void NoteStoreServer::onGetDefaultNotebookRequestReady(
     Notebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7630,7 +7630,7 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getDefaultNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7703,12 +7703,12 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
 
 void NoteStoreServer::onCreateNotebookRequestReady(
     Notebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7741,7 +7741,7 @@ void NoteStoreServer::onCreateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7832,12 +7832,12 @@ void NoteStoreServer::onCreateNotebookRequestReady(
 
 void NoteStoreServer::onUpdateNotebookRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7870,7 +7870,7 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7961,12 +7961,12 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
 
 void NoteStoreServer::onExpungeNotebookRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -7999,7 +7999,7 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8090,12 +8090,12 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
 
 void NoteStoreServer::onListTagsRequestReady(
     QList<Tag> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8128,7 +8128,7 @@ void NoteStoreServer::onListTagsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTags"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8205,12 +8205,12 @@ void NoteStoreServer::onListTagsRequestReady(
 
 void NoteStoreServer::onListTagsByNotebookRequestReady(
     QList<Tag> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8243,7 +8243,7 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTagsByNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8338,12 +8338,12 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
 
 void NoteStoreServer::onGetTagRequestReady(
     Tag value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8376,7 +8376,7 @@ void NoteStoreServer::onGetTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getTag"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8467,12 +8467,12 @@ void NoteStoreServer::onGetTagRequestReady(
 
 void NoteStoreServer::onCreateTagRequestReady(
     Tag value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8505,7 +8505,7 @@ void NoteStoreServer::onCreateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createTag"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8596,12 +8596,12 @@ void NoteStoreServer::onCreateTagRequestReady(
 
 void NoteStoreServer::onUpdateTagRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8634,7 +8634,7 @@ void NoteStoreServer::onUpdateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateTag"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8724,12 +8724,12 @@ void NoteStoreServer::onUpdateTagRequestReady(
 }
 
 void NoteStoreServer::onUntagAllRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8762,7 +8762,7 @@ void NoteStoreServer::onUntagAllRequestReady(
     writer.writeStructBegin(
         QStringLiteral("untagAll"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8852,12 +8852,12 @@ void NoteStoreServer::onUntagAllRequestReady(
 
 void NoteStoreServer::onExpungeTagRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8890,7 +8890,7 @@ void NoteStoreServer::onExpungeTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeTag"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -8981,12 +8981,12 @@ void NoteStoreServer::onExpungeTagRequestReady(
 
 void NoteStoreServer::onListSearchesRequestReady(
     QList<SavedSearch> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9019,7 +9019,7 @@ void NoteStoreServer::onListSearchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSearches"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9096,12 +9096,12 @@ void NoteStoreServer::onListSearchesRequestReady(
 
 void NoteStoreServer::onGetSearchRequestReady(
     SavedSearch value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9134,7 +9134,7 @@ void NoteStoreServer::onGetSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSearch"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9225,12 +9225,12 @@ void NoteStoreServer::onGetSearchRequestReady(
 
 void NoteStoreServer::onCreateSearchRequestReady(
     SavedSearch value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9263,7 +9263,7 @@ void NoteStoreServer::onCreateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createSearch"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9336,12 +9336,12 @@ void NoteStoreServer::onCreateSearchRequestReady(
 
 void NoteStoreServer::onUpdateSearchRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9374,7 +9374,7 @@ void NoteStoreServer::onUpdateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSearch"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9465,12 +9465,12 @@ void NoteStoreServer::onUpdateSearchRequestReady(
 
 void NoteStoreServer::onExpungeSearchRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9503,7 +9503,7 @@ void NoteStoreServer::onExpungeSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeSearch"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9594,12 +9594,12 @@ void NoteStoreServer::onExpungeSearchRequestReady(
 
 void NoteStoreServer::onFindNoteOffsetRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9632,7 +9632,7 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteOffset"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9723,12 +9723,12 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
 
 void NoteStoreServer::onFindNotesMetadataRequestReady(
     NotesMetadataList value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9761,7 +9761,7 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNotesMetadata"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9852,12 +9852,12 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
 
 void NoteStoreServer::onFindNoteCountsRequestReady(
     NoteCollectionCounts value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9890,7 +9890,7 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteCounts"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -9981,12 +9981,12 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
 
 void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     Note value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10019,7 +10019,7 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteWithResultSpec"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10110,12 +10110,12 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
 
 void NoteStoreServer::onGetNoteRequestReady(
     Note value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10148,7 +10148,7 @@ void NoteStoreServer::onGetNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10239,12 +10239,12 @@ void NoteStoreServer::onGetNoteRequestReady(
 
 void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     LazyMap value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10277,7 +10277,7 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationData"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10368,12 +10368,12 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
 
 void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     QString value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10406,7 +10406,7 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationDataEntry"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10497,12 +10497,12 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10535,7 +10535,7 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setNoteApplicationDataEntry"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10626,12 +10626,12 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10664,7 +10664,7 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetNoteApplicationDataEntry"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10755,12 +10755,12 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onGetNoteContentRequestReady(
     QString value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10793,7 +10793,7 @@ void NoteStoreServer::onGetNoteContentRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteContent"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10884,12 +10884,12 @@ void NoteStoreServer::onGetNoteContentRequestReady(
 
 void NoteStoreServer::onGetNoteSearchTextRequestReady(
     QString value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -10922,7 +10922,7 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteSearchText"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11013,12 +11013,12 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
 
 void NoteStoreServer::onGetResourceSearchTextRequestReady(
     QString value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11051,7 +11051,7 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceSearchText"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11142,12 +11142,12 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
 
 void NoteStoreServer::onGetNoteTagNamesRequestReady(
     QStringList value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11180,7 +11180,7 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteTagNames"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11275,12 +11275,12 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
 
 void NoteStoreServer::onCreateNoteRequestReady(
     Note value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11313,7 +11313,7 @@ void NoteStoreServer::onCreateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11404,12 +11404,12 @@ void NoteStoreServer::onCreateNoteRequestReady(
 
 void NoteStoreServer::onUpdateNoteRequestReady(
     Note value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11442,7 +11442,7 @@ void NoteStoreServer::onUpdateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11533,12 +11533,12 @@ void NoteStoreServer::onUpdateNoteRequestReady(
 
 void NoteStoreServer::onDeleteNoteRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11571,7 +11571,7 @@ void NoteStoreServer::onDeleteNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("deleteNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11662,12 +11662,12 @@ void NoteStoreServer::onDeleteNoteRequestReady(
 
 void NoteStoreServer::onExpungeNoteRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11700,7 +11700,7 @@ void NoteStoreServer::onExpungeNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11791,12 +11791,12 @@ void NoteStoreServer::onExpungeNoteRequestReady(
 
 void NoteStoreServer::onCopyNoteRequestReady(
     Note value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11829,7 +11829,7 @@ void NoteStoreServer::onCopyNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("copyNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11920,12 +11920,12 @@ void NoteStoreServer::onCopyNoteRequestReady(
 
 void NoteStoreServer::onListNoteVersionsRequestReady(
     QList<NoteVersionId> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -11958,7 +11958,7 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNoteVersions"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12053,12 +12053,12 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
 
 void NoteStoreServer::onGetNoteVersionRequestReady(
     Note value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12091,7 +12091,7 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteVersion"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12182,12 +12182,12 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
 
 void NoteStoreServer::onGetResourceRequestReady(
     Resource value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12220,7 +12220,7 @@ void NoteStoreServer::onGetResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResource"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12311,12 +12311,12 @@ void NoteStoreServer::onGetResourceRequestReady(
 
 void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     LazyMap value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12349,7 +12349,7 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationData"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12440,12 +12440,12 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
 
 void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     QString value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12478,7 +12478,7 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationDataEntry"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12569,12 +12569,12 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12607,7 +12607,7 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setResourceApplicationDataEntry"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12698,12 +12698,12 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12736,7 +12736,7 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetResourceApplicationDataEntry"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12827,12 +12827,12 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onUpdateResourceRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12865,7 +12865,7 @@ void NoteStoreServer::onUpdateResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateResource"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12956,12 +12956,12 @@ void NoteStoreServer::onUpdateResourceRequestReady(
 
 void NoteStoreServer::onGetResourceDataRequestReady(
     QByteArray value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -12994,7 +12994,7 @@ void NoteStoreServer::onGetResourceDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceData"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13085,12 +13085,12 @@ void NoteStoreServer::onGetResourceDataRequestReady(
 
 void NoteStoreServer::onGetResourceByHashRequestReady(
     Resource value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13123,7 +13123,7 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceByHash"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13214,12 +13214,12 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
 
 void NoteStoreServer::onGetResourceRecognitionRequestReady(
     QByteArray value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13252,7 +13252,7 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceRecognition"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13343,12 +13343,12 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
 
 void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     QByteArray value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13381,7 +13381,7 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAlternateData"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13472,12 +13472,12 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
 
 void NoteStoreServer::onGetResourceAttributesRequestReady(
     ResourceAttributes value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13510,7 +13510,7 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAttributes"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13601,12 +13601,12 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
 
 void NoteStoreServer::onGetPublicNotebookRequestReady(
     Notebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13639,7 +13639,7 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getPublicNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13712,12 +13712,12 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
 
 void NoteStoreServer::onShareNotebookRequestReady(
     SharedNotebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13750,7 +13750,7 @@ void NoteStoreServer::onShareNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13841,12 +13841,12 @@ void NoteStoreServer::onShareNotebookRequestReady(
 
 void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     CreateOrUpdateNotebookSharesResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13879,7 +13879,7 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createOrUpdateNotebookShares"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -13988,12 +13988,12 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
 
 void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14026,7 +14026,7 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSharedNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14117,12 +14117,12 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
 
 void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     Notebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14155,7 +14155,7 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setNotebookRecipientSettings"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14246,12 +14246,12 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
 
 void NoteStoreServer::onListSharedNotebooksRequestReady(
     QList<SharedNotebook> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14284,7 +14284,7 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSharedNotebooks"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14379,12 +14379,12 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
 
 void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     LinkedNotebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14417,7 +14417,7 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createLinkedNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14508,12 +14508,12 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
 
 void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14546,7 +14546,7 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateLinkedNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14637,12 +14637,12 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
 
 void NoteStoreServer::onListLinkedNotebooksRequestReady(
     QList<LinkedNotebook> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14675,7 +14675,7 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listLinkedNotebooks"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14770,12 +14770,12 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
 
 void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     qint32 value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14808,7 +14808,7 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeLinkedNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14899,12 +14899,12 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
 
 void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     AuthenticationResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -14937,7 +14937,7 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNotebook"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15028,12 +15028,12 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
 
 void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     SharedNotebook value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15066,7 +15066,7 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSharedNotebookByAuth"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15156,12 +15156,12 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
 }
 
 void NoteStoreServer::onEmailNoteRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15194,7 +15194,7 @@ void NoteStoreServer::onEmailNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("emailNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15284,12 +15284,12 @@ void NoteStoreServer::onEmailNoteRequestReady(
 
 void NoteStoreServer::onShareNoteRequestReady(
     QString value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15322,7 +15322,7 @@ void NoteStoreServer::onShareNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15412,12 +15412,12 @@ void NoteStoreServer::onShareNoteRequestReady(
 }
 
 void NoteStoreServer::onStopSharingNoteRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15450,7 +15450,7 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("stopSharingNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15540,12 +15540,12 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
 
 void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     AuthenticationResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15578,7 +15578,7 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNote"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15669,12 +15669,12 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
 
 void NoteStoreServer::onFindRelatedRequestReady(
     RelatedResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15707,7 +15707,7 @@ void NoteStoreServer::onFindRelatedRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findRelated"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15798,12 +15798,12 @@ void NoteStoreServer::onFindRelatedRequestReady(
 
 void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     UpdateNoteIfUsnMatchesResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15836,7 +15836,7 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNoteIfUsnMatches"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15927,12 +15927,12 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
 
 void NoteStoreServer::onManageNotebookSharesRequestReady(
     ManageNotebookSharesResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -15965,7 +15965,7 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("manageNotebookShares"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16056,12 +16056,12 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
 
 void NoteStoreServer::onGetNotebookSharesRequestReady(
     ShareRelationships value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16094,7 +16094,7 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebookShares"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16435,12 +16435,12 @@ void UserStoreServer::onRequest(QByteArray data)
 
 void UserStoreServer::onCheckVersionRequestReady(
     bool value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16492,12 +16492,12 @@ void UserStoreServer::onCheckVersionRequestReady(
 
 void UserStoreServer::onGetBootstrapInfoRequestReady(
     BootstrapInfo value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16549,12 +16549,12 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
 
 void UserStoreServer::onAuthenticateLongSessionRequestReady(
     AuthenticationResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16587,7 +16587,7 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateLongSession"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16660,12 +16660,12 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
 
 void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     AuthenticationResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16698,7 +16698,7 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     writer.writeStructBegin(
         QStringLiteral("completeTwoFactorAuthentication"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16770,12 +16770,12 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
 }
 
 void UserStoreServer::onRevokeLongSessionRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16808,7 +16808,7 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("revokeLongSession"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16880,12 +16880,12 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
 
 void UserStoreServer::onAuthenticateToBusinessRequestReady(
     AuthenticationResult value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16918,7 +16918,7 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToBusiness"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -16991,12 +16991,12 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
 
 void UserStoreServer::onGetUserRequestReady(
     User value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17029,7 +17029,7 @@ void UserStoreServer::onGetUserRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getUser"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17102,12 +17102,12 @@ void UserStoreServer::onGetUserRequestReady(
 
 void UserStoreServer::onGetPublicUserInfoRequestReady(
     PublicUserInfo value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17140,7 +17140,7 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getPublicUserInfo"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17231,12 +17231,12 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
 
 void UserStoreServer::onGetUserUrlsRequestReady(
     UserUrls value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17269,7 +17269,7 @@ void UserStoreServer::onGetUserUrlsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getUserUrls"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17341,12 +17341,12 @@ void UserStoreServer::onGetUserUrlsRequestReady(
 }
 
 void UserStoreServer::onInviteToBusinessRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17379,7 +17379,7 @@ void UserStoreServer::onInviteToBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("inviteToBusiness"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17450,12 +17450,12 @@ void UserStoreServer::onInviteToBusinessRequestReady(
 }
 
 void UserStoreServer::onRemoveFromBusinessRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17488,7 +17488,7 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("removeFromBusiness"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17577,12 +17577,12 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
 }
 
 void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17615,7 +17615,7 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateBusinessUserIdentifier"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17705,12 +17705,12 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
 
 void UserStoreServer::onListBusinessUsersRequestReady(
     QList<UserProfile> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17743,7 +17743,7 @@ void UserStoreServer::onListBusinessUsersRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listBusinessUsers"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17820,12 +17820,12 @@ void UserStoreServer::onListBusinessUsersRequestReady(
 
 void UserStoreServer::onListBusinessInvitationsRequestReady(
     QList<BusinessInvitation> value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17858,7 +17858,7 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listBusinessInvitations"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17935,12 +17935,12 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
 
 void UserStoreServer::onGetAccountLimitsRequestReady(
     AccountLimits value,
-    QSharedPointer<EverCloudExceptionData> exceptionData)
+    EverCloudExceptionDataPtr exceptionData)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {
@@ -17973,7 +17973,7 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getAccountLimits"));
 
-    if (!exceptionData.isNull())
+    if (exceptionData)
     {
         try
         {

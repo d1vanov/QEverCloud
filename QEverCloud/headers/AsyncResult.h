@@ -37,7 +37,7 @@ Note note;
 QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished,
                  [ns](
                      QVariant result,
-                     QSharedPointer<EverCloudExceptionData> error,
+                     EverCloudExceptionDataPtr error,
                      IRequestContextPtr ctx)
                  {
                      if (error) {
@@ -73,7 +73,7 @@ public:
      * Constructor accepting already prepared value and/or exception,
      * for use in tests
      */
-    AsyncResult(QVariant result, QSharedPointer<EverCloudExceptionData> error,
+    AsyncResult(QVariant result, EverCloudExceptionDataPtr error,
                 IRequestContextPtr ctx, bool autoDelete = true,
                 QObject * parent = nullptr);
 
@@ -101,7 +101,7 @@ Q_SIGNALS:
      */
     void finished(
         QVariant result,
-        QSharedPointer<EverCloudExceptionData> error,
+        EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx);
 
 private:

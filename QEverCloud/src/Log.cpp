@@ -12,6 +12,7 @@
 #include <atomic>
 #include <cstdio>
 #include <ctime>
+#include <memory>
 
 namespace qevercloud {
 
@@ -189,7 +190,7 @@ ILoggerPtr logger()
 {
     if (globalLogger.exists() &&
         !globalLogger.isDestroyed() &&
-        !globalLogger->isNull())
+        (globalLogger->get() != nullptr))
     {
         return *globalLogger;
     }
@@ -206,12 +207,12 @@ void setLogger(ILoggerPtr logger)
 
 ILoggerPtr newNullLogger()
 {
-    return QSharedPointer<NullLogger>::create();
+    return std::make_shared<NullLogger>();
 }
 
 ILoggerPtr newStdErrLogger(LogLevel level)
 {
-    return QSharedPointer<StdErrLogger>::create(level);
+    return std::make_shared<StdErrLogger>(level);
 }
 
 QTextStream & operator<<(QTextStream & out, const LogLevel level)

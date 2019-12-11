@@ -56,9 +56,9 @@ public:
         return m_maxRequestRetryCount;
     }
 
-    virtual QSharedPointer<IRequestContext> clone() const override
+    virtual IRequestContext * clone() const override
     {
-        return QSharedPointer<RequestContext>::create(
+        return new RequestContext(
             m_authenticationToken,
             m_requestTimeout,
             m_increaseRequestTimeoutExponentially,
@@ -111,7 +111,7 @@ IRequestContextPtr newRequestContext(
     qint64 maxRequestTimeout,
     quint32 maxRequestRetryCount)
 {
-    return QSharedPointer<RequestContext>::create(
+    return std::make_shared<RequestContext>(
         std::move(authenticationToken),
         requestTimeout,
         increaseRequestTimeoutExponentially,

@@ -2732,7 +2732,7 @@ public:
 
 };
 
-using INoteStorePtr = QSharedPointer<INoteStore>;
+using INoteStorePtr = std::shared_ptr<INoteStore>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -3305,7 +3305,7 @@ public:
 
 };
 
-using IUserStorePtr = QSharedPointer<IUserStore>;
+using IUserStorePtr = std::shared_ptr<IUserStore>;
 
 ////////////////////////////////////////////////////////////////////////////////
 

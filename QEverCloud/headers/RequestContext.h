@@ -11,9 +11,10 @@
 #include "Export.h"
 
 #include <QDebug>
-#include <QSharedPointer>
 #include <QTextStream>
 #include <QUuid>
+
+#include <memory>
 
 namespace qevercloud {
 
@@ -61,7 +62,9 @@ public:
      * Create a new instance of IRequestContext with all the same parameters
      * as in the source but a distinct id
      */
-    virtual QSharedPointer<IRequestContext> clone() const = 0;
+    virtual IRequestContext * clone() const = 0;
+
+    virtual ~IRequestContext() = default;
 
     friend QEVERCLOUD_EXPORT QTextStream & operator<<(
         QTextStream & strm, const IRequestContext & ctx);
@@ -70,7 +73,7 @@ public:
         QDebug & dbg, const IRequestContext & ctx);
 };
 
-using IRequestContextPtr = QSharedPointer<IRequestContext>;
+using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 
 ////////////////////////////////////////////////////////////////////////////////
 

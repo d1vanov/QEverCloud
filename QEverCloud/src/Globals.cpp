@@ -26,8 +26,7 @@ Q_GLOBAL_STATIC(QNetworkAccessManager, globalEvernoteNetworkAccessManager)
 
 void registerMetatypes()
 {
-    qRegisterMetaType<QSharedPointer<EverCloudExceptionData>>(
-        "QSharedPointer<EverCloudExceptionData>");
+    qRegisterMetaType<EverCloudExceptionDataPtr>("EverCloudExceptionDataPtr");
     qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
 }
 

@@ -5870,7 +5870,7 @@ public:
 
     EDAMUserException(const EDAMUserException & other);
     const char * what() const noexcept override;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
 
@@ -5917,7 +5917,7 @@ public:
 
     EDAMSystemException(const EDAMSystemException & other);
     const char * what() const noexcept override;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
 
@@ -5964,7 +5964,7 @@ public:
 
     EDAMNotFoundException(const EDAMNotFoundException & other);
     const char * what() const noexcept override;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
 
@@ -6019,7 +6019,7 @@ public:
 
     EDAMInvalidContactsException(const EDAMInvalidContactsException & other);
     const char * what() const noexcept override;
-    virtual QSharedPointer<EverCloudExceptionData> exceptionData() const override;
+    virtual EverCloudExceptionDataPtr exceptionData() const override;
 
     virtual void print(QTextStream & strm) const override;
 

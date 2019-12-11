@@ -599,296 +599,296 @@ public Q_SLOTS:
     // Slots for replies to requests
     void onGetSyncStateRequestReady(
         SyncState value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetFilteredSyncChunkRequestReady(
         SyncChunk value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetLinkedNotebookSyncStateRequestReady(
         SyncState value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetLinkedNotebookSyncChunkRequestReady(
         SyncChunk value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListNotebooksRequestReady(
         QList<Notebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListAccessibleBusinessNotebooksRequestReady(
         QList<Notebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetDefaultNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCreateNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onExpungeNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListTagsRequestReady(
         QList<Tag> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListTagsByNotebookRequestReady(
         QList<Tag> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetTagRequestReady(
         Tag value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCreateTagRequestReady(
         Tag value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateTagRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUntagAllRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onExpungeTagRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListSearchesRequestReady(
         QList<SavedSearch> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetSearchRequestReady(
         SavedSearch value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCreateSearchRequestReady(
         SavedSearch value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateSearchRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onExpungeSearchRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onFindNoteOffsetRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onFindNotesMetadataRequestReady(
         NotesMetadataList value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onFindNoteCountsRequestReady(
         NoteCollectionCounts value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteWithResultSpecRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteApplicationDataRequestReady(
         LazyMap value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteApplicationDataEntryRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onSetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUnsetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteContentRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteSearchTextRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceSearchTextRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteTagNamesRequestReady(
         QStringList value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCreateNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onDeleteNoteRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onExpungeNoteRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCopyNoteRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListNoteVersionsRequestReady(
         QList<NoteVersionId> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNoteVersionRequestReady(
         Note value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceRequestReady(
         Resource value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceApplicationDataRequestReady(
         LazyMap value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceApplicationDataEntryRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onSetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUnsetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateResourceRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceDataRequestReady(
         QByteArray value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceByHashRequestReady(
         Resource value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceRecognitionRequestReady(
         QByteArray value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceAlternateDataRequestReady(
         QByteArray value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetResourceAttributesRequestReady(
         ResourceAttributes value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetPublicNotebookRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onShareNotebookRequestReady(
         SharedNotebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCreateOrUpdateNotebookSharesRequestReady(
         CreateOrUpdateNotebookSharesResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateSharedNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onSetNotebookRecipientSettingsRequestReady(
         Notebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListSharedNotebooksRequestReady(
         QList<SharedNotebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCreateLinkedNotebookRequestReady(
         LinkedNotebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateLinkedNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListLinkedNotebooksRequestReady(
         QList<LinkedNotebook> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onExpungeLinkedNotebookRequestReady(
         qint32 value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onAuthenticateToSharedNotebookRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetSharedNotebookByAuthRequestReady(
         SharedNotebook value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onEmailNoteRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onShareNoteRequestReady(
         QString value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onStopSharingNoteRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onAuthenticateToSharedNoteRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onFindRelatedRequestReady(
         RelatedResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateNoteIfUsnMatchesRequestReady(
         UpdateNoteIfUsnMatchesResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onManageNotebookSharesRequestReady(
         ManageNotebookSharesResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetNotebookSharesRequestReady(
         ShareRelationships value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 };
 
@@ -1027,59 +1027,59 @@ public Q_SLOTS:
     // Slots for replies to requests
     void onCheckVersionRequestReady(
         bool value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetBootstrapInfoRequestReady(
         BootstrapInfo value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onAuthenticateLongSessionRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onCompleteTwoFactorAuthenticationRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onRevokeLongSessionRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onAuthenticateToBusinessRequestReady(
         AuthenticationResult value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetUserRequestReady(
         User value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetPublicUserInfoRequestReady(
         PublicUserInfo value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetUserUrlsRequestReady(
         UserUrls value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onInviteToBusinessRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onRemoveFromBusinessRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onUpdateBusinessUserIdentifierRequestReady(
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListBusinessUsersRequestReady(
         QList<UserProfile> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onListBusinessInvitationsRequestReady(
         QList<BusinessInvitation> value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
     void onGetAccountLimitsRequestReady(
         AccountLimits value,
-        QSharedPointer<EverCloudExceptionData> exceptionData);
+        EverCloudExceptionDataPtr exceptionData);
 
 };
 

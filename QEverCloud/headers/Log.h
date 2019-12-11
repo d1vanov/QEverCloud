@@ -14,8 +14,9 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QObject>
-#include <QSharedPointer>
 #include <QTextStream>
+
+#include <memory>
 
 namespace qevercloud {
 
@@ -56,7 +57,7 @@ public:
     virtual LogLevel level() const = 0;
 };
 
-using ILoggerPtr = QSharedPointer<ILogger>;
+using ILoggerPtr = std::shared_ptr<ILogger>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
