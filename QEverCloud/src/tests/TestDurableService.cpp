@@ -65,15 +65,9 @@ void DurableServiceTester::shouldExecuteSyncServiceCall()
             return {value, {}};
         });
 
-    IDurableService::SyncResult result;
-    try {
-        result = durableService->executeSyncRequest(
-            std::move(request),
-            newRequestContext());
-    }
-    catch(const EverCloudException & e) {
-        result.second = e.exceptionData();
-    }
+    auto result = durableService->executeSyncRequest(
+        std::move(request),
+        newRequestContext());
 
     QVERIFY(serviceCallDetected);
     QVERIFY(result.first == value);
@@ -150,13 +144,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             return {value, {}};
         });
 
-    IDurableService::SyncResult result;
-    try {
-        result = durableService->executeSyncRequest(std::move(request), ctx);
-    }
-    catch(const EverCloudException & e) {
-        result.second = e.exceptionData();
-    }
+    auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(result.first == value);
@@ -250,13 +238,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             return {{}, data};
         });
 
-    IDurableService::SyncResult result;
-    try {
-        result = durableService->executeSyncRequest(std::move(request), ctx);
-    }
-    catch(const EverCloudException & e) {
-        result.second = e.exceptionData();
-    }
+    auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!result.first.isValid());
@@ -365,13 +347,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             return {{}, data};
         });
 
-    IDurableService::SyncResult result;
-    try {
-        result = durableService->executeSyncRequest(std::move(request), ctx);
-    }
-    catch(const EverCloudException & e) {
-        result.second = e.exceptionData();
-    }
+    auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!result.first.isValid());

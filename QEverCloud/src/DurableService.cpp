@@ -93,9 +93,9 @@ struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
                 return false;
             }
         }
-        catch(const EDAMSystemException & e)
+        catch(const EDAMSystemException &)
         {
-            return e.errorCode != EDAMErrorCode::RATE_LIMIT_REACHED;
+            return true;
         }
         catch(...)
         {
@@ -184,13 +184,13 @@ DurableService::SyncResult DurableService::executeSyncRequest(
 
             if (!m_retryPolicy->shouldRetry(result.second)) {
                 QEC_WARNING("durable_service", "Error is not retriable");
-                result.second->throwException();
+                return result;
             }
 
             --state.m_retryCount;
             if (!state.m_retryCount) {
                 QEC_WARNING("durable_service", "No retry attempts left");
-                result.second->throwException();
+                break;
             }
 
             if (ctx->increaseRequestTimeoutExponentially())
@@ -212,8 +212,10 @@ DurableService::SyncResult DurableService::executeSyncRequest(
             continue;
         }
 
-        QEC_DEBUG("durable_service", "Successfully executed sync "
-                  << syncRequest.m_name << " request");
+        if (!result.second) {
+            QEC_DEBUG("durable_service", "Successfully executed sync "
+                << syncRequest.m_name << " request");
+        }
 
         break;
     }
