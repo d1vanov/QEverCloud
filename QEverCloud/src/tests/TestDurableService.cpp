@@ -65,9 +65,15 @@ void DurableServiceTester::shouldExecuteSyncServiceCall()
             return {value, {}};
         });
 
-    auto result = durableService->executeSyncRequest(
-        std::move(request),
-        newRequestContext());
+    IDurableService::SyncResult result;
+    try {
+        result = durableService->executeSyncRequest(
+            std::move(request),
+            newRequestContext());
+    }
+    catch(const EverCloudException & e) {
+        result.second = e.exceptionData();
+    }
 
     QVERIFY(serviceCallDetected);
     QVERIFY(result.first == value);
@@ -144,7 +150,13 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             return {value, {}};
         });
 
-    auto result = durableService->executeSyncRequest(std::move(request), ctx);
+    IDurableService::SyncResult result;
+    try {
+        result = durableService->executeSyncRequest(std::move(request), ctx);
+    }
+    catch(const EverCloudException & e) {
+        result.second = e.exceptionData();
+    }
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(result.first == value);
@@ -238,7 +250,13 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             return {{}, data};
         });
 
-    auto result = durableService->executeSyncRequest(std::move(request), ctx);
+    IDurableService::SyncResult result;
+    try {
+        result = durableService->executeSyncRequest(std::move(request), ctx);
+    }
+    catch(const EverCloudException & e) {
+        result.second = e.exceptionData();
+    }
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!result.first.isValid());
@@ -347,7 +365,13 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             return {{}, data};
         });
 
-    auto result = durableService->executeSyncRequest(std::move(request), ctx);
+    IDurableService::SyncResult result;
+    try {
+        result = durableService->executeSyncRequest(std::move(request), ctx);
+    }
+    catch(const EverCloudException & e) {
+        result.second = e.exceptionData();
+    }
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!result.first.isValid());
