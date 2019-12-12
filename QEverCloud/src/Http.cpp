@@ -126,6 +126,7 @@ void ReplyFetcher::setError(
     QNetworkReply::NetworkError errorType, QString errorText)
 {
     m_ticker->stop();
+    m_errorType = errorType;
     m_errorText = errorText;
     QObject::disconnect(m_reply.get());
     emit replyFetched(this);
