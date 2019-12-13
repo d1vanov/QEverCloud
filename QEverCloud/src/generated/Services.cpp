@@ -18853,15 +18853,24 @@ public:
     explicit DurableNoteStore(
             INoteStorePtr service,
             IRequestContextPtr ctx = {},
+            IRetryPolicyPtr retryPolicy = newRetryPolicy(),
             QObject * parent = nullptr) :
         INoteStore(parent),
         m_service(std::move(service)),
-        m_durableService(newDurableService(newRetryPolicy(), ctx)),
+        m_durableService(newDurableService(retryPolicy, ctx)),
         m_ctx(std::move(ctx))
     {
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
+
+        m_service->setParent(this);
+    }
+
+    ~DurableNoteStore()
+    {
+        // Don't interfere with std::shared_ptr's lifetime tracking
+        m_service->setParent(nullptr);
     }
 
     virtual void setNoteStoreUrl(QString noteStoreUrl) override
@@ -19550,15 +19559,24 @@ public:
     explicit DurableUserStore(
             IUserStorePtr service,
             IRequestContextPtr ctx = {},
+            IRetryPolicyPtr retryPolicy = newRetryPolicy(),
             QObject * parent = nullptr) :
         IUserStore(parent),
         m_service(std::move(service)),
-        m_durableService(newDurableService(newRetryPolicy(), ctx)),
+        m_durableService(newDurableService(retryPolicy, ctx)),
         m_ctx(std::move(ctx))
     {
         if (!m_ctx) {
             m_ctx = newRequestContext();
         }
+
+        m_service->setParent(this);
+    }
+
+    ~DurableUserStore()
+    {
+        // Don't interfere with std::shared_ptr's lifetime tracking
+        m_service->setParent(nullptr);
     }
 
     virtual void setUserStoreUrl(QString userStoreUrl) override
@@ -19734,6 +19752,10 @@ SyncState DurableNoteStore::getSyncState(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<SyncState>();
 }
 
@@ -19797,6 +19819,10 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<SyncChunk>();
 }
@@ -19869,6 +19895,10 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<SyncState>();
 }
@@ -19945,6 +19975,10 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<SyncChunk>();
 }
 
@@ -20012,6 +20046,10 @@ QList<Notebook> DurableNoteStore::listNotebooks(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<QList<Notebook>>();
 }
 
@@ -20061,6 +20099,10 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<QList<Notebook>>();
 }
@@ -20120,6 +20162,10 @@ Notebook DurableNoteStore::getNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Notebook>();
 }
 
@@ -20178,6 +20224,10 @@ Notebook DurableNoteStore::getDefaultNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Notebook>();
 }
 
@@ -20235,6 +20285,10 @@ Notebook DurableNoteStore::createNotebook(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<Notebook>();
 }
@@ -20302,6 +20356,10 @@ qint32 DurableNoteStore::updateNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -20368,6 +20426,10 @@ qint32 DurableNoteStore::expungeNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -20426,6 +20488,10 @@ QList<Tag> DurableNoteStore::listTags(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<QList<Tag>>();
 }
 
@@ -20483,6 +20549,10 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<QList<Tag>>();
 }
@@ -20550,6 +20620,10 @@ Tag DurableNoteStore::getTag(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Tag>();
 }
 
@@ -20615,6 +20689,10 @@ Tag DurableNoteStore::createTag(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<Tag>();
 }
@@ -20682,6 +20760,10 @@ qint32 DurableNoteStore::updateTag(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -20747,6 +20829,10 @@ void DurableNoteStore::untagAll(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return;
 }
@@ -20814,6 +20900,10 @@ qint32 DurableNoteStore::expungeTag(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -20872,6 +20962,10 @@ QList<SavedSearch> DurableNoteStore::listSearches(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<QList<SavedSearch>>();
 }
 
@@ -20929,6 +21023,10 @@ SavedSearch DurableNoteStore::getSearch(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<SavedSearch>();
 }
@@ -20996,6 +21094,10 @@ SavedSearch DurableNoteStore::createSearch(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<SavedSearch>();
 }
 
@@ -21062,6 +21164,10 @@ qint32 DurableNoteStore::updateSearch(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -21127,6 +21233,10 @@ qint32 DurableNoteStore::expungeSearch(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<qint32>();
 }
@@ -21196,6 +21306,10 @@ qint32 DurableNoteStore::findNoteOffset(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<qint32>();
 }
@@ -21275,6 +21389,10 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<NotesMetadataList>();
 }
 
@@ -21353,6 +21471,10 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<NoteCollectionCounts>();
 }
 
@@ -21424,6 +21546,10 @@ Note DurableNoteStore::getNoteWithResultSpec(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<Note>();
 }
@@ -21506,6 +21632,10 @@ Note DurableNoteStore::getNote(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Note>();
 }
 
@@ -21584,6 +21714,10 @@ LazyMap DurableNoteStore::getNoteApplicationData(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<LazyMap>();
 }
 
@@ -21652,6 +21786,10 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.toString();
 }
@@ -21728,6 +21866,10 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -21803,6 +21945,10 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -21871,6 +22017,10 @@ QString DurableNoteStore::getNoteContent(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.toString();
 }
@@ -21944,6 +22094,10 @@ QString DurableNoteStore::getNoteSearchText(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.toString();
 }
 
@@ -22016,6 +22170,10 @@ QString DurableNoteStore::getResourceSearchText(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.toString();
 }
 
@@ -22081,6 +22239,10 @@ QStringList DurableNoteStore::getNoteTagNames(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.toStringList();
 }
@@ -22148,6 +22310,10 @@ Note DurableNoteStore::createNote(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Note>();
 }
 
@@ -22213,6 +22379,10 @@ Note DurableNoteStore::updateNote(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<Note>();
 }
@@ -22280,6 +22450,10 @@ qint32 DurableNoteStore::deleteNote(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -22345,6 +22519,10 @@ qint32 DurableNoteStore::expungeNote(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<qint32>();
 }
@@ -22415,6 +22593,10 @@ Note DurableNoteStore::copyNote(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Note>();
 }
 
@@ -22483,6 +22665,10 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<QList<NoteVersionId>>();
 }
@@ -22561,6 +22747,10 @@ Note DurableNoteStore::getNoteVersion(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<Note>();
 }
@@ -22652,6 +22842,10 @@ Resource DurableNoteStore::getResource(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Resource>();
 }
 
@@ -22730,6 +22924,10 @@ LazyMap DurableNoteStore::getResourceApplicationData(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<LazyMap>();
 }
 
@@ -22798,6 +22996,10 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.toString();
 }
@@ -22874,6 +23076,10 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -22949,6 +23155,10 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -23018,6 +23228,10 @@ qint32 DurableNoteStore::updateResource(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -23083,6 +23297,10 @@ QByteArray DurableNoteStore::getResourceData(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.toByteArray();
 }
@@ -23162,6 +23380,10 @@ Resource DurableNoteStore::getResourceByHash(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Resource>();
 }
 
@@ -23240,6 +23462,10 @@ QByteArray DurableNoteStore::getResourceRecognition(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.toByteArray();
 }
 
@@ -23306,6 +23532,10 @@ QByteArray DurableNoteStore::getResourceAlternateData(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.toByteArray();
 }
 
@@ -23371,6 +23601,10 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<ResourceAttributes>();
 }
@@ -23440,6 +23674,10 @@ Notebook DurableNoteStore::getPublicNotebook(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<Notebook>();
 }
@@ -23513,6 +23751,10 @@ SharedNotebook DurableNoteStore::shareNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<SharedNotebook>();
 }
 
@@ -23582,6 +23824,10 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<CreateOrUpdateNotebookSharesResult>();
 }
 
@@ -23647,6 +23893,10 @@ qint32 DurableNoteStore::updateSharedNotebook(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<qint32>();
 }
@@ -23717,6 +23967,10 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<Notebook>();
 }
 
@@ -23778,6 +24032,10 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<QList<SharedNotebook>>();
 }
 
@@ -23835,6 +24093,10 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<LinkedNotebook>();
 }
@@ -23902,6 +24164,10 @@ qint32 DurableNoteStore::updateLinkedNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<qint32>();
 }
 
@@ -23960,6 +24226,10 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<QList<LinkedNotebook>>();
 }
 
@@ -24017,6 +24287,10 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<qint32>();
 }
@@ -24084,6 +24358,10 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<AuthenticationResult>();
 }
 
@@ -24142,6 +24420,10 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<SharedNotebook>();
 }
 
@@ -24199,6 +24481,10 @@ void DurableNoteStore::emailNote(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return;
 }
@@ -24266,6 +24552,10 @@ QString DurableNoteStore::shareNote(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.toString();
 }
 
@@ -24331,6 +24621,10 @@ void DurableNoteStore::stopSharingNote(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return;
 }
@@ -24400,6 +24694,10 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<AuthenticationResult>();
 }
@@ -24473,6 +24771,10 @@ RelatedResult DurableNoteStore::findRelated(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<RelatedResult>();
 }
 
@@ -24542,6 +24844,10 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<UpdateNoteIfUsnMatchesResult>();
 }
 
@@ -24608,6 +24914,10 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<ManageNotebookSharesResult>();
 }
 
@@ -24673,6 +24983,10 @@ ShareRelationships DurableNoteStore::getNotebookShares(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<ShareRelationships>();
 }
@@ -24748,6 +25062,10 @@ bool DurableUserStore::checkVersion(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.toBool();
 }
 
@@ -24819,6 +25137,10 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<BootstrapInfo>();
 }
@@ -24900,6 +25222,10 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<AuthenticationResult>();
 }
@@ -24987,6 +25313,10 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<AuthenticationResult>();
 }
 
@@ -25050,6 +25380,10 @@ void DurableUserStore::revokeLongSession(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return;
 }
 
@@ -25100,6 +25434,10 @@ AuthenticationResult DurableUserStore::authenticateToBusiness(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<AuthenticationResult>();
 }
 
@@ -25149,6 +25487,10 @@ User DurableUserStore::getUser(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<User>();
 }
@@ -25208,6 +25550,10 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<PublicUserInfo>();
 }
 
@@ -25266,6 +25612,10 @@ UserUrls DurableUserStore::getUserUrls(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<UserUrls>();
 }
 
@@ -25323,6 +25673,10 @@ void DurableUserStore::inviteToBusiness(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return;
 }
@@ -25389,6 +25743,10 @@ void DurableUserStore::removeFromBusiness(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return;
 }
@@ -25459,6 +25817,10 @@ void DurableUserStore::updateBusinessUserIdentifier(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return;
 }
 
@@ -25520,6 +25882,10 @@ QList<UserProfile> DurableUserStore::listBusinessUsers(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<QList<UserProfile>>();
 }
 
@@ -25577,6 +25943,10 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
 
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
+
+    if (result.second) {
+        result.second->throwException();
+    }
 
     return result.first.value<QList<BusinessInvitation>>();
 }
@@ -25644,6 +26014,10 @@ AccountLimits DurableUserStore::getAccountLimits(
     auto result = m_durableService->executeSyncRequest(
         std::move(request), ctx);
 
+    if (result.second) {
+        result.second->throwException();
+    }
+
     return result.first.value<AccountLimits>();
 }
 
@@ -25684,17 +26058,49 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
 INoteStore * newNoteStore(
     QString noteStoreUrl,
     IRequestContextPtr ctx,
-    QObject * parent)
+    QObject * parent,
+    IRetryPolicyPtr retryPolicy)
 {
-    return new NoteStore(noteStoreUrl, ctx, parent);
+    if (ctx && ctx->maxRequestRetryCount() == 0)
+    {
+        return new NoteStore(noteStoreUrl, ctx);
+    }
+    else
+    {
+        if (!retryPolicy) {
+            retryPolicy = newRetryPolicy();
+        }
+
+        return new DurableNoteStore(
+            std::make_shared<NoteStore>(noteStoreUrl, ctx),
+            ctx,
+            retryPolicy,
+            parent);
+    }
 }
 
 IUserStore * newUserStore(
     QString userStoreUrl,
     IRequestContextPtr ctx,
-    QObject * parent)
+    QObject * parent,
+    IRetryPolicyPtr retryPolicy)
 {
-    return new UserStore(userStoreUrl, ctx, parent);
+    if (ctx && ctx->maxRequestRetryCount() == 0)
+    {
+        return new UserStore(userStoreUrl, ctx);
+    }
+    else
+    {
+        if (!retryPolicy) {
+            retryPolicy = newRetryPolicy();
+        }
+
+        return new DurableUserStore(
+            std::make_shared<UserStore>(userStoreUrl, ctx),
+            ctx,
+            retryPolicy,
+            parent);
+    }
 }
 
 } // namespace qevercloud

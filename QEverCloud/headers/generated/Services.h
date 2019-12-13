@@ -15,6 +15,7 @@
 #include "../Export.h"
 
 #include "../AsyncResult.h"
+#include "../DurableService.h"
 #include "../Optional.h"
 #include "../RequestContext.h"
 #include "Constants.h"
@@ -3312,13 +3313,13 @@ using IUserStorePtr = std::shared_ptr<IUserStore>;
 QEVERCLOUD_EXPORT INoteStore * newNoteStore(
     QString noteStoreUrl = {},
     IRequestContextPtr ctx = {},
-    QObject * parent = nullptr);
-
+    QObject * parent = nullptr,
+    IRetryPolicyPtr retryPolicy = {});
 QEVERCLOUD_EXPORT IUserStore * newUserStore(
     QString userStoreUrl = {},
     IRequestContextPtr ctx = {},
-    QObject * parent = nullptr);
-
+    QObject * parent = nullptr,
+    IRetryPolicyPtr retryPolicy = {});
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(QList<qevercloud::Notebook>)
