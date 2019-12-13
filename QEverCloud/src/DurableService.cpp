@@ -105,6 +105,18 @@ struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
     }
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
+struct Q_DECL_HIDDEN NullRetryPolicy: public IRetryPolicy
+{
+    virtual bool shouldRetry(
+        const EverCloudExceptionDataPtr & exceptionData) override
+    {
+        Q_UNUSED(exceptionData)
+        return false;
+    }
+};
+
 } // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -316,6 +328,11 @@ void DurableService::doExecuteAsyncRequest(
 IRetryPolicyPtr newRetryPolicy()
 {
     return std::make_shared<RetryPolicy>();
+}
+
+IRetryPolicyPtr nullRetryPolicy()
+{
+    return std::make_shared<NullRetryPolicy>();
 }
 
 IDurableServicePtr newDurableService(

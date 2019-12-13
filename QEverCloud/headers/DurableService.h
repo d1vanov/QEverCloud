@@ -84,6 +84,8 @@ using IDurableServicePtr = std::shared_ptr<IDurableService>;
 
 QEVERCLOUD_EXPORT IRetryPolicyPtr newRetryPolicy();
 
+QEVERCLOUD_EXPORT IRetryPolicyPtr nullRetryPolicy();
+
 QEVERCLOUD_EXPORT IDurableServicePtr newDurableService(
     IRetryPolicyPtr = {},
     IRequestContextPtr = {});
