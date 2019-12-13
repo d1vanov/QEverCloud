@@ -10,6 +10,7 @@
 #define QEVERCLOUD_INFTHEADER_H
 
 #include "AsyncResult.h"
+#include "DurableService.h"
 #include "EventLoopFinisher.h"
 #include "EverCloudException.h"
 #include "Exceptions.h"
@@ -17,7 +18,10 @@
 #include "Globals.h"
 #include "Helpers.h"
 #include "InkNoteImageDownloader.h"
+#include "Log.h"
 #include "Optional.h"
+#include "Printable.h"
+#include "RequestContext.h"
 #include "Thumbnail.h"
 #include "VersionInfo.h"
 #include "generated/EDAMErrorCode.h"
