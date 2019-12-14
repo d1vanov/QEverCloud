@@ -153,7 +153,9 @@ public:
     Q_PROPERTY(bool dirty MEMBER dirty)
     Q_PROPERTY(bool local MEMBER local)
     Q_PROPERTY(bool favorited MEMBER favorited)
-    Q_PROPERTY(QHash<QString, QVariant> dict MEMBER dict)
+
+    using Dict = QHash<QString, QVariant>;
+    Q_PROPERTY(Dict dict MEMBER dict)
 };
 
 /**
@@ -687,9 +689,11 @@ public:
         return !(*this == other);
     }
 
+    using TagCounts = QMap<Guid, qint32>;
+
     Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
-    Q_PROPERTY(Optional<QMap<Guid, qint32>> notebookCounts MEMBER notebookCounts)
-    Q_PROPERTY(Optional<QMap<Guid, qint32>> tagCounts MEMBER tagCounts)
+    Q_PROPERTY(Optional<TagCounts> notebookCounts MEMBER notebookCounts)
+    Q_PROPERTY(Optional<TagCounts> tagCounts MEMBER tagCounts)
     Q_PROPERTY(Optional<qint32> trashCount MEMBER trashCount)
 };
 
@@ -2767,9 +2771,11 @@ public:
         return !(*this == other);
     }
 
+    using FullMap = QMap<QString, QString>;
+
     Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
     Q_PROPERTY(Optional<QSet<QString>> keysOnly MEMBER keysOnly)
-    Q_PROPERTY(Optional<QMap<QString, QString>> fullMap MEMBER fullMap)
+    Q_PROPERTY(Optional<FullMap> fullMap MEMBER fullMap)
 };
 
 /**
@@ -3285,6 +3291,8 @@ public:
         return !(*this == other);
     }
 
+    using Classifications = QMap<QString, QString>;
+
     Q_PROPERTY(EverCloudLocalData localData MEMBER localData)
     Q_PROPERTY(Optional<Timestamp> subjectDate MEMBER subjectDate)
     Q_PROPERTY(Optional<double> latitude MEMBER latitude)
@@ -3302,7 +3310,7 @@ public:
     Q_PROPERTY(Optional<QString> contentClass MEMBER contentClass)
     Q_PROPERTY(Optional<LazyMap> applicationData MEMBER applicationData)
     Q_PROPERTY(Optional<QString> lastEditedBy MEMBER lastEditedBy)
-    Q_PROPERTY(Optional<QMap<QString, QString>> classifications MEMBER classifications)
+    Q_PROPERTY(Optional<Classifications> classifications MEMBER classifications)
     Q_PROPERTY(Optional<UserID> creatorId MEMBER creatorId)
     Q_PROPERTY(Optional<UserID> lastEditorId MEMBER lastEditorId)
     Q_PROPERTY(Optional<bool> sharedWithBusiness MEMBER sharedWithBusiness)

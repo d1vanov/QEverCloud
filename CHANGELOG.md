@@ -85,7 +85,7 @@
   * Some header files were renamed so that they all start from capital letters
   now.
   * Support for Qt < 5.5 as well as support for building QEverCloud with older
-  compilers has been dropped. QEverCloud is now built with C++17 standard
+  compilers has been dropped. QEverCloud is now built with C++14 standard
   although it does not use much of its features so even some not fully compliant
   compilers can still build QEverCloud. Minimal supported gcc version is 5.4,
   minimal supported Visual Studio version is 2017.

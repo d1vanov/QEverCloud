@@ -82,10 +82,12 @@ const char * NetworkException::what() const noexcept
             return "NetworkError: Network session failed";
         case QNetworkReply::BackgroundRequestNotAllowedError:
             return "NetworkError: Background request not allowed";
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
         case QNetworkReply::TooManyRedirectsError:
             return "NetworkError: Too many redirects";
         case QNetworkReply::InsecureRedirectError:
             return "NetworkError: Insecure redirect";
+#endif
         case QNetworkReply::ProxyConnectionRefusedError:
             return "NetworkError: Proxy connection refused";
         case QNetworkReply::ProxyConnectionClosedError:

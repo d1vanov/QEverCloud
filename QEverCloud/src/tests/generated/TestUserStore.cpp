@@ -1522,7 +1522,7 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
@@ -1632,7 +1632,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -1914,7 +1914,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
@@ -2016,7 +2016,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -2605,7 +2605,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsync()
@@ -2731,7 +2731,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -2867,7 +2867,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -3002,7 +3002,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -3521,7 +3521,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -3633,7 +3633,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -3755,7 +3755,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -3876,7 +3876,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -4326,7 +4326,7 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
@@ -4426,7 +4426,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -4536,7 +4536,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -4645,7 +4645,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -5104,7 +5104,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsync()
@@ -5204,7 +5204,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -5314,7 +5314,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -5423,7 +5423,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -5882,7 +5882,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
@@ -5982,7 +5982,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -6092,7 +6092,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -6201,7 +6201,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -6763,7 +6763,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync()
@@ -6865,7 +6865,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -6977,7 +6977,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -7088,7 +7088,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -7199,7 +7199,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -7658,7 +7658,7 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
@@ -7758,7 +7758,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -7868,7 +7868,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -7977,7 +7977,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -8447,7 +8447,7 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
@@ -8551,7 +8551,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -8665,7 +8665,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -8778,7 +8778,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -9342,7 +9342,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
@@ -9446,7 +9446,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -9560,7 +9560,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -9673,7 +9673,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -9786,7 +9786,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -10374,7 +10374,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifierAsync()
@@ -10482,7 +10482,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -10600,7 +10600,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -10717,7 +10717,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -10834,7 +10834,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -11299,7 +11299,7 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
@@ -11399,7 +11399,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -11509,7 +11509,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -11618,7 +11618,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -12103,7 +12103,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsync()
@@ -12207,7 +12207,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -12321,7 +12321,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -12434,7 +12434,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -12809,7 +12809,7 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
@@ -12911,7 +12911,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -13022,7 +13022,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)

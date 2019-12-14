@@ -242,7 +242,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!result.first.isValid());
-    QVERIFY(result.second);
+    QVERIFY(result.second.get() != nullptr);
 
     bool exceptionCaught = false;
     try {
@@ -301,7 +301,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!valueFetcher.m_value.isValid());
-    QVERIFY(valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
 
     bool exceptionCaught = false;
     try {
@@ -351,7 +351,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!result.first.isValid());
-    QVERIFY(result.second);
+    QVERIFY(result.second.get() != nullptr);
 
     bool exceptionCaught = false;
     try {
@@ -412,7 +412,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!valueFetcher.m_value.isValid());
-    QVERIFY(valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
 
     bool exceptionCaught = false;
     try {

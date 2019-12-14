@@ -6483,7 +6483,7 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
@@ -6583,7 +6583,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -6693,7 +6693,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -6802,7 +6802,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -7321,7 +7321,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync()
@@ -7433,7 +7433,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -7555,7 +7555,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -7676,7 +7676,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -8250,7 +8250,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncStateAsync()
@@ -8354,7 +8354,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -8468,7 +8468,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -8581,7 +8581,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -8694,7 +8694,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -9340,7 +9340,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -9456,7 +9456,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -9582,7 +9582,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -9707,7 +9707,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -9832,7 +9832,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -10297,7 +10297,7 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
@@ -10397,7 +10397,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -10507,7 +10507,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -10616,7 +10616,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -11081,7 +11081,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooksAsync()
@@ -11181,7 +11181,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -11291,7 +11291,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -11400,7 +11400,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -11974,7 +11974,7 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
@@ -12078,7 +12078,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -12192,7 +12192,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -12305,7 +12305,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -12418,7 +12418,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -12877,7 +12877,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
@@ -12977,7 +12977,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -13087,7 +13087,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -13196,7 +13196,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -13770,7 +13770,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
@@ -13874,7 +13874,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -13988,7 +13988,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -14101,7 +14101,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -14214,7 +14214,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -14788,7 +14788,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
@@ -14892,7 +14892,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -15006,7 +15006,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -15119,7 +15119,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -15232,7 +15232,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -15806,7 +15806,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
@@ -15910,7 +15910,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -16024,7 +16024,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -16137,7 +16137,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -16250,7 +16250,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -16715,7 +16715,7 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
@@ -16815,7 +16815,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -16925,7 +16925,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -17034,7 +17034,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -17614,7 +17614,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
@@ -17718,7 +17718,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -17832,7 +17832,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -17945,7 +17945,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -18058,7 +18058,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -18632,7 +18632,7 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
@@ -18736,7 +18736,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -18850,7 +18850,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -18963,7 +18963,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -19076,7 +19076,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -19650,7 +19650,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
@@ -19754,7 +19754,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -19868,7 +19868,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -19981,7 +19981,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -20094,7 +20094,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -20668,7 +20668,7 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
@@ -20772,7 +20772,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -20886,7 +20886,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -20999,7 +20999,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -21112,7 +21112,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -21676,7 +21676,7 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
@@ -21780,7 +21780,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -21894,7 +21894,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -22007,7 +22007,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -22120,7 +22120,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -22694,7 +22694,7 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
@@ -22798,7 +22798,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -22912,7 +22912,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -23025,7 +23025,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -23138,7 +23138,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -23603,7 +23603,7 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
@@ -23703,7 +23703,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -23813,7 +23813,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -23922,7 +23922,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -24496,7 +24496,7 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
@@ -24600,7 +24600,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -24714,7 +24714,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -24827,7 +24827,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -24940,7 +24940,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -25419,7 +25419,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
@@ -25523,7 +25523,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -25637,7 +25637,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -25750,7 +25750,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -26324,7 +26324,7 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
@@ -26428,7 +26428,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -26542,7 +26542,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -26655,7 +26655,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -26768,7 +26768,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -27342,7 +27342,7 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
@@ -27446,7 +27446,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -27560,7 +27560,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -27673,7 +27673,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -27786,7 +27786,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -28384,7 +28384,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
@@ -28492,7 +28492,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -28610,7 +28610,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -28727,7 +28727,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -28844,7 +28844,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -29490,7 +29490,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
@@ -29606,7 +29606,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -29732,7 +29732,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -29857,7 +29857,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -29982,7 +29982,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -30580,7 +30580,7 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
@@ -30688,7 +30688,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -30806,7 +30806,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -30923,7 +30923,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -31040,7 +31040,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -31638,7 +31638,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync()
@@ -31746,7 +31746,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -31864,7 +31864,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -31981,7 +31981,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -32098,7 +32098,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -32768,7 +32768,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
@@ -32888,7 +32888,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -33018,7 +33018,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -33147,7 +33147,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -33276,7 +33276,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -33850,7 +33850,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsync()
@@ -33954,7 +33954,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -34068,7 +34068,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -34181,7 +34181,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -34294,7 +34294,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -34892,7 +34892,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntryAsync()
@@ -35000,7 +35000,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -35118,7 +35118,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -35235,7 +35235,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -35352,7 +35352,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -35974,7 +35974,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntryAsync()
@@ -36086,7 +36086,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -36208,7 +36208,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -36329,7 +36329,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -36450,7 +36450,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -37048,7 +37048,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -37156,7 +37156,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -37274,7 +37274,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -37391,7 +37391,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -37508,7 +37508,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -38082,7 +38082,7 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
@@ -38186,7 +38186,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -38300,7 +38300,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -38413,7 +38413,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -38526,7 +38526,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -39148,7 +39148,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
@@ -39260,7 +39260,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -39382,7 +39382,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -39503,7 +39503,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -39624,7 +39624,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -40198,7 +40198,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync()
@@ -40302,7 +40302,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -40416,7 +40416,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -40529,7 +40529,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -40642,7 +40642,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -41222,7 +41222,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
@@ -41326,7 +41326,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -41440,7 +41440,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -41553,7 +41553,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -41666,7 +41666,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -42240,7 +42240,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
@@ -42344,7 +42344,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -42458,7 +42458,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -42571,7 +42571,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -42684,7 +42684,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -43258,7 +43258,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
@@ -43362,7 +43362,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -43476,7 +43476,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -43589,7 +43589,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -43702,7 +43702,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -44276,7 +44276,7 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
@@ -44380,7 +44380,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -44494,7 +44494,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -44607,7 +44607,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -44720,7 +44720,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -45294,7 +45294,7 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
@@ -45398,7 +45398,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -45512,7 +45512,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -45625,7 +45625,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -45738,7 +45738,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -46336,7 +46336,7 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
@@ -46444,7 +46444,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -46562,7 +46562,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -46679,7 +46679,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -46796,7 +46796,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -47376,7 +47376,7 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
@@ -47480,7 +47480,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -47594,7 +47594,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -47707,7 +47707,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -47820,7 +47820,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -48490,7 +48490,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
@@ -48610,7 +48610,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -48740,7 +48740,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -48869,7 +48869,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -48998,7 +48998,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -49668,7 +49668,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
@@ -49788,7 +49788,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -49918,7 +49918,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -50047,7 +50047,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -50176,7 +50176,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -50750,7 +50750,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataAsync()
@@ -50854,7 +50854,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -50968,7 +50968,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -51081,7 +51081,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -51194,7 +51194,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -51792,7 +51792,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataEntryAsync()
@@ -51900,7 +51900,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -52018,7 +52018,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -52135,7 +52135,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -52252,7 +52252,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -52874,7 +52874,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationDataEntryAsync()
@@ -52986,7 +52986,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -53108,7 +53108,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -53229,7 +53229,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -53350,7 +53350,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -53948,7 +53948,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -54056,7 +54056,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -54174,7 +54174,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -54291,7 +54291,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -54408,7 +54408,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -54982,7 +54982,7 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
@@ -55086,7 +55086,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -55200,7 +55200,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -55313,7 +55313,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -55426,7 +55426,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -56000,7 +56000,7 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
@@ -56104,7 +56104,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -56218,7 +56218,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -56331,7 +56331,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -56444,7 +56444,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -57114,7 +57114,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
@@ -57234,7 +57234,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -57364,7 +57364,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -57493,7 +57493,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -57622,7 +57622,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -58196,7 +58196,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsync()
@@ -58300,7 +58300,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -58414,7 +58414,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -58527,7 +58527,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -58640,7 +58640,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -59214,7 +59214,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAsync()
@@ -59318,7 +59318,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -59432,7 +59432,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -59545,7 +59545,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -59658,7 +59658,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -60232,7 +60232,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync()
@@ -60336,7 +60336,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -60450,7 +60450,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -60563,7 +60563,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -60676,7 +60676,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -61165,7 +61165,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
@@ -61272,7 +61272,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -61387,7 +61387,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -61502,7 +61502,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -62100,7 +62100,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
@@ -62208,7 +62208,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -62325,7 +62325,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -62443,7 +62443,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -62560,7 +62560,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -63235,7 +63235,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -63339,7 +63339,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -63452,7 +63452,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -63566,7 +63566,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -63685,7 +63685,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMInvalidContactsException & e)
@@ -63798,7 +63798,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -64372,7 +64372,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync()
@@ -64476,7 +64476,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -64589,7 +64589,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -64703,7 +64703,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -64816,7 +64816,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -65414,7 +65414,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettingsAsync()
@@ -65522,7 +65522,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -65639,7 +65639,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -65757,7 +65757,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -65874,7 +65874,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -66430,7 +66430,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
@@ -66530,7 +66530,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -66639,7 +66639,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -66749,7 +66749,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -66858,7 +66858,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -67432,7 +67432,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync()
@@ -67536,7 +67536,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -67649,7 +67649,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -67763,7 +67763,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -67876,7 +67876,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -68450,7 +68450,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync()
@@ -68554,7 +68554,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -68667,7 +68667,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -68781,7 +68781,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -68894,7 +68894,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -69450,7 +69450,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
@@ -69550,7 +69550,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -69659,7 +69659,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -69769,7 +69769,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -69878,7 +69878,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -70452,7 +70452,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync()
@@ -70556,7 +70556,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -70669,7 +70669,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -70783,7 +70783,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -70896,7 +70896,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -71470,7 +71470,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebookAsync()
@@ -71574,7 +71574,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -71687,7 +71687,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -71801,7 +71801,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -71914,7 +71914,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -72464,7 +72464,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsync()
@@ -72564,7 +72564,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -72673,7 +72673,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -72783,7 +72783,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -72892,7 +72892,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -73456,7 +73456,7 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
@@ -73560,7 +73560,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -73673,7 +73673,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -73787,7 +73787,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -73900,7 +73900,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -74474,7 +74474,7 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
@@ -74578,7 +74578,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -74691,7 +74691,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -74805,7 +74805,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -74918,7 +74918,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -75482,7 +75482,7 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
 
     loop.exec();
 
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
@@ -75586,7 +75586,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -75699,7 +75699,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -75813,7 +75813,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -75926,7 +75926,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -76524,7 +76524,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAsync()
@@ -76632,7 +76632,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -76749,7 +76749,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -76867,7 +76867,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -76984,7 +76984,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -77582,7 +77582,7 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
@@ -77690,7 +77690,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -77808,7 +77808,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -77925,7 +77925,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -78042,7 +78042,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -78616,7 +78616,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -78720,7 +78720,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -78833,7 +78833,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -78947,7 +78947,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -79060,7 +79060,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -79634,7 +79634,7 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync()
@@ -79738,7 +79738,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -79851,7 +79851,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -79965,7 +79965,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -80078,7 +80078,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
@@ -80652,7 +80652,7 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
@@ -80756,7 +80756,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMUserException & e)
@@ -80869,7 +80869,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMNotFoundException & e)
@@ -80983,7 +80983,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const EDAMSystemException & e)
@@ -81096,7 +81096,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
 
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData);
+        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
         valueFetcher.m_exceptionData->throwException();
     }
     catch(const ThriftException & e)
