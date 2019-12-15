@@ -6072,6 +6072,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6091,6 +6092,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6152,6 +6154,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6171,6 +6174,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6244,6 +6248,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6263,6 +6268,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6335,6 +6341,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6354,6 +6361,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6424,6 +6432,7 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6443,6 +6452,7 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6522,6 +6532,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6541,6 +6552,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6632,6 +6644,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6651,6 +6664,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6741,6 +6755,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6760,6 +6775,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6859,6 +6875,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6878,6 +6895,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6951,6 +6969,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6970,6 +6989,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7055,6 +7075,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7074,6 +7095,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7158,6 +7180,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7177,6 +7200,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7259,6 +7283,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7278,6 +7303,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7369,6 +7395,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7388,6 +7415,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7491,6 +7519,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7510,6 +7539,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7612,6 +7642,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7631,6 +7662,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getFilteredSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7727,6 +7759,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7746,6 +7779,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7811,6 +7845,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7830,6 +7865,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7907,6 +7943,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7926,6 +7963,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8002,6 +8040,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8021,6 +8060,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8097,6 +8137,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8116,6 +8157,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8190,6 +8232,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8209,6 +8252,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8292,6 +8336,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8311,6 +8356,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8406,6 +8452,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8425,6 +8472,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8519,6 +8567,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8538,6 +8587,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8632,6 +8682,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8651,6 +8702,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncStateRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8754,6 +8806,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8773,6 +8826,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8850,6 +8904,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8869,6 +8924,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8958,6 +9014,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8977,6 +9034,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9065,6 +9123,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9084,6 +9143,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9172,6 +9232,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9191,6 +9252,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9277,6 +9339,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9296,6 +9359,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9391,6 +9455,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9410,6 +9475,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9517,6 +9583,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9536,6 +9603,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9642,6 +9710,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9661,6 +9730,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9767,6 +9837,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9786,6 +9857,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
     QObject::connect(
         &server,
         &NoteStoreServer::getLinkedNotebookSyncChunkRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9883,6 +9955,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9902,6 +9975,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9963,6 +10037,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9982,6 +10057,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10055,6 +10131,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10074,6 +10151,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10146,6 +10224,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10165,6 +10244,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10238,6 +10318,7 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10257,6 +10338,7 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10336,6 +10418,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10355,6 +10438,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10446,6 +10530,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10465,6 +10550,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10555,6 +10641,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10574,6 +10661,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10667,6 +10755,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10686,6 +10775,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10747,6 +10837,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10766,6 +10857,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10839,6 +10931,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10858,6 +10951,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10930,6 +11024,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10949,6 +11044,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11022,6 +11118,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11041,6 +11138,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11120,6 +11218,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11139,6 +11238,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11230,6 +11330,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11249,6 +11350,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11339,6 +11441,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11358,6 +11461,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     QObject::connect(
         &server,
         &NoteStoreServer::listAccessibleBusinessNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11451,6 +11555,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11470,6 +11575,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11535,6 +11641,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11554,6 +11661,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11631,6 +11739,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11650,6 +11759,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11726,6 +11836,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11745,6 +11856,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11821,6 +11933,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11840,6 +11953,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11914,6 +12028,7 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11933,6 +12048,7 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12016,6 +12132,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12035,6 +12152,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12130,6 +12248,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12149,6 +12268,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12243,6 +12363,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12262,6 +12383,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12356,6 +12478,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12375,6 +12498,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12466,6 +12590,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12485,6 +12610,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12546,6 +12672,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12565,6 +12692,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12638,6 +12766,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12657,6 +12786,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12729,6 +12859,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12748,6 +12879,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12818,6 +12950,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12837,6 +12970,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12916,6 +13050,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12935,6 +13070,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13026,6 +13162,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13045,6 +13182,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13135,6 +13273,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13154,6 +13293,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getDefaultNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13247,6 +13387,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13266,6 +13407,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13331,6 +13473,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13350,6 +13493,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13427,6 +13571,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13446,6 +13591,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13522,6 +13668,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13541,6 +13688,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13617,6 +13765,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13636,6 +13785,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13710,6 +13860,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13729,6 +13880,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13812,6 +13964,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13831,6 +13984,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -13926,6 +14080,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -13945,6 +14100,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14039,6 +14195,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14058,6 +14215,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14152,6 +14310,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14171,6 +14330,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14265,6 +14425,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14284,6 +14445,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14349,6 +14511,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14368,6 +14531,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14445,6 +14609,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14464,6 +14629,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14540,6 +14706,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14559,6 +14726,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14635,6 +14803,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14654,6 +14823,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14728,6 +14898,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14747,6 +14918,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14830,6 +15002,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14849,6 +15022,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -14944,6 +15118,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -14963,6 +15138,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15057,6 +15233,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15076,6 +15253,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15170,6 +15348,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15189,6 +15368,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15283,6 +15463,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15302,6 +15483,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15367,6 +15549,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15386,6 +15569,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15463,6 +15647,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15482,6 +15667,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15558,6 +15744,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15577,6 +15764,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15653,6 +15841,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15672,6 +15861,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15746,6 +15936,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15765,6 +15956,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15848,6 +16040,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15867,6 +16060,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -15962,6 +16156,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -15981,6 +16176,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16075,6 +16271,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16094,6 +16291,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16188,6 +16386,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16207,6 +16406,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16301,6 +16501,7 @@ void NoteStoreTester::shouldExecuteListTags()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16320,6 +16521,7 @@ void NoteStoreTester::shouldExecuteListTags()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16381,6 +16583,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16400,6 +16603,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16473,6 +16677,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16492,6 +16697,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16564,6 +16770,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16583,6 +16790,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16656,6 +16864,7 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16675,6 +16884,7 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16754,6 +16964,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16773,6 +16984,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16864,6 +17076,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16883,6 +17096,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -16973,6 +17187,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -16992,6 +17207,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17088,6 +17304,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17107,6 +17324,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17172,6 +17390,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17191,6 +17410,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17268,6 +17488,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17287,6 +17508,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17363,6 +17585,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17382,6 +17605,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17458,6 +17682,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17477,6 +17702,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17554,6 +17780,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17573,6 +17800,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17656,6 +17884,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17675,6 +17904,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17770,6 +18000,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17789,6 +18020,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17883,6 +18115,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -17902,6 +18135,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -17996,6 +18230,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18015,6 +18250,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listTagsByNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18109,6 +18345,7 @@ void NoteStoreTester::shouldExecuteGetTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18128,6 +18365,7 @@ void NoteStoreTester::shouldExecuteGetTag()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18193,6 +18431,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18212,6 +18451,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18289,6 +18529,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18308,6 +18549,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18384,6 +18626,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18403,6 +18646,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18479,6 +18723,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18498,6 +18743,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18572,6 +18818,7 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18591,6 +18838,7 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18674,6 +18922,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18693,6 +18942,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18788,6 +19038,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18807,6 +19058,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -18901,6 +19153,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -18920,6 +19173,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19014,6 +19268,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19033,6 +19288,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19127,6 +19383,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19146,6 +19403,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19211,6 +19469,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19230,6 +19489,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19307,6 +19567,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19326,6 +19587,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19402,6 +19664,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19421,6 +19684,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19497,6 +19761,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19516,6 +19781,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19590,6 +19856,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19609,6 +19876,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19692,6 +19960,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19711,6 +19980,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19806,6 +20076,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19825,6 +20096,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -19919,6 +20191,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -19938,6 +20211,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20032,6 +20306,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20051,6 +20326,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20145,6 +20421,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20164,6 +20441,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20229,6 +20507,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20248,6 +20527,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20325,6 +20605,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20344,6 +20625,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20420,6 +20702,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20439,6 +20722,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20515,6 +20799,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20534,6 +20819,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20608,6 +20894,7 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20627,6 +20914,7 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20710,6 +20998,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20729,6 +21018,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20824,6 +21114,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20843,6 +21134,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -20937,6 +21229,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -20956,6 +21249,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21050,6 +21344,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21069,6 +21364,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21161,6 +21457,7 @@ void NoteStoreTester::shouldExecuteUntagAll()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21180,6 +21477,7 @@ void NoteStoreTester::shouldExecuteUntagAll()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21244,6 +21542,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21263,6 +21562,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21339,6 +21639,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21358,6 +21659,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21433,6 +21735,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21452,6 +21755,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21527,6 +21831,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21546,6 +21851,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21617,6 +21923,7 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21636,6 +21943,7 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21718,6 +22026,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21737,6 +22046,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21832,6 +22142,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21851,6 +22162,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -21945,6 +22257,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -21964,6 +22277,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22058,6 +22372,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22077,6 +22392,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::untagAllRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22171,6 +22487,7 @@ void NoteStoreTester::shouldExecuteExpungeTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22190,6 +22507,7 @@ void NoteStoreTester::shouldExecuteExpungeTag()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22255,6 +22573,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22274,6 +22593,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22351,6 +22671,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22370,6 +22691,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22446,6 +22768,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22465,6 +22788,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22541,6 +22865,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22560,6 +22885,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22634,6 +22960,7 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22653,6 +22980,7 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22736,6 +23064,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22755,6 +23084,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22850,6 +23180,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22869,6 +23200,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -22963,6 +23295,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -22982,6 +23315,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23076,6 +23410,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23095,6 +23430,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeTagRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23189,6 +23525,7 @@ void NoteStoreTester::shouldExecuteListSearches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23208,6 +23545,7 @@ void NoteStoreTester::shouldExecuteListSearches()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23269,6 +23607,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23288,6 +23627,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23361,6 +23701,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23380,6 +23721,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23452,6 +23794,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23471,6 +23814,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23544,6 +23888,7 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23563,6 +23908,7 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23642,6 +23988,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23661,6 +24008,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23752,6 +24100,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23771,6 +24120,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23861,6 +24211,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23880,6 +24231,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSearchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -23973,6 +24325,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -23992,6 +24345,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24057,6 +24411,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24076,6 +24431,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24153,6 +24509,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24172,6 +24529,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24248,6 +24606,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24267,6 +24626,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24343,6 +24703,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24362,6 +24723,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24436,6 +24798,7 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24455,6 +24818,7 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24538,6 +24902,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24557,6 +24922,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24652,6 +25018,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24671,6 +25038,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24765,6 +25133,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24784,6 +25153,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24878,6 +25248,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -24897,6 +25268,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -24991,6 +25363,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25010,6 +25383,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25075,6 +25449,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25094,6 +25469,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25171,6 +25547,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25190,6 +25567,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25266,6 +25644,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25285,6 +25664,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25359,6 +25739,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25378,6 +25759,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25461,6 +25843,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25480,6 +25863,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25575,6 +25959,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25594,6 +25979,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25688,6 +26074,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25707,6 +26094,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25801,6 +26189,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25820,6 +26209,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25885,6 +26275,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -25904,6 +26295,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -25981,6 +26373,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26000,6 +26393,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26076,6 +26470,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26095,6 +26490,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26171,6 +26567,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26190,6 +26587,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26264,6 +26662,7 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26283,6 +26682,7 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26366,6 +26766,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26385,6 +26786,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26480,6 +26882,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26499,6 +26902,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26593,6 +26997,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26612,6 +27017,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26706,6 +27112,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26725,6 +27132,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26819,6 +27227,7 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26838,6 +27247,7 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26903,6 +27313,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -26922,6 +27333,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -26999,6 +27411,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27018,6 +27431,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27094,6 +27508,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27113,6 +27528,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27189,6 +27605,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27208,6 +27625,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27282,6 +27700,7 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27301,6 +27720,7 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27384,6 +27804,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27403,6 +27824,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27498,6 +27920,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27517,6 +27940,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27611,6 +28035,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27630,6 +28055,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27724,6 +28150,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27743,6 +28170,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeSearchRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27840,6 +28268,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27859,6 +28288,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -27928,6 +28358,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -27947,6 +28378,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28028,6 +28460,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28047,6 +28480,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28127,6 +28561,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28146,6 +28581,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28226,6 +28662,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28245,6 +28682,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28323,6 +28761,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28342,6 +28781,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28429,6 +28869,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28448,6 +28889,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28547,6 +28989,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28566,6 +29009,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28664,6 +29108,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28683,6 +29128,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28781,6 +29227,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28800,6 +29247,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteOffsetRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -28904,6 +29352,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -28923,6 +29372,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29000,6 +29450,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29019,6 +29470,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29108,6 +29560,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29127,6 +29580,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29215,6 +29669,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29234,6 +29689,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29322,6 +29778,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29341,6 +29798,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29427,6 +29885,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29446,6 +29905,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29541,6 +30001,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29560,6 +30021,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29667,6 +30129,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29686,6 +30149,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29792,6 +30256,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29811,6 +30276,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -29917,6 +30383,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -29936,6 +30403,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNotesMetadataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30036,6 +30504,7 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30055,6 +30524,7 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30124,6 +30594,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30143,6 +30614,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30224,6 +30696,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30243,6 +30716,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30323,6 +30797,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30342,6 +30817,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30422,6 +30898,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30441,6 +30918,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30519,6 +30997,7 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30538,6 +31017,7 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30625,6 +31105,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30644,6 +31125,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30743,6 +31225,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30762,6 +31245,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30860,6 +31344,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30879,6 +31364,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -30977,6 +31463,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -30996,6 +31483,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findNoteCountsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31094,6 +31582,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31113,6 +31602,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31182,6 +31672,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31201,6 +31692,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31282,6 +31774,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31301,6 +31794,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31381,6 +31875,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31400,6 +31895,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31480,6 +31976,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31499,6 +31996,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31577,6 +32075,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31596,6 +32095,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31683,6 +32183,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31702,6 +32203,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31801,6 +32303,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31820,6 +32323,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -31918,6 +32422,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -31937,6 +32442,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32035,6 +32541,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32054,6 +32561,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteWithResultSpecRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32161,6 +32669,7 @@ void NoteStoreTester::shouldExecuteGetNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32180,6 +32689,7 @@ void NoteStoreTester::shouldExecuteGetNote()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32261,6 +32771,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32280,6 +32791,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32373,6 +32885,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32392,6 +32905,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32484,6 +32998,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32503,6 +33018,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32595,6 +33111,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32614,6 +33131,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32704,6 +33222,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32723,6 +33242,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32822,6 +33342,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32841,6 +33362,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -32952,6 +33474,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -32971,6 +33494,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33081,6 +33605,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33100,6 +33625,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33210,6 +33736,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33229,6 +33756,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33327,6 +33855,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33346,6 +33875,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33411,6 +33941,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33430,6 +33961,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33507,6 +34039,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33526,6 +34059,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33602,6 +34136,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33621,6 +34156,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33697,6 +34233,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33716,6 +34253,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33790,6 +34328,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33809,6 +34348,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -33892,6 +34432,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -33911,6 +34452,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34006,6 +34548,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34025,6 +34568,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34119,6 +34663,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34138,6 +34683,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34232,6 +34778,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34251,6 +34798,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34348,6 +34896,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34367,6 +34916,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34436,6 +34986,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34455,6 +35006,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34536,6 +35088,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34555,6 +35108,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34635,6 +35189,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34654,6 +35209,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34734,6 +35290,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34753,6 +35310,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34831,6 +35389,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34850,6 +35409,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -34937,6 +35497,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -34956,6 +35517,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35055,6 +35617,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35074,6 +35637,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35172,6 +35736,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35191,6 +35756,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35289,6 +35855,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35308,6 +35875,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35409,6 +35977,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35428,6 +35997,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35501,6 +36071,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35520,6 +36091,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35605,6 +36177,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35624,6 +36197,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35708,6 +36282,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35727,6 +36302,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35811,6 +36387,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35830,6 +36407,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -35912,6 +36490,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -35931,6 +36510,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36022,6 +36602,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36041,6 +36622,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36144,6 +36726,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36163,6 +36746,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36265,6 +36849,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36284,6 +36869,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36386,6 +36972,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36405,6 +36992,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
     QObject::connect(
         &server,
         &NoteStoreServer::setNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36504,6 +37092,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36523,6 +37112,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36592,6 +37182,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36611,6 +37202,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36692,6 +37284,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36711,6 +37304,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36791,6 +37385,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36810,6 +37405,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36890,6 +37486,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -36909,6 +37506,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -36987,6 +37585,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37006,6 +37605,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37093,6 +37693,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37112,6 +37713,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37211,6 +37813,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37230,6 +37833,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37328,6 +37932,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37347,6 +37952,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37445,6 +38051,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37464,6 +38071,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     QObject::connect(
         &server,
         &NoteStoreServer::unsetNoteApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37559,6 +38167,7 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37578,6 +38187,7 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37643,6 +38253,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37662,6 +38273,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37739,6 +38351,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37758,6 +38371,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37834,6 +38448,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37853,6 +38468,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -37929,6 +38545,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -37948,6 +38565,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38022,6 +38640,7 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38041,6 +38660,7 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38124,6 +38744,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38143,6 +38764,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38238,6 +38860,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38257,6 +38880,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38351,6 +38975,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38370,6 +38995,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38464,6 +39090,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38483,6 +39110,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteContentRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38583,6 +39211,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38602,6 +39231,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38675,6 +39305,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38694,6 +39325,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38779,6 +39411,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38798,6 +39431,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38882,6 +39516,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -38901,6 +39536,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -38985,6 +39621,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39004,6 +39641,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39086,6 +39724,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39105,6 +39744,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39196,6 +39836,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39215,6 +39856,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39318,6 +39960,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39337,6 +39980,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39439,6 +40083,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39458,6 +40103,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39560,6 +40206,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39579,6 +40226,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39675,6 +40323,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39694,6 +40343,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39759,6 +40409,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39778,6 +40429,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39855,6 +40507,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39874,6 +40527,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -39950,6 +40604,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -39969,6 +40624,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40045,6 +40701,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40064,6 +40721,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40138,6 +40796,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40157,6 +40816,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40240,6 +40900,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40259,6 +40920,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40354,6 +41016,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40373,6 +41036,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40467,6 +41131,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40486,6 +41151,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40580,6 +41246,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40599,6 +41266,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceSearchTextRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40696,6 +41364,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40715,6 +41384,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40780,6 +41450,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40799,6 +41470,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40876,6 +41548,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40895,6 +41568,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -40971,6 +41645,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -40990,6 +41665,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41066,6 +41742,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41085,6 +41762,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41162,6 +41840,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41181,6 +41860,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41264,6 +41944,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41283,6 +41964,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41378,6 +42060,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41397,6 +42080,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41491,6 +42175,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41510,6 +42195,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41604,6 +42290,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41623,6 +42310,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteTagNamesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41717,6 +42405,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41736,6 +42425,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41801,6 +42491,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41820,6 +42511,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41897,6 +42589,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -41916,6 +42609,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -41992,6 +42686,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42011,6 +42706,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42087,6 +42783,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42106,6 +42803,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42180,6 +42878,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42199,6 +42898,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42282,6 +42982,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42301,6 +43002,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42396,6 +43098,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42415,6 +43118,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42509,6 +43213,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42528,6 +43233,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42622,6 +43328,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42641,6 +43348,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42735,6 +43443,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42754,6 +43463,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42819,6 +43529,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42838,6 +43549,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -42915,6 +43627,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -42934,6 +43647,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43010,6 +43724,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43029,6 +43744,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43105,6 +43821,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43124,6 +43841,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43198,6 +43916,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43217,6 +43936,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43300,6 +44020,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43319,6 +44040,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43414,6 +44136,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43433,6 +44156,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43527,6 +44251,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43546,6 +44271,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43640,6 +44366,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43659,6 +44386,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43753,6 +44481,7 @@ void NoteStoreTester::shouldExecuteDeleteNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43772,6 +44501,7 @@ void NoteStoreTester::shouldExecuteDeleteNote()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43837,6 +44567,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43856,6 +44587,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -43933,6 +44665,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -43952,6 +44685,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44028,6 +44762,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44047,6 +44782,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44123,6 +44859,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44142,6 +44879,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44216,6 +44954,7 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44235,6 +44974,7 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44318,6 +45058,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44337,6 +45078,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44432,6 +45174,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44451,6 +45194,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44545,6 +45289,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44564,6 +45309,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44658,6 +45404,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44677,6 +45424,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::deleteNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44771,6 +45519,7 @@ void NoteStoreTester::shouldExecuteExpungeNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44790,6 +45539,7 @@ void NoteStoreTester::shouldExecuteExpungeNote()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44855,6 +45605,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44874,6 +45625,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -44951,6 +45703,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -44970,6 +45723,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45046,6 +45800,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45065,6 +45820,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45141,6 +45897,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45160,6 +45917,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45234,6 +45992,7 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45253,6 +46012,7 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45336,6 +46096,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45355,6 +46116,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45450,6 +46212,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45469,6 +46232,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45563,6 +46327,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45582,6 +46347,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45676,6 +46442,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45695,6 +46462,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45792,6 +46560,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45811,6 +46580,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45880,6 +46650,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45899,6 +46670,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -45980,6 +46752,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -45999,6 +46772,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46079,6 +46853,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46098,6 +46873,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46178,6 +46954,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46197,6 +46974,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46275,6 +47053,7 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46294,6 +47073,7 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46381,6 +47161,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46400,6 +47181,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46499,6 +47281,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46518,6 +47301,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46616,6 +47400,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46635,6 +47420,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46733,6 +47519,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46752,6 +47539,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::copyNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46850,6 +47638,7 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46869,6 +47658,7 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -46934,6 +47724,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -46953,6 +47744,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47030,6 +47822,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47049,6 +47842,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47125,6 +47919,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47144,6 +47939,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47220,6 +48016,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47239,6 +48036,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47316,6 +48114,7 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47335,6 +48134,7 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47418,6 +48218,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47437,6 +48238,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47532,6 +48334,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47551,6 +48354,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47645,6 +48449,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47664,6 +48469,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47758,6 +48564,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47777,6 +48584,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listNoteVersionsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47883,6 +48691,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -47902,6 +48711,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -47983,6 +48793,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48002,6 +48813,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48095,6 +48907,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48114,6 +48927,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48206,6 +49020,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48225,6 +49040,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48317,6 +49133,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48336,6 +49153,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48426,6 +49244,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48445,6 +49264,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48544,6 +49364,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48563,6 +49384,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48674,6 +49496,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48693,6 +49516,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48803,6 +49627,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48822,6 +49647,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -48932,6 +49758,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -48951,6 +49778,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNoteVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49061,6 +49889,7 @@ void NoteStoreTester::shouldExecuteGetResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49080,6 +49909,7 @@ void NoteStoreTester::shouldExecuteGetResource()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49161,6 +49991,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49180,6 +50011,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49273,6 +50105,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49292,6 +50125,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49384,6 +50218,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49403,6 +50238,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49495,6 +50331,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49514,6 +50351,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49604,6 +50442,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49623,6 +50462,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49722,6 +50562,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49741,6 +50582,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49852,6 +50694,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -49871,6 +50714,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -49981,6 +50825,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50000,6 +50845,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50110,6 +50956,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50129,6 +50976,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50227,6 +51075,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50246,6 +51095,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50311,6 +51161,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50330,6 +51181,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50407,6 +51259,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50426,6 +51279,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50502,6 +51356,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50521,6 +51376,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50597,6 +51453,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50616,6 +51473,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50690,6 +51548,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50709,6 +51568,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50792,6 +51652,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50811,6 +51672,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -50906,6 +51768,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -50925,6 +51788,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51019,6 +51883,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51038,6 +51903,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51132,6 +51998,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51151,6 +52018,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51248,6 +52116,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51267,6 +52136,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51336,6 +52206,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51355,6 +52226,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51436,6 +52308,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51455,6 +52328,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51535,6 +52409,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51554,6 +52429,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51634,6 +52510,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51653,6 +52530,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51731,6 +52609,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51750,6 +52629,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51837,6 +52717,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51856,6 +52737,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -51955,6 +52837,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -51974,6 +52857,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52072,6 +52956,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52091,6 +52976,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52189,6 +53075,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52208,6 +53095,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52309,6 +53197,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52328,6 +53217,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52401,6 +53291,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52420,6 +53311,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52505,6 +53397,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52524,6 +53417,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52608,6 +53502,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52627,6 +53522,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52711,6 +53607,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52730,6 +53627,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52812,6 +53710,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52831,6 +53730,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -52922,6 +53822,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -52941,6 +53842,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53044,6 +53946,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53063,6 +53966,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53165,6 +54069,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53184,6 +54089,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53286,6 +54192,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53305,6 +54212,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     QObject::connect(
         &server,
         &NoteStoreServer::setResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53404,6 +54312,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53423,6 +54332,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53492,6 +54402,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53511,6 +54422,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53592,6 +54504,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53611,6 +54524,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53691,6 +54605,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53710,6 +54625,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53790,6 +54706,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53809,6 +54726,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53887,6 +54805,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -53906,6 +54825,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -53993,6 +54913,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54012,6 +54933,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54111,6 +55033,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54130,6 +55053,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54228,6 +55152,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54247,6 +55172,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54345,6 +55271,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54364,6 +55291,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     QObject::connect(
         &server,
         &NoteStoreServer::unsetResourceApplicationDataEntryRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54459,6 +55387,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54478,6 +55407,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54543,6 +55473,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54562,6 +55493,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54639,6 +55571,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54658,6 +55591,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54734,6 +55668,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54753,6 +55688,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54829,6 +55765,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54848,6 +55785,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -54922,6 +55860,7 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -54941,6 +55880,7 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55024,6 +55964,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55043,6 +55984,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55138,6 +56080,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55157,6 +56100,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55251,6 +56195,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55270,6 +56215,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55364,6 +56310,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55383,6 +56330,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateResourceRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55477,6 +56425,7 @@ void NoteStoreTester::shouldExecuteGetResourceData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55496,6 +56445,7 @@ void NoteStoreTester::shouldExecuteGetResourceData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55561,6 +56511,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55580,6 +56531,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55657,6 +56609,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55676,6 +56629,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55752,6 +56706,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55771,6 +56726,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55847,6 +56803,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55866,6 +56823,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -55940,6 +56898,7 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -55959,6 +56918,7 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56042,6 +57002,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56061,6 +57022,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56156,6 +57118,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56175,6 +57138,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56269,6 +57233,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56288,6 +57253,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56382,6 +57348,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56401,6 +57368,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56507,6 +57475,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56526,6 +57495,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56607,6 +57577,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56626,6 +57597,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56719,6 +57691,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56738,6 +57711,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56830,6 +57804,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56849,6 +57824,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -56941,6 +57917,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -56960,6 +57937,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57050,6 +58028,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57069,6 +58048,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57168,6 +58148,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57187,6 +58168,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57298,6 +58280,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57317,6 +58300,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57427,6 +58411,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57446,6 +58431,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57556,6 +58542,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57575,6 +58562,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceByHashRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57673,6 +58661,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57692,6 +58681,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57757,6 +58747,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57776,6 +58767,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57853,6 +58845,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57872,6 +58865,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -57948,6 +58942,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -57967,6 +58962,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58043,6 +59039,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58062,6 +59059,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58136,6 +59134,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58155,6 +59154,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58238,6 +59238,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58257,6 +59258,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58352,6 +59354,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58371,6 +59374,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58465,6 +59469,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58484,6 +59489,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58578,6 +59584,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58597,6 +59604,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceRecognitionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58691,6 +59699,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58710,6 +59719,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58775,6 +59785,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58794,6 +59805,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58871,6 +59883,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58890,6 +59903,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -58966,6 +59980,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -58985,6 +60000,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59061,6 +60077,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59080,6 +60097,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59154,6 +60172,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59173,6 +60192,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59256,6 +60276,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59275,6 +60296,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59370,6 +60392,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59389,6 +60412,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59483,6 +60507,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59502,6 +60527,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59596,6 +60622,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59615,6 +60642,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAlternateDataRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59709,6 +60737,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59728,6 +60757,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59793,6 +60823,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59812,6 +60843,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59889,6 +60921,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -59908,6 +60941,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -59984,6 +61018,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60003,6 +61038,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60079,6 +61115,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60098,6 +61135,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60172,6 +61210,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60191,6 +61230,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60274,6 +61314,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60293,6 +61334,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60388,6 +61430,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60407,6 +61450,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60501,6 +61545,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60520,6 +61565,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60614,6 +61660,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60633,6 +61680,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getResourceAttributesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60728,6 +61776,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60747,6 +61796,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60815,6 +61865,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60834,6 +61885,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -60912,6 +61964,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -60931,6 +61984,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61009,6 +62063,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61028,6 +62083,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61104,6 +62160,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61123,6 +62180,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61209,6 +62267,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61228,6 +62287,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61324,6 +62384,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61343,6 +62404,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61439,6 +62501,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61458,6 +62521,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getPublicNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61556,6 +62620,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61575,6 +62640,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61644,6 +62710,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61663,6 +62730,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61743,6 +62811,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61762,6 +62831,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61843,6 +62913,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61862,6 +62933,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -61942,6 +63014,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -61961,6 +63034,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62039,6 +63113,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62058,6 +63133,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62145,6 +63221,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62164,6 +63241,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62262,6 +63340,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62281,6 +63360,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62380,6 +63460,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62399,6 +63480,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62497,6 +63579,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62516,6 +63599,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62611,6 +63695,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62630,6 +63715,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62695,6 +63781,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62714,6 +63801,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62790,6 +63878,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62809,6 +63898,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62886,6 +63976,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -62905,6 +63996,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -62987,6 +64079,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63006,6 +64099,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63082,6 +64176,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63101,6 +64196,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63175,6 +64271,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63194,6 +64291,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63277,6 +64375,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63296,6 +64395,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63390,6 +64490,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63409,6 +64510,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63504,6 +64606,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63523,6 +64626,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63623,6 +64727,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63642,6 +64747,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63736,6 +64842,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63755,6 +64862,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     QObject::connect(
         &server,
         &NoteStoreServer::createOrUpdateNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63849,6 +64957,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63868,6 +64977,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -63933,6 +65043,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -63952,6 +65063,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64028,6 +65140,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64047,6 +65160,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64124,6 +65238,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64143,6 +65258,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64219,6 +65335,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64238,6 +65355,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64312,6 +65430,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64331,6 +65450,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64414,6 +65534,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64433,6 +65554,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64527,6 +65649,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64546,6 +65669,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64641,6 +65765,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64660,6 +65785,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64754,6 +65880,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64773,6 +65900,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64870,6 +65998,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64889,6 +66018,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -64958,6 +66088,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -64977,6 +66108,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65057,6 +66189,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65076,6 +66209,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65157,6 +66291,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65176,6 +66311,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65256,6 +66392,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65275,6 +66412,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65353,6 +66491,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65372,6 +66511,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65459,6 +66599,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65478,6 +66619,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65576,6 +66718,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65595,6 +66738,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65694,6 +66838,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65713,6 +66858,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65811,6 +66957,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65830,6 +66977,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     QObject::connect(
         &server,
         &NoteStoreServer::setNotebookRecipientSettingsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -65925,6 +67073,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -65944,6 +67093,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66005,6 +67155,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66024,6 +67175,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66096,6 +67248,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66115,6 +67268,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66188,6 +67342,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66207,6 +67362,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66279,6 +67435,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66298,6 +67455,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66371,6 +67529,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66390,6 +67549,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66469,6 +67629,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66488,6 +67649,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66578,6 +67740,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66597,6 +67760,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66688,6 +67852,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66707,6 +67872,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66797,6 +67963,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66816,6 +67983,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listSharedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66909,6 +68077,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -66928,6 +68097,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -66993,6 +68163,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67012,6 +68183,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67088,6 +68260,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67107,6 +68280,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67184,6 +68358,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67203,6 +68378,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67279,6 +68455,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67298,6 +68475,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67372,6 +68550,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67391,6 +68570,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67474,6 +68654,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67493,6 +68674,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67587,6 +68769,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67606,6 +68789,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67701,6 +68885,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67720,6 +68905,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67814,6 +69000,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67833,6 +69020,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::createLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -67927,6 +69115,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -67946,6 +69135,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68011,6 +69201,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68030,6 +69221,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68106,6 +69298,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68125,6 +69318,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68202,6 +69396,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68221,6 +69416,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68297,6 +69493,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68316,6 +69513,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68390,6 +69588,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68409,6 +69608,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68492,6 +69692,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68511,6 +69712,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68605,6 +69807,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68624,6 +69827,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68719,6 +69923,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68738,6 +69943,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68832,6 +70038,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68851,6 +70058,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -68945,6 +70153,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -68964,6 +70173,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69025,6 +70235,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69044,6 +70255,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69116,6 +70328,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69135,6 +70348,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69208,6 +70422,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69227,6 +70442,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69299,6 +70515,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69318,6 +70535,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69391,6 +70609,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69410,6 +70629,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69489,6 +70709,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69508,6 +70729,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69598,6 +70820,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69617,6 +70840,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69708,6 +70932,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69727,6 +70952,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69817,6 +71043,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69836,6 +71063,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::listLinkedNotebooksRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -69929,6 +71157,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -69948,6 +71177,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70013,6 +71243,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70032,6 +71263,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70108,6 +71340,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70127,6 +71360,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70204,6 +71438,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70223,6 +71458,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70299,6 +71535,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70318,6 +71555,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70392,6 +71630,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70411,6 +71650,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70494,6 +71734,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70513,6 +71754,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70607,6 +71849,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70626,6 +71869,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70721,6 +71965,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70740,6 +71985,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70834,6 +72080,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70853,6 +72100,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::expungeLinkedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -70947,6 +72195,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -70966,6 +72215,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71031,6 +72281,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71050,6 +72301,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71126,6 +72378,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71145,6 +72398,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71222,6 +72476,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71241,6 +72496,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71317,6 +72573,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71336,6 +72593,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71410,6 +72668,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71429,6 +72688,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71512,6 +72772,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71531,6 +72792,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71625,6 +72887,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71644,6 +72907,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71739,6 +73003,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71758,6 +73023,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71852,6 +73118,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71871,6 +73138,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNotebookRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -71962,6 +73230,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -71981,6 +73250,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72042,6 +73312,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72061,6 +73332,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72133,6 +73405,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72152,6 +73425,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72225,6 +73499,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72244,6 +73519,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72316,6 +73592,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72335,6 +73612,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72405,6 +73683,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72424,6 +73703,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72503,6 +73783,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72522,6 +73803,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72612,6 +73894,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72631,6 +73914,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72722,6 +74006,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72741,6 +74026,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72831,6 +74117,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72850,6 +74137,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getSharedNotebookByAuthRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -72941,6 +74229,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -72960,6 +74249,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73024,6 +74314,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73043,6 +74334,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73118,6 +74410,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73137,6 +74430,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73213,6 +74507,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73232,6 +74527,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73307,6 +74603,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73326,6 +74623,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73397,6 +74695,7 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73416,6 +74715,7 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73498,6 +74798,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73517,6 +74818,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73611,6 +74913,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73630,6 +74933,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73725,6 +75029,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73744,6 +75049,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73838,6 +75144,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73857,6 +75164,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::emailNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -73951,6 +75259,7 @@ void NoteStoreTester::shouldExecuteShareNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -73970,6 +75279,7 @@ void NoteStoreTester::shouldExecuteShareNote()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74035,6 +75345,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74054,6 +75365,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74130,6 +75442,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74149,6 +75462,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74226,6 +75540,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74245,6 +75560,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74321,6 +75637,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74340,6 +75657,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74414,6 +75732,7 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74433,6 +75752,7 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74516,6 +75836,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74535,6 +75856,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74629,6 +75951,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74648,6 +75971,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74743,6 +76067,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74762,6 +76087,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74856,6 +76182,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74875,6 +76202,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::shareNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -74967,6 +76295,7 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -74986,6 +76315,7 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75050,6 +76380,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75069,6 +76400,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75144,6 +76476,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75163,6 +76496,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75239,6 +76573,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75258,6 +76593,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75333,6 +76669,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75352,6 +76689,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75423,6 +76761,7 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75442,6 +76781,7 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75524,6 +76864,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75543,6 +76884,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75637,6 +76979,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75656,6 +76999,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75751,6 +77095,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75770,6 +77115,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75864,6 +77210,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75883,6 +77230,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::stopSharingNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -75980,6 +77328,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -75999,6 +77348,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76068,6 +77418,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76087,6 +77438,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76167,6 +77519,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76186,6 +77539,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76267,6 +77621,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76286,6 +77641,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76366,6 +77722,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76385,6 +77742,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76463,6 +77821,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76482,6 +77841,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76569,6 +77929,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76588,6 +77949,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76686,6 +78048,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76705,6 +78068,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76804,6 +78168,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76823,6 +78188,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -76921,6 +78287,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -76940,6 +78307,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::authenticateToSharedNoteRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77038,6 +78406,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77057,6 +78426,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77126,6 +78496,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77145,6 +78516,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77226,6 +78598,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77245,6 +78618,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77325,6 +78699,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77344,6 +78719,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77424,6 +78800,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77443,6 +78820,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77521,6 +78899,7 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77540,6 +78919,7 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77627,6 +79007,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77646,6 +79027,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77745,6 +79127,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77764,6 +79147,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77862,6 +79246,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77881,6 +79266,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -77979,6 +79365,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -77998,6 +79385,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::findRelatedRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78093,6 +79481,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78112,6 +79501,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78177,6 +79567,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78196,6 +79587,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78272,6 +79664,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78291,6 +79684,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78368,6 +79762,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78387,6 +79782,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78463,6 +79859,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78482,6 +79879,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78556,6 +79954,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78575,6 +79974,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78658,6 +80058,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78677,6 +80078,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78771,6 +80173,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78790,6 +80193,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78885,6 +80289,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -78904,6 +80309,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -78998,6 +80404,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79017,6 +80424,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::updateNoteIfUsnMatchesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79111,6 +80519,7 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79130,6 +80539,7 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79195,6 +80605,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79214,6 +80625,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79290,6 +80702,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79309,6 +80722,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79386,6 +80800,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79405,6 +80820,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79481,6 +80897,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79500,6 +80917,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79574,6 +80992,7 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79593,6 +81012,7 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79676,6 +81096,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79695,6 +81116,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79789,6 +81211,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79808,6 +81231,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -79903,6 +81327,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -79922,6 +81347,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80016,6 +81442,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80035,6 +81462,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::manageNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80129,6 +81557,7 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80148,6 +81577,7 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80213,6 +81643,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80232,6 +81663,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80308,6 +81740,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80327,6 +81760,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80404,6 +81838,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80423,6 +81858,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80499,6 +81935,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80518,6 +81955,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80592,6 +82030,7 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80611,6 +82050,7 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80694,6 +82134,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80713,6 +82154,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80807,6 +82249,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80826,6 +82269,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -80921,6 +82365,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -80940,6 +82385,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -81034,6 +82480,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -81053,6 +82500,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
     QObject::connect(
         &server,
         &NoteStoreServer::getNotebookSharesRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;

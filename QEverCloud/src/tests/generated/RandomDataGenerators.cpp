@@ -14,6 +14,7 @@
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QEventLoop>
+#include <QGlobalStatic>
 #include <QObject>
 #include <algorithm>
 #include <cstdlib>
@@ -25,8 +26,11 @@ namespace {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-static const QString randomStringAvailableCharacters = QStringLiteral(
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+Q_GLOBAL_STATIC_WITH_ARGS(
+    QString,
+    randomStringAvailableCharacters,
+    (QString::fromUtf8(
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")))
 
 template <typename T>
 T generateRandomIntType()
@@ -49,8 +53,9 @@ QString generateRandomString(int len)
     QString res;
     res.reserve(len);
     for(int i = 0; i < len; ++i) {
-        int index = rand() % randomStringAvailableCharacters.length();
-        res.append(randomStringAvailableCharacters.at(index));    }
+        int index = rand() % randomStringAvailableCharacters->length();
+        res.append(randomStringAvailableCharacters->at(index));
+    }
 
     return res;
 }

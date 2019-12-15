@@ -1271,6 +1271,7 @@ void UserStoreTester::shouldExecuteCheckVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1290,6 +1291,7 @@ void UserStoreTester::shouldExecuteCheckVersion()
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1361,6 +1363,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1380,6 +1383,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1460,6 +1464,7 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1479,6 +1484,7 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1568,6 +1574,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1587,6 +1594,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::checkVersionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1681,6 +1689,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1700,6 +1709,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1763,6 +1773,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1782,6 +1793,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1854,6 +1866,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1873,6 +1886,7 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -1954,6 +1968,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -1973,6 +1988,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getBootstrapInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2083,6 +2099,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2102,6 +2119,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2189,6 +2207,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2208,6 +2227,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2307,6 +2327,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2326,6 +2347,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2424,6 +2446,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2443,6 +2466,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2539,6 +2563,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2558,6 +2583,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2663,6 +2689,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2682,6 +2709,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2799,6 +2827,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2818,6 +2847,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -2934,6 +2964,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -2953,6 +2984,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
     QObject::connect(
         &server,
         &UserStoreServer::authenticateLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3059,6 +3091,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3078,6 +3111,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3151,6 +3185,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3170,6 +3205,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3255,6 +3291,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3274,6 +3311,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3358,6 +3396,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3377,6 +3416,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3459,6 +3499,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3478,6 +3519,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3569,6 +3611,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3588,6 +3631,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3691,6 +3735,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3710,6 +3755,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3812,6 +3858,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3831,6 +3878,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     QObject::connect(
         &server,
         &UserStoreServer::completeTwoFactorAuthenticationRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -3922,6 +3970,7 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -3941,6 +3990,7 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4001,6 +4051,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4020,6 +4071,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4092,6 +4144,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4111,6 +4164,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4182,6 +4236,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4201,6 +4256,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4268,6 +4324,7 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4287,6 +4344,7 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4365,6 +4423,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4384,6 +4443,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4475,6 +4535,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4494,6 +4555,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4584,6 +4646,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4603,6 +4666,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
     QObject::connect(
         &server,
         &UserStoreServer::revokeLongSessionRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4693,6 +4757,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4712,6 +4777,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4773,6 +4839,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4792,6 +4859,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4865,6 +4933,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4884,6 +4953,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -4956,6 +5026,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -4975,6 +5046,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5045,6 +5117,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5064,6 +5137,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5143,6 +5217,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5162,6 +5237,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5253,6 +5329,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5272,6 +5349,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5362,6 +5440,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5381,6 +5460,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
     QObject::connect(
         &server,
         &UserStoreServer::authenticateToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5471,6 +5551,7 @@ void UserStoreTester::shouldExecuteGetUser()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5490,6 +5571,7 @@ void UserStoreTester::shouldExecuteGetUser()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5551,6 +5633,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5570,6 +5653,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5643,6 +5727,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5662,6 +5747,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5734,6 +5820,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5753,6 +5840,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5823,6 +5911,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5842,6 +5931,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -5921,6 +6011,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -5940,6 +6031,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6031,6 +6123,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6050,6 +6143,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6140,6 +6234,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6159,6 +6254,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6250,6 +6346,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6269,6 +6366,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6332,6 +6430,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6351,6 +6450,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6426,6 +6526,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6445,6 +6546,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6519,6 +6621,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6538,6 +6641,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6612,6 +6716,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6631,6 +6736,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6703,6 +6809,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6722,6 +6829,7 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6803,6 +6911,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6822,6 +6931,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -6915,6 +7025,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -6934,6 +7045,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7026,6 +7138,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7045,6 +7158,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7137,6 +7251,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7156,6 +7271,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getPublicUserInfoRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7247,6 +7363,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7266,6 +7383,7 @@ void UserStoreTester::shouldExecuteGetUserUrls()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7327,6 +7445,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7346,6 +7465,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7419,6 +7539,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7438,6 +7559,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7510,6 +7632,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7529,6 +7652,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7599,6 +7723,7 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7618,6 +7743,7 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7697,6 +7823,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7716,6 +7843,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7807,6 +7935,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7826,6 +7955,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -7916,6 +8046,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -7935,6 +8066,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getUserUrlsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8026,6 +8158,7 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8045,6 +8178,7 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8109,6 +8243,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8128,6 +8263,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8204,6 +8340,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8223,6 +8360,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8298,6 +8436,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8317,6 +8456,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8388,6 +8528,7 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8407,6 +8548,7 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8489,6 +8631,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8508,6 +8651,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8603,6 +8747,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8622,6 +8767,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8716,6 +8862,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8735,6 +8882,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::inviteToBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8827,6 +8975,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8846,6 +8995,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -8910,6 +9060,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -8929,6 +9080,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9005,6 +9157,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9024,6 +9177,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9099,6 +9253,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9118,6 +9273,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9193,6 +9349,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9212,6 +9369,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9283,6 +9441,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9302,6 +9461,7 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9384,6 +9544,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9403,6 +9564,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9498,6 +9660,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9517,6 +9680,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9611,6 +9775,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9630,6 +9795,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9724,6 +9890,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9743,6 +9910,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
     QObject::connect(
         &server,
         &UserStoreServer::removeFromBusinessRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9838,6 +10006,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9857,6 +10026,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -9925,6 +10095,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -9944,6 +10115,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10024,6 +10196,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10043,6 +10216,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10122,6 +10296,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10141,6 +10316,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10220,6 +10396,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10239,6 +10416,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10314,6 +10492,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10333,6 +10512,7 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10419,6 +10599,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10438,6 +10619,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10537,6 +10719,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10556,6 +10739,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10654,6 +10838,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10673,6 +10858,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10771,6 +10957,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10790,6 +10977,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     QObject::connect(
         &server,
         &UserStoreServer::updateBusinessUserIdentifierRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10885,6 +11073,7 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10904,6 +11093,7 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -10965,6 +11155,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -10984,6 +11175,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11057,6 +11249,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11076,6 +11269,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11148,6 +11342,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11167,6 +11362,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11240,6 +11436,7 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11259,6 +11456,7 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11338,6 +11536,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11357,6 +11556,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11448,6 +11648,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11467,6 +11668,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11557,6 +11759,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11576,6 +11779,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessUsersRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11672,6 +11876,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11691,6 +11896,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11756,6 +11962,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11775,6 +11982,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11852,6 +12060,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11871,6 +12080,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -11947,6 +12157,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -11966,6 +12177,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12043,6 +12255,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12062,6 +12275,7 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12145,6 +12359,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12164,6 +12379,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12259,6 +12475,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12278,6 +12495,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12372,6 +12590,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12391,6 +12610,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
     QObject::connect(
         &server,
         &UserStoreServer::listBusinessInvitationsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12483,6 +12703,7 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12502,6 +12723,7 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12565,6 +12787,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12584,6 +12807,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12658,6 +12882,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12677,6 +12902,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12749,6 +12975,7 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12768,6 +12995,7 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12849,6 +13077,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12868,6 +13097,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
@@ -12960,6 +13190,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
     QObject::connect(
         &tcpServer,
         &QTcpServer::newConnection,
+        &tcpServer,
         [&] {
             pSocket = tcpServer.nextPendingConnection();
             Q_ASSERT(pSocket);
@@ -12979,6 +13210,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
     QObject::connect(
         &server,
         &UserStoreServer::getAccountLimitsRequestReady,
+        &server,
         [&] (QByteArray responseData)
         {
             QByteArray buffer;
