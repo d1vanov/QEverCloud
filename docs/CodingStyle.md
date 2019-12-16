@@ -163,10 +163,8 @@ Try to stick with the following layout of class contents:
 - Use `Q_SIGNALS` macro instead of `signals` and `Q_SLOTS` instead of `slots`, especially in the public interfaces of QEverCloud. The reason is that there are 3rdparty libraries which use `signals` and `slots` keyword in their own code and interfaces and the name clashing can create problems for library users.
 - Pass signal/slot parameters by value, not by const reference, unless you are certain that the objects interacting via the particular signals/slots would live in the same thread. The power and convenience of Qt’s signals/slots comes from their flexibility to the thread affinity of the connected objects but unless you pass parameters by value in signals/slots, it would be your job to provide the proper thread safety guarantees. There’s no reason to do this yourself when Qt can do it for you.
 
-## C++11/14/17 features and Qt4 support
+## Modern C++ features and supported Qt5 versions
 
-The library does not use any C++11/14/17 features directly but only through macros such as `Q_DECL_OVERRIDE`, `Q_STATIC_ASSERT_X`, `QStringLiteral` and the like. These macros expand to proper C++ features if the compiler supports it or to nothing otherwise.
+The library uses C++14 standard although it uses only those features of it which are supported by older compilers. The oldest supported g++ version is 5.4 and the oldest supported Visual Studio version is 2017.
 
-As long as most of these macros exist only in Qt5 but not in Qt4, QEverCloud defines them on its own when building with Qt4.
-
-Building with Qt4 is still supported by QEverCloud. Yes, Qt4 may be dead and unsupported by the upstream. However, there are still LTS Linux distributions around which use and ship Qt4 and QEverCloud strives to be compatible with them.
+The oldest supported version of Qt is 5.5. Even though this version of Qt is not supported by the upstream anymore, there are still LTS Linux distributions around which use and ship this version and QEverCloud strives to be compatible with them.
