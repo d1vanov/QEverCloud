@@ -97,7 +97,7 @@ file(COPY QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesCore.cmake DESTI
 file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt5DependenciesCore.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
-  if(USE_QT5_WEBKIT OR (Qt5Core_VERSION VERSION_LESS "5.4.0"))
+  if(USE_QT5_WEBKIT)
     file(READ QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesWebKit.cmake WEBKIT_DEPS_FILE)
     file(APPEND ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake "${WEBKIT_DEPS_FILE}")
   elseif(Qt5Core_VERSION VERSION_LESS "5.6.0")
