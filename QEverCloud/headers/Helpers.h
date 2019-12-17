@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-#ifndef QEVERCLOUD_GENERATOR_THRIFT_HELPERS_H
-#define QEVERCLOUD_GENERATOR_THRIFT_HELPERS_H
+#ifndef QEVERCLOUD_HELPERS_H
+#define QEVERCLOUD_HELPERS_H
 
 #include <QtGlobal>
 #include <QObject>
@@ -173,4 +173,4 @@ QAssociativeContainerConstReferenceWrapper<Container> toRange(
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATOR_THRIFT_HELPERS_H
+#endif // QEVERCLOUD_HELPERS_H
