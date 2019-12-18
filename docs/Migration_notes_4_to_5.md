@@ -49,7 +49,34 @@ It's very unlikely that your code uses `AsyncResult` constructors directly, inst
 
 What would affect your code though is the change in `AsyncResult::finished` signature: in addition to value and exception data it also passes the request context pointer. In your code you'd need to add the additional parameter to the slot connected to `AsyncResult::finished` signal. You might just do it and leave the new parameter unused but you can actually use request context for e.g. matching request id to the guid of a downloaded note, for example. If your code downloads many notes asynchronously and concurrently, your slot connected to `AsyncResult::finished` might be invoked several times for different notes. Now you can conveniently map each such invokation to a particular note.
 
+### Changes in Optional template class
+
+In QEverCloud 5 `Optional` template class implementation was changed: `operator==` and `operator!=` accepting another `Optional` were added to it. Unfortunately, it has lead to some complications: you can no longer do comparisons involving implicit type conversions between Optional and value of compatible yet different type, like this:
+```
+Optional<int> a = 42;
+double b = 1.0;
+bool res = (a == b);
+```
+Instead you need to cast the right hand side expression to proper type:
+```
+Optional<int> a = 42;
+double b = 1.0;
+bool res = (a == static_cast<int>(b));
+```
+
 ## New functionality
+
+### Printability
+
+Since QEverCloud 5 all types and enumerations from Evernote API as well as exception classes are printable. Printability means that enumeration values and objects of Evernote types and exceptions classes can be printed to `QTextStream` and `QDebug`. Additionally, objects of Evernote types and exceptions classes can be conveniently converted to string using `toString` method.
+
+Printability for classes was implemented as inheritance from `Printable` base class which contains one pure virtual method:
+```
+virtual void print(QTextStream & strm) const = 0;
+```
+`Printable` uses this method to implement printing to `QTextStream` and `QDebug` using stream operators and the conversion to string.
+
+Printability of enumerations and objects was required to implement QEverCloud's logging facility (see below).
 
 ### New interfaces: IDurableService and IRetryPolicy
 
@@ -87,3 +114,24 @@ for(const auto & it: toRange(myHash)) {
     <...> // do something with key and value
 }
 ```
+
+### Logging facility
+
+QEverCloud 5 added a flexible logging facility which client code can use as desired. The logging facility consists of `LogLevel` enumeration and `ILogger` interface located in new `Log.h` header. `LogLevel` enumeration has the following log levels:
+
+ * `Trace`
+ * `Debug`
+ * `Info`
+ * `Warn`
+ * `Error`
+
+The default log level is `Info` which means that QEverCloud's logger would log events with `Info`, `Warn` and `Error` level.
+
+The `ILogger` interface contains methods which would be called by QEverCloud when it uses the logger internally. The fact that `ILogger` is an interface and not a particular class means that the client code can implement this interface and thus integrate QEverCloud's logger into its own logging facility, whatever that it. The instance of a particular QEverCloud logger is a singleton which can be set using `setLogger` function and retrieved using `logger` function. For convenience QEverCloud provides two auxiliary functions:
+
+ * `nullLogger`: this function creates an instance of logger which does nothing. It is a logger used by QEverCloud by default i.e. by default QEverCloud doesn't write the logs it collects anywhere
+ * `newStdErrLogger`: this function creates an instance of logger which writes logs to stderr.
+
+### New parameter in EvernoteOAuthWebView::authenticate method
+
+The optional timeout parameter was added to `EvernoteOAuthWebView::authenticate` method. The timeout is not for the whole OAuth procedure but for communication with Evernote service over the network. If Evernote doesn't answer to QEverCloud's request for the duration of a timeout, OAuth fails. That's how OAuth has worked before too but previously this timeout duration could not be specified by the client code. Now it can be specified. By default the timeout of 30 seconds is used.
