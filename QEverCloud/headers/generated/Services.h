@@ -3315,11 +3315,13 @@ QEVERCLOUD_EXPORT INoteStore * newNoteStore(
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr,
     IRetryPolicyPtr retryPolicy = {});
+
 QEVERCLOUD_EXPORT IUserStore * newUserStore(
     QString userStoreUrl = {},
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr,
     IRetryPolicyPtr retryPolicy = {});
+
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(QList<qevercloud::Notebook>)
