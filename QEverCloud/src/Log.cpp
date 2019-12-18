@@ -195,7 +195,7 @@ ILoggerPtr logger()
         return *globalLogger;
     }
 
-    return newNullLogger();
+    return nullLogger();
 }
 
 void setLogger(ILoggerPtr logger)
@@ -205,7 +205,7 @@ void setLogger(ILoggerPtr logger)
     }
 }
 
-ILoggerPtr newNullLogger()
+ILoggerPtr nullLogger()
 {
     return std::make_shared<NullLogger>();
 }

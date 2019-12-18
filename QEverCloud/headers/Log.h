@@ -67,7 +67,7 @@ QEVERCLOUD_EXPORT ILoggerPtr logger();
 
 QEVERCLOUD_EXPORT void setLogger(ILoggerPtr logger);
 
-QEVERCLOUD_EXPORT ILoggerPtr newNullLogger();
+QEVERCLOUD_EXPORT ILoggerPtr nullLogger();
 
 QEVERCLOUD_EXPORT ILoggerPtr newStdErrLogger(LogLevel level = LogLevel::Warn);
 
