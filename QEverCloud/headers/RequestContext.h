@@ -22,7 +22,7 @@ namespace qevercloud {
 
 static constexpr quint64 DEFAULT_REQUEST_TIMEOUT_MSEC = 10'000ull;
 
-static constexpr bool DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE = true;
+static constexpr bool DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE = true;
 
 static constexpr quint64 DEFAULT_MAX_REQUEST_TIMEOUT_MSEC = 600'000ull;
 
@@ -80,7 +80,7 @@ using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 QEVERCLOUD_EXPORT IRequestContextPtr newRequestContext(
     QString authenticationToken = {},
     qint64 requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC,
-    bool increaseRequestTimeoutExponentially = DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+    bool increaseRequestTimeoutExponentially = DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
     qint64 maxRequestTimeout = DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
     quint32 maxRequestRetryCount = DEFAULT_MAX_REQUEST_RETRY_COUNT);
 

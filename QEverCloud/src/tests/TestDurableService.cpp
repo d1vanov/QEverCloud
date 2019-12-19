@@ -116,7 +116,7 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
     auto ctx = newRequestContext(
         QString(),
         DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
@@ -161,7 +161,7 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
     auto ctx = newRequestContext(
         QString(),
         DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
@@ -217,7 +217,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
     auto ctx = newRequestContext(
         QString(),
         DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
@@ -265,7 +265,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
     auto ctx = newRequestContext(
         QString(),
         DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
@@ -324,7 +324,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
     auto ctx = newRequestContext(
         QString(),
         DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
@@ -374,7 +374,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
     auto ctx = newRequestContext(
         QString(),
         DEFAULT_REQUEST_TIMEOUT_MSEC,
-        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_ICREASE,
+        DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
         DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
         maxServiceCallCounter);
 
