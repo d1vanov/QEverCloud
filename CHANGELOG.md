@@ -5,7 +5,7 @@
   required to introduce several API breaks.**
   * Network requests sent to Evernote service via `NoteStore` and `UserStore`
   method calls are now automatically retried if network occasionally fails.
-  Retry logic can be parametrized either on `NoteStore` or `UserStore` level
+  Retry logic can be parametrized on `NoteStore` or `UserStore` level
   or per each particular method call.
   * `IRequestContext` interface was introduced and added to all methods of
   `NoteStore` and `UserStore` as well as to their constructors. This interface
@@ -148,7 +148,7 @@
 
 ## 2.0
   * Qt 4 is no longer supported.
-  * Asynchronous API is introdused.
+  * Asynchronous API is introduced.
   * Various non-critical fixes and improvements.
 
 ## 1.2

@@ -174,3 +174,20 @@ for(const auto & it: toRange(myHash)) {
 ### New optional timeout parameter in EvernoteOAuthWebView::authenticate method
 
 The optional timeout parameter was added to `EvernoteOAuthWebView::authenticate` method. The timeout is not for the whole OAuth procedure but for communication with Evernote service over the network. If Evernote doesn't answer to QEverCloud's request for the duration of a timeout, OAuth fails. That's how OAuth has worked before too but previously this timeout duration could not be specified by the client code. Now it can be specified. By default the timeout of 30 seconds is used.
+
+### New localData field in structs corresponding to Evernote types
+
+Since QEverCloud 5 structs corresponding to Evernote types have a new field of type `EverCloudLocalData` called `localData`. This field encapsulates several data members which don't take part in synchronization with Evernote (thus "local" in the name) but which are useful for applications using QEverCloud to implement rich Evernote client apps. `EverCloudLocalData` struct contains the following fields:
+ * `id` string which by default is generated as a `QUuid` but can be substituted with any string value
+ * `dirty`, `local` and `favorited` boolean flags
+ * `dict` which is a collection of arbitrary data in the form of `QVariant`s indexed by strings
+
+### Enumerations registered in Qt's meta object system with Q_ENUM_NS macro
+
+Enumerations such as error codes in `EDAMErrorCode.h` were marked with [Q_ENUM_NS](https://doc.qt.io/qt-5/qobject.html#Q_ENUM_NS) macro in case build is done with Qt >= 5.8. This macro adds some introspection capabilities through Qt's meta object system for these enumerations.
+
+### Elements of Evernote types registered in Qt's meta object system with Q_PROPERTY and Q_GADGET macros
+
+Some introspection capabilities were added to QEverCloud 5 structs corresponding to Evernote types: they now have [Q_GADGET](https://doc.qt.io/qt-5/qobject.html#Q_GADGET) macro and each of their attributes is registered as a [Q_PROPERTY](https://doc.qt.io/qt-5/qobject.html#Q_PROPERTY).
+
+
