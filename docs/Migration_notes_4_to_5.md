@@ -1,4 +1,4 @@
-# Migration notes from major version 4 to major version 5
+# Migration notes from QEverCloud 4 to 5
 
 Release 5 of QEverCloud added several major new features which required to introduce API breaks. This document lists the changes made and suggests ways to adapt your code using QEverCloud to these changes.
 
@@ -10,9 +10,9 @@ In release 5 QEverCloud bumped the minimal required versions of compiler, Qt and
  * Qt: 5.5
  * CMake: 3.5.1
 
-If your build infrastructure is older than than, unfortunately you want be able to build QEverCloud 5 before you upgrade your infrastructure.
+If your build infrastructure is older than that, unfortunately you won't be able to build QEverCloud 5 before you upgrade your infrastructure.
 
-If you use any other compiler than g++ or Visual Studio, the requirement is that it should support C++14 standard features used by QEverCloud. CMake automatically checks the presence of support for most of required features during the pre-build configuration phase.
+If you use any other compiler than g++ or Visual Studio, the requirement is that it should support C++14 features used by QEverCloud. CMake automatically checks the presence of support for most of required features during the pre-build configuration phase.
 
 ## Removed functionality
 
@@ -31,15 +31,17 @@ Two functions were removed from QEverCloud 5 which used to control the request t
 
 ### Changes in names of headers
 
-Since QEverCloud 5 all header and source files have consistent naming: now they all start from capital letters i.e. `globals.h` has become `Globals.h`. Before that naming of header and source files was inconsistent - some file names started from capital letters, some did not. It was preserved for backward compatibility but since QEverCloud 5 breaks this compatibility in numerous ways, it was considered a good opportunity to clean up the headers naming as well.
+Since QEverCloud 5 all header and source files have consistent naming: now they all start from uppercase letters i.e. `globals.h` has become `Globals.h`. Before QEverCloud 5 the naming of header and source files was inconsistent for legacy reasons - some file names started from uppercase letters, some from lowercase ones. It was preserved for backward compatibility but as QEverCloud 5 breaks this compatibility in numerous ways, it was considered a good opportunity to clean up the headers naming as well.
 
-Most probably it shouldn't be a problem for your code as the recommendation has always been to include `QEverCloud.h` global header (or `QEverCloudOAuth.h` for OAuth functionality) instead of particular other headers.
+Most probably it shouldn't be a problem for your code as the recommendation has always been to include `QEverCloud.h` global header (or `QEverCloudOAuth.h` for OAuth functionality) instead of particular other headers. If your code did use other headers, just adjust their names in inclusion directives.
 
 ### Use of std::shared_ptr instead of QSharedPointer throughout the library
 
-In release 5 of QEverCloud all `QSharedPointers` were replaced with `std::shared_ptrs`. Smart pointers from the C++ standard library offer more convenience and flexibility than Qt's ones which were introduced back in times of C++98 when there was no choice to use standard library's smart pointers as there were none. 
+In release 5 of QEverCloud all `QSharedPointers` were replaced with `std::shared_ptrs`. Smart pointers from the C++ standard library offer more convenience and flexibility than Qt's ones which were introduced back in times of C++98 when there was no choice to use the standard library's smart pointers as they didn't exist. 
 
-One place within the library where the replacement took place is `AsyncResult::finished` signal. `QSharedPointer<EverCloudExceptionData>` was replaced with typedef `EverCloudExceptionDataPtr` which actually is `std::shared_ptr<EverCloudExceptionData>`. Note that Qt metatype is registered for the typedef rather than the shared_ptr so in your code you should use the typedef as well to ensure Qt doesn't have any troubles queuing the pointer in signal-slot connections.
+One place within the library where the replacement took place is `AsyncResult::finished` signal. `QSharedPointer<EverCloudExceptionData>` was replaced with typedef `EverCloudExceptionDataPtr` which actually is `std::shared_ptr<EverCloudExceptionData>`. Note that Qt metatype is registered for the typedef rather than the `std::shared_ptr` so in your code you should use the typedef as well to ensure Qt doesn't have any troubles queuing the pointer in signal-slot connections.
+
+Note that due to this change your code needs to call `initializeQEverCloud` function before QEverCloud functionality is used (see below).
 
 ### Changes in AsyncResult class
 
@@ -51,7 +53,7 @@ What would affect your code though is the change in `AsyncResult::finished` sign
 
 ### Changes in Optional template class
 
-In QEverCloud 5 `Optional` template class implementation was changed: `operator==` and `operator!=` accepting another `Optional` were added to it. Unfortunately, it has lead to some complications: you can no longer do comparisons involving implicit type conversions between Optional and value of compatible yet different type, like this:
+In QEverCloud 5 `Optional` template class implementation was changed: `operator==` and `operator!=` accepting another `Optional` were added to it. Unfortunately, it has lead to some complications: you can no longer do comparisons involving implicit type conversions between `Optional` and value of compatible yet different type, like this:
 ```
 Optional<int> a = 42;
 double b = 1.0;
@@ -82,6 +84,8 @@ Before QEverCloud 5 there were two classes which methods were used to communicat
  * if this request context has zero max request retry count, the automatic retries of requests would be disabled
 
 Methods of both interfaces now accept optional `IRequestContextPtr` where before QEverCloud 5 they used to accept `authenticationToken` parameter. If no request context is provided, the default one is used - either the one provided to `newNoteStore`/`newUserStore` or the one created with `newRequestContext` with all the default parameters.
+
+The constructor of `UserStore` class in previous QEverCloud versions used to accept `host` string which was the address of Evernote service. Now `newUserStore` accepts a user store url which is essentially `"https://" + host + "/edam/user"`
 
 ## New functionality
 
@@ -123,7 +127,7 @@ New exception class was introduced in QEverCloud 5: `NetworkException`. It encap
 
 ### New global function: initializeQEverCloud
 
-The migration from `QSharedPointer` to `std::shared_ptr` required to explicitly specify corresponding Qt metatypes. For this a special function was introduced, `initializeQEverCloud` which is declared in `Globals.h` header. It is meant to be called once before other QEverCloud functionality is used. There is no harm in calling it multiple times if it happens by occasion.
+The migration from `QSharedPointer` to `std::shared_ptr` required to explicitly specify some Qt metatypes using this smart pointer. For this a special function was introduced, `initializeQEverCloud` which is declared in `Globals.h` header. It is meant to be called once before other QEverCloud functionality is used. There is no harm in calling it multiple times if it happens by occasion.
 
 ### Logging facility
 
@@ -156,7 +160,7 @@ QEverCloud 5 added new classes in `Servers.h` header which can be used to implem
 
 In QEverCloud 5 a new header file was added, `Helpers.h` which contains various auxiliary stuff which doesn't quite fit in other places. In particular, this new header contains two convenience functions `toRange` which allow one to use modern C++'s range based loops for iteration over Qt's associative containers.
 
-Modern C++'s range based loops have certain requirements for container's iterators: dereferencing the iterator should return a pair with key and value. Iterators of Qt containers such as `QHash` and `QMap` don't comply with this requirement: their iterators are not dereferenced at all, they contain methods `key()` and `value()` which return key and value respectively. Helper functions `toRange` create lightweight wrappers around Qt's containers and their iterators providing range based for loop compliant wrapper iterators. No data copying from the container takes place so it is truly lightweight.
+Modern C++'s range based loops have certain requirements for container's iterators: one should be able to dereference the iterator and work with whatever value that yields. Iterators of Qt containers such as `QHash` and `QMap` don't comply with this requirement: their iterators are not dereferenced at all, they contain methods `key()` and `value()` which return key and value respectively. Helper functions `toRange` create lightweight wrappers around Qt's containers and their iterators providing range based for loop compliant wrapper iterators. No data copying from the container takes place so it is truly lightweight.
 
 There are two overloads of `toRange` function: one for iterating over the constant container and one for iterating over the non-const one.
 
