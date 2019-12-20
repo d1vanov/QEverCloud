@@ -93,8 +93,6 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QNetworkAccessManager * evernoteNetworkAccessManager();
-
 QNetworkRequest createEvernoteRequest(QString url);
 
 QByteArray askEvernote(QString url, QByteArray postData, const qint64 timeoutMsec);
