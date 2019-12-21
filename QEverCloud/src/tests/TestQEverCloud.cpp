@@ -12,6 +12,7 @@
 #include "generated/TestUserStore.h"
 
 #include <Globals.h>
+#include <Helpers.h>
 
 #include <QCoreApplication>
 #include <QtTest/QtTest>
