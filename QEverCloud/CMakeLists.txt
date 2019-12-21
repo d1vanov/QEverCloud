@@ -99,11 +99,11 @@ include_directories(${PROJECT_BINARY_DIR})
 set(LIBNAME "${QEVERCLOUD_LIBNAME_PREFIX}${QEVERCLOUD_QT_VERSION}qevercloud")
 
 if(BUILD_SHARED)
-  add_definitions("-DQEVERCLOUD_SHARED_LIBRARY")
   add_library(${LIBNAME} SHARED ${ALL_HEADERS_AND_SOURCES})
+  target_compile_definitions(${LIBNAME} PUBLIC "-DQEVERCLOUD_SHARED_LIBRARY")
 else()
-  add_definitions("-DQEVERCLOUD_STATIC_LIBRARY")
   add_library(${LIBNAME} STATIC ${ALL_HEADERS_AND_SOURCES})
+  target_compile_definitions(${LIBNAME} PUBLIC "-DQEVERCLOUD_STATIC_LIBRARY")
 endif()
 
 add_sanitizers(${LIBNAME})
