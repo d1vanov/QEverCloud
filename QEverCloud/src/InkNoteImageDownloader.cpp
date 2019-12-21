@@ -8,6 +8,7 @@
 
 #include "Http.h"
 
+#include <Globals.h>
 #include <Helpers.h>
 #include <InkNoteImageDownloader.h>
 #include <Log.h>
