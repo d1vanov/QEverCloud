@@ -9,6 +9,7 @@
 
 #include "Http.h"
 
+#include <Globals.h>
 #include <Helpers.h>
 #include <Log.h>
 #include <OAuth.h>
