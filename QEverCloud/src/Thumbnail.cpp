@@ -9,6 +9,7 @@
 
 #include "Http.h"
 
+#include <Globals.h>
 #include <Log.h>
 #include <RequestContext.h>
 #include <Thumbnail.h>
