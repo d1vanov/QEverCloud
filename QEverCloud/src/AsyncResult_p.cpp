@@ -9,7 +9,9 @@
 #include "AsyncResult_p.h"
 #include "Http.h"
 
+#include <Globals.h>
 #include <Log.h>
+
 #include <memory>
 
 namespace qevercloud {
