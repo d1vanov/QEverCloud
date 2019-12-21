@@ -157,12 +157,19 @@ if(Qt5Test_FOUND)
       src/tests/generated/RandomDataGenerators.cpp
       src/tests/generated/TestNoteStore.cpp
       src/tests/generated/TestUserStore.cpp)
-    add_executable(test_${PROJECT_NAME} ${TEST_HEADERS} ${TEST_SOURCES})
+  add_executable(test_${PROJECT_NAME} ${TEST_HEADERS} ${TEST_SOURCES})
   add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
-  set_target_properties(test_${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 14
-    CXX_EXTENSIONS OFF)
+  if(MSVC)
+    set_target_properties(test_${PROJECT_NAME} PROPERTIES
+      CXX_STANDARD 14
+      CXX_EXTENSIONS OFF
+      LINK_FLAGS "/INCREMENTAL:NO")
+  else()
+    set_target_properties(test_${PROJECT_NAME} PROPERTIES
+      CXX_STANDARD 14
+      CXX_EXTENSIONS OFF)
+  endif()
   target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES} Qt5::Test)
 else()
   message(STATUS "Haven't found Qt components required for building and running the unit tests")
