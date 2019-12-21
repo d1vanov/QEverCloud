@@ -11,8 +11,7 @@
 #include "generated/TestNoteStore.h"
 #include "generated/TestUserStore.h"
 
-#include <Globals.h>
-#include <Helpers.h>
+#include <QEverCloud.h>
 
 #include <QCoreApplication>
 #include <QtTest/QtTest>
