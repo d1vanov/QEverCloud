@@ -161,15 +161,12 @@ if(Qt5Test_FOUND)
   add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
   if(MSVC)
-    set_target_properties(test_${PROJECT_NAME} PROPERTIES
-      CXX_STANDARD 14
-      CXX_EXTENSIONS OFF
-      LINK_FLAGS "/INCREMENTAL:NO")
-  else()
-    set_target_properties(test_${PROJECT_NAME} PROPERTIES
-      CXX_STANDARD 14
-      CXX_EXTENSIONS OFF)
+    string(REPLACE "INCREMENTAL:YES" "INCREMENTAL:NO" replace_CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS})
+    set(CMAKE_EXE_LINKER_FLAGS "${replace_CMAKE_EXE_LINKER_FLAGS} /INCREMENTAL:NO")
   endif()
+  set_target_properties(test_${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 14
+    CXX_EXTENSIONS OFF)
   target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES} Qt5::Test)
 else()
   message(STATUS "Haven't found Qt components required for building and running the unit tests")
