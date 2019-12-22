@@ -734,24 +734,47 @@ QByteArray NoteStoreGetSyncStatePrepareParams(
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
+    qWarning() << "Before writer.writeMessageBegin\n";
     writer.writeMessageBegin(
         QStringLiteral("getSyncState"),
         ThriftMessageType::T_CALL,
         cseqid);
+    qWarning() << "After writer.writeMessageBegin\n";
 
+    qWarning() << "Before writer.writeStructBegin\n";
     writer.writeStructBegin(
         QStringLiteral("NoteStore_getSyncState_pargs"));
+    qWarning() << "After writer.writeStructBegin\n";
+
+    qWarning() << "Before writer.writeFieldBegin\n";
     writer.writeFieldBegin(
         QStringLiteral("authenticationToken"),
         ThriftFieldType::T_STRING,
         1);
+    qWarning() << "After writer.writeFieldBegin\n";
 
+    qWarning() << "Before writer.writeString\n";
     writer.writeString(authenticationToken);
-    writer.writeFieldEnd();
+    qWarning() << "After writer.writeString\n";
 
+    qWarning() << "Before writer.writeFieldEnd\n";
+    writer.writeFieldEnd();
+    qWarning() << "After writer.writeFieldEnd\n";
+
+    qWarning() << "Before writer.writeFieldStop\n";
     writer.writeFieldStop();
+    qWarning() << "After writer.writeFieldStop\n";
+
+    qWarning() << "Before writer.writeStructEnd\n";
     writer.writeStructEnd();
+    qWarning() << "After writer.writeStructEnd\n";
+
+    qWarning() << "Before writer.writeMessageEnd\n";
     writer.writeMessageEnd();
+    qWarning() << "After writer.writeMessageEnd\n";
+
+    auto buffer = writer.buffer();
+    qWarning() << "Buffer size in the end: " << buffer.size();
     return writer.buffer();
 }
 
