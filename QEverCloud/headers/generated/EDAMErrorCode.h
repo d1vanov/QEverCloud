@@ -133,7 +133,7 @@ enum class EDAMErrorCode
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(EDAMErrorCode)
+// Q_ENUM_NS(EDAMErrorCode)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -196,7 +196,7 @@ enum class EDAMInvalidContactReason
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(EDAMInvalidContactReason)
+// Q_ENUM_NS(EDAMInvalidContactReason)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -248,7 +248,7 @@ enum class ShareRelationshipPrivilegeLevel
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(ShareRelationshipPrivilegeLevel)
+// Q_ENUM_NS(ShareRelationshipPrivilegeLevel)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -286,7 +286,7 @@ enum class PrivilegeLevel
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(PrivilegeLevel)
+// Q_ENUM_NS(PrivilegeLevel)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -322,7 +322,7 @@ enum class ServiceLevel
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(ServiceLevel)
+// Q_ENUM_NS(ServiceLevel)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -355,7 +355,7 @@ enum class QueryFormat
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(QueryFormat)
+// Q_ENUM_NS(QueryFormat)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -391,7 +391,7 @@ enum class NoteSortOrder
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(NoteSortOrder)
+// Q_ENUM_NS(NoteSortOrder)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -444,7 +444,7 @@ enum class PremiumOrderStatus
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(PremiumOrderStatus)
+// Q_ENUM_NS(PremiumOrderStatus)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -512,7 +512,7 @@ enum class SharedNotebookPrivilegeLevel
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(SharedNotebookPrivilegeLevel)
+// Q_ENUM_NS(SharedNotebookPrivilegeLevel)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -556,7 +556,7 @@ enum class SharedNotePrivilegeLevel
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(SharedNotePrivilegeLevel)
+// Q_ENUM_NS(SharedNotePrivilegeLevel)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -595,7 +595,7 @@ enum class SponsoredGroupRole
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(SponsoredGroupRole)
+// Q_ENUM_NS(SponsoredGroupRole)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -631,7 +631,7 @@ enum class BusinessUserRole
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(BusinessUserRole)
+// Q_ENUM_NS(BusinessUserRole)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -673,7 +673,7 @@ enum class BusinessUserStatus
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(BusinessUserStatus)
+// Q_ENUM_NS(BusinessUserStatus)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -712,7 +712,7 @@ enum class SharedNotebookInstanceRestrictions
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(SharedNotebookInstanceRestrictions)
+// Q_ENUM_NS(SharedNotebookInstanceRestrictions)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -751,7 +751,7 @@ enum class ReminderEmailConfig
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(ReminderEmailConfig)
+// Q_ENUM_NS(ReminderEmailConfig)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -794,7 +794,7 @@ enum class BusinessInvitationStatus
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(BusinessInvitationStatus)
+// Q_ENUM_NS(BusinessInvitationStatus)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -830,7 +830,7 @@ enum class ContactType
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(ContactType)
+// Q_ENUM_NS(ContactType)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -863,7 +863,7 @@ enum class EntityType
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(EntityType)
+// Q_ENUM_NS(EntityType)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -907,7 +907,7 @@ enum class RecipientStatus
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(RecipientStatus)
+// Q_ENUM_NS(RecipientStatus)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -955,7 +955,7 @@ enum class CanMoveToContainerStatus
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(CanMoveToContainerStatus)
+// Q_ENUM_NS(CanMoveToContainerStatus)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -994,7 +994,7 @@ enum class RelatedContentType
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(RelatedContentType)
+// Q_ENUM_NS(RelatedContentType)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -1044,7 +1044,7 @@ enum class RelatedContentAccess
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(RelatedContentAccess)
+// Q_ENUM_NS(RelatedContentAccess)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
@@ -1077,7 +1077,7 @@ enum class UserIdentityType
 
 #if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-Q_ENUM_NS(UserIdentityType)
+// Q_ENUM_NS(UserIdentityType)
 #endif
 #endif // // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
