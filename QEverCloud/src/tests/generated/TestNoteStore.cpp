@@ -15,6 +15,7 @@
 #include "RandomDataGenerators.h"
 #include <generated/Servers.h>
 #include <generated/Services.h>
+#include <QDebug>
 #include <QTcpServer>
 #include <QtTest/QtTest>
 
@@ -6040,6 +6041,8 @@ public Q_SLOTS:
 
 void NoteStoreTester::shouldExecuteGetSyncState()
 {
+    qWarning() << "Entering NoteStoreTester::shouldExecuteGetSyncState\n";
+
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
@@ -6048,6 +6051,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
     NoteStoreGetSyncStateTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SyncState
         {
+            qWarning() << "Inside helper lambda\n";
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
             return response;
         });
@@ -6065,8 +6069,11 @@ void NoteStoreTester::shouldExecuteGetSyncState()
         &NoteStoreServer::onGetSyncStateRequestReady);
 
     QTcpServer tcpServer;
+    qWarning() << "Before TCP server starting\n";
     QVERIFY(tcpServer.listen(QHostAddress::LocalHost));
+    qWarning() << "After TCP server starting\n";
     quint16 port = tcpServer.serverPort();
+    qWarning() << "Assigned TCP server port: " << port << "\n";
 
     QTcpSocket * pSocket = nullptr;
     QObject::connect(
@@ -6074,7 +6081,9 @@ void NoteStoreTester::shouldExecuteGetSyncState()
         &QTcpServer::newConnection,
         &tcpServer,
         [&] {
+            qWarning() << "Before calling nextPendingConnection\n";
             pSocket = tcpServer.nextPendingConnection();
+            qWarning() << "After calling nextPendingConnection\n";
             Q_ASSERT(pSocket);
             QObject::connect(
                 pSocket,
@@ -6086,7 +6095,9 @@ void NoteStoreTester::shouldExecuteGetSyncState()
             }
 
             QByteArray requestData = readThriftRequestFromSocket(*pSocket);
+            qWarning() << "Calling server.onRequest\n";
             server.onRequest(requestData);
+            qWarning() << "After calling server.onRequest\n";
         });
 
     QObject::connect(
@@ -6095,6 +6106,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
         &server,
         [&] (QByteArray responseData)
         {
+            qWarning() << "Inside on request ready lambda\n";
             QByteArray buffer;
             buffer.append("HTTP/1.1 200 OK\r\n");
             buffer.append("Content-Length: ");
@@ -6106,15 +6118,20 @@ void NoteStoreTester::shouldExecuteGetSyncState()
             if (!writeBufferToSocket(buffer, *pSocket)) {
                 QFAIL("Failed to write response to socket");
             }
+            qWarning() << "Leaving on request ready lambda\n";
         });
 
+    qWarning() << "Before creating note store\n";
     auto noteStore = newNoteStore(
         QStringLiteral("http://127.0.0.1:") + QString::number(port),
         nullptr,
         nullptr,
         nullRetryPolicy());
+    qWarning() << "After creating note store\n";
+    qWarning() << "Before calling noteStore->getSyncState\n";
     SyncState res = noteStore->getSyncState(
         ctx);
+    qWarning() << "After calling noteStore->getSyncState\n";
     QVERIFY(res == response);
 }
 
