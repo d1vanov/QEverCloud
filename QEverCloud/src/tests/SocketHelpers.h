@@ -13,14 +13,6 @@
 
 #include <QTcpSocket>
 
-#ifdef QEVERCLOUD_SHARED_LIBRARY
-#undef QEVERCLOUD_SHARED_LIBRARY
-#endif
-
-#ifdef QEVERCLOUD_STATIC_LIBRARY
-#undef QEVERCLOUD_STATIC_LIBRARY
-#endif
-
 namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
