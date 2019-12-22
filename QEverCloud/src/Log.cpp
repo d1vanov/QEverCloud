@@ -122,6 +122,7 @@ public:
             << "\t[" << component << "] "
             << fileName << ":" << lineNumber << " "
             << message << "\n";
+        m_cerr.flush();
     }
 
     virtual void setLevel(const LogLevel level) override
