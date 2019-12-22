@@ -13,7 +13,14 @@
 
 #include <QDebug>
 #include <QMetaType>
+
+#ifndef __MINGW32__
 #include <QGlobalStatic>
+#else
+#include <QMutex>
+#include <QMutexLocker>
+#include <memory>
+#endif
 
 namespace qevercloud {
 
@@ -21,7 +28,11 @@ namespace {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// For unknown reason fetching the value declared as Q_GLOBAL_STATIC hangs with
+// code built by MinGW. Hence this workaround
+#ifndef __MINGW32__
 Q_GLOBAL_STATIC(QNetworkAccessManager, globalEvernoteNetworkAccessManager)
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -37,8 +48,17 @@ void registerMetatypes()
 
 QNetworkAccessManager * evernoteNetworkAccessManager()
 {
-    qWarning() << "Fetching evernoteNetworkAccessManager\n";
+#ifndef __MINGW32__
     return globalEvernoteNetworkAccessManager;
+#else
+    static std::shared_ptr<QNetworkAccessManager> pNetworkAccessManager;
+    static QMutex networkAccessManagerMutex;
+    QMutexLocker mutexLocker(&networkAccessManagerMutex);
+    if (!pNetworkAccessManager) {
+        pNetworkAccessManager.reset(new QNetworkAccessManager);
+    }
+    return pNetworkAccessManager.get();
+#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
