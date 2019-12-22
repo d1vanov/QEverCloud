@@ -12,6 +12,7 @@
 #include <Exceptions.h>
 #include <Helpers.h>
 #include <Globals.h>
+#include <Log.h>
 
 #include <QEventLoop>
 #include <QtNetwork>
@@ -44,6 +45,9 @@ void ReplyFetcher::start(
     QNetworkAccessManager * nam, QNetworkRequest request, qint64 timeoutMsec,
     QByteArray postData)
 {
+    QEC_TRACE("reply_fetcher", "Starting reply fetcher for url " << request.url()
+        << ", timeout = " << timeoutMsec);
+
     m_httpStatusCode = 0;
     m_errorType = QNetworkReply::NoError;
     m_errorText.clear();
@@ -72,8 +76,8 @@ void ReplyFetcher::start(
 
 void ReplyFetcher::onDownloadProgress(qint64 downloaded, qint64 total)
 {
-    Q_UNUSED(downloaded)
-    Q_UNUSED(total)
+    QEC_TRACE("reply_fetcher", "Download progress: downloaded " << downloaded
+        << " out of total " << total);
 
     m_lastNetworkTime = QDateTime::currentMSecsSinceEpoch();
 }
@@ -91,9 +95,12 @@ void ReplyFetcher::checkForTimeout()
 
 void ReplyFetcher::onFinished()
 {
+    QEC_TRACE("reply_fetcher", "Finished fetching reply");
+
     m_ticker->stop();
 
     if (m_errorType != QNetworkReply::NoError) {
+        QEC_WARNING("reply_fetcher", "Error is not none: " << (int)m_errorType);
         return;
     }
 
@@ -125,6 +132,9 @@ void ReplyFetcher::onSslErrors(QList<QSslError> errors)
 void ReplyFetcher::setError(
     QNetworkReply::NetworkError errorType, QString errorText)
 {
+    QEC_WARNING("reply_fetcher", "Fetching error: (" << (int)errorType << ") "
+        << errorText);
+
     m_ticker->stop();
     m_errorType = errorType;
     m_errorText = errorText;
@@ -159,6 +169,9 @@ QByteArray simpleDownload(
     QNetworkAccessManager* nam, QNetworkRequest request, const qint64 timeoutMsec,
     QByteArray postData, int * httpStatusCode)
 {
+    QEC_DEBUG("http", "simple download: url = " << request.url() << ", timeout = "
+        << timeoutMsec);
+
     ReplyFetcher * fetcher = new ReplyFetcher;
     QEventLoop loop;
     QObject::connect(fetcher, SIGNAL(replyFetched(QObject*)),
@@ -167,7 +180,10 @@ QByteArray simpleDownload(
     ReplyFetcherLauncher * fetcherLauncher =
         new ReplyFetcherLauncher(fetcher, nam, request, timeoutMsec, postData);
     QTimer::singleShot(0, fetcherLauncher, SLOT(start()));
+
+    QEC_TRACE("http", "simple download: starting event loop");
     loop.exec(QEventLoop::ExcludeUserInputEvents);
+    QEC_TRACE("http", "simple download: done executing event loop");
 
     fetcherLauncher->deleteLater();
 

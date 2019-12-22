@@ -39,6 +39,8 @@ int main(int argc, char *argv[])
 
     RUN_TESTS(DurableServiceTester)
     RUN_TESTS(OptionalTester)
+
+    setLogger(newStdErrLogger(LogLevel::Trace));
     RUN_TESTS(NoteStoreTester)
     RUN_TESTS(UserStoreTester)
 
