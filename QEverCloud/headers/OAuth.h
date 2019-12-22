@@ -96,7 +96,7 @@ public:
     QString oauthError() const;
 
     /** Holds data that is returned by Evernote on a successful authentication */
-    struct OAuthResult: public Printable
+    struct QEVERCLOUD_EXPORT OAuthResult: public Printable
     {
         QString noteStoreUrl; ///< note store url for the user; no need to
                               /// question UserStore::getNoteStoreUrl for it.
