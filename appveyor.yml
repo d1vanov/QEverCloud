@@ -69,7 +69,7 @@ before_build:
 
 build_script:
   - cd build
-  - if %build_tool%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.5/%qt%" -DDISABLE_GCC_OPTIMIZATIONS=ON
+  - if %build_tool%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.5/%qt%"
   - if not %build_tool%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.13/%cd%"
   - cmake --build . --target all
   - cmake --build . --target check

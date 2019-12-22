@@ -20,7 +20,6 @@ include(QEverCloudDoxygen)
 set(BUILD_DOCUMENTATION ON CACHE BOOL "Build documentation for QEverCloud")
 set(BUILD_QCH_DOCUMENTATION OFF CACHE BOOL "Build documentation for QEverCloud in qch format")
 set(BUILD_WITH_OAUTH_SUPPORT ON CACHE BOOL "Build QEverCloud with OAuth support")
-set(DISABLE_GCC_OPTIMIZATIONS OFF CACHE BOOL "Disable optimizations when building with gcc (to workaround some known issues)")
 
 if(BUILD_DOCUMENTATION)
   # set Doxygen documentation properties
