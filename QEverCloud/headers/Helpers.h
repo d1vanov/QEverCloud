@@ -33,6 +33,7 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 /**
  * It appears that Q_NAMESPACE declaration should be present in exactly one file
  * per namespace, otherwise moc generates multiple definitions of corresponding
@@ -41,6 +42,7 @@ namespace qevercloud {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
 Q_NAMESPACE
 #endif
+#endif // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
 ////////////////////////////////////////////////////////////////////////////////
 
