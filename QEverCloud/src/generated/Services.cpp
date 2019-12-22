@@ -887,12 +887,10 @@ SyncState NoteStore::getSyncState(
     QByteArray params = NoteStoreGetSyncStatePrepareParams(
         ctx->authenticationToken());
 
-    qWarning() << "Before calling askEvernote\n";
     QByteArray reply = askEvernote(
         m_url,
         params,
         ctx->requestTimeout());
-    qWarning() << "After calling askEvernote\n";
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());

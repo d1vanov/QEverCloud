@@ -11,7 +11,6 @@
 #include <AsyncResult.h>
 #include <RequestContext.h>
 
-#include <QDebug>
 #include <QMetaType>
 
 #ifndef __MINGW32__
