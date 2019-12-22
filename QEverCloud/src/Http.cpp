@@ -169,6 +169,9 @@ QByteArray simpleDownload(
     QNetworkAccessManager* nam, QNetworkRequest request, const qint64 timeoutMsec,
     QByteArray postData, int * httpStatusCode)
 {
+    qWarning() << "Simple download: url = " << request.url() << ", timeout = "
+        << timeoutMsec << "\n";
+
     QEC_DEBUG("http", "simple download: url = " << request.url() << ", timeout = "
         << timeoutMsec);
 
@@ -205,6 +208,8 @@ QByteArray simpleDownload(
 
 QNetworkRequest createEvernoteRequest(QString url)
 {
+    qWarning() << "Entering createEvernoteRequest: url = " << url << "\n";
+
     QNetworkRequest request;
     request.setUrl(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader,
@@ -217,11 +222,14 @@ QNetworkRequest createEvernoteRequest(QString url)
         .arg(libraryVersion() % 10000));
 
     request.setRawHeader("Accept", "application/x-thrift");
+    qWarning() << "Exiting createEvernoteRequest: url = " << url << "\n";
     return request;
 }
 
 QByteArray askEvernote(QString url, QByteArray postData, const qint64 timeoutMsec)
 {
+    qWarning() << "askEvernote: url = " << url << ", timeout = " << timeoutMsec << "\n";
+
     int httpStatusCode = 0;
     QByteArray reply = simpleDownload(
         evernoteNetworkAccessManager(),

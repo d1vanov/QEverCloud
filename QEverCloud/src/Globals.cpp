@@ -11,6 +11,7 @@
 #include <AsyncResult.h>
 #include <RequestContext.h>
 
+#include <QDebug>
 #include <QMetaType>
 #include <QGlobalStatic>
 
@@ -36,6 +37,7 @@ void registerMetatypes()
 
 QNetworkAccessManager * evernoteNetworkAccessManager()
 {
+    qWarning() << "Fetching evernoteNetworkAccessManager\n";
     return globalEvernoteNetworkAccessManager;
 }
 
