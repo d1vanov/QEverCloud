@@ -176,7 +176,7 @@ class QEVERCLOUD_EXPORT EvernoteOAuthDialog: public QDialog
 {
     Q_OBJECT
 public:
-    typedef EvernoteOAuthWebView::OAuthResult OAuthResult;
+    using OAuthResult = EvernoteOAuthWebView::OAuthResult;
 
     /** Constructs the dialog.
      *
