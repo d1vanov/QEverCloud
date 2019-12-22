@@ -32,7 +32,7 @@ enum class LogLevel
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-// Q_ENUM_NS(LogLevel)
+Q_ENUM_NS(LogLevel)
 #endif
 
 QEVERCLOUD_EXPORT QTextStream & operator<<(

@@ -40,7 +40,7 @@ namespace qevercloud {
  * meta object, so putting it here
  */
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-// Q_NAMESPACE
+Q_NAMESPACE
 #endif
 #endif // defined(QEVERCLOUD_SHARED_LIBRARY) || defined(QEVERCLOUD_STATIC_LIBRARY)
 
