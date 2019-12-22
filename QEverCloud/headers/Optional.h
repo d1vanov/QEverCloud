@@ -384,9 +384,6 @@ public:
         swap(first.m_value, second.m_value);
     }
 
-// Visual C++ does not to generate implicit move constructors so this stuff
-// doesn't work with even recent MSVC compilers
-#if defined(Q_COMPILER_RVALUE_REFS) && !defined(_MSC_VER)
     Optional(Optional && other)
     {
         swap(*this, other);
@@ -412,7 +409,6 @@ public:
         swap(m_value, other);
         return *this;
     }
-#endif
 
 private:
     bool m_isSet;
