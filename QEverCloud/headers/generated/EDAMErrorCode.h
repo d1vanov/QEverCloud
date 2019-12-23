@@ -132,7 +132,9 @@ enum class EDAMErrorCode
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(EDAMErrorCode)
+#endif
 #endif
 
 inline uint qHash(EDAMErrorCode value)
@@ -193,7 +195,9 @@ enum class EDAMInvalidContactReason
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(EDAMInvalidContactReason)
+#endif
 #endif
 
 inline uint qHash(EDAMInvalidContactReason value)
@@ -243,7 +247,9 @@ enum class ShareRelationshipPrivilegeLevel
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(ShareRelationshipPrivilegeLevel)
+#endif
 #endif
 
 inline uint qHash(ShareRelationshipPrivilegeLevel value)
@@ -279,7 +285,9 @@ enum class PrivilegeLevel
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(PrivilegeLevel)
+#endif
 #endif
 
 inline uint qHash(PrivilegeLevel value)
@@ -313,7 +321,9 @@ enum class ServiceLevel
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(ServiceLevel)
+#endif
 #endif
 
 inline uint qHash(ServiceLevel value)
@@ -344,7 +354,9 @@ enum class QueryFormat
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(QueryFormat)
+#endif
 #endif
 
 inline uint qHash(QueryFormat value)
@@ -378,7 +390,9 @@ enum class NoteSortOrder
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(NoteSortOrder)
+#endif
 #endif
 
 inline uint qHash(NoteSortOrder value)
@@ -429,7 +443,9 @@ enum class PremiumOrderStatus
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(PremiumOrderStatus)
+#endif
 #endif
 
 inline uint qHash(PremiumOrderStatus value)
@@ -495,7 +511,9 @@ enum class SharedNotebookPrivilegeLevel
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(SharedNotebookPrivilegeLevel)
+#endif
 #endif
 
 inline uint qHash(SharedNotebookPrivilegeLevel value)
@@ -537,7 +555,9 @@ enum class SharedNotePrivilegeLevel
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(SharedNotePrivilegeLevel)
+#endif
 #endif
 
 inline uint qHash(SharedNotePrivilegeLevel value)
@@ -574,7 +594,9 @@ enum class SponsoredGroupRole
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(SponsoredGroupRole)
+#endif
 #endif
 
 inline uint qHash(SponsoredGroupRole value)
@@ -608,7 +630,9 @@ enum class BusinessUserRole
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(BusinessUserRole)
+#endif
 #endif
 
 inline uint qHash(BusinessUserRole value)
@@ -648,7 +672,9 @@ enum class BusinessUserStatus
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(BusinessUserStatus)
+#endif
 #endif
 
 inline uint qHash(BusinessUserStatus value)
@@ -685,7 +711,9 @@ enum class SharedNotebookInstanceRestrictions
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(SharedNotebookInstanceRestrictions)
+#endif
 #endif
 
 inline uint qHash(SharedNotebookInstanceRestrictions value)
@@ -722,7 +750,9 @@ enum class ReminderEmailConfig
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(ReminderEmailConfig)
+#endif
 #endif
 
 inline uint qHash(ReminderEmailConfig value)
@@ -763,7 +793,9 @@ enum class BusinessInvitationStatus
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(BusinessInvitationStatus)
+#endif
 #endif
 
 inline uint qHash(BusinessInvitationStatus value)
@@ -797,7 +829,9 @@ enum class ContactType
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(ContactType)
+#endif
 #endif
 
 inline uint qHash(ContactType value)
@@ -828,7 +862,9 @@ enum class EntityType
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(EntityType)
+#endif
 #endif
 
 inline uint qHash(EntityType value)
@@ -870,7 +906,9 @@ enum class RecipientStatus
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(RecipientStatus)
+#endif
 #endif
 
 inline uint qHash(RecipientStatus value)
@@ -916,7 +954,9 @@ enum class CanMoveToContainerStatus
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(CanMoveToContainerStatus)
+#endif
 #endif
 
 inline uint qHash(CanMoveToContainerStatus value)
@@ -953,7 +993,9 @@ enum class RelatedContentType
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(RelatedContentType)
+#endif
 #endif
 
 inline uint qHash(RelatedContentType value)
@@ -1001,7 +1043,9 @@ enum class RelatedContentAccess
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(RelatedContentAccess)
+#endif
 #endif
 
 inline uint qHash(RelatedContentAccess value)
@@ -1032,7 +1076,9 @@ enum class UserIdentityType
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_ENUM_NS(UserIdentityType)
+#endif
 #endif
 
 inline uint qHash(UserIdentityType value)

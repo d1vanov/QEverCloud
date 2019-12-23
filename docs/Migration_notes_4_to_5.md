@@ -188,7 +188,10 @@ Since QEverCloud 5 structs corresponding to Evernote types have a new field of t
 
 ### Enumerations registered in Qt's meta object system with Q_ENUM_NS macro
 
-Enumerations such as error codes in `EDAMErrorCode.h` were marked with [Q_ENUM_NS](https://doc.qt.io/qt-5/qobject.html#Q_ENUM_NS) macro in case build is done with Qt >= 5.8. This macro adds some introspection capabilities through Qt's meta object system for these enumerations.
+Enumerations such as error codes in `EDAMErrorCode.h` were marked with [Q_ENUM_NS](https://doc.qt.io/qt-5/qobject.html#Q_ENUM_NS) macro if QEverCloud is built with Qt >= 5.8 and if the corresponding CMake option `BUILD_WITH_Q_NAMESPACE` is enabled (it is enabled by default). This macro adds some introspection capabilities for the bespoke enumerations.
+
+
+in case build is done with Qt >= 5.8. This macro adds some introspection capabilities through Qt's meta object system for these enumerations.
 
 ### Elements of Evernote types registered in Qt's meta object system with Q_PROPERTY and Q_GADGET macros
 
