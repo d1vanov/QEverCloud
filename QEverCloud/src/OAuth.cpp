@@ -18,7 +18,7 @@
 #include <QVBoxLayout>
 #include <QUuid>
 
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
 #include <QWebEngineView>
 #include <QWebEngineHistory>
 #else
@@ -73,7 +73,7 @@ void setNonceGenerator(quint64 (*nonceGenerator)())
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
 class EvernoteOAuthWebViewPrivate: public QWebEngineView
 #else
 class EvernoteOAuthWebViewPrivate: public QWebView
@@ -109,13 +109,13 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
 EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
     : QWebEngineView(parent)
 #else
     : QWebView(parent)
 #endif
 {
-#ifndef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if !QEVERCLOUD_USE_QT_WEB_ENGINE
     page()->setNetworkAccessManager(evernoteNetworkAccessManager());
 #endif
 }
@@ -177,7 +177,7 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
             QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                              this, &EvernoteOAuthWebViewPrivate::permanentFinished);
             QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
             replyFetcher->start(evernoteNetworkAccessManager(), url, m_timeoutMsec);
 #else
             replyFetcher->start(page()->networkAccessManager(), url, m_timeoutMsec);
@@ -285,7 +285,7 @@ void EvernoteOAuthWebView::authenticate(
     QObject::connect(replyFetcher, &ReplyFetcher::replyFetched,
                      d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
     QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
     replyFetcher->start(evernoteNetworkAccessManager(), url, timeoutMsec);
 #else
     replyFetcher->start(d->page()->networkAccessManager(), url, timeoutMsec);
@@ -387,7 +387,7 @@ EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey,
 
 EvernoteOAuthDialog::~EvernoteOAuthDialog()
 {
-#ifndef QEVERCLOUD_USE_QT_WEB_ENGINE
+#if !QEVERCLOUD_USE_QT_WEB_ENGINE
     QWebSettings::clearMemoryCaches();
 #endif
 

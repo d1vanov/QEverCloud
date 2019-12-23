@@ -29,6 +29,8 @@
 #include <QtGlobal>
 #include <QObject>
 
+#include "VersionInfo.h"
+
 namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +41,9 @@ namespace qevercloud {
  * meta object, so putting it here
  */
 #if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
 Q_NAMESPACE
+#endif
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
