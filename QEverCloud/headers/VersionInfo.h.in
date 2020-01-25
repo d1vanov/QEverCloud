@@ -24,10 +24,4 @@
  */
 @QEVERCLOUD_USES_QT_WEB_ENGINE@
 
-/**
- * This macro tells whether QEverCloud library was built with use of Q_NAMESPACE
- * and Q_ENUM_NS
- */
-@QEVERCLOUD_USES_Q_NAMESPACE@
-
 #endif // QEVERCLOUD_VERSION_INFO_H

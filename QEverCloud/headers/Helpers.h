@@ -35,19 +35,6 @@ namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/**
- * It appears that Q_NAMESPACE declaration should be present in exactly one file
- * per namespace, otherwise moc generates multiple definitions of corresponding
- * meta object, so putting it here
- */
-#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-#if QEVERCLOUD_USES_Q_NAMESPACE
-Q_NAMESPACE
-#endif
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
-
 #if QT_VERSION < QT_VERSION_CHECK(5, 7, 0)
 
 // this adds const to non-const objects (like std::as_const)
