@@ -82,8 +82,6 @@ Other available CMake configurations options:
 
 *BUILD_SHARED* - when *ON*, CMake configures the build for the shared library. By default this option is on.
 
-*BUILD_WITH_Q_NAMESPACE* - when *ON*, `Q_NAMESPACE` and `Q_ENUM_NS` macros are used to add introspection capabilities to enumerations within `qevercloud` namespace. Qt >= 5.8 is required to enable this option. By default this option is enabled.
-
 If *BUILD_SHARED* is *ON*, `make install` installs CMake module necessary for applications using CMake's `find_package` command to find the installation of QEverCloud.
 
 It is possible to build the library with enabled sanitizers using additional CMake options:

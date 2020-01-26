@@ -37,7 +37,7 @@ Most probably it shouldn't be a problem for your code as the recommendation has 
 
 ### Use of std::shared_ptr instead of QSharedPointer throughout the library
 
-In release 5 of QEverCloud all `QSharedPointers` were replaced with `std::shared_ptrs`. Smart pointers from the C++ standard library offer more convenience and flexibility than Qt's ones which were introduced back in times of C++98 when there was no choice to use the standard library's smart pointers as they didn't exist. 
+In release 5 of QEverCloud all `QSharedPointers` were replaced with `std::shared_ptrs`. Smart pointers from the C++ standard library offer more convenience and flexibility than Qt's ones which were introduced back in times of C++98 when there was no choice to use the standard library's smart pointers as they didn't exist.
 
 One place within the library where the replacement took place is `AsyncResult::finished` signal. `QSharedPointer<EverCloudExceptionData>` was replaced with typedef `EverCloudExceptionDataPtr` which actually is `std::shared_ptr<EverCloudExceptionData>`. Note that Qt metatype is registered for the typedef rather than the `std::shared_ptr` so in your code you should use the typedef as well to ensure Qt doesn't have any troubles queuing the pointer in signal-slot connections.
 
@@ -185,13 +185,6 @@ Since QEverCloud 5 structs corresponding to Evernote types have a new field of t
  * `id` string which by default is generated as a `QUuid` but can be substituted with any string value
  * `dirty`, `local` and `favorited` boolean flags
  * `dict` which is a collection of arbitrary data in the form of `QVariant`s indexed by strings
-
-### Enumerations registered in Qt's meta object system with Q_ENUM_NS macro
-
-Enumerations such as error codes in `EDAMErrorCode.h` were marked with [Q_ENUM_NS](https://doc.qt.io/qt-5/qobject.html#Q_ENUM_NS) macro if QEverCloud is built with Qt >= 5.8 and if the corresponding CMake option `BUILD_WITH_Q_NAMESPACE` is enabled (it is enabled by default). This macro adds some introspection capabilities for the bespoke enumerations.
-
-
-in case build is done with Qt >= 5.8. This macro adds some introspection capabilities through Qt's meta object system for these enumerations.
 
 ### Elements of Evernote types registered in Qt's meta object system with Q_PROPERTY and Q_GADGET macros
 

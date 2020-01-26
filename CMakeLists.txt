@@ -7,7 +7,7 @@ include(QEverCloudCMakePolicies)
 SET_POLICIES()
 
 project(QEverCloud
-  VERSION 5.0.0)
+  VERSION 5.1.0)
 
 set(PROJECT_VENDOR "Dmitry Ivanov")
 set(PROJECT_COPYRIGHT_YEAR "2015-2020")
@@ -20,7 +20,6 @@ include(QEverCloudDoxygen)
 set(BUILD_DOCUMENTATION ON CACHE BOOL "Build documentation for QEverCloud")
 set(BUILD_QCH_DOCUMENTATION OFF CACHE BOOL "Build documentation for QEverCloud in qch format")
 set(BUILD_WITH_OAUTH_SUPPORT ON CACHE BOOL "Build QEverCloud with OAuth support")
-set(BUILD_WITH_Q_NAMESPACE ON CACHE BOOL "Use Q_NAMESPACE and Q_ENUM_NS macros for introspection")
 
 if(BUILD_DOCUMENTATION)
   # set Doxygen documentation properties
