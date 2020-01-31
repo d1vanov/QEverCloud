@@ -21,6 +21,16 @@
 
 namespace qevercloud {
 
+////////////////////////////////////////////////////////////////////////////////
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
+#if QEVERCLOUD_USES_Q_NAMESPACE
+Q_NAMESPACE
+#endif
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Numeric codes indicating the type of error that occurred on the
  * service.

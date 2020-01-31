@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -30,12 +30,6 @@ enum class LogLevel
     Warn,
     Error
 };
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 8, 0)
-#if QEVERCLOUD_USES_Q_NAMESPACE
-Q_ENUM_NS(LogLevel)
-#endif
-#endif
 
 QEVERCLOUD_EXPORT QTextStream & operator<<(
     QTextStream & out, const LogLevel level);
