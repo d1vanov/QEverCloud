@@ -64,7 +64,7 @@ QNetworkAccessManager * evernoteNetworkAccessManager()
 
 int libraryVersion()
 {
-    return 5*10000 + 0*100 + 0;
+    return 5*10000 + 1*100 + 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

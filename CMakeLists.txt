@@ -7,7 +7,7 @@ include(QEverCloudCMakePolicies)
 SET_POLICIES()
 
 project(QEverCloud
-  VERSION 5.0.0)
+  VERSION 5.1.0)
 
 set(PROJECT_VENDOR "Dmitry Ivanov")
 set(PROJECT_COPYRIGHT_YEAR "2015-2020")
