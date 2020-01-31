@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1.0
+  * Restricted the scope of `Q_NAMESPACE` and `Q_ENUM_NS` usage to a single header
+  file containing the declarations of EDAM error codes to avoid moc failures with
+  recent Qt versions.
+
 ## 5.0.0
   * **A lot of new features were added in this release which unfortunately
   required to introduce several API breaks.**
@@ -33,7 +38,7 @@
   `EverCloudException`. By default QEverCloud catches such exceptions on its
   own and retries the request up to several times.
   * Some introspection capabilities were added to QEverCloud types: they now have
-  [Q_GADGET](https://doc.qt.io/qt-5/qobject.html#Q_GADGET) macro and each of 
+  [Q_GADGET](https://doc.qt.io/qt-5/qobject.html#Q_GADGET) macro and each of
   their attributes is registered as a [Q_PROPERTY](https://doc.qt.io/qt-5/qobject.html#Q_PROPERTY).
   * In order to support the above mentioned introspection of QEverCloud types
   `Optional` template class implementation was changed: `operator==` and
