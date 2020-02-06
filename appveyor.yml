@@ -54,7 +54,7 @@ init:
   - if not %build_tool%==mingw set DEPLOYMENT_TARGET=qevercloud-windows-qt513-%tool%.zip
   - if %build_suite%==msvc2017_64 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - if %build_suite%==msvc2017_32 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
-  - if not %build_tool%==mingw (set makefiles="NMake Makefiles") else (set makefiles="MinGW Makefiles")
+  - if not %build_tool%==mingw (set makefiles="Ninja") else (set makefiles="MinGW Makefiles")
   - if %build_tool%==mingw (set use_webkit=1) else (set use_webkit=0)
   - if not %build_tool%==mingw set PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin";%PATH%
 
@@ -75,7 +75,7 @@ build_script:
   - cd build
   - if %build_tool%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.5/%qt%"
   - if not %build_tool%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.13/%cd%"
-  - cmake --build . --target all
+  - cmake --build . --target all --parallel
   - cmake --build . --target check
   - cmake --build . --target install
   - if %build_tool%==mingw set PATH=%ORIGPATH%
