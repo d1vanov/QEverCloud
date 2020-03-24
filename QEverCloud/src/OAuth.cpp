@@ -116,7 +116,7 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #endif
 {
 #if !QEVERCLOUD_USE_QT_WEB_ENGINE
-    page()->setNetworkAccessManager(evernoteNetworkAccessManager());
+    page()->networkAccessManager()->setProxy(evernoteNetworkProxy());
 #endif
 }
 
