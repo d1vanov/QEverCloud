@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -13,9 +13,9 @@
 #include <Helpers.h>
 
 #include <QByteArray>
-#include <QNetworkRequest>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QSslError>
 #include <QString>
 #include <QtEndian>
@@ -42,21 +42,37 @@ public:
     void start(QNetworkAccessManager * nam, QUrl url, qint64 timeoutMsec);
 
     // if !postData.isNull() then POST will be issued instead of GET
-    void start(QNetworkAccessManager * nam, QNetworkRequest request,
-               qint64 timeoutMsec, QByteArray postData = QByteArray());
+    void start(
+        QNetworkAccessManager * nam, QNetworkRequest request,
+        qint64 timeoutMsec, QByteArray postData = QByteArray());
 
-    bool isError() const { return m_errorType != QNetworkReply::NoError; }
+    bool isError() const
+    {
+        return m_errorType != QNetworkReply::NoError;
+    }
 
-    QNetworkReply::NetworkError errorType() const { return m_errorType; }
+    QNetworkReply::NetworkError errorType() const
+    {
+        return m_errorType;
+    }
 
-    QString errorText() const { return m_errorText; }
+    QString errorText() const
+    {
+        return m_errorText;
+    }
 
-    QByteArray receivedData() const { return m_receivedData; }
+    QByteArray receivedData() const
+    {
+        return m_receivedData;
+    }
 
-    int httpStatusCode() const { return m_httpStatusCode; }
+    int httpStatusCode() const
+    {
+        return m_httpStatusCode;
+    }
 
 Q_SIGNALS:
-    void replyFetched(QObject * self); // sends itself
+    void replyFetched(ReplyFetcher * pSelf); // sends itself
 
 private Q_SLOTS:
     void onFinished();
@@ -71,22 +87,22 @@ private:
 private:
     struct QNetworkReplyDeleter
     {
-        void operator()(QNetworkReply * reply)
+        void operator()(QNetworkReply * pReply)
         {
-            reply->deleteLater();
+            pReply->deleteLater();
         }
     };
 
     using QNetworkReplyPtr = std::unique_ptr<QNetworkReply, QNetworkReplyDeleter>;
 
-    QNetworkReplyPtr    m_reply;
+    QNetworkReplyPtr    m_pReply;
 
     QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
     QString     m_errorText;
     QByteArray  m_receivedData;
     int         m_httpStatusCode = 0;
 
-    QTimer *    m_ticker;
+    QTimer *    m_pTicker = nullptr;
     qint64      m_lastNetworkTime = 0;
     qint64      m_timeoutMsec = 0;
 };
@@ -95,12 +111,12 @@ private:
 
 QNetworkRequest createEvernoteRequest(QString url);
 
-QByteArray askEvernote(QString url, QByteArray postData, const qint64 timeoutMsec);
+QByteArray askEvernote(
+    QString url, QByteArray postData, const qint64 timeoutMsec);
 
-QByteArray simpleDownload(QNetworkAccessManager * nam, QNetworkRequest request,
-                          const qint64 timeoutMsec,
-                          QByteArray postData = QByteArray(),
-                          int * httpStatusCode = Q_NULLPTR);
+QByteArray simpleDownload(
+    QNetworkRequest request, const qint64 timeoutMsec,
+    QByteArray postData = {}, int * pHttpStatusCode = nullptr);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -112,7 +128,7 @@ class ReplyFetcherLauncher: public QObject
     Q_OBJECT
 public:
     explicit ReplyFetcherLauncher(
-        ReplyFetcher * fetcher, QNetworkAccessManager * nam,
+        ReplyFetcher * pFetcher, QNetworkAccessManager * pNam,
         const QNetworkRequest & request, const qint64 timeoutMsec,
         const QByteArray & postData);
 
@@ -120,10 +136,10 @@ public Q_SLOTS:
     void start();
 
 private:
-    ReplyFetcher *          m_fetcher;
-    QNetworkAccessManager * m_nam;
+    ReplyFetcher *          m_pFetcher = nullptr;
+    QNetworkAccessManager * m_pNam = nullptr;
     QNetworkRequest         m_request;
-    qint64                  m_timeoutMsec;
+    qint64                  m_timeoutMsec = 0;
     QByteArray              m_postData;
 };
 

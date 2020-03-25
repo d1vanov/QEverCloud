@@ -178,10 +178,12 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
                              this, &EvernoteOAuthWebViewPrivate::permanentFinished);
             QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
-            replyFetcher->start(evernoteNetworkAccessManager(), url, m_timeoutMsec);
+            auto * pNam = new QNetworkAccessManager(replyFetcher);
 #else
-            replyFetcher->start(page()->networkAccessManager(), url, m_timeoutMsec);
+            auto * pNam = page()->networkAccessManager();
 #endif
+            pNam->setProxy(evernoteNetworkProxy());
+            replyFetcher->start(pNam, url, m_timeoutMsec);
         }
         else
         {
@@ -286,10 +288,12 @@ void EvernoteOAuthWebView::authenticate(
                      d, &EvernoteOAuthWebViewPrivate::temporaryFinished);
     QUrl url(d->m_oauthUrlBase + QStringLiteral("&oauth_callback=nnoauth"));
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
-    replyFetcher->start(evernoteNetworkAccessManager(), url, timeoutMsec);
+    auto * pNam = new QNetworkAccessManager(replyFetcher);
 #else
-    replyFetcher->start(d->page()->networkAccessManager(), url, timeoutMsec);
+    auto * pNam = d->page()->networkAccessManager();
 #endif
+    pNam->setProxy(evernoteNetworkProxy());
+    replyFetcher->start(pNam, url, timeoutMsec);
 }
 
 bool EvernoteOAuthWebView::isSucceeded() const

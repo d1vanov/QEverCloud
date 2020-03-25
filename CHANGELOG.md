@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.0
+  * Replaced evernoteNetworkAccessManager function with several functions which
+  allow to set up network proxy settings. The motivation was the necessity to
+  stop using global static instance of QNetworkAccessManager as it started to lead
+  to crashes with recent versions of Qt, at least on Windows.
+
 ## 5.1.0
   * Restricted the scope of `Q_NAMESPACE` and `Q_ENUM_NS` usage to a single header
   file containing the declarations of EDAM error codes to avoid moc failures with

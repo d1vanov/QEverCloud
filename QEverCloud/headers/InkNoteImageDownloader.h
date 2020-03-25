@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 Dmitry Ivanov
+ * Copyright (c) 2016-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -10,6 +10,7 @@
 
 #include "AsyncResult.h"
 #include "Export.h"
+
 #include "generated/Types.h"
 
 #include <QByteArray>
@@ -85,10 +86,11 @@ public:
 
     /**
      * @param authenticationToken
-     * For working private ink notes you must supply a valid authentication token.
-     * For public resources the value specified is not used.
+     * For working private ink notes you must supply a valid authentication
+     * token. For public resources the value specified is not used.
      */
-    InkNoteImageDownloader & setAuthenticationToken(QString authenticationToken);
+    InkNoteImageDownloader & setAuthenticationToken(
+        QString authenticationToken);
 
     /**
      * @param width
@@ -128,7 +130,8 @@ public:
      *
      */
     QByteArray download(
-        Guid guid, const bool isPublic = false, const qint64 timeoutMsec = 30000);
+        Guid guid, const bool isPublic = false,
+        const qint64 timeoutMsec = 30000);
 
 private:
     InkNoteImageDownloaderPrivate * const d_ptr;

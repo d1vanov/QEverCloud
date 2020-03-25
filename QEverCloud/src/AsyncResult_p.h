@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -12,6 +12,8 @@
 #include <AsyncResult.h>
 
 namespace qevercloud {
+
+QT_FORWARD_DECLARE_CLASS(ReplyFetcher)
 
 class AsyncResultPrivate: public QObject
 {
@@ -31,18 +33,17 @@ public:
         QVariant result, EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx, bool autoDelete, AsyncResult * q);
 
-    virtual ~AsyncResultPrivate();
+    virtual ~AsyncResultPrivate() override;
 
 Q_SIGNALS:
     void finished(
-        QVariant result,
-        EverCloudExceptionDataPtr error,
+        QVariant result, EverCloudExceptionDataPtr error,
         IRequestContextPtr ctx);
 
 public Q_SLOTS:
     void start();
 
-    void onReplyFetched(QObject * rp);
+    void onReplyFetched(ReplyFetcher * pReplyFetcher);
 
     void setValue(QVariant result, EverCloudExceptionDataPtr error);
 

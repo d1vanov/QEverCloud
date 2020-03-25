@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -11,7 +11,6 @@
 
 #include "Export.h"
 
-#include <QNetworkAccessManager>
 #include <QNetworkProxy>
 
 /**
@@ -32,9 +31,10 @@ namespace qevercloud {
  * proxy settings concurrently to avoid contention for static object.
  *
  * WARNING: when QEverCloud is built with QtWebEngine and some proxy settings
- * different from QNetworkProxy::applicationProxy are set; instead it would
- * use proxy settings from QNetworkProxy::applicationProxy. This limitation is
- * imposed by Qt: https://doc.qt.io/qt-5/qtwebengine-overview.html#proxy-support
+ * different from QNetworkProxy::applicationProxy are set, the OAuth call
+ * which loads the web page would not use them; instead it would use proxy
+ * settings from QNetworkProxy::applicationProxy. This limitation is imposed
+ * by Qt: https://doc.qt.io/qt-5/qtwebengine-overview.html#proxy-support
  */
 QEVERCLOUD_EXPORT QNetworkProxy evernoteNetworkProxy();
 
@@ -48,9 +48,10 @@ QEVERCLOUD_EXPORT QNetworkProxy evernoteNetworkProxy();
  * proxy settings concurrently to avoid contention for static object.
  *
  * WARNING: when QEverCloud is built with QtWebEngine and some proxy settings
- * different from QNetworkProxy::applicationProxy are set; instead it would
- * use proxy settings from QNetworkProxy::applicationProxy. This limitation is
- * imposed by Qt: https://doc.qt.io/qt-5/qtwebengine-overview.html#proxy-support
+ * different from QNetworkProxy::applicationProxy are set, the OAuth call
+ * which loads the web page would not use them; instead it would use proxy
+ * settings from QNetworkProxy::applicationProxy. This limitation is imposed
+ * by Qt: https://doc.qt.io/qt-5/qtwebengine-overview.html#proxy-support
  */
 QEVERCLOUD_EXPORT void setEvernoteNetworkProxy(QNetworkProxy proxy);
 

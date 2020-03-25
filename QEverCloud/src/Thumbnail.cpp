@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -38,8 +38,9 @@ Thumbnail::Thumbnail():
 }
 
 
-Thumbnail::Thumbnail(QString host, QString shardId, QString authenticationToken,
-                     int size, Thumbnail::ImageType imageType) :
+Thumbnail::Thumbnail(
+        QString host, QString shardId, QString authenticationToken,
+        int size, Thumbnail::ImageType imageType) :
     d_ptr(new ThumbnailPrivate)
 {
     d_ptr->m_host = host;
@@ -96,7 +97,6 @@ QByteArray Thumbnail::download(
     auto request = createPostRequest(guid, isPublic, isResourceGuid);
 
     QByteArray reply = simpleDownload(
-        evernoteNetworkAccessManager(),
         request.first,
         timeoutMsec,
         request.second,
@@ -130,24 +130,26 @@ AsyncResult * Thumbnail::downloadAsync(
         pair.second,
         ctx);
 
-    QObject::connect(res, &AsyncResult::finished,
-                     [=] (QVariant value,
-                          EverCloudExceptionDataPtr error,
-                          IRequestContextPtr ctx)
-                     {
-                         Q_UNUSED(value)
-                         Q_UNUSED(ctx)
+    QObject::connect(
+        res,
+        &AsyncResult::finished,
+        [=] (QVariant value,
+             EverCloudExceptionDataPtr error,
+             IRequestContextPtr ctx)
+        {
+            Q_UNUSED(value)
+            Q_UNUSED(ctx)
 
-                         if (!error) {
-                             QEC_DEBUG("thumbnail", "Finished async download "
-                                << "for guid " << guid);
-                             return;
-                         }
+            if (!error) {
+                QEC_DEBUG("thumbnail", "Finished async download "
+                   << "for guid " << guid);
+                return;
+            }
 
-                         QEC_WARNING("thumbnail", "Async download for guid "
-                            << guid << " finished with error: "
-                            << error->errorMessage);
-                     });
+            QEC_WARNING("thumbnail", "Async download for guid "
+               << guid << " finished with error: "
+               << error->errorMessage);
+        });
     return res;
 }
 
@@ -194,12 +196,13 @@ std::pair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
     QEC_TRACE("thumbnail", "Sending thumbnail download request: url = " << url);
 
     request.setUrl(QUrl(url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader,
-                      QStringLiteral("application/x-www-form-urlencoded"));
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        QStringLiteral("application/x-www-form-urlencoded"));
 
     if (!isPublic) {
-        postData =
-            QByteArray("auth=") + QUrl::toPercentEncoding(d->m_authenticationToken);
+        postData = QByteArray("auth=") +
+            QUrl::toPercentEncoding(d->m_authenticationToken);
     }
 
     return std::make_pair(request, postData);
@@ -236,7 +239,8 @@ void printImageType(T & strm, const Thumbnail::ImageType imageType)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QTextStream & operator<<(QTextStream & strm, const Thumbnail::ImageType imageType)
+QTextStream & operator<<(
+    QTextStream & strm, const Thumbnail::ImageType imageType)
 {
     printImageType(strm, imageType);
     return strm;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 Dmitry Ivanov
+ * Copyright (c) 2016-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -18,6 +18,7 @@
 #include <QPainter>
 #include <QSize>
 
+#include <memory>
 #include <utility>
 
 namespace qevercloud {
@@ -40,9 +41,9 @@ InkNoteImageDownloader::InkNoteImageDownloader() :
     d_ptr(new InkNoteImageDownloaderPrivate)
 {}
 
-InkNoteImageDownloader::InkNoteImageDownloader(QString host, QString shardId,
-                                               QString authenticationToken,
-                                               int width, int height) :
+InkNoteImageDownloader::InkNoteImageDownloader(
+        QString host, QString shardId, QString authenticationToken,
+        int width, int height) :
     d_ptr(new InkNoteImageDownloaderPrivate)
 {
     d_ptr->m_host = host;
@@ -112,10 +113,12 @@ QByteArray InkNoteImageDownloader::download(
         QEC_DEBUG("ink_note_image", "Sending download request to url: "
             << postRequest.first.url());
 
-        QByteArray reply = simpleDownload(evernoteNetworkAccessManager(),
-                                          postRequest.first, timeoutMsec,
-                                          postRequest.second,
-                                          &httpStatusCode);
+        QByteArray reply = simpleDownload(
+            postRequest.first,
+            timeoutMsec,
+            postRequest.second,
+            &httpStatusCode);
+
         if (httpStatusCode != 200) {
             QEC_WARNING("ink_note_image", "Failed to download slice "
                 << sliceCounter << " for guid " << guid
@@ -146,8 +149,12 @@ QByteArray InkNoteImageDownloader::download(
             inkNoteImage = inkNoteImage.convertToFormat(replyImagePart.format());
         }
 
-        QRect painterCurrentRect(0, painterPosition, replyImagePart.width(),
-                                 replyImagePart.height());
+        QRect painterCurrentRect(
+            0,
+            painterPosition,
+            replyImagePart.width(),
+            replyImagePart.height());
+
         painterPosition += replyImagePart.height();
 
         QPainter painter(&inkNoteImage);
@@ -178,12 +185,15 @@ InkNoteImageDownloaderPrivate::createPostRequest(
 {
     QNetworkRequest request;
     request.setUrl(QUrl(urlPart + QString::number(sliceNumber)));
-    request.setHeader(QNetworkRequest::ContentTypeHeader,
-                      QStringLiteral("application/x-www-form-urlencoded"));
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        QStringLiteral("application/x-www-form-urlencoded"));
 
-    QByteArray postData = ""; // not QByteArray()! or else ReplyFetcher will not work.
+    // not QByteArray()! or else ReplyFetcher will not work.
+    QByteArray postData = "";
     if (!isPublic) {
-        postData = QByteArray("auth=")+ QUrl::toPercentEncoding(m_authenticationToken);
+        postData = QByteArray("auth=") +
+            QUrl::toPercentEncoding(m_authenticationToken);
     }
 
     return std::make_pair(request, postData);
