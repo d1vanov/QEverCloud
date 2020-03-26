@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -8,18 +8,14 @@
  */
 
 #include <Globals.h>
+
 #include <AsyncResult.h>
 #include <RequestContext.h>
 
 #include <QMetaType>
-
-#ifndef __MINGW32__
-#include <QGlobalStatic>
-#else
-#include <QMutex>
-#include <QMutexLocker>
-#include <memory>
-#endif
+#include <QReadLocker>
+#include <QReadWriteLock>
+#include <QWriteLocker>
 
 namespace qevercloud {
 
@@ -27,11 +23,52 @@ namespace {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// For unknown reason fetching the value declared as Q_GLOBAL_STATIC hangs with
-// code built by MinGW. Hence this workaround
-#ifndef __MINGW32__
-Q_GLOBAL_STATIC(QNetworkAccessManager, globalEvernoteNetworkAccessManager)
-#endif
+class EvernoteProxySettingsHolder
+{
+private:
+    EvernoteProxySettingsHolder() = default;
+    Q_DISABLE_COPY(EvernoteProxySettingsHolder)
+
+public:
+    static EvernoteProxySettingsHolder & instance()
+    {
+        static EvernoteProxySettingsHolder holder;
+        return holder;
+    }
+
+    QNetworkProxy proxy()
+    {
+        QReadLocker locker(&m_lock);
+
+        if (m_pProxy) {
+            return *m_pProxy;
+        }
+
+        return QNetworkProxy::applicationProxy();
+    }
+
+    void setProxy(QNetworkProxy proxy)
+    {
+        QWriteLocker locker(&m_lock);
+
+        if (m_pProxy) {
+            *m_pProxy = std::move(proxy);
+        }
+        else {
+            m_pProxy = std::make_shared<QNetworkProxy>(std::move(proxy));
+        }
+    }
+
+    void resetProxy()
+    {
+        QWriteLocker locker(&m_lock);
+        m_pProxy.reset();
+    }
+
+private:
+    QReadWriteLock  m_lock;
+    std::shared_ptr<QNetworkProxy>  m_pProxy;
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -45,26 +82,26 @@ void registerMetatypes()
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QNetworkAccessManager * evernoteNetworkAccessManager()
+QNetworkProxy evernoteNetworkProxy()
 {
-#ifndef __MINGW32__
-    return globalEvernoteNetworkAccessManager;
-#else
-    static std::shared_ptr<QNetworkAccessManager> pNetworkAccessManager;
-    static QMutex networkAccessManagerMutex;
-    QMutexLocker mutexLocker(&networkAccessManagerMutex);
-    if (!pNetworkAccessManager) {
-        pNetworkAccessManager.reset(new QNetworkAccessManager);
-    }
-    return pNetworkAccessManager.get();
-#endif
+    return EvernoteProxySettingsHolder::instance().proxy();
+}
+
+void setEvernoteNetworkProxy(QNetworkProxy proxy)
+{
+    EvernoteProxySettingsHolder::instance().setProxy(std::move(proxy));
+}
+
+void resetEvernoteNetworkProxy()
+{
+    EvernoteProxySettingsHolder::instance().resetProxy();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 int libraryVersion()
 {
-    return 5*10000 + 1*100 + 0;
+    return 6*10000 + 0*100 + 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

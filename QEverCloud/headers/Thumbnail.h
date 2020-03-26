@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -11,6 +11,7 @@
 
 #include "AsyncResult.h"
 #include "Export.h"
+
 #include "generated/Types.h"
 
 #include <QByteArray>
@@ -90,8 +91,9 @@ public:
      * @param imageType
      * Thumbnail image type. See ImageType. By default PNG is used.
      */
-    Thumbnail(QString host, QString shardId, QString authenticationToken,
-              int size = 300, ImageType imageType = ImageType::PNG);
+    Thumbnail(
+        QString host, QString shardId, QString authenticationToken,
+        int size = 300, ImageType imageType = ImageType::PNG);
 
     virtual ~Thumbnail();
 

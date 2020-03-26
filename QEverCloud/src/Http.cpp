@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -25,23 +25,25 @@ namespace qevercloud {
 
 ReplyFetcher::ReplyFetcher(QObject * parent) :
     QObject(parent),
-    m_ticker(new QTimer(this))
+    m_pTicker(new QTimer(this))
 {
     QObject::connect(
-        m_ticker, &QTimer::timeout,
-        this, &ReplyFetcher::checkForTimeout);
+        m_pTicker,
+        &QTimer::timeout,
+        this,
+        &ReplyFetcher::checkForTimeout);
 }
 
 void ReplyFetcher::start(
-    QNetworkAccessManager * nam, QUrl url, qint64 timeoutMsec)
+    QNetworkAccessManager * pNam, QUrl url, qint64 timeoutMsec)
 {
     QNetworkRequest request;
     request.setUrl(url);
-    start(nam, request, timeoutMsec);
+    start(pNam, request, timeoutMsec);
 }
 
 void ReplyFetcher::start(
-    QNetworkAccessManager * nam, QNetworkRequest request, qint64 timeoutMsec,
+    QNetworkAccessManager * pNam, QNetworkRequest request, qint64 timeoutMsec,
     QByteArray postData)
 {
     m_httpStatusCode = 0;
@@ -51,23 +53,46 @@ void ReplyFetcher::start(
 
     m_lastNetworkTime = QDateTime::currentMSecsSinceEpoch();
     m_timeoutMsec = timeoutMsec;
-    m_ticker->start(1000);
+    m_pTicker->start(1000);
 
     if (postData.isNull()) {
-        m_reply = QNetworkReplyPtr(nam->get(request));
+        m_pReply = QNetworkReplyPtr(pNam->get(request));
     }
     else {
-        m_reply = QNetworkReplyPtr(nam->post(request, postData));
+        m_pReply = QNetworkReplyPtr(pNam->post(request, postData));
     }
 
-    QObject::connect(m_reply.get(), &QNetworkReply::finished,
-                     this, &ReplyFetcher::onFinished);
-    QObject::connect(m_reply.get(), SIGNAL(error(QNetworkReply::NetworkError)),
-                     this, SLOT(onError(QNetworkReply::NetworkError)));
-    QObject::connect(m_reply.get(), &QNetworkReply::sslErrors,
-                     this, &ReplyFetcher::onSslErrors);
-    QObject::connect(m_reply.get(), &QNetworkReply::downloadProgress,
-                     this, &ReplyFetcher::onDownloadProgress);
+    QObject::connect(
+        m_pReply.get(),
+        &QNetworkReply::finished,
+        this,
+        &ReplyFetcher::onFinished);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+    QObject::connect(
+        m_pReply.get(),
+        qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error),
+        this,
+        &ReplyFetcher::onError);
+#else
+    QObject::connect(
+        m_pReply.get(),
+        SIGNAL(error(QNetworkReply::NetworkError)),
+        this,
+        SLOT(onError(QNetworkReply::NetworkError)));
+#endif
+
+    QObject::connect(
+        m_pReply.get(),
+        &QNetworkReply::sslErrors,
+        this,
+        &ReplyFetcher::onSslErrors);
+
+    QObject::connect(
+        m_pReply.get(),
+        &QNetworkReply::downloadProgress,
+        this,
+        &ReplyFetcher::onDownloadProgress);
 }
 
 void ReplyFetcher::onDownloadProgress(qint64 downloaded, qint64 total)
@@ -85,29 +110,29 @@ void ReplyFetcher::checkForTimeout()
     }
 
     if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > m_timeoutMsec) {
-        setError(QNetworkReply::TimeoutError, QStringLiteral("Request timeout."));
+        setError(QNetworkReply::TimeoutError, QStringLiteral("Request timeout"));
     }
 }
 
 void ReplyFetcher::onFinished()
 {
-    m_ticker->stop();
+    m_pTicker->stop();
 
     if (m_errorType != QNetworkReply::NoError) {
         return;
     }
 
-    m_receivedData = m_reply->readAll();
-    m_httpStatusCode = m_reply->attribute(
+    m_receivedData = m_pReply->readAll();
+    m_httpStatusCode = m_pReply->attribute(
         QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
-    QObject::disconnect(m_reply.get());
+    QObject::disconnect(m_pReply.get());
     emit replyFetched(this);
 }
 
 void ReplyFetcher::onError(QNetworkReply::NetworkError error)
 {
-    setError(error, m_reply->errorString());
+    setError(error, m_pReply->errorString());
 }
 
 void ReplyFetcher::onSslErrors(QList<QSslError> errors)
@@ -125,10 +150,10 @@ void ReplyFetcher::onSslErrors(QList<QSslError> errors)
 void ReplyFetcher::setError(
     QNetworkReply::NetworkError errorType, QString errorText)
 {
-    m_ticker->stop();
+    m_pTicker->stop();
     m_errorType = errorType;
     m_errorText = errorText;
-    QObject::disconnect(m_reply.get());
+    QObject::disconnect(m_pReply.get());
     emit replyFetched(this);
 }
 
@@ -141,8 +166,8 @@ ReplyFetcherLauncher::ReplyFetcherLauncher(
         const qint64 timeoutMsec,
         const QByteArray & postData) :
     QObject(nam),
-    m_fetcher(fetcher),
-    m_nam(nam),
+    m_pFetcher(fetcher),
+    m_pNam(nam),
     m_request(request),
     m_timeoutMsec(timeoutMsec),
     m_postData(postData)
@@ -150,40 +175,51 @@ ReplyFetcherLauncher::ReplyFetcherLauncher(
 
 void ReplyFetcherLauncher::start()
 {
-    m_fetcher->start(m_nam, m_request, m_timeoutMsec, m_postData);
+    m_pFetcher->start(m_pNam, m_request, m_timeoutMsec, m_postData);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
 QByteArray simpleDownload(
-    QNetworkAccessManager* nam, QNetworkRequest request, const qint64 timeoutMsec,
-    QByteArray postData, int * httpStatusCode)
+    QNetworkRequest request, const qint64 timeoutMsec,
+    QByteArray postData, int * pHttpStatusCode)
 {
-    ReplyFetcher * fetcher = new ReplyFetcher;
-    QEventLoop loop;
-    QObject::connect(fetcher, SIGNAL(replyFetched(QObject*)),
-                     &loop, SLOT(quit()));
+    auto * pFetcher = new ReplyFetcher;
+    auto * pNam = new QNetworkAccessManager(pFetcher);
+    pNam->setProxy(evernoteNetworkProxy());
 
-    ReplyFetcherLauncher * fetcherLauncher =
-        new ReplyFetcherLauncher(fetcher, nam, request, timeoutMsec, postData);
+    QEventLoop loop;
+    QObject::connect(
+        pFetcher,
+        SIGNAL(replyFetched(ReplyFetcher*)),
+        &loop,
+        SLOT(quit()));
+
+    auto * fetcherLauncher = new ReplyFetcherLauncher(
+        pFetcher,
+        pNam,
+        request,
+        timeoutMsec,
+        postData);
+
     QTimer::singleShot(0, fetcherLauncher, SLOT(start()));
     loop.exec(QEventLoop::ExcludeUserInputEvents);
 
     fetcherLauncher->deleteLater();
 
-    if (httpStatusCode) {
-        *httpStatusCode = fetcher->httpStatusCode();
+    if (pHttpStatusCode) {
+        *pHttpStatusCode = pFetcher->httpStatusCode();
     }
 
-    if (fetcher->isError()) {
-        auto errorType = fetcher->errorType();
-        QString errorText = fetcher->errorText();
-        fetcher->deleteLater();
+    if (pFetcher->isError()) {
+        auto errorType = pFetcher->errorType();
+        QString errorText = pFetcher->errorText();
+        pFetcher->deleteLater();
         throw NetworkException(errorType, errorText);
     }
 
-    QByteArray receivedData = fetcher->receivedData();
-    fetcher->deleteLater();
+    QByteArray receivedData = pFetcher->receivedData();
+    pFetcher->deleteLater();
     return receivedData;
 }
 
@@ -191,8 +227,9 @@ QNetworkRequest createEvernoteRequest(QString url)
 {
     QNetworkRequest request;
     request.setUrl(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,
-                      QStringLiteral("application/x-thrift"));
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        QStringLiteral("application/x-thrift"));
 
     request.setHeader(
         QNetworkRequest::UserAgentHeader,
@@ -204,11 +241,11 @@ QNetworkRequest createEvernoteRequest(QString url)
     return request;
 }
 
-QByteArray askEvernote(QString url, QByteArray postData, const qint64 timeoutMsec)
+QByteArray askEvernote(
+    QString url, QByteArray postData, const qint64 timeoutMsec)
 {
     int httpStatusCode = 0;
     QByteArray reply = simpleDownload(
-        evernoteNetworkAccessManager(),
         createEvernoteRequest(url),
         timeoutMsec,
         postData,

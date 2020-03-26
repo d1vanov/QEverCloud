@@ -9,15 +9,11 @@
 #ifndef QEVERCLOUD_OAUTH_H
 #define QEVERCLOUD_OAUTH_H
 
-// Workarounding https://bugreports.qt.io/browse/QTBUG-28885
-#if defined(_MSC_VER) && (_MSC_VER <= 1600)
-#define QT_NO_UNICODE_LITERAL
-#endif
-
 #include "Export.h"
 #include "Helpers.h"
-#include "generated/Types.h"
 #include "Printable.h"
+
+#include "generated/Types.h"
 
 #include <QDialog>
 #include <QString>
@@ -191,10 +187,12 @@ public:
      * @param consumerSecret
      * along with this
     */
-    EvernoteOAuthDialog(QString consumerKey, QString consumerSecret,
-                        QString host = QStringLiteral("www.evernote.com"),
-                        QWidget * parent = Q_NULLPTR);
-    ~EvernoteOAuthDialog();
+    EvernoteOAuthDialog(
+        QString consumerKey, QString consumerSecret,
+        QString host = QStringLiteral("www.evernote.com"),
+        QWidget * parent = Q_NULLPTR);
+
+    virtual ~EvernoteOAuthDialog() override;
 
     /**
      * The dialog adjusts its initial size automatically based on the contained
