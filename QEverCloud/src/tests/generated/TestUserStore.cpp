@@ -1319,7 +1319,6 @@ void UserStoreTester::shouldExecuteCheckVersion()
         edamVersionMinor,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
@@ -1424,7 +1423,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteCheckVersionAsync()
@@ -1534,7 +1532,6 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
@@ -1657,7 +1654,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1743,7 +1739,6 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
         locale,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
@@ -1840,7 +1835,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
@@ -1942,7 +1936,6 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
@@ -2057,7 +2050,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2167,7 +2159,6 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
         supportsTwoFactor,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
@@ -2288,7 +2279,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession()
@@ -2410,7 +2400,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
@@ -2531,7 +2520,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
@@ -2657,7 +2645,6 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsync()
@@ -2796,7 +2783,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionAsync()
@@ -2936,7 +2922,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync()
@@ -3075,7 +3060,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3171,7 +3155,6 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
         deviceDescription,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentication()
@@ -3278,7 +3261,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthentication()
@@ -3386,7 +3368,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthentication()
@@ -3493,7 +3474,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
@@ -3605,7 +3585,6 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -3730,7 +3709,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -3856,7 +3834,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -3981,7 +3958,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4062,7 +4038,6 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
             nullRetryPolicy()));
     userStore->revokeLongSession(
         ctx);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
@@ -4156,7 +4131,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
@@ -4251,7 +4225,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
@@ -4345,7 +4318,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
@@ -4442,7 +4414,6 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
@@ -4555,7 +4526,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
@@ -4669,7 +4639,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
@@ -4782,7 +4751,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -4866,7 +4834,6 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
     AuthenticationResult res = userStore->authenticateToBusiness(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
@@ -4961,7 +4928,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
@@ -5057,7 +5023,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
@@ -5152,7 +5117,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
@@ -5252,7 +5216,6 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsync()
@@ -5365,7 +5328,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAsync()
@@ -5479,7 +5441,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync()
@@ -5592,7 +5553,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -5676,7 +5636,6 @@ void UserStoreTester::shouldExecuteGetUser()
     User res = userStore->getUser(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
@@ -5771,7 +5730,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
@@ -5867,7 +5825,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
@@ -5962,7 +5919,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteGetUserAsync()
@@ -6062,7 +6018,6 @@ void UserStoreTester::shouldExecuteGetUserAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
@@ -6175,7 +6130,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
@@ -6289,7 +6243,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
@@ -6402,7 +6355,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -6488,7 +6440,6 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
         username,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
@@ -6585,7 +6536,6 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
@@ -6683,7 +6633,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
@@ -6780,7 +6729,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
@@ -6877,7 +6825,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
@@ -6979,7 +6926,6 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync()
@@ -7094,7 +7040,6 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
@@ -7210,7 +7155,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
@@ -7325,7 +7269,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
@@ -7440,7 +7383,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7524,7 +7466,6 @@ void UserStoreTester::shouldExecuteGetUserUrls()
     UserUrls res = userStore->getUserUrls(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
@@ -7619,7 +7560,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
@@ -7715,7 +7655,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
@@ -7810,7 +7749,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteGetUserUrlsAsync()
@@ -7910,7 +7848,6 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
@@ -8023,7 +7960,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
@@ -8137,7 +8073,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
@@ -8250,7 +8185,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8335,7 +8269,6 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
     userStore->inviteToBusiness(
         emailAddress,
         ctx);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
@@ -8433,7 +8366,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
@@ -8532,7 +8464,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
@@ -8630,7 +8561,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteInviteToBusinessAsync()
@@ -8731,7 +8661,6 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
@@ -8848,7 +8777,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
@@ -8966,7 +8894,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
@@ -9083,7 +9010,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -9168,7 +9094,6 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
     userStore->removeFromBusiness(
         emailAddress,
         ctx);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
@@ -9266,7 +9191,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
@@ -9365,7 +9289,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
@@ -9463,7 +9386,6 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
@@ -9561,7 +9483,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
@@ -9662,7 +9583,6 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
@@ -9779,7 +9699,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync()
@@ -9897,7 +9816,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsync()
@@ -10014,7 +9932,6 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
@@ -10131,7 +10048,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10220,7 +10136,6 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
         oldEmailAddress,
         newEmailAddress,
         ctx);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifier()
@@ -10322,7 +10237,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdentifier()
@@ -10425,7 +10339,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIdentifier()
@@ -10527,7 +10440,6 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier()
@@ -10629,7 +10541,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
@@ -10734,7 +10645,6 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifierAsync()
@@ -10855,7 +10765,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdentifierAsync()
@@ -10977,7 +10886,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIdentifierAsync()
@@ -11098,7 +11006,6 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifierAsync()
@@ -11219,7 +11126,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11306,7 +11212,6 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
     QList<UserProfile> res = userStore->listBusinessUsers(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
@@ -11401,7 +11306,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
@@ -11497,7 +11401,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
@@ -11592,7 +11495,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteListBusinessUsersAsync()
@@ -11695,7 +11597,6 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
@@ -11808,7 +11709,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
@@ -11922,7 +11822,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
@@ -12035,7 +11934,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12126,7 +12024,6 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
         includeRequestedInvitations,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
@@ -12225,7 +12122,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations()
@@ -12325,7 +12221,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
@@ -12424,7 +12319,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
@@ -12531,7 +12425,6 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsync()
@@ -12648,7 +12541,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsAsync()
@@ -12766,7 +12658,6 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync()
@@ -12883,7 +12774,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12969,7 +12859,6 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
         serviceLevel,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
@@ -13066,7 +12955,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
@@ -13163,7 +13051,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
@@ -13265,7 +13152,6 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
@@ -13380,7 +13266,6 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
@@ -13495,7 +13380,6 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 } // namespace qevercloud

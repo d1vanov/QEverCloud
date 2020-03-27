@@ -6117,7 +6117,6 @@ void NoteStoreTester::shouldExecuteGetSyncState()
     SyncState res = noteStore->getSyncState(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
@@ -6212,7 +6211,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
@@ -6308,7 +6306,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
@@ -6403,7 +6400,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetSyncStateAsync()
@@ -6503,7 +6499,6 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
@@ -6616,7 +6611,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
@@ -6730,7 +6724,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
@@ -6843,7 +6836,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -6939,7 +6931,6 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
         filter,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
@@ -7046,7 +7037,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
@@ -7154,7 +7144,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
@@ -7261,7 +7250,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
@@ -7373,7 +7361,6 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync()
@@ -7498,7 +7485,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsync()
@@ -7624,7 +7610,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
@@ -7749,7 +7734,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -7837,7 +7821,6 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
         linkedNotebook,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState()
@@ -7936,7 +7919,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncState()
@@ -8036,7 +8018,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncState()
@@ -8135,7 +8116,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
@@ -8234,7 +8214,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
@@ -8338,7 +8317,6 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncStateAsync()
@@ -8455,7 +8433,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncStateAsync()
@@ -8573,7 +8550,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncStateAsync()
@@ -8690,7 +8666,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAsync()
@@ -8807,7 +8782,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8907,7 +8881,6 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
         fullSyncOnly,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk()
@@ -9018,7 +8991,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChunk()
@@ -9130,7 +9102,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncChunk()
@@ -9241,7 +9212,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
@@ -9352,7 +9322,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
@@ -9468,7 +9437,6 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -9597,7 +9565,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -9727,7 +9694,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -9856,7 +9822,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -9985,7 +9950,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10072,7 +10036,6 @@ void NoteStoreTester::shouldExecuteListNotebooks()
     QList<Notebook> res = noteStore->listNotebooks(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
@@ -10167,7 +10130,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
@@ -10263,7 +10225,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
@@ -10358,7 +10319,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListNotebooksAsync()
@@ -10461,7 +10421,6 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
@@ -10574,7 +10533,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
@@ -10688,7 +10646,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
@@ -10801,7 +10758,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10888,7 +10844,6 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
     QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooks()
@@ -10983,7 +10938,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNotebooks()
@@ -11079,7 +11033,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebooks()
@@ -11174,7 +11127,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
@@ -11277,7 +11229,6 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooksAsync()
@@ -11390,7 +11341,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNotebooksAsync()
@@ -11504,7 +11454,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebooksAsync()
@@ -11617,7 +11566,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11705,7 +11653,6 @@ void NoteStoreTester::shouldExecuteGetNotebook()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
@@ -11804,7 +11751,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
@@ -11904,7 +11850,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
@@ -12003,7 +11948,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
@@ -12102,7 +12046,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNotebookAsync()
@@ -12206,7 +12149,6 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
@@ -12323,7 +12265,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
@@ -12441,7 +12382,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
@@ -12558,7 +12498,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
@@ -12675,7 +12614,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12759,7 +12697,6 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
     Notebook res = noteStore->getDefaultNotebook(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
@@ -12854,7 +12791,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
@@ -12950,7 +12886,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
@@ -13045,7 +12980,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
@@ -13145,7 +13079,6 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
@@ -13258,7 +13191,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync()
@@ -13372,7 +13304,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
@@ -13485,7 +13416,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -13573,7 +13503,6 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
         notebook,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
@@ -13672,7 +13601,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
@@ -13772,7 +13700,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
@@ -13871,7 +13798,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
@@ -13970,7 +13896,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCreateNotebookAsync()
@@ -14074,7 +13999,6 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
@@ -14191,7 +14115,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
@@ -14309,7 +14232,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
@@ -14426,7 +14348,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
@@ -14543,7 +14464,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14631,7 +14551,6 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
         notebook,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
@@ -14730,7 +14649,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
@@ -14830,7 +14748,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
@@ -14929,7 +14846,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
@@ -15028,7 +14944,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
@@ -15132,7 +15047,6 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
@@ -15249,7 +15163,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
@@ -15367,7 +15280,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
@@ -15484,7 +15396,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
@@ -15601,7 +15512,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15689,7 +15599,6 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
@@ -15788,7 +15697,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
@@ -15888,7 +15796,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
@@ -15987,7 +15894,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
@@ -16086,7 +15992,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
@@ -16190,7 +16095,6 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
@@ -16307,7 +16211,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
@@ -16425,7 +16328,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
@@ -16542,7 +16444,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
@@ -16659,7 +16560,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -16746,7 +16646,6 @@ void NoteStoreTester::shouldExecuteListTags()
     QList<Tag> res = noteStore->listTags(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
@@ -16841,7 +16740,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
@@ -16937,7 +16835,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
@@ -17032,7 +16929,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListTagsAsync()
@@ -17135,7 +17031,6 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
@@ -17248,7 +17143,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
@@ -17362,7 +17256,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
@@ -17475,7 +17368,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17566,7 +17458,6 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
         notebookGuid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
@@ -17665,7 +17556,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
@@ -17765,7 +17655,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
@@ -17864,7 +17753,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
@@ -17963,7 +17851,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
@@ -18070,7 +17957,6 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
@@ -18187,7 +18073,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync()
@@ -18305,7 +18190,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsync()
@@ -18422,7 +18306,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
@@ -18539,7 +18422,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -18627,7 +18509,6 @@ void NoteStoreTester::shouldExecuteGetTag()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
@@ -18726,7 +18607,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
@@ -18826,7 +18706,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
@@ -18925,7 +18804,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
@@ -19024,7 +18902,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetTagAsync()
@@ -19128,7 +19005,6 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
@@ -19245,7 +19121,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
@@ -19363,7 +19238,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
@@ -19480,7 +19354,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
@@ -19597,7 +19470,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19685,7 +19557,6 @@ void NoteStoreTester::shouldExecuteCreateTag()
         tag,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
@@ -19784,7 +19655,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
@@ -19884,7 +19754,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
@@ -19983,7 +19852,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
@@ -20082,7 +19950,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCreateTagAsync()
@@ -20186,7 +20053,6 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
@@ -20303,7 +20169,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
@@ -20421,7 +20286,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
@@ -20538,7 +20402,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
@@ -20655,7 +20518,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -20743,7 +20605,6 @@ void NoteStoreTester::shouldExecuteUpdateTag()
         tag,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
@@ -20842,7 +20703,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
@@ -20942,7 +20802,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
@@ -21041,7 +20900,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
@@ -21140,7 +20998,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateTagAsync()
@@ -21244,7 +21101,6 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
@@ -21361,7 +21217,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
@@ -21479,7 +21334,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
@@ -21596,7 +21450,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
@@ -21713,7 +21566,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21798,7 +21650,6 @@ void NoteStoreTester::shouldExecuteUntagAll()
     noteStore->untagAll(
         guid,
         ctx);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
@@ -21896,7 +21747,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
@@ -21995,7 +21845,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
@@ -22093,7 +21942,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
@@ -22191,7 +22039,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUntagAllAsync()
@@ -22292,7 +22139,6 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
@@ -22409,7 +22255,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
@@ -22527,7 +22372,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
@@ -22644,7 +22488,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
@@ -22761,7 +22604,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -22849,7 +22691,6 @@ void NoteStoreTester::shouldExecuteExpungeTag()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
@@ -22948,7 +22789,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
@@ -23048,7 +22888,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
@@ -23147,7 +22986,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
@@ -23246,7 +23084,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteExpungeTagAsync()
@@ -23350,7 +23187,6 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
@@ -23467,7 +23303,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
@@ -23585,7 +23420,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
@@ -23702,7 +23536,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
@@ -23819,7 +23652,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23906,7 +23738,6 @@ void NoteStoreTester::shouldExecuteListSearches()
     QList<SavedSearch> res = noteStore->listSearches(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
@@ -24001,7 +23832,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
@@ -24097,7 +23927,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
@@ -24192,7 +24021,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListSearchesAsync()
@@ -24295,7 +24123,6 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
@@ -24408,7 +24235,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
@@ -24522,7 +24348,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
@@ -24635,7 +24460,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -24723,7 +24547,6 @@ void NoteStoreTester::shouldExecuteGetSearch()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
@@ -24822,7 +24645,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
@@ -24922,7 +24744,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
@@ -25021,7 +24842,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
@@ -25120,7 +24940,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetSearchAsync()
@@ -25224,7 +25043,6 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
@@ -25341,7 +25159,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
@@ -25459,7 +25276,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
@@ -25576,7 +25392,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
@@ -25693,7 +25508,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -25781,7 +25595,6 @@ void NoteStoreTester::shouldExecuteCreateSearch()
         search,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
@@ -25880,7 +25693,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
@@ -25980,7 +25792,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
@@ -26079,7 +25890,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCreateSearchAsync()
@@ -26183,7 +25993,6 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
@@ -26300,7 +26109,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
@@ -26418,7 +26226,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
@@ -26535,7 +26342,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -26623,7 +26429,6 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
         search,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
@@ -26722,7 +26527,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
@@ -26822,7 +26626,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
@@ -26921,7 +26724,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
@@ -27020,7 +26822,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateSearchAsync()
@@ -27124,7 +26925,6 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
@@ -27241,7 +27041,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
@@ -27359,7 +27158,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
@@ -27476,7 +27274,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
@@ -27593,7 +27390,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27681,7 +27477,6 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
@@ -27780,7 +27575,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
@@ -27880,7 +27674,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
@@ -27979,7 +27772,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
@@ -28078,7 +27870,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteExpungeSearchAsync()
@@ -28182,7 +27973,6 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
@@ -28299,7 +28089,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
@@ -28417,7 +28206,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
@@ -28534,7 +28322,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
@@ -28651,7 +28438,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28743,7 +28529,6 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
@@ -28846,7 +28631,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
@@ -28950,7 +28734,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
@@ -29053,7 +28836,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
@@ -29156,7 +28938,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
@@ -29264,7 +29045,6 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
@@ -29385,7 +29165,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
@@ -29507,7 +29286,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
@@ -29628,7 +29406,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
@@ -29749,7 +29526,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29849,7 +29625,6 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
         resultSpec,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
@@ -29960,7 +29735,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
@@ -30072,7 +29846,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
@@ -30183,7 +29956,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
@@ -30294,7 +30066,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
@@ -30410,7 +30181,6 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
@@ -30539,7 +30309,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
@@ -30669,7 +30438,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync()
@@ -30798,7 +30566,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
@@ -30927,7 +30694,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -31019,7 +30785,6 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
         withTrash,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
@@ -31122,7 +30887,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
@@ -31226,7 +30990,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
@@ -31329,7 +31092,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
@@ -31432,7 +31194,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
@@ -31540,7 +31301,6 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
@@ -31661,7 +31421,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
@@ -31783,7 +31542,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
@@ -31904,7 +31662,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
@@ -32025,7 +31782,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32117,7 +31873,6 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
         resultSpec,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
@@ -32220,7 +31975,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
@@ -32324,7 +32078,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec()
@@ -32427,7 +32180,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
@@ -32530,7 +32282,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
@@ -32638,7 +32389,6 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync()
@@ -32759,7 +32509,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsync()
@@ -32881,7 +32630,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecAsync()
@@ -33002,7 +32750,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
@@ -33123,7 +32870,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -33227,7 +32973,6 @@ void NoteStoreTester::shouldExecuteGetNote()
         withResourcesAlternateData,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
@@ -33342,7 +33087,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
@@ -33458,7 +33202,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
@@ -33573,7 +33316,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
@@ -33688,7 +33430,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteAsync()
@@ -33808,7 +33549,6 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
@@ -33941,7 +33681,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
@@ -34075,7 +33814,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
@@ -34208,7 +33946,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
@@ -34341,7 +34078,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -34429,7 +34165,6 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
@@ -34528,7 +34263,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
@@ -34628,7 +34362,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData()
@@ -34727,7 +34460,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
@@ -34826,7 +34558,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
@@ -34930,7 +34661,6 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsync()
@@ -35047,7 +34777,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAsync()
@@ -35165,7 +34894,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationDataAsync()
@@ -35282,7 +35010,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync()
@@ -35399,7 +35126,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35491,7 +35217,6 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
         key,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntry()
@@ -35594,7 +35319,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEntry()
@@ -35698,7 +35422,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationDataEntry()
@@ -35801,7 +35524,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry()
@@ -35904,7 +35626,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
@@ -36012,7 +35733,6 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntryAsync()
@@ -36133,7 +35853,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEntryAsync()
@@ -36255,7 +35974,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationDataEntryAsync()
@@ -36376,7 +36094,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryAsync()
@@ -36497,7 +36214,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36593,7 +36309,6 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
         value,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntry()
@@ -36700,7 +36415,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEntry()
@@ -36808,7 +36522,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationDataEntry()
@@ -36915,7 +36628,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry()
@@ -37022,7 +36734,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
@@ -37134,7 +36845,6 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntryAsync()
@@ -37259,7 +36969,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEntryAsync()
@@ -37385,7 +37094,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationDataEntryAsync()
@@ -37510,7 +37218,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryAsync()
@@ -37635,7 +37342,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -37727,7 +37433,6 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
         key,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEntry()
@@ -37830,7 +37535,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationDataEntry()
@@ -37934,7 +37638,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDataEntry()
@@ -38037,7 +37740,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntry()
@@ -38140,7 +37842,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
@@ -38248,7 +37949,6 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -38369,7 +38069,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -38491,7 +38190,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -38612,7 +38310,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -38733,7 +38430,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38821,7 +38517,6 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
@@ -38920,7 +38615,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
@@ -39020,7 +38714,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
@@ -39119,7 +38812,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
@@ -39218,7 +38910,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteContentAsync()
@@ -39322,7 +39013,6 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
@@ -39439,7 +39129,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
@@ -39557,7 +39246,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
@@ -39674,7 +39362,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
@@ -39791,7 +39478,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39887,7 +39573,6 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
         tokenizeForIndexing,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
@@ -39994,7 +39679,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
@@ -40102,7 +39786,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
@@ -40209,7 +39892,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
@@ -40316,7 +39998,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
@@ -40428,7 +40109,6 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
@@ -40553,7 +40233,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
@@ -40679,7 +40358,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync()
@@ -40804,7 +40482,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
@@ -40929,7 +40606,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41017,7 +40693,6 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
@@ -41116,7 +40791,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
@@ -41216,7 +40890,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText()
@@ -41315,7 +40988,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
@@ -41414,7 +41086,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
@@ -41518,7 +41189,6 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync()
@@ -41635,7 +41305,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsync()
@@ -41753,7 +41422,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextAsync()
@@ -41870,7 +41538,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
@@ -41987,7 +41654,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42078,7 +41744,6 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
@@ -42177,7 +41842,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
@@ -42277,7 +41941,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
@@ -42376,7 +42039,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
@@ -42475,7 +42137,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
@@ -42582,7 +42243,6 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
@@ -42699,7 +42359,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
@@ -42817,7 +42476,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
@@ -42934,7 +42592,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
@@ -43051,7 +42708,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -43139,7 +42795,6 @@ void NoteStoreTester::shouldExecuteCreateNote()
         note,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
@@ -43238,7 +42893,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
@@ -43338,7 +42992,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
@@ -43437,7 +43090,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
@@ -43536,7 +43188,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCreateNoteAsync()
@@ -43640,7 +43291,6 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
@@ -43757,7 +43407,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
@@ -43875,7 +43524,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
@@ -43992,7 +43640,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
@@ -44109,7 +43756,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -44197,7 +43843,6 @@ void NoteStoreTester::shouldExecuteUpdateNote()
         note,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
@@ -44296,7 +43941,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
@@ -44396,7 +44040,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
@@ -44495,7 +44138,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
@@ -44594,7 +44236,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateNoteAsync()
@@ -44698,7 +44339,6 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
@@ -44815,7 +44455,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
@@ -44933,7 +44572,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
@@ -45050,7 +44688,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
@@ -45167,7 +44804,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45255,7 +44891,6 @@ void NoteStoreTester::shouldExecuteDeleteNote()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
@@ -45354,7 +44989,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
@@ -45454,7 +45088,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
@@ -45553,7 +45186,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
@@ -45652,7 +45284,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteDeleteNoteAsync()
@@ -45756,7 +45387,6 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
@@ -45873,7 +45503,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
@@ -45991,7 +45620,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
@@ -46108,7 +45736,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
@@ -46225,7 +45852,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46313,7 +45939,6 @@ void NoteStoreTester::shouldExecuteExpungeNote()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
@@ -46412,7 +46037,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
@@ -46512,7 +46136,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
@@ -46611,7 +46234,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
@@ -46710,7 +46332,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteExpungeNoteAsync()
@@ -46814,7 +46435,6 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
@@ -46931,7 +46551,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
@@ -47049,7 +46668,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
@@ -47166,7 +46784,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
@@ -47283,7 +46900,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47375,7 +46991,6 @@ void NoteStoreTester::shouldExecuteCopyNote()
         toNotebookGuid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
@@ -47478,7 +47093,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
@@ -47582,7 +47196,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
@@ -47685,7 +47298,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
@@ -47788,7 +47400,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCopyNoteAsync()
@@ -47896,7 +47507,6 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
@@ -48017,7 +47627,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
@@ -48139,7 +47748,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
@@ -48260,7 +47868,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
@@ -48381,7 +47988,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48472,7 +48078,6 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
         noteGuid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
@@ -48571,7 +48176,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
@@ -48671,7 +48275,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
@@ -48770,7 +48373,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
@@ -48869,7 +48471,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
@@ -48976,7 +48577,6 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
@@ -49093,7 +48693,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
@@ -49211,7 +48810,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync()
@@ -49328,7 +48926,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
@@ -49445,7 +49042,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -49549,7 +49145,6 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
         withResourcesAlternateData,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
@@ -49664,7 +49259,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
@@ -49780,7 +49374,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
@@ -49895,7 +49488,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
@@ -50010,7 +49602,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
@@ -50130,7 +49721,6 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
@@ -50263,7 +49853,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
@@ -50397,7 +49986,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
@@ -50530,7 +50118,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
@@ -50663,7 +50250,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50767,7 +50353,6 @@ void NoteStoreTester::shouldExecuteGetResource()
         withAlternateData,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
@@ -50882,7 +50467,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
@@ -50998,7 +50582,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
@@ -51113,7 +50696,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
@@ -51228,7 +50810,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceAsync()
@@ -51348,7 +50929,6 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
@@ -51481,7 +51061,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
@@ -51615,7 +51194,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
@@ -51748,7 +51326,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
@@ -51881,7 +51458,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -51969,7 +51545,6 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData()
@@ -52068,7 +51643,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationData()
@@ -52168,7 +51742,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplicationData()
@@ -52267,7 +51840,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
@@ -52366,7 +51938,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
@@ -52470,7 +52041,6 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataAsync()
@@ -52587,7 +52157,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDataAsync()
@@ -52705,7 +52274,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplicationDataAsync()
@@ -52822,7 +52390,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAsync()
@@ -52939,7 +52506,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -53031,7 +52597,6 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
         key,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataEntry()
@@ -53134,7 +52699,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDataEntry()
@@ -53238,7 +52802,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplicationDataEntry()
@@ -53341,7 +52904,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEntry()
@@ -53444,7 +53006,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
@@ -53552,7 +53113,6 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataEntryAsync()
@@ -53673,7 +53233,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDataEntryAsync()
@@ -53795,7 +53354,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplicationDataEntryAsync()
@@ -53916,7 +53474,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEntryAsync()
@@ -54037,7 +53594,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54133,7 +53689,6 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
         value,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationDataEntry()
@@ -54240,7 +53795,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDataEntry()
@@ -54348,7 +53902,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplicationDataEntry()
@@ -54455,7 +54008,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEntry()
@@ -54562,7 +54114,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
@@ -54674,7 +54225,6 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationDataEntryAsync()
@@ -54799,7 +54349,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDataEntryAsync()
@@ -54925,7 +54474,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplicationDataEntryAsync()
@@ -55050,7 +54598,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEntryAsync()
@@ -55175,7 +54722,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55267,7 +54813,6 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
         key,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDataEntry()
@@ -55370,7 +54915,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplicationDataEntry()
@@ -55474,7 +55018,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicationDataEntry()
@@ -55577,7 +55120,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationDataEntry()
@@ -55680,7 +55222,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
@@ -55788,7 +55329,6 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -55909,7 +55449,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -56031,7 +55570,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -56152,7 +55690,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -56273,7 +55810,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -56361,7 +55897,6 @@ void NoteStoreTester::shouldExecuteUpdateResource()
         resource,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
@@ -56460,7 +55995,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
@@ -56560,7 +56094,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
@@ -56659,7 +56192,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
@@ -56758,7 +56290,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateResourceAsync()
@@ -56862,7 +56393,6 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
@@ -56979,7 +56509,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
@@ -57097,7 +56626,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
@@ -57214,7 +56742,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
@@ -57331,7 +56858,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57419,7 +56945,6 @@ void NoteStoreTester::shouldExecuteGetResourceData()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
@@ -57518,7 +57043,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
@@ -57618,7 +57142,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
@@ -57717,7 +57240,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
@@ -57816,7 +57338,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceDataAsync()
@@ -57920,7 +57441,6 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
@@ -58037,7 +57557,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
@@ -58155,7 +57674,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
@@ -58272,7 +57790,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
@@ -58389,7 +57906,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58493,7 +58009,6 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
         withAlternateData,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
@@ -58608,7 +58123,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
@@ -58724,7 +58238,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
@@ -58839,7 +58352,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
@@ -58954,7 +58466,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
@@ -59074,7 +58585,6 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
@@ -59207,7 +58717,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
@@ -59341,7 +58850,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync()
@@ -59474,7 +58982,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
@@ -59607,7 +59114,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -59695,7 +59201,6 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
@@ -59794,7 +59299,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
@@ -59894,7 +59398,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition()
@@ -59993,7 +59496,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
@@ -60092,7 +59594,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
@@ -60196,7 +59697,6 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsync()
@@ -60313,7 +59813,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAsync()
@@ -60431,7 +59930,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognitionAsync()
@@ -60548,7 +60046,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync()
@@ -60665,7 +60162,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -60753,7 +60249,6 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
@@ -60852,7 +60347,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData()
@@ -60952,7 +60446,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateData()
@@ -61051,7 +60544,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
@@ -61150,7 +60642,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
@@ -61254,7 +60745,6 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAsync()
@@ -61371,7 +60861,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateDataAsync()
@@ -61489,7 +60978,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDataAsync()
@@ -61606,7 +61094,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsync()
@@ -61723,7 +61210,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -61811,7 +61297,6 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
@@ -61910,7 +61395,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
@@ -62010,7 +61494,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes()
@@ -62109,7 +61592,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
@@ -62208,7 +61690,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
@@ -62312,7 +61793,6 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync()
@@ -62429,7 +61909,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsync()
@@ -62547,7 +62026,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesAsync()
@@ -62664,7 +62142,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
@@ -62781,7 +62258,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -62871,7 +62347,6 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
         publicUri,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
@@ -62973,7 +62448,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
@@ -63074,7 +62548,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
@@ -63175,7 +62648,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
@@ -63281,7 +62753,6 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
@@ -63401,7 +62872,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync()
@@ -63520,7 +62990,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
@@ -63639,7 +63108,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -63731,7 +63199,6 @@ void NoteStoreTester::shouldExecuteShareNotebook()
         message,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
@@ -63834,7 +63301,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
@@ -63937,7 +63403,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
@@ -64041,7 +63506,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
@@ -64144,7 +63608,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteShareNotebookAsync()
@@ -64252,7 +63715,6 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
@@ -64373,7 +63835,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
@@ -64494,7 +63955,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
@@ -64616,7 +64076,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
@@ -64737,7 +64196,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -64825,7 +64283,6 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
         shareTemplate,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShares()
@@ -64924,7 +64381,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebookShares()
@@ -65023,7 +64479,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookShares()
@@ -65123,7 +64578,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateNotebookShares()
@@ -65228,7 +64682,6 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares()
@@ -65327,7 +64780,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
@@ -65431,7 +64883,6 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -65548,7 +64999,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -65665,7 +65115,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -65783,7 +65232,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -65906,7 +65354,6 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -66023,7 +65470,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -66111,7 +65557,6 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
         sharedNotebook,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
@@ -66210,7 +65655,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
@@ -66309,7 +65753,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
@@ -66409,7 +65852,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
@@ -66508,7 +65950,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
@@ -66612,7 +66053,6 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync()
@@ -66729,7 +66169,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAsync()
@@ -66846,7 +66285,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsync()
@@ -66964,7 +66402,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
@@ -67081,7 +66518,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67173,7 +66609,6 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
         recipientSettings,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettings()
@@ -67276,7 +66711,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSettings()
@@ -67379,7 +66813,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSettings()
@@ -67483,7 +66916,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings()
@@ -67586,7 +67018,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
@@ -67694,7 +67125,6 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettingsAsync()
@@ -67815,7 +67245,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSettingsAsync()
@@ -67936,7 +67365,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSettingsAsync()
@@ -68058,7 +67486,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettingsAsync()
@@ -68179,7 +67606,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68266,7 +67692,6 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
     QList<SharedNotebook> res = noteStore->listSharedNotebooks(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
@@ -68361,7 +67786,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
@@ -68456,7 +67880,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
@@ -68552,7 +67975,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
@@ -68647,7 +68069,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
@@ -68750,7 +68171,6 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
@@ -68863,7 +68283,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsync()
@@ -68976,7 +68395,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync()
@@ -69090,7 +68508,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
@@ -69203,7 +68620,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69291,7 +68707,6 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
         linkedNotebook,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
@@ -69390,7 +68805,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
@@ -69489,7 +68903,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
@@ -69589,7 +69002,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
@@ -69688,7 +69100,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
@@ -69792,7 +69203,6 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync()
@@ -69909,7 +69319,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAsync()
@@ -70026,7 +69435,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsync()
@@ -70144,7 +69552,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
@@ -70261,7 +69668,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -70349,7 +69755,6 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
         linkedNotebook,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
@@ -70448,7 +69853,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
@@ -70547,7 +69951,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
@@ -70647,7 +70050,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
@@ -70746,7 +70148,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
@@ -70850,7 +70251,6 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync()
@@ -70967,7 +70367,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAsync()
@@ -71084,7 +70483,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsync()
@@ -71202,7 +70600,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
@@ -71319,7 +70716,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71406,7 +70802,6 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
     QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
@@ -71501,7 +70896,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
@@ -71596,7 +70990,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
@@ -71692,7 +71085,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
@@ -71787,7 +71179,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
@@ -71890,7 +71281,6 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
@@ -72003,7 +71393,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsync()
@@ -72116,7 +71505,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync()
@@ -72230,7 +71618,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
@@ -72343,7 +71730,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -72431,7 +71817,6 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
@@ -72530,7 +71915,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook()
@@ -72629,7 +72013,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
@@ -72729,7 +72112,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
@@ -72828,7 +72210,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
@@ -72932,7 +72313,6 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync()
@@ -73049,7 +72429,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookAsync()
@@ -73166,7 +72545,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsync()
@@ -73284,7 +72662,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
@@ -73401,7 +72778,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73489,7 +72865,6 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
         shareKeyOrGlobalId,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebook()
@@ -73588,7 +72963,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNotebook()
@@ -73687,7 +73061,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNotebook()
@@ -73787,7 +73160,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook()
@@ -73886,7 +73258,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
@@ -73990,7 +73361,6 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebookAsync()
@@ -74107,7 +73477,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNotebookAsync()
@@ -74224,7 +73593,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNotebookAsync()
@@ -74342,7 +73710,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebookAsync()
@@ -74459,7 +73826,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74543,7 +73909,6 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
     SharedNotebook res = noteStore->getSharedNotebookByAuth(
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
@@ -74638,7 +74003,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAuth()
@@ -74733,7 +74097,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth()
@@ -74829,7 +74192,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
@@ -74924,7 +74286,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
@@ -75024,7 +74385,6 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsync()
@@ -75137,7 +74497,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAuthAsync()
@@ -75250,7 +74609,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthAsync()
@@ -75364,7 +74722,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync()
@@ -75477,7 +74834,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -75562,7 +74918,6 @@ void NoteStoreTester::shouldExecuteEmailNote()
     noteStore->emailNote(
         parameters,
         ctx);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
@@ -75660,7 +75015,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
@@ -75758,7 +75112,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
@@ -75857,7 +75210,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
@@ -75955,7 +75307,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteEmailNoteAsync()
@@ -76056,7 +75407,6 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
@@ -76173,7 +75523,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
@@ -76290,7 +75639,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
@@ -76408,7 +75756,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
@@ -76525,7 +75872,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -76613,7 +75959,6 @@ void NoteStoreTester::shouldExecuteShareNote()
         guid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
@@ -76712,7 +76057,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
@@ -76811,7 +76155,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
@@ -76911,7 +76254,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
@@ -77010,7 +76352,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteShareNoteAsync()
@@ -77114,7 +76455,6 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
@@ -77231,7 +76571,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
@@ -77348,7 +76687,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
@@ -77466,7 +76804,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
@@ -77583,7 +76920,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -77668,7 +77004,6 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
     noteStore->stopSharingNote(
         guid,
         ctx);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
@@ -77766,7 +77101,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
@@ -77864,7 +77198,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
@@ -77963,7 +77296,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
@@ -78061,7 +77393,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
@@ -78162,7 +77493,6 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
     loop.exec();
 
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
@@ -78279,7 +77609,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
@@ -78396,7 +77725,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
@@ -78514,7 +77842,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
@@ -78631,7 +77958,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -78723,7 +78049,6 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
         noteKey,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
@@ -78826,7 +78151,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNote()
@@ -78929,7 +78253,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote()
@@ -79033,7 +78356,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
@@ -79136,7 +78458,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
@@ -79244,7 +78565,6 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAsync()
@@ -79365,7 +78685,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNoteAsync()
@@ -79486,7 +78805,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNoteAsync()
@@ -79608,7 +78926,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsync()
@@ -79729,7 +79046,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -79821,7 +79137,6 @@ void NoteStoreTester::shouldExecuteFindRelated()
         resultSpec,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
@@ -79924,7 +79239,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
@@ -80028,7 +79342,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
@@ -80131,7 +79444,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
@@ -80234,7 +79546,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteFindRelatedAsync()
@@ -80342,7 +79653,6 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
@@ -80463,7 +79773,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
@@ -80585,7 +79894,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
@@ -80706,7 +80014,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
@@ -80827,7 +80134,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80915,7 +80221,6 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
         note,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
@@ -81014,7 +80319,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches()
@@ -81113,7 +80417,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
@@ -81213,7 +80516,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
@@ -81312,7 +80614,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
@@ -81416,7 +80717,6 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -81533,7 +80833,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -81650,7 +80949,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -81768,7 +81066,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -81885,7 +81182,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -81973,7 +81269,6 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
         parameters,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
@@ -82072,7 +81367,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
@@ -82171,7 +81465,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
@@ -82271,7 +81564,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
@@ -82370,7 +81662,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
@@ -82474,7 +81765,6 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync()
@@ -82591,7 +81881,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAsync()
@@ -82708,7 +81997,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsync()
@@ -82826,7 +82114,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
@@ -82943,7 +82230,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83031,7 +82317,6 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
         notebookGuid,
         ctx);
     QVERIFY(res == response);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
@@ -83130,7 +82415,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
@@ -83229,7 +82513,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
@@ -83329,7 +82612,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
@@ -83428,7 +82710,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
@@ -83532,7 +82813,6 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
 
     QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
@@ -83649,7 +82929,6 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync()
@@ -83766,7 +83045,6 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
@@ -83884,7 +83162,6 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
@@ -84001,7 +83278,6 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
     }
 
     QVERIFY(caughtException);
-    pSocket->close();
 }
 
 } // namespace qevercloud
