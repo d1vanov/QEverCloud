@@ -12,6 +12,7 @@
 #include <AsyncResult.h>
 #include <RequestContext.h>
 
+#include <QGlobalStatic>
 #include <QMetaType>
 #include <QReadLocker>
 #include <QReadWriteLock>
@@ -25,16 +26,8 @@ namespace {
 
 class EvernoteProxySettingsHolder
 {
-private:
-    EvernoteProxySettingsHolder() = default;
-    Q_DISABLE_COPY(EvernoteProxySettingsHolder)
-
 public:
-    static EvernoteProxySettingsHolder & instance()
-    {
-        static EvernoteProxySettingsHolder holder;
-        return holder;
-    }
+    EvernoteProxySettingsHolder() = default;
 
     QNetworkProxy proxy()
     {
@@ -66,9 +59,14 @@ public:
     }
 
 private:
+    Q_DISABLE_COPY(EvernoteProxySettingsHolder)
+
+private:
     QReadWriteLock  m_lock;
     std::shared_ptr<QNetworkProxy>  m_pProxy;
 };
+
+Q_GLOBAL_STATIC(EvernoteProxySettingsHolder, evernoteProxySettingsHolder)
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -84,17 +82,17 @@ void registerMetatypes()
 
 QNetworkProxy evernoteNetworkProxy()
 {
-    return EvernoteProxySettingsHolder::instance().proxy();
+    return evernoteProxySettingsHolder->proxy();
 }
 
 void setEvernoteNetworkProxy(QNetworkProxy proxy)
 {
-    EvernoteProxySettingsHolder::instance().setProxy(std::move(proxy));
+    evernoteProxySettingsHolder->setProxy(std::move(proxy));
 }
 
 void resetEvernoteNetworkProxy()
 {
-    EvernoteProxySettingsHolder::instance().resetProxy();
+    evernoteProxySettingsHolder->resetProxy();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
