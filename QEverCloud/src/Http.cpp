@@ -127,12 +127,22 @@ void ReplyFetcher::onFinished()
         QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     QObject::disconnect(m_pReply.get());
-    emit replyFetched(this);
+    Q_EMIT replyFetched(this);
 }
 
 void ReplyFetcher::onError(QNetworkReply::NetworkError error)
 {
-    setError(error, m_pReply->errorString());
+    auto errorText = m_pReply->errorString();
+
+    // Workaround for Evernote server problems
+    if ( (error == QNetworkReply::UnknownContentError) &&
+         errorText.endsWith(QStringLiteral("server replied: OK")) )
+    {
+        // ignore this, it's actually ok
+        return;
+    }
+
+    setError(error, errorText);
 }
 
 void ReplyFetcher::onSslErrors(QList<QSslError> errors)
@@ -154,7 +164,7 @@ void ReplyFetcher::setError(
     m_errorType = errorType;
     m_errorText = errorText;
     QObject::disconnect(m_pReply.get());
-    emit replyFetched(this);
+    Q_EMIT replyFetched(this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
