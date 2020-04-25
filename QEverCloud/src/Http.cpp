@@ -12,6 +12,7 @@
 #include <Exceptions.h>
 #include <Helpers.h>
 #include <Globals.h>
+#include <Log.h>
 
 #include <QEventLoop>
 #include <QtNetwork>
@@ -138,7 +139,9 @@ void ReplyFetcher::onError(QNetworkReply::NetworkError error)
     if ( (error == QNetworkReply::UnknownContentError) &&
          errorText.endsWith(QStringLiteral("server replied: OK")) )
     {
-        // ignore this, it's actually ok
+        QEC_INFO("HTTP", "Ignoring Evernote servers bug: UnknownContentError: "
+            << errorText << "; http status code = "
+            << m_pReply->attribute(QNetworkRequest::HttpStatusCodeAttribute));
         return;
     }
 
