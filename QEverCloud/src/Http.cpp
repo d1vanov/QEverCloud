@@ -46,6 +46,8 @@ void ReplyFetcher::start(
     QNetworkAccessManager * pNam, QNetworkRequest request, qint64 timeoutMsec,
     QByteArray postData)
 {
+    m_pNam = pNam;
+
     m_httpStatusCode = 0;
     m_errorType = QNetworkReply::NoError;
     m_errorText.clear();
@@ -233,7 +235,8 @@ QByteArray simpleDownload(
     return receivedData;
 }
 
-QNetworkRequest createEvernoteRequest(QString url)
+QNetworkRequest createEvernoteRequest(
+    QString url, QList<QNetworkCookie> cookies)
 {
     QNetworkRequest request;
     request.setUrl(url);
@@ -248,15 +251,23 @@ QNetworkRequest createEvernoteRequest(QString url)
         .arg(libraryVersion() % 10000));
 
     request.setRawHeader("Accept", "application/x-thrift");
+
+    for(const auto & cookie: qAsConst(cookies)) {
+        request.setHeader(
+            QNetworkRequest::CookieHeader,
+            cookie.toRawForm());
+    }
+
     return request;
 }
 
 QByteArray askEvernote(
-    QString url, QByteArray postData, const qint64 timeoutMsec)
+    QString url, QByteArray postData, const qint64 timeoutMsec,
+    QList<QNetworkCookie> cookies)
 {
     int httpStatusCode = 0;
     QByteArray reply = simpleDownload(
-        createEvernoteRequest(url),
+        createEvernoteRequest(url, cookies),
         timeoutMsec,
         postData,
         &httpStatusCode);

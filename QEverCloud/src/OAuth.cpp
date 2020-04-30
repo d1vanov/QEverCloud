@@ -14,6 +14,8 @@
 #include <Log.h>
 #include <OAuth.h>
 
+#include <QNetworkCookie>
+#include <QNetworkCookieJar>
 #include <QNetworkReply>
 #include <QVBoxLayout>
 #include <QUuid>
@@ -230,6 +232,20 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
             params[QStringLiteral("edam_webApiUrlPrefix")];
         m_oauthResult.authenticationToken = params[QStringLiteral("oauth_token")];
 
+        QNetworkAccessManager * pNam = replyFetcher->networkAccessManager();
+        if (pNam)
+        {
+            auto * pCookieJar = pNam->cookieJar();
+            if (pCookieJar)
+            {
+                m_oauthResult.userStoreCookies = pCookieJar->cookiesForUrl(
+                    QUrl(QStringLiteral("https://www.evernote.com/edam/user")));
+
+                QEC_DEBUG("oauth", "Got " << m_oauthResult.userStoreCookies
+                    << " cookies for user store");
+            }
+        }
+
         emit authenticationFinished(true);
         emit authenticationSuceeded();
     }
@@ -339,9 +355,10 @@ void EvernoteOAuthWebView::OAuthResult::print(QTextStream & strm) const
     strm << "  userId = " << QString::number(userId) << ";\n";
     strm << "  webApiUrlPrefix = " << webApiUrlPrefix << ";\n";
     strm << "  authenticationToken "
-         << (authenticationToken.isEmpty()
-             ? "is empty"
-             : "is not empty") << ";\n";
+        << (authenticationToken.isEmpty()
+            ? "is empty"
+            : "is not empty") << ";\n";
+    strm << "  userStoreCookies count: " << userStoreCookies.size() << ";\n";
 
     strm << "};\n";
 }

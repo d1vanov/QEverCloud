@@ -17,13 +17,15 @@ public:
     RequestContext(QString authenticationToken, qint64 requestTimeout,
                    bool increaseRequestTimeoutExponentially,
                    qint64 maxRequestTimeout,
-                   quint32 maxRequestRetryCount) :
+                   quint32 maxRequestRetryCount,
+                   QList<QNetworkCookie> cookies) :
         m_requestId(QUuid::createUuid()),
         m_authenticationToken(std::move(authenticationToken)),
         m_requestTimeout(requestTimeout),
         m_increaseRequestTimeoutExponentially(increaseRequestTimeoutExponentially),
         m_maxRequestTimeout(maxRequestTimeout),
-        m_maxRequestRetryCount(maxRequestRetryCount)
+        m_maxRequestRetryCount(maxRequestRetryCount),
+        m_cookies(std::move(cookies))
     {}
 
     virtual QUuid requestId() const override
@@ -56,6 +58,11 @@ public:
         return m_maxRequestRetryCount;
     }
 
+    virtual QList<QNetworkCookie> cookies() const override
+    {
+        return m_cookies;
+    }
+
     virtual IRequestContext * clone() const override
     {
         return new RequestContext(
@@ -63,7 +70,8 @@ public:
             m_requestTimeout,
             m_increaseRequestTimeoutExponentially,
             m_maxRequestTimeout,
-            m_maxRequestRetryCount);
+            m_maxRequestRetryCount,
+            m_cookies);
     }
 
 private:
@@ -73,6 +81,8 @@ private:
     bool        m_increaseRequestTimeoutExponentially;
     qint64      m_maxRequestTimeout;
     quint32     m_maxRequestRetryCount;
+
+    QList<QNetworkCookie>   m_cookies;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +96,17 @@ void printRequestContext(const IRequestContext & ctx, T & strm)
         << "    increase request timeout exponentially = "
         << (ctx.increaseRequestTimeoutExponentially() ? "yes" : "no") << "\n"
         << "    max request timeout = " << ctx.maxRequestTimeout() << "\n"
-        << "    max request retry count = " << ctx.maxRequestRetryCount() << "\n";
+        << "    max request retry count = " << ctx.maxRequestRetryCount()
+        << "\n";
+
+    const auto cookies = ctx.cookies();
+    if (!cookies.isEmpty()) {
+        strm << "    cookies: " << "\n";
+
+        for(const auto & cookie: ctx.cookies()) {
+            strm << "        " << QString::fromUtf8(cookie.toRawForm()) << "\n";
+        }
+    }
 }
 
 
@@ -109,14 +129,16 @@ IRequestContextPtr newRequestContext(
     qint64 requestTimeout,
     bool increaseRequestTimeoutExponentially,
     qint64 maxRequestTimeout,
-    quint32 maxRequestRetryCount)
+    quint32 maxRequestRetryCount,
+    QList<QNetworkCookie> cookies)
 {
     return std::make_shared<RequestContext>(
         std::move(authenticationToken),
         requestTimeout,
         increaseRequestTimeoutExponentially,
         maxRequestTimeout,
-        maxRequestRetryCount);
+        maxRequestRetryCount,
+        std::move(cookies));
 }
 
 } // namespace qevercloud

@@ -16,6 +16,8 @@
 #include "generated/Types.h"
 
 #include <QDialog>
+#include <QList>
+#include <QNetworkCookie>
 #include <QString>
 
 namespace qevercloud {
@@ -101,6 +103,12 @@ public:
         UserID userId; ///< same as PublicUserInfo::userId
         QString webApiUrlPrefix; ///< see PublicUserInfo::webApiUrlPrefix
         QString authenticationToken; ///< This is what this all was for!
+
+        ///< Evernote silently started to require it in April 2020 in addition
+        /// to the authentication token, without it calls to user store don't
+        /// work and users of Evernote API had to reverse engineer it
+        /// on their own. Outstanding move, Evernote devs.
+        QList<QNetworkCookie> userStoreCookies;
 
         virtual void print(QTextStream & strm) const override;
     };

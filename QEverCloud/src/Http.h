@@ -16,6 +16,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QPointer>
 #include <QSslError>
 #include <QString>
 #include <QtEndian>
@@ -71,6 +72,16 @@ public:
         return m_httpStatusCode;
     }
 
+    QNetworkAccessManager * networkAccessManager()
+    {
+        if (!m_pNam.isNull()) {
+            return m_pNam.data();
+        }
+        else {
+            return nullptr;
+        }
+    }
+
 Q_SIGNALS:
     void replyFetched(ReplyFetcher * pSelf); // sends itself
 
@@ -95,6 +106,9 @@ private:
 
     using QNetworkReplyPtr = std::unique_ptr<QNetworkReply, QNetworkReplyDeleter>;
 
+private:
+    QPointer<QNetworkAccessManager>     m_pNam;
+
     QNetworkReplyPtr    m_pReply;
 
     QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
@@ -109,10 +123,12 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QNetworkRequest createEvernoteRequest(QString url);
+QNetworkRequest createEvernoteRequest(
+    QString url, QList<QNetworkCookie> cookies);
 
 QByteArray askEvernote(
-    QString url, QByteArray postData, const qint64 timeoutMsec);
+    QString url, QByteArray postData, const qint64 timeoutMsec,
+    QList<QNetworkCookie> cookies);
 
 QByteArray simpleDownload(
     QNetworkRequest request, const qint64 timeoutMsec,

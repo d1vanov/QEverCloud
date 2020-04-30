@@ -867,7 +867,8 @@ SyncState NoteStore::getSyncState(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -1075,7 +1076,8 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -1280,7 +1282,8 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -1515,7 +1518,8 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -1713,7 +1717,8 @@ QList<Notebook> NoteStore::listNotebooks(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -1898,7 +1903,8 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -2093,7 +2099,8 @@ Notebook NoteStore::getNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -2268,7 +2275,8 @@ Notebook NoteStore::getDefaultNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -2463,7 +2471,8 @@ Notebook NoteStore::createNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -2662,7 +2671,8 @@ qint32 NoteStore::updateNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -2861,7 +2871,8 @@ qint32 NoteStore::expungeNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -3050,7 +3061,8 @@ QList<Tag> NoteStore::listTags(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -3259,7 +3271,8 @@ QList<Tag> NoteStore::listTagsByNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -3458,7 +3471,8 @@ Tag NoteStore::getTag(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -3657,7 +3671,8 @@ Tag NoteStore::createTag(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -3856,7 +3871,8 @@ qint32 NoteStore::updateTag(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -4035,7 +4051,8 @@ void NoteStore::untagAll(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -4234,7 +4251,8 @@ qint32 NoteStore::expungeTag(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -4423,7 +4441,8 @@ QList<SavedSearch> NoteStore::listSearches(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -4618,7 +4637,8 @@ SavedSearch NoteStore::getSearch(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -4806,7 +4826,8 @@ SavedSearch NoteStore::createSearch(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -5005,7 +5026,8 @@ qint32 NoteStore::updateSearch(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -5204,7 +5226,8 @@ qint32 NoteStore::expungeSearch(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -5415,7 +5438,8 @@ qint32 NoteStore::findNoteOffset(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -5653,7 +5677,8 @@ NotesMetadataList NoteStore::findNotesMetadata(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -5873,7 +5898,8 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -6087,7 +6113,8 @@ Note NoteStore::getNoteWithResultSpec(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -6337,7 +6364,8 @@ Note NoteStore::getNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -6548,7 +6576,8 @@ LazyMap NoteStore::getNoteApplicationData(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -6759,7 +6788,8 @@ QString NoteStore::getNoteApplicationDataEntry(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -6985,7 +7015,8 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -7202,7 +7233,8 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -7404,7 +7436,8 @@ QString NoteStore::getNoteContent(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -7627,7 +7660,8 @@ QString NoteStore::getNoteSearchText(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -7832,7 +7866,8 @@ QString NoteStore::getResourceSearchText(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -8045,7 +8080,8 @@ QStringList NoteStore::getNoteTagNames(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -8244,7 +8280,8 @@ Note NoteStore::createNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -8443,7 +8480,8 @@ Note NoteStore::updateNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -8642,7 +8680,8 @@ qint32 NoteStore::deleteNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -8841,7 +8880,8 @@ qint32 NoteStore::expungeNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -9052,7 +9092,8 @@ Note NoteStore::copyNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -9268,7 +9309,8 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -9515,7 +9557,8 @@ Note NoteStore::getNoteVersion(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -9774,7 +9817,8 @@ Resource NoteStore::getResource(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -9985,7 +10029,8 @@ LazyMap NoteStore::getResourceApplicationData(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -10196,7 +10241,8 @@ QString NoteStore::getResourceApplicationDataEntry(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -10422,7 +10468,8 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -10639,7 +10686,8 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -10841,7 +10889,8 @@ qint32 NoteStore::updateResource(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -11040,7 +11089,8 @@ QByteArray NoteStore::getResourceData(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -11287,7 +11337,8 @@ Resource NoteStore::getResourceByHash(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -11498,7 +11549,8 @@ QByteArray NoteStore::getResourceRecognition(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -11697,7 +11749,8 @@ QByteArray NoteStore::getResourceAlternateData(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -11896,7 +11949,8 @@ ResourceAttributes NoteStore::getResourceAttributes(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -12086,7 +12140,8 @@ Notebook NoteStore::getPublicNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -12299,7 +12354,8 @@ SharedNotebook NoteStore::shareNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -12512,7 +12568,8 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -12711,7 +12768,8 @@ qint32 NoteStore::updateSharedNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -12922,7 +12980,8 @@ Notebook NoteStore::setNotebookRecipientSettings(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -13125,7 +13184,8 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -13320,7 +13380,8 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -13519,7 +13580,8 @@ qint32 NoteStore::updateLinkedNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -13719,7 +13781,8 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -13914,7 +13977,8 @@ qint32 NoteStore::expungeLinkedNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -14113,7 +14177,8 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -14299,7 +14364,8 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -14474,7 +14540,8 @@ void NoteStore::emailNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -14673,7 +14740,8 @@ QString NoteStore::shareNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -14852,7 +14920,8 @@ void NoteStore::stopSharingNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -15063,7 +15132,8 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -15277,7 +15347,8 @@ RelatedResult NoteStore::findRelated(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -15479,7 +15550,8 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -15678,7 +15750,8 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -15877,7 +15950,8 @@ ShareRelationships NoteStore::getNotebookShares(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("note_store", "received reply for request with id = "
         << ctx->requestId());
@@ -16230,7 +16304,8 @@ bool UserStore::checkVersion(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -16391,7 +16466,8 @@ BootstrapInfo UserStore::getBootstrapInfo(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -16637,7 +16713,8 @@ AuthenticationResult UserStore::authenticateLongSession(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -16862,7 +16939,8 @@ AuthenticationResult UserStore::completeTwoFactorAuthentication(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -17022,7 +17100,8 @@ void UserStore::revokeLongSession(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -17193,7 +17272,8 @@ AuthenticationResult UserStore::authenticateToBusiness(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -17364,7 +17444,8 @@ User UserStore::getUser(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -17549,7 +17630,8 @@ PublicUserInfo UserStore::getPublicUserInfo(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -17723,7 +17805,8 @@ UserUrls UserStore::getUserUrls(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -17887,7 +17970,8 @@ void UserStore::inviteToBusiness(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -18066,7 +18150,8 @@ void UserStore::removeFromBusiness(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -18257,7 +18342,8 @@ void UserStore::updateBusinessUserIdentifier(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -18449,7 +18535,8 @@ QList<UserProfile> UserStore::listBusinessUsers(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -18647,7 +18734,8 @@ QList<BusinessInvitation> UserStore::listBusinessInvitations(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
@@ -18814,7 +18902,8 @@ AccountLimits UserStore::getAccountLimits(
     QByteArray reply = askEvernote(
         m_url,
         params,
-        ctx->requestTimeout());
+        ctx->requestTimeout(),
+        ctx->cookies());
 
     QEC_DEBUG("user_store", "received reply for request with id = "
         << ctx->requestId());
