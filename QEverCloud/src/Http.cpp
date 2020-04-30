@@ -17,6 +17,8 @@
 #include <QtNetwork>
 #include <QUrl>
 
+#include <iostream>
+
 /** @cond HIDDEN_SYMBOLS  */
 
 namespace qevercloud {
@@ -140,6 +142,14 @@ void ReplyFetcher::onError(QNetworkReply::NetworkError error)
     if ( (error == QNetworkReply::UnknownContentError) &&
          errorText.endsWith(QStringLiteral("server replied: OK")) )
     {
+        int httpStatusCode = m_pReply->attribute(
+            QNetworkRequest::HttpStatusCodeAttribute).toInt();
+
+        std::cerr << "Ignoring Evernote server error: "
+            << errorText.toStdString() << "; error code = "
+            << error << ", http status code = " << httpStatusCode
+            << std::endl;
+
         // ignore this, it's actually ok
         return;
     }

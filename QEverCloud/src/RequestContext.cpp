@@ -103,7 +103,7 @@ void printRequestContext(const IRequestContext & ctx, T & strm)
     if (!cookies.isEmpty()) {
         strm << "    cookies: " << "\n";
 
-        for(const auto & cookie: ctx.cookies()) {
+        for(const auto & cookie: cookies) {
             strm << "        " << QString::fromUtf8(cookie.toRawForm()) << "\n";
         }
     }

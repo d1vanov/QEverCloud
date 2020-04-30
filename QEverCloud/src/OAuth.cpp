@@ -9,6 +9,8 @@
 
 #include "Http.h"
 
+#include "CookieJar.h"
+
 #include <Globals.h>
 #include <Helpers.h>
 #include <Log.h>
@@ -30,6 +32,7 @@
 #endif
 
 #include <cstring>
+#include <iostream>
 
 /** @cond HIDDEN_SYMBOLS  */
 
@@ -119,6 +122,7 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 {
 #if !QEVERCLOUD_USE_QT_WEB_ENGINE
     page()->networkAccessManager()->setProxy(evernoteNetworkProxy());
+    page()->networkAccessManager()->setCookieJar(new NetworkCookieJar);
 #endif
 }
 
@@ -181,6 +185,7 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
             QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
             auto * pNam = new QNetworkAccessManager(replyFetcher);
+            pNam->setCookieJar(new NetworkCookieJar);
 #else
             auto * pNam = page()->networkAccessManager();
 #endif
@@ -235,11 +240,15 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
         QNetworkAccessManager * pNam = replyFetcher->networkAccessManager();
         if (pNam)
         {
-            auto * pCookieJar = pNam->cookieJar();
+            auto * pCookieJar = qobject_cast<NetworkCookieJar*>(pNam->cookieJar());
             if (pCookieJar)
             {
-                m_oauthResult.userStoreCookies = pCookieJar->cookiesForUrl(
-                    QUrl(QStringLiteral("https://www.evernote.com/edam/user")));
+                m_oauthResult.userStoreCookies = pCookieJar->allCookies();
+
+                std::cerr << "All cookies after OAuth: " << std::endl;
+                for(const auto & cookie: m_oauthResult.userStoreCookies) {
+                    std::cerr << "  " << cookie.toRawForm().toStdString() << std::endl;
+                }
 
                 QEC_DEBUG("oauth", "Got " << m_oauthResult.userStoreCookies
                     << " cookies for user store");

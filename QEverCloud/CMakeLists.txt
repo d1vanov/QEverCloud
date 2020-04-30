@@ -43,6 +43,7 @@ set(GENERATED_HEADERS
 
 set(PRIVATE_HEADERS
     src/AsyncResult_p.h
+    src/CookieJar.h
     src/Http.h
     src/Impl.h
     src/Thrift.h
