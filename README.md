@@ -62,11 +62,10 @@ QEverCloud depends on the following Qt components:
  * Qt5Network
 
 If the library is built with OAuth support, more dependencies are required:
- * Qt5WebKit and Qt5WebKitWidgets
- * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
+ * Qt5WebKit and Qt5WebKitWidgets for Qt < 5.6
  * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
 
-By default CMake prefers QtWebEngine over QtWebKit if both are available but it is possible to choose Qt5WebKit over Qt5WebEngine using CMake option `USE_QT5_WEBKIT`.
+By default CMake prefers QtWebEngine over QtWebKit if both are available for Qt >= 5.6 but it is possible to choose Qt5WebKit over Qt5WebEngine using CMake option `USE_QT5_WEBKIT`.
 
 It is possible to build the library without OAuth support and thus eliminate the dependency on QtWebKit or QtWebEngine using CMake option `BUILD_WITH_OAUTH_SUPPORT=NO`.
 

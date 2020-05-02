@@ -19,10 +19,10 @@
 namespace qevercloud {
 
 AsyncResultPrivate::AsyncResultPrivate(
-        QString url, QByteArray postData, IRequestContextPtr ctx,
-        AsyncResult::ReadFunctionType readFunction, bool autoDelete,
-        AsyncResult * q) :
-    m_request(createEvernoteRequest(url)),
+        QString url, QByteArray postData,
+        IRequestContextPtr ctx, AsyncResult::ReadFunctionType readFunction,
+        bool autoDelete, AsyncResult * q) :
+    m_request(createEvernoteRequest(url, ctx->cookies())),
     m_postData(std::move(postData)),
     m_ctx(std::move(ctx)),
     m_readFunction(std::move(readFunction)),

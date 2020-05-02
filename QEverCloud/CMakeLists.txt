@@ -45,6 +45,7 @@ set(PRIVATE_HEADERS
     src/AsyncResult_p.h
     src/Http.h
     src/Impl.h
+    src/NetworkCookieJar.h
     src/Thrift.h
     src/generated/Types_io.h)
 
@@ -71,6 +72,11 @@ set(SOURCES
 if(BUILD_WITH_OAUTH_SUPPORT)
   list(APPEND SOURCES
     src/OAuth.cpp)
+endif()
+
+if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+  list(APPEND SOURCES
+    src/NetworkCookieJar.cpp)
 endif()
 
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})

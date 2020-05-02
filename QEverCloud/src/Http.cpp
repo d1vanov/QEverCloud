@@ -47,6 +47,11 @@ void ReplyFetcher::start(
     QNetworkAccessManager * pNam, QNetworkRequest request, qint64 timeoutMsec,
     QByteArray postData)
 {
+    QEC_TRACE("http", "ReplyFetcher started for URL " << request.url()
+        << ", post data size: " << postData.size());
+
+    m_pNam = pNam;
+
     m_httpStatusCode = 0;
     m_errorType = QNetworkReply::NoError;
     m_errorText.clear();
@@ -117,6 +122,8 @@ void ReplyFetcher::checkForTimeout()
 
 void ReplyFetcher::onFinished()
 {
+    QEC_TRACE("http", "ReplyFetcher finished")
+
     m_pTicker->stop();
 
     if (m_errorType != QNetworkReply::NoError) {
@@ -133,19 +140,12 @@ void ReplyFetcher::onFinished()
 
 void ReplyFetcher::onError(QNetworkReply::NetworkError error)
 {
-    auto errorText = m_pReply->errorString();
+    QEC_WARNING("http", "ReplyFetcher error: code = "
+        << error << ", description: " << m_pReply->errorString()
+        << "; http status code: " << m_pReply->attribute(
+            QNetworkRequest::HttpStatusCodeAttribute).toInt());
 
-    // Workaround for Evernote server problems
-    if ( (error == QNetworkReply::UnknownContentError) &&
-         errorText.endsWith(QStringLiteral("server replied: OK")) )
-    {
-        QEC_INFO("HTTP", "Ignoring Evernote servers bug: UnknownContentError: "
-            << errorText << "; http status code = "
-            << m_pReply->attribute(QNetworkRequest::HttpStatusCodeAttribute));
-        return;
-    }
-
-    setError(error, errorText);
+    setError(error, m_pReply->errorString());
 }
 
 void ReplyFetcher::onSslErrors(QList<QSslError> errors)
@@ -157,6 +157,7 @@ void ReplyFetcher::onSslErrors(QList<QSslError> errors)
         errorText += error.errorString().append(QStringLiteral("\n"));
     }
 
+    QEC_WARNING("http", errorText);
     setError(QNetworkReply::SslHandshakeFailedError, errorText);
 }
 
@@ -198,6 +199,7 @@ QByteArray simpleDownload(
     QByteArray postData, int * pHttpStatusCode)
 {
     auto * pFetcher = new ReplyFetcher;
+
     auto * pNam = new QNetworkAccessManager(pFetcher);
     pNam->setProxy(evernoteNetworkProxy());
 
@@ -236,7 +238,8 @@ QByteArray simpleDownload(
     return receivedData;
 }
 
-QNetworkRequest createEvernoteRequest(QString url)
+QNetworkRequest createEvernoteRequest(
+    QString url, QList<QNetworkCookie> cookies)
 {
     QNetworkRequest request;
     request.setUrl(url);
@@ -251,15 +254,23 @@ QNetworkRequest createEvernoteRequest(QString url)
         .arg(libraryVersion() % 10000));
 
     request.setRawHeader("Accept", "application/x-thrift");
+
+    for(const auto & cookie: qAsConst(cookies)) {
+        request.setHeader(
+            QNetworkRequest::CookieHeader,
+            QVariant::fromValue(cookie));
+    }
+
     return request;
 }
 
 QByteArray askEvernote(
-    QString url, QByteArray postData, const qint64 timeoutMsec)
+    QString url, QByteArray postData, const qint64 timeoutMsec,
+    QList<QNetworkCookie> cookies)
 {
     int httpStatusCode = 0;
     QByteArray reply = simpleDownload(
-        createEvernoteRequest(url),
+        createEvernoteRequest(url, std::move(cookies)),
         timeoutMsec,
         postData,
         &httpStatusCode);

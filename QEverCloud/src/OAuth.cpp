@@ -9,11 +9,15 @@
 
 #include "Http.h"
 
+#include "NetworkCookieJar.h"
+
 #include <Globals.h>
 #include <Helpers.h>
 #include <Log.h>
 #include <OAuth.h>
 
+#include <QNetworkCookie>
+#include <QNetworkCookieJar>
 #include <QNetworkReply>
 #include <QVBoxLayout>
 #include <QUuid>
@@ -94,6 +98,9 @@ public Q_SLOTS:
     void onUrlChanged(const QUrl & url);
     void clearHtml();
 
+private:
+    void extractCookies(ReplyFetcher * pReplyFetcher);
+
 public:
     void setError(QString error);
 
@@ -104,6 +111,10 @@ public:
     QString     m_host;
     qint64      m_timeoutMsec = 0;
     EvernoteOAuthWebView::OAuthResult   m_oauthResult;
+
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
+    NetworkCookieJar * m_pCookieJar;
+#endif
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -117,6 +128,10 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 {
 #if !QEVERCLOUD_USE_QT_WEB_ENGINE
     page()->networkAccessManager()->setProxy(evernoteNetworkProxy());
+    page()->networkAccessManager()->setCookieJar(new NetworkCookieJar);
+#else
+    m_pCookieJar = new NetworkCookieJar(this);
+    m_pCookieJar->loadStore();
 #endif
 }
 
@@ -179,6 +194,7 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
             QUrl url(m_oauthUrlBase + QStringLiteral("&oauth_token=%1").arg(token));
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
             auto * pNam = new QNetworkAccessManager(replyFetcher);
+            pNam->setCookieJar(new NetworkCookieJar);
 #else
             auto * pNam = page()->networkAccessManager();
 #endif
@@ -199,11 +215,11 @@ void EvernoteOAuthWebViewPrivate::onUrlChanged(const QUrl & url)
 
 void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
 {
-    ReplyFetcher * replyFetcher = qobject_cast<ReplyFetcher*>(rf);
-    if (replyFetcher->isError())
+    ReplyFetcher * pReplyFetcher = qobject_cast<ReplyFetcher*>(rf);
+    if (pReplyFetcher->isError())
     {
         QEC_WARNING("oauth", "Failed to acquire permanent token");
-        setError(replyFetcher->errorText());
+        setError(pReplyFetcher->errorText());
     }
     else
     {
@@ -211,7 +227,7 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
 
         m_isSucceeded = true;
 
-        QByteArray reply = replyFetcher->receivedData();
+        QByteArray reply = pReplyFetcher->receivedData();
         QMap<QString, QString> params;
         QList<QByteArray> vals = reply.split('&');
 
@@ -230,16 +246,45 @@ void EvernoteOAuthWebViewPrivate::permanentFinished(QObject * rf)
             params[QStringLiteral("edam_webApiUrlPrefix")];
         m_oauthResult.authenticationToken = params[QStringLiteral("oauth_token")];
 
+        extractCookies(pReplyFetcher);
+
         emit authenticationFinished(true);
         emit authenticationSuceeded();
     }
 
-    replyFetcher->deleteLater();
+    pReplyFetcher->deleteLater();
 }
 
 void EvernoteOAuthWebViewPrivate::clearHtml()
 {
     setHtml(QLatin1String(""));
+}
+
+void EvernoteOAuthWebViewPrivate::extractCookies(ReplyFetcher * pReplyFetcher)
+{
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
+    Q_UNUSED(pReplyFetcher)
+    m_oauthResult.cookies = m_pCookieJar->allCookies();
+#else
+    QNetworkAccessManager * pNam = pReplyFetcher->networkAccessManager();
+    if (Q_UNLIKELY(!pNam)) {
+        QEC_WARNING("oauth", "Failed to extract cookies after OAuth: "
+            << "network access manager instance expired");
+        return;
+    }
+
+    auto * pCookieJar = qobject_cast<NetworkCookieJar*>(pNam->cookieJar());
+    if (Q_UNLIKELY(!pCookieJar)) {
+        QEC_WARNING("oauth", "Failed to extract cookies after OAuth: "
+            << "unexpected instance of cookie jar");
+        return;
+    }
+
+    m_oauthResult.cookies = pCookieJar->allCookies();
+#endif
+
+    QEC_DEBUG("oauth", "Got " << m_oauthResult.cookies.size()
+        << " cookies after OAuth");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -339,9 +384,10 @@ void EvernoteOAuthWebView::OAuthResult::print(QTextStream & strm) const
     strm << "  userId = " << QString::number(userId) << ";\n";
     strm << "  webApiUrlPrefix = " << webApiUrlPrefix << ";\n";
     strm << "  authenticationToken "
-         << (authenticationToken.isEmpty()
-             ? "is empty"
-             : "is not empty") << ";\n";
+        << (authenticationToken.isEmpty()
+            ? "is empty"
+            : "is not empty") << ";\n";
+    strm << "  cookies count: " << cookies.size() << ";\n";
 
     strm << "};\n";
 }

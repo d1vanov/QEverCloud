@@ -11,6 +11,8 @@
 #include "Export.h"
 
 #include <QDebug>
+#include <QList>
+#include <QNetworkCookie>
 #include <QTextStream>
 #include <QUuid>
 
@@ -58,6 +60,9 @@ public:
     /** Max number of attempts to retry a request */
     virtual quint32 maxRequestRetryCount() const = 0;
 
+    /** Cookies to set to QNetworkRequest corresponding to Evernote API call */
+    virtual QList<QNetworkCookie> cookies() const = 0;
+
     /**
      * Create a new instance of IRequestContext with all the same parameters
      * as in the source but a distinct id
@@ -82,7 +87,8 @@ QEVERCLOUD_EXPORT IRequestContextPtr newRequestContext(
     qint64 requestTimeout = DEFAULT_REQUEST_TIMEOUT_MSEC,
     bool increaseRequestTimeoutExponentially = DEFAULT_REQUEST_TIMEOUT_EXPONENTIAL_INCREASE,
     qint64 maxRequestTimeout = DEFAULT_MAX_REQUEST_TIMEOUT_MSEC,
-    quint32 maxRequestRetryCount = DEFAULT_MAX_REQUEST_RETRY_COUNT);
+    quint32 maxRequestRetryCount = DEFAULT_MAX_REQUEST_RETRY_COUNT,
+    QList<QNetworkCookie> cookies = {});
 
 } // namespace qevercloud
 
