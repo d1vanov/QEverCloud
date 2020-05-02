@@ -7,6 +7,8 @@
 
 #include <RequestContext.h>
 
+#include <Helpers.h>
+
 namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -100,10 +102,11 @@ void printRequestContext(const IRequestContext & ctx, T & strm)
         << "\n";
 
     const auto cookies = ctx.cookies();
-    if (!cookies.isEmpty()) {
+    if (!cookies.isEmpty())
+    {
         strm << "    cookies: " << "\n";
 
-        for(const auto & cookie: cookies) {
+        for(const auto & cookie: qAsConst(cookies)) {
             strm << "        " << QString::fromUtf8(cookie.toRawForm()) << "\n";
         }
     }

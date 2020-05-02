@@ -13,7 +13,9 @@
 #include <Helpers.h>
 
 #include <QByteArray>
+#include <QList>
 #include <QNetworkAccessManager>
+#include <QNetworkCookie>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QPointer>
@@ -128,7 +130,7 @@ QNetworkRequest createEvernoteRequest(
 
 QByteArray askEvernote(
     QString url, QByteArray postData, const qint64 timeoutMsec,
-    QList<QNetworkCookie> cookies);
+    QList<QNetworkCookie> cookies = {});
 
 QByteArray simpleDownload(
     QNetworkRequest request, const qint64 timeoutMsec,

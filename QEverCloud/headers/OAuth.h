@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -104,11 +104,18 @@ public:
         QString webApiUrlPrefix; ///< see PublicUserInfo::webApiUrlPrefix
         QString authenticationToken; ///< This is what this all was for!
 
-        ///< Evernote silently started to require it in April 2020 in addition
-        /// to the authentication token, without it calls to user store don't
-        /// work and users of Evernote API had to reverse engineer it
-        /// on their own. Outstanding move, Evernote devs.
-        QList<QNetworkCookie> userStoreCookies;
+        ///< Cookies set by Evernote during OAuth procedure. In April 2020 these
+        /// cookies silently started to be required for UserStore API calls.
+        /// Probably it was a bug on Evernote side which hopefully would be
+        /// fixed at some point but nevertheless cookies set during OAuth
+        /// procedure are now available as a part of OAuth result and can be
+        /// used in subsequent calls to Evernote service. These cookies can
+        /// be set when creating an instance of IRequestContext. Then this
+        /// context can be used in QEverCloud calls. Cookies from context would
+        /// propagate to HTTP requests performed by QEverCloud.
+        /// See this thread on Evernote discussions for more details:
+        /// https://discussion.evernote.com/topic/124257-calls-to-userstore-from-evernote-api-stopped-working
+        QList<QNetworkCookie> cookies;
 
         virtual void print(QTextStream & strm) const override;
     };
