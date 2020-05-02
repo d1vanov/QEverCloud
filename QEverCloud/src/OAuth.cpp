@@ -131,6 +131,7 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
     page()->networkAccessManager()->setCookieJar(new NetworkCookieJar);
 #else
     m_pCookieJar = new NetworkCookieJar(this);
+    m_pCookieJar->loadStore();
 #endif
 }
 
