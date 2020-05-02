@@ -60,7 +60,7 @@ public:
     /** Max number of attempts to retry a request */
     virtual quint32 maxRequestRetryCount() const = 0;
 
-    /** Cookies to set to QNetworkAccessManager serving the request */
+    /** Cookies to set to QNetworkRequest corresponding to Evernote API call */
     virtual QList<QNetworkCookie> cookies() const = 0;
 
     /**
