@@ -16,10 +16,6 @@ namespace qevercloud {
 void NetworkCookieJar::loadStore()
 {
     auto * pProfile = QWebEngineProfile::defaultProfile();
-
-    pProfile->setPersistentCookiesPolicy(
-        QWebEngineProfile::ForcePersistentCookies);
-
     auto * pCookieStore = pProfile->cookieStore();
 
     QObject::connect(
