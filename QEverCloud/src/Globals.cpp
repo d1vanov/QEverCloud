@@ -99,7 +99,7 @@ void resetEvernoteNetworkProxy()
 
 int libraryVersion()
 {
-    return 6*10000 + 0*100 + 0;
+    return 6*10000 + 1*100 + 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

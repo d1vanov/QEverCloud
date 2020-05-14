@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.0
+  * Add ability to retrieve cookies set by Evernote during OAuth procedure and add
+  ability to specify cookies in request context for Evernote API calls. These cookies
+  suddenly became required in order to execute UserStore API calls.
+
 ## 6.0.0
   * Replaced evernoteNetworkAccessManager function with several functions which
   allow to set up network proxy settings. The motivation was the necessity to
