@@ -261,10 +261,8 @@ QNetworkRequest createEvernoteRequest(
 
     request.setRawHeader("Accept", "application/x-thrift");
 
-    for(const auto & cookie: qAsConst(cookies)) {
-        request.setHeader(
-            QNetworkRequest::CookieHeader,
-            QVariant::fromValue(cookie));
+    if (!cookies.isEmpty()) {
+        request.setHeader(QNetworkRequest::CookieHeader, QVariant::fromValue(cookies));
     }
 
     return request;
