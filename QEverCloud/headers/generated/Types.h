@@ -110,6 +110,7 @@ public:
 
     bool operator==(const EverCloudLocalData & other) const;
     bool operator!=(const EverCloudLocalData & other) const;
+
     /**
      * @brief id property can be used as a local unique identifier
      * for any data item before it has been synchronized with
@@ -119,6 +120,19 @@ public:
      * construction for convenience but can be overridden manually
      */
     QString id;
+
+    /**
+     * @brief parentId property can be used as a local unique identifier
+     * of the data item being a parent to this data item.
+     *
+     * For example, a note is a parent to a resource, a notebook
+     * is a parent to a note. So note's id is a parentId for a
+     * resource, notebook's id is a parentId for a note, tag's id
+     * is a parent to a child tag.
+     *
+     * By default the parentId property is empty
+     */
+    QString parentId;
 
     /**
      * @brief dirty property can be used to keep track which
@@ -150,6 +164,7 @@ public:
 
     // Properties declaration for meta-object system
     Q_PROPERTY(QString id MEMBER id USER true)
+    Q_PROPERTY(QString parentId MEMBER parentId)
     Q_PROPERTY(bool dirty MEMBER dirty)
     Q_PROPERTY(bool local MEMBER local)
     Q_PROPERTY(bool favorited MEMBER favorited)

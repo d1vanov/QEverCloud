@@ -397,6 +397,7 @@ EverCloudLocalData::~EverCloudLocalData() noexcept
 void EverCloudLocalData::print(QTextStream & strm) const
 {
     strm << "    localData.id = " << id << "\n"
+        << "    localData.parentId = " << parentId << "\n"
         << "    localData.dirty = " << (dirty ? "true" : "false") << "\n"
         << "    localData.local = " << (local ? "true" : "false") << "\n"
         << "    localData.favorited = " << (favorited ? "true" : "false") << "\n";
