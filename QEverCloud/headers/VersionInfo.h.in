@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017-2019 Dmitry Ivanov
+ * Copyright (c) 2017-2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -7,6 +7,10 @@
 
 #ifndef QEVERCLOUD_VERSION_INFO_H
 #define QEVERCLOUD_VERSION_INFO_H
+
+#include "Export.h"
+
+#include <QString>
 
 /**
  * This file contains configuration-specific macro definitions
@@ -29,5 +33,75 @@
  * and Q_ENUM_NS
  */
 @QEVERCLOUD_USES_Q_NAMESPACE@
+
+/**
+ * This macro is set to a string holding the information about
+ * the current QEverCloud build
+ */
+@QEVERCLOUD_BUILD_INFO@
+
+/**
+ * This macro is set to the major version number of QEverCloud
+ */
+@QEVERCLOUD_VERSION_MAJOR_DEFINE@
+
+/**
+ * This macro is set to the minor version of QEverCloud
+ */
+@QEVERCLOUD_VERSION_MINOR_DEFINE@
+
+/**
+ * This macro is set to the patch version of QEverCloud
+ */
+@QEVERCLOUD_VERSION_PATCH_DEFINE@
+
+namespace qevercloud {
+
+/**
+ * @return          Major version of QEverCloud
+ */
+int QEVERCLOUD_EXPORT qevercloudVersionMajor();
+
+/**
+ * @return          Minor version of libquentier
+ */
+int QEVERCLOUD_EXPORT qevercloudVersionMinor();
+
+/**
+ * @return          Patch version of libquentier
+ */
+int QEVERCLOUD_EXPORT qevercloudVersionPatch();
+
+/**
+ * @return          String containing information about
+ *                  the current QEverCloud build
+ */
+QString QEVERCLOUD_EXPORT qevercloudBuildInfo();
+
+/**
+ * @return          String representing the version of Qt against which
+ *                  libquentier was built
+ */
+QString QEVERCLOUD_EXPORT qevercloudBuiltWithQtVersion();
+
+/**
+ * @return          True if QEverCloud was built with OAuth support, false
+ *                  otherwise
+ */
+bool QEVERCLOUD_EXPORT qevercloudHasOAuth();
+
+/**
+ * @return          True if QEverCloud was built with QtWebEngine, false
+ *                  otherwise
+ */
+bool QEVERCLOUD_EXPORT qevercloudUsesQtWebEngine();
+
+/**
+ * @return          True if QEverCloud was built with use of Q_NAMESPACE and
+ *                  Q_ENUM_NS, false otherwise
+ */
+bool QEVERCLOUD_EXPORT qevercloudUsesQNamespace();
+
+} // namespace qevercloud
 
 #endif // QEVERCLOUD_VERSION_INFO_H
