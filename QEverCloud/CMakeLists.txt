@@ -63,6 +63,7 @@ set(SOURCES
     src/Printable.cpp
     src/RequestContext.cpp
     src/Thumbnail.cpp
+    src/VersionInfo.cpp
     src/generated/Constants.cpp
     src/generated/EDAMErrorCode.cpp
     src/generated/Services.cpp
@@ -101,6 +102,67 @@ if(BUILD_WITH_Q_NAMESPACE)
   set(QEVERCLOUD_USES_Q_NAMESPACE "#define QEVERCLOUD_USES_Q_NAMESPACE 1")
 else()
   set(QEVERCLOUD_USES_Q_NAMESPACE "#define QEVERCLOUD_USES_Q_NAMESPACE 0")
+endif()
+
+set(QEVERCLOUD_VERSION_MAJOR_DEFINE "#define QEVERCLOUD_VERSION_MAJOR ${PROJECT_VERSION_MAJOR}")
+set(QEVERCLOUD_VERSION_MINOR_DEFINE "#define QEVERCLOUD_VERSION_MINOR ${PROJECT_VERSION_MINOR}")
+set(QEVERCLOUD_VERSION_PATCH_DEFINE "#define QEVERCLOUD_VERSION_PATCH ${PROJECT_VERSION_PATCH}")
+
+if(NOT QEVERCLOUD_BUILD_INFO)
+  find_package(Git)
+  if(GIT_FOUND)
+    message(STATUS "Git found: ${GIT_EXECUTABLE}")
+
+    # Get git branch
+    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --abbrev-ref HEAD
+      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      OUTPUT_VARIABLE QEVERCLOUD_GIT_BRANCH
+      RESULT_VARIABLE QEVERCLOUD_GIT_BRANCH_RETURN_CODE
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT "${QEVERCLOUD_GIT_BRANCH_RETURN_CODE}" STREQUAL "0")
+      message(AUTHOR_WARNING "Failed to determine the current git branch, return code ${QEVERCLOUD_GIT_BRANCH_RETURN_CODE}")
+      set(QEVERCLOUD_GIT_BRANCH "unknown branch")
+    else()
+      if(${QEVERCLOUD_GIT_BRANCH} STREQUAL "HEAD")
+        # Can happen if running on detached HEAD, can happen in CI jobs; workaround: try to get the current branch from environment variables
+        set(APPVEYOR_REPO_BRANCH "$ENV{APPVEYOR_REPO_BRANCH}")
+        set(TRAVIS_BRANCH "$ENV{TRAVIS_BRANCH}")
+        if(NOT "${APPVEYOR_REPO_BRANCH}" STREQUAL "")
+          set(QEVERCLOUD_GIT_BRANCH "${APPVEYOR_REPO_BRANCH}")
+        elseif(NOT "${TRAVIS_BRANCH}" STREQUAL "")
+          set(QEVERCLOUD_GIT_BRANCH "${TRAVIS_BRANCH}")
+        endif()
+      endif()
+      message(STATUS "Git branch: ${QEVERCLOUD_GIT_BRANCH}")
+    endif()
+
+    # Get last commit short hash
+    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      OUTPUT_VARIABLE QEVERCLOUD_GIT_REVISION
+      RESULT_VARIABLE QEVERCLOUD_GIT_REVISION_RETURN_CODE
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT "${QEVERCLOUD_GIT_REVISION_RETURN_CODE}" STREQUAL "0")
+      message(AUTHOR_WARNING "Failed to determine the current git revision")
+      set(QEVERCLOUD_GIT_REVISION "unknown revision")
+    else()
+      message(STATUS "Last commit short hash: ${QEVERCLOUD_GIT_REVISION}")
+    endif()
+
+    # Check for uncommitted changes
+    execute_process(COMMAND ${GIT_EXECUTABLE} diff-index --quiet HEAD --
+      WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+      RESULT_VARIABLE QEVERCLOUD_GIT_DIRTY_STATE)
+    if(NOT "${QEVERCLOUD_GIT_DIRTY_STATE}" STREQUAL "0")
+      set(QEVERCLOUD_GIT_REVISION "${QEVERCLOUD_GIT_REVISION}, with uncommitted changes")
+    endif()
+
+    set(QEVERCLOUD_BUILD_INFO "#define QEVERCLOUD_BUILD_INFO \"${QEVERCLOUD_GIT_BRANCH}, ${QEVERCLOUD_GIT_REVISION}\"")
+  else()
+    set(QEVERCLOUD_BUILD_INFO "#define QEVERCLOUD_BUILD_INFO \"unknown\"")
+  endif()
+else()
+  set(QEVERCLOUD_BUILD_INFO "#define QEVERCLOUD_BUILD_INFO \"${QEVERCLOUD_BUILD_INFO}\"")
 endif()
 
 configure_file(headers/VersionInfo.h.in

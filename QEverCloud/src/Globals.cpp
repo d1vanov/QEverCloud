@@ -11,6 +11,7 @@
 
 #include <AsyncResult.h>
 #include <RequestContext.h>
+#include <VersionInfo.h>
 
 #include <QGlobalStatic>
 #include <QMetaType>
@@ -97,10 +98,20 @@ void resetEvernoteNetworkProxy()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if defined(QT_WARNING_PUSH) && defined(QT_WARNING_DISABLE_DEPRECATED) && defined(QT_WARNING_POP)
+QT_WARNING_PUSH
+QT_WARNING_DISABLE_DEPRECATED
+#endif
+
 int libraryVersion()
 {
-    return 6*10000 + 1*100 + 0;
+    return qevercloudVersionMajor() * 10000 + qevercloudVersionMinor() * 100 +
+        qevercloudVersionPatch();
 }
+
+#if defined(QT_WARNING_PUSH) && defined(QT_WARNING_DISABLE_DEPRECATED) && defined(QT_WARNING_POP)
+QT_WARNING_POP
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 

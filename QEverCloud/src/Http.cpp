@@ -13,6 +13,7 @@
 #include <Helpers.h>
 #include <Globals.h>
 #include <Log.h>
+#include <VersionInfo.h>
 
 #include <QEventLoop>
 #include <QtNetwork>
@@ -255,9 +256,10 @@ QNetworkRequest createEvernoteRequest(
 
     request.setHeader(
         QNetworkRequest::UserAgentHeader,
-        QString::fromUtf8("QEverCloud %1.%2")
-        .arg(libraryVersion() / 10000)
-        .arg(libraryVersion() % 10000));
+        QString::fromUtf8("QEverCloud %1.%2.%3")
+        .arg(qevercloudVersionMajor())
+        .arg(qevercloudVersionMinor())
+        .arg(qevercloudVersionPatch()));
 
     request.setRawHeader("Accept", "application/x-thrift");
 
