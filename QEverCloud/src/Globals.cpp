@@ -98,14 +98,20 @@ void resetEvernoteNetworkProxy()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+#if defined(QT_WARNING_PUSH) && defined(QT_WARNING_DISABLE_DEPRECATED) && defined(QT_WARNING_POP)
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
+#endif
+
 int libraryVersion()
 {
     return qevercloudVersionMajor() * 10000 + qevercloudVersionMinor() * 100 +
         qevercloudVersionPatch();
 }
+
+#if defined(QT_WARNING_PUSH) && defined(QT_WARNING_DISABLE_DEPRECATED) && defined(QT_WARNING_POP)
 QT_WARNING_POP
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
