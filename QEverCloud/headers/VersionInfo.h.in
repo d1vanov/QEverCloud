@@ -63,12 +63,12 @@ namespace qevercloud {
 int QEVERCLOUD_EXPORT qevercloudVersionMajor();
 
 /**
- * @return          Minor version of libquentier
+ * @return          Minor version of QEverCloud
  */
 int QEVERCLOUD_EXPORT qevercloudVersionMinor();
 
 /**
- * @return          Patch version of libquentier
+ * @return          Patch version of QEverCloud
  */
 int QEVERCLOUD_EXPORT qevercloudVersionPatch();
 
@@ -80,7 +80,7 @@ QString QEVERCLOUD_EXPORT qevercloudBuildInfo();
 
 /**
  * @return          String representing the version of Qt against which
- *                  libquentier was built
+ *                  QEverCloud was built
  */
 QString QEVERCLOUD_EXPORT qevercloudBuiltWithQtVersion();
 
