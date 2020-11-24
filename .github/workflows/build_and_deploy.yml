@@ -222,7 +222,7 @@ jobs:
           target: desktop
           install-deps: true
           arch: win32_msvc2017
-          modules: [qtwebengine, qtwebchannel, qtwebsockets]
+          modules: 'qtwebengine qtwebchannel qtwebsockets'
           dir: '${{ runner.workspace }}/Qt_x86'
         if: ${{ matrix.target_arch == 'x86' }}
 
@@ -244,7 +244,7 @@ jobs:
           target: desktop
           install-deps: true
           arch: win64_msvc2017_64
-          modules: [qtwebengine, qtwebchannel, qtwebsockets]
+          modules: 'qtwebengine qtwebchannel qtwebsockets'
           dir: '${{ runner.workspace }}/Qt_x64'
         if: ${{ matrix.target_arch == 'x64' }}
 
