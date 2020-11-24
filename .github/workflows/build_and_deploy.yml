@@ -116,7 +116,7 @@ jobs:
           cmake --build . --target check
 
       - name: Install
-        id: install:
+        id: install
         run: |
           cd $GITHUB_WORKSPACE/build
           cmake --build . --target install
@@ -173,7 +173,7 @@ jobs:
           cmake --build . --target check
 
       - name: Install
-        id: install:
+        id: install
         run: |
           cd $GITHUB_WORKSPACE/build
           cmake --build . --target install
