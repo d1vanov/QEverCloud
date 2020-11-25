@@ -248,8 +248,8 @@ jobs:
           dir: '${{ runner.workspace }}/Qt_x64'
         if: ${{ matrix.target_arch == 'x64' }}
 
-      - name: Build x86
-        id: build_x86
+      - name: Build, test and install x86
+        id: build_test_install_x86
         run: |
           set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x86\Qt\5.12.9\win32_msvc2017"
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
@@ -258,11 +258,13 @@ jobs:
           cd build
           cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" ..
           cmake --build . --target all
+          cmake --build . --target check
+          cmake --build . --target install
         if: ${{ matrix.target_arch == 'x86' }}
         shell: cmd
 
-      - name: Build x64
-        id: build_x64
+      - name: Build, test and install x64
+        id: build_test_install_x64
         run: |
           set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x64\Qt\5.12.9\win64_msvc2017_x64"
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
@@ -271,21 +273,9 @@ jobs:
           cd build
           cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" ..
           cmake --build . --target all
-        if: ${{ matrix.target_arch == 'x64' }}
-        shell: cmd
-
-      - name: Test
-        id: test
-        run: |
-          cd %GITHUB_WORKSPACE%\build
           cmake --build . --target check
-        shell: cmd
-
-      - name: Install
-        id: install
-        run: |
-          cd %GITHUB_WORKSPACE%\build
           cmake --build . --target install
+        if: ${{ matrix.target_arch == 'x64' }}
         shell: cmd
 
       - name: Archive installed x86 library
