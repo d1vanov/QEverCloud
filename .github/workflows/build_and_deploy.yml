@@ -183,7 +183,6 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/build/installdir
           7z a QEverCloud_macos.zip *
-        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.3' }}
 
       - name: Upload QEverCloud artifact
         id: upload_artifact
@@ -191,7 +190,6 @@ jobs:
         with:
           name: QEverCloud_macos
           path: '${{ github.workspace }}/build/installdir/QEverCloud_macos.zip'
-        if: ${{ matrix.qt_version == '5.12.3' && matrix.compiler_cpp == 'g++' }}
 
   build_windows:
     runs-on: windows-2019
