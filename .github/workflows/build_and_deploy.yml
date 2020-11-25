@@ -256,7 +256,7 @@ jobs:
           cd build
           cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" ..
           cmake --build . --target all
-          QEverCloud\test_QEverCloud.exe
+          QEverCloud\test_QEverCloud.exe -txt -v1
           cmake --build . --target install
         if: ${{ matrix.target_arch == 'x86' }}
         shell: cmd
@@ -271,7 +271,7 @@ jobs:
           cd build
           cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" ..
           cmake --build . --target all
-          QEverCloud\test_QEverCloud.exe
+          QEverCloud\test_QEverCloud.exe -txt -v1
           cmake --build . --target install
         if: ${{ matrix.target_arch == 'x64' }}
         shell: cmd
