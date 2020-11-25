@@ -1,0 +1,518 @@
+name: Build
+
+on:
+  push:
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+      - 'README.md'
+    branches:
+      - master
+      - development
+    tags:
+      - v[0-9].[0-9].[0-9]*
+  pull_request:
+    branches:
+      - master
+      - development
+
+jobs:
+  build_linux:
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        include:
+          - qt_version: '5.5.1'
+            compiler_c: 'gcc'
+            compiler_cpp: 'g++'
+          - qt_version: '5.5.1'
+            compiler_c: 'clang'
+            compiler_cpp: 'clang++'
+          - qt_version: '5.12.3'
+            compiler_c: 'gcc'
+            compiler_cpp: 'g++'
+          - qt_version: '5.12.3'
+            compiler_c: 'clang'
+            compiler_cpp: 'clang++'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install non-Qt dependencies
+        id: install_non_qt_deps
+        run: |
+          sudo apt-get -qq install cmake ninja-build p7zip-full coreutils curl
+
+      - name: Install gcc
+        id: install_gcc
+        run: |
+          sudo apt-get -qq install gcc g++
+        if: ${{ matrix.compiler_cpp == 'g++' }}
+
+      - name: Install clang
+        id: install_clang
+        run: |
+          sudo apt-get -qq install clang
+        if: ${{ matrix.compiler_cpp == 'clang++' }}
+
+      - name: Install Qt 5.5.1
+        id: install_qt_old
+        run: |
+          sudo apt-get -qq install qtbase5-dev qttools5-dev qttools5-dev-tools libqt5webkit5-dev
+        if: ${{ matrix.qt_version == '5.5.1' }}
+
+      - name: Install Qt 5.12.3
+        id: install_qt_modern
+        run: |
+          sudo apt-add-repository -y ppa:beineri/opt-qt-5.12.3-xenial
+          sudo apt-get -qq update
+          sudo apt-get -qq install qt512tools qt512base qt512webchannel qt512webengine qt512websockets mesa-common-dev libgl1-mesa-dev
+        if: ${{ matrix.qt_version == '5.12.3' }}
+        shell: bash
+
+      - name: Configure for gcc and Qt 5.5.1
+        id: configure_for_gcc_and_qt_old
+        run: |
+          mkdir $GITHUB_WORKSPACE/build
+          cd $GITHUB_WORKSPACE/build
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DUSE_QT5_WEBKIT=ON ..
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.5.1' }}
+
+      - name: Configure for gcc and Qt 5.12.3
+        id: configure_for_gcc_and_qt_modern
+        run: |
+          mkdir $GITHUB_WORKSPACE/build
+          cd $GITHUB_WORKSPACE/build
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_PREFIX_PATH=/opt/qt512 ..
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.3' }}
+
+      - name: Configure for clang and Qt 5.5.1
+        id: configure_for_clang_and_qt_old
+        run: |
+          mkdir $GITHUB_WORKSPACE/build
+          cd $GITHUB_WORKSPACE/build
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DUSE_QT5_WEBKIT=ON ..
+        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.5.1' }}
+
+      - name: Configure for clang and Qt 5.12.3
+        id: configure_for_clang_and_qt_modern
+        run: |
+          mkdir $GITHUB_WORKSPACE/build
+          cd $GITHUB_WORKSPACE/build
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_PREFIX_PATH=/opt/qt512 ..
+        if: ${{ matrix.compiler_cpp == 'clang++' && matrix.qt_version == '5.12.3' }}
+
+      - name: Build
+        id: build
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          cmake --build . --target all
+
+      - name: Test
+        id: test
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          cmake --build . --target check
+
+      - name: Install
+        id: install
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          cmake --build . --target install
+
+      - name: Archive installed library
+        id: archive
+        run: |
+          cd $GITHUB_WORKSPACE/build/installdir
+          7z a QEverCloud_linux.zip *
+        if: ${{ matrix.compiler_cpp == 'g++' && matrix.qt_version == '5.12.3' }}
+
+      - name: Upload QEverCloud artifact
+        id: upload_artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: QEverCloud_linux
+          path: '${{ github.workspace }}/build/installdir/QEverCloud_linux.zip'
+        if: ${{ matrix.qt_version == '5.12.3' && matrix.compiler_cpp == 'g++' }}
+
+  build_macos:
+    runs-on: macos-10.15
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        id: install_deps
+        run: |
+          brew update
+          brew unlink cmake
+          brew install cmake --force-bottle
+          brew link cmake
+          brew install ninja --force-bottle
+          brew install p7zip --force-bottle
+          brew install qt5 --force-bottle
+
+      - name: Configure
+        id: configure
+        run: |
+          mkdir $GITHUB_WORKSPACE/build
+          cd $GITHUB_WORKSPACE/build
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5 ..
+
+      - name: Build
+        id: build
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          cmake --build . --target all
+
+      - name: Test
+        id: test
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          cmake --build . --target check
+
+      - name: Install
+        id: install
+        run: |
+          cd $GITHUB_WORKSPACE/build
+          cmake --build . --target install
+
+      - name: Archive installed library
+        id: archive
+        run: |
+          cd $GITHUB_WORKSPACE/build/installdir
+          7z a QEverCloud_macos.zip *
+
+      - name: Upload QEverCloud artifact
+        id: upload_artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: QEverCloud_macos
+          path: '${{ github.workspace }}/build/installdir/QEverCloud_macos.zip'
+
+  build_windows:
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        include:
+          - target_arch: 'x86'
+          - target_arch: 'x64'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Qt 5.12.9 x86
+        id: cache_qt_x86
+        uses: actions/cache@v1
+        with:
+          path: '${{ runner.workspace }}/Qt_x86'
+          key: ${{ runner.os }}-QtCache-x86
+        if: ${{ matrix.target_arch == 'x86' }}
+
+      - name: Install Qt 5.12.9 x86
+        id: install_qt_modern_x86
+        uses: jurplel/install-qt-action@v2
+        with:
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: 5.12.9
+          host: windows
+          target: desktop
+          install-deps: true
+          arch: win32_msvc2017
+          modules: 'qtwebengine qtwebchannel qtwebsockets'
+          dir: '${{ runner.workspace }}/Qt_x86'
+        if: ${{ matrix.target_arch == 'x86' }}
+
+      - name: Cache Qt 5.12.9 x64
+        id: cache_qt_x64
+        uses: actions/cache@v1
+        with:
+          path: '${{ runner.workspace }}/Qt_x64'
+          key: ${{ runner.os }}-QtCache-x64
+        if: ${{ matrix.target_arch == 'x64' }}
+
+      - name: Install Qt 5.12.9 x64
+        id: install_qt_modern_x64
+        uses: jurplel/install-qt-action@v2
+        with:
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: 5.12.9
+          host: windows
+          target: desktop
+          install-deps: true
+          arch: win64_msvc2017_64
+          modules: 'qtwebengine qtwebchannel qtwebsockets'
+          dir: '${{ runner.workspace }}/Qt_x64'
+        if: ${{ matrix.target_arch == 'x64' }}
+
+      - name: Build, test and install x86
+        id: build_test_install_x86
+        run: |
+          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x86\Qt\5.12.9\win32_msvc2017"
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x86
+          cd %GITHUB_WORKSPACE%
+          md build
+          cd build
+          cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" ..
+          cmake --build . --target all
+          cmake --build . --target check
+          cmake --build . --target install
+        if: ${{ matrix.target_arch == 'x86' }}
+        shell: cmd
+
+      - name: Build, test and install x64
+        id: build_test_install_x64
+        run: |
+          set CMAKE_PREFIX_PATH="%RUNNER_WORKSPACE%\Qt_x64\Qt\5.12.9\win64_msvc2017_x64"
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cd %GITHUB_WORKSPACE%
+          md build
+          cd build
+          cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="%GITHUB_WORKSPACE%\build\installdir" -DCMAKE_PREFIX_PATH="%CMAKE_PREFIX_PATH%" ..
+          cmake --build . --target all
+          cmake --build . --target check
+          cmake --build . --target install
+        if: ${{ matrix.target_arch == 'x64' }}
+        shell: cmd
+
+      - name: Archive installed x86 library
+        id: archive_x86
+        run: |
+          cd %GITHUB_WORKSPACE%\build\installdir
+          7z a QEverCloud_windows_x86.zip *
+        if: ${{ matrix.target_arch == 'x86' }}
+        shell: cmd
+
+      - name: Archive installed x64 library
+        id: archive_x64
+        run: |
+          cd %GITHUB_WORKSPACE%\build\installdir
+          7z a QEverCloud_windows_x64.zip *
+        if: ${{ matrix.target_arch == 'x64' }}
+        shell: cmd
+
+      - name: Upload x86 QEverCloud
+        id: upload_artifact_x86
+        uses: actions/upload-artifact@v2
+        with:
+          name: QEverCloud_windows_x86
+          path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x86.zip'
+        if: ${{ matrix.target_arch == 'x86' }}
+
+      - name: Upload x64 QEverCloud
+        id: upload_artifact_x64
+        uses: actions/upload-artifact@v2
+        with:
+          name: QEverCloud_windows_x64
+          path: '${{ github.workspace }}\build\installdir\QEverCloud_windows_x64.zip'
+        if: ${{ matrix.target_arch == 'x64' }}
+
+  create_new_release:
+    runs-on: ubuntu-latest
+    needs: [build_linux, build_macos, build_windows]
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - name: Install dependencies
+        id: install_deps
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+          sudo apt-add-repository https://cli.github.com/packages
+          sudo apt update
+          sudo apt install -qq gh
+          sudo apt install -qq jq
+          sudo apt install -qq p7zip
+          sudo apt install -qq curl
+
+      - name: Delete previous continuous release
+        id: delete_previous_continuous_release
+        if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export BRANCH_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
+          gh api /repos/d1vanov/QEverCloud/releases/tags/continuous-${BRANCH_NAME} > /tmp/gh_get_release.json && exit_status=$? || exit_status=$?
+          if [ "${exit_status}" = 0 ]; then
+            export COMMIT_SHA=$(cat /tmp/gh_get_release.json | jq '.target_commitish');
+            if ! [ "${COMMIT_SHA}" = "${GITHUB_SHA}" ]; then
+              gh release delete continuous-${BRANCH_NAME} -y -R d1vanov/QEverCloud;
+              curl -X DELETE -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/d1vanov/QEverCloud/git/refs/tags/continuous-${BRANCH_NAME};
+            fi
+          fi
+        shell: bash
+
+      - name: Create new continuous master release
+        id: create_new_continuous_master_release
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: continuous-master
+          release_name: Continuous build (continuous-master)
+          draft: false
+          prerelease: true
+
+      - name: Create new continuous development release
+        id: create_new_continuous_development_release
+        if: ${{ github.ref == 'refs/heads/development' }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: continuous-development
+          release_name: Continuous build (continuous-development)
+          draft: false
+          prerelease: true
+
+      - name: Create new tagged release
+        id: create_new_tagged_release
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release build (${{ github.ref }})
+          draft: false
+          prerelease: false
+
+      - name: Download linux artifact
+        id: download_linux_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: QEverCloud_linux
+          path: '${{ github.workspace }}/artifacts'
+
+      - name: Download macOS artifact
+        id: download_macos_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: QEverCloud_macos
+          path: '${{ github.workspace }}/artifacts'
+
+      - name: Download Windows x86 artifact
+        id: download_windows_x86_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: QEverCloud_windows_x86
+          path: '${{ github.workspace }}/artifacts'
+
+      - name: Download Windows x64 artifact
+        id: download_windows_x64_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: QEverCloud_windows_x64
+          path: '${{ github.workspace }}/artifacts'
+
+      - name: Upload Linux artifact to continuous master release
+        id: upload_linux_artifact_to_continuous_master_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux.zip /tmp/QEverCloud_linux_x86_64.zip
+          gh release upload --clobber continuous-master /tmp/QEverCloud_linux_x86_64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Upload Linux artifact to continuous development release
+        id: upload_linux_artifact_to_continuous_development_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux.zip /tmp/QEverCloud_linux_x86_64.zip
+          gh release upload --clobber continuous-development /tmp/QEverCloud_linux_x86_64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/development' }}
+
+      - name: Upload macOS artifact to continuous master release
+        id: upload_macos_artifact_to_continuous_master_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_macos.zip /tmp/QEverCloud_macos_x86_64.zip
+          gh release upload --clobber continuous-master /tmp/QEverCloud_macos_x86_64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Upload macOS artifact to continuous development release
+        id: upload_macos_artifact_to_continuous_development_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_macos.zip /tmp/QEverCloud_macos_x86_64.zip
+          gh release upload --clobber continuous-development /tmp/QEverCloud_macos_x86_64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/development' }}
+
+      - name: Upload Windows x86 artifact to continuous master release
+        id: upload_windows_x86_artifact_to_continuous_master_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x86.zip /tmp/QEverCloud_windows_x86.zip
+          gh release upload --clobber continuous-master /tmp/QEverCloud_windows_x86.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Upload Windows x86 artifact to continuous development release
+        id: upload_windows_x86_artifact_to_continuous_development_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x86.zip /tmp/QEverCloud_windows_x86.zip
+          gh release upload --clobber continuous-development /tmp/QEverCloud_windows_x86.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/development' }}
+
+      - name: Upload Windows x64 artifact to continuous master release
+        id: upload_windows_x64_artifact_to_continuous_master_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x64.zip /tmp/QEverCloud_windows_x64.zip
+          gh release upload --clobber continuous-master /tmp/QEverCloud_windows_x64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Upload Windows x64 artifact to continuous development release
+        id: upload_windows_x64_artifact_to_continuous_development_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x64.zip /tmp/QEverCloud_windows_x64.zip
+          gh release upload --clobber continuous-development /tmp/QEverCloud_windows_x64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref == 'refs/heads/development' }}
+
+      - name: Upload Linux artifact to tagged release
+        id: upload_linux_artifact_to_tagged_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_linux.zip /tmp/QEverCloud_linux_x86_64.zip
+          gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_linux_x86_64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
+
+      - name: Upload macOS artifact to tagged release
+        id: upload_macos_artifact_to_tagged_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_macos.zip /tmp/QEverCloud_macos_x86_64.zip
+          gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_macos_x86_64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
+
+      - name: Upload Windows x86 artifact to tagged release
+        id: upload_windows_x86_artifact_to_tagged_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x86.zip /tmp/QEverCloud_windows_x86.zip
+          gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_windows_x86.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
+
+      - name: Upload Windows x64 artifact to tagged release
+        id: upload_windows_x64_artifact_to_tagged_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export TAG_NAME=$(echo $GITHUB_REF | sed 's/.*\/\(.*\)$/\1/')
+          mv $GITHUB_WORKSPACE/artifacts/QEverCloud_windows_x64.zip /tmp/QEverCloud_windows_x64.zip
+          gh release upload --clobber ${TAG_NAME} /tmp/QEverCloud_windows_x64.zip -R d1vanov/QEverCloud
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' }}
