@@ -100,7 +100,7 @@ script:
 after_success:
     - |
       if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${COMPILER}" = "g++-5.4" ]; then
-        if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ] || [ -n "$TRAVIS_TAG"]; then
+        if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ] || [ -n "$TRAVIS_TAG" ]; then
           cd $QEVERCLOUD_DIR/build/installdir &&
           7z a qevercloud_linux_qt_513_x86_64.zip * &&
           wget https://github.com/d1vanov/ciuploadtool/releases/download/continuous-master/ciuploadtool_linux.zip &&
@@ -109,7 +109,7 @@ after_success:
           ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_linux_qt_513_x86_64.zip
         fi
       elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
-        if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ] || [ -n "$TRAVIS_TAG"]; then
+        if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ] || [ -n "$TRAVIS_TAG" ]; then
           cd $QEVERCLOUD_DIR/build/installdir &&
           7z a qevercloud_mac_x86_64.zip * &&
           wget https://github.com/d1vanov/ciuploadtool/releases/download/continuous-master/ciuploadtool_mac.zip &&
