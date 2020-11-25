@@ -3,9 +3,7 @@ QEverCloud
 
 **Unofficial Evernote Cloud API for Qt**
 
-Travis CI (Linux, OS X): [![Build Status](https://travis-ci.org/d1vanov/QEverCloud.svg?branch=master)](https://travis-ci.org/d1vanov/QEverCloud)
-
-AppVeyor CI (Windows): [![Build status](https://ci.appveyor.com/api/projects/status/75vtxm2o18u4atw0/branch/master?svg=true)](https://ci.appveyor.com/project/d1vanov/qevercloud/branch/master)
+![master](https://github.com/d1vanov/QEverCloud/workflows/Build/badge.svg?branch=master)
 
 ## What's this
 
@@ -28,18 +26,16 @@ Prebuilt versions of the library can be downloaded from the following locations:
 
  * Stable version:
    * Windows binaries:
-     * [MSVC 2017 32 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt513-VS2017_x86.zip)
-     * [MSVC 2017 64 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt513-VS2017_x64.zip)
-     * [MinGW 32 bit Qt 5.5](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud-windows-qt55-MinGW_x86.zip)
-   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud_mac_x86_64.zip) (built with latest Qt from Homebrew)
-   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/qevercloud_linux_qt_513_x86_64.zip) built on Ubuntu 16.04 with Qt 5.13
+     * [MSVC 2019 32 bit Qt 5.12.9](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_windows_x86.zip)
+     * [MSVC 2019 64 bit Qt 5.12.9](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_windows_x64.zip)
+   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_macos_x86_64.zip) (built with latest Qt from Homebrew)
+   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-master/QEverCloud_linux_x86_64.zip) built on Ubuntu 16.04 with Qt 5.12.3
  * Unstable version:
    * Windows binaries:
-     * [MSVC 2017 32 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt513-VS2017_x86.zip)
-     * [MSVC 2017 64 bit Qt 5.13](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt513-VS2017_x64.zip)
-     * [MinGW 32 bit Qt 5.5](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud-windows-qt55-MinGW_x86.zip)
-   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud_mac_x86_64.zip) (built with latest Qt from Homebrew)
-   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/qevercloud_linux_qt_513_x86_64.zip) built on Ubuntu 16.04 with Qt 5.13
+     * [MSVC 2019 32 bit Qt 5.12.9](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_windows_x86.zip)
+     * [MSVC 2019 64 bit Qt 5.12.9](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_windows_x64.zip)
+   * [Mac binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_macos_x86_64.zip) (built with latest Qt from Homebrew)
+   * [Linux binary](https://github.com/d1vanov/QEverCloud/releases/download/continuous-development/QEverCloud_linux_x86_64.zip) built on Ubuntu 16.04 with Qt 5.12.3
 
 ## How to build
 
