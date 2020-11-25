@@ -382,28 +382,28 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: QEverCloud_linux
-          path: '${{ github.workspace }}/artifacts/QEverCloud_linux.zip'
+          path: '${{ github.workspace }}/artifacts'
 
       - name: Download macOS artifact
         id: download_macos_artifact
         uses: actions/download-artifact@v2
         with:
           name: QEverCloud_macos
-          path: '${{ github.workspace }}/artifacts/QEverCloud_macos.zip'
+          path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x86 artifact
         id: download_windows_x86_artifact
         uses: actions/download-artifact@v2
         with:
           name: QEverCloud_windows_x86
-          path: '${{ github.workspace }}/artifacts/QEverCloud_windows_x86.zip'
+          path: '${{ github.workspace }}/artifacts'
 
       - name: Download Windows x64 artifact
         id: download_windows_x64_artifact
         uses: actions/download-artifact@v2
         with:
           name: QEverCloud_windows_x64
-          path: '${{ github.workspace }}/artifacts/QEverCloud_windows_x64.zip'
+          path: '${{ github.workspace }}/artifacts'
 
       - name: Upload Linux artifact to continuous master release
         id: upload_linux_artifact_to_continuous_master_release
