@@ -216,7 +216,7 @@ jobs:
         id: install_qt_modern_x86
         uses: jurplel/install-qt-action@v2
         with:
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          cached: ${{ steps.cache_qt_x86.outputs.cache-hit }}
           version: 5.12.9
           host: windows
           target: desktop
@@ -238,7 +238,7 @@ jobs:
         id: install_qt_modern_x64
         uses: jurplel/install-qt-action@v2
         with:
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          cached: ${{ steps.cache_qt_x64.outputs.cache-hit }}
           version: 5.12.9
           host: windows
           target: desktop
