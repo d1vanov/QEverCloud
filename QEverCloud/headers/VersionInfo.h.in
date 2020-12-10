@@ -10,6 +10,8 @@
 
 #include "Export.h"
 
+#include <LibraryType.h>
+
 #include <QString>
 
 /**

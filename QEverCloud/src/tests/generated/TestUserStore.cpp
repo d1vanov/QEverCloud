@@ -2172,9 +2172,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
     bool supportsTwoFactor = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -2292,10 +2292,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
     bool supportsTwoFactor = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -2658,9 +2658,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
     bool supportsTwoFactor = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -2796,10 +2796,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
     bool supportsTwoFactor = generateRandomBool();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreAuthenticateLongSessionTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -3165,9 +3165,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
         [&] (const QString & oneTimeCodeParam,
@@ -3271,10 +3271,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_MANY;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
         [&] (const QString & oneTimeCodeParam,
@@ -3595,9 +3595,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
         [&] (const QString & oneTimeCodeParam,
@@ -3719,10 +3719,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreCompleteTwoFactorAuthenticationTesterHelper helper(
         [&] (const QString & oneTimeCodeParam,
@@ -4045,9 +4045,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreRevokeLongSessionTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> void
@@ -4138,10 +4138,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_MANY;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreRevokeLongSessionTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> void
@@ -4421,9 +4421,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreRevokeLongSessionTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> void
@@ -4533,10 +4533,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreRevokeLongSessionTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> void
@@ -4841,9 +4841,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
@@ -4935,10 +4935,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
@@ -5223,9 +5223,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
@@ -5335,10 +5335,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreAuthenticateToBusinessTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> AuthenticationResult
@@ -5643,9 +5643,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetUserTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> User
@@ -5737,10 +5737,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreGetUserTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> User
@@ -6025,9 +6025,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetUserTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> User
@@ -6137,10 +6137,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreGetUserTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> User
@@ -6447,9 +6447,9 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -6543,10 +6543,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -6640,9 +6640,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -6933,9 +6933,9 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -7047,10 +7047,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -7162,9 +7162,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
     QString username = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetPublicUserInfoTesterHelper helper(
         [&] (const QString & usernameParam,
@@ -7473,9 +7473,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetUserUrlsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> UserUrls
@@ -7567,10 +7567,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreGetUserUrlsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> UserUrls
@@ -7855,9 +7855,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetUserUrlsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> UserUrls
@@ -7967,10 +7967,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreGetUserUrlsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> UserUrls
@@ -8277,9 +8277,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreInviteToBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -8374,10 +8374,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreInviteToBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -8669,9 +8669,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreInviteToBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -8785,10 +8785,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreInviteToBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -9102,9 +9102,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -9199,10 +9199,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -9297,9 +9297,9 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -9591,9 +9591,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -9707,10 +9707,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -9824,9 +9824,9 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     UserStoreRemoveFromBusinessTesterHelper helper(
         [&] (const QString & emailAddressParam,
@@ -10145,9 +10145,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -10246,10 +10246,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -10348,9 +10348,9 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -10654,9 +10654,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -10774,10 +10774,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -10895,9 +10895,9 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     UserStoreUpdateBusinessUserIdentifierTesterHelper helper(
         [&] (const QString & oldEmailAddressParam,
@@ -11219,9 +11219,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreListBusinessUsersTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
@@ -11313,10 +11313,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreListBusinessUsersTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
@@ -11604,9 +11604,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreListBusinessUsersTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
@@ -11716,10 +11716,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreListBusinessUsersTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<UserProfile>
@@ -12032,9 +12032,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreListBusinessInvitationsTesterHelper helper(
         [&] (bool includeRequestedInvitationsParam,
@@ -12130,10 +12130,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreListBusinessInvitationsTesterHelper helper(
         [&] (bool includeRequestedInvitationsParam,
@@ -12433,9 +12433,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreListBusinessInvitationsTesterHelper helper(
         [&] (bool includeRequestedInvitationsParam,
@@ -12549,10 +12549,10 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     UserStoreListBusinessInvitationsTesterHelper helper(
         [&] (bool includeRequestedInvitationsParam,
@@ -12866,9 +12866,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
     ServiceLevel serviceLevel = ServiceLevel::PREMIUM;
     IRequestContextPtr ctx = newRequestContext();
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetAccountLimitsTesterHelper helper(
         [&] (const ServiceLevel & serviceLevelParam,
@@ -13159,9 +13159,9 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
     ServiceLevel serviceLevel = ServiceLevel::PREMIUM;
     IRequestContextPtr ctx = newRequestContext();
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     UserStoreGetAccountLimitsTesterHelper helper(
         [&] (const ServiceLevel & serviceLevelParam,

@@ -6124,9 +6124,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetSyncStateTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SyncState
@@ -6218,10 +6218,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetSyncStateTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SyncState
@@ -6506,9 +6506,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetSyncStateTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SyncState
@@ -6618,10 +6618,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetSyncStateTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SyncState
@@ -6941,9 +6941,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetFilteredSyncChunkTesterHelper helper(
         [&] (qint32 afterUSNParam,
@@ -7047,10 +7047,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetFilteredSyncChunkTesterHelper helper(
         [&] (qint32 afterUSNParam,
@@ -7371,9 +7371,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetFilteredSyncChunkTesterHelper helper(
         [&] (qint32 afterUSNParam,
@@ -7495,10 +7495,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetFilteredSyncChunkTesterHelper helper(
         [&] (qint32 afterUSNParam,
@@ -7829,9 +7829,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -7927,10 +7927,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -8026,9 +8026,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -8325,9 +8325,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -8441,10 +8441,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -8558,9 +8558,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncStateTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -8892,9 +8892,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -9002,10 +9002,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -9113,9 +9113,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -9448,9 +9448,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -9576,10 +9576,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -9705,9 +9705,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetLinkedNotebookSyncChunkTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -10043,9 +10043,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -10137,10 +10137,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -10428,9 +10428,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -10540,10 +10540,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -10851,9 +10851,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListAccessibleBusinessNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -10945,10 +10945,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListAccessibleBusinessNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -11236,9 +11236,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListAccessibleBusinessNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -11348,10 +11348,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListAccessibleBusinessNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Notebook>
@@ -11661,9 +11661,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -11759,10 +11759,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -11858,9 +11858,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -12157,9 +12157,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -12273,10 +12273,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -12390,9 +12390,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -12704,9 +12704,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetDefaultNotebookTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> Notebook
@@ -12798,10 +12798,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetDefaultNotebookTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> Notebook
@@ -13086,9 +13086,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetDefaultNotebookTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> Notebook
@@ -13198,10 +13198,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetDefaultNotebookTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> Notebook
@@ -13511,9 +13511,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -13609,10 +13609,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -13708,9 +13708,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -14007,9 +14007,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -14123,10 +14123,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -14240,9 +14240,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -14559,9 +14559,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -14657,10 +14657,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -14756,9 +14756,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -15055,9 +15055,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -15171,10 +15171,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -15288,9 +15288,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateNotebookTesterHelper helper(
         [&] (const Notebook & notebookParam,
@@ -15607,9 +15607,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -15705,10 +15705,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -15804,9 +15804,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -16103,9 +16103,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -16219,10 +16219,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -16336,9 +16336,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -16653,9 +16653,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListTagsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Tag>
@@ -16747,10 +16747,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_MANY;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListTagsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Tag>
@@ -17038,9 +17038,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListTagsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Tag>
@@ -17150,10 +17150,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListTagsTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<Tag>
@@ -17466,9 +17466,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -17564,10 +17564,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -17663,9 +17663,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -17965,9 +17965,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -18081,10 +18081,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_FEW;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -18198,9 +18198,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListTagsByNotebookTesterHelper helper(
         [&] (const Guid & notebookGuidParam,
@@ -18517,9 +18517,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -18615,10 +18615,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -18714,9 +18714,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -19013,9 +19013,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -19129,10 +19129,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -19246,9 +19246,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -19565,9 +19565,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -19663,10 +19663,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -19762,9 +19762,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -20061,9 +20061,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -20177,10 +20177,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -20294,9 +20294,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -20613,9 +20613,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -20711,10 +20711,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -20810,9 +20810,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -21109,9 +21109,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -21225,10 +21225,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -21342,9 +21342,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateTagTesterHelper helper(
         [&] (const Tag & tagParam,
@@ -21658,9 +21658,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUntagAllTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -21755,10 +21755,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUntagAllTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -21853,9 +21853,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUntagAllTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -22147,9 +22147,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUntagAllTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -22263,10 +22263,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUntagAllTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -22380,9 +22380,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUntagAllTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -22699,9 +22699,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -22797,10 +22797,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -22896,9 +22896,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -23195,9 +23195,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -23311,10 +23311,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -23428,9 +23428,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeTagTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -23745,9 +23745,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListSearchesTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SavedSearch>
@@ -23839,10 +23839,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListSearchesTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SavedSearch>
@@ -24130,9 +24130,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListSearchesTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SavedSearch>
@@ -24242,10 +24242,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListSearchesTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SavedSearch>
@@ -24555,9 +24555,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -24653,10 +24653,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -24752,9 +24752,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -25051,9 +25051,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -25167,10 +25167,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -25284,9 +25284,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -25603,9 +25603,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -25701,10 +25701,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -26001,9 +26001,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -26117,10 +26117,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -26437,9 +26437,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -26535,10 +26535,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -26634,9 +26634,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -26933,9 +26933,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -27049,10 +27049,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -27166,9 +27166,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateSearchTesterHelper helper(
         [&] (const SavedSearch & searchParam,
@@ -27485,9 +27485,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -27583,10 +27583,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -27682,9 +27682,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -27981,9 +27981,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -28097,10 +28097,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -28214,9 +28214,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeSearchTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -28538,9 +28538,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -28640,10 +28640,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -28743,9 +28743,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -29054,9 +29054,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -29174,10 +29174,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_FEW;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -29295,9 +29295,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindNoteOffsetTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -29636,9 +29636,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -29746,10 +29746,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -29857,9 +29857,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -30192,9 +30192,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -30320,10 +30320,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -30449,9 +30449,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindNotesMetadataTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -30794,9 +30794,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -30896,10 +30896,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -30999,9 +30999,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -31310,9 +31310,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -31430,10 +31430,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -31551,9 +31551,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindNoteCountsTesterHelper helper(
         [&] (const NoteFilter & filterParam,
@@ -31882,9 +31882,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -31984,10 +31984,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -32087,9 +32087,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -32398,9 +32398,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -32518,10 +32518,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -32639,9 +32639,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteWithResultSpecTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -32985,9 +32985,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -33099,10 +33099,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -33214,9 +33214,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -33561,9 +33561,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -33693,10 +33693,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -33826,9 +33826,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -34173,9 +34173,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -34271,10 +34271,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -34370,9 +34370,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -34669,9 +34669,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -34785,10 +34785,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -34902,9 +34902,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -35226,9 +35226,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -35328,10 +35328,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -35431,9 +35431,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -35742,9 +35742,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -35862,10 +35862,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -35983,9 +35983,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -36319,9 +36319,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -36425,10 +36425,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -36532,9 +36532,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -36855,9 +36855,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -36979,10 +36979,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -37104,9 +37104,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreSetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -37442,9 +37442,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -37544,10 +37544,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -37647,9 +37647,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -37958,9 +37958,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -38078,10 +38078,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -38199,9 +38199,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUnsetNoteApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -38525,9 +38525,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -38623,10 +38623,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -38722,9 +38722,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -39021,9 +39021,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -39137,10 +39137,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_FEW;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -39254,9 +39254,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteContentTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -39583,9 +39583,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_MANY;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -39689,10 +39689,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -39796,9 +39796,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -40119,9 +40119,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -40243,10 +40243,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -40368,9 +40368,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -40701,9 +40701,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -40799,10 +40799,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -40898,9 +40898,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -41197,9 +41197,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -41313,10 +41313,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -41430,9 +41430,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceSearchTextTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -41752,9 +41752,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -41850,10 +41850,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -41949,9 +41949,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -42251,9 +42251,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -42367,10 +42367,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -42484,9 +42484,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteTagNamesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -42803,9 +42803,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -42901,10 +42901,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -43000,9 +43000,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -43299,9 +43299,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -43415,10 +43415,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -43532,9 +43532,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -43851,9 +43851,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -43949,10 +43949,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -44048,9 +44048,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -44347,9 +44347,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -44463,10 +44463,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -44580,9 +44580,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateNoteTesterHelper helper(
         [&] (const Note & noteParam,
@@ -44899,9 +44899,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -44997,10 +44997,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -45096,9 +45096,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -45395,9 +45395,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -45511,10 +45511,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -45628,9 +45628,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreDeleteNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -45947,9 +45947,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -46045,10 +46045,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -46144,9 +46144,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -46443,9 +46443,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -46559,10 +46559,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -46676,9 +46676,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -47000,9 +47000,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -47102,10 +47102,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -47205,9 +47205,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -47516,9 +47516,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -47636,10 +47636,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -47757,9 +47757,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCopyNoteTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -48086,9 +48086,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -48184,10 +48184,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -48283,9 +48283,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -48585,9 +48585,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -48701,10 +48701,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -48818,9 +48818,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListNoteVersionsTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -49157,9 +49157,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -49271,10 +49271,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -49386,9 +49386,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -49733,9 +49733,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -49865,10 +49865,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -49998,9 +49998,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNoteVersionTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -50365,9 +50365,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -50479,10 +50479,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -50594,9 +50594,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -50941,9 +50941,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -51073,10 +51073,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -51206,9 +51206,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -51553,9 +51553,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -51651,10 +51651,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -51750,9 +51750,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -52049,9 +52049,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -52165,10 +52165,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_FEW;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -52282,9 +52282,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceApplicationDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -52606,9 +52606,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -52708,10 +52708,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -52811,9 +52811,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -53122,9 +53122,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -53242,10 +53242,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -53363,9 +53363,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -53699,9 +53699,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -53805,10 +53805,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -53912,9 +53912,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -54235,9 +54235,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -54359,10 +54359,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -54484,9 +54484,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreSetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -54822,9 +54822,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -54924,10 +54924,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -55027,9 +55027,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -55338,9 +55338,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -55458,10 +55458,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -55579,9 +55579,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUnsetResourceApplicationDataEntryTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -55905,9 +55905,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -56003,10 +56003,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -56102,9 +56102,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -56401,9 +56401,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -56517,10 +56517,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -56634,9 +56634,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateResourceTesterHelper helper(
         [&] (const Resource & resourceParam,
@@ -56953,9 +56953,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -57051,10 +57051,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -57150,9 +57150,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -57449,9 +57449,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -57565,10 +57565,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -57682,9 +57682,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -58021,9 +58021,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -58135,10 +58135,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -58250,9 +58250,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -58597,9 +58597,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -58729,10 +58729,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -58862,9 +58862,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceByHashTesterHelper helper(
         [&] (const Guid & noteGuidParam,
@@ -59209,9 +59209,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -59307,10 +59307,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -59406,9 +59406,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -59705,9 +59705,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -59821,10 +59821,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -59938,9 +59938,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceRecognitionTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -60257,9 +60257,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -60355,10 +60355,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -60454,9 +60454,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -60753,9 +60753,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -60869,10 +60869,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -60986,9 +60986,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceAlternateDataTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -61305,9 +61305,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -61403,10 +61403,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -61502,9 +61502,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -61801,9 +61801,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -61917,10 +61917,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -62034,9 +62034,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetResourceAttributesTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -62355,10 +62355,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
     QString publicUri = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetPublicNotebookTesterHelper helper(
         [&] (const UserID & userIdParam,
@@ -62456,9 +62456,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
     QString publicUri = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetPublicNotebookTesterHelper helper(
         [&] (const UserID & userIdParam,
@@ -62761,10 +62761,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
     QString publicUri = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetPublicNotebookTesterHelper helper(
         [&] (const UserID & userIdParam,
@@ -62880,9 +62880,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
     QString publicUri = generateRandomString();
     IRequestContextPtr ctx = newRequestContext();
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetPublicNotebookTesterHelper helper(
         [&] (const UserID & userIdParam,
@@ -63208,9 +63208,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -63310,9 +63310,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -63412,10 +63412,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -63724,9 +63724,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -63844,9 +63844,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -63964,10 +63964,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreShareNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -64291,9 +64291,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -64389,9 +64389,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -64487,10 +64487,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -64586,15 +64586,15 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto invalidContactsException = EDAMInvalidContactsException();
-    invalidContactsException.contacts << generateRandomContact();
-    invalidContactsException.contacts << generateRandomContact();
-    invalidContactsException.contacts << generateRandomContact();
-    invalidContactsException.parameter = generateRandomString();
-    invalidContactsException.reasons = QList<EDAMInvalidContactReason>();
-    invalidContactsException.reasons.ref() << EDAMInvalidContactReason::DUPLICATE_CONTACT;
-    invalidContactsException.reasons.ref() << EDAMInvalidContactReason::NO_CONNECTION;
-    invalidContactsException.reasons.ref() << EDAMInvalidContactReason::NO_CONNECTION;
+    auto invalidContactsException = setInvalidContactsException(EDAMInvalidContactsException());
+    mutableInvalidContactsException().mutableContacts().push_back(generateRandomContact());
+    mutableInvalidContactsException().mutableContacts().push_back(generateRandomContact());
+    mutableInvalidContactsException().mutableContacts().push_back(generateRandomContact());
+    mutableInvalidContactsException().setParameter(generateRandomString());
+    mutableInvalidContactsException().setReasons(QList<EDAMInvalidContactReason>());
+    mutableInvalidContactsException().mutableReasons()->push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
+    mutableInvalidContactsException().mutableReasons()->push_back(EDAMInvalidContactReason::NO_CONNECTION);
+    mutableInvalidContactsException().mutableReasons()->push_back(EDAMInvalidContactReason::NO_CONNECTION);
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -64891,9 +64891,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -65007,9 +65007,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -65123,10 +65123,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -65240,15 +65240,15 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto invalidContactsException = EDAMInvalidContactsException();
-    invalidContactsException.contacts << generateRandomContact();
-    invalidContactsException.contacts << generateRandomContact();
-    invalidContactsException.contacts << generateRandomContact();
-    invalidContactsException.parameter = generateRandomString();
-    invalidContactsException.reasons = QList<EDAMInvalidContactReason>();
-    invalidContactsException.reasons.ref() << EDAMInvalidContactReason::DUPLICATE_CONTACT;
-    invalidContactsException.reasons.ref() << EDAMInvalidContactReason::BAD_ADDRESS;
-    invalidContactsException.reasons.ref() << EDAMInvalidContactReason::DUPLICATE_CONTACT;
+    auto invalidContactsException = setInvalidContactsException(EDAMInvalidContactsException());
+    mutableInvalidContactsException().mutableContacts().push_back(generateRandomContact());
+    mutableInvalidContactsException().mutableContacts().push_back(generateRandomContact());
+    mutableInvalidContactsException().mutableContacts().push_back(generateRandomContact());
+    mutableInvalidContactsException().setParameter(generateRandomString());
+    mutableInvalidContactsException().setReasons(QList<EDAMInvalidContactReason>());
+    mutableInvalidContactsException().mutableReasons()->push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
+    mutableInvalidContactsException().mutableReasons()->push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+    mutableInvalidContactsException().mutableReasons()->push_back(EDAMInvalidContactReason::DUPLICATE_CONTACT);
 
     NoteStoreCreateOrUpdateNotebookSharesTesterHelper helper(
         [&] (const NotebookShareTemplate & shareTemplateParam,
@@ -65565,9 +65565,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -65663,9 +65663,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -65761,10 +65761,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -66061,9 +66061,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -66177,9 +66177,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -66293,10 +66293,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateSharedNotebookTesterHelper helper(
         [&] (const SharedNotebook & sharedNotebookParam,
@@ -66618,9 +66618,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -66720,9 +66720,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -66822,10 +66822,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -67134,9 +67134,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNKNOWN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -67254,9 +67254,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -67374,10 +67374,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreSetNotebookRecipientSettingsTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -67699,9 +67699,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SharedNotebook>
@@ -67793,9 +67793,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SharedNotebook>
@@ -67887,10 +67887,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SharedNotebook>
@@ -68178,9 +68178,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SharedNotebook>
@@ -68290,9 +68290,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SharedNotebook>
@@ -68402,10 +68402,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListSharedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<SharedNotebook>
@@ -68715,9 +68715,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -68813,9 +68813,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -68911,10 +68911,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_MANY;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -69211,9 +69211,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -69327,9 +69327,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -69443,10 +69443,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreCreateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -69763,9 +69763,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::OPENID_ALREADY_TAKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::OPENID_ALREADY_TAKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -69861,9 +69861,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -69959,10 +69959,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -70259,9 +70259,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::UNSUPPORTED_OPERATION;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::UNSUPPORTED_OPERATION);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -70375,9 +70375,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -70491,10 +70491,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateLinkedNotebookTesterHelper helper(
         [&] (const LinkedNotebook & linkedNotebookParam,
@@ -70809,9 +70809,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<LinkedNotebook>
@@ -70903,9 +70903,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<LinkedNotebook>
@@ -70997,10 +70997,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<LinkedNotebook>
@@ -71288,9 +71288,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<LinkedNotebook>
@@ -71400,9 +71400,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<LinkedNotebook>
@@ -71512,10 +71512,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreListLinkedNotebooksTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> QList<LinkedNotebook>
@@ -71825,9 +71825,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -71923,9 +71923,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -72021,10 +72021,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -72321,9 +72321,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -72437,9 +72437,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -72553,10 +72553,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreExpungeLinkedNotebookTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -72873,9 +72873,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_OPENID_TOKEN;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_OPENID_TOKEN);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -72971,9 +72971,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -73069,10 +73069,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -73369,9 +73369,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -73485,9 +73485,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -73601,10 +73601,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreAuthenticateToSharedNotebookTesterHelper helper(
         [&] (const QString & shareKeyOrGlobalIdParam,
@@ -73916,9 +73916,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SharedNotebook
@@ -74010,9 +74010,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SharedNotebook
@@ -74104,10 +74104,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SharedNotebook
@@ -74392,9 +74392,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LEN_TOO_SHORT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LEN_TOO_SHORT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SharedNotebook
@@ -74504,9 +74504,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SharedNotebook
@@ -74616,10 +74616,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetSharedNotebookByAuthTesterHelper helper(
         [&] (IRequestContextPtr ctxParam) -> SharedNotebook
@@ -74926,9 +74926,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreEmailNoteTesterHelper helper(
         [&] (const NoteEmailParameters & parametersParam,
@@ -75023,9 +75023,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreEmailNoteTesterHelper helper(
         [&] (const NoteEmailParameters & parametersParam,
@@ -75120,10 +75120,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_REGISTERED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_REGISTERED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreEmailNoteTesterHelper helper(
         [&] (const NoteEmailParameters & parametersParam,
@@ -75415,9 +75415,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::AUTH_EXPIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreEmailNoteTesterHelper helper(
         [&] (const NoteEmailParameters & parametersParam,
@@ -75531,9 +75531,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreEmailNoteTesterHelper helper(
         [&] (const NoteEmailParameters & parametersParam,
@@ -75647,10 +75647,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BAD_DATA_FORMAT;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BAD_DATA_FORMAT);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreEmailNoteTesterHelper helper(
         [&] (const NoteEmailParameters & parametersParam,
@@ -75967,9 +75967,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -76065,9 +76065,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -76163,10 +76163,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TOO_MANY;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TOO_MANY);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -76463,9 +76463,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -76579,9 +76579,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -76695,10 +76695,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreShareNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -77012,9 +77012,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::PERMISSION_DENIED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::PERMISSION_DENIED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreStopSharingNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -77109,9 +77109,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreStopSharingNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -77206,10 +77206,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::TAKEN_DOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreStopSharingNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -77501,9 +77501,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreStopSharingNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -77617,9 +77617,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreStopSharingNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -77733,10 +77733,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreStopSharingNoteTesterHelper helper(
         [&] (const Guid & guidParam,
@@ -78058,9 +78058,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::TOO_FEW;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::TOO_FEW);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -78160,9 +78160,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -78262,10 +78262,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::RATE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::RATE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -78574,9 +78574,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::QUOTA_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -78694,9 +78694,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -78814,10 +78814,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::UNKNOWN;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::UNKNOWN);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreAuthenticateToSharedNoteTesterHelper helper(
         [&] (const QString & guidParam,
@@ -79146,9 +79146,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INTERNAL_ERROR;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INTERNAL_ERROR);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -79248,10 +79248,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -79351,9 +79351,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -79662,9 +79662,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DATA_CONFLICT;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DATA_CONFLICT);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -79782,10 +79782,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ACCOUNT_CLEAR;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ACCOUNT_CLEAR);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -79903,9 +79903,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreFindRelatedTesterHelper helper(
         [&] (const RelatedQuery & queryParam,
@@ -80229,9 +80229,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -80327,9 +80327,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -80425,10 +80425,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::SHARD_UNAVAILABLE;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::SHARD_UNAVAILABLE);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -80725,9 +80725,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::SSO_AUTHENTICATION_REQUIRED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -80841,9 +80841,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -80957,10 +80957,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::LEN_TOO_LONG;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::LEN_TOO_LONG);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreUpdateNoteIfUsnMatchesTesterHelper helper(
         [&] (const Note & noteParam,
@@ -81277,9 +81277,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::INVALID_AUTH;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::INVALID_AUTH);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -81375,9 +81375,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -81473,10 +81473,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::ENML_VALIDATION;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::ENML_VALIDATION);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -81773,9 +81773,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::USER_NOT_ASSOCIATED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::USER_NOT_ASSOCIATED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -81889,9 +81889,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -82005,10 +82005,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreManageNotebookSharesTesterHelper helper(
         [&] (const ManageNotebookSharesParameters & parametersParam,
@@ -82325,9 +82325,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -82423,9 +82423,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -82521,10 +82521,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::BUSINESS_SECURITY_LOGIN_REQUIRED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -82821,9 +82821,9 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto userException = EDAMUserException();
-    userException.errorCode = EDAMErrorCode::DEVICE_LIMIT_REACHED;
-    userException.parameter = generateRandomString();
+    auto userException = setUserException(EDAMUserException());
+    mutableUserException().setErrorCode(EDAMErrorCode::DEVICE_LIMIT_REACHED);
+    mutableUserException().setParameter(generateRandomString());
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -82937,9 +82937,9 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto notFoundException = EDAMNotFoundException();
-    notFoundException.identifier = generateRandomString();
-    notFoundException.key = generateRandomString();
+    auto notFoundException = setNotFoundException(EDAMNotFoundException());
+    mutableNotFoundException().setIdentifier(generateRandomString());
+    mutableNotFoundException().setKey(generateRandomString());
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,
@@ -83053,10 +83053,10 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
     IRequestContextPtr ctx = newRequestContext(
         QStringLiteral("authenticationToken"));
 
-    auto systemException = EDAMSystemException();
-    systemException.errorCode = EDAMErrorCode::USER_ALREADY_ASSOCIATED;
-    systemException.message = generateRandomString();
-    systemException.rateLimitDuration = generateRandomInt32();
+    auto systemException = setSystemException(EDAMSystemException());
+    mutableSystemException().setErrorCode(EDAMErrorCode::USER_ALREADY_ASSOCIATED);
+    mutableSystemException().setMessage(generateRandomString());
+    mutableSystemException().setRateLimitDuration(generateRandomInt32());
 
     NoteStoreGetNotebookSharesTesterHelper helper(
         [&] (const QString & notebookGuidParam,

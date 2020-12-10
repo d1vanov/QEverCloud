@@ -11,11 +11,11 @@
 
 #include <generated/Types.h>
 #include "../Impl.h"
-#include "../Impl.h"
 #include "Types_io.h"
 #include <Helpers.h>
 #include <QDebug>
 #include <QUuid>
+#include <optional>
 
 namespace qevercloud {
 
@@ -383,55 +383,6 @@ void readEnumUserIdentityType(
     }
 }
 
-EverCloudLocalData::EverCloudLocalData()
-{
-    id = QUuid::createUuid().toString();
-    // Remove curvy braces
-    id.remove(id.size() - 1, 1);
-    id.remove(0, 1);
-}
-
-EverCloudLocalData::~EverCloudLocalData() noexcept
-{}
-
-void EverCloudLocalData::print(QTextStream & strm) const
-{
-    strm << "    localData.id = " << id << "\n"
-        << "    localData.parentId = " << parentId << "\n"
-        << "    localData.dirty = " << (dirty ? "true" : "false") << "\n"
-        << "    localData.local = " << (local ? "true" : "false") << "\n"
-        << "    localData.favorited = " << (favorited ? "true" : "false") << "\n";
-
-    if (!dict.isEmpty())
-    {
-        strm << "    localData.dict:" << "\n";
-        QString valueStr;
-        for(const auto & it: toRange(dict)) {
-            strm << "        [" << it.key() << "] = ";
-            valueStr.resize(0);
-            QDebug dbg(&valueStr);
-            dbg.noquote();
-            dbg.nospace();
-            dbg << it.value();
-            strm << valueStr << "\n";
-        }
-    }
-}
-
-bool EverCloudLocalData::operator==(
-    const EverCloudLocalData & other) const
-{
-    return id == other.id && dirty == other.dirty &&
-        local == other.local && favorited == other.favorited &&
-        dict == other.dict;
-}
-
-bool EverCloudLocalData::operator!=(
-    const EverCloudLocalData & other) const
-{
-    return !operator==(other);
-}
-
 void writeSyncState(
     ThriftBinaryBufferWriter & writer,
     const SyncState & s)
@@ -442,7 +393,7 @@ void writeSyncState(
         ThriftFieldType::T_I64,
         1);
 
-    writer.writeI64(s.currentTime);
+    writer.writeI64(s.currentTime());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -450,7 +401,7 @@ void writeSyncState(
         ThriftFieldType::T_I64,
         2);
 
-    writer.writeI64(s.fullSyncBefore);
+    writer.writeI64(s.fullSyncBefore());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -458,36 +409,36 @@ void writeSyncState(
         ThriftFieldType::T_I32,
         3);
 
-    writer.writeI32(s.updateCount);
+    writer.writeI32(s.updateCount());
     writer.writeFieldEnd();
 
-    if (s.uploaded.isSet()) {
+    if (s.uploaded()) {
         writer.writeFieldBegin(
             QStringLiteral("uploaded"),
             ThriftFieldType::T_I64,
             4);
 
-        writer.writeI64(s.uploaded.ref());
+        writer.writeI64(*s.uploaded());
         writer.writeFieldEnd();
     }
 
-    if (s.userLastUpdated.isSet()) {
+    if (s.userLastUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("userLastUpdated"),
             ThriftFieldType::T_I64,
             5);
 
-        writer.writeI64(s.userLastUpdated.ref());
+        writer.writeI64(*s.userLastUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.userMaxMessageEventId.isSet()) {
+    if (s.userMaxMessageEventId()) {
         writer.writeFieldBegin(
             QStringLiteral("userMaxMessageEventId"),
             ThriftFieldType::T_I64,
             6);
 
-        writer.writeI64(s.userMaxMessageEventId.ref());
+        writer.writeI64(*s.userMaxMessageEventId());
         writer.writeFieldEnd();
     }
 
@@ -515,7 +466,7 @@ void readSyncState(
                 currentTime_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.currentTime = v;
+                s.setCurrentTime(v);
             }
             else {
                 reader.skip(fieldType);
@@ -527,7 +478,7 @@ void readSyncState(
                 fullSyncBefore_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.fullSyncBefore = v;
+                s.setFullSyncBefore(v);
             }
             else {
                 reader.skip(fieldType);
@@ -539,7 +490,7 @@ void readSyncState(
                 updateCount_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.updateCount = v;
+                s.setUpdateCount(v);
             }
             else {
                 reader.skip(fieldType);
@@ -550,7 +501,7 @@ void readSyncState(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.uploaded = v;
+                s.setUploaded(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -561,7 +512,7 @@ void readSyncState(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.userLastUpdated = v;
+                s.setUserLastUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -572,7 +523,7 @@ void readSyncState(
             if (fieldType == ThriftFieldType::T_I64) {
                 MessageEventID v;
                 reader.readI64(v);
-                s.userMaxMessageEventId = v;
+                s.setUserMaxMessageEventId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -590,46 +541,6 @@ void readSyncState(
     if (!updateCount_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("SyncState.updateCount has no value"));
 }
 
-void SyncState::print(QTextStream & strm) const
-{
-    strm << "SyncState: {\n";
-    localData.print(strm);
-    strm << "    currentTime = "
-        << currentTime << "\n";
-    strm << "    fullSyncBefore = "
-        << fullSyncBefore << "\n";
-    strm << "    updateCount = "
-        << updateCount << "\n";
-
-    if (uploaded.isSet()) {
-        strm << "    uploaded = "
-            << uploaded.ref() << "\n";
-    }
-    else {
-        strm << "    uploaded is not set\n";
-    }
-
-    if (userLastUpdated.isSet()) {
-        strm << "    userLastUpdated = "
-            << userLastUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    userLastUpdated is not set\n";
-    }
-
-    if (userMaxMessageEventId.isSet()) {
-        strm << "    userMaxMessageEventId = "
-            << userMaxMessageEventId.ref() << "\n";
-    }
-    else {
-        strm << "    userMaxMessageEventId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSyncChunk(
     ThriftBinaryBufferWriter & writer,
     const SyncChunk & s)
@@ -640,16 +551,16 @@ void writeSyncChunk(
         ThriftFieldType::T_I64,
         1);
 
-    writer.writeI64(s.currentTime);
+    writer.writeI64(s.currentTime());
     writer.writeFieldEnd();
 
-    if (s.chunkHighUSN.isSet()) {
+    if (s.chunkHighUSN()) {
         writer.writeFieldBegin(
             QStringLiteral("chunkHighUSN"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.chunkHighUSN.ref());
+        writer.writeI32(*s.chunkHighUSN());
         writer.writeFieldEnd();
     }
 
@@ -658,17 +569,17 @@ void writeSyncChunk(
         ThriftFieldType::T_I32,
         3);
 
-    writer.writeI32(s.updateCount);
+    writer.writeI32(s.updateCount());
     writer.writeFieldEnd();
 
-    if (s.notes.isSet()) {
+    if (s.notes()) {
         writer.writeFieldBegin(
             QStringLiteral("notes"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.ref().length());
-        for(const auto & value: qAsConst(s.notes.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes()->length());
+        for(const auto & value: qAsConst(*s.notes())) {
             writeNote(writer, value);
         }
         writer.writeListEnd();
@@ -676,14 +587,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.notebooks.isSet()) {
+    if (s.notebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("notebooks"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notebooks.ref().length());
-        for(const auto & value: qAsConst(s.notebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notebooks()->length());
+        for(const auto & value: qAsConst(*s.notebooks())) {
             writeNotebook(writer, value);
         }
         writer.writeListEnd();
@@ -691,14 +602,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.tags.isSet()) {
+    if (s.tags()) {
         writer.writeFieldBegin(
             QStringLiteral("tags"),
             ThriftFieldType::T_LIST,
             6);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.tags.ref().length());
-        for(const auto & value: qAsConst(s.tags.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.tags()->length());
+        for(const auto & value: qAsConst(*s.tags())) {
             writeTag(writer, value);
         }
         writer.writeListEnd();
@@ -706,14 +617,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.searches.isSet()) {
+    if (s.searches()) {
         writer.writeFieldBegin(
             QStringLiteral("searches"),
             ThriftFieldType::T_LIST,
             7);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.searches.ref().length());
-        for(const auto & value: qAsConst(s.searches.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.searches()->length());
+        for(const auto & value: qAsConst(*s.searches())) {
             writeSavedSearch(writer, value);
         }
         writer.writeListEnd();
@@ -721,14 +632,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.resources.isSet()) {
+    if (s.resources()) {
         writer.writeFieldBegin(
             QStringLiteral("resources"),
             ThriftFieldType::T_LIST,
             8);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.resources.ref().length());
-        for(const auto & value: qAsConst(s.resources.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.resources()->length());
+        for(const auto & value: qAsConst(*s.resources())) {
             writeResource(writer, value);
         }
         writer.writeListEnd();
@@ -736,14 +647,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.expungedNotes.isSet()) {
+    if (s.expungedNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("expungedNotes"),
             ThriftFieldType::T_LIST,
             9);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedNotes.ref().length());
-        for(const auto & value: qAsConst(s.expungedNotes.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedNotes()->length());
+        for(const auto & value: qAsConst(*s.expungedNotes())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -751,14 +662,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.expungedNotebooks.isSet()) {
+    if (s.expungedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("expungedNotebooks"),
             ThriftFieldType::T_LIST,
             10);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedNotebooks.ref().length());
-        for(const auto & value: qAsConst(s.expungedNotebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedNotebooks()->length());
+        for(const auto & value: qAsConst(*s.expungedNotebooks())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -766,14 +677,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.expungedTags.isSet()) {
+    if (s.expungedTags()) {
         writer.writeFieldBegin(
             QStringLiteral("expungedTags"),
             ThriftFieldType::T_LIST,
             11);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedTags.ref().length());
-        for(const auto & value: qAsConst(s.expungedTags.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedTags()->length());
+        for(const auto & value: qAsConst(*s.expungedTags())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -781,14 +692,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.expungedSearches.isSet()) {
+    if (s.expungedSearches()) {
         writer.writeFieldBegin(
             QStringLiteral("expungedSearches"),
             ThriftFieldType::T_LIST,
             12);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedSearches.ref().length());
-        for(const auto & value: qAsConst(s.expungedSearches.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedSearches()->length());
+        for(const auto & value: qAsConst(*s.expungedSearches())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -796,14 +707,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.linkedNotebooks.isSet()) {
+    if (s.linkedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("linkedNotebooks"),
             ThriftFieldType::T_LIST,
             13);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.linkedNotebooks.ref().length());
-        for(const auto & value: qAsConst(s.linkedNotebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.linkedNotebooks()->length());
+        for(const auto & value: qAsConst(*s.linkedNotebooks())) {
             writeLinkedNotebook(writer, value);
         }
         writer.writeListEnd();
@@ -811,14 +722,14 @@ void writeSyncChunk(
         writer.writeFieldEnd();
     }
 
-    if (s.expungedLinkedNotebooks.isSet()) {
+    if (s.expungedLinkedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("expungedLinkedNotebooks"),
             ThriftFieldType::T_LIST,
             14);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedLinkedNotebooks.ref().length());
-        for(const auto & value: qAsConst(s.expungedLinkedNotebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.expungedLinkedNotebooks()->length());
+        for(const auto & value: qAsConst(*s.expungedLinkedNotebooks())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -849,7 +760,7 @@ void readSyncChunk(
                 currentTime_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.currentTime = v;
+                s.setCurrentTime(v);
             }
             else {
                 reader.skip(fieldType);
@@ -860,7 +771,7 @@ void readSyncChunk(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.chunkHighUSN = v;
+                s.setChunkHighUSN(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -872,7 +783,7 @@ void readSyncChunk(
                 updateCount_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.updateCount = v;
+                s.setUpdateCount(v);
             }
             else {
                 reader.skip(fieldType);
@@ -897,7 +808,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.notes = v;
+                s.setNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -922,7 +833,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.notebooks = v;
+                s.setNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -947,7 +858,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.tags = v;
+                s.setTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -972,7 +883,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.searches = v;
+                s.setSearches(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -997,7 +908,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.resources = v;
+                s.setResources(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1022,7 +933,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.expungedNotes = v;
+                s.setExpungedNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1047,7 +958,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.expungedNotebooks = v;
+                s.setExpungedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1072,7 +983,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.expungedTags = v;
+                s.setExpungedTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1097,7 +1008,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.expungedSearches = v;
+                s.setExpungedSearches(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1122,7 +1033,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.linkedNotebooks = v;
+                s.setLinkedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1147,7 +1058,7 @@ void readSyncChunk(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.expungedLinkedNotebooks = v;
+                s.setExpungedLinkedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1164,324 +1075,169 @@ void readSyncChunk(
     if (!updateCount_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("SyncChunk.updateCount has no value"));
 }
 
-void SyncChunk::print(QTextStream & strm) const
-{
-    strm << "SyncChunk: {\n";
-    localData.print(strm);
-    strm << "    currentTime = "
-        << currentTime << "\n";
-
-    if (chunkHighUSN.isSet()) {
-        strm << "    chunkHighUSN = "
-            << chunkHighUSN.ref() << "\n";
-    }
-    else {
-        strm << "    chunkHighUSN is not set\n";
-    }
-
-    strm << "    updateCount = "
-        << updateCount << "\n";
-
-    if (notes.isSet()) {
-        strm << "    notes = "
-            << "QList<Note> {";
-        for(const auto & v: notes.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    notes is not set\n";
-    }
-
-    if (notebooks.isSet()) {
-        strm << "    notebooks = "
-            << "QList<Notebook> {";
-        for(const auto & v: notebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    notebooks is not set\n";
-    }
-
-    if (tags.isSet()) {
-        strm << "    tags = "
-            << "QList<Tag> {";
-        for(const auto & v: tags.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tags is not set\n";
-    }
-
-    if (searches.isSet()) {
-        strm << "    searches = "
-            << "QList<SavedSearch> {";
-        for(const auto & v: searches.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    searches is not set\n";
-    }
-
-    if (resources.isSet()) {
-        strm << "    resources = "
-            << "QList<Resource> {";
-        for(const auto & v: resources.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    resources is not set\n";
-    }
-
-    if (expungedNotes.isSet()) {
-        strm << "    expungedNotes = "
-            << "QList<Guid> {";
-        for(const auto & v: expungedNotes.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    expungedNotes is not set\n";
-    }
-
-    if (expungedNotebooks.isSet()) {
-        strm << "    expungedNotebooks = "
-            << "QList<Guid> {";
-        for(const auto & v: expungedNotebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    expungedNotebooks is not set\n";
-    }
-
-    if (expungedTags.isSet()) {
-        strm << "    expungedTags = "
-            << "QList<Guid> {";
-        for(const auto & v: expungedTags.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    expungedTags is not set\n";
-    }
-
-    if (expungedSearches.isSet()) {
-        strm << "    expungedSearches = "
-            << "QList<Guid> {";
-        for(const auto & v: expungedSearches.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    expungedSearches is not set\n";
-    }
-
-    if (linkedNotebooks.isSet()) {
-        strm << "    linkedNotebooks = "
-            << "QList<LinkedNotebook> {";
-        for(const auto & v: linkedNotebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    linkedNotebooks is not set\n";
-    }
-
-    if (expungedLinkedNotebooks.isSet()) {
-        strm << "    expungedLinkedNotebooks = "
-            << "QList<Guid> {";
-        for(const auto & v: expungedLinkedNotebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    expungedLinkedNotebooks is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSyncChunkFilter(
     ThriftBinaryBufferWriter & writer,
     const SyncChunkFilter & s)
 {
     writer.writeStructBegin(QStringLiteral("SyncChunkFilter"));
-    if (s.includeNotes.isSet()) {
+    if (s.includeNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNotes"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.includeNotes.ref());
+        writer.writeBool(*s.includeNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNoteResources.isSet()) {
+    if (s.includeNoteResources()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNoteResources"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.includeNoteResources.ref());
+        writer.writeBool(*s.includeNoteResources());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNoteAttributes.isSet()) {
+    if (s.includeNoteAttributes()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNoteAttributes"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.includeNoteAttributes.ref());
+        writer.writeBool(*s.includeNoteAttributes());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNotebooks.isSet()) {
+    if (s.includeNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNotebooks"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.includeNotebooks.ref());
+        writer.writeBool(*s.includeNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.includeTags.isSet()) {
+    if (s.includeTags()) {
         writer.writeFieldBegin(
             QStringLiteral("includeTags"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.includeTags.ref());
+        writer.writeBool(*s.includeTags());
         writer.writeFieldEnd();
     }
 
-    if (s.includeSearches.isSet()) {
+    if (s.includeSearches()) {
         writer.writeFieldBegin(
             QStringLiteral("includeSearches"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.includeSearches.ref());
+        writer.writeBool(*s.includeSearches());
         writer.writeFieldEnd();
     }
 
-    if (s.includeResources.isSet()) {
+    if (s.includeResources()) {
         writer.writeFieldBegin(
             QStringLiteral("includeResources"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.includeResources.ref());
+        writer.writeBool(*s.includeResources());
         writer.writeFieldEnd();
     }
 
-    if (s.includeLinkedNotebooks.isSet()) {
+    if (s.includeLinkedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("includeLinkedNotebooks"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.includeLinkedNotebooks.ref());
+        writer.writeBool(*s.includeLinkedNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.includeExpunged.isSet()) {
+    if (s.includeExpunged()) {
         writer.writeFieldBegin(
             QStringLiteral("includeExpunged"),
             ThriftFieldType::T_BOOL,
             9);
 
-        writer.writeBool(s.includeExpunged.ref());
+        writer.writeBool(*s.includeExpunged());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNoteApplicationDataFullMap.isSet()) {
+    if (s.includeNoteApplicationDataFullMap()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNoteApplicationDataFullMap"),
             ThriftFieldType::T_BOOL,
             10);
 
-        writer.writeBool(s.includeNoteApplicationDataFullMap.ref());
+        writer.writeBool(*s.includeNoteApplicationDataFullMap());
         writer.writeFieldEnd();
     }
 
-    if (s.includeResourceApplicationDataFullMap.isSet()) {
+    if (s.includeResourceApplicationDataFullMap()) {
         writer.writeFieldBegin(
             QStringLiteral("includeResourceApplicationDataFullMap"),
             ThriftFieldType::T_BOOL,
             12);
 
-        writer.writeBool(s.includeResourceApplicationDataFullMap.ref());
+        writer.writeBool(*s.includeResourceApplicationDataFullMap());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNoteResourceApplicationDataFullMap.isSet()) {
+    if (s.includeNoteResourceApplicationDataFullMap()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNoteResourceApplicationDataFullMap"),
             ThriftFieldType::T_BOOL,
             13);
 
-        writer.writeBool(s.includeNoteResourceApplicationDataFullMap.ref());
+        writer.writeBool(*s.includeNoteResourceApplicationDataFullMap());
         writer.writeFieldEnd();
     }
 
-    if (s.includeSharedNotes.isSet()) {
+    if (s.includeSharedNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("includeSharedNotes"),
             ThriftFieldType::T_BOOL,
             17);
 
-        writer.writeBool(s.includeSharedNotes.ref());
+        writer.writeBool(*s.includeSharedNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.omitSharedNotebooks.isSet()) {
+    if (s.omitSharedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("omitSharedNotebooks"),
             ThriftFieldType::T_BOOL,
             16);
 
-        writer.writeBool(s.omitSharedNotebooks.ref());
+        writer.writeBool(*s.omitSharedNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.requireNoteContentClass.isSet()) {
+    if (s.requireNoteContentClass()) {
         writer.writeFieldBegin(
             QStringLiteral("requireNoteContentClass"),
             ThriftFieldType::T_STRING,
             11);
 
-        writer.writeString(s.requireNoteContentClass.ref());
+        writer.writeString(*s.requireNoteContentClass());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookGuids.isSet()) {
+    if (s.notebookGuids()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuids"),
             ThriftFieldType::T_SET,
             15);
 
-        writer.writeSetBegin(ThriftFieldType::T_STRING, s.notebookGuids.ref().count());
-        for(const auto & value: qAsConst(s.notebookGuids.ref())) {
+        writer.writeSetBegin(ThriftFieldType::T_STRING, s.notebookGuids()->count());
+        for(const auto & value: qAsConst(*s.notebookGuids())) {
             writer.writeString(value);
         }
         writer.writeSetEnd();
@@ -1509,7 +1265,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNotes = v;
+                s.setIncludeNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1520,7 +1276,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNoteResources = v;
+                s.setIncludeNoteResources(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1531,7 +1287,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNoteAttributes = v;
+                s.setIncludeNoteAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1542,7 +1298,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNotebooks = v;
+                s.setIncludeNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1553,7 +1309,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeTags = v;
+                s.setIncludeTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1564,7 +1320,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeSearches = v;
+                s.setIncludeSearches(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1575,7 +1331,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeResources = v;
+                s.setIncludeResources(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1586,7 +1342,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeLinkedNotebooks = v;
+                s.setIncludeLinkedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1597,7 +1353,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeExpunged = v;
+                s.setIncludeExpunged(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1608,7 +1364,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNoteApplicationDataFullMap = v;
+                s.setIncludeNoteApplicationDataFullMap(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1619,7 +1375,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeResourceApplicationDataFullMap = v;
+                s.setIncludeResourceApplicationDataFullMap(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1630,7 +1386,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNoteResourceApplicationDataFullMap = v;
+                s.setIncludeNoteResourceApplicationDataFullMap(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1641,7 +1397,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeSharedNotes = v;
+                s.setIncludeSharedNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1652,7 +1408,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.omitSharedNotebooks = v;
+                s.setOmitSharedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1663,7 +1419,7 @@ void readSyncChunkFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.requireNoteContentClass = v;
+                s.setRequireNoteContentClass(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1688,7 +1444,7 @@ void readSyncChunkFilter(
                     v.insert(elem);
                 }
                 reader.readSetEnd();
-                s.notebookGuids = v;
+                s.setNotebookGuids(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -1703,201 +1459,59 @@ void readSyncChunkFilter(
     reader.readStructEnd();
 }
 
-void SyncChunkFilter::print(QTextStream & strm) const
-{
-    strm << "SyncChunkFilter: {\n";
-    localData.print(strm);
-
-    if (includeNotes.isSet()) {
-        strm << "    includeNotes = "
-            << includeNotes.ref() << "\n";
-    }
-    else {
-        strm << "    includeNotes is not set\n";
-    }
-
-    if (includeNoteResources.isSet()) {
-        strm << "    includeNoteResources = "
-            << includeNoteResources.ref() << "\n";
-    }
-    else {
-        strm << "    includeNoteResources is not set\n";
-    }
-
-    if (includeNoteAttributes.isSet()) {
-        strm << "    includeNoteAttributes = "
-            << includeNoteAttributes.ref() << "\n";
-    }
-    else {
-        strm << "    includeNoteAttributes is not set\n";
-    }
-
-    if (includeNotebooks.isSet()) {
-        strm << "    includeNotebooks = "
-            << includeNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    includeNotebooks is not set\n";
-    }
-
-    if (includeTags.isSet()) {
-        strm << "    includeTags = "
-            << includeTags.ref() << "\n";
-    }
-    else {
-        strm << "    includeTags is not set\n";
-    }
-
-    if (includeSearches.isSet()) {
-        strm << "    includeSearches = "
-            << includeSearches.ref() << "\n";
-    }
-    else {
-        strm << "    includeSearches is not set\n";
-    }
-
-    if (includeResources.isSet()) {
-        strm << "    includeResources = "
-            << includeResources.ref() << "\n";
-    }
-    else {
-        strm << "    includeResources is not set\n";
-    }
-
-    if (includeLinkedNotebooks.isSet()) {
-        strm << "    includeLinkedNotebooks = "
-            << includeLinkedNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    includeLinkedNotebooks is not set\n";
-    }
-
-    if (includeExpunged.isSet()) {
-        strm << "    includeExpunged = "
-            << includeExpunged.ref() << "\n";
-    }
-    else {
-        strm << "    includeExpunged is not set\n";
-    }
-
-    if (includeNoteApplicationDataFullMap.isSet()) {
-        strm << "    includeNoteApplicationDataFullMap = "
-            << includeNoteApplicationDataFullMap.ref() << "\n";
-    }
-    else {
-        strm << "    includeNoteApplicationDataFullMap is not set\n";
-    }
-
-    if (includeResourceApplicationDataFullMap.isSet()) {
-        strm << "    includeResourceApplicationDataFullMap = "
-            << includeResourceApplicationDataFullMap.ref() << "\n";
-    }
-    else {
-        strm << "    includeResourceApplicationDataFullMap is not set\n";
-    }
-
-    if (includeNoteResourceApplicationDataFullMap.isSet()) {
-        strm << "    includeNoteResourceApplicationDataFullMap = "
-            << includeNoteResourceApplicationDataFullMap.ref() << "\n";
-    }
-    else {
-        strm << "    includeNoteResourceApplicationDataFullMap is not set\n";
-    }
-
-    if (includeSharedNotes.isSet()) {
-        strm << "    includeSharedNotes = "
-            << includeSharedNotes.ref() << "\n";
-    }
-    else {
-        strm << "    includeSharedNotes is not set\n";
-    }
-
-    if (omitSharedNotebooks.isSet()) {
-        strm << "    omitSharedNotebooks = "
-            << omitSharedNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    omitSharedNotebooks is not set\n";
-    }
-
-    if (requireNoteContentClass.isSet()) {
-        strm << "    requireNoteContentClass = "
-            << requireNoteContentClass.ref() << "\n";
-    }
-    else {
-        strm << "    requireNoteContentClass is not set\n";
-    }
-
-    if (notebookGuids.isSet()) {
-        strm << "    notebookGuids = "
-            << "QSet<QString> {";
-        for(const auto & v: notebookGuids.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    notebookGuids is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteFilter(
     ThriftBinaryBufferWriter & writer,
     const NoteFilter & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteFilter"));
-    if (s.order.isSet()) {
+    if (s.order()) {
         writer.writeFieldBegin(
             QStringLiteral("order"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.order.ref());
+        writer.writeI32(*s.order());
         writer.writeFieldEnd();
     }
 
-    if (s.ascending.isSet()) {
+    if (s.ascending()) {
         writer.writeFieldBegin(
             QStringLiteral("ascending"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.ascending.ref());
+        writer.writeBool(*s.ascending());
         writer.writeFieldEnd();
     }
 
-    if (s.words.isSet()) {
+    if (s.words()) {
         writer.writeFieldBegin(
             QStringLiteral("words"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.words.ref());
+        writer.writeString(*s.words());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookGuid.isSet()) {
+    if (s.notebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuid"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.notebookGuid.ref());
+        writer.writeString(*s.notebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.tagGuids.isSet()) {
+    if (s.tagGuids()) {
         writer.writeFieldBegin(
             QStringLiteral("tagGuids"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids.ref().length());
-        for(const auto & value: qAsConst(s.tagGuids.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids()->length());
+        for(const auto & value: qAsConst(*s.tagGuids())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -1905,83 +1519,83 @@ void writeNoteFilter(
         writer.writeFieldEnd();
     }
 
-    if (s.timeZone.isSet()) {
+    if (s.timeZone()) {
         writer.writeFieldBegin(
             QStringLiteral("timeZone"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.timeZone.ref());
+        writer.writeString(*s.timeZone());
         writer.writeFieldEnd();
     }
 
-    if (s.inactive.isSet()) {
+    if (s.inactive()) {
         writer.writeFieldBegin(
             QStringLiteral("inactive"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.inactive.ref());
+        writer.writeBool(*s.inactive());
         writer.writeFieldEnd();
     }
 
-    if (s.emphasized.isSet()) {
+    if (s.emphasized()) {
         writer.writeFieldBegin(
             QStringLiteral("emphasized"),
             ThriftFieldType::T_STRING,
             8);
 
-        writer.writeString(s.emphasized.ref());
+        writer.writeString(*s.emphasized());
         writer.writeFieldEnd();
     }
 
-    if (s.includeAllReadableNotebooks.isSet()) {
+    if (s.includeAllReadableNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("includeAllReadableNotebooks"),
             ThriftFieldType::T_BOOL,
             9);
 
-        writer.writeBool(s.includeAllReadableNotebooks.ref());
+        writer.writeBool(*s.includeAllReadableNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.includeAllReadableWorkspaces.isSet()) {
+    if (s.includeAllReadableWorkspaces()) {
         writer.writeFieldBegin(
             QStringLiteral("includeAllReadableWorkspaces"),
             ThriftFieldType::T_BOOL,
             15);
 
-        writer.writeBool(s.includeAllReadableWorkspaces.ref());
+        writer.writeBool(*s.includeAllReadableWorkspaces());
         writer.writeFieldEnd();
     }
 
-    if (s.context.isSet()) {
+    if (s.context()) {
         writer.writeFieldBegin(
             QStringLiteral("context"),
             ThriftFieldType::T_STRING,
             10);
 
-        writer.writeString(s.context.ref());
+        writer.writeString(*s.context());
         writer.writeFieldEnd();
     }
 
-    if (s.rawWords.isSet()) {
+    if (s.rawWords()) {
         writer.writeFieldBegin(
             QStringLiteral("rawWords"),
             ThriftFieldType::T_STRING,
             11);
 
-        writer.writeString(s.rawWords.ref());
+        writer.writeString(*s.rawWords());
         writer.writeFieldEnd();
     }
 
-    if (s.searchContextBytes.isSet()) {
+    if (s.searchContextBytes()) {
         writer.writeFieldBegin(
             QStringLiteral("searchContextBytes"),
             ThriftFieldType::T_STRING,
             12);
 
-        writer.writeBinary(s.searchContextBytes.ref());
+        writer.writeBinary(*s.searchContextBytes());
         writer.writeFieldEnd();
     }
 
@@ -2005,7 +1619,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.order = v;
+                s.setOrder(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2016,7 +1630,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.ascending = v;
+                s.setAscending(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2027,7 +1641,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.words = v;
+                s.setWords(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2038,7 +1652,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.notebookGuid = v;
+                s.setNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2063,7 +1677,7 @@ void readNoteFilter(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.tagGuids = v;
+                s.setTagGuids(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2074,7 +1688,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.timeZone = v;
+                s.setTimeZone(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2085,7 +1699,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.inactive = v;
+                s.setInactive(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2096,7 +1710,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.emphasized = v;
+                s.setEmphasized(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2107,7 +1721,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeAllReadableNotebooks = v;
+                s.setIncludeAllReadableNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2118,7 +1732,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeAllReadableWorkspaces = v;
+                s.setIncludeAllReadableWorkspaces(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2129,7 +1743,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.context = v;
+                s.setContext(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2140,7 +1754,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.rawWords = v;
+                s.setRawWords(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2151,7 +1765,7 @@ void readNoteFilter(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.searchContextBytes = v;
+                s.setSearchContextBytes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2166,124 +1780,6 @@ void readNoteFilter(
     reader.readStructEnd();
 }
 
-void NoteFilter::print(QTextStream & strm) const
-{
-    strm << "NoteFilter: {\n";
-    localData.print(strm);
-
-    if (order.isSet()) {
-        strm << "    order = "
-            << order.ref() << "\n";
-    }
-    else {
-        strm << "    order is not set\n";
-    }
-
-    if (ascending.isSet()) {
-        strm << "    ascending = "
-            << ascending.ref() << "\n";
-    }
-    else {
-        strm << "    ascending is not set\n";
-    }
-
-    if (words.isSet()) {
-        strm << "    words = "
-            << words.ref() << "\n";
-    }
-    else {
-        strm << "    words is not set\n";
-    }
-
-    if (notebookGuid.isSet()) {
-        strm << "    notebookGuid = "
-            << notebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    notebookGuid is not set\n";
-    }
-
-    if (tagGuids.isSet()) {
-        strm << "    tagGuids = "
-            << "QList<Guid> {";
-        for(const auto & v: tagGuids.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tagGuids is not set\n";
-    }
-
-    if (timeZone.isSet()) {
-        strm << "    timeZone = "
-            << timeZone.ref() << "\n";
-    }
-    else {
-        strm << "    timeZone is not set\n";
-    }
-
-    if (inactive.isSet()) {
-        strm << "    inactive = "
-            << inactive.ref() << "\n";
-    }
-    else {
-        strm << "    inactive is not set\n";
-    }
-
-    if (emphasized.isSet()) {
-        strm << "    emphasized = "
-            << emphasized.ref() << "\n";
-    }
-    else {
-        strm << "    emphasized is not set\n";
-    }
-
-    if (includeAllReadableNotebooks.isSet()) {
-        strm << "    includeAllReadableNotebooks = "
-            << includeAllReadableNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    includeAllReadableNotebooks is not set\n";
-    }
-
-    if (includeAllReadableWorkspaces.isSet()) {
-        strm << "    includeAllReadableWorkspaces = "
-            << includeAllReadableWorkspaces.ref() << "\n";
-    }
-    else {
-        strm << "    includeAllReadableWorkspaces is not set\n";
-    }
-
-    if (context.isSet()) {
-        strm << "    context = "
-            << context.ref() << "\n";
-    }
-    else {
-        strm << "    context is not set\n";
-    }
-
-    if (rawWords.isSet()) {
-        strm << "    rawWords = "
-            << rawWords.ref() << "\n";
-    }
-    else {
-        strm << "    rawWords is not set\n";
-    }
-
-    if (searchContextBytes.isSet()) {
-        strm << "    searchContextBytes = "
-            << searchContextBytes.ref() << "\n";
-    }
-    else {
-        strm << "    searchContextBytes is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteList(
     ThriftBinaryBufferWriter & writer,
     const NoteList & s)
@@ -2294,7 +1790,7 @@ void writeNoteList(
         ThriftFieldType::T_I32,
         1);
 
-    writer.writeI32(s.startIndex);
+    writer.writeI32(s.startIndex());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -2302,7 +1798,7 @@ void writeNoteList(
         ThriftFieldType::T_I32,
         2);
 
-    writer.writeI32(s.totalNotes);
+    writer.writeI32(s.totalNotes());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -2310,22 +1806,22 @@ void writeNoteList(
         ThriftFieldType::T_LIST,
         3);
 
-    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.length());
-    for(const auto & value: qAsConst(s.notes)) {
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes().length());
+    for(const auto & value: qAsConst(s.notes())) {
         writeNote(writer, value);
     }
     writer.writeListEnd();
 
     writer.writeFieldEnd();
 
-    if (s.stoppedWords.isSet()) {
+    if (s.stoppedWords()) {
         writer.writeFieldBegin(
             QStringLiteral("stoppedWords"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.stoppedWords.ref().length());
-        for(const auto & value: qAsConst(s.stoppedWords.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.stoppedWords()->length());
+        for(const auto & value: qAsConst(*s.stoppedWords())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -2333,14 +1829,14 @@ void writeNoteList(
         writer.writeFieldEnd();
     }
 
-    if (s.searchedWords.isSet()) {
+    if (s.searchedWords()) {
         writer.writeFieldBegin(
             QStringLiteral("searchedWords"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.searchedWords.ref().length());
-        for(const auto & value: qAsConst(s.searchedWords.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.searchedWords()->length());
+        for(const auto & value: qAsConst(*s.searchedWords())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -2348,33 +1844,33 @@ void writeNoteList(
         writer.writeFieldEnd();
     }
 
-    if (s.updateCount.isSet()) {
+    if (s.updateCount()) {
         writer.writeFieldBegin(
             QStringLiteral("updateCount"),
             ThriftFieldType::T_I32,
             6);
 
-        writer.writeI32(s.updateCount.ref());
+        writer.writeI32(*s.updateCount());
         writer.writeFieldEnd();
     }
 
-    if (s.searchContextBytes.isSet()) {
+    if (s.searchContextBytes()) {
         writer.writeFieldBegin(
             QStringLiteral("searchContextBytes"),
             ThriftFieldType::T_STRING,
             7);
 
-        writer.writeBinary(s.searchContextBytes.ref());
+        writer.writeBinary(*s.searchContextBytes());
         writer.writeFieldEnd();
     }
 
-    if (s.debugInfo.isSet()) {
+    if (s.debugInfo()) {
         writer.writeFieldBegin(
             QStringLiteral("debugInfo"),
             ThriftFieldType::T_STRING,
             8);
 
-        writer.writeString(s.debugInfo.ref());
+        writer.writeString(*s.debugInfo());
         writer.writeFieldEnd();
     }
 
@@ -2402,7 +1898,7 @@ void readNoteList(
                 startIndex_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.startIndex = v;
+                s.setStartIndex(v);
             }
             else {
                 reader.skip(fieldType);
@@ -2414,7 +1910,7 @@ void readNoteList(
                 totalNotes_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.totalNotes = v;
+                s.setTotalNotes(v);
             }
             else {
                 reader.skip(fieldType);
@@ -2440,7 +1936,7 @@ void readNoteList(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.notes = v;
+                s.setNotes(v);
             }
             else {
                 reader.skip(fieldType);
@@ -2465,7 +1961,7 @@ void readNoteList(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.stoppedWords = v;
+                s.setStoppedWords(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2490,7 +1986,7 @@ void readNoteList(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.searchedWords = v;
+                s.setSearchedWords(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2501,7 +1997,7 @@ void readNoteList(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateCount = v;
+                s.setUpdateCount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2512,7 +2008,7 @@ void readNoteList(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.searchContextBytes = v;
+                s.setSearchContextBytes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2523,7 +2019,7 @@ void readNoteList(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.debugInfo = v;
+                s.setDebugInfo(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2541,74 +2037,6 @@ void readNoteList(
     if (!notes_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteList.notes has no value"));
 }
 
-void NoteList::print(QTextStream & strm) const
-{
-    strm << "NoteList: {\n";
-    localData.print(strm);
-    strm << "    startIndex = "
-        << startIndex << "\n";
-    strm << "    totalNotes = "
-        << totalNotes << "\n";
-    strm << "    notes = "
-        << "QList<Note> {";
-    for(const auto & v: notes) {
-        strm << "    " << v << "\n";
-    }
-    strm << "}\n";
-
-    if (stoppedWords.isSet()) {
-        strm << "    stoppedWords = "
-            << "QList<QString> {";
-        for(const auto & v: stoppedWords.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    stoppedWords is not set\n";
-    }
-
-    if (searchedWords.isSet()) {
-        strm << "    searchedWords = "
-            << "QList<QString> {";
-        for(const auto & v: searchedWords.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    searchedWords is not set\n";
-    }
-
-    if (updateCount.isSet()) {
-        strm << "    updateCount = "
-            << updateCount.ref() << "\n";
-    }
-    else {
-        strm << "    updateCount is not set\n";
-    }
-
-    if (searchContextBytes.isSet()) {
-        strm << "    searchContextBytes = "
-            << searchContextBytes.ref() << "\n";
-    }
-    else {
-        strm << "    searchContextBytes is not set\n";
-    }
-
-    if (debugInfo.isSet()) {
-        strm << "    debugInfo = "
-            << debugInfo.ref() << "\n";
-    }
-    else {
-        strm << "    debugInfo is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteMetadata(
     ThriftBinaryBufferWriter & writer,
     const NoteMetadata & s)
@@ -2619,87 +2047,87 @@ void writeNoteMetadata(
         ThriftFieldType::T_STRING,
         1);
 
-    writer.writeString(s.guid);
+    writer.writeString(s.guid());
     writer.writeFieldEnd();
 
-    if (s.title.isSet()) {
+    if (s.title()) {
         writer.writeFieldBegin(
             QStringLiteral("title"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.title.ref());
+        writer.writeString(*s.title());
         writer.writeFieldEnd();
     }
 
-    if (s.contentLength.isSet()) {
+    if (s.contentLength()) {
         writer.writeFieldBegin(
             QStringLiteral("contentLength"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.contentLength.ref());
+        writer.writeI32(*s.contentLength());
         writer.writeFieldEnd();
     }
 
-    if (s.created.isSet()) {
+    if (s.created()) {
         writer.writeFieldBegin(
             QStringLiteral("created"),
             ThriftFieldType::T_I64,
             6);
 
-        writer.writeI64(s.created.ref());
+        writer.writeI64(*s.created());
         writer.writeFieldEnd();
     }
 
-    if (s.updated.isSet()) {
+    if (s.updated()) {
         writer.writeFieldBegin(
             QStringLiteral("updated"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.updated.ref());
+        writer.writeI64(*s.updated());
         writer.writeFieldEnd();
     }
 
-    if (s.deleted.isSet()) {
+    if (s.deleted()) {
         writer.writeFieldBegin(
             QStringLiteral("deleted"),
             ThriftFieldType::T_I64,
             8);
 
-        writer.writeI64(s.deleted.ref());
+        writer.writeI64(*s.deleted());
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             10);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookGuid.isSet()) {
+    if (s.notebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuid"),
             ThriftFieldType::T_STRING,
             11);
 
-        writer.writeString(s.notebookGuid.ref());
+        writer.writeString(*s.notebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.tagGuids.isSet()) {
+    if (s.tagGuids()) {
         writer.writeFieldBegin(
             QStringLiteral("tagGuids"),
             ThriftFieldType::T_LIST,
             12);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids.ref().length());
-        for(const auto & value: qAsConst(s.tagGuids.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids()->length());
+        for(const auto & value: qAsConst(*s.tagGuids())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -2707,33 +2135,33 @@ void writeNoteMetadata(
         writer.writeFieldEnd();
     }
 
-    if (s.attributes.isSet()) {
+    if (s.attributes()) {
         writer.writeFieldBegin(
             QStringLiteral("attributes"),
             ThriftFieldType::T_STRUCT,
             14);
 
-        writeNoteAttributes(writer, s.attributes.ref());
+        writeNoteAttributes(writer, *s.attributes());
         writer.writeFieldEnd();
     }
 
-    if (s.largestResourceMime.isSet()) {
+    if (s.largestResourceMime()) {
         writer.writeFieldBegin(
             QStringLiteral("largestResourceMime"),
             ThriftFieldType::T_STRING,
             20);
 
-        writer.writeString(s.largestResourceMime.ref());
+        writer.writeString(*s.largestResourceMime());
         writer.writeFieldEnd();
     }
 
-    if (s.largestResourceSize.isSet()) {
+    if (s.largestResourceSize()) {
         writer.writeFieldBegin(
             QStringLiteral("largestResourceSize"),
             ThriftFieldType::T_I32,
             21);
 
-        writer.writeI32(s.largestResourceSize.ref());
+        writer.writeI32(*s.largestResourceSize());
         writer.writeFieldEnd();
     }
 
@@ -2759,7 +2187,7 @@ void readNoteMetadata(
                 guid_isset = true;
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(v);
             }
             else {
                 reader.skip(fieldType);
@@ -2770,7 +2198,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.title = v;
+                s.setTitle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2781,7 +2209,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.contentLength = v;
+                s.setContentLength(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2792,7 +2220,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.created = v;
+                s.setCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2803,7 +2231,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.updated = v;
+                s.setUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2814,7 +2242,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.deleted = v;
+                s.setDeleted(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2825,7 +2253,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2836,7 +2264,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.notebookGuid = v;
+                s.setNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2861,7 +2289,7 @@ void readNoteMetadata(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.tagGuids = v;
+                s.setTagGuids(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2872,7 +2300,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteAttributes v;
                 readNoteAttributes(reader, v);
-                s.attributes = v;
+                s.setAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2883,7 +2311,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.largestResourceMime = v;
+                s.setLargestResourceMime(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2894,7 +2322,7 @@ void readNoteMetadata(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.largestResourceSize = v;
+                s.setLargestResourceSize(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -2910,110 +2338,6 @@ void readNoteMetadata(
     if (!guid_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteMetadata.guid has no value"));
 }
 
-void NoteMetadata::print(QTextStream & strm) const
-{
-    strm << "NoteMetadata: {\n";
-    localData.print(strm);
-    strm << "    guid = "
-        << guid << "\n";
-
-    if (title.isSet()) {
-        strm << "    title = "
-            << title.ref() << "\n";
-    }
-    else {
-        strm << "    title is not set\n";
-    }
-
-    if (contentLength.isSet()) {
-        strm << "    contentLength = "
-            << contentLength.ref() << "\n";
-    }
-    else {
-        strm << "    contentLength is not set\n";
-    }
-
-    if (created.isSet()) {
-        strm << "    created = "
-            << created.ref() << "\n";
-    }
-    else {
-        strm << "    created is not set\n";
-    }
-
-    if (updated.isSet()) {
-        strm << "    updated = "
-            << updated.ref() << "\n";
-    }
-    else {
-        strm << "    updated is not set\n";
-    }
-
-    if (deleted.isSet()) {
-        strm << "    deleted = "
-            << deleted.ref() << "\n";
-    }
-    else {
-        strm << "    deleted is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (notebookGuid.isSet()) {
-        strm << "    notebookGuid = "
-            << notebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    notebookGuid is not set\n";
-    }
-
-    if (tagGuids.isSet()) {
-        strm << "    tagGuids = "
-            << "QList<Guid> {";
-        for(const auto & v: tagGuids.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tagGuids is not set\n";
-    }
-
-    if (attributes.isSet()) {
-        strm << "    attributes = "
-            << attributes.ref() << "\n";
-    }
-    else {
-        strm << "    attributes is not set\n";
-    }
-
-    if (largestResourceMime.isSet()) {
-        strm << "    largestResourceMime = "
-            << largestResourceMime.ref() << "\n";
-    }
-    else {
-        strm << "    largestResourceMime is not set\n";
-    }
-
-    if (largestResourceSize.isSet()) {
-        strm << "    largestResourceSize = "
-            << largestResourceSize.ref() << "\n";
-    }
-    else {
-        strm << "    largestResourceSize is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotesMetadataList(
     ThriftBinaryBufferWriter & writer,
     const NotesMetadataList & s)
@@ -3024,7 +2348,7 @@ void writeNotesMetadataList(
         ThriftFieldType::T_I32,
         1);
 
-    writer.writeI32(s.startIndex);
+    writer.writeI32(s.startIndex());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -3032,7 +2356,7 @@ void writeNotesMetadataList(
         ThriftFieldType::T_I32,
         2);
 
-    writer.writeI32(s.totalNotes);
+    writer.writeI32(s.totalNotes());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -3040,22 +2364,22 @@ void writeNotesMetadataList(
         ThriftFieldType::T_LIST,
         3);
 
-    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.length());
-    for(const auto & value: qAsConst(s.notes)) {
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes().length());
+    for(const auto & value: qAsConst(s.notes())) {
         writeNoteMetadata(writer, value);
     }
     writer.writeListEnd();
 
     writer.writeFieldEnd();
 
-    if (s.stoppedWords.isSet()) {
+    if (s.stoppedWords()) {
         writer.writeFieldBegin(
             QStringLiteral("stoppedWords"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.stoppedWords.ref().length());
-        for(const auto & value: qAsConst(s.stoppedWords.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.stoppedWords()->length());
+        for(const auto & value: qAsConst(*s.stoppedWords())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -3063,14 +2387,14 @@ void writeNotesMetadataList(
         writer.writeFieldEnd();
     }
 
-    if (s.searchedWords.isSet()) {
+    if (s.searchedWords()) {
         writer.writeFieldBegin(
             QStringLiteral("searchedWords"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.searchedWords.ref().length());
-        for(const auto & value: qAsConst(s.searchedWords.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.searchedWords()->length());
+        for(const auto & value: qAsConst(*s.searchedWords())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -3078,33 +2402,33 @@ void writeNotesMetadataList(
         writer.writeFieldEnd();
     }
 
-    if (s.updateCount.isSet()) {
+    if (s.updateCount()) {
         writer.writeFieldBegin(
             QStringLiteral("updateCount"),
             ThriftFieldType::T_I32,
             6);
 
-        writer.writeI32(s.updateCount.ref());
+        writer.writeI32(*s.updateCount());
         writer.writeFieldEnd();
     }
 
-    if (s.searchContextBytes.isSet()) {
+    if (s.searchContextBytes()) {
         writer.writeFieldBegin(
             QStringLiteral("searchContextBytes"),
             ThriftFieldType::T_STRING,
             7);
 
-        writer.writeBinary(s.searchContextBytes.ref());
+        writer.writeBinary(*s.searchContextBytes());
         writer.writeFieldEnd();
     }
 
-    if (s.debugInfo.isSet()) {
+    if (s.debugInfo()) {
         writer.writeFieldBegin(
             QStringLiteral("debugInfo"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.debugInfo.ref());
+        writer.writeString(*s.debugInfo());
         writer.writeFieldEnd();
     }
 
@@ -3132,7 +2456,7 @@ void readNotesMetadataList(
                 startIndex_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.startIndex = v;
+                s.setStartIndex(v);
             }
             else {
                 reader.skip(fieldType);
@@ -3144,7 +2468,7 @@ void readNotesMetadataList(
                 totalNotes_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.totalNotes = v;
+                s.setTotalNotes(v);
             }
             else {
                 reader.skip(fieldType);
@@ -3170,7 +2494,7 @@ void readNotesMetadataList(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.notes = v;
+                s.setNotes(v);
             }
             else {
                 reader.skip(fieldType);
@@ -3195,7 +2519,7 @@ void readNotesMetadataList(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.stoppedWords = v;
+                s.setStoppedWords(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3220,7 +2544,7 @@ void readNotesMetadataList(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.searchedWords = v;
+                s.setSearchedWords(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3231,7 +2555,7 @@ void readNotesMetadataList(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateCount = v;
+                s.setUpdateCount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3242,7 +2566,7 @@ void readNotesMetadataList(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.searchContextBytes = v;
+                s.setSearchContextBytes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3253,7 +2577,7 @@ void readNotesMetadataList(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.debugInfo = v;
+                s.setDebugInfo(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3271,186 +2595,118 @@ void readNotesMetadataList(
     if (!notes_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NotesMetadataList.notes has no value"));
 }
 
-void NotesMetadataList::print(QTextStream & strm) const
-{
-    strm << "NotesMetadataList: {\n";
-    localData.print(strm);
-    strm << "    startIndex = "
-        << startIndex << "\n";
-    strm << "    totalNotes = "
-        << totalNotes << "\n";
-    strm << "    notes = "
-        << "QList<NoteMetadata> {";
-    for(const auto & v: notes) {
-        strm << "    " << v << "\n";
-    }
-    strm << "}\n";
-
-    if (stoppedWords.isSet()) {
-        strm << "    stoppedWords = "
-            << "QList<QString> {";
-        for(const auto & v: stoppedWords.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    stoppedWords is not set\n";
-    }
-
-    if (searchedWords.isSet()) {
-        strm << "    searchedWords = "
-            << "QList<QString> {";
-        for(const auto & v: searchedWords.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    searchedWords is not set\n";
-    }
-
-    if (updateCount.isSet()) {
-        strm << "    updateCount = "
-            << updateCount.ref() << "\n";
-    }
-    else {
-        strm << "    updateCount is not set\n";
-    }
-
-    if (searchContextBytes.isSet()) {
-        strm << "    searchContextBytes = "
-            << searchContextBytes.ref() << "\n";
-    }
-    else {
-        strm << "    searchContextBytes is not set\n";
-    }
-
-    if (debugInfo.isSet()) {
-        strm << "    debugInfo = "
-            << debugInfo.ref() << "\n";
-    }
-    else {
-        strm << "    debugInfo is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotesMetadataResultSpec(
     ThriftBinaryBufferWriter & writer,
     const NotesMetadataResultSpec & s)
 {
     writer.writeStructBegin(QStringLiteral("NotesMetadataResultSpec"));
-    if (s.includeTitle.isSet()) {
+    if (s.includeTitle()) {
         writer.writeFieldBegin(
             QStringLiteral("includeTitle"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.includeTitle.ref());
+        writer.writeBool(*s.includeTitle());
         writer.writeFieldEnd();
     }
 
-    if (s.includeContentLength.isSet()) {
+    if (s.includeContentLength()) {
         writer.writeFieldBegin(
             QStringLiteral("includeContentLength"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.includeContentLength.ref());
+        writer.writeBool(*s.includeContentLength());
         writer.writeFieldEnd();
     }
 
-    if (s.includeCreated.isSet()) {
+    if (s.includeCreated()) {
         writer.writeFieldBegin(
             QStringLiteral("includeCreated"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.includeCreated.ref());
+        writer.writeBool(*s.includeCreated());
         writer.writeFieldEnd();
     }
 
-    if (s.includeUpdated.isSet()) {
+    if (s.includeUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("includeUpdated"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.includeUpdated.ref());
+        writer.writeBool(*s.includeUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.includeDeleted.isSet()) {
+    if (s.includeDeleted()) {
         writer.writeFieldBegin(
             QStringLiteral("includeDeleted"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.includeDeleted.ref());
+        writer.writeBool(*s.includeDeleted());
         writer.writeFieldEnd();
     }
 
-    if (s.includeUpdateSequenceNum.isSet()) {
+    if (s.includeUpdateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("includeUpdateSequenceNum"),
             ThriftFieldType::T_BOOL,
             10);
 
-        writer.writeBool(s.includeUpdateSequenceNum.ref());
+        writer.writeBool(*s.includeUpdateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNotebookGuid.isSet()) {
+    if (s.includeNotebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNotebookGuid"),
             ThriftFieldType::T_BOOL,
             11);
 
-        writer.writeBool(s.includeNotebookGuid.ref());
+        writer.writeBool(*s.includeNotebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.includeTagGuids.isSet()) {
+    if (s.includeTagGuids()) {
         writer.writeFieldBegin(
             QStringLiteral("includeTagGuids"),
             ThriftFieldType::T_BOOL,
             12);
 
-        writer.writeBool(s.includeTagGuids.ref());
+        writer.writeBool(*s.includeTagGuids());
         writer.writeFieldEnd();
     }
 
-    if (s.includeAttributes.isSet()) {
+    if (s.includeAttributes()) {
         writer.writeFieldBegin(
             QStringLiteral("includeAttributes"),
             ThriftFieldType::T_BOOL,
             14);
 
-        writer.writeBool(s.includeAttributes.ref());
+        writer.writeBool(*s.includeAttributes());
         writer.writeFieldEnd();
     }
 
-    if (s.includeLargestResourceMime.isSet()) {
+    if (s.includeLargestResourceMime()) {
         writer.writeFieldBegin(
             QStringLiteral("includeLargestResourceMime"),
             ThriftFieldType::T_BOOL,
             20);
 
-        writer.writeBool(s.includeLargestResourceMime.ref());
+        writer.writeBool(*s.includeLargestResourceMime());
         writer.writeFieldEnd();
     }
 
-    if (s.includeLargestResourceSize.isSet()) {
+    if (s.includeLargestResourceSize()) {
         writer.writeFieldBegin(
             QStringLiteral("includeLargestResourceSize"),
             ThriftFieldType::T_BOOL,
             21);
 
-        writer.writeBool(s.includeLargestResourceSize.ref());
+        writer.writeBool(*s.includeLargestResourceSize());
         writer.writeFieldEnd();
     }
 
@@ -3474,7 +2730,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeTitle = v;
+                s.setIncludeTitle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3485,7 +2741,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeContentLength = v;
+                s.setIncludeContentLength(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3496,7 +2752,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeCreated = v;
+                s.setIncludeCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3507,7 +2763,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeUpdated = v;
+                s.setIncludeUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3518,7 +2774,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeDeleted = v;
+                s.setIncludeDeleted(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3529,7 +2785,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeUpdateSequenceNum = v;
+                s.setIncludeUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3540,7 +2796,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNotebookGuid = v;
+                s.setIncludeNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3551,7 +2807,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeTagGuids = v;
+                s.setIncludeTagGuids(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3562,7 +2818,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeAttributes = v;
+                s.setIncludeAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3573,7 +2829,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeLargestResourceMime = v;
+                s.setIncludeLargestResourceMime(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3584,7 +2840,7 @@ void readNotesMetadataResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeLargestResourceSize = v;
+                s.setIncludeLargestResourceSize(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3599,117 +2855,19 @@ void readNotesMetadataResultSpec(
     reader.readStructEnd();
 }
 
-void NotesMetadataResultSpec::print(QTextStream & strm) const
-{
-    strm << "NotesMetadataResultSpec: {\n";
-    localData.print(strm);
-
-    if (includeTitle.isSet()) {
-        strm << "    includeTitle = "
-            << includeTitle.ref() << "\n";
-    }
-    else {
-        strm << "    includeTitle is not set\n";
-    }
-
-    if (includeContentLength.isSet()) {
-        strm << "    includeContentLength = "
-            << includeContentLength.ref() << "\n";
-    }
-    else {
-        strm << "    includeContentLength is not set\n";
-    }
-
-    if (includeCreated.isSet()) {
-        strm << "    includeCreated = "
-            << includeCreated.ref() << "\n";
-    }
-    else {
-        strm << "    includeCreated is not set\n";
-    }
-
-    if (includeUpdated.isSet()) {
-        strm << "    includeUpdated = "
-            << includeUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    includeUpdated is not set\n";
-    }
-
-    if (includeDeleted.isSet()) {
-        strm << "    includeDeleted = "
-            << includeDeleted.ref() << "\n";
-    }
-    else {
-        strm << "    includeDeleted is not set\n";
-    }
-
-    if (includeUpdateSequenceNum.isSet()) {
-        strm << "    includeUpdateSequenceNum = "
-            << includeUpdateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    includeUpdateSequenceNum is not set\n";
-    }
-
-    if (includeNotebookGuid.isSet()) {
-        strm << "    includeNotebookGuid = "
-            << includeNotebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    includeNotebookGuid is not set\n";
-    }
-
-    if (includeTagGuids.isSet()) {
-        strm << "    includeTagGuids = "
-            << includeTagGuids.ref() << "\n";
-    }
-    else {
-        strm << "    includeTagGuids is not set\n";
-    }
-
-    if (includeAttributes.isSet()) {
-        strm << "    includeAttributes = "
-            << includeAttributes.ref() << "\n";
-    }
-    else {
-        strm << "    includeAttributes is not set\n";
-    }
-
-    if (includeLargestResourceMime.isSet()) {
-        strm << "    includeLargestResourceMime = "
-            << includeLargestResourceMime.ref() << "\n";
-    }
-    else {
-        strm << "    includeLargestResourceMime is not set\n";
-    }
-
-    if (includeLargestResourceSize.isSet()) {
-        strm << "    includeLargestResourceSize = "
-            << includeLargestResourceSize.ref() << "\n";
-    }
-    else {
-        strm << "    includeLargestResourceSize is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteCollectionCounts(
     ThriftBinaryBufferWriter & writer,
     const NoteCollectionCounts & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteCollectionCounts"));
-    if (s.notebookCounts.isSet()) {
+    if (s.notebookCounts()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookCounts"),
             ThriftFieldType::T_MAP,
             1);
 
-        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_I32, s.notebookCounts.ref().size());
-        for(const auto & it: toRange(s.notebookCounts.ref())) {
+        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_I32, s.notebookCounts()->size());
+        for(const auto & it: toRange(*s.notebookCounts())) {
             writer.writeString(it.key());
             writer.writeI32(it.value());
         }
@@ -3718,14 +2876,14 @@ void writeNoteCollectionCounts(
         writer.writeFieldEnd();
     }
 
-    if (s.tagCounts.isSet()) {
+    if (s.tagCounts()) {
         writer.writeFieldBegin(
             QStringLiteral("tagCounts"),
             ThriftFieldType::T_MAP,
             2);
 
-        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_I32, s.tagCounts.ref().size());
-        for(const auto & it: toRange(s.tagCounts.ref())) {
+        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_I32, s.tagCounts()->size());
+        for(const auto & it: toRange(*s.tagCounts())) {
             writer.writeString(it.key());
             writer.writeI32(it.value());
         }
@@ -3734,13 +2892,13 @@ void writeNoteCollectionCounts(
         writer.writeFieldEnd();
     }
 
-    if (s.trashCount.isSet()) {
+    if (s.trashCount()) {
         writer.writeFieldBegin(
             QStringLiteral("trashCount"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(s.trashCount.ref());
+        writer.writeI32(*s.trashCount());
         writer.writeFieldEnd();
     }
 
@@ -3777,7 +2935,7 @@ void readNoteCollectionCounts(
                     v[key] = value;
                 }
                 reader.readMapEnd();
-                s.notebookCounts = v;
+                s.setNotebookCounts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3801,7 +2959,7 @@ void readNoteCollectionCounts(
                     v[key] = value;
                 }
                 reader.readMapEnd();
-                s.tagCounts = v;
+                s.setTagCounts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3812,7 +2970,7 @@ void readNoteCollectionCounts(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.trashCount = v;
+                s.setTrashCount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3827,130 +2985,88 @@ void readNoteCollectionCounts(
     reader.readStructEnd();
 }
 
-void NoteCollectionCounts::print(QTextStream & strm) const
-{
-    strm << "NoteCollectionCounts: {\n";
-    localData.print(strm);
-
-    if (notebookCounts.isSet()) {
-        strm << "    notebookCounts = "
-            << "QMap<Guid, qint32> {";
-        for(const auto & it: toRange(notebookCounts.ref())) {
-            strm << "        [" << it.key() << "] = " << it.value() << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    notebookCounts is not set\n";
-    }
-
-    if (tagCounts.isSet()) {
-        strm << "    tagCounts = "
-            << "QMap<Guid, qint32> {";
-        for(const auto & it: toRange(tagCounts.ref())) {
-            strm << "        [" << it.key() << "] = " << it.value() << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tagCounts is not set\n";
-    }
-
-    if (trashCount.isSet()) {
-        strm << "    trashCount = "
-            << trashCount.ref() << "\n";
-    }
-    else {
-        strm << "    trashCount is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteResultSpec(
     ThriftBinaryBufferWriter & writer,
     const NoteResultSpec & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteResultSpec"));
-    if (s.includeContent.isSet()) {
+    if (s.includeContent()) {
         writer.writeFieldBegin(
             QStringLiteral("includeContent"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.includeContent.ref());
+        writer.writeBool(*s.includeContent());
         writer.writeFieldEnd();
     }
 
-    if (s.includeResourcesData.isSet()) {
+    if (s.includeResourcesData()) {
         writer.writeFieldBegin(
             QStringLiteral("includeResourcesData"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.includeResourcesData.ref());
+        writer.writeBool(*s.includeResourcesData());
         writer.writeFieldEnd();
     }
 
-    if (s.includeResourcesRecognition.isSet()) {
+    if (s.includeResourcesRecognition()) {
         writer.writeFieldBegin(
             QStringLiteral("includeResourcesRecognition"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.includeResourcesRecognition.ref());
+        writer.writeBool(*s.includeResourcesRecognition());
         writer.writeFieldEnd();
     }
 
-    if (s.includeResourcesAlternateData.isSet()) {
+    if (s.includeResourcesAlternateData()) {
         writer.writeFieldBegin(
             QStringLiteral("includeResourcesAlternateData"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.includeResourcesAlternateData.ref());
+        writer.writeBool(*s.includeResourcesAlternateData());
         writer.writeFieldEnd();
     }
 
-    if (s.includeSharedNotes.isSet()) {
+    if (s.includeSharedNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("includeSharedNotes"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.includeSharedNotes.ref());
+        writer.writeBool(*s.includeSharedNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.includeNoteAppDataValues.isSet()) {
+    if (s.includeNoteAppDataValues()) {
         writer.writeFieldBegin(
             QStringLiteral("includeNoteAppDataValues"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.includeNoteAppDataValues.ref());
+        writer.writeBool(*s.includeNoteAppDataValues());
         writer.writeFieldEnd();
     }
 
-    if (s.includeResourceAppDataValues.isSet()) {
+    if (s.includeResourceAppDataValues()) {
         writer.writeFieldBegin(
             QStringLiteral("includeResourceAppDataValues"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.includeResourceAppDataValues.ref());
+        writer.writeBool(*s.includeResourceAppDataValues());
         writer.writeFieldEnd();
     }
 
-    if (s.includeAccountLimits.isSet()) {
+    if (s.includeAccountLimits()) {
         writer.writeFieldBegin(
             QStringLiteral("includeAccountLimits"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.includeAccountLimits.ref());
+        writer.writeBool(*s.includeAccountLimits());
         writer.writeFieldEnd();
     }
 
@@ -3974,7 +3090,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeContent = v;
+                s.setIncludeContent(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3985,7 +3101,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeResourcesData = v;
+                s.setIncludeResourcesData(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -3996,7 +3112,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeResourcesRecognition = v;
+                s.setIncludeResourcesRecognition(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4007,7 +3123,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeResourcesAlternateData = v;
+                s.setIncludeResourcesAlternateData(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4018,7 +3134,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeSharedNotes = v;
+                s.setIncludeSharedNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4029,7 +3145,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeNoteAppDataValues = v;
+                s.setIncludeNoteAppDataValues(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4040,7 +3156,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeResourceAppDataValues = v;
+                s.setIncludeResourceAppDataValues(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4051,7 +3167,7 @@ void readNoteResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeAccountLimits = v;
+                s.setIncludeAccountLimits(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4066,113 +3182,39 @@ void readNoteResultSpec(
     reader.readStructEnd();
 }
 
-void NoteResultSpec::print(QTextStream & strm) const
-{
-    strm << "NoteResultSpec: {\n";
-    localData.print(strm);
-
-    if (includeContent.isSet()) {
-        strm << "    includeContent = "
-            << includeContent.ref() << "\n";
-    }
-    else {
-        strm << "    includeContent is not set\n";
-    }
-
-    if (includeResourcesData.isSet()) {
-        strm << "    includeResourcesData = "
-            << includeResourcesData.ref() << "\n";
-    }
-    else {
-        strm << "    includeResourcesData is not set\n";
-    }
-
-    if (includeResourcesRecognition.isSet()) {
-        strm << "    includeResourcesRecognition = "
-            << includeResourcesRecognition.ref() << "\n";
-    }
-    else {
-        strm << "    includeResourcesRecognition is not set\n";
-    }
-
-    if (includeResourcesAlternateData.isSet()) {
-        strm << "    includeResourcesAlternateData = "
-            << includeResourcesAlternateData.ref() << "\n";
-    }
-    else {
-        strm << "    includeResourcesAlternateData is not set\n";
-    }
-
-    if (includeSharedNotes.isSet()) {
-        strm << "    includeSharedNotes = "
-            << includeSharedNotes.ref() << "\n";
-    }
-    else {
-        strm << "    includeSharedNotes is not set\n";
-    }
-
-    if (includeNoteAppDataValues.isSet()) {
-        strm << "    includeNoteAppDataValues = "
-            << includeNoteAppDataValues.ref() << "\n";
-    }
-    else {
-        strm << "    includeNoteAppDataValues is not set\n";
-    }
-
-    if (includeResourceAppDataValues.isSet()) {
-        strm << "    includeResourceAppDataValues = "
-            << includeResourceAppDataValues.ref() << "\n";
-    }
-    else {
-        strm << "    includeResourceAppDataValues is not set\n";
-    }
-
-    if (includeAccountLimits.isSet()) {
-        strm << "    includeAccountLimits = "
-            << includeAccountLimits.ref() << "\n";
-    }
-    else {
-        strm << "    includeAccountLimits is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteEmailParameters(
     ThriftBinaryBufferWriter & writer,
     const NoteEmailParameters & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteEmailParameters"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.note.isSet()) {
+    if (s.note()) {
         writer.writeFieldBegin(
             QStringLiteral("note"),
             ThriftFieldType::T_STRUCT,
             2);
 
-        writeNote(writer, s.note.ref());
+        writeNote(writer, *s.note());
         writer.writeFieldEnd();
     }
 
-    if (s.toAddresses.isSet()) {
+    if (s.toAddresses()) {
         writer.writeFieldBegin(
             QStringLiteral("toAddresses"),
             ThriftFieldType::T_LIST,
             3);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.toAddresses.ref().length());
-        for(const auto & value: qAsConst(s.toAddresses.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.toAddresses()->length());
+        for(const auto & value: qAsConst(*s.toAddresses())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -4180,14 +3222,14 @@ void writeNoteEmailParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.ccAddresses.isSet()) {
+    if (s.ccAddresses()) {
         writer.writeFieldBegin(
             QStringLiteral("ccAddresses"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.ccAddresses.ref().length());
-        for(const auto & value: qAsConst(s.ccAddresses.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.ccAddresses()->length());
+        for(const auto & value: qAsConst(*s.ccAddresses())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -4195,23 +3237,23 @@ void writeNoteEmailParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.subject.isSet()) {
+    if (s.subject()) {
         writer.writeFieldBegin(
             QStringLiteral("subject"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.subject.ref());
+        writer.writeString(*s.subject());
         writer.writeFieldEnd();
     }
 
-    if (s.message.isSet()) {
+    if (s.message()) {
         writer.writeFieldBegin(
             QStringLiteral("message"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.message.ref());
+        writer.writeString(*s.message());
         writer.writeFieldEnd();
     }
 
@@ -4235,7 +3277,7 @@ void readNoteEmailParameters(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4246,7 +3288,7 @@ void readNoteEmailParameters(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Note v;
                 readNote(reader, v);
-                s.note = v;
+                s.setNote(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4271,7 +3313,7 @@ void readNoteEmailParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.toAddresses = v;
+                s.setToAddresses(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4296,7 +3338,7 @@ void readNoteEmailParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.ccAddresses = v;
+                s.setCcAddresses(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4307,7 +3349,7 @@ void readNoteEmailParameters(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.subject = v;
+                s.setSubject(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4318,7 +3360,7 @@ void readNoteEmailParameters(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.message = v;
+                s.setMessage(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4333,72 +3375,6 @@ void readNoteEmailParameters(
     reader.readStructEnd();
 }
 
-void NoteEmailParameters::print(QTextStream & strm) const
-{
-    strm << "NoteEmailParameters: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (note.isSet()) {
-        strm << "    note = "
-            << note.ref() << "\n";
-    }
-    else {
-        strm << "    note is not set\n";
-    }
-
-    if (toAddresses.isSet()) {
-        strm << "    toAddresses = "
-            << "QList<QString> {";
-        for(const auto & v: toAddresses.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    toAddresses is not set\n";
-    }
-
-    if (ccAddresses.isSet()) {
-        strm << "    ccAddresses = "
-            << "QList<QString> {";
-        for(const auto & v: ccAddresses.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    ccAddresses is not set\n";
-    }
-
-    if (subject.isSet()) {
-        strm << "    subject = "
-            << subject.ref() << "\n";
-    }
-    else {
-        strm << "    subject is not set\n";
-    }
-
-    if (message.isSet()) {
-        strm << "    message = "
-            << message.ref() << "\n";
-    }
-    else {
-        strm << "    message is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteVersionId(
     ThriftBinaryBufferWriter & writer,
     const NoteVersionId & s)
@@ -4409,7 +3385,7 @@ void writeNoteVersionId(
         ThriftFieldType::T_I32,
         1);
 
-    writer.writeI32(s.updateSequenceNum);
+    writer.writeI32(s.updateSequenceNum());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -4417,7 +3393,7 @@ void writeNoteVersionId(
         ThriftFieldType::T_I64,
         2);
 
-    writer.writeI64(s.updated);
+    writer.writeI64(s.updated());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -4425,7 +3401,7 @@ void writeNoteVersionId(
         ThriftFieldType::T_I64,
         3);
 
-    writer.writeI64(s.saved);
+    writer.writeI64(s.saved());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -4433,16 +3409,16 @@ void writeNoteVersionId(
         ThriftFieldType::T_STRING,
         4);
 
-    writer.writeString(s.title);
+    writer.writeString(s.title());
     writer.writeFieldEnd();
 
-    if (s.lastEditorId.isSet()) {
+    if (s.lastEditorId()) {
         writer.writeFieldBegin(
             QStringLiteral("lastEditorId"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.lastEditorId.ref());
+        writer.writeI32(*s.lastEditorId());
         writer.writeFieldEnd();
     }
 
@@ -4471,7 +3447,7 @@ void readNoteVersionId(
                 updateSequenceNum_isset = true;
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(v);
             }
             else {
                 reader.skip(fieldType);
@@ -4483,7 +3459,7 @@ void readNoteVersionId(
                 updated_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.updated = v;
+                s.setUpdated(v);
             }
             else {
                 reader.skip(fieldType);
@@ -4495,7 +3471,7 @@ void readNoteVersionId(
                 saved_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.saved = v;
+                s.setSaved(v);
             }
             else {
                 reader.skip(fieldType);
@@ -4507,7 +3483,7 @@ void readNoteVersionId(
                 title_isset = true;
                 QString v;
                 reader.readString(v);
-                s.title = v;
+                s.setTitle(v);
             }
             else {
                 reader.skip(fieldType);
@@ -4518,7 +3494,7 @@ void readNoteVersionId(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.lastEditorId = v;
+                s.setLastEditorId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4537,94 +3513,68 @@ void readNoteVersionId(
     if (!title_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("NoteVersionId.title has no value"));
 }
 
-void NoteVersionId::print(QTextStream & strm) const
-{
-    strm << "NoteVersionId: {\n";
-    localData.print(strm);
-    strm << "    updateSequenceNum = "
-        << updateSequenceNum << "\n";
-    strm << "    updated = "
-        << updated << "\n";
-    strm << "    saved = "
-        << saved << "\n";
-    strm << "    title = "
-        << title << "\n";
-
-    if (lastEditorId.isSet()) {
-        strm << "    lastEditorId = "
-            << lastEditorId.ref() << "\n";
-    }
-    else {
-        strm << "    lastEditorId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeRelatedQuery(
     ThriftBinaryBufferWriter & writer,
     const RelatedQuery & s)
 {
     writer.writeStructBegin(QStringLiteral("RelatedQuery"));
-    if (s.noteGuid.isSet()) {
+    if (s.noteGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("noteGuid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.noteGuid.ref());
+        writer.writeString(*s.noteGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.plainText.isSet()) {
+    if (s.plainText()) {
         writer.writeFieldBegin(
             QStringLiteral("plainText"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.plainText.ref());
+        writer.writeString(*s.plainText());
         writer.writeFieldEnd();
     }
 
-    if (s.filter.isSet()) {
+    if (s.filter()) {
         writer.writeFieldBegin(
             QStringLiteral("filter"),
             ThriftFieldType::T_STRUCT,
             3);
 
-        writeNoteFilter(writer, s.filter.ref());
+        writeNoteFilter(writer, *s.filter());
         writer.writeFieldEnd();
     }
 
-    if (s.referenceUri.isSet()) {
+    if (s.referenceUri()) {
         writer.writeFieldBegin(
             QStringLiteral("referenceUri"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.referenceUri.ref());
+        writer.writeString(*s.referenceUri());
         writer.writeFieldEnd();
     }
 
-    if (s.context.isSet()) {
+    if (s.context()) {
         writer.writeFieldBegin(
             QStringLiteral("context"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.context.ref());
+        writer.writeString(*s.context());
         writer.writeFieldEnd();
     }
 
-    if (s.cacheKey.isSet()) {
+    if (s.cacheKey()) {
         writer.writeFieldBegin(
             QStringLiteral("cacheKey"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.cacheKey.ref());
+        writer.writeString(*s.cacheKey());
         writer.writeFieldEnd();
     }
 
@@ -4648,7 +3598,7 @@ void readRelatedQuery(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.noteGuid = v;
+                s.setNoteGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4659,7 +3609,7 @@ void readRelatedQuery(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.plainText = v;
+                s.setPlainText(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4670,7 +3620,7 @@ void readRelatedQuery(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteFilter v;
                 readNoteFilter(reader, v);
-                s.filter = v;
+                s.setFilter(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4681,7 +3631,7 @@ void readRelatedQuery(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.referenceUri = v;
+                s.setReferenceUri(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4692,7 +3642,7 @@ void readRelatedQuery(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.context = v;
+                s.setContext(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4703,7 +3653,7 @@ void readRelatedQuery(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.cacheKey = v;
+                s.setCacheKey(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4718,77 +3668,19 @@ void readRelatedQuery(
     reader.readStructEnd();
 }
 
-void RelatedQuery::print(QTextStream & strm) const
-{
-    strm << "RelatedQuery: {\n";
-    localData.print(strm);
-
-    if (noteGuid.isSet()) {
-        strm << "    noteGuid = "
-            << noteGuid.ref() << "\n";
-    }
-    else {
-        strm << "    noteGuid is not set\n";
-    }
-
-    if (plainText.isSet()) {
-        strm << "    plainText = "
-            << plainText.ref() << "\n";
-    }
-    else {
-        strm << "    plainText is not set\n";
-    }
-
-    if (filter.isSet()) {
-        strm << "    filter = "
-            << filter.ref() << "\n";
-    }
-    else {
-        strm << "    filter is not set\n";
-    }
-
-    if (referenceUri.isSet()) {
-        strm << "    referenceUri = "
-            << referenceUri.ref() << "\n";
-    }
-    else {
-        strm << "    referenceUri is not set\n";
-    }
-
-    if (context.isSet()) {
-        strm << "    context = "
-            << context.ref() << "\n";
-    }
-    else {
-        strm << "    context is not set\n";
-    }
-
-    if (cacheKey.isSet()) {
-        strm << "    cacheKey = "
-            << cacheKey.ref() << "\n";
-    }
-    else {
-        strm << "    cacheKey is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeRelatedResult(
     ThriftBinaryBufferWriter & writer,
     const RelatedResult & s)
 {
     writer.writeStructBegin(QStringLiteral("RelatedResult"));
-    if (s.notes.isSet()) {
+    if (s.notes()) {
         writer.writeFieldBegin(
             QStringLiteral("notes"),
             ThriftFieldType::T_LIST,
             1);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.ref().length());
-        for(const auto & value: qAsConst(s.notes.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notes()->length());
+        for(const auto & value: qAsConst(*s.notes())) {
             writeNote(writer, value);
         }
         writer.writeListEnd();
@@ -4796,14 +3688,14 @@ void writeRelatedResult(
         writer.writeFieldEnd();
     }
 
-    if (s.notebooks.isSet()) {
+    if (s.notebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("notebooks"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notebooks.ref().length());
-        for(const auto & value: qAsConst(s.notebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.notebooks()->length());
+        for(const auto & value: qAsConst(*s.notebooks())) {
             writeNotebook(writer, value);
         }
         writer.writeListEnd();
@@ -4811,14 +3703,14 @@ void writeRelatedResult(
         writer.writeFieldEnd();
     }
 
-    if (s.tags.isSet()) {
+    if (s.tags()) {
         writer.writeFieldBegin(
             QStringLiteral("tags"),
             ThriftFieldType::T_LIST,
             3);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.tags.ref().length());
-        for(const auto & value: qAsConst(s.tags.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.tags()->length());
+        for(const auto & value: qAsConst(*s.tags())) {
             writeTag(writer, value);
         }
         writer.writeListEnd();
@@ -4826,14 +3718,14 @@ void writeRelatedResult(
         writer.writeFieldEnd();
     }
 
-    if (s.containingNotebooks.isSet()) {
+    if (s.containingNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("containingNotebooks"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.containingNotebooks.ref().length());
-        for(const auto & value: qAsConst(s.containingNotebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.containingNotebooks()->length());
+        for(const auto & value: qAsConst(*s.containingNotebooks())) {
             writeNotebookDescriptor(writer, value);
         }
         writer.writeListEnd();
@@ -4841,24 +3733,24 @@ void writeRelatedResult(
         writer.writeFieldEnd();
     }
 
-    if (s.debugInfo.isSet()) {
+    if (s.debugInfo()) {
         writer.writeFieldBegin(
             QStringLiteral("debugInfo"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.debugInfo.ref());
+        writer.writeString(*s.debugInfo());
         writer.writeFieldEnd();
     }
 
-    if (s.experts.isSet()) {
+    if (s.experts()) {
         writer.writeFieldBegin(
             QStringLiteral("experts"),
             ThriftFieldType::T_LIST,
             6);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.experts.ref().length());
-        for(const auto & value: qAsConst(s.experts.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.experts()->length());
+        for(const auto & value: qAsConst(*s.experts())) {
             writeUserProfile(writer, value);
         }
         writer.writeListEnd();
@@ -4866,14 +3758,14 @@ void writeRelatedResult(
         writer.writeFieldEnd();
     }
 
-    if (s.relatedContent.isSet()) {
+    if (s.relatedContent()) {
         writer.writeFieldBegin(
             QStringLiteral("relatedContent"),
             ThriftFieldType::T_LIST,
             7);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.relatedContent.ref().length());
-        for(const auto & value: qAsConst(s.relatedContent.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.relatedContent()->length());
+        for(const auto & value: qAsConst(*s.relatedContent())) {
             writeRelatedContent(writer, value);
         }
         writer.writeListEnd();
@@ -4881,23 +3773,23 @@ void writeRelatedResult(
         writer.writeFieldEnd();
     }
 
-    if (s.cacheKey.isSet()) {
+    if (s.cacheKey()) {
         writer.writeFieldBegin(
             QStringLiteral("cacheKey"),
             ThriftFieldType::T_STRING,
             8);
 
-        writer.writeString(s.cacheKey.ref());
+        writer.writeString(*s.cacheKey());
         writer.writeFieldEnd();
     }
 
-    if (s.cacheExpires.isSet()) {
+    if (s.cacheExpires()) {
         writer.writeFieldBegin(
             QStringLiteral("cacheExpires"),
             ThriftFieldType::T_I32,
             9);
 
-        writer.writeI32(s.cacheExpires.ref());
+        writer.writeI32(*s.cacheExpires());
         writer.writeFieldEnd();
     }
 
@@ -4935,7 +3827,7 @@ void readRelatedResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.notes = v;
+                s.setNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4960,7 +3852,7 @@ void readRelatedResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.notebooks = v;
+                s.setNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -4985,7 +3877,7 @@ void readRelatedResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.tags = v;
+                s.setTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5010,7 +3902,7 @@ void readRelatedResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.containingNotebooks = v;
+                s.setContainingNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5021,7 +3913,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.debugInfo = v;
+                s.setDebugInfo(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5046,7 +3938,7 @@ void readRelatedResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.experts = v;
+                s.setExperts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5071,7 +3963,7 @@ void readRelatedResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.relatedContent = v;
+                s.setRelatedContent(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5082,7 +3974,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.cacheKey = v;
+                s.setCacheKey(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5093,7 +3985,7 @@ void readRelatedResult(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.cacheExpires = v;
+                s.setCacheExpires(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5108,205 +4000,99 @@ void readRelatedResult(
     reader.readStructEnd();
 }
 
-void RelatedResult::print(QTextStream & strm) const
-{
-    strm << "RelatedResult: {\n";
-    localData.print(strm);
-
-    if (notes.isSet()) {
-        strm << "    notes = "
-            << "QList<Note> {";
-        for(const auto & v: notes.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    notes is not set\n";
-    }
-
-    if (notebooks.isSet()) {
-        strm << "    notebooks = "
-            << "QList<Notebook> {";
-        for(const auto & v: notebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    notebooks is not set\n";
-    }
-
-    if (tags.isSet()) {
-        strm << "    tags = "
-            << "QList<Tag> {";
-        for(const auto & v: tags.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tags is not set\n";
-    }
-
-    if (containingNotebooks.isSet()) {
-        strm << "    containingNotebooks = "
-            << "QList<NotebookDescriptor> {";
-        for(const auto & v: containingNotebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    containingNotebooks is not set\n";
-    }
-
-    if (debugInfo.isSet()) {
-        strm << "    debugInfo = "
-            << debugInfo.ref() << "\n";
-    }
-    else {
-        strm << "    debugInfo is not set\n";
-    }
-
-    if (experts.isSet()) {
-        strm << "    experts = "
-            << "QList<UserProfile> {";
-        for(const auto & v: experts.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    experts is not set\n";
-    }
-
-    if (relatedContent.isSet()) {
-        strm << "    relatedContent = "
-            << "QList<RelatedContent> {";
-        for(const auto & v: relatedContent.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    relatedContent is not set\n";
-    }
-
-    if (cacheKey.isSet()) {
-        strm << "    cacheKey = "
-            << cacheKey.ref() << "\n";
-    }
-    else {
-        strm << "    cacheKey is not set\n";
-    }
-
-    if (cacheExpires.isSet()) {
-        strm << "    cacheExpires = "
-            << cacheExpires.ref() << "\n";
-    }
-    else {
-        strm << "    cacheExpires is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeRelatedResultSpec(
     ThriftBinaryBufferWriter & writer,
     const RelatedResultSpec & s)
 {
     writer.writeStructBegin(QStringLiteral("RelatedResultSpec"));
-    if (s.maxNotes.isSet()) {
+    if (s.maxNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("maxNotes"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.maxNotes.ref());
+        writer.writeI32(*s.maxNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.maxNotebooks.isSet()) {
+    if (s.maxNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("maxNotebooks"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.maxNotebooks.ref());
+        writer.writeI32(*s.maxNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.maxTags.isSet()) {
+    if (s.maxTags()) {
         writer.writeFieldBegin(
             QStringLiteral("maxTags"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(s.maxTags.ref());
+        writer.writeI32(*s.maxTags());
         writer.writeFieldEnd();
     }
 
-    if (s.writableNotebooksOnly.isSet()) {
+    if (s.writableNotebooksOnly()) {
         writer.writeFieldBegin(
             QStringLiteral("writableNotebooksOnly"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.writableNotebooksOnly.ref());
+        writer.writeBool(*s.writableNotebooksOnly());
         writer.writeFieldEnd();
     }
 
-    if (s.includeContainingNotebooks.isSet()) {
+    if (s.includeContainingNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("includeContainingNotebooks"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.includeContainingNotebooks.ref());
+        writer.writeBool(*s.includeContainingNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.includeDebugInfo.isSet()) {
+    if (s.includeDebugInfo()) {
         writer.writeFieldBegin(
             QStringLiteral("includeDebugInfo"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.includeDebugInfo.ref());
+        writer.writeBool(*s.includeDebugInfo());
         writer.writeFieldEnd();
     }
 
-    if (s.maxExperts.isSet()) {
+    if (s.maxExperts()) {
         writer.writeFieldBegin(
             QStringLiteral("maxExperts"),
             ThriftFieldType::T_I32,
             7);
 
-        writer.writeI32(s.maxExperts.ref());
+        writer.writeI32(*s.maxExperts());
         writer.writeFieldEnd();
     }
 
-    if (s.maxRelatedContent.isSet()) {
+    if (s.maxRelatedContent()) {
         writer.writeFieldBegin(
             QStringLiteral("maxRelatedContent"),
             ThriftFieldType::T_I32,
             8);
 
-        writer.writeI32(s.maxRelatedContent.ref());
+        writer.writeI32(*s.maxRelatedContent());
         writer.writeFieldEnd();
     }
 
-    if (s.relatedContentTypes.isSet()) {
+    if (s.relatedContentTypes()) {
         writer.writeFieldBegin(
             QStringLiteral("relatedContentTypes"),
             ThriftFieldType::T_SET,
             9);
 
-        writer.writeSetBegin(ThriftFieldType::T_I32, s.relatedContentTypes.ref().count());
-        for(const auto & value: qAsConst(s.relatedContentTypes.ref())) {
+        writer.writeSetBegin(ThriftFieldType::T_I32, s.relatedContentTypes()->count());
+        for(const auto & value: qAsConst(*s.relatedContentTypes())) {
             writer.writeI32(static_cast<qint32>(value));
         }
         writer.writeSetEnd();
@@ -5334,7 +4120,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.maxNotes = v;
+                s.setMaxNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5345,7 +4131,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.maxNotebooks = v;
+                s.setMaxNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5356,7 +4142,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.maxTags = v;
+                s.setMaxTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5367,7 +4153,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.writableNotebooksOnly = v;
+                s.setWritableNotebooksOnly(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5378,7 +4164,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeContainingNotebooks = v;
+                s.setIncludeContainingNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5389,7 +4175,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeDebugInfo = v;
+                s.setIncludeDebugInfo(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5400,7 +4186,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.maxExperts = v;
+                s.setMaxExperts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5411,7 +4197,7 @@ void readRelatedResultSpec(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.maxRelatedContent = v;
+                s.setMaxRelatedContent(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5436,7 +4222,7 @@ void readRelatedResultSpec(
                     v.insert(elem);
                 }
                 reader.readSetEnd();
-                s.relatedContentTypes = v;
+                s.setRelatedContentTypes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5451,114 +4237,28 @@ void readRelatedResultSpec(
     reader.readStructEnd();
 }
 
-void RelatedResultSpec::print(QTextStream & strm) const
-{
-    strm << "RelatedResultSpec: {\n";
-    localData.print(strm);
-
-    if (maxNotes.isSet()) {
-        strm << "    maxNotes = "
-            << maxNotes.ref() << "\n";
-    }
-    else {
-        strm << "    maxNotes is not set\n";
-    }
-
-    if (maxNotebooks.isSet()) {
-        strm << "    maxNotebooks = "
-            << maxNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    maxNotebooks is not set\n";
-    }
-
-    if (maxTags.isSet()) {
-        strm << "    maxTags = "
-            << maxTags.ref() << "\n";
-    }
-    else {
-        strm << "    maxTags is not set\n";
-    }
-
-    if (writableNotebooksOnly.isSet()) {
-        strm << "    writableNotebooksOnly = "
-            << writableNotebooksOnly.ref() << "\n";
-    }
-    else {
-        strm << "    writableNotebooksOnly is not set\n";
-    }
-
-    if (includeContainingNotebooks.isSet()) {
-        strm << "    includeContainingNotebooks = "
-            << includeContainingNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    includeContainingNotebooks is not set\n";
-    }
-
-    if (includeDebugInfo.isSet()) {
-        strm << "    includeDebugInfo = "
-            << includeDebugInfo.ref() << "\n";
-    }
-    else {
-        strm << "    includeDebugInfo is not set\n";
-    }
-
-    if (maxExperts.isSet()) {
-        strm << "    maxExperts = "
-            << maxExperts.ref() << "\n";
-    }
-    else {
-        strm << "    maxExperts is not set\n";
-    }
-
-    if (maxRelatedContent.isSet()) {
-        strm << "    maxRelatedContent = "
-            << maxRelatedContent.ref() << "\n";
-    }
-    else {
-        strm << "    maxRelatedContent is not set\n";
-    }
-
-    if (relatedContentTypes.isSet()) {
-        strm << "    relatedContentTypes = "
-            << "QSet<RelatedContentType> {";
-        for(const auto & v: relatedContentTypes.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    relatedContentTypes is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeUpdateNoteIfUsnMatchesResult(
     ThriftBinaryBufferWriter & writer,
     const UpdateNoteIfUsnMatchesResult & s)
 {
     writer.writeStructBegin(QStringLiteral("UpdateNoteIfUsnMatchesResult"));
-    if (s.note.isSet()) {
+    if (s.note()) {
         writer.writeFieldBegin(
             QStringLiteral("note"),
             ThriftFieldType::T_STRUCT,
             1);
 
-        writeNote(writer, s.note.ref());
+        writeNote(writer, *s.note());
         writer.writeFieldEnd();
     }
 
-    if (s.updated.isSet()) {
+    if (s.updated()) {
         writer.writeFieldBegin(
             QStringLiteral("updated"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.updated.ref());
+        writer.writeBool(*s.updated());
         writer.writeFieldEnd();
     }
 
@@ -5582,7 +4282,7 @@ void readUpdateNoteIfUsnMatchesResult(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Note v;
                 readNote(reader, v);
-                s.note = v;
+                s.setNote(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5593,7 +4293,7 @@ void readUpdateNoteIfUsnMatchesResult(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.updated = v;
+                s.setUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5608,74 +4308,48 @@ void readUpdateNoteIfUsnMatchesResult(
     reader.readStructEnd();
 }
 
-void UpdateNoteIfUsnMatchesResult::print(QTextStream & strm) const
-{
-    strm << "UpdateNoteIfUsnMatchesResult: {\n";
-    localData.print(strm);
-
-    if (note.isSet()) {
-        strm << "    note = "
-            << note.ref() << "\n";
-    }
-    else {
-        strm << "    note is not set\n";
-    }
-
-    if (updated.isSet()) {
-        strm << "    updated = "
-            << updated.ref() << "\n";
-    }
-    else {
-        strm << "    updated is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeShareRelationshipRestrictions(
     ThriftBinaryBufferWriter & writer,
     const ShareRelationshipRestrictions & s)
 {
     writer.writeStructBegin(QStringLiteral("ShareRelationshipRestrictions"));
-    if (s.noSetReadOnly.isSet()) {
+    if (s.noSetReadOnly()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetReadOnly"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.noSetReadOnly.ref());
+        writer.writeBool(*s.noSetReadOnly());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetReadPlusActivity.isSet()) {
+    if (s.noSetReadPlusActivity()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetReadPlusActivity"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.noSetReadPlusActivity.ref());
+        writer.writeBool(*s.noSetReadPlusActivity());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetModify.isSet()) {
+    if (s.noSetModify()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetModify"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.noSetModify.ref());
+        writer.writeBool(*s.noSetModify());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetFullAccess.isSet()) {
+    if (s.noSetFullAccess()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetFullAccess"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.noSetFullAccess.ref());
+        writer.writeBool(*s.noSetFullAccess());
         writer.writeFieldEnd();
     }
 
@@ -5699,7 +4373,7 @@ void readShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetReadOnly = v;
+                s.setNoSetReadOnly(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5710,7 +4384,7 @@ void readShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetReadPlusActivity = v;
+                s.setNoSetReadPlusActivity(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5721,7 +4395,7 @@ void readShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetModify = v;
+                s.setNoSetModify(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5732,7 +4406,7 @@ void readShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetFullAccess = v;
+                s.setNoSetFullAccess(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5747,90 +4421,48 @@ void readShareRelationshipRestrictions(
     reader.readStructEnd();
 }
 
-void ShareRelationshipRestrictions::print(QTextStream & strm) const
-{
-    strm << "ShareRelationshipRestrictions: {\n";
-    localData.print(strm);
-
-    if (noSetReadOnly.isSet()) {
-        strm << "    noSetReadOnly = "
-            << noSetReadOnly.ref() << "\n";
-    }
-    else {
-        strm << "    noSetReadOnly is not set\n";
-    }
-
-    if (noSetReadPlusActivity.isSet()) {
-        strm << "    noSetReadPlusActivity = "
-            << noSetReadPlusActivity.ref() << "\n";
-    }
-    else {
-        strm << "    noSetReadPlusActivity is not set\n";
-    }
-
-    if (noSetModify.isSet()) {
-        strm << "    noSetModify = "
-            << noSetModify.ref() << "\n";
-    }
-    else {
-        strm << "    noSetModify is not set\n";
-    }
-
-    if (noSetFullAccess.isSet()) {
-        strm << "    noSetFullAccess = "
-            << noSetFullAccess.ref() << "\n";
-    }
-    else {
-        strm << "    noSetFullAccess is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeInvitationShareRelationship(
     ThriftBinaryBufferWriter & writer,
     const InvitationShareRelationship & s)
 {
     writer.writeStructBegin(QStringLiteral("InvitationShareRelationship"));
-    if (s.displayName.isSet()) {
+    if (s.displayName()) {
         writer.writeFieldBegin(
             QStringLiteral("displayName"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.displayName.ref());
+        writer.writeString(*s.displayName());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientUserIdentity.isSet()) {
+    if (s.recipientUserIdentity()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientUserIdentity"),
             ThriftFieldType::T_STRUCT,
             2);
 
-        writeUserIdentity(writer, s.recipientUserIdentity.ref());
+        writeUserIdentity(writer, *s.recipientUserIdentity());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.sharerUserId.isSet()) {
+    if (s.sharerUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("sharerUserId"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.sharerUserId.ref());
+        writer.writeI32(*s.sharerUserId());
         writer.writeFieldEnd();
     }
 
@@ -5854,7 +4486,7 @@ void readInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.displayName = v;
+                s.setDisplayName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5865,7 +4497,7 @@ void readInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 UserIdentity v;
                 readUserIdentity(reader, v);
-                s.recipientUserIdentity = v;
+                s.setRecipientUserIdentity(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5876,7 +4508,7 @@ void readInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 ShareRelationshipPrivilegeLevel v;
                 readEnumShareRelationshipPrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5887,7 +4519,7 @@ void readInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.sharerUserId = v;
+                s.setSharerUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -5902,110 +4534,68 @@ void readInvitationShareRelationship(
     reader.readStructEnd();
 }
 
-void InvitationShareRelationship::print(QTextStream & strm) const
-{
-    strm << "InvitationShareRelationship: {\n";
-    localData.print(strm);
-
-    if (displayName.isSet()) {
-        strm << "    displayName = "
-            << displayName.ref() << "\n";
-    }
-    else {
-        strm << "    displayName is not set\n";
-    }
-
-    if (recipientUserIdentity.isSet()) {
-        strm << "    recipientUserIdentity = "
-            << recipientUserIdentity.ref() << "\n";
-    }
-    else {
-        strm << "    recipientUserIdentity is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (sharerUserId.isSet()) {
-        strm << "    sharerUserId = "
-            << sharerUserId.ref() << "\n";
-    }
-    else {
-        strm << "    sharerUserId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeMemberShareRelationship(
     ThriftBinaryBufferWriter & writer,
     const MemberShareRelationship & s)
 {
     writer.writeStructBegin(QStringLiteral("MemberShareRelationship"));
-    if (s.displayName.isSet()) {
+    if (s.displayName()) {
         writer.writeFieldBegin(
             QStringLiteral("displayName"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.displayName.ref());
+        writer.writeString(*s.displayName());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientUserId.isSet()) {
+    if (s.recipientUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientUserId"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.recipientUserId.ref());
+        writer.writeI32(*s.recipientUserId());
         writer.writeFieldEnd();
     }
 
-    if (s.bestPrivilege.isSet()) {
+    if (s.bestPrivilege()) {
         writer.writeFieldBegin(
             QStringLiteral("bestPrivilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.bestPrivilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.bestPrivilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.individualPrivilege.isSet()) {
+    if (s.individualPrivilege()) {
         writer.writeFieldBegin(
             QStringLiteral("individualPrivilege"),
             ThriftFieldType::T_I32,
             4);
 
-        writer.writeI32(static_cast<qint32>(s.individualPrivilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.individualPrivilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.restrictions.isSet()) {
+    if (s.restrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("restrictions"),
             ThriftFieldType::T_STRUCT,
             5);
 
-        writeShareRelationshipRestrictions(writer, s.restrictions.ref());
+        writeShareRelationshipRestrictions(writer, *s.restrictions());
         writer.writeFieldEnd();
     }
 
-    if (s.sharerUserId.isSet()) {
+    if (s.sharerUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("sharerUserId"),
             ThriftFieldType::T_I32,
             6);
 
-        writer.writeI32(s.sharerUserId.ref());
+        writer.writeI32(*s.sharerUserId());
         writer.writeFieldEnd();
     }
 
@@ -6029,7 +4619,7 @@ void readMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.displayName = v;
+                s.setDisplayName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6040,7 +4630,7 @@ void readMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.recipientUserId = v;
+                s.setRecipientUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6051,7 +4641,7 @@ void readMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 ShareRelationshipPrivilegeLevel v;
                 readEnumShareRelationshipPrivilegeLevel(reader, v);
-                s.bestPrivilege = v;
+                s.setBestPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6062,7 +4652,7 @@ void readMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 ShareRelationshipPrivilegeLevel v;
                 readEnumShareRelationshipPrivilegeLevel(reader, v);
-                s.individualPrivilege = v;
+                s.setIndividualPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6073,7 +4663,7 @@ void readMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 ShareRelationshipRestrictions v;
                 readShareRelationshipRestrictions(reader, v);
-                s.restrictions = v;
+                s.setRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6084,7 +4674,7 @@ void readMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.sharerUserId = v;
+                s.setSharerUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6099,77 +4689,19 @@ void readMemberShareRelationship(
     reader.readStructEnd();
 }
 
-void MemberShareRelationship::print(QTextStream & strm) const
-{
-    strm << "MemberShareRelationship: {\n";
-    localData.print(strm);
-
-    if (displayName.isSet()) {
-        strm << "    displayName = "
-            << displayName.ref() << "\n";
-    }
-    else {
-        strm << "    displayName is not set\n";
-    }
-
-    if (recipientUserId.isSet()) {
-        strm << "    recipientUserId = "
-            << recipientUserId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientUserId is not set\n";
-    }
-
-    if (bestPrivilege.isSet()) {
-        strm << "    bestPrivilege = "
-            << bestPrivilege.ref() << "\n";
-    }
-    else {
-        strm << "    bestPrivilege is not set\n";
-    }
-
-    if (individualPrivilege.isSet()) {
-        strm << "    individualPrivilege = "
-            << individualPrivilege.ref() << "\n";
-    }
-    else {
-        strm << "    individualPrivilege is not set\n";
-    }
-
-    if (restrictions.isSet()) {
-        strm << "    restrictions = "
-            << restrictions.ref() << "\n";
-    }
-    else {
-        strm << "    restrictions is not set\n";
-    }
-
-    if (sharerUserId.isSet()) {
-        strm << "    sharerUserId = "
-            << sharerUserId.ref() << "\n";
-    }
-    else {
-        strm << "    sharerUserId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeShareRelationships(
     ThriftBinaryBufferWriter & writer,
     const ShareRelationships & s)
 {
     writer.writeStructBegin(QStringLiteral("ShareRelationships"));
-    if (s.invitations.isSet()) {
+    if (s.invitations()) {
         writer.writeFieldBegin(
             QStringLiteral("invitations"),
             ThriftFieldType::T_LIST,
             1);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitations.ref().length());
-        for(const auto & value: qAsConst(s.invitations.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitations()->length());
+        for(const auto & value: qAsConst(*s.invitations())) {
             writeInvitationShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -6177,14 +4709,14 @@ void writeShareRelationships(
         writer.writeFieldEnd();
     }
 
-    if (s.memberships.isSet()) {
+    if (s.memberships()) {
         writer.writeFieldBegin(
             QStringLiteral("memberships"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.memberships.ref().length());
-        for(const auto & value: qAsConst(s.memberships.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.memberships()->length());
+        for(const auto & value: qAsConst(*s.memberships())) {
             writeMemberShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -6192,13 +4724,13 @@ void writeShareRelationships(
         writer.writeFieldEnd();
     }
 
-    if (s.invitationRestrictions.isSet()) {
+    if (s.invitationRestrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("invitationRestrictions"),
             ThriftFieldType::T_STRUCT,
             3);
 
-        writeShareRelationshipRestrictions(writer, s.invitationRestrictions.ref());
+        writeShareRelationshipRestrictions(writer, *s.invitationRestrictions());
         writer.writeFieldEnd();
     }
 
@@ -6236,7 +4768,7 @@ void readShareRelationships(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.invitations = v;
+                s.setInvitations(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6261,7 +4793,7 @@ void readShareRelationships(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.memberships = v;
+                s.setMemberships(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6272,7 +4804,7 @@ void readShareRelationships(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 ShareRelationshipRestrictions v;
                 readShareRelationshipRestrictions(reader, v);
-                s.invitationRestrictions = v;
+                s.setInvitationRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6287,81 +4819,39 @@ void readShareRelationships(
     reader.readStructEnd();
 }
 
-void ShareRelationships::print(QTextStream & strm) const
-{
-    strm << "ShareRelationships: {\n";
-    localData.print(strm);
-
-    if (invitations.isSet()) {
-        strm << "    invitations = "
-            << "QList<InvitationShareRelationship> {";
-        for(const auto & v: invitations.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    invitations is not set\n";
-    }
-
-    if (memberships.isSet()) {
-        strm << "    memberships = "
-            << "QList<MemberShareRelationship> {";
-        for(const auto & v: memberships.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    memberships is not set\n";
-    }
-
-    if (invitationRestrictions.isSet()) {
-        strm << "    invitationRestrictions = "
-            << invitationRestrictions.ref() << "\n";
-    }
-    else {
-        strm << "    invitationRestrictions is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeManageNotebookSharesParameters(
     ThriftBinaryBufferWriter & writer,
     const ManageNotebookSharesParameters & s)
 {
     writer.writeStructBegin(QStringLiteral("ManageNotebookSharesParameters"));
-    if (s.notebookGuid.isSet()) {
+    if (s.notebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.notebookGuid.ref());
+        writer.writeString(*s.notebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.inviteMessage.isSet()) {
+    if (s.inviteMessage()) {
         writer.writeFieldBegin(
             QStringLiteral("inviteMessage"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.inviteMessage.ref());
+        writer.writeString(*s.inviteMessage());
         writer.writeFieldEnd();
     }
 
-    if (s.membershipsToUpdate.isSet()) {
+    if (s.membershipsToUpdate()) {
         writer.writeFieldBegin(
             QStringLiteral("membershipsToUpdate"),
             ThriftFieldType::T_LIST,
             3);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.membershipsToUpdate.ref().length());
-        for(const auto & value: qAsConst(s.membershipsToUpdate.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.membershipsToUpdate()->length());
+        for(const auto & value: qAsConst(*s.membershipsToUpdate())) {
             writeMemberShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -6369,14 +4859,14 @@ void writeManageNotebookSharesParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.invitationsToCreateOrUpdate.isSet()) {
+    if (s.invitationsToCreateOrUpdate()) {
         writer.writeFieldBegin(
             QStringLiteral("invitationsToCreateOrUpdate"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitationsToCreateOrUpdate.ref().length());
-        for(const auto & value: qAsConst(s.invitationsToCreateOrUpdate.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitationsToCreateOrUpdate()->length());
+        for(const auto & value: qAsConst(*s.invitationsToCreateOrUpdate())) {
             writeInvitationShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -6384,14 +4874,14 @@ void writeManageNotebookSharesParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.unshares.isSet()) {
+    if (s.unshares()) {
         writer.writeFieldBegin(
             QStringLiteral("unshares"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.unshares.ref().length());
-        for(const auto & value: qAsConst(s.unshares.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.unshares()->length());
+        for(const auto & value: qAsConst(*s.unshares())) {
             writeUserIdentity(writer, value);
         }
         writer.writeListEnd();
@@ -6419,7 +4909,7 @@ void readManageNotebookSharesParameters(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.notebookGuid = v;
+                s.setNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6430,7 +4920,7 @@ void readManageNotebookSharesParameters(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.inviteMessage = v;
+                s.setInviteMessage(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6455,7 +4945,7 @@ void readManageNotebookSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.membershipsToUpdate = v;
+                s.setMembershipsToUpdate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6480,7 +4970,7 @@ void readManageNotebookSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.invitationsToCreateOrUpdate = v;
+                s.setInvitationsToCreateOrUpdate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6505,7 +4995,7 @@ void readManageNotebookSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.unshares = v;
+                s.setUnshares(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6520,100 +5010,38 @@ void readManageNotebookSharesParameters(
     reader.readStructEnd();
 }
 
-void ManageNotebookSharesParameters::print(QTextStream & strm) const
-{
-    strm << "ManageNotebookSharesParameters: {\n";
-    localData.print(strm);
-
-    if (notebookGuid.isSet()) {
-        strm << "    notebookGuid = "
-            << notebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    notebookGuid is not set\n";
-    }
-
-    if (inviteMessage.isSet()) {
-        strm << "    inviteMessage = "
-            << inviteMessage.ref() << "\n";
-    }
-    else {
-        strm << "    inviteMessage is not set\n";
-    }
-
-    if (membershipsToUpdate.isSet()) {
-        strm << "    membershipsToUpdate = "
-            << "QList<MemberShareRelationship> {";
-        for(const auto & v: membershipsToUpdate.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    membershipsToUpdate is not set\n";
-    }
-
-    if (invitationsToCreateOrUpdate.isSet()) {
-        strm << "    invitationsToCreateOrUpdate = "
-            << "QList<InvitationShareRelationship> {";
-        for(const auto & v: invitationsToCreateOrUpdate.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    invitationsToCreateOrUpdate is not set\n";
-    }
-
-    if (unshares.isSet()) {
-        strm << "    unshares = "
-            << "QList<UserIdentity> {";
-        for(const auto & v: unshares.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    unshares is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeManageNotebookSharesError(
     ThriftBinaryBufferWriter & writer,
     const ManageNotebookSharesError & s)
 {
     writer.writeStructBegin(QStringLiteral("ManageNotebookSharesError"));
-    if (s.userIdentity.isSet()) {
+    if (s.userIdentity()) {
         writer.writeFieldBegin(
             QStringLiteral("userIdentity"),
             ThriftFieldType::T_STRUCT,
             1);
 
-        writeUserIdentity(writer, s.userIdentity.ref());
+        writeUserIdentity(writer, *s.userIdentity());
         writer.writeFieldEnd();
     }
 
-    if (s.userException.isSet()) {
+    if (s.userException()) {
         writer.writeFieldBegin(
             QStringLiteral("userException"),
             ThriftFieldType::T_STRUCT,
             2);
 
-        writeEDAMUserException(writer, s.userException.ref());
+        writeEDAMUserException(writer, *s.userException());
         writer.writeFieldEnd();
     }
 
-    if (s.notFoundException.isSet()) {
+    if (s.notFoundException()) {
         writer.writeFieldBegin(
             QStringLiteral("notFoundException"),
             ThriftFieldType::T_STRUCT,
             3);
 
-        writeEDAMNotFoundException(writer, s.notFoundException.ref());
+        writeEDAMNotFoundException(writer, *s.notFoundException());
         writer.writeFieldEnd();
     }
 
@@ -6637,7 +5065,7 @@ void readManageNotebookSharesError(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 UserIdentity v;
                 readUserIdentity(reader, v);
-                s.userIdentity = v;
+                s.setUserIdentity(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6648,7 +5076,7 @@ void readManageNotebookSharesError(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException v;
                 readEDAMUserException(reader, v);
-                s.userException = v;
+                s.setUserException(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6659,7 +5087,7 @@ void readManageNotebookSharesError(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException v;
                 readEDAMNotFoundException(reader, v);
-                s.notFoundException = v;
+                s.setNotFoundException(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6674,53 +5102,19 @@ void readManageNotebookSharesError(
     reader.readStructEnd();
 }
 
-void ManageNotebookSharesError::print(QTextStream & strm) const
-{
-    strm << "ManageNotebookSharesError: {\n";
-    localData.print(strm);
-
-    if (userIdentity.isSet()) {
-        strm << "    userIdentity = "
-            << userIdentity.ref() << "\n";
-    }
-    else {
-        strm << "    userIdentity is not set\n";
-    }
-
-    if (userException.isSet()) {
-        strm << "    userException = "
-            << userException.ref() << "\n";
-    }
-    else {
-        strm << "    userException is not set\n";
-    }
-
-    if (notFoundException.isSet()) {
-        strm << "    notFoundException = "
-            << notFoundException.ref() << "\n";
-    }
-    else {
-        strm << "    notFoundException is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeManageNotebookSharesResult(
     ThriftBinaryBufferWriter & writer,
     const ManageNotebookSharesResult & s)
 {
     writer.writeStructBegin(QStringLiteral("ManageNotebookSharesResult"));
-    if (s.errors.isSet()) {
+    if (s.errors()) {
         writer.writeFieldBegin(
             QStringLiteral("errors"),
             ThriftFieldType::T_LIST,
             1);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.errors.ref().length());
-        for(const auto & value: qAsConst(s.errors.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.errors()->length());
+        for(const auto & value: qAsConst(*s.errors())) {
             writeManageNotebookSharesError(writer, value);
         }
         writer.writeListEnd();
@@ -6762,7 +5156,7 @@ void readManageNotebookSharesResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.errors = v;
+                s.setErrors(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6777,61 +5171,39 @@ void readManageNotebookSharesResult(
     reader.readStructEnd();
 }
 
-void ManageNotebookSharesResult::print(QTextStream & strm) const
-{
-    strm << "ManageNotebookSharesResult: {\n";
-    localData.print(strm);
-
-    if (errors.isSet()) {
-        strm << "    errors = "
-            << "QList<ManageNotebookSharesError> {";
-        for(const auto & v: errors.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    errors is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSharedNoteTemplate(
     ThriftBinaryBufferWriter & writer,
     const SharedNoteTemplate & s)
 {
     writer.writeStructBegin(QStringLiteral("SharedNoteTemplate"));
-    if (s.noteGuid.isSet()) {
+    if (s.noteGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("noteGuid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.noteGuid.ref());
+        writer.writeString(*s.noteGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientThreadId.isSet()) {
+    if (s.recipientThreadId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientThreadId"),
             ThriftFieldType::T_I64,
             4);
 
-        writer.writeI64(s.recipientThreadId.ref());
+        writer.writeI64(*s.recipientThreadId());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientContacts.isSet()) {
+    if (s.recipientContacts()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientContacts"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.recipientContacts.ref().length());
-        for(const auto & value: qAsConst(s.recipientContacts.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.recipientContacts()->length());
+        for(const auto & value: qAsConst(*s.recipientContacts())) {
             writeContact(writer, value);
         }
         writer.writeListEnd();
@@ -6839,13 +5211,13 @@ void writeSharedNoteTemplate(
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
@@ -6869,7 +5241,7 @@ void readSharedNoteTemplate(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.noteGuid = v;
+                s.setNoteGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6880,7 +5252,7 @@ void readSharedNoteTemplate(
             if (fieldType == ThriftFieldType::T_I64) {
                 MessageThreadID v;
                 reader.readI64(v);
-                s.recipientThreadId = v;
+                s.setRecipientThreadId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6905,7 +5277,7 @@ void readSharedNoteTemplate(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.recipientContacts = v;
+                s.setRecipientContacts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6916,7 +5288,7 @@ void readSharedNoteTemplate(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotePrivilegeLevel v;
                 readEnumSharedNotePrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -6931,85 +5303,39 @@ void readSharedNoteTemplate(
     reader.readStructEnd();
 }
 
-void SharedNoteTemplate::print(QTextStream & strm) const
-{
-    strm << "SharedNoteTemplate: {\n";
-    localData.print(strm);
-
-    if (noteGuid.isSet()) {
-        strm << "    noteGuid = "
-            << noteGuid.ref() << "\n";
-    }
-    else {
-        strm << "    noteGuid is not set\n";
-    }
-
-    if (recipientThreadId.isSet()) {
-        strm << "    recipientThreadId = "
-            << recipientThreadId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientThreadId is not set\n";
-    }
-
-    if (recipientContacts.isSet()) {
-        strm << "    recipientContacts = "
-            << "QList<Contact> {";
-        for(const auto & v: recipientContacts.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    recipientContacts is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotebookShareTemplate(
     ThriftBinaryBufferWriter & writer,
     const NotebookShareTemplate & s)
 {
     writer.writeStructBegin(QStringLiteral("NotebookShareTemplate"));
-    if (s.notebookGuid.isSet()) {
+    if (s.notebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.notebookGuid.ref());
+        writer.writeString(*s.notebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientThreadId.isSet()) {
+    if (s.recipientThreadId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientThreadId"),
             ThriftFieldType::T_I64,
             4);
 
-        writer.writeI64(s.recipientThreadId.ref());
+        writer.writeI64(*s.recipientThreadId());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientContacts.isSet()) {
+    if (s.recipientContacts()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientContacts"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.recipientContacts.ref().length());
-        for(const auto & value: qAsConst(s.recipientContacts.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.recipientContacts()->length());
+        for(const auto & value: qAsConst(*s.recipientContacts())) {
             writeContact(writer, value);
         }
         writer.writeListEnd();
@@ -7017,13 +5343,13 @@ void writeNotebookShareTemplate(
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
@@ -7047,7 +5373,7 @@ void readNotebookShareTemplate(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.notebookGuid = v;
+                s.setNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7058,7 +5384,7 @@ void readNotebookShareTemplate(
             if (fieldType == ThriftFieldType::T_I64) {
                 MessageThreadID v;
                 reader.readI64(v);
-                s.recipientThreadId = v;
+                s.setRecipientThreadId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7083,7 +5409,7 @@ void readNotebookShareTemplate(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.recipientContacts = v;
+                s.setRecipientContacts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7094,7 +5420,7 @@ void readNotebookShareTemplate(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotebookPrivilegeLevel v;
                 readEnumSharedNotebookPrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7109,75 +5435,29 @@ void readNotebookShareTemplate(
     reader.readStructEnd();
 }
 
-void NotebookShareTemplate::print(QTextStream & strm) const
-{
-    strm << "NotebookShareTemplate: {\n";
-    localData.print(strm);
-
-    if (notebookGuid.isSet()) {
-        strm << "    notebookGuid = "
-            << notebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    notebookGuid is not set\n";
-    }
-
-    if (recipientThreadId.isSet()) {
-        strm << "    recipientThreadId = "
-            << recipientThreadId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientThreadId is not set\n";
-    }
-
-    if (recipientContacts.isSet()) {
-        strm << "    recipientContacts = "
-            << "QList<Contact> {";
-        for(const auto & v: recipientContacts.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    recipientContacts is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeCreateOrUpdateNotebookSharesResult(
     ThriftBinaryBufferWriter & writer,
     const CreateOrUpdateNotebookSharesResult & s)
 {
     writer.writeStructBegin(QStringLiteral("CreateOrUpdateNotebookSharesResult"));
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.matchingShares.isSet()) {
+    if (s.matchingShares()) {
         writer.writeFieldBegin(
             QStringLiteral("matchingShares"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.matchingShares.ref().length());
-        for(const auto & value: qAsConst(s.matchingShares.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.matchingShares()->length());
+        for(const auto & value: qAsConst(*s.matchingShares())) {
             writeSharedNotebook(writer, value);
         }
         writer.writeListEnd();
@@ -7205,7 +5485,7 @@ void readCreateOrUpdateNotebookSharesResult(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7230,7 +5510,7 @@ void readCreateOrUpdateNotebookSharesResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.matchingShares = v;
+                s.setMatchingShares(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7245,68 +5525,38 @@ void readCreateOrUpdateNotebookSharesResult(
     reader.readStructEnd();
 }
 
-void CreateOrUpdateNotebookSharesResult::print(QTextStream & strm) const
-{
-    strm << "CreateOrUpdateNotebookSharesResult: {\n";
-    localData.print(strm);
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (matchingShares.isSet()) {
-        strm << "    matchingShares = "
-            << "QList<SharedNotebook> {";
-        for(const auto & v: matchingShares.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    matchingShares is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteShareRelationshipRestrictions(
     ThriftBinaryBufferWriter & writer,
     const NoteShareRelationshipRestrictions & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteShareRelationshipRestrictions"));
-    if (s.noSetReadNote.isSet()) {
+    if (s.noSetReadNote()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetReadNote"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.noSetReadNote.ref());
+        writer.writeBool(*s.noSetReadNote());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetModifyNote.isSet()) {
+    if (s.noSetModifyNote()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetModifyNote"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.noSetModifyNote.ref());
+        writer.writeBool(*s.noSetModifyNote());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetFullAccess.isSet()) {
+    if (s.noSetFullAccess()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetFullAccess"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.noSetFullAccess.ref());
+        writer.writeBool(*s.noSetFullAccess());
         writer.writeFieldEnd();
     }
 
@@ -7330,7 +5580,7 @@ void readNoteShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetReadNote = v;
+                s.setNoSetReadNote(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7341,7 +5591,7 @@ void readNoteShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetModifyNote = v;
+                s.setNoSetModifyNote(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7352,7 +5602,7 @@ void readNoteShareRelationshipRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetFullAccess = v;
+                s.setNoSetFullAccess(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7367,92 +5617,58 @@ void readNoteShareRelationshipRestrictions(
     reader.readStructEnd();
 }
 
-void NoteShareRelationshipRestrictions::print(QTextStream & strm) const
-{
-    strm << "NoteShareRelationshipRestrictions: {\n";
-    localData.print(strm);
-
-    if (noSetReadNote.isSet()) {
-        strm << "    noSetReadNote = "
-            << noSetReadNote.ref() << "\n";
-    }
-    else {
-        strm << "    noSetReadNote is not set\n";
-    }
-
-    if (noSetModifyNote.isSet()) {
-        strm << "    noSetModifyNote = "
-            << noSetModifyNote.ref() << "\n";
-    }
-    else {
-        strm << "    noSetModifyNote is not set\n";
-    }
-
-    if (noSetFullAccess.isSet()) {
-        strm << "    noSetFullAccess = "
-            << noSetFullAccess.ref() << "\n";
-    }
-    else {
-        strm << "    noSetFullAccess is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteMemberShareRelationship(
     ThriftBinaryBufferWriter & writer,
     const NoteMemberShareRelationship & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteMemberShareRelationship"));
-    if (s.displayName.isSet()) {
+    if (s.displayName()) {
         writer.writeFieldBegin(
             QStringLiteral("displayName"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.displayName.ref());
+        writer.writeString(*s.displayName());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientUserId.isSet()) {
+    if (s.recipientUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientUserId"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.recipientUserId.ref());
+        writer.writeI32(*s.recipientUserId());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.restrictions.isSet()) {
+    if (s.restrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("restrictions"),
             ThriftFieldType::T_STRUCT,
             4);
 
-        writeNoteShareRelationshipRestrictions(writer, s.restrictions.ref());
+        writeNoteShareRelationshipRestrictions(writer, *s.restrictions());
         writer.writeFieldEnd();
     }
 
-    if (s.sharerUserId.isSet()) {
+    if (s.sharerUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("sharerUserId"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.sharerUserId.ref());
+        writer.writeI32(*s.sharerUserId());
         writer.writeFieldEnd();
     }
 
@@ -7476,7 +5692,7 @@ void readNoteMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.displayName = v;
+                s.setDisplayName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7487,7 +5703,7 @@ void readNoteMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.recipientUserId = v;
+                s.setRecipientUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7498,7 +5714,7 @@ void readNoteMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotePrivilegeLevel v;
                 readEnumSharedNotePrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7509,7 +5725,7 @@ void readNoteMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteShareRelationshipRestrictions v;
                 readNoteShareRelationshipRestrictions(reader, v);
-                s.restrictions = v;
+                s.setRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7520,7 +5736,7 @@ void readNoteMemberShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.sharerUserId = v;
+                s.setSharerUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7535,98 +5751,48 @@ void readNoteMemberShareRelationship(
     reader.readStructEnd();
 }
 
-void NoteMemberShareRelationship::print(QTextStream & strm) const
-{
-    strm << "NoteMemberShareRelationship: {\n";
-    localData.print(strm);
-
-    if (displayName.isSet()) {
-        strm << "    displayName = "
-            << displayName.ref() << "\n";
-    }
-    else {
-        strm << "    displayName is not set\n";
-    }
-
-    if (recipientUserId.isSet()) {
-        strm << "    recipientUserId = "
-            << recipientUserId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientUserId is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (restrictions.isSet()) {
-        strm << "    restrictions = "
-            << restrictions.ref() << "\n";
-    }
-    else {
-        strm << "    restrictions is not set\n";
-    }
-
-    if (sharerUserId.isSet()) {
-        strm << "    sharerUserId = "
-            << sharerUserId.ref() << "\n";
-    }
-    else {
-        strm << "    sharerUserId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteInvitationShareRelationship(
     ThriftBinaryBufferWriter & writer,
     const NoteInvitationShareRelationship & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteInvitationShareRelationship"));
-    if (s.displayName.isSet()) {
+    if (s.displayName()) {
         writer.writeFieldBegin(
             QStringLiteral("displayName"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.displayName.ref());
+        writer.writeString(*s.displayName());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientIdentityId.isSet()) {
+    if (s.recipientIdentityId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientIdentityId"),
             ThriftFieldType::T_I64,
             2);
 
-        writer.writeI64(s.recipientIdentityId.ref());
+        writer.writeI64(*s.recipientIdentityId());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.sharerUserId.isSet()) {
+    if (s.sharerUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("sharerUserId"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.sharerUserId.ref());
+        writer.writeI32(*s.sharerUserId());
         writer.writeFieldEnd();
     }
 
@@ -7650,7 +5816,7 @@ void readNoteInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.displayName = v;
+                s.setDisplayName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7661,7 +5827,7 @@ void readNoteInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_I64) {
                 IdentityID v;
                 reader.readI64(v);
-                s.recipientIdentityId = v;
+                s.setRecipientIdentityId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7672,7 +5838,7 @@ void readNoteInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotePrivilegeLevel v;
                 readEnumSharedNotePrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7683,7 +5849,7 @@ void readNoteInvitationShareRelationship(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.sharerUserId = v;
+                s.setSharerUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7698,61 +5864,19 @@ void readNoteInvitationShareRelationship(
     reader.readStructEnd();
 }
 
-void NoteInvitationShareRelationship::print(QTextStream & strm) const
-{
-    strm << "NoteInvitationShareRelationship: {\n";
-    localData.print(strm);
-
-    if (displayName.isSet()) {
-        strm << "    displayName = "
-            << displayName.ref() << "\n";
-    }
-    else {
-        strm << "    displayName is not set\n";
-    }
-
-    if (recipientIdentityId.isSet()) {
-        strm << "    recipientIdentityId = "
-            << recipientIdentityId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientIdentityId is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (sharerUserId.isSet()) {
-        strm << "    sharerUserId = "
-            << sharerUserId.ref() << "\n";
-    }
-    else {
-        strm << "    sharerUserId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteShareRelationships(
     ThriftBinaryBufferWriter & writer,
     const NoteShareRelationships & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteShareRelationships"));
-    if (s.invitations.isSet()) {
+    if (s.invitations()) {
         writer.writeFieldBegin(
             QStringLiteral("invitations"),
             ThriftFieldType::T_LIST,
             1);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitations.ref().length());
-        for(const auto & value: qAsConst(s.invitations.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitations()->length());
+        for(const auto & value: qAsConst(*s.invitations())) {
             writeNoteInvitationShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -7760,14 +5884,14 @@ void writeNoteShareRelationships(
         writer.writeFieldEnd();
     }
 
-    if (s.memberships.isSet()) {
+    if (s.memberships()) {
         writer.writeFieldBegin(
             QStringLiteral("memberships"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.memberships.ref().length());
-        for(const auto & value: qAsConst(s.memberships.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.memberships()->length());
+        for(const auto & value: qAsConst(*s.memberships())) {
             writeNoteMemberShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -7775,13 +5899,13 @@ void writeNoteShareRelationships(
         writer.writeFieldEnd();
     }
 
-    if (s.invitationRestrictions.isSet()) {
+    if (s.invitationRestrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("invitationRestrictions"),
             ThriftFieldType::T_STRUCT,
             3);
 
-        writeNoteShareRelationshipRestrictions(writer, s.invitationRestrictions.ref());
+        writeNoteShareRelationshipRestrictions(writer, *s.invitationRestrictions());
         writer.writeFieldEnd();
     }
 
@@ -7819,7 +5943,7 @@ void readNoteShareRelationships(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.invitations = v;
+                s.setInvitations(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7844,7 +5968,7 @@ void readNoteShareRelationships(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.memberships = v;
+                s.setMemberships(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7855,7 +5979,7 @@ void readNoteShareRelationships(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteShareRelationshipRestrictions v;
                 readNoteShareRelationshipRestrictions(reader, v);
-                s.invitationRestrictions = v;
+                s.setInvitationRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -7870,71 +5994,29 @@ void readNoteShareRelationships(
     reader.readStructEnd();
 }
 
-void NoteShareRelationships::print(QTextStream & strm) const
-{
-    strm << "NoteShareRelationships: {\n";
-    localData.print(strm);
-
-    if (invitations.isSet()) {
-        strm << "    invitations = "
-            << "QList<NoteInvitationShareRelationship> {";
-        for(const auto & v: invitations.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    invitations is not set\n";
-    }
-
-    if (memberships.isSet()) {
-        strm << "    memberships = "
-            << "QList<NoteMemberShareRelationship> {";
-        for(const auto & v: memberships.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    memberships is not set\n";
-    }
-
-    if (invitationRestrictions.isSet()) {
-        strm << "    invitationRestrictions = "
-            << invitationRestrictions.ref() << "\n";
-    }
-    else {
-        strm << "    invitationRestrictions is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeManageNoteSharesParameters(
     ThriftBinaryBufferWriter & writer,
     const ManageNoteSharesParameters & s)
 {
     writer.writeStructBegin(QStringLiteral("ManageNoteSharesParameters"));
-    if (s.noteGuid.isSet()) {
+    if (s.noteGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("noteGuid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.noteGuid.ref());
+        writer.writeString(*s.noteGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.membershipsToUpdate.isSet()) {
+    if (s.membershipsToUpdate()) {
         writer.writeFieldBegin(
             QStringLiteral("membershipsToUpdate"),
             ThriftFieldType::T_LIST,
             2);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.membershipsToUpdate.ref().length());
-        for(const auto & value: qAsConst(s.membershipsToUpdate.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.membershipsToUpdate()->length());
+        for(const auto & value: qAsConst(*s.membershipsToUpdate())) {
             writeNoteMemberShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -7942,14 +6024,14 @@ void writeManageNoteSharesParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.invitationsToUpdate.isSet()) {
+    if (s.invitationsToUpdate()) {
         writer.writeFieldBegin(
             QStringLiteral("invitationsToUpdate"),
             ThriftFieldType::T_LIST,
             3);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitationsToUpdate.ref().length());
-        for(const auto & value: qAsConst(s.invitationsToUpdate.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.invitationsToUpdate()->length());
+        for(const auto & value: qAsConst(*s.invitationsToUpdate())) {
             writeNoteInvitationShareRelationship(writer, value);
         }
         writer.writeListEnd();
@@ -7957,14 +6039,14 @@ void writeManageNoteSharesParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.membershipsToUnshare.isSet()) {
+    if (s.membershipsToUnshare()) {
         writer.writeFieldBegin(
             QStringLiteral("membershipsToUnshare"),
             ThriftFieldType::T_LIST,
             4);
 
-        writer.writeListBegin(ThriftFieldType::T_I32, s.membershipsToUnshare.ref().length());
-        for(const auto & value: qAsConst(s.membershipsToUnshare.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_I32, s.membershipsToUnshare()->length());
+        for(const auto & value: qAsConst(*s.membershipsToUnshare())) {
             writer.writeI32(value);
         }
         writer.writeListEnd();
@@ -7972,14 +6054,14 @@ void writeManageNoteSharesParameters(
         writer.writeFieldEnd();
     }
 
-    if (s.invitationsToUnshare.isSet()) {
+    if (s.invitationsToUnshare()) {
         writer.writeFieldBegin(
             QStringLiteral("invitationsToUnshare"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_I64, s.invitationsToUnshare.ref().length());
-        for(const auto & value: qAsConst(s.invitationsToUnshare.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_I64, s.invitationsToUnshare()->length());
+        for(const auto & value: qAsConst(*s.invitationsToUnshare())) {
             writer.writeI64(value);
         }
         writer.writeListEnd();
@@ -8007,7 +6089,7 @@ void readManageNoteSharesParameters(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.noteGuid = v;
+                s.setNoteGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8032,7 +6114,7 @@ void readManageNoteSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.membershipsToUpdate = v;
+                s.setMembershipsToUpdate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8057,7 +6139,7 @@ void readManageNoteSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.invitationsToUpdate = v;
+                s.setInvitationsToUpdate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8082,7 +6164,7 @@ void readManageNoteSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.membershipsToUnshare = v;
+                s.setMembershipsToUnshare(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8107,7 +6189,7 @@ void readManageNoteSharesParameters(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.invitationsToUnshare = v;
+                s.setInvitationsToUnshare(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8122,114 +6204,48 @@ void readManageNoteSharesParameters(
     reader.readStructEnd();
 }
 
-void ManageNoteSharesParameters::print(QTextStream & strm) const
-{
-    strm << "ManageNoteSharesParameters: {\n";
-    localData.print(strm);
-
-    if (noteGuid.isSet()) {
-        strm << "    noteGuid = "
-            << noteGuid.ref() << "\n";
-    }
-    else {
-        strm << "    noteGuid is not set\n";
-    }
-
-    if (membershipsToUpdate.isSet()) {
-        strm << "    membershipsToUpdate = "
-            << "QList<NoteMemberShareRelationship> {";
-        for(const auto & v: membershipsToUpdate.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    membershipsToUpdate is not set\n";
-    }
-
-    if (invitationsToUpdate.isSet()) {
-        strm << "    invitationsToUpdate = "
-            << "QList<NoteInvitationShareRelationship> {";
-        for(const auto & v: invitationsToUpdate.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    invitationsToUpdate is not set\n";
-    }
-
-    if (membershipsToUnshare.isSet()) {
-        strm << "    membershipsToUnshare = "
-            << "QList<UserID> {";
-        for(const auto & v: membershipsToUnshare.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    membershipsToUnshare is not set\n";
-    }
-
-    if (invitationsToUnshare.isSet()) {
-        strm << "    invitationsToUnshare = "
-            << "QList<IdentityID> {";
-        for(const auto & v: invitationsToUnshare.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    invitationsToUnshare is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeManageNoteSharesError(
     ThriftBinaryBufferWriter & writer,
     const ManageNoteSharesError & s)
 {
     writer.writeStructBegin(QStringLiteral("ManageNoteSharesError"));
-    if (s.identityID.isSet()) {
+    if (s.identityID()) {
         writer.writeFieldBegin(
             QStringLiteral("identityID"),
             ThriftFieldType::T_I64,
             1);
 
-        writer.writeI64(s.identityID.ref());
+        writer.writeI64(*s.identityID());
         writer.writeFieldEnd();
     }
 
-    if (s.userID.isSet()) {
+    if (s.userID()) {
         writer.writeFieldBegin(
             QStringLiteral("userID"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.userID.ref());
+        writer.writeI32(*s.userID());
         writer.writeFieldEnd();
     }
 
-    if (s.userException.isSet()) {
+    if (s.userException()) {
         writer.writeFieldBegin(
             QStringLiteral("userException"),
             ThriftFieldType::T_STRUCT,
             3);
 
-        writeEDAMUserException(writer, s.userException.ref());
+        writeEDAMUserException(writer, *s.userException());
         writer.writeFieldEnd();
     }
 
-    if (s.notFoundException.isSet()) {
+    if (s.notFoundException()) {
         writer.writeFieldBegin(
             QStringLiteral("notFoundException"),
             ThriftFieldType::T_STRUCT,
             4);
 
-        writeEDAMNotFoundException(writer, s.notFoundException.ref());
+        writeEDAMNotFoundException(writer, *s.notFoundException());
         writer.writeFieldEnd();
     }
 
@@ -8253,7 +6269,7 @@ void readManageNoteSharesError(
             if (fieldType == ThriftFieldType::T_I64) {
                 IdentityID v;
                 reader.readI64(v);
-                s.identityID = v;
+                s.setIdentityID(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8264,7 +6280,7 @@ void readManageNoteSharesError(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.userID = v;
+                s.setUserID(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8275,7 +6291,7 @@ void readManageNoteSharesError(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMUserException v;
                 readEDAMUserException(reader, v);
-                s.userException = v;
+                s.setUserException(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8286,7 +6302,7 @@ void readManageNoteSharesError(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 EDAMNotFoundException v;
                 readEDAMNotFoundException(reader, v);
-                s.notFoundException = v;
+                s.setNotFoundException(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8301,61 +6317,19 @@ void readManageNoteSharesError(
     reader.readStructEnd();
 }
 
-void ManageNoteSharesError::print(QTextStream & strm) const
-{
-    strm << "ManageNoteSharesError: {\n";
-    localData.print(strm);
-
-    if (identityID.isSet()) {
-        strm << "    identityID = "
-            << identityID.ref() << "\n";
-    }
-    else {
-        strm << "    identityID is not set\n";
-    }
-
-    if (userID.isSet()) {
-        strm << "    userID = "
-            << userID.ref() << "\n";
-    }
-    else {
-        strm << "    userID is not set\n";
-    }
-
-    if (userException.isSet()) {
-        strm << "    userException = "
-            << userException.ref() << "\n";
-    }
-    else {
-        strm << "    userException is not set\n";
-    }
-
-    if (notFoundException.isSet()) {
-        strm << "    notFoundException = "
-            << notFoundException.ref() << "\n";
-    }
-    else {
-        strm << "    notFoundException is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeManageNoteSharesResult(
     ThriftBinaryBufferWriter & writer,
     const ManageNoteSharesResult & s)
 {
     writer.writeStructBegin(QStringLiteral("ManageNoteSharesResult"));
-    if (s.errors.isSet()) {
+    if (s.errors()) {
         writer.writeFieldBegin(
             QStringLiteral("errors"),
             ThriftFieldType::T_LIST,
             1);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.errors.ref().length());
-        for(const auto & value: qAsConst(s.errors.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.errors()->length());
+        for(const auto & value: qAsConst(*s.errors())) {
             writeManageNoteSharesError(writer, value);
         }
         writer.writeListEnd();
@@ -8397,7 +6371,7 @@ void readManageNoteSharesResult(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.errors = v;
+                s.setErrors(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8412,60 +6386,38 @@ void readManageNoteSharesResult(
     reader.readStructEnd();
 }
 
-void ManageNoteSharesResult::print(QTextStream & strm) const
-{
-    strm << "ManageNoteSharesResult: {\n";
-    localData.print(strm);
-
-    if (errors.isSet()) {
-        strm << "    errors = "
-            << "QList<ManageNoteSharesError> {";
-        for(const auto & v: errors.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    errors is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeData(
     ThriftBinaryBufferWriter & writer,
     const Data & s)
 {
     writer.writeStructBegin(QStringLiteral("Data"));
-    if (s.bodyHash.isSet()) {
+    if (s.bodyHash()) {
         writer.writeFieldBegin(
             QStringLiteral("bodyHash"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeBinary(s.bodyHash.ref());
+        writer.writeBinary(*s.bodyHash());
         writer.writeFieldEnd();
     }
 
-    if (s.size.isSet()) {
+    if (s.size()) {
         writer.writeFieldBegin(
             QStringLiteral("size"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.size.ref());
+        writer.writeI32(*s.size());
         writer.writeFieldEnd();
     }
 
-    if (s.body.isSet()) {
+    if (s.body()) {
         writer.writeFieldBegin(
             QStringLiteral("body"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeBinary(s.body.ref());
+        writer.writeBinary(*s.body());
         writer.writeFieldEnd();
     }
 
@@ -8489,7 +6441,7 @@ void readData(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.bodyHash = v;
+                s.setBodyHash(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8500,7 +6452,7 @@ void readData(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.size = v;
+                s.setSize(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8511,7 +6463,7 @@ void readData(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.body = v;
+                s.setBody(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8526,93 +6478,59 @@ void readData(
     reader.readStructEnd();
 }
 
-void Data::print(QTextStream & strm) const
-{
-    strm << "Data: {\n";
-    localData.print(strm);
-
-    if (bodyHash.isSet()) {
-        strm << "    bodyHash = "
-            << bodyHash.ref() << "\n";
-    }
-    else {
-        strm << "    bodyHash is not set\n";
-    }
-
-    if (size.isSet()) {
-        strm << "    size = "
-            << size.ref() << "\n";
-    }
-    else {
-        strm << "    size is not set\n";
-    }
-
-    if (body.isSet()) {
-        strm << "    body = "
-            << body.ref() << "\n";
-    }
-    else {
-        strm << "    body is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeUserAttributes(
     ThriftBinaryBufferWriter & writer,
     const UserAttributes & s)
 {
     writer.writeStructBegin(QStringLiteral("UserAttributes"));
-    if (s.defaultLocationName.isSet()) {
+    if (s.defaultLocationName()) {
         writer.writeFieldBegin(
             QStringLiteral("defaultLocationName"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.defaultLocationName.ref());
+        writer.writeString(*s.defaultLocationName());
         writer.writeFieldEnd();
     }
 
-    if (s.defaultLatitude.isSet()) {
+    if (s.defaultLatitude()) {
         writer.writeFieldBegin(
             QStringLiteral("defaultLatitude"),
             ThriftFieldType::T_DOUBLE,
             2);
 
-        writer.writeDouble(s.defaultLatitude.ref());
+        writer.writeDouble(*s.defaultLatitude());
         writer.writeFieldEnd();
     }
 
-    if (s.defaultLongitude.isSet()) {
+    if (s.defaultLongitude()) {
         writer.writeFieldBegin(
             QStringLiteral("defaultLongitude"),
             ThriftFieldType::T_DOUBLE,
             3);
 
-        writer.writeDouble(s.defaultLongitude.ref());
+        writer.writeDouble(*s.defaultLongitude());
         writer.writeFieldEnd();
     }
 
-    if (s.preactivation.isSet()) {
+    if (s.preactivation()) {
         writer.writeFieldBegin(
             QStringLiteral("preactivation"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.preactivation.ref());
+        writer.writeBool(*s.preactivation());
         writer.writeFieldEnd();
     }
 
-    if (s.viewedPromotions.isSet()) {
+    if (s.viewedPromotions()) {
         writer.writeFieldBegin(
             QStringLiteral("viewedPromotions"),
             ThriftFieldType::T_LIST,
             5);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.viewedPromotions.ref().length());
-        for(const auto & value: qAsConst(s.viewedPromotions.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.viewedPromotions()->length());
+        for(const auto & value: qAsConst(*s.viewedPromotions())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -8620,24 +6538,24 @@ void writeUserAttributes(
         writer.writeFieldEnd();
     }
 
-    if (s.incomingEmailAddress.isSet()) {
+    if (s.incomingEmailAddress()) {
         writer.writeFieldBegin(
             QStringLiteral("incomingEmailAddress"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.incomingEmailAddress.ref());
+        writer.writeString(*s.incomingEmailAddress());
         writer.writeFieldEnd();
     }
 
-    if (s.recentMailedAddresses.isSet()) {
+    if (s.recentMailedAddresses()) {
         writer.writeFieldBegin(
             QStringLiteral("recentMailedAddresses"),
             ThriftFieldType::T_LIST,
             7);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.recentMailedAddresses.ref().length());
-        for(const auto & value: qAsConst(s.recentMailedAddresses.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.recentMailedAddresses()->length());
+        for(const auto & value: qAsConst(*s.recentMailedAddresses())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -8645,283 +6563,283 @@ void writeUserAttributes(
         writer.writeFieldEnd();
     }
 
-    if (s.comments.isSet()) {
+    if (s.comments()) {
         writer.writeFieldBegin(
             QStringLiteral("comments"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.comments.ref());
+        writer.writeString(*s.comments());
         writer.writeFieldEnd();
     }
 
-    if (s.dateAgreedToTermsOfService.isSet()) {
+    if (s.dateAgreedToTermsOfService()) {
         writer.writeFieldBegin(
             QStringLiteral("dateAgreedToTermsOfService"),
             ThriftFieldType::T_I64,
             11);
 
-        writer.writeI64(s.dateAgreedToTermsOfService.ref());
+        writer.writeI64(*s.dateAgreedToTermsOfService());
         writer.writeFieldEnd();
     }
 
-    if (s.maxReferrals.isSet()) {
+    if (s.maxReferrals()) {
         writer.writeFieldBegin(
             QStringLiteral("maxReferrals"),
             ThriftFieldType::T_I32,
             12);
 
-        writer.writeI32(s.maxReferrals.ref());
+        writer.writeI32(*s.maxReferrals());
         writer.writeFieldEnd();
     }
 
-    if (s.referralCount.isSet()) {
+    if (s.referralCount()) {
         writer.writeFieldBegin(
             QStringLiteral("referralCount"),
             ThriftFieldType::T_I32,
             13);
 
-        writer.writeI32(s.referralCount.ref());
+        writer.writeI32(*s.referralCount());
         writer.writeFieldEnd();
     }
 
-    if (s.refererCode.isSet()) {
+    if (s.refererCode()) {
         writer.writeFieldBegin(
             QStringLiteral("refererCode"),
             ThriftFieldType::T_STRING,
             14);
 
-        writer.writeString(s.refererCode.ref());
+        writer.writeString(*s.refererCode());
         writer.writeFieldEnd();
     }
 
-    if (s.sentEmailDate.isSet()) {
+    if (s.sentEmailDate()) {
         writer.writeFieldBegin(
             QStringLiteral("sentEmailDate"),
             ThriftFieldType::T_I64,
             15);
 
-        writer.writeI64(s.sentEmailDate.ref());
+        writer.writeI64(*s.sentEmailDate());
         writer.writeFieldEnd();
     }
 
-    if (s.sentEmailCount.isSet()) {
+    if (s.sentEmailCount()) {
         writer.writeFieldBegin(
             QStringLiteral("sentEmailCount"),
             ThriftFieldType::T_I32,
             16);
 
-        writer.writeI32(s.sentEmailCount.ref());
+        writer.writeI32(*s.sentEmailCount());
         writer.writeFieldEnd();
     }
 
-    if (s.dailyEmailLimit.isSet()) {
+    if (s.dailyEmailLimit()) {
         writer.writeFieldBegin(
             QStringLiteral("dailyEmailLimit"),
             ThriftFieldType::T_I32,
             17);
 
-        writer.writeI32(s.dailyEmailLimit.ref());
+        writer.writeI32(*s.dailyEmailLimit());
         writer.writeFieldEnd();
     }
 
-    if (s.emailOptOutDate.isSet()) {
+    if (s.emailOptOutDate()) {
         writer.writeFieldBegin(
             QStringLiteral("emailOptOutDate"),
             ThriftFieldType::T_I64,
             18);
 
-        writer.writeI64(s.emailOptOutDate.ref());
+        writer.writeI64(*s.emailOptOutDate());
         writer.writeFieldEnd();
     }
 
-    if (s.partnerEmailOptInDate.isSet()) {
+    if (s.partnerEmailOptInDate()) {
         writer.writeFieldBegin(
             QStringLiteral("partnerEmailOptInDate"),
             ThriftFieldType::T_I64,
             19);
 
-        writer.writeI64(s.partnerEmailOptInDate.ref());
+        writer.writeI64(*s.partnerEmailOptInDate());
         writer.writeFieldEnd();
     }
 
-    if (s.preferredLanguage.isSet()) {
+    if (s.preferredLanguage()) {
         writer.writeFieldBegin(
             QStringLiteral("preferredLanguage"),
             ThriftFieldType::T_STRING,
             20);
 
-        writer.writeString(s.preferredLanguage.ref());
+        writer.writeString(*s.preferredLanguage());
         writer.writeFieldEnd();
     }
 
-    if (s.preferredCountry.isSet()) {
+    if (s.preferredCountry()) {
         writer.writeFieldBegin(
             QStringLiteral("preferredCountry"),
             ThriftFieldType::T_STRING,
             21);
 
-        writer.writeString(s.preferredCountry.ref());
+        writer.writeString(*s.preferredCountry());
         writer.writeFieldEnd();
     }
 
-    if (s.clipFullPage.isSet()) {
+    if (s.clipFullPage()) {
         writer.writeFieldBegin(
             QStringLiteral("clipFullPage"),
             ThriftFieldType::T_BOOL,
             22);
 
-        writer.writeBool(s.clipFullPage.ref());
+        writer.writeBool(*s.clipFullPage());
         writer.writeFieldEnd();
     }
 
-    if (s.twitterUserName.isSet()) {
+    if (s.twitterUserName()) {
         writer.writeFieldBegin(
             QStringLiteral("twitterUserName"),
             ThriftFieldType::T_STRING,
             23);
 
-        writer.writeString(s.twitterUserName.ref());
+        writer.writeString(*s.twitterUserName());
         writer.writeFieldEnd();
     }
 
-    if (s.twitterId.isSet()) {
+    if (s.twitterId()) {
         writer.writeFieldBegin(
             QStringLiteral("twitterId"),
             ThriftFieldType::T_STRING,
             24);
 
-        writer.writeString(s.twitterId.ref());
+        writer.writeString(*s.twitterId());
         writer.writeFieldEnd();
     }
 
-    if (s.groupName.isSet()) {
+    if (s.groupName()) {
         writer.writeFieldBegin(
             QStringLiteral("groupName"),
             ThriftFieldType::T_STRING,
             25);
 
-        writer.writeString(s.groupName.ref());
+        writer.writeString(*s.groupName());
         writer.writeFieldEnd();
     }
 
-    if (s.recognitionLanguage.isSet()) {
+    if (s.recognitionLanguage()) {
         writer.writeFieldBegin(
             QStringLiteral("recognitionLanguage"),
             ThriftFieldType::T_STRING,
             26);
 
-        writer.writeString(s.recognitionLanguage.ref());
+        writer.writeString(*s.recognitionLanguage());
         writer.writeFieldEnd();
     }
 
-    if (s.referralProof.isSet()) {
+    if (s.referralProof()) {
         writer.writeFieldBegin(
             QStringLiteral("referralProof"),
             ThriftFieldType::T_STRING,
             28);
 
-        writer.writeString(s.referralProof.ref());
+        writer.writeString(*s.referralProof());
         writer.writeFieldEnd();
     }
 
-    if (s.educationalDiscount.isSet()) {
+    if (s.educationalDiscount()) {
         writer.writeFieldBegin(
             QStringLiteral("educationalDiscount"),
             ThriftFieldType::T_BOOL,
             29);
 
-        writer.writeBool(s.educationalDiscount.ref());
+        writer.writeBool(*s.educationalDiscount());
         writer.writeFieldEnd();
     }
 
-    if (s.businessAddress.isSet()) {
+    if (s.businessAddress()) {
         writer.writeFieldBegin(
             QStringLiteral("businessAddress"),
             ThriftFieldType::T_STRING,
             30);
 
-        writer.writeString(s.businessAddress.ref());
+        writer.writeString(*s.businessAddress());
         writer.writeFieldEnd();
     }
 
-    if (s.hideSponsorBilling.isSet()) {
+    if (s.hideSponsorBilling()) {
         writer.writeFieldBegin(
             QStringLiteral("hideSponsorBilling"),
             ThriftFieldType::T_BOOL,
             31);
 
-        writer.writeBool(s.hideSponsorBilling.ref());
+        writer.writeBool(*s.hideSponsorBilling());
         writer.writeFieldEnd();
     }
 
-    if (s.useEmailAutoFiling.isSet()) {
+    if (s.useEmailAutoFiling()) {
         writer.writeFieldBegin(
             QStringLiteral("useEmailAutoFiling"),
             ThriftFieldType::T_BOOL,
             33);
 
-        writer.writeBool(s.useEmailAutoFiling.ref());
+        writer.writeBool(*s.useEmailAutoFiling());
         writer.writeFieldEnd();
     }
 
-    if (s.reminderEmailConfig.isSet()) {
+    if (s.reminderEmailConfig()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderEmailConfig"),
             ThriftFieldType::T_I32,
             34);
 
-        writer.writeI32(static_cast<qint32>(s.reminderEmailConfig.ref()));
+        writer.writeI32(static_cast<qint32>(*s.reminderEmailConfig()));
         writer.writeFieldEnd();
     }
 
-    if (s.emailAddressLastConfirmed.isSet()) {
+    if (s.emailAddressLastConfirmed()) {
         writer.writeFieldBegin(
             QStringLiteral("emailAddressLastConfirmed"),
             ThriftFieldType::T_I64,
             35);
 
-        writer.writeI64(s.emailAddressLastConfirmed.ref());
+        writer.writeI64(*s.emailAddressLastConfirmed());
         writer.writeFieldEnd();
     }
 
-    if (s.passwordUpdated.isSet()) {
+    if (s.passwordUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("passwordUpdated"),
             ThriftFieldType::T_I64,
             36);
 
-        writer.writeI64(s.passwordUpdated.ref());
+        writer.writeI64(*s.passwordUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.salesforcePushEnabled.isSet()) {
+    if (s.salesforcePushEnabled()) {
         writer.writeFieldBegin(
             QStringLiteral("salesforcePushEnabled"),
             ThriftFieldType::T_BOOL,
             37);
 
-        writer.writeBool(s.salesforcePushEnabled.ref());
+        writer.writeBool(*s.salesforcePushEnabled());
         writer.writeFieldEnd();
     }
 
-    if (s.shouldLogClientEvent.isSet()) {
+    if (s.shouldLogClientEvent()) {
         writer.writeFieldBegin(
             QStringLiteral("shouldLogClientEvent"),
             ThriftFieldType::T_BOOL,
             38);
 
-        writer.writeBool(s.shouldLogClientEvent.ref());
+        writer.writeBool(*s.shouldLogClientEvent());
         writer.writeFieldEnd();
     }
 
-    if (s.optOutMachineLearning.isSet()) {
+    if (s.optOutMachineLearning()) {
         writer.writeFieldBegin(
             QStringLiteral("optOutMachineLearning"),
             ThriftFieldType::T_BOOL,
             39);
 
-        writer.writeBool(s.optOutMachineLearning.ref());
+        writer.writeBool(*s.optOutMachineLearning());
         writer.writeFieldEnd();
     }
 
@@ -8945,7 +6863,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.defaultLocationName = v;
+                s.setDefaultLocationName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8956,7 +6874,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.defaultLatitude = v;
+                s.setDefaultLatitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8967,7 +6885,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.defaultLongitude = v;
+                s.setDefaultLongitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -8978,7 +6896,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.preactivation = v;
+                s.setPreactivation(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9003,7 +6921,7 @@ void readUserAttributes(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.viewedPromotions = v;
+                s.setViewedPromotions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9014,7 +6932,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.incomingEmailAddress = v;
+                s.setIncomingEmailAddress(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9039,7 +6957,7 @@ void readUserAttributes(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.recentMailedAddresses = v;
+                s.setRecentMailedAddresses(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9050,7 +6968,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.comments = v;
+                s.setComments(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9061,7 +6979,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.dateAgreedToTermsOfService = v;
+                s.setDateAgreedToTermsOfService(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9072,7 +6990,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.maxReferrals = v;
+                s.setMaxReferrals(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9083,7 +7001,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.referralCount = v;
+                s.setReferralCount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9094,7 +7012,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.refererCode = v;
+                s.setRefererCode(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9105,7 +7023,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.sentEmailDate = v;
+                s.setSentEmailDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9116,7 +7034,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.sentEmailCount = v;
+                s.setSentEmailCount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9127,7 +7045,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.dailyEmailLimit = v;
+                s.setDailyEmailLimit(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9138,7 +7056,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.emailOptOutDate = v;
+                s.setEmailOptOutDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9149,7 +7067,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.partnerEmailOptInDate = v;
+                s.setPartnerEmailOptInDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9160,7 +7078,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.preferredLanguage = v;
+                s.setPreferredLanguage(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9171,7 +7089,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.preferredCountry = v;
+                s.setPreferredCountry(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9182,7 +7100,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.clipFullPage = v;
+                s.setClipFullPage(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9193,7 +7111,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.twitterUserName = v;
+                s.setTwitterUserName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9204,7 +7122,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.twitterId = v;
+                s.setTwitterId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9215,7 +7133,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.groupName = v;
+                s.setGroupName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9226,7 +7144,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.recognitionLanguage = v;
+                s.setRecognitionLanguage(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9237,7 +7155,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.referralProof = v;
+                s.setReferralProof(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9248,7 +7166,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.educationalDiscount = v;
+                s.setEducationalDiscount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9259,7 +7177,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.businessAddress = v;
+                s.setBusinessAddress(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9270,7 +7188,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.hideSponsorBilling = v;
+                s.setHideSponsorBilling(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9281,7 +7199,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.useEmailAutoFiling = v;
+                s.setUseEmailAutoFiling(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9292,7 +7210,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 ReminderEmailConfig v;
                 readEnumReminderEmailConfig(reader, v);
-                s.reminderEmailConfig = v;
+                s.setReminderEmailConfig(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9303,7 +7221,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.emailAddressLastConfirmed = v;
+                s.setEmailAddressLastConfirmed(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9314,7 +7232,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.passwordUpdated = v;
+                s.setPasswordUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9325,7 +7243,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.salesforcePushEnabled = v;
+                s.setSalesforcePushEnabled(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9336,7 +7254,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.shouldLogClientEvent = v;
+                s.setShouldLogClientEvent(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9347,7 +7265,7 @@ void readUserAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.optOutMachineLearning = v;
+                s.setOptOutMachineLearning(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9362,376 +7280,78 @@ void readUserAttributes(
     reader.readStructEnd();
 }
 
-void UserAttributes::print(QTextStream & strm) const
-{
-    strm << "UserAttributes: {\n";
-    localData.print(strm);
-
-    if (defaultLocationName.isSet()) {
-        strm << "    defaultLocationName = "
-            << defaultLocationName.ref() << "\n";
-    }
-    else {
-        strm << "    defaultLocationName is not set\n";
-    }
-
-    if (defaultLatitude.isSet()) {
-        strm << "    defaultLatitude = "
-            << defaultLatitude.ref() << "\n";
-    }
-    else {
-        strm << "    defaultLatitude is not set\n";
-    }
-
-    if (defaultLongitude.isSet()) {
-        strm << "    defaultLongitude = "
-            << defaultLongitude.ref() << "\n";
-    }
-    else {
-        strm << "    defaultLongitude is not set\n";
-    }
-
-    if (preactivation.isSet()) {
-        strm << "    preactivation = "
-            << preactivation.ref() << "\n";
-    }
-    else {
-        strm << "    preactivation is not set\n";
-    }
-
-    if (viewedPromotions.isSet()) {
-        strm << "    viewedPromotions = "
-            << "QList<QString> {";
-        for(const auto & v: viewedPromotions.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    viewedPromotions is not set\n";
-    }
-
-    if (incomingEmailAddress.isSet()) {
-        strm << "    incomingEmailAddress = "
-            << incomingEmailAddress.ref() << "\n";
-    }
-    else {
-        strm << "    incomingEmailAddress is not set\n";
-    }
-
-    if (recentMailedAddresses.isSet()) {
-        strm << "    recentMailedAddresses = "
-            << "QList<QString> {";
-        for(const auto & v: recentMailedAddresses.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    recentMailedAddresses is not set\n";
-    }
-
-    if (comments.isSet()) {
-        strm << "    comments = "
-            << comments.ref() << "\n";
-    }
-    else {
-        strm << "    comments is not set\n";
-    }
-
-    if (dateAgreedToTermsOfService.isSet()) {
-        strm << "    dateAgreedToTermsOfService = "
-            << dateAgreedToTermsOfService.ref() << "\n";
-    }
-    else {
-        strm << "    dateAgreedToTermsOfService is not set\n";
-    }
-
-    if (maxReferrals.isSet()) {
-        strm << "    maxReferrals = "
-            << maxReferrals.ref() << "\n";
-    }
-    else {
-        strm << "    maxReferrals is not set\n";
-    }
-
-    if (referralCount.isSet()) {
-        strm << "    referralCount = "
-            << referralCount.ref() << "\n";
-    }
-    else {
-        strm << "    referralCount is not set\n";
-    }
-
-    if (refererCode.isSet()) {
-        strm << "    refererCode = "
-            << refererCode.ref() << "\n";
-    }
-    else {
-        strm << "    refererCode is not set\n";
-    }
-
-    if (sentEmailDate.isSet()) {
-        strm << "    sentEmailDate = "
-            << sentEmailDate.ref() << "\n";
-    }
-    else {
-        strm << "    sentEmailDate is not set\n";
-    }
-
-    if (sentEmailCount.isSet()) {
-        strm << "    sentEmailCount = "
-            << sentEmailCount.ref() << "\n";
-    }
-    else {
-        strm << "    sentEmailCount is not set\n";
-    }
-
-    if (dailyEmailLimit.isSet()) {
-        strm << "    dailyEmailLimit = "
-            << dailyEmailLimit.ref() << "\n";
-    }
-    else {
-        strm << "    dailyEmailLimit is not set\n";
-    }
-
-    if (emailOptOutDate.isSet()) {
-        strm << "    emailOptOutDate = "
-            << emailOptOutDate.ref() << "\n";
-    }
-    else {
-        strm << "    emailOptOutDate is not set\n";
-    }
-
-    if (partnerEmailOptInDate.isSet()) {
-        strm << "    partnerEmailOptInDate = "
-            << partnerEmailOptInDate.ref() << "\n";
-    }
-    else {
-        strm << "    partnerEmailOptInDate is not set\n";
-    }
-
-    if (preferredLanguage.isSet()) {
-        strm << "    preferredLanguage = "
-            << preferredLanguage.ref() << "\n";
-    }
-    else {
-        strm << "    preferredLanguage is not set\n";
-    }
-
-    if (preferredCountry.isSet()) {
-        strm << "    preferredCountry = "
-            << preferredCountry.ref() << "\n";
-    }
-    else {
-        strm << "    preferredCountry is not set\n";
-    }
-
-    if (clipFullPage.isSet()) {
-        strm << "    clipFullPage = "
-            << clipFullPage.ref() << "\n";
-    }
-    else {
-        strm << "    clipFullPage is not set\n";
-    }
-
-    if (twitterUserName.isSet()) {
-        strm << "    twitterUserName = "
-            << twitterUserName.ref() << "\n";
-    }
-    else {
-        strm << "    twitterUserName is not set\n";
-    }
-
-    if (twitterId.isSet()) {
-        strm << "    twitterId = "
-            << twitterId.ref() << "\n";
-    }
-    else {
-        strm << "    twitterId is not set\n";
-    }
-
-    if (groupName.isSet()) {
-        strm << "    groupName = "
-            << groupName.ref() << "\n";
-    }
-    else {
-        strm << "    groupName is not set\n";
-    }
-
-    if (recognitionLanguage.isSet()) {
-        strm << "    recognitionLanguage = "
-            << recognitionLanguage.ref() << "\n";
-    }
-    else {
-        strm << "    recognitionLanguage is not set\n";
-    }
-
-    if (referralProof.isSet()) {
-        strm << "    referralProof = "
-            << referralProof.ref() << "\n";
-    }
-    else {
-        strm << "    referralProof is not set\n";
-    }
-
-    if (educationalDiscount.isSet()) {
-        strm << "    educationalDiscount = "
-            << educationalDiscount.ref() << "\n";
-    }
-    else {
-        strm << "    educationalDiscount is not set\n";
-    }
-
-    if (businessAddress.isSet()) {
-        strm << "    businessAddress = "
-            << businessAddress.ref() << "\n";
-    }
-    else {
-        strm << "    businessAddress is not set\n";
-    }
-
-    if (hideSponsorBilling.isSet()) {
-        strm << "    hideSponsorBilling = "
-            << hideSponsorBilling.ref() << "\n";
-    }
-    else {
-        strm << "    hideSponsorBilling is not set\n";
-    }
-
-    if (useEmailAutoFiling.isSet()) {
-        strm << "    useEmailAutoFiling = "
-            << useEmailAutoFiling.ref() << "\n";
-    }
-    else {
-        strm << "    useEmailAutoFiling is not set\n";
-    }
-
-    if (reminderEmailConfig.isSet()) {
-        strm << "    reminderEmailConfig = "
-            << reminderEmailConfig.ref() << "\n";
-    }
-    else {
-        strm << "    reminderEmailConfig is not set\n";
-    }
-
-    if (emailAddressLastConfirmed.isSet()) {
-        strm << "    emailAddressLastConfirmed = "
-            << emailAddressLastConfirmed.ref() << "\n";
-    }
-    else {
-        strm << "    emailAddressLastConfirmed is not set\n";
-    }
-
-    if (passwordUpdated.isSet()) {
-        strm << "    passwordUpdated = "
-            << passwordUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    passwordUpdated is not set\n";
-    }
-
-    if (salesforcePushEnabled.isSet()) {
-        strm << "    salesforcePushEnabled = "
-            << salesforcePushEnabled.ref() << "\n";
-    }
-    else {
-        strm << "    salesforcePushEnabled is not set\n";
-    }
-
-    if (shouldLogClientEvent.isSet()) {
-        strm << "    shouldLogClientEvent = "
-            << shouldLogClientEvent.ref() << "\n";
-    }
-    else {
-        strm << "    shouldLogClientEvent is not set\n";
-    }
-
-    if (optOutMachineLearning.isSet()) {
-        strm << "    optOutMachineLearning = "
-            << optOutMachineLearning.ref() << "\n";
-    }
-    else {
-        strm << "    optOutMachineLearning is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBusinessUserAttributes(
     ThriftBinaryBufferWriter & writer,
     const BusinessUserAttributes & s)
 {
     writer.writeStructBegin(QStringLiteral("BusinessUserAttributes"));
-    if (s.title.isSet()) {
+    if (s.title()) {
         writer.writeFieldBegin(
             QStringLiteral("title"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.title.ref());
+        writer.writeString(*s.title());
         writer.writeFieldEnd();
     }
 
-    if (s.location.isSet()) {
+    if (s.location()) {
         writer.writeFieldBegin(
             QStringLiteral("location"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.location.ref());
+        writer.writeString(*s.location());
         writer.writeFieldEnd();
     }
 
-    if (s.department.isSet()) {
+    if (s.department()) {
         writer.writeFieldBegin(
             QStringLiteral("department"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.department.ref());
+        writer.writeString(*s.department());
         writer.writeFieldEnd();
     }
 
-    if (s.mobilePhone.isSet()) {
+    if (s.mobilePhone()) {
         writer.writeFieldBegin(
             QStringLiteral("mobilePhone"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.mobilePhone.ref());
+        writer.writeString(*s.mobilePhone());
         writer.writeFieldEnd();
     }
 
-    if (s.linkedInProfileUrl.isSet()) {
+    if (s.linkedInProfileUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("linkedInProfileUrl"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.linkedInProfileUrl.ref());
+        writer.writeString(*s.linkedInProfileUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.workPhone.isSet()) {
+    if (s.workPhone()) {
         writer.writeFieldBegin(
             QStringLiteral("workPhone"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.workPhone.ref());
+        writer.writeString(*s.workPhone());
         writer.writeFieldEnd();
     }
 
-    if (s.companyStartDate.isSet()) {
+    if (s.companyStartDate()) {
         writer.writeFieldBegin(
             QStringLiteral("companyStartDate"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.companyStartDate.ref());
+        writer.writeI64(*s.companyStartDate());
         writer.writeFieldEnd();
     }
 
@@ -9755,7 +7375,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.title = v;
+                s.setTitle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9766,7 +7386,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.location = v;
+                s.setLocation(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9777,7 +7397,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.department = v;
+                s.setDepartment(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9788,7 +7408,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.mobilePhone = v;
+                s.setMobilePhone(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9799,7 +7419,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.linkedInProfileUrl = v;
+                s.setLinkedInProfileUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9810,7 +7430,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.workPhone = v;
+                s.setWorkPhone(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9821,7 +7441,7 @@ void readBusinessUserAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.companyStartDate = v;
+                s.setCompanyStartDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -9836,304 +7456,238 @@ void readBusinessUserAttributes(
     reader.readStructEnd();
 }
 
-void BusinessUserAttributes::print(QTextStream & strm) const
-{
-    strm << "BusinessUserAttributes: {\n";
-    localData.print(strm);
-
-    if (title.isSet()) {
-        strm << "    title = "
-            << title.ref() << "\n";
-    }
-    else {
-        strm << "    title is not set\n";
-    }
-
-    if (location.isSet()) {
-        strm << "    location = "
-            << location.ref() << "\n";
-    }
-    else {
-        strm << "    location is not set\n";
-    }
-
-    if (department.isSet()) {
-        strm << "    department = "
-            << department.ref() << "\n";
-    }
-    else {
-        strm << "    department is not set\n";
-    }
-
-    if (mobilePhone.isSet()) {
-        strm << "    mobilePhone = "
-            << mobilePhone.ref() << "\n";
-    }
-    else {
-        strm << "    mobilePhone is not set\n";
-    }
-
-    if (linkedInProfileUrl.isSet()) {
-        strm << "    linkedInProfileUrl = "
-            << linkedInProfileUrl.ref() << "\n";
-    }
-    else {
-        strm << "    linkedInProfileUrl is not set\n";
-    }
-
-    if (workPhone.isSet()) {
-        strm << "    workPhone = "
-            << workPhone.ref() << "\n";
-    }
-    else {
-        strm << "    workPhone is not set\n";
-    }
-
-    if (companyStartDate.isSet()) {
-        strm << "    companyStartDate = "
-            << companyStartDate.ref() << "\n";
-    }
-    else {
-        strm << "    companyStartDate is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeAccounting(
     ThriftBinaryBufferWriter & writer,
     const Accounting & s)
 {
     writer.writeStructBegin(QStringLiteral("Accounting"));
-    if (s.uploadLimitEnd.isSet()) {
+    if (s.uploadLimitEnd()) {
         writer.writeFieldBegin(
             QStringLiteral("uploadLimitEnd"),
             ThriftFieldType::T_I64,
             2);
 
-        writer.writeI64(s.uploadLimitEnd.ref());
+        writer.writeI64(*s.uploadLimitEnd());
         writer.writeFieldEnd();
     }
 
-    if (s.uploadLimitNextMonth.isSet()) {
+    if (s.uploadLimitNextMonth()) {
         writer.writeFieldBegin(
             QStringLiteral("uploadLimitNextMonth"),
             ThriftFieldType::T_I64,
             3);
 
-        writer.writeI64(s.uploadLimitNextMonth.ref());
+        writer.writeI64(*s.uploadLimitNextMonth());
         writer.writeFieldEnd();
     }
 
-    if (s.premiumServiceStatus.isSet()) {
+    if (s.premiumServiceStatus()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumServiceStatus"),
             ThriftFieldType::T_I32,
             4);
 
-        writer.writeI32(static_cast<qint32>(s.premiumServiceStatus.ref()));
+        writer.writeI32(static_cast<qint32>(*s.premiumServiceStatus()));
         writer.writeFieldEnd();
     }
 
-    if (s.premiumOrderNumber.isSet()) {
+    if (s.premiumOrderNumber()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumOrderNumber"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.premiumOrderNumber.ref());
+        writer.writeString(*s.premiumOrderNumber());
         writer.writeFieldEnd();
     }
 
-    if (s.premiumCommerceService.isSet()) {
+    if (s.premiumCommerceService()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumCommerceService"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.premiumCommerceService.ref());
+        writer.writeString(*s.premiumCommerceService());
         writer.writeFieldEnd();
     }
 
-    if (s.premiumServiceStart.isSet()) {
+    if (s.premiumServiceStart()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumServiceStart"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.premiumServiceStart.ref());
+        writer.writeI64(*s.premiumServiceStart());
         writer.writeFieldEnd();
     }
 
-    if (s.premiumServiceSKU.isSet()) {
+    if (s.premiumServiceSKU()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumServiceSKU"),
             ThriftFieldType::T_STRING,
             8);
 
-        writer.writeString(s.premiumServiceSKU.ref());
+        writer.writeString(*s.premiumServiceSKU());
         writer.writeFieldEnd();
     }
 
-    if (s.lastSuccessfulCharge.isSet()) {
+    if (s.lastSuccessfulCharge()) {
         writer.writeFieldBegin(
             QStringLiteral("lastSuccessfulCharge"),
             ThriftFieldType::T_I64,
             9);
 
-        writer.writeI64(s.lastSuccessfulCharge.ref());
+        writer.writeI64(*s.lastSuccessfulCharge());
         writer.writeFieldEnd();
     }
 
-    if (s.lastFailedCharge.isSet()) {
+    if (s.lastFailedCharge()) {
         writer.writeFieldBegin(
             QStringLiteral("lastFailedCharge"),
             ThriftFieldType::T_I64,
             10);
 
-        writer.writeI64(s.lastFailedCharge.ref());
+        writer.writeI64(*s.lastFailedCharge());
         writer.writeFieldEnd();
     }
 
-    if (s.lastFailedChargeReason.isSet()) {
+    if (s.lastFailedChargeReason()) {
         writer.writeFieldBegin(
             QStringLiteral("lastFailedChargeReason"),
             ThriftFieldType::T_STRING,
             11);
 
-        writer.writeString(s.lastFailedChargeReason.ref());
+        writer.writeString(*s.lastFailedChargeReason());
         writer.writeFieldEnd();
     }
 
-    if (s.nextPaymentDue.isSet()) {
+    if (s.nextPaymentDue()) {
         writer.writeFieldBegin(
             QStringLiteral("nextPaymentDue"),
             ThriftFieldType::T_I64,
             12);
 
-        writer.writeI64(s.nextPaymentDue.ref());
+        writer.writeI64(*s.nextPaymentDue());
         writer.writeFieldEnd();
     }
 
-    if (s.premiumLockUntil.isSet()) {
+    if (s.premiumLockUntil()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumLockUntil"),
             ThriftFieldType::T_I64,
             13);
 
-        writer.writeI64(s.premiumLockUntil.ref());
+        writer.writeI64(*s.premiumLockUntil());
         writer.writeFieldEnd();
     }
 
-    if (s.updated.isSet()) {
+    if (s.updated()) {
         writer.writeFieldBegin(
             QStringLiteral("updated"),
             ThriftFieldType::T_I64,
             14);
 
-        writer.writeI64(s.updated.ref());
+        writer.writeI64(*s.updated());
         writer.writeFieldEnd();
     }
 
-    if (s.premiumSubscriptionNumber.isSet()) {
+    if (s.premiumSubscriptionNumber()) {
         writer.writeFieldBegin(
             QStringLiteral("premiumSubscriptionNumber"),
             ThriftFieldType::T_STRING,
             16);
 
-        writer.writeString(s.premiumSubscriptionNumber.ref());
+        writer.writeString(*s.premiumSubscriptionNumber());
         writer.writeFieldEnd();
     }
 
-    if (s.lastRequestedCharge.isSet()) {
+    if (s.lastRequestedCharge()) {
         writer.writeFieldBegin(
             QStringLiteral("lastRequestedCharge"),
             ThriftFieldType::T_I64,
             17);
 
-        writer.writeI64(s.lastRequestedCharge.ref());
+        writer.writeI64(*s.lastRequestedCharge());
         writer.writeFieldEnd();
     }
 
-    if (s.currency.isSet()) {
+    if (s.currency()) {
         writer.writeFieldBegin(
             QStringLiteral("currency"),
             ThriftFieldType::T_STRING,
             18);
 
-        writer.writeString(s.currency.ref());
+        writer.writeString(*s.currency());
         writer.writeFieldEnd();
     }
 
-    if (s.unitPrice.isSet()) {
+    if (s.unitPrice()) {
         writer.writeFieldBegin(
             QStringLiteral("unitPrice"),
             ThriftFieldType::T_I32,
             19);
 
-        writer.writeI32(s.unitPrice.ref());
+        writer.writeI32(*s.unitPrice());
         writer.writeFieldEnd();
     }
 
-    if (s.businessId.isSet()) {
+    if (s.businessId()) {
         writer.writeFieldBegin(
             QStringLiteral("businessId"),
             ThriftFieldType::T_I32,
             20);
 
-        writer.writeI32(s.businessId.ref());
+        writer.writeI32(*s.businessId());
         writer.writeFieldEnd();
     }
 
-    if (s.businessName.isSet()) {
+    if (s.businessName()) {
         writer.writeFieldBegin(
             QStringLiteral("businessName"),
             ThriftFieldType::T_STRING,
             21);
 
-        writer.writeString(s.businessName.ref());
+        writer.writeString(*s.businessName());
         writer.writeFieldEnd();
     }
 
-    if (s.businessRole.isSet()) {
+    if (s.businessRole()) {
         writer.writeFieldBegin(
             QStringLiteral("businessRole"),
             ThriftFieldType::T_I32,
             22);
 
-        writer.writeI32(static_cast<qint32>(s.businessRole.ref()));
+        writer.writeI32(static_cast<qint32>(*s.businessRole()));
         writer.writeFieldEnd();
     }
 
-    if (s.unitDiscount.isSet()) {
+    if (s.unitDiscount()) {
         writer.writeFieldBegin(
             QStringLiteral("unitDiscount"),
             ThriftFieldType::T_I32,
             23);
 
-        writer.writeI32(s.unitDiscount.ref());
+        writer.writeI32(*s.unitDiscount());
         writer.writeFieldEnd();
     }
 
-    if (s.nextChargeDate.isSet()) {
+    if (s.nextChargeDate()) {
         writer.writeFieldBegin(
             QStringLiteral("nextChargeDate"),
             ThriftFieldType::T_I64,
             24);
 
-        writer.writeI64(s.nextChargeDate.ref());
+        writer.writeI64(*s.nextChargeDate());
         writer.writeFieldEnd();
     }
 
-    if (s.availablePoints.isSet()) {
+    if (s.availablePoints()) {
         writer.writeFieldBegin(
             QStringLiteral("availablePoints"),
             ThriftFieldType::T_I32,
             25);
 
-        writer.writeI32(s.availablePoints.ref());
+        writer.writeI32(*s.availablePoints());
         writer.writeFieldEnd();
     }
 
@@ -10157,7 +7711,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.uploadLimitEnd = v;
+                s.setUploadLimitEnd(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10168,7 +7722,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.uploadLimitNextMonth = v;
+                s.setUploadLimitNextMonth(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10179,7 +7733,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I32) {
                 PremiumOrderStatus v;
                 readEnumPremiumOrderStatus(reader, v);
-                s.premiumServiceStatus = v;
+                s.setPremiumServiceStatus(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10190,7 +7744,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.premiumOrderNumber = v;
+                s.setPremiumOrderNumber(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10201,7 +7755,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.premiumCommerceService = v;
+                s.setPremiumCommerceService(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10212,7 +7766,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.premiumServiceStart = v;
+                s.setPremiumServiceStart(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10223,7 +7777,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.premiumServiceSKU = v;
+                s.setPremiumServiceSKU(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10234,7 +7788,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.lastSuccessfulCharge = v;
+                s.setLastSuccessfulCharge(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10245,7 +7799,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.lastFailedCharge = v;
+                s.setLastFailedCharge(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10256,7 +7810,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.lastFailedChargeReason = v;
+                s.setLastFailedChargeReason(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10267,7 +7821,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.nextPaymentDue = v;
+                s.setNextPaymentDue(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10278,7 +7832,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.premiumLockUntil = v;
+                s.setPremiumLockUntil(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10289,7 +7843,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.updated = v;
+                s.setUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10300,7 +7854,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.premiumSubscriptionNumber = v;
+                s.setPremiumSubscriptionNumber(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10311,7 +7865,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.lastRequestedCharge = v;
+                s.setLastRequestedCharge(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10322,7 +7876,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.currency = v;
+                s.setCurrency(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10333,7 +7887,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.unitPrice = v;
+                s.setUnitPrice(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10344,7 +7898,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.businessId = v;
+                s.setBusinessId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10355,7 +7909,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.businessName = v;
+                s.setBusinessName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10366,7 +7920,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I32) {
                 BusinessUserRole v;
                 readEnumBusinessUserRole(reader, v);
-                s.businessRole = v;
+                s.setBusinessRole(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10377,7 +7931,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.unitDiscount = v;
+                s.setUnitDiscount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10388,7 +7942,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.nextChargeDate = v;
+                s.setNextChargeDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10399,7 +7953,7 @@ void readAccounting(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.availablePoints = v;
+                s.setAvailablePoints(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10414,252 +7968,58 @@ void readAccounting(
     reader.readStructEnd();
 }
 
-void Accounting::print(QTextStream & strm) const
-{
-    strm << "Accounting: {\n";
-    localData.print(strm);
-
-    if (uploadLimitEnd.isSet()) {
-        strm << "    uploadLimitEnd = "
-            << uploadLimitEnd.ref() << "\n";
-    }
-    else {
-        strm << "    uploadLimitEnd is not set\n";
-    }
-
-    if (uploadLimitNextMonth.isSet()) {
-        strm << "    uploadLimitNextMonth = "
-            << uploadLimitNextMonth.ref() << "\n";
-    }
-    else {
-        strm << "    uploadLimitNextMonth is not set\n";
-    }
-
-    if (premiumServiceStatus.isSet()) {
-        strm << "    premiumServiceStatus = "
-            << premiumServiceStatus.ref() << "\n";
-    }
-    else {
-        strm << "    premiumServiceStatus is not set\n";
-    }
-
-    if (premiumOrderNumber.isSet()) {
-        strm << "    premiumOrderNumber = "
-            << premiumOrderNumber.ref() << "\n";
-    }
-    else {
-        strm << "    premiumOrderNumber is not set\n";
-    }
-
-    if (premiumCommerceService.isSet()) {
-        strm << "    premiumCommerceService = "
-            << premiumCommerceService.ref() << "\n";
-    }
-    else {
-        strm << "    premiumCommerceService is not set\n";
-    }
-
-    if (premiumServiceStart.isSet()) {
-        strm << "    premiumServiceStart = "
-            << premiumServiceStart.ref() << "\n";
-    }
-    else {
-        strm << "    premiumServiceStart is not set\n";
-    }
-
-    if (premiumServiceSKU.isSet()) {
-        strm << "    premiumServiceSKU = "
-            << premiumServiceSKU.ref() << "\n";
-    }
-    else {
-        strm << "    premiumServiceSKU is not set\n";
-    }
-
-    if (lastSuccessfulCharge.isSet()) {
-        strm << "    lastSuccessfulCharge = "
-            << lastSuccessfulCharge.ref() << "\n";
-    }
-    else {
-        strm << "    lastSuccessfulCharge is not set\n";
-    }
-
-    if (lastFailedCharge.isSet()) {
-        strm << "    lastFailedCharge = "
-            << lastFailedCharge.ref() << "\n";
-    }
-    else {
-        strm << "    lastFailedCharge is not set\n";
-    }
-
-    if (lastFailedChargeReason.isSet()) {
-        strm << "    lastFailedChargeReason = "
-            << lastFailedChargeReason.ref() << "\n";
-    }
-    else {
-        strm << "    lastFailedChargeReason is not set\n";
-    }
-
-    if (nextPaymentDue.isSet()) {
-        strm << "    nextPaymentDue = "
-            << nextPaymentDue.ref() << "\n";
-    }
-    else {
-        strm << "    nextPaymentDue is not set\n";
-    }
-
-    if (premiumLockUntil.isSet()) {
-        strm << "    premiumLockUntil = "
-            << premiumLockUntil.ref() << "\n";
-    }
-    else {
-        strm << "    premiumLockUntil is not set\n";
-    }
-
-    if (updated.isSet()) {
-        strm << "    updated = "
-            << updated.ref() << "\n";
-    }
-    else {
-        strm << "    updated is not set\n";
-    }
-
-    if (premiumSubscriptionNumber.isSet()) {
-        strm << "    premiumSubscriptionNumber = "
-            << premiumSubscriptionNumber.ref() << "\n";
-    }
-    else {
-        strm << "    premiumSubscriptionNumber is not set\n";
-    }
-
-    if (lastRequestedCharge.isSet()) {
-        strm << "    lastRequestedCharge = "
-            << lastRequestedCharge.ref() << "\n";
-    }
-    else {
-        strm << "    lastRequestedCharge is not set\n";
-    }
-
-    if (currency.isSet()) {
-        strm << "    currency = "
-            << currency.ref() << "\n";
-    }
-    else {
-        strm << "    currency is not set\n";
-    }
-
-    if (unitPrice.isSet()) {
-        strm << "    unitPrice = "
-            << unitPrice.ref() << "\n";
-    }
-    else {
-        strm << "    unitPrice is not set\n";
-    }
-
-    if (businessId.isSet()) {
-        strm << "    businessId = "
-            << businessId.ref() << "\n";
-    }
-    else {
-        strm << "    businessId is not set\n";
-    }
-
-    if (businessName.isSet()) {
-        strm << "    businessName = "
-            << businessName.ref() << "\n";
-    }
-    else {
-        strm << "    businessName is not set\n";
-    }
-
-    if (businessRole.isSet()) {
-        strm << "    businessRole = "
-            << businessRole.ref() << "\n";
-    }
-    else {
-        strm << "    businessRole is not set\n";
-    }
-
-    if (unitDiscount.isSet()) {
-        strm << "    unitDiscount = "
-            << unitDiscount.ref() << "\n";
-    }
-    else {
-        strm << "    unitDiscount is not set\n";
-    }
-
-    if (nextChargeDate.isSet()) {
-        strm << "    nextChargeDate = "
-            << nextChargeDate.ref() << "\n";
-    }
-    else {
-        strm << "    nextChargeDate is not set\n";
-    }
-
-    if (availablePoints.isSet()) {
-        strm << "    availablePoints = "
-            << availablePoints.ref() << "\n";
-    }
-    else {
-        strm << "    availablePoints is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBusinessUserInfo(
     ThriftBinaryBufferWriter & writer,
     const BusinessUserInfo & s)
 {
     writer.writeStructBegin(QStringLiteral("BusinessUserInfo"));
-    if (s.businessId.isSet()) {
+    if (s.businessId()) {
         writer.writeFieldBegin(
             QStringLiteral("businessId"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.businessId.ref());
+        writer.writeI32(*s.businessId());
         writer.writeFieldEnd();
     }
 
-    if (s.businessName.isSet()) {
+    if (s.businessName()) {
         writer.writeFieldBegin(
             QStringLiteral("businessName"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.businessName.ref());
+        writer.writeString(*s.businessName());
         writer.writeFieldEnd();
     }
 
-    if (s.role.isSet()) {
+    if (s.role()) {
         writer.writeFieldBegin(
             QStringLiteral("role"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.role.ref()));
+        writer.writeI32(static_cast<qint32>(*s.role()));
         writer.writeFieldEnd();
     }
 
-    if (s.email.isSet()) {
+    if (s.email()) {
         writer.writeFieldBegin(
             QStringLiteral("email"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.email.ref());
+        writer.writeString(*s.email());
         writer.writeFieldEnd();
     }
 
-    if (s.updated.isSet()) {
+    if (s.updated()) {
         writer.writeFieldBegin(
             QStringLiteral("updated"),
             ThriftFieldType::T_I64,
             5);
 
-        writer.writeI64(s.updated.ref());
+        writer.writeI64(*s.updated());
         writer.writeFieldEnd();
     }
 
@@ -10683,7 +8043,7 @@ void readBusinessUserInfo(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.businessId = v;
+                s.setBusinessId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10694,7 +8054,7 @@ void readBusinessUserInfo(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.businessName = v;
+                s.setBusinessName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10705,7 +8065,7 @@ void readBusinessUserInfo(
             if (fieldType == ThriftFieldType::T_I32) {
                 BusinessUserRole v;
                 readEnumBusinessUserRole(reader, v);
-                s.role = v;
+                s.setRole(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10716,7 +8076,7 @@ void readBusinessUserInfo(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.email = v;
+                s.setEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10727,7 +8087,7 @@ void readBusinessUserInfo(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.updated = v;
+                s.setUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10742,168 +8102,118 @@ void readBusinessUserInfo(
     reader.readStructEnd();
 }
 
-void BusinessUserInfo::print(QTextStream & strm) const
-{
-    strm << "BusinessUserInfo: {\n";
-    localData.print(strm);
-
-    if (businessId.isSet()) {
-        strm << "    businessId = "
-            << businessId.ref() << "\n";
-    }
-    else {
-        strm << "    businessId is not set\n";
-    }
-
-    if (businessName.isSet()) {
-        strm << "    businessName = "
-            << businessName.ref() << "\n";
-    }
-    else {
-        strm << "    businessName is not set\n";
-    }
-
-    if (role.isSet()) {
-        strm << "    role = "
-            << role.ref() << "\n";
-    }
-    else {
-        strm << "    role is not set\n";
-    }
-
-    if (email.isSet()) {
-        strm << "    email = "
-            << email.ref() << "\n";
-    }
-    else {
-        strm << "    email is not set\n";
-    }
-
-    if (updated.isSet()) {
-        strm << "    updated = "
-            << updated.ref() << "\n";
-    }
-    else {
-        strm << "    updated is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeAccountLimits(
     ThriftBinaryBufferWriter & writer,
     const AccountLimits & s)
 {
     writer.writeStructBegin(QStringLiteral("AccountLimits"));
-    if (s.userMailLimitDaily.isSet()) {
+    if (s.userMailLimitDaily()) {
         writer.writeFieldBegin(
             QStringLiteral("userMailLimitDaily"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.userMailLimitDaily.ref());
+        writer.writeI32(*s.userMailLimitDaily());
         writer.writeFieldEnd();
     }
 
-    if (s.noteSizeMax.isSet()) {
+    if (s.noteSizeMax()) {
         writer.writeFieldBegin(
             QStringLiteral("noteSizeMax"),
             ThriftFieldType::T_I64,
             2);
 
-        writer.writeI64(s.noteSizeMax.ref());
+        writer.writeI64(*s.noteSizeMax());
         writer.writeFieldEnd();
     }
 
-    if (s.resourceSizeMax.isSet()) {
+    if (s.resourceSizeMax()) {
         writer.writeFieldBegin(
             QStringLiteral("resourceSizeMax"),
             ThriftFieldType::T_I64,
             3);
 
-        writer.writeI64(s.resourceSizeMax.ref());
+        writer.writeI64(*s.resourceSizeMax());
         writer.writeFieldEnd();
     }
 
-    if (s.userLinkedNotebookMax.isSet()) {
+    if (s.userLinkedNotebookMax()) {
         writer.writeFieldBegin(
             QStringLiteral("userLinkedNotebookMax"),
             ThriftFieldType::T_I32,
             4);
 
-        writer.writeI32(s.userLinkedNotebookMax.ref());
+        writer.writeI32(*s.userLinkedNotebookMax());
         writer.writeFieldEnd();
     }
 
-    if (s.uploadLimit.isSet()) {
+    if (s.uploadLimit()) {
         writer.writeFieldBegin(
             QStringLiteral("uploadLimit"),
             ThriftFieldType::T_I64,
             5);
 
-        writer.writeI64(s.uploadLimit.ref());
+        writer.writeI64(*s.uploadLimit());
         writer.writeFieldEnd();
     }
 
-    if (s.userNoteCountMax.isSet()) {
+    if (s.userNoteCountMax()) {
         writer.writeFieldBegin(
             QStringLiteral("userNoteCountMax"),
             ThriftFieldType::T_I32,
             6);
 
-        writer.writeI32(s.userNoteCountMax.ref());
+        writer.writeI32(*s.userNoteCountMax());
         writer.writeFieldEnd();
     }
 
-    if (s.userNotebookCountMax.isSet()) {
+    if (s.userNotebookCountMax()) {
         writer.writeFieldBegin(
             QStringLiteral("userNotebookCountMax"),
             ThriftFieldType::T_I32,
             7);
 
-        writer.writeI32(s.userNotebookCountMax.ref());
+        writer.writeI32(*s.userNotebookCountMax());
         writer.writeFieldEnd();
     }
 
-    if (s.userTagCountMax.isSet()) {
+    if (s.userTagCountMax()) {
         writer.writeFieldBegin(
             QStringLiteral("userTagCountMax"),
             ThriftFieldType::T_I32,
             8);
 
-        writer.writeI32(s.userTagCountMax.ref());
+        writer.writeI32(*s.userTagCountMax());
         writer.writeFieldEnd();
     }
 
-    if (s.noteTagCountMax.isSet()) {
+    if (s.noteTagCountMax()) {
         writer.writeFieldBegin(
             QStringLiteral("noteTagCountMax"),
             ThriftFieldType::T_I32,
             9);
 
-        writer.writeI32(s.noteTagCountMax.ref());
+        writer.writeI32(*s.noteTagCountMax());
         writer.writeFieldEnd();
     }
 
-    if (s.userSavedSearchesMax.isSet()) {
+    if (s.userSavedSearchesMax()) {
         writer.writeFieldBegin(
             QStringLiteral("userSavedSearchesMax"),
             ThriftFieldType::T_I32,
             10);
 
-        writer.writeI32(s.userSavedSearchesMax.ref());
+        writer.writeI32(*s.userSavedSearchesMax());
         writer.writeFieldEnd();
     }
 
-    if (s.noteResourceCountMax.isSet()) {
+    if (s.noteResourceCountMax()) {
         writer.writeFieldBegin(
             QStringLiteral("noteResourceCountMax"),
             ThriftFieldType::T_I32,
             11);
 
-        writer.writeI32(s.noteResourceCountMax.ref());
+        writer.writeI32(*s.noteResourceCountMax());
         writer.writeFieldEnd();
     }
 
@@ -10927,7 +8237,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.userMailLimitDaily = v;
+                s.setUserMailLimitDaily(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10938,7 +8248,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.noteSizeMax = v;
+                s.setNoteSizeMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10949,7 +8259,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.resourceSizeMax = v;
+                s.setResourceSizeMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10960,7 +8270,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.userLinkedNotebookMax = v;
+                s.setUserLinkedNotebookMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10971,7 +8281,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.uploadLimit = v;
+                s.setUploadLimit(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10982,7 +8292,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.userNoteCountMax = v;
+                s.setUserNoteCountMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -10993,7 +8303,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.userNotebookCountMax = v;
+                s.setUserNotebookCountMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11004,7 +8314,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.userTagCountMax = v;
+                s.setUserTagCountMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11015,7 +8325,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.noteTagCountMax = v;
+                s.setNoteTagCountMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11026,7 +8336,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.userSavedSearchesMax = v;
+                s.setUserSavedSearchesMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11037,7 +8347,7 @@ void readAccountLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.noteResourceCountMax = v;
+                s.setNoteResourceCountMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11052,286 +8362,188 @@ void readAccountLimits(
     reader.readStructEnd();
 }
 
-void AccountLimits::print(QTextStream & strm) const
-{
-    strm << "AccountLimits: {\n";
-    localData.print(strm);
-
-    if (userMailLimitDaily.isSet()) {
-        strm << "    userMailLimitDaily = "
-            << userMailLimitDaily.ref() << "\n";
-    }
-    else {
-        strm << "    userMailLimitDaily is not set\n";
-    }
-
-    if (noteSizeMax.isSet()) {
-        strm << "    noteSizeMax = "
-            << noteSizeMax.ref() << "\n";
-    }
-    else {
-        strm << "    noteSizeMax is not set\n";
-    }
-
-    if (resourceSizeMax.isSet()) {
-        strm << "    resourceSizeMax = "
-            << resourceSizeMax.ref() << "\n";
-    }
-    else {
-        strm << "    resourceSizeMax is not set\n";
-    }
-
-    if (userLinkedNotebookMax.isSet()) {
-        strm << "    userLinkedNotebookMax = "
-            << userLinkedNotebookMax.ref() << "\n";
-    }
-    else {
-        strm << "    userLinkedNotebookMax is not set\n";
-    }
-
-    if (uploadLimit.isSet()) {
-        strm << "    uploadLimit = "
-            << uploadLimit.ref() << "\n";
-    }
-    else {
-        strm << "    uploadLimit is not set\n";
-    }
-
-    if (userNoteCountMax.isSet()) {
-        strm << "    userNoteCountMax = "
-            << userNoteCountMax.ref() << "\n";
-    }
-    else {
-        strm << "    userNoteCountMax is not set\n";
-    }
-
-    if (userNotebookCountMax.isSet()) {
-        strm << "    userNotebookCountMax = "
-            << userNotebookCountMax.ref() << "\n";
-    }
-    else {
-        strm << "    userNotebookCountMax is not set\n";
-    }
-
-    if (userTagCountMax.isSet()) {
-        strm << "    userTagCountMax = "
-            << userTagCountMax.ref() << "\n";
-    }
-    else {
-        strm << "    userTagCountMax is not set\n";
-    }
-
-    if (noteTagCountMax.isSet()) {
-        strm << "    noteTagCountMax = "
-            << noteTagCountMax.ref() << "\n";
-    }
-    else {
-        strm << "    noteTagCountMax is not set\n";
-    }
-
-    if (userSavedSearchesMax.isSet()) {
-        strm << "    userSavedSearchesMax = "
-            << userSavedSearchesMax.ref() << "\n";
-    }
-    else {
-        strm << "    userSavedSearchesMax is not set\n";
-    }
-
-    if (noteResourceCountMax.isSet()) {
-        strm << "    noteResourceCountMax = "
-            << noteResourceCountMax.ref() << "\n";
-    }
-    else {
-        strm << "    noteResourceCountMax is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeUser(
     ThriftBinaryBufferWriter & writer,
     const User & s)
 {
     writer.writeStructBegin(QStringLiteral("User"));
-    if (s.id.isSet()) {
+    if (s.id()) {
         writer.writeFieldBegin(
             QStringLiteral("id"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.id.ref());
+        writer.writeI32(*s.id());
         writer.writeFieldEnd();
     }
 
-    if (s.username.isSet()) {
+    if (s.username()) {
         writer.writeFieldBegin(
             QStringLiteral("username"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.username.ref());
+        writer.writeString(*s.username());
         writer.writeFieldEnd();
     }
 
-    if (s.email.isSet()) {
+    if (s.email()) {
         writer.writeFieldBegin(
             QStringLiteral("email"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.email.ref());
+        writer.writeString(*s.email());
         writer.writeFieldEnd();
     }
 
-    if (s.name.isSet()) {
+    if (s.name()) {
         writer.writeFieldBegin(
             QStringLiteral("name"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.name.ref());
+        writer.writeString(*s.name());
         writer.writeFieldEnd();
     }
 
-    if (s.timezone.isSet()) {
+    if (s.timezone()) {
         writer.writeFieldBegin(
             QStringLiteral("timezone"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.timezone.ref());
+        writer.writeString(*s.timezone());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             7);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.serviceLevel.isSet()) {
+    if (s.serviceLevel()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceLevel"),
             ThriftFieldType::T_I32,
             21);
 
-        writer.writeI32(static_cast<qint32>(s.serviceLevel.ref()));
+        writer.writeI32(static_cast<qint32>(*s.serviceLevel()));
         writer.writeFieldEnd();
     }
 
-    if (s.created.isSet()) {
+    if (s.created()) {
         writer.writeFieldBegin(
             QStringLiteral("created"),
             ThriftFieldType::T_I64,
             9);
 
-        writer.writeI64(s.created.ref());
+        writer.writeI64(*s.created());
         writer.writeFieldEnd();
     }
 
-    if (s.updated.isSet()) {
+    if (s.updated()) {
         writer.writeFieldBegin(
             QStringLiteral("updated"),
             ThriftFieldType::T_I64,
             10);
 
-        writer.writeI64(s.updated.ref());
+        writer.writeI64(*s.updated());
         writer.writeFieldEnd();
     }
 
-    if (s.deleted.isSet()) {
+    if (s.deleted()) {
         writer.writeFieldBegin(
             QStringLiteral("deleted"),
             ThriftFieldType::T_I64,
             11);
 
-        writer.writeI64(s.deleted.ref());
+        writer.writeI64(*s.deleted());
         writer.writeFieldEnd();
     }
 
-    if (s.active.isSet()) {
+    if (s.active()) {
         writer.writeFieldBegin(
             QStringLiteral("active"),
             ThriftFieldType::T_BOOL,
             13);
 
-        writer.writeBool(s.active.ref());
+        writer.writeBool(*s.active());
         writer.writeFieldEnd();
     }
 
-    if (s.shardId.isSet()) {
+    if (s.shardId()) {
         writer.writeFieldBegin(
             QStringLiteral("shardId"),
             ThriftFieldType::T_STRING,
             14);
 
-        writer.writeString(s.shardId.ref());
+        writer.writeString(*s.shardId());
         writer.writeFieldEnd();
     }
 
-    if (s.attributes.isSet()) {
+    if (s.attributes()) {
         writer.writeFieldBegin(
             QStringLiteral("attributes"),
             ThriftFieldType::T_STRUCT,
             15);
 
-        writeUserAttributes(writer, s.attributes.ref());
+        writeUserAttributes(writer, *s.attributes());
         writer.writeFieldEnd();
     }
 
-    if (s.accounting.isSet()) {
+    if (s.accounting()) {
         writer.writeFieldBegin(
             QStringLiteral("accounting"),
             ThriftFieldType::T_STRUCT,
             16);
 
-        writeAccounting(writer, s.accounting.ref());
+        writeAccounting(writer, *s.accounting());
         writer.writeFieldEnd();
     }
 
-    if (s.businessUserInfo.isSet()) {
+    if (s.businessUserInfo()) {
         writer.writeFieldBegin(
             QStringLiteral("businessUserInfo"),
             ThriftFieldType::T_STRUCT,
             18);
 
-        writeBusinessUserInfo(writer, s.businessUserInfo.ref());
+        writeBusinessUserInfo(writer, *s.businessUserInfo());
         writer.writeFieldEnd();
     }
 
-    if (s.photoUrl.isSet()) {
+    if (s.photoUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("photoUrl"),
             ThriftFieldType::T_STRING,
             19);
 
-        writer.writeString(s.photoUrl.ref());
+        writer.writeString(*s.photoUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.photoLastUpdated.isSet()) {
+    if (s.photoLastUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("photoLastUpdated"),
             ThriftFieldType::T_I64,
             20);
 
-        writer.writeI64(s.photoLastUpdated.ref());
+        writer.writeI64(*s.photoLastUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.accountLimits.isSet()) {
+    if (s.accountLimits()) {
         writer.writeFieldBegin(
             QStringLiteral("accountLimits"),
             ThriftFieldType::T_STRUCT,
             22);
 
-        writeAccountLimits(writer, s.accountLimits.ref());
+        writeAccountLimits(writer, *s.accountLimits());
         writer.writeFieldEnd();
     }
 
@@ -11355,7 +8567,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.id = v;
+                s.setId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11366,7 +8578,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.username = v;
+                s.setUsername(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11377,7 +8589,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.email = v;
+                s.setEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11388,7 +8600,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11399,7 +8611,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.timezone = v;
+                s.setTimezone(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11410,7 +8622,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I32) {
                 PrivilegeLevel v;
                 readEnumPrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11421,7 +8633,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I32) {
                 ServiceLevel v;
                 readEnumServiceLevel(reader, v);
-                s.serviceLevel = v;
+                s.setServiceLevel(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11432,7 +8644,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.created = v;
+                s.setCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11443,7 +8655,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.updated = v;
+                s.setUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11454,7 +8666,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.deleted = v;
+                s.setDeleted(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11465,7 +8677,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.active = v;
+                s.setActive(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11476,7 +8688,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.shardId = v;
+                s.setShardId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11487,7 +8699,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 UserAttributes v;
                 readUserAttributes(reader, v);
-                s.attributes = v;
+                s.setAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11498,7 +8710,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Accounting v;
                 readAccounting(reader, v);
-                s.accounting = v;
+                s.setAccounting(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11509,7 +8721,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 BusinessUserInfo v;
                 readBusinessUserInfo(reader, v);
-                s.businessUserInfo = v;
+                s.setBusinessUserInfo(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11520,7 +8732,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.photoUrl = v;
+                s.setPhotoUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11531,7 +8743,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.photoLastUpdated = v;
+                s.setPhotoLastUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11542,7 +8754,7 @@ void readUser(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 AccountLimits v;
                 readAccountLimits(reader, v);
-                s.accountLimits = v;
+                s.setAccountLimits(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11557,232 +8769,78 @@ void readUser(
     reader.readStructEnd();
 }
 
-void User::print(QTextStream & strm) const
-{
-    strm << "User: {\n";
-    localData.print(strm);
-
-    if (id.isSet()) {
-        strm << "    id = "
-            << id.ref() << "\n";
-    }
-    else {
-        strm << "    id is not set\n";
-    }
-
-    if (username.isSet()) {
-        strm << "    username = "
-            << username.ref() << "\n";
-    }
-    else {
-        strm << "    username is not set\n";
-    }
-
-    if (email.isSet()) {
-        strm << "    email = "
-            << email.ref() << "\n";
-    }
-    else {
-        strm << "    email is not set\n";
-    }
-
-    if (name.isSet()) {
-        strm << "    name = "
-            << name.ref() << "\n";
-    }
-    else {
-        strm << "    name is not set\n";
-    }
-
-    if (timezone.isSet()) {
-        strm << "    timezone = "
-            << timezone.ref() << "\n";
-    }
-    else {
-        strm << "    timezone is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (serviceLevel.isSet()) {
-        strm << "    serviceLevel = "
-            << serviceLevel.ref() << "\n";
-    }
-    else {
-        strm << "    serviceLevel is not set\n";
-    }
-
-    if (created.isSet()) {
-        strm << "    created = "
-            << created.ref() << "\n";
-    }
-    else {
-        strm << "    created is not set\n";
-    }
-
-    if (updated.isSet()) {
-        strm << "    updated = "
-            << updated.ref() << "\n";
-    }
-    else {
-        strm << "    updated is not set\n";
-    }
-
-    if (deleted.isSet()) {
-        strm << "    deleted = "
-            << deleted.ref() << "\n";
-    }
-    else {
-        strm << "    deleted is not set\n";
-    }
-
-    if (active.isSet()) {
-        strm << "    active = "
-            << active.ref() << "\n";
-    }
-    else {
-        strm << "    active is not set\n";
-    }
-
-    if (shardId.isSet()) {
-        strm << "    shardId = "
-            << shardId.ref() << "\n";
-    }
-    else {
-        strm << "    shardId is not set\n";
-    }
-
-    if (attributes.isSet()) {
-        strm << "    attributes = "
-            << attributes.ref() << "\n";
-    }
-    else {
-        strm << "    attributes is not set\n";
-    }
-
-    if (accounting.isSet()) {
-        strm << "    accounting = "
-            << accounting.ref() << "\n";
-    }
-    else {
-        strm << "    accounting is not set\n";
-    }
-
-    if (businessUserInfo.isSet()) {
-        strm << "    businessUserInfo = "
-            << businessUserInfo.ref() << "\n";
-    }
-    else {
-        strm << "    businessUserInfo is not set\n";
-    }
-
-    if (photoUrl.isSet()) {
-        strm << "    photoUrl = "
-            << photoUrl.ref() << "\n";
-    }
-    else {
-        strm << "    photoUrl is not set\n";
-    }
-
-    if (photoLastUpdated.isSet()) {
-        strm << "    photoLastUpdated = "
-            << photoLastUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    photoLastUpdated is not set\n";
-    }
-
-    if (accountLimits.isSet()) {
-        strm << "    accountLimits = "
-            << accountLimits.ref() << "\n";
-    }
-    else {
-        strm << "    accountLimits is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeContact(
     ThriftBinaryBufferWriter & writer,
     const Contact & s)
 {
     writer.writeStructBegin(QStringLiteral("Contact"));
-    if (s.name.isSet()) {
+    if (s.name()) {
         writer.writeFieldBegin(
             QStringLiteral("name"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.name.ref());
+        writer.writeString(*s.name());
         writer.writeFieldEnd();
     }
 
-    if (s.id.isSet()) {
+    if (s.id()) {
         writer.writeFieldBegin(
             QStringLiteral("id"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.id.ref());
+        writer.writeString(*s.id());
         writer.writeFieldEnd();
     }
 
-    if (s.type.isSet()) {
+    if (s.type()) {
         writer.writeFieldBegin(
             QStringLiteral("type"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.type.ref()));
+        writer.writeI32(static_cast<qint32>(*s.type()));
         writer.writeFieldEnd();
     }
 
-    if (s.photoUrl.isSet()) {
+    if (s.photoUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("photoUrl"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.photoUrl.ref());
+        writer.writeString(*s.photoUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.photoLastUpdated.isSet()) {
+    if (s.photoLastUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("photoLastUpdated"),
             ThriftFieldType::T_I64,
             5);
 
-        writer.writeI64(s.photoLastUpdated.ref());
+        writer.writeI64(*s.photoLastUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.messagingPermit.isSet()) {
+    if (s.messagingPermit()) {
         writer.writeFieldBegin(
             QStringLiteral("messagingPermit"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeBinary(s.messagingPermit.ref());
+        writer.writeBinary(*s.messagingPermit());
         writer.writeFieldEnd();
     }
 
-    if (s.messagingPermitExpires.isSet()) {
+    if (s.messagingPermitExpires()) {
         writer.writeFieldBegin(
             QStringLiteral("messagingPermitExpires"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.messagingPermitExpires.ref());
+        writer.writeI64(*s.messagingPermitExpires());
         writer.writeFieldEnd();
     }
 
@@ -11806,7 +8864,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11817,7 +8875,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.id = v;
+                s.setId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11828,7 +8886,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_I32) {
                 ContactType v;
                 readEnumContactType(reader, v);
-                s.type = v;
+                s.setType(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11839,7 +8897,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.photoUrl = v;
+                s.setPhotoUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11850,7 +8908,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.photoLastUpdated = v;
+                s.setPhotoLastUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11861,7 +8919,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.messagingPermit = v;
+                s.setMessagingPermit(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11872,7 +8930,7 @@ void readContact(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.messagingPermitExpires = v;
+                s.setMessagingPermitExpires(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -11887,72 +8945,6 @@ void readContact(
     reader.readStructEnd();
 }
 
-void Contact::print(QTextStream & strm) const
-{
-    strm << "Contact: {\n";
-    localData.print(strm);
-
-    if (name.isSet()) {
-        strm << "    name = "
-            << name.ref() << "\n";
-    }
-    else {
-        strm << "    name is not set\n";
-    }
-
-    if (id.isSet()) {
-        strm << "    id = "
-            << id.ref() << "\n";
-    }
-    else {
-        strm << "    id is not set\n";
-    }
-
-    if (type.isSet()) {
-        strm << "    type = "
-            << type.ref() << "\n";
-    }
-    else {
-        strm << "    type is not set\n";
-    }
-
-    if (photoUrl.isSet()) {
-        strm << "    photoUrl = "
-            << photoUrl.ref() << "\n";
-    }
-    else {
-        strm << "    photoUrl is not set\n";
-    }
-
-    if (photoLastUpdated.isSet()) {
-        strm << "    photoLastUpdated = "
-            << photoLastUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    photoLastUpdated is not set\n";
-    }
-
-    if (messagingPermit.isSet()) {
-        strm << "    messagingPermit = "
-            << messagingPermit.ref() << "\n";
-    }
-    else {
-        strm << "    messagingPermit is not set\n";
-    }
-
-    if (messagingPermitExpires.isSet()) {
-        strm << "    messagingPermitExpires = "
-            << messagingPermitExpires.ref() << "\n";
-    }
-    else {
-        strm << "    messagingPermitExpires is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeIdentity(
     ThriftBinaryBufferWriter & writer,
     const Identity & s)
@@ -11963,76 +8955,76 @@ void writeIdentity(
         ThriftFieldType::T_I64,
         1);
 
-    writer.writeI64(s.id);
+    writer.writeI64(s.id());
     writer.writeFieldEnd();
 
-    if (s.contact.isSet()) {
+    if (s.contact()) {
         writer.writeFieldBegin(
             QStringLiteral("contact"),
             ThriftFieldType::T_STRUCT,
             2);
 
-        writeContact(writer, s.contact.ref());
+        writeContact(writer, *s.contact());
         writer.writeFieldEnd();
     }
 
-    if (s.userId.isSet()) {
+    if (s.userId()) {
         writer.writeFieldBegin(
             QStringLiteral("userId"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(s.userId.ref());
+        writer.writeI32(*s.userId());
         writer.writeFieldEnd();
     }
 
-    if (s.deactivated.isSet()) {
+    if (s.deactivated()) {
         writer.writeFieldBegin(
             QStringLiteral("deactivated"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.deactivated.ref());
+        writer.writeBool(*s.deactivated());
         writer.writeFieldEnd();
     }
 
-    if (s.sameBusiness.isSet()) {
+    if (s.sameBusiness()) {
         writer.writeFieldBegin(
             QStringLiteral("sameBusiness"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.sameBusiness.ref());
+        writer.writeBool(*s.sameBusiness());
         writer.writeFieldEnd();
     }
 
-    if (s.blocked.isSet()) {
+    if (s.blocked()) {
         writer.writeFieldBegin(
             QStringLiteral("blocked"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.blocked.ref());
+        writer.writeBool(*s.blocked());
         writer.writeFieldEnd();
     }
 
-    if (s.userConnected.isSet()) {
+    if (s.userConnected()) {
         writer.writeFieldBegin(
             QStringLiteral("userConnected"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.userConnected.ref());
+        writer.writeBool(*s.userConnected());
         writer.writeFieldEnd();
     }
 
-    if (s.eventId.isSet()) {
+    if (s.eventId()) {
         writer.writeFieldBegin(
             QStringLiteral("eventId"),
             ThriftFieldType::T_I64,
             8);
 
-        writer.writeI64(s.eventId.ref());
+        writer.writeI64(*s.eventId());
         writer.writeFieldEnd();
     }
 
@@ -12058,7 +9050,7 @@ void readIdentity(
                 id_isset = true;
                 IdentityID v;
                 reader.readI64(v);
-                s.id = v;
+                s.setId(v);
             }
             else {
                 reader.skip(fieldType);
@@ -12069,7 +9061,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Contact v;
                 readContact(reader, v);
-                s.contact = v;
+                s.setContact(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12080,7 +9072,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.userId = v;
+                s.setUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12091,7 +9083,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.deactivated = v;
+                s.setDeactivated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12102,7 +9094,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.sameBusiness = v;
+                s.setSameBusiness(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12113,7 +9105,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.blocked = v;
+                s.setBlocked(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12124,7 +9116,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.userConnected = v;
+                s.setUserConnected(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12135,7 +9127,7 @@ void readIdentity(
             if (fieldType == ThriftFieldType::T_I64) {
                 MessageEventID v;
                 reader.readI64(v);
-                s.eventId = v;
+                s.setEventId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12151,116 +9143,48 @@ void readIdentity(
     if (!id_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("Identity.id has no value"));
 }
 
-void Identity::print(QTextStream & strm) const
-{
-    strm << "Identity: {\n";
-    localData.print(strm);
-    strm << "    id = "
-        << id << "\n";
-
-    if (contact.isSet()) {
-        strm << "    contact = "
-            << contact.ref() << "\n";
-    }
-    else {
-        strm << "    contact is not set\n";
-    }
-
-    if (userId.isSet()) {
-        strm << "    userId = "
-            << userId.ref() << "\n";
-    }
-    else {
-        strm << "    userId is not set\n";
-    }
-
-    if (deactivated.isSet()) {
-        strm << "    deactivated = "
-            << deactivated.ref() << "\n";
-    }
-    else {
-        strm << "    deactivated is not set\n";
-    }
-
-    if (sameBusiness.isSet()) {
-        strm << "    sameBusiness = "
-            << sameBusiness.ref() << "\n";
-    }
-    else {
-        strm << "    sameBusiness is not set\n";
-    }
-
-    if (blocked.isSet()) {
-        strm << "    blocked = "
-            << blocked.ref() << "\n";
-    }
-    else {
-        strm << "    blocked is not set\n";
-    }
-
-    if (userConnected.isSet()) {
-        strm << "    userConnected = "
-            << userConnected.ref() << "\n";
-    }
-    else {
-        strm << "    userConnected is not set\n";
-    }
-
-    if (eventId.isSet()) {
-        strm << "    eventId = "
-            << eventId.ref() << "\n";
-    }
-    else {
-        strm << "    eventId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeTag(
     ThriftBinaryBufferWriter & writer,
     const Tag & s)
 {
     writer.writeStructBegin(QStringLiteral("Tag"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.name.isSet()) {
+    if (s.name()) {
         writer.writeFieldBegin(
             QStringLiteral("name"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.name.ref());
+        writer.writeString(*s.name());
         writer.writeFieldEnd();
     }
 
-    if (s.parentGuid.isSet()) {
+    if (s.parentGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("parentGuid"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.parentGuid.ref());
+        writer.writeString(*s.parentGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             4);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
@@ -12284,7 +9208,7 @@ void readTag(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12295,7 +9219,7 @@ void readTag(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12306,7 +9230,7 @@ void readTag(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.parentGuid = v;
+                s.setParentGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12317,7 +9241,7 @@ void readTag(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12332,61 +9256,19 @@ void readTag(
     reader.readStructEnd();
 }
 
-void Tag::print(QTextStream & strm) const
-{
-    strm << "Tag: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (name.isSet()) {
-        strm << "    name = "
-            << name.ref() << "\n";
-    }
-    else {
-        strm << "    name is not set\n";
-    }
-
-    if (parentGuid.isSet()) {
-        strm << "    parentGuid = "
-            << parentGuid.ref() << "\n";
-    }
-    else {
-        strm << "    parentGuid is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeLazyMap(
     ThriftBinaryBufferWriter & writer,
     const LazyMap & s)
 {
     writer.writeStructBegin(QStringLiteral("LazyMap"));
-    if (s.keysOnly.isSet()) {
+    if (s.keysOnly()) {
         writer.writeFieldBegin(
             QStringLiteral("keysOnly"),
             ThriftFieldType::T_SET,
             1);
 
-        writer.writeSetBegin(ThriftFieldType::T_STRING, s.keysOnly.ref().count());
-        for(const auto & value: qAsConst(s.keysOnly.ref())) {
+        writer.writeSetBegin(ThriftFieldType::T_STRING, s.keysOnly()->count());
+        for(const auto & value: qAsConst(*s.keysOnly())) {
             writer.writeString(value);
         }
         writer.writeSetEnd();
@@ -12394,14 +9276,14 @@ void writeLazyMap(
         writer.writeFieldEnd();
     }
 
-    if (s.fullMap.isSet()) {
+    if (s.fullMap()) {
         writer.writeFieldBegin(
             QStringLiteral("fullMap"),
             ThriftFieldType::T_MAP,
             2);
 
-        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_STRING, s.fullMap.ref().size());
-        for(const auto & it: toRange(s.fullMap.ref())) {
+        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_STRING, s.fullMap()->size());
+        for(const auto & it: toRange(*s.fullMap())) {
             writer.writeString(it.key());
             writer.writeString(it.value());
         }
@@ -12444,7 +9326,7 @@ void readLazyMap(
                     v.insert(elem);
                 }
                 reader.readSetEnd();
-                s.keysOnly = v;
+                s.setKeysOnly(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12468,7 +9350,7 @@ void readLazyMap(
                     v[key] = value;
                 }
                 reader.readMapEnd();
-                s.fullMap = v;
+                s.setFullMap(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12483,162 +9365,128 @@ void readLazyMap(
     reader.readStructEnd();
 }
 
-void LazyMap::print(QTextStream & strm) const
-{
-    strm << "LazyMap: {\n";
-    localData.print(strm);
-
-    if (keysOnly.isSet()) {
-        strm << "    keysOnly = "
-            << "QSet<QString> {";
-        for(const auto & v: keysOnly.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    keysOnly is not set\n";
-    }
-
-    if (fullMap.isSet()) {
-        strm << "    fullMap = "
-            << "QMap<QString, QString> {";
-        for(const auto & it: toRange(fullMap.ref())) {
-            strm << "        [" << it.key() << "] = " << it.value() << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    fullMap is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeResourceAttributes(
     ThriftBinaryBufferWriter & writer,
     const ResourceAttributes & s)
 {
     writer.writeStructBegin(QStringLiteral("ResourceAttributes"));
-    if (s.sourceURL.isSet()) {
+    if (s.sourceURL()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceURL"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.sourceURL.ref());
+        writer.writeString(*s.sourceURL());
         writer.writeFieldEnd();
     }
 
-    if (s.timestamp.isSet()) {
+    if (s.timestamp()) {
         writer.writeFieldBegin(
             QStringLiteral("timestamp"),
             ThriftFieldType::T_I64,
             2);
 
-        writer.writeI64(s.timestamp.ref());
+        writer.writeI64(*s.timestamp());
         writer.writeFieldEnd();
     }
 
-    if (s.latitude.isSet()) {
+    if (s.latitude()) {
         writer.writeFieldBegin(
             QStringLiteral("latitude"),
             ThriftFieldType::T_DOUBLE,
             3);
 
-        writer.writeDouble(s.latitude.ref());
+        writer.writeDouble(*s.latitude());
         writer.writeFieldEnd();
     }
 
-    if (s.longitude.isSet()) {
+    if (s.longitude()) {
         writer.writeFieldBegin(
             QStringLiteral("longitude"),
             ThriftFieldType::T_DOUBLE,
             4);
 
-        writer.writeDouble(s.longitude.ref());
+        writer.writeDouble(*s.longitude());
         writer.writeFieldEnd();
     }
 
-    if (s.altitude.isSet()) {
+    if (s.altitude()) {
         writer.writeFieldBegin(
             QStringLiteral("altitude"),
             ThriftFieldType::T_DOUBLE,
             5);
 
-        writer.writeDouble(s.altitude.ref());
+        writer.writeDouble(*s.altitude());
         writer.writeFieldEnd();
     }
 
-    if (s.cameraMake.isSet()) {
+    if (s.cameraMake()) {
         writer.writeFieldBegin(
             QStringLiteral("cameraMake"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.cameraMake.ref());
+        writer.writeString(*s.cameraMake());
         writer.writeFieldEnd();
     }
 
-    if (s.cameraModel.isSet()) {
+    if (s.cameraModel()) {
         writer.writeFieldBegin(
             QStringLiteral("cameraModel"),
             ThriftFieldType::T_STRING,
             7);
 
-        writer.writeString(s.cameraModel.ref());
+        writer.writeString(*s.cameraModel());
         writer.writeFieldEnd();
     }
 
-    if (s.clientWillIndex.isSet()) {
+    if (s.clientWillIndex()) {
         writer.writeFieldBegin(
             QStringLiteral("clientWillIndex"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.clientWillIndex.ref());
+        writer.writeBool(*s.clientWillIndex());
         writer.writeFieldEnd();
     }
 
-    if (s.recoType.isSet()) {
+    if (s.recoType()) {
         writer.writeFieldBegin(
             QStringLiteral("recoType"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.recoType.ref());
+        writer.writeString(*s.recoType());
         writer.writeFieldEnd();
     }
 
-    if (s.fileName.isSet()) {
+    if (s.fileName()) {
         writer.writeFieldBegin(
             QStringLiteral("fileName"),
             ThriftFieldType::T_STRING,
             10);
 
-        writer.writeString(s.fileName.ref());
+        writer.writeString(*s.fileName());
         writer.writeFieldEnd();
     }
 
-    if (s.attachment.isSet()) {
+    if (s.attachment()) {
         writer.writeFieldBegin(
             QStringLiteral("attachment"),
             ThriftFieldType::T_BOOL,
             11);
 
-        writer.writeBool(s.attachment.ref());
+        writer.writeBool(*s.attachment());
         writer.writeFieldEnd();
     }
 
-    if (s.applicationData.isSet()) {
+    if (s.applicationData()) {
         writer.writeFieldBegin(
             QStringLiteral("applicationData"),
             ThriftFieldType::T_STRUCT,
             12);
 
-        writeLazyMap(writer, s.applicationData.ref());
+        writeLazyMap(writer, *s.applicationData());
         writer.writeFieldEnd();
     }
 
@@ -12662,7 +9510,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceURL = v;
+                s.setSourceURL(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12673,7 +9521,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.timestamp = v;
+                s.setTimestamp(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12684,7 +9532,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.latitude = v;
+                s.setLatitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12695,7 +9543,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.longitude = v;
+                s.setLongitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12706,7 +9554,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.altitude = v;
+                s.setAltitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12717,7 +9565,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.cameraMake = v;
+                s.setCameraMake(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12728,7 +9576,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.cameraModel = v;
+                s.setCameraModel(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12739,7 +9587,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.clientWillIndex = v;
+                s.setClientWillIndex(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12750,7 +9598,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.recoType = v;
+                s.setRecoType(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12761,7 +9609,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.fileName = v;
+                s.setFileName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12772,7 +9620,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.attachment = v;
+                s.setAttachment(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12783,7 +9631,7 @@ void readResourceAttributes(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 LazyMap v;
                 readLazyMap(reader, v);
-                s.applicationData = v;
+                s.setApplicationData(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -12798,234 +9646,128 @@ void readResourceAttributes(
     reader.readStructEnd();
 }
 
-void ResourceAttributes::print(QTextStream & strm) const
-{
-    strm << "ResourceAttributes: {\n";
-    localData.print(strm);
-
-    if (sourceURL.isSet()) {
-        strm << "    sourceURL = "
-            << sourceURL.ref() << "\n";
-    }
-    else {
-        strm << "    sourceURL is not set\n";
-    }
-
-    if (timestamp.isSet()) {
-        strm << "    timestamp = "
-            << timestamp.ref() << "\n";
-    }
-    else {
-        strm << "    timestamp is not set\n";
-    }
-
-    if (latitude.isSet()) {
-        strm << "    latitude = "
-            << latitude.ref() << "\n";
-    }
-    else {
-        strm << "    latitude is not set\n";
-    }
-
-    if (longitude.isSet()) {
-        strm << "    longitude = "
-            << longitude.ref() << "\n";
-    }
-    else {
-        strm << "    longitude is not set\n";
-    }
-
-    if (altitude.isSet()) {
-        strm << "    altitude = "
-            << altitude.ref() << "\n";
-    }
-    else {
-        strm << "    altitude is not set\n";
-    }
-
-    if (cameraMake.isSet()) {
-        strm << "    cameraMake = "
-            << cameraMake.ref() << "\n";
-    }
-    else {
-        strm << "    cameraMake is not set\n";
-    }
-
-    if (cameraModel.isSet()) {
-        strm << "    cameraModel = "
-            << cameraModel.ref() << "\n";
-    }
-    else {
-        strm << "    cameraModel is not set\n";
-    }
-
-    if (clientWillIndex.isSet()) {
-        strm << "    clientWillIndex = "
-            << clientWillIndex.ref() << "\n";
-    }
-    else {
-        strm << "    clientWillIndex is not set\n";
-    }
-
-    if (recoType.isSet()) {
-        strm << "    recoType = "
-            << recoType.ref() << "\n";
-    }
-    else {
-        strm << "    recoType is not set\n";
-    }
-
-    if (fileName.isSet()) {
-        strm << "    fileName = "
-            << fileName.ref() << "\n";
-    }
-    else {
-        strm << "    fileName is not set\n";
-    }
-
-    if (attachment.isSet()) {
-        strm << "    attachment = "
-            << attachment.ref() << "\n";
-    }
-    else {
-        strm << "    attachment is not set\n";
-    }
-
-    if (applicationData.isSet()) {
-        strm << "    applicationData = "
-            << applicationData.ref() << "\n";
-    }
-    else {
-        strm << "    applicationData is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeResource(
     ThriftBinaryBufferWriter & writer,
     const Resource & s)
 {
     writer.writeStructBegin(QStringLiteral("Resource"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.noteGuid.isSet()) {
+    if (s.noteGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("noteGuid"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.noteGuid.ref());
+        writer.writeString(*s.noteGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.data.isSet()) {
+    if (s.data()) {
         writer.writeFieldBegin(
             QStringLiteral("data"),
             ThriftFieldType::T_STRUCT,
             3);
 
-        writeData(writer, s.data.ref());
+        writeData(writer, *s.data());
         writer.writeFieldEnd();
     }
 
-    if (s.mime.isSet()) {
+    if (s.mime()) {
         writer.writeFieldBegin(
             QStringLiteral("mime"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.mime.ref());
+        writer.writeString(*s.mime());
         writer.writeFieldEnd();
     }
 
-    if (s.width.isSet()) {
+    if (s.width()) {
         writer.writeFieldBegin(
             QStringLiteral("width"),
             ThriftFieldType::T_I16,
             5);
 
-        writer.writeI16(s.width.ref());
+        writer.writeI16(*s.width());
         writer.writeFieldEnd();
     }
 
-    if (s.height.isSet()) {
+    if (s.height()) {
         writer.writeFieldBegin(
             QStringLiteral("height"),
             ThriftFieldType::T_I16,
             6);
 
-        writer.writeI16(s.height.ref());
+        writer.writeI16(*s.height());
         writer.writeFieldEnd();
     }
 
-    if (s.duration.isSet()) {
+    if (s.duration()) {
         writer.writeFieldBegin(
             QStringLiteral("duration"),
             ThriftFieldType::T_I16,
             7);
 
-        writer.writeI16(s.duration.ref());
+        writer.writeI16(*s.duration());
         writer.writeFieldEnd();
     }
 
-    if (s.active.isSet()) {
+    if (s.active()) {
         writer.writeFieldBegin(
             QStringLiteral("active"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.active.ref());
+        writer.writeBool(*s.active());
         writer.writeFieldEnd();
     }
 
-    if (s.recognition.isSet()) {
+    if (s.recognition()) {
         writer.writeFieldBegin(
             QStringLiteral("recognition"),
             ThriftFieldType::T_STRUCT,
             9);
 
-        writeData(writer, s.recognition.ref());
+        writeData(writer, *s.recognition());
         writer.writeFieldEnd();
     }
 
-    if (s.attributes.isSet()) {
+    if (s.attributes()) {
         writer.writeFieldBegin(
             QStringLiteral("attributes"),
             ThriftFieldType::T_STRUCT,
             11);
 
-        writeResourceAttributes(writer, s.attributes.ref());
+        writeResourceAttributes(writer, *s.attributes());
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             12);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.alternateData.isSet()) {
+    if (s.alternateData()) {
         writer.writeFieldBegin(
             QStringLiteral("alternateData"),
             ThriftFieldType::T_STRUCT,
             13);
 
-        writeData(writer, s.alternateData.ref());
+        writeData(writer, *s.alternateData());
         writer.writeFieldEnd();
     }
 
@@ -13049,7 +9791,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13060,7 +9802,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.noteGuid = v;
+                s.setNoteGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13071,7 +9813,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Data v;
                 readData(reader, v);
-                s.data = v;
+                s.setData(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13082,7 +9824,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.mime = v;
+                s.setMime(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13093,7 +9835,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_I16) {
                 qint16 v;
                 reader.readI16(v);
-                s.width = v;
+                s.setWidth(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13104,7 +9846,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_I16) {
                 qint16 v;
                 reader.readI16(v);
-                s.height = v;
+                s.setHeight(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13115,7 +9857,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_I16) {
                 qint16 v;
                 reader.readI16(v);
-                s.duration = v;
+                s.setDuration(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13126,7 +9868,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.active = v;
+                s.setActive(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13137,7 +9879,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Data v;
                 readData(reader, v);
-                s.recognition = v;
+                s.setRecognition(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13148,7 +9890,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 ResourceAttributes v;
                 readResourceAttributes(reader, v);
-                s.attributes = v;
+                s.setAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13159,7 +9901,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13170,7 +9912,7 @@ void readResource(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Data v;
                 readData(reader, v);
-                s.alternateData = v;
+                s.setAlternateData(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13185,285 +9927,179 @@ void readResource(
     reader.readStructEnd();
 }
 
-void Resource::print(QTextStream & strm) const
-{
-    strm << "Resource: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (noteGuid.isSet()) {
-        strm << "    noteGuid = "
-            << noteGuid.ref() << "\n";
-    }
-    else {
-        strm << "    noteGuid is not set\n";
-    }
-
-    if (data.isSet()) {
-        strm << "    data = "
-            << data.ref() << "\n";
-    }
-    else {
-        strm << "    data is not set\n";
-    }
-
-    if (mime.isSet()) {
-        strm << "    mime = "
-            << mime.ref() << "\n";
-    }
-    else {
-        strm << "    mime is not set\n";
-    }
-
-    if (width.isSet()) {
-        strm << "    width = "
-            << width.ref() << "\n";
-    }
-    else {
-        strm << "    width is not set\n";
-    }
-
-    if (height.isSet()) {
-        strm << "    height = "
-            << height.ref() << "\n";
-    }
-    else {
-        strm << "    height is not set\n";
-    }
-
-    if (duration.isSet()) {
-        strm << "    duration = "
-            << duration.ref() << "\n";
-    }
-    else {
-        strm << "    duration is not set\n";
-    }
-
-    if (active.isSet()) {
-        strm << "    active = "
-            << active.ref() << "\n";
-    }
-    else {
-        strm << "    active is not set\n";
-    }
-
-    if (recognition.isSet()) {
-        strm << "    recognition = "
-            << recognition.ref() << "\n";
-    }
-    else {
-        strm << "    recognition is not set\n";
-    }
-
-    if (attributes.isSet()) {
-        strm << "    attributes = "
-            << attributes.ref() << "\n";
-    }
-    else {
-        strm << "    attributes is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (alternateData.isSet()) {
-        strm << "    alternateData = "
-            << alternateData.ref() << "\n";
-    }
-    else {
-        strm << "    alternateData is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteAttributes(
     ThriftBinaryBufferWriter & writer,
     const NoteAttributes & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteAttributes"));
-    if (s.subjectDate.isSet()) {
+    if (s.subjectDate()) {
         writer.writeFieldBegin(
             QStringLiteral("subjectDate"),
             ThriftFieldType::T_I64,
             1);
 
-        writer.writeI64(s.subjectDate.ref());
+        writer.writeI64(*s.subjectDate());
         writer.writeFieldEnd();
     }
 
-    if (s.latitude.isSet()) {
+    if (s.latitude()) {
         writer.writeFieldBegin(
             QStringLiteral("latitude"),
             ThriftFieldType::T_DOUBLE,
             10);
 
-        writer.writeDouble(s.latitude.ref());
+        writer.writeDouble(*s.latitude());
         writer.writeFieldEnd();
     }
 
-    if (s.longitude.isSet()) {
+    if (s.longitude()) {
         writer.writeFieldBegin(
             QStringLiteral("longitude"),
             ThriftFieldType::T_DOUBLE,
             11);
 
-        writer.writeDouble(s.longitude.ref());
+        writer.writeDouble(*s.longitude());
         writer.writeFieldEnd();
     }
 
-    if (s.altitude.isSet()) {
+    if (s.altitude()) {
         writer.writeFieldBegin(
             QStringLiteral("altitude"),
             ThriftFieldType::T_DOUBLE,
             12);
 
-        writer.writeDouble(s.altitude.ref());
+        writer.writeDouble(*s.altitude());
         writer.writeFieldEnd();
     }
 
-    if (s.author.isSet()) {
+    if (s.author()) {
         writer.writeFieldBegin(
             QStringLiteral("author"),
             ThriftFieldType::T_STRING,
             13);
 
-        writer.writeString(s.author.ref());
+        writer.writeString(*s.author());
         writer.writeFieldEnd();
     }
 
-    if (s.source.isSet()) {
+    if (s.source()) {
         writer.writeFieldBegin(
             QStringLiteral("source"),
             ThriftFieldType::T_STRING,
             14);
 
-        writer.writeString(s.source.ref());
+        writer.writeString(*s.source());
         writer.writeFieldEnd();
     }
 
-    if (s.sourceURL.isSet()) {
+    if (s.sourceURL()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceURL"),
             ThriftFieldType::T_STRING,
             15);
 
-        writer.writeString(s.sourceURL.ref());
+        writer.writeString(*s.sourceURL());
         writer.writeFieldEnd();
     }
 
-    if (s.sourceApplication.isSet()) {
+    if (s.sourceApplication()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceApplication"),
             ThriftFieldType::T_STRING,
             16);
 
-        writer.writeString(s.sourceApplication.ref());
+        writer.writeString(*s.sourceApplication());
         writer.writeFieldEnd();
     }
 
-    if (s.shareDate.isSet()) {
+    if (s.shareDate()) {
         writer.writeFieldBegin(
             QStringLiteral("shareDate"),
             ThriftFieldType::T_I64,
             17);
 
-        writer.writeI64(s.shareDate.ref());
+        writer.writeI64(*s.shareDate());
         writer.writeFieldEnd();
     }
 
-    if (s.reminderOrder.isSet()) {
+    if (s.reminderOrder()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderOrder"),
             ThriftFieldType::T_I64,
             18);
 
-        writer.writeI64(s.reminderOrder.ref());
+        writer.writeI64(*s.reminderOrder());
         writer.writeFieldEnd();
     }
 
-    if (s.reminderDoneTime.isSet()) {
+    if (s.reminderDoneTime()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderDoneTime"),
             ThriftFieldType::T_I64,
             19);
 
-        writer.writeI64(s.reminderDoneTime.ref());
+        writer.writeI64(*s.reminderDoneTime());
         writer.writeFieldEnd();
     }
 
-    if (s.reminderTime.isSet()) {
+    if (s.reminderTime()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderTime"),
             ThriftFieldType::T_I64,
             20);
 
-        writer.writeI64(s.reminderTime.ref());
+        writer.writeI64(*s.reminderTime());
         writer.writeFieldEnd();
     }
 
-    if (s.placeName.isSet()) {
+    if (s.placeName()) {
         writer.writeFieldBegin(
             QStringLiteral("placeName"),
             ThriftFieldType::T_STRING,
             21);
 
-        writer.writeString(s.placeName.ref());
+        writer.writeString(*s.placeName());
         writer.writeFieldEnd();
     }
 
-    if (s.contentClass.isSet()) {
+    if (s.contentClass()) {
         writer.writeFieldBegin(
             QStringLiteral("contentClass"),
             ThriftFieldType::T_STRING,
             22);
 
-        writer.writeString(s.contentClass.ref());
+        writer.writeString(*s.contentClass());
         writer.writeFieldEnd();
     }
 
-    if (s.applicationData.isSet()) {
+    if (s.applicationData()) {
         writer.writeFieldBegin(
             QStringLiteral("applicationData"),
             ThriftFieldType::T_STRUCT,
             23);
 
-        writeLazyMap(writer, s.applicationData.ref());
+        writeLazyMap(writer, *s.applicationData());
         writer.writeFieldEnd();
     }
 
-    if (s.lastEditedBy.isSet()) {
+    if (s.lastEditedBy()) {
         writer.writeFieldBegin(
             QStringLiteral("lastEditedBy"),
             ThriftFieldType::T_STRING,
             24);
 
-        writer.writeString(s.lastEditedBy.ref());
+        writer.writeString(*s.lastEditedBy());
         writer.writeFieldEnd();
     }
 
-    if (s.classifications.isSet()) {
+    if (s.classifications()) {
         writer.writeFieldBegin(
             QStringLiteral("classifications"),
             ThriftFieldType::T_MAP,
             26);
 
-        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_STRING, s.classifications.ref().size());
-        for(const auto & it: toRange(s.classifications.ref())) {
+        writer.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_STRING, s.classifications()->size());
+        for(const auto & it: toRange(*s.classifications())) {
             writer.writeString(it.key());
             writer.writeString(it.value());
         }
@@ -13472,53 +10108,53 @@ void writeNoteAttributes(
         writer.writeFieldEnd();
     }
 
-    if (s.creatorId.isSet()) {
+    if (s.creatorId()) {
         writer.writeFieldBegin(
             QStringLiteral("creatorId"),
             ThriftFieldType::T_I32,
             27);
 
-        writer.writeI32(s.creatorId.ref());
+        writer.writeI32(*s.creatorId());
         writer.writeFieldEnd();
     }
 
-    if (s.lastEditorId.isSet()) {
+    if (s.lastEditorId()) {
         writer.writeFieldBegin(
             QStringLiteral("lastEditorId"),
             ThriftFieldType::T_I32,
             28);
 
-        writer.writeI32(s.lastEditorId.ref());
+        writer.writeI32(*s.lastEditorId());
         writer.writeFieldEnd();
     }
 
-    if (s.sharedWithBusiness.isSet()) {
+    if (s.sharedWithBusiness()) {
         writer.writeFieldBegin(
             QStringLiteral("sharedWithBusiness"),
             ThriftFieldType::T_BOOL,
             29);
 
-        writer.writeBool(s.sharedWithBusiness.ref());
+        writer.writeBool(*s.sharedWithBusiness());
         writer.writeFieldEnd();
     }
 
-    if (s.conflictSourceNoteGuid.isSet()) {
+    if (s.conflictSourceNoteGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("conflictSourceNoteGuid"),
             ThriftFieldType::T_STRING,
             30);
 
-        writer.writeString(s.conflictSourceNoteGuid.ref());
+        writer.writeString(*s.conflictSourceNoteGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.noteTitleQuality.isSet()) {
+    if (s.noteTitleQuality()) {
         writer.writeFieldBegin(
             QStringLiteral("noteTitleQuality"),
             ThriftFieldType::T_I32,
             31);
 
-        writer.writeI32(s.noteTitleQuality.ref());
+        writer.writeI32(*s.noteTitleQuality());
         writer.writeFieldEnd();
     }
 
@@ -13542,7 +10178,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.subjectDate = v;
+                s.setSubjectDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13553,7 +10189,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.latitude = v;
+                s.setLatitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13564,7 +10200,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.longitude = v;
+                s.setLongitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13575,7 +10211,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.altitude = v;
+                s.setAltitude(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13586,7 +10222,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.author = v;
+                s.setAuthor(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13597,7 +10233,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.source = v;
+                s.setSource(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13608,7 +10244,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceURL = v;
+                s.setSourceURL(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13619,7 +10255,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceApplication = v;
+                s.setSourceApplication(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13630,7 +10266,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.shareDate = v;
+                s.setShareDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13641,7 +10277,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.reminderOrder = v;
+                s.setReminderOrder(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13652,7 +10288,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.reminderDoneTime = v;
+                s.setReminderDoneTime(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13663,7 +10299,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.reminderTime = v;
+                s.setReminderTime(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13674,7 +10310,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.placeName = v;
+                s.setPlaceName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13685,7 +10321,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.contentClass = v;
+                s.setContentClass(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13696,7 +10332,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 LazyMap v;
                 readLazyMap(reader, v);
-                s.applicationData = v;
+                s.setApplicationData(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13707,7 +10343,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.lastEditedBy = v;
+                s.setLastEditedBy(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13731,7 +10367,7 @@ void readNoteAttributes(
                     v[key] = value;
                 }
                 reader.readMapEnd();
-                s.classifications = v;
+                s.setClassifications(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13742,7 +10378,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.creatorId = v;
+                s.setCreatorId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13753,7 +10389,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.lastEditorId = v;
+                s.setLastEditorId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13764,7 +10400,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.sharedWithBusiness = v;
+                s.setSharedWithBusiness(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13775,7 +10411,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.conflictSourceNoteGuid = v;
+                s.setConflictSourceNoteGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13786,7 +10422,7 @@ void readNoteAttributes(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.noteTitleQuality = v;
+                s.setNoteTitleQuality(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -13801,258 +10437,68 @@ void readNoteAttributes(
     reader.readStructEnd();
 }
 
-void NoteAttributes::print(QTextStream & strm) const
-{
-    strm << "NoteAttributes: {\n";
-    localData.print(strm);
-
-    if (subjectDate.isSet()) {
-        strm << "    subjectDate = "
-            << subjectDate.ref() << "\n";
-    }
-    else {
-        strm << "    subjectDate is not set\n";
-    }
-
-    if (latitude.isSet()) {
-        strm << "    latitude = "
-            << latitude.ref() << "\n";
-    }
-    else {
-        strm << "    latitude is not set\n";
-    }
-
-    if (longitude.isSet()) {
-        strm << "    longitude = "
-            << longitude.ref() << "\n";
-    }
-    else {
-        strm << "    longitude is not set\n";
-    }
-
-    if (altitude.isSet()) {
-        strm << "    altitude = "
-            << altitude.ref() << "\n";
-    }
-    else {
-        strm << "    altitude is not set\n";
-    }
-
-    if (author.isSet()) {
-        strm << "    author = "
-            << author.ref() << "\n";
-    }
-    else {
-        strm << "    author is not set\n";
-    }
-
-    if (source.isSet()) {
-        strm << "    source = "
-            << source.ref() << "\n";
-    }
-    else {
-        strm << "    source is not set\n";
-    }
-
-    if (sourceURL.isSet()) {
-        strm << "    sourceURL = "
-            << sourceURL.ref() << "\n";
-    }
-    else {
-        strm << "    sourceURL is not set\n";
-    }
-
-    if (sourceApplication.isSet()) {
-        strm << "    sourceApplication = "
-            << sourceApplication.ref() << "\n";
-    }
-    else {
-        strm << "    sourceApplication is not set\n";
-    }
-
-    if (shareDate.isSet()) {
-        strm << "    shareDate = "
-            << shareDate.ref() << "\n";
-    }
-    else {
-        strm << "    shareDate is not set\n";
-    }
-
-    if (reminderOrder.isSet()) {
-        strm << "    reminderOrder = "
-            << reminderOrder.ref() << "\n";
-    }
-    else {
-        strm << "    reminderOrder is not set\n";
-    }
-
-    if (reminderDoneTime.isSet()) {
-        strm << "    reminderDoneTime = "
-            << reminderDoneTime.ref() << "\n";
-    }
-    else {
-        strm << "    reminderDoneTime is not set\n";
-    }
-
-    if (reminderTime.isSet()) {
-        strm << "    reminderTime = "
-            << reminderTime.ref() << "\n";
-    }
-    else {
-        strm << "    reminderTime is not set\n";
-    }
-
-    if (placeName.isSet()) {
-        strm << "    placeName = "
-            << placeName.ref() << "\n";
-    }
-    else {
-        strm << "    placeName is not set\n";
-    }
-
-    if (contentClass.isSet()) {
-        strm << "    contentClass = "
-            << contentClass.ref() << "\n";
-    }
-    else {
-        strm << "    contentClass is not set\n";
-    }
-
-    if (applicationData.isSet()) {
-        strm << "    applicationData = "
-            << applicationData.ref() << "\n";
-    }
-    else {
-        strm << "    applicationData is not set\n";
-    }
-
-    if (lastEditedBy.isSet()) {
-        strm << "    lastEditedBy = "
-            << lastEditedBy.ref() << "\n";
-    }
-    else {
-        strm << "    lastEditedBy is not set\n";
-    }
-
-    if (classifications.isSet()) {
-        strm << "    classifications = "
-            << "QMap<QString, QString> {";
-        for(const auto & it: toRange(classifications.ref())) {
-            strm << "        [" << it.key() << "] = " << it.value() << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    classifications is not set\n";
-    }
-
-    if (creatorId.isSet()) {
-        strm << "    creatorId = "
-            << creatorId.ref() << "\n";
-    }
-    else {
-        strm << "    creatorId is not set\n";
-    }
-
-    if (lastEditorId.isSet()) {
-        strm << "    lastEditorId = "
-            << lastEditorId.ref() << "\n";
-    }
-    else {
-        strm << "    lastEditorId is not set\n";
-    }
-
-    if (sharedWithBusiness.isSet()) {
-        strm << "    sharedWithBusiness = "
-            << sharedWithBusiness.ref() << "\n";
-    }
-    else {
-        strm << "    sharedWithBusiness is not set\n";
-    }
-
-    if (conflictSourceNoteGuid.isSet()) {
-        strm << "    conflictSourceNoteGuid = "
-            << conflictSourceNoteGuid.ref() << "\n";
-    }
-    else {
-        strm << "    conflictSourceNoteGuid is not set\n";
-    }
-
-    if (noteTitleQuality.isSet()) {
-        strm << "    noteTitleQuality = "
-            << noteTitleQuality.ref() << "\n";
-    }
-    else {
-        strm << "    noteTitleQuality is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSharedNote(
     ThriftBinaryBufferWriter & writer,
     const SharedNote & s)
 {
     writer.writeStructBegin(QStringLiteral("SharedNote"));
-    if (s.sharerUserID.isSet()) {
+    if (s.sharerUserID()) {
         writer.writeFieldBegin(
             QStringLiteral("sharerUserID"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.sharerUserID.ref());
+        writer.writeI32(*s.sharerUserID());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientIdentity.isSet()) {
+    if (s.recipientIdentity()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientIdentity"),
             ThriftFieldType::T_STRUCT,
             2);
 
-        writeIdentity(writer, s.recipientIdentity.ref());
+        writeIdentity(writer, *s.recipientIdentity());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.serviceCreated.isSet()) {
+    if (s.serviceCreated()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceCreated"),
             ThriftFieldType::T_I64,
             4);
 
-        writer.writeI64(s.serviceCreated.ref());
+        writer.writeI64(*s.serviceCreated());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceUpdated.isSet()) {
+    if (s.serviceUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceUpdated"),
             ThriftFieldType::T_I64,
             5);
 
-        writer.writeI64(s.serviceUpdated.ref());
+        writer.writeI64(*s.serviceUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceAssigned.isSet()) {
+    if (s.serviceAssigned()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceAssigned"),
             ThriftFieldType::T_I64,
             6);
 
-        writer.writeI64(s.serviceAssigned.ref());
+        writer.writeI64(*s.serviceAssigned());
         writer.writeFieldEnd();
     }
 
@@ -14076,7 +10522,7 @@ void readSharedNote(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.sharerUserID = v;
+                s.setSharerUserID(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14087,7 +10533,7 @@ void readSharedNote(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Identity v;
                 readIdentity(reader, v);
-                s.recipientIdentity = v;
+                s.setRecipientIdentity(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14098,7 +10544,7 @@ void readSharedNote(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotePrivilegeLevel v;
                 readEnumSharedNotePrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14109,7 +10555,7 @@ void readSharedNote(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceCreated = v;
+                s.setServiceCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14120,7 +10566,7 @@ void readSharedNote(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceUpdated = v;
+                s.setServiceUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14131,7 +10577,7 @@ void readSharedNote(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceAssigned = v;
+                s.setServiceAssigned(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14146,116 +10592,58 @@ void readSharedNote(
     reader.readStructEnd();
 }
 
-void SharedNote::print(QTextStream & strm) const
-{
-    strm << "SharedNote: {\n";
-    localData.print(strm);
-
-    if (sharerUserID.isSet()) {
-        strm << "    sharerUserID = "
-            << sharerUserID.ref() << "\n";
-    }
-    else {
-        strm << "    sharerUserID is not set\n";
-    }
-
-    if (recipientIdentity.isSet()) {
-        strm << "    recipientIdentity = "
-            << recipientIdentity.ref() << "\n";
-    }
-    else {
-        strm << "    recipientIdentity is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (serviceCreated.isSet()) {
-        strm << "    serviceCreated = "
-            << serviceCreated.ref() << "\n";
-    }
-    else {
-        strm << "    serviceCreated is not set\n";
-    }
-
-    if (serviceUpdated.isSet()) {
-        strm << "    serviceUpdated = "
-            << serviceUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    serviceUpdated is not set\n";
-    }
-
-    if (serviceAssigned.isSet()) {
-        strm << "    serviceAssigned = "
-            << serviceAssigned.ref() << "\n";
-    }
-    else {
-        strm << "    serviceAssigned is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteRestrictions(
     ThriftBinaryBufferWriter & writer,
     const NoteRestrictions & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteRestrictions"));
-    if (s.noUpdateTitle.isSet()) {
+    if (s.noUpdateTitle()) {
         writer.writeFieldBegin(
             QStringLiteral("noUpdateTitle"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.noUpdateTitle.ref());
+        writer.writeBool(*s.noUpdateTitle());
         writer.writeFieldEnd();
     }
 
-    if (s.noUpdateContent.isSet()) {
+    if (s.noUpdateContent()) {
         writer.writeFieldBegin(
             QStringLiteral("noUpdateContent"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.noUpdateContent.ref());
+        writer.writeBool(*s.noUpdateContent());
         writer.writeFieldEnd();
     }
 
-    if (s.noEmail.isSet()) {
+    if (s.noEmail()) {
         writer.writeFieldBegin(
             QStringLiteral("noEmail"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.noEmail.ref());
+        writer.writeBool(*s.noEmail());
         writer.writeFieldEnd();
     }
 
-    if (s.noShare.isSet()) {
+    if (s.noShare()) {
         writer.writeFieldBegin(
             QStringLiteral("noShare"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.noShare.ref());
+        writer.writeBool(*s.noShare());
         writer.writeFieldEnd();
     }
 
-    if (s.noSharePublicly.isSet()) {
+    if (s.noSharePublicly()) {
         writer.writeFieldBegin(
             QStringLiteral("noSharePublicly"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.noSharePublicly.ref());
+        writer.writeBool(*s.noSharePublicly());
         writer.writeFieldEnd();
     }
 
@@ -14279,7 +10667,7 @@ void readNoteRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noUpdateTitle = v;
+                s.setNoUpdateTitle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14290,7 +10678,7 @@ void readNoteRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noUpdateContent = v;
+                s.setNoUpdateContent(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14301,7 +10689,7 @@ void readNoteRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noEmail = v;
+                s.setNoEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14312,7 +10700,7 @@ void readNoteRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noShare = v;
+                s.setNoShare(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14323,7 +10711,7 @@ void readNoteRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSharePublicly = v;
+                s.setNoSharePublicly(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14338,108 +10726,58 @@ void readNoteRestrictions(
     reader.readStructEnd();
 }
 
-void NoteRestrictions::print(QTextStream & strm) const
-{
-    strm << "NoteRestrictions: {\n";
-    localData.print(strm);
-
-    if (noUpdateTitle.isSet()) {
-        strm << "    noUpdateTitle = "
-            << noUpdateTitle.ref() << "\n";
-    }
-    else {
-        strm << "    noUpdateTitle is not set\n";
-    }
-
-    if (noUpdateContent.isSet()) {
-        strm << "    noUpdateContent = "
-            << noUpdateContent.ref() << "\n";
-    }
-    else {
-        strm << "    noUpdateContent is not set\n";
-    }
-
-    if (noEmail.isSet()) {
-        strm << "    noEmail = "
-            << noEmail.ref() << "\n";
-    }
-    else {
-        strm << "    noEmail is not set\n";
-    }
-
-    if (noShare.isSet()) {
-        strm << "    noShare = "
-            << noShare.ref() << "\n";
-    }
-    else {
-        strm << "    noShare is not set\n";
-    }
-
-    if (noSharePublicly.isSet()) {
-        strm << "    noSharePublicly = "
-            << noSharePublicly.ref() << "\n";
-    }
-    else {
-        strm << "    noSharePublicly is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNoteLimits(
     ThriftBinaryBufferWriter & writer,
     const NoteLimits & s)
 {
     writer.writeStructBegin(QStringLiteral("NoteLimits"));
-    if (s.noteResourceCountMax.isSet()) {
+    if (s.noteResourceCountMax()) {
         writer.writeFieldBegin(
             QStringLiteral("noteResourceCountMax"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.noteResourceCountMax.ref());
+        writer.writeI32(*s.noteResourceCountMax());
         writer.writeFieldEnd();
     }
 
-    if (s.uploadLimit.isSet()) {
+    if (s.uploadLimit()) {
         writer.writeFieldBegin(
             QStringLiteral("uploadLimit"),
             ThriftFieldType::T_I64,
             2);
 
-        writer.writeI64(s.uploadLimit.ref());
+        writer.writeI64(*s.uploadLimit());
         writer.writeFieldEnd();
     }
 
-    if (s.resourceSizeMax.isSet()) {
+    if (s.resourceSizeMax()) {
         writer.writeFieldBegin(
             QStringLiteral("resourceSizeMax"),
             ThriftFieldType::T_I64,
             3);
 
-        writer.writeI64(s.resourceSizeMax.ref());
+        writer.writeI64(*s.resourceSizeMax());
         writer.writeFieldEnd();
     }
 
-    if (s.noteSizeMax.isSet()) {
+    if (s.noteSizeMax()) {
         writer.writeFieldBegin(
             QStringLiteral("noteSizeMax"),
             ThriftFieldType::T_I64,
             4);
 
-        writer.writeI64(s.noteSizeMax.ref());
+        writer.writeI64(*s.noteSizeMax());
         writer.writeFieldEnd();
     }
 
-    if (s.uploaded.isSet()) {
+    if (s.uploaded()) {
         writer.writeFieldBegin(
             QStringLiteral("uploaded"),
             ThriftFieldType::T_I64,
             5);
 
-        writer.writeI64(s.uploaded.ref());
+        writer.writeI64(*s.uploaded());
         writer.writeFieldEnd();
     }
 
@@ -14463,7 +10801,7 @@ void readNoteLimits(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.noteResourceCountMax = v;
+                s.setNoteResourceCountMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14474,7 +10812,7 @@ void readNoteLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.uploadLimit = v;
+                s.setUploadLimit(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14485,7 +10823,7 @@ void readNoteLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.resourceSizeMax = v;
+                s.setResourceSizeMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14496,7 +10834,7 @@ void readNoteLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.noteSizeMax = v;
+                s.setNoteSizeMax(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14507,7 +10845,7 @@ void readNoteLimits(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.uploaded = v;
+                s.setUploaded(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14522,179 +10860,129 @@ void readNoteLimits(
     reader.readStructEnd();
 }
 
-void NoteLimits::print(QTextStream & strm) const
-{
-    strm << "NoteLimits: {\n";
-    localData.print(strm);
-
-    if (noteResourceCountMax.isSet()) {
-        strm << "    noteResourceCountMax = "
-            << noteResourceCountMax.ref() << "\n";
-    }
-    else {
-        strm << "    noteResourceCountMax is not set\n";
-    }
-
-    if (uploadLimit.isSet()) {
-        strm << "    uploadLimit = "
-            << uploadLimit.ref() << "\n";
-    }
-    else {
-        strm << "    uploadLimit is not set\n";
-    }
-
-    if (resourceSizeMax.isSet()) {
-        strm << "    resourceSizeMax = "
-            << resourceSizeMax.ref() << "\n";
-    }
-    else {
-        strm << "    resourceSizeMax is not set\n";
-    }
-
-    if (noteSizeMax.isSet()) {
-        strm << "    noteSizeMax = "
-            << noteSizeMax.ref() << "\n";
-    }
-    else {
-        strm << "    noteSizeMax is not set\n";
-    }
-
-    if (uploaded.isSet()) {
-        strm << "    uploaded = "
-            << uploaded.ref() << "\n";
-    }
-    else {
-        strm << "    uploaded is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNote(
     ThriftBinaryBufferWriter & writer,
     const Note & s)
 {
     writer.writeStructBegin(QStringLiteral("Note"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.title.isSet()) {
+    if (s.title()) {
         writer.writeFieldBegin(
             QStringLiteral("title"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.title.ref());
+        writer.writeString(*s.title());
         writer.writeFieldEnd();
     }
 
-    if (s.content.isSet()) {
+    if (s.content()) {
         writer.writeFieldBegin(
             QStringLiteral("content"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.content.ref());
+        writer.writeString(*s.content());
         writer.writeFieldEnd();
     }
 
-    if (s.contentHash.isSet()) {
+    if (s.contentHash()) {
         writer.writeFieldBegin(
             QStringLiteral("contentHash"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeBinary(s.contentHash.ref());
+        writer.writeBinary(*s.contentHash());
         writer.writeFieldEnd();
     }
 
-    if (s.contentLength.isSet()) {
+    if (s.contentLength()) {
         writer.writeFieldBegin(
             QStringLiteral("contentLength"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.contentLength.ref());
+        writer.writeI32(*s.contentLength());
         writer.writeFieldEnd();
     }
 
-    if (s.created.isSet()) {
+    if (s.created()) {
         writer.writeFieldBegin(
             QStringLiteral("created"),
             ThriftFieldType::T_I64,
             6);
 
-        writer.writeI64(s.created.ref());
+        writer.writeI64(*s.created());
         writer.writeFieldEnd();
     }
 
-    if (s.updated.isSet()) {
+    if (s.updated()) {
         writer.writeFieldBegin(
             QStringLiteral("updated"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.updated.ref());
+        writer.writeI64(*s.updated());
         writer.writeFieldEnd();
     }
 
-    if (s.deleted.isSet()) {
+    if (s.deleted()) {
         writer.writeFieldBegin(
             QStringLiteral("deleted"),
             ThriftFieldType::T_I64,
             8);
 
-        writer.writeI64(s.deleted.ref());
+        writer.writeI64(*s.deleted());
         writer.writeFieldEnd();
     }
 
-    if (s.active.isSet()) {
+    if (s.active()) {
         writer.writeFieldBegin(
             QStringLiteral("active"),
             ThriftFieldType::T_BOOL,
             9);
 
-        writer.writeBool(s.active.ref());
+        writer.writeBool(*s.active());
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             10);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookGuid.isSet()) {
+    if (s.notebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuid"),
             ThriftFieldType::T_STRING,
             11);
 
-        writer.writeString(s.notebookGuid.ref());
+        writer.writeString(*s.notebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.tagGuids.isSet()) {
+    if (s.tagGuids()) {
         writer.writeFieldBegin(
             QStringLiteral("tagGuids"),
             ThriftFieldType::T_LIST,
             12);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids.ref().length());
-        for(const auto & value: qAsConst(s.tagGuids.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids()->length());
+        for(const auto & value: qAsConst(*s.tagGuids())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -14702,14 +10990,14 @@ void writeNote(
         writer.writeFieldEnd();
     }
 
-    if (s.resources.isSet()) {
+    if (s.resources()) {
         writer.writeFieldBegin(
             QStringLiteral("resources"),
             ThriftFieldType::T_LIST,
             13);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.resources.ref().length());
-        for(const auto & value: qAsConst(s.resources.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.resources()->length());
+        for(const auto & value: qAsConst(*s.resources())) {
             writeResource(writer, value);
         }
         writer.writeListEnd();
@@ -14717,24 +11005,24 @@ void writeNote(
         writer.writeFieldEnd();
     }
 
-    if (s.attributes.isSet()) {
+    if (s.attributes()) {
         writer.writeFieldBegin(
             QStringLiteral("attributes"),
             ThriftFieldType::T_STRUCT,
             14);
 
-        writeNoteAttributes(writer, s.attributes.ref());
+        writeNoteAttributes(writer, *s.attributes());
         writer.writeFieldEnd();
     }
 
-    if (s.tagNames.isSet()) {
+    if (s.tagNames()) {
         writer.writeFieldBegin(
             QStringLiteral("tagNames"),
             ThriftFieldType::T_LIST,
             15);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagNames.ref().length());
-        for(const auto & value: qAsConst(s.tagNames.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.tagNames()->length());
+        for(const auto & value: qAsConst(*s.tagNames())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -14742,14 +11030,14 @@ void writeNote(
         writer.writeFieldEnd();
     }
 
-    if (s.sharedNotes.isSet()) {
+    if (s.sharedNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("sharedNotes"),
             ThriftFieldType::T_LIST,
             16);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.sharedNotes.ref().length());
-        for(const auto & value: qAsConst(s.sharedNotes.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.sharedNotes()->length());
+        for(const auto & value: qAsConst(*s.sharedNotes())) {
             writeSharedNote(writer, value);
         }
         writer.writeListEnd();
@@ -14757,23 +11045,23 @@ void writeNote(
         writer.writeFieldEnd();
     }
 
-    if (s.restrictions.isSet()) {
+    if (s.restrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("restrictions"),
             ThriftFieldType::T_STRUCT,
             17);
 
-        writeNoteRestrictions(writer, s.restrictions.ref());
+        writeNoteRestrictions(writer, *s.restrictions());
         writer.writeFieldEnd();
     }
 
-    if (s.limits.isSet()) {
+    if (s.limits()) {
         writer.writeFieldBegin(
             QStringLiteral("limits"),
             ThriftFieldType::T_STRUCT,
             18);
 
-        writeNoteLimits(writer, s.limits.ref());
+        writeNoteLimits(writer, *s.limits());
         writer.writeFieldEnd();
     }
 
@@ -14797,7 +11085,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14808,7 +11096,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.title = v;
+                s.setTitle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14819,7 +11107,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.content = v;
+                s.setContent(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14830,7 +11118,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QByteArray v;
                 reader.readBinary(v);
-                s.contentHash = v;
+                s.setContentHash(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14841,7 +11129,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.contentLength = v;
+                s.setContentLength(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14852,7 +11140,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.created = v;
+                s.setCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14863,7 +11151,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.updated = v;
+                s.setUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14874,7 +11162,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.deleted = v;
+                s.setDeleted(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14885,7 +11173,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.active = v;
+                s.setActive(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14896,7 +11184,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14907,7 +11195,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.notebookGuid = v;
+                s.setNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14932,7 +11220,7 @@ void readNote(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.tagGuids = v;
+                s.setTagGuids(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14957,7 +11245,7 @@ void readNote(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.resources = v;
+                s.setResources(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14968,7 +11256,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteAttributes v;
                 readNoteAttributes(reader, v);
-                s.attributes = v;
+                s.setAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -14993,7 +11281,7 @@ void readNote(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.tagNames = v;
+                s.setTagNames(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15018,7 +11306,7 @@ void readNote(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.sharedNotes = v;
+                s.setSharedNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15029,7 +11317,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteRestrictions v;
                 readNoteRestrictions(reader, v);
-                s.restrictions = v;
+                s.setRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15040,7 +11328,7 @@ void readNote(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NoteLimits v;
                 readNoteLimits(reader, v);
-                s.limits = v;
+                s.setLimits(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15055,218 +11343,48 @@ void readNote(
     reader.readStructEnd();
 }
 
-void Note::print(QTextStream & strm) const
-{
-    strm << "Note: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (title.isSet()) {
-        strm << "    title = "
-            << title.ref() << "\n";
-    }
-    else {
-        strm << "    title is not set\n";
-    }
-
-    if (content.isSet()) {
-        strm << "    content = "
-            << content.ref() << "\n";
-    }
-    else {
-        strm << "    content is not set\n";
-    }
-
-    if (contentHash.isSet()) {
-        strm << "    contentHash = "
-            << contentHash.ref() << "\n";
-    }
-    else {
-        strm << "    contentHash is not set\n";
-    }
-
-    if (contentLength.isSet()) {
-        strm << "    contentLength = "
-            << contentLength.ref() << "\n";
-    }
-    else {
-        strm << "    contentLength is not set\n";
-    }
-
-    if (created.isSet()) {
-        strm << "    created = "
-            << created.ref() << "\n";
-    }
-    else {
-        strm << "    created is not set\n";
-    }
-
-    if (updated.isSet()) {
-        strm << "    updated = "
-            << updated.ref() << "\n";
-    }
-    else {
-        strm << "    updated is not set\n";
-    }
-
-    if (deleted.isSet()) {
-        strm << "    deleted = "
-            << deleted.ref() << "\n";
-    }
-    else {
-        strm << "    deleted is not set\n";
-    }
-
-    if (active.isSet()) {
-        strm << "    active = "
-            << active.ref() << "\n";
-    }
-    else {
-        strm << "    active is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (notebookGuid.isSet()) {
-        strm << "    notebookGuid = "
-            << notebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    notebookGuid is not set\n";
-    }
-
-    if (tagGuids.isSet()) {
-        strm << "    tagGuids = "
-            << "QList<Guid> {";
-        for(const auto & v: tagGuids.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tagGuids is not set\n";
-    }
-
-    if (resources.isSet()) {
-        strm << "    resources = "
-            << "QList<Resource> {";
-        for(const auto & v: resources.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    resources is not set\n";
-    }
-
-    if (attributes.isSet()) {
-        strm << "    attributes = "
-            << attributes.ref() << "\n";
-    }
-    else {
-        strm << "    attributes is not set\n";
-    }
-
-    if (tagNames.isSet()) {
-        strm << "    tagNames = "
-            << "QList<QString> {";
-        for(const auto & v: tagNames.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    tagNames is not set\n";
-    }
-
-    if (sharedNotes.isSet()) {
-        strm << "    sharedNotes = "
-            << "QList<SharedNote> {";
-        for(const auto & v: sharedNotes.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    sharedNotes is not set\n";
-    }
-
-    if (restrictions.isSet()) {
-        strm << "    restrictions = "
-            << restrictions.ref() << "\n";
-    }
-    else {
-        strm << "    restrictions is not set\n";
-    }
-
-    if (limits.isSet()) {
-        strm << "    limits = "
-            << limits.ref() << "\n";
-    }
-    else {
-        strm << "    limits is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writePublishing(
     ThriftBinaryBufferWriter & writer,
     const Publishing & s)
 {
     writer.writeStructBegin(QStringLiteral("Publishing"));
-    if (s.uri.isSet()) {
+    if (s.uri()) {
         writer.writeFieldBegin(
             QStringLiteral("uri"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.uri.ref());
+        writer.writeString(*s.uri());
         writer.writeFieldEnd();
     }
 
-    if (s.order.isSet()) {
+    if (s.order()) {
         writer.writeFieldBegin(
             QStringLiteral("order"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(static_cast<qint32>(s.order.ref()));
+        writer.writeI32(static_cast<qint32>(*s.order()));
         writer.writeFieldEnd();
     }
 
-    if (s.ascending.isSet()) {
+    if (s.ascending()) {
         writer.writeFieldBegin(
             QStringLiteral("ascending"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.ascending.ref());
+        writer.writeBool(*s.ascending());
         writer.writeFieldEnd();
     }
 
-    if (s.publicDescription.isSet()) {
+    if (s.publicDescription()) {
         writer.writeFieldBegin(
             QStringLiteral("publicDescription"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.publicDescription.ref());
+        writer.writeString(*s.publicDescription());
         writer.writeFieldEnd();
     }
 
@@ -15290,7 +11408,7 @@ void readPublishing(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.uri = v;
+                s.setUri(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15301,7 +11419,7 @@ void readPublishing(
             if (fieldType == ThriftFieldType::T_I32) {
                 NoteSortOrder v;
                 readEnumNoteSortOrder(reader, v);
-                s.order = v;
+                s.setOrder(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15312,7 +11430,7 @@ void readPublishing(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.ascending = v;
+                s.setAscending(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15323,7 +11441,7 @@ void readPublishing(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.publicDescription = v;
+                s.setPublicDescription(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15338,80 +11456,38 @@ void readPublishing(
     reader.readStructEnd();
 }
 
-void Publishing::print(QTextStream & strm) const
-{
-    strm << "Publishing: {\n";
-    localData.print(strm);
-
-    if (uri.isSet()) {
-        strm << "    uri = "
-            << uri.ref() << "\n";
-    }
-    else {
-        strm << "    uri is not set\n";
-    }
-
-    if (order.isSet()) {
-        strm << "    order = "
-            << order.ref() << "\n";
-    }
-    else {
-        strm << "    order is not set\n";
-    }
-
-    if (ascending.isSet()) {
-        strm << "    ascending = "
-            << ascending.ref() << "\n";
-    }
-    else {
-        strm << "    ascending is not set\n";
-    }
-
-    if (publicDescription.isSet()) {
-        strm << "    publicDescription = "
-            << publicDescription.ref() << "\n";
-    }
-    else {
-        strm << "    publicDescription is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBusinessNotebook(
     ThriftBinaryBufferWriter & writer,
     const BusinessNotebook & s)
 {
     writer.writeStructBegin(QStringLiteral("BusinessNotebook"));
-    if (s.notebookDescription.isSet()) {
+    if (s.notebookDescription()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookDescription"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.notebookDescription.ref());
+        writer.writeString(*s.notebookDescription());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.recommended.isSet()) {
+    if (s.recommended()) {
         writer.writeFieldBegin(
             QStringLiteral("recommended"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.recommended.ref());
+        writer.writeBool(*s.recommended());
         writer.writeFieldEnd();
     }
 
@@ -15435,7 +11511,7 @@ void readBusinessNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.notebookDescription = v;
+                s.setNotebookDescription(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15446,7 +11522,7 @@ void readBusinessNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotebookPrivilegeLevel v;
                 readEnumSharedNotebookPrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15457,7 +11533,7 @@ void readBusinessNotebook(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.recommended = v;
+                s.setRecommended(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15472,72 +11548,38 @@ void readBusinessNotebook(
     reader.readStructEnd();
 }
 
-void BusinessNotebook::print(QTextStream & strm) const
-{
-    strm << "BusinessNotebook: {\n";
-    localData.print(strm);
-
-    if (notebookDescription.isSet()) {
-        strm << "    notebookDescription = "
-            << notebookDescription.ref() << "\n";
-    }
-    else {
-        strm << "    notebookDescription is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (recommended.isSet()) {
-        strm << "    recommended = "
-            << recommended.ref() << "\n";
-    }
-    else {
-        strm << "    recommended is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSavedSearchScope(
     ThriftBinaryBufferWriter & writer,
     const SavedSearchScope & s)
 {
     writer.writeStructBegin(QStringLiteral("SavedSearchScope"));
-    if (s.includeAccount.isSet()) {
+    if (s.includeAccount()) {
         writer.writeFieldBegin(
             QStringLiteral("includeAccount"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.includeAccount.ref());
+        writer.writeBool(*s.includeAccount());
         writer.writeFieldEnd();
     }
 
-    if (s.includePersonalLinkedNotebooks.isSet()) {
+    if (s.includePersonalLinkedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("includePersonalLinkedNotebooks"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.includePersonalLinkedNotebooks.ref());
+        writer.writeBool(*s.includePersonalLinkedNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.includeBusinessLinkedNotebooks.isSet()) {
+    if (s.includeBusinessLinkedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("includeBusinessLinkedNotebooks"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.includeBusinessLinkedNotebooks.ref());
+        writer.writeBool(*s.includeBusinessLinkedNotebooks());
         writer.writeFieldEnd();
     }
 
@@ -15561,7 +11603,7 @@ void readSavedSearchScope(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeAccount = v;
+                s.setIncludeAccount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15572,7 +11614,7 @@ void readSavedSearchScope(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includePersonalLinkedNotebooks = v;
+                s.setIncludePersonalLinkedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15583,7 +11625,7 @@ void readSavedSearchScope(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.includeBusinessLinkedNotebooks = v;
+                s.setIncludeBusinessLinkedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15598,102 +11640,68 @@ void readSavedSearchScope(
     reader.readStructEnd();
 }
 
-void SavedSearchScope::print(QTextStream & strm) const
-{
-    strm << "SavedSearchScope: {\n";
-    localData.print(strm);
-
-    if (includeAccount.isSet()) {
-        strm << "    includeAccount = "
-            << includeAccount.ref() << "\n";
-    }
-    else {
-        strm << "    includeAccount is not set\n";
-    }
-
-    if (includePersonalLinkedNotebooks.isSet()) {
-        strm << "    includePersonalLinkedNotebooks = "
-            << includePersonalLinkedNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    includePersonalLinkedNotebooks is not set\n";
-    }
-
-    if (includeBusinessLinkedNotebooks.isSet()) {
-        strm << "    includeBusinessLinkedNotebooks = "
-            << includeBusinessLinkedNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    includeBusinessLinkedNotebooks is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSavedSearch(
     ThriftBinaryBufferWriter & writer,
     const SavedSearch & s)
 {
     writer.writeStructBegin(QStringLiteral("SavedSearch"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.name.isSet()) {
+    if (s.name()) {
         writer.writeFieldBegin(
             QStringLiteral("name"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.name.ref());
+        writer.writeString(*s.name());
         writer.writeFieldEnd();
     }
 
-    if (s.query.isSet()) {
+    if (s.query()) {
         writer.writeFieldBegin(
             QStringLiteral("query"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.query.ref());
+        writer.writeString(*s.query());
         writer.writeFieldEnd();
     }
 
-    if (s.format.isSet()) {
+    if (s.format()) {
         writer.writeFieldBegin(
             QStringLiteral("format"),
             ThriftFieldType::T_I32,
             4);
 
-        writer.writeI32(static_cast<qint32>(s.format.ref()));
+        writer.writeI32(static_cast<qint32>(*s.format()));
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.scope.isSet()) {
+    if (s.scope()) {
         writer.writeFieldBegin(
             QStringLiteral("scope"),
             ThriftFieldType::T_STRUCT,
             6);
 
-        writeSavedSearchScope(writer, s.scope.ref());
+        writeSavedSearchScope(writer, *s.scope());
         writer.writeFieldEnd();
     }
 
@@ -15717,7 +11725,7 @@ void readSavedSearch(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15728,7 +11736,7 @@ void readSavedSearch(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15739,7 +11747,7 @@ void readSavedSearch(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.query = v;
+                s.setQuery(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15750,7 +11758,7 @@ void readSavedSearch(
             if (fieldType == ThriftFieldType::T_I32) {
                 QueryFormat v;
                 readEnumQueryFormat(reader, v);
-                s.format = v;
+                s.setFormat(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15761,7 +11769,7 @@ void readSavedSearch(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15772,7 +11780,7 @@ void readSavedSearch(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 SavedSearchScope v;
                 readSavedSearchScope(reader, v);
-                s.scope = v;
+                s.setScope(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15787,86 +11795,28 @@ void readSavedSearch(
     reader.readStructEnd();
 }
 
-void SavedSearch::print(QTextStream & strm) const
-{
-    strm << "SavedSearch: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (name.isSet()) {
-        strm << "    name = "
-            << name.ref() << "\n";
-    }
-    else {
-        strm << "    name is not set\n";
-    }
-
-    if (query.isSet()) {
-        strm << "    query = "
-            << query.ref() << "\n";
-    }
-    else {
-        strm << "    query is not set\n";
-    }
-
-    if (format.isSet()) {
-        strm << "    format = "
-            << format.ref() << "\n";
-    }
-    else {
-        strm << "    format is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (scope.isSet()) {
-        strm << "    scope = "
-            << scope.ref() << "\n";
-    }
-    else {
-        strm << "    scope is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSharedNotebookRecipientSettings(
     ThriftBinaryBufferWriter & writer,
     const SharedNotebookRecipientSettings & s)
 {
     writer.writeStructBegin(QStringLiteral("SharedNotebookRecipientSettings"));
-    if (s.reminderNotifyEmail.isSet()) {
+    if (s.reminderNotifyEmail()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderNotifyEmail"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.reminderNotifyEmail.ref());
+        writer.writeBool(*s.reminderNotifyEmail());
         writer.writeFieldEnd();
     }
 
-    if (s.reminderNotifyInApp.isSet()) {
+    if (s.reminderNotifyInApp()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderNotifyInApp"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.reminderNotifyInApp.ref());
+        writer.writeBool(*s.reminderNotifyInApp());
         writer.writeFieldEnd();
     }
 
@@ -15890,7 +11840,7 @@ void readSharedNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.reminderNotifyEmail = v;
+                s.setReminderNotifyEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15901,7 +11851,7 @@ void readSharedNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.reminderNotifyInApp = v;
+                s.setReminderNotifyInApp(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -15916,84 +11866,58 @@ void readSharedNotebookRecipientSettings(
     reader.readStructEnd();
 }
 
-void SharedNotebookRecipientSettings::print(QTextStream & strm) const
-{
-    strm << "SharedNotebookRecipientSettings: {\n";
-    localData.print(strm);
-
-    if (reminderNotifyEmail.isSet()) {
-        strm << "    reminderNotifyEmail = "
-            << reminderNotifyEmail.ref() << "\n";
-    }
-    else {
-        strm << "    reminderNotifyEmail is not set\n";
-    }
-
-    if (reminderNotifyInApp.isSet()) {
-        strm << "    reminderNotifyInApp = "
-            << reminderNotifyInApp.ref() << "\n";
-    }
-    else {
-        strm << "    reminderNotifyInApp is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotebookRecipientSettings(
     ThriftBinaryBufferWriter & writer,
     const NotebookRecipientSettings & s)
 {
     writer.writeStructBegin(QStringLiteral("NotebookRecipientSettings"));
-    if (s.reminderNotifyEmail.isSet()) {
+    if (s.reminderNotifyEmail()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderNotifyEmail"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.reminderNotifyEmail.ref());
+        writer.writeBool(*s.reminderNotifyEmail());
         writer.writeFieldEnd();
     }
 
-    if (s.reminderNotifyInApp.isSet()) {
+    if (s.reminderNotifyInApp()) {
         writer.writeFieldBegin(
             QStringLiteral("reminderNotifyInApp"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.reminderNotifyInApp.ref());
+        writer.writeBool(*s.reminderNotifyInApp());
         writer.writeFieldEnd();
     }
 
-    if (s.inMyList.isSet()) {
+    if (s.inMyList()) {
         writer.writeFieldBegin(
             QStringLiteral("inMyList"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.inMyList.ref());
+        writer.writeBool(*s.inMyList());
         writer.writeFieldEnd();
     }
 
-    if (s.stack.isSet()) {
+    if (s.stack()) {
         writer.writeFieldBegin(
             QStringLiteral("stack"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.stack.ref());
+        writer.writeString(*s.stack());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientStatus.isSet()) {
+    if (s.recipientStatus()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientStatus"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(static_cast<qint32>(s.recipientStatus.ref()));
+        writer.writeI32(static_cast<qint32>(*s.recipientStatus()));
         writer.writeFieldEnd();
     }
 
@@ -16017,7 +11941,7 @@ void readNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.reminderNotifyEmail = v;
+                s.setReminderNotifyEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16028,7 +11952,7 @@ void readNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.reminderNotifyInApp = v;
+                s.setReminderNotifyInApp(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16039,7 +11963,7 @@ void readNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.inMyList = v;
+                s.setInMyList(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16050,7 +11974,7 @@ void readNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.stack = v;
+                s.setStack(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16061,7 +11985,7 @@ void readNotebookRecipientSettings(
             if (fieldType == ThriftFieldType::T_I32) {
                 RecipientStatus v;
                 readEnumRecipientStatus(reader, v);
-                s.recipientStatus = v;
+                s.setRecipientStatus(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16076,218 +12000,168 @@ void readNotebookRecipientSettings(
     reader.readStructEnd();
 }
 
-void NotebookRecipientSettings::print(QTextStream & strm) const
-{
-    strm << "NotebookRecipientSettings: {\n";
-    localData.print(strm);
-
-    if (reminderNotifyEmail.isSet()) {
-        strm << "    reminderNotifyEmail = "
-            << reminderNotifyEmail.ref() << "\n";
-    }
-    else {
-        strm << "    reminderNotifyEmail is not set\n";
-    }
-
-    if (reminderNotifyInApp.isSet()) {
-        strm << "    reminderNotifyInApp = "
-            << reminderNotifyInApp.ref() << "\n";
-    }
-    else {
-        strm << "    reminderNotifyInApp is not set\n";
-    }
-
-    if (inMyList.isSet()) {
-        strm << "    inMyList = "
-            << inMyList.ref() << "\n";
-    }
-    else {
-        strm << "    inMyList is not set\n";
-    }
-
-    if (stack.isSet()) {
-        strm << "    stack = "
-            << stack.ref() << "\n";
-    }
-    else {
-        strm << "    stack is not set\n";
-    }
-
-    if (recipientStatus.isSet()) {
-        strm << "    recipientStatus = "
-            << recipientStatus.ref() << "\n";
-    }
-    else {
-        strm << "    recipientStatus is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeSharedNotebook(
     ThriftBinaryBufferWriter & writer,
     const SharedNotebook & s)
 {
     writer.writeStructBegin(QStringLiteral("SharedNotebook"));
-    if (s.id.isSet()) {
+    if (s.id()) {
         writer.writeFieldBegin(
             QStringLiteral("id"),
             ThriftFieldType::T_I64,
             1);
 
-        writer.writeI64(s.id.ref());
+        writer.writeI64(*s.id());
         writer.writeFieldEnd();
     }
 
-    if (s.userId.isSet()) {
+    if (s.userId()) {
         writer.writeFieldBegin(
             QStringLiteral("userId"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.userId.ref());
+        writer.writeI32(*s.userId());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookGuid.isSet()) {
+    if (s.notebookGuid()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookGuid"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.notebookGuid.ref());
+        writer.writeString(*s.notebookGuid());
         writer.writeFieldEnd();
     }
 
-    if (s.email.isSet()) {
+    if (s.email()) {
         writer.writeFieldBegin(
             QStringLiteral("email"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.email.ref());
+        writer.writeString(*s.email());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientIdentityId.isSet()) {
+    if (s.recipientIdentityId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientIdentityId"),
             ThriftFieldType::T_I64,
             18);
 
-        writer.writeI64(s.recipientIdentityId.ref());
+        writer.writeI64(*s.recipientIdentityId());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookModifiable.isSet()) {
+    if (s.notebookModifiable()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookModifiable"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.notebookModifiable.ref());
+        writer.writeBool(*s.notebookModifiable());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceCreated.isSet()) {
+    if (s.serviceCreated()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceCreated"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.serviceCreated.ref());
+        writer.writeI64(*s.serviceCreated());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceUpdated.isSet()) {
+    if (s.serviceUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceUpdated"),
             ThriftFieldType::T_I64,
             10);
 
-        writer.writeI64(s.serviceUpdated.ref());
+        writer.writeI64(*s.serviceUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.globalId.isSet()) {
+    if (s.globalId()) {
         writer.writeFieldBegin(
             QStringLiteral("globalId"),
             ThriftFieldType::T_STRING,
             8);
 
-        writer.writeString(s.globalId.ref());
+        writer.writeString(*s.globalId());
         writer.writeFieldEnd();
     }
 
-    if (s.username.isSet()) {
+    if (s.username()) {
         writer.writeFieldBegin(
             QStringLiteral("username"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.username.ref());
+        writer.writeString(*s.username());
         writer.writeFieldEnd();
     }
 
-    if (s.privilege.isSet()) {
+    if (s.privilege()) {
         writer.writeFieldBegin(
             QStringLiteral("privilege"),
             ThriftFieldType::T_I32,
             11);
 
-        writer.writeI32(static_cast<qint32>(s.privilege.ref()));
+        writer.writeI32(static_cast<qint32>(*s.privilege()));
         writer.writeFieldEnd();
     }
 
-    if (s.recipientSettings.isSet()) {
+    if (s.recipientSettings()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientSettings"),
             ThriftFieldType::T_STRUCT,
             13);
 
-        writeSharedNotebookRecipientSettings(writer, s.recipientSettings.ref());
+        writeSharedNotebookRecipientSettings(writer, *s.recipientSettings());
         writer.writeFieldEnd();
     }
 
-    if (s.sharerUserId.isSet()) {
+    if (s.sharerUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("sharerUserId"),
             ThriftFieldType::T_I32,
             14);
 
-        writer.writeI32(s.sharerUserId.ref());
+        writer.writeI32(*s.sharerUserId());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientUsername.isSet()) {
+    if (s.recipientUsername()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientUsername"),
             ThriftFieldType::T_STRING,
             15);
 
-        writer.writeString(s.recipientUsername.ref());
+        writer.writeString(*s.recipientUsername());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientUserId.isSet()) {
+    if (s.recipientUserId()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientUserId"),
             ThriftFieldType::T_I32,
             17);
 
-        writer.writeI32(s.recipientUserId.ref());
+        writer.writeI32(*s.recipientUserId());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceAssigned.isSet()) {
+    if (s.serviceAssigned()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceAssigned"),
             ThriftFieldType::T_I64,
             16);
 
-        writer.writeI64(s.serviceAssigned.ref());
+        writer.writeI64(*s.serviceAssigned());
         writer.writeFieldEnd();
     }
 
@@ -16311,7 +12185,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.id = v;
+                s.setId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16322,7 +12196,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.userId = v;
+                s.setUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16333,7 +12207,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.notebookGuid = v;
+                s.setNotebookGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16344,7 +12218,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.email = v;
+                s.setEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16355,7 +12229,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 IdentityID v;
                 reader.readI64(v);
-                s.recipientIdentityId = v;
+                s.setRecipientIdentityId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16366,7 +12240,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.notebookModifiable = v;
+                s.setNotebookModifiable(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16377,7 +12251,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceCreated = v;
+                s.setServiceCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16388,7 +12262,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceUpdated = v;
+                s.setServiceUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16399,7 +12273,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.globalId = v;
+                s.setGlobalId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16410,7 +12284,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.username = v;
+                s.setUsername(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16421,7 +12295,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotebookPrivilegeLevel v;
                 readEnumSharedNotebookPrivilegeLevel(reader, v);
-                s.privilege = v;
+                s.setPrivilege(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16432,7 +12306,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 SharedNotebookRecipientSettings v;
                 readSharedNotebookRecipientSettings(reader, v);
-                s.recipientSettings = v;
+                s.setRecipientSettings(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16443,7 +12317,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.sharerUserId = v;
+                s.setSharerUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16454,7 +12328,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.recipientUsername = v;
+                s.setRecipientUsername(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16465,7 +12339,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.recipientUserId = v;
+                s.setRecipientUserId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16476,7 +12350,7 @@ void readSharedNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceAssigned = v;
+                s.setServiceAssigned(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16491,156 +12365,18 @@ void readSharedNotebook(
     reader.readStructEnd();
 }
 
-void SharedNotebook::print(QTextStream & strm) const
-{
-    strm << "SharedNotebook: {\n";
-    localData.print(strm);
-
-    if (id.isSet()) {
-        strm << "    id = "
-            << id.ref() << "\n";
-    }
-    else {
-        strm << "    id is not set\n";
-    }
-
-    if (userId.isSet()) {
-        strm << "    userId = "
-            << userId.ref() << "\n";
-    }
-    else {
-        strm << "    userId is not set\n";
-    }
-
-    if (notebookGuid.isSet()) {
-        strm << "    notebookGuid = "
-            << notebookGuid.ref() << "\n";
-    }
-    else {
-        strm << "    notebookGuid is not set\n";
-    }
-
-    if (email.isSet()) {
-        strm << "    email = "
-            << email.ref() << "\n";
-    }
-    else {
-        strm << "    email is not set\n";
-    }
-
-    if (recipientIdentityId.isSet()) {
-        strm << "    recipientIdentityId = "
-            << recipientIdentityId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientIdentityId is not set\n";
-    }
-
-    if (notebookModifiable.isSet()) {
-        strm << "    notebookModifiable = "
-            << notebookModifiable.ref() << "\n";
-    }
-    else {
-        strm << "    notebookModifiable is not set\n";
-    }
-
-    if (serviceCreated.isSet()) {
-        strm << "    serviceCreated = "
-            << serviceCreated.ref() << "\n";
-    }
-    else {
-        strm << "    serviceCreated is not set\n";
-    }
-
-    if (serviceUpdated.isSet()) {
-        strm << "    serviceUpdated = "
-            << serviceUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    serviceUpdated is not set\n";
-    }
-
-    if (globalId.isSet()) {
-        strm << "    globalId = "
-            << globalId.ref() << "\n";
-    }
-    else {
-        strm << "    globalId is not set\n";
-    }
-
-    if (username.isSet()) {
-        strm << "    username = "
-            << username.ref() << "\n";
-    }
-    else {
-        strm << "    username is not set\n";
-    }
-
-    if (privilege.isSet()) {
-        strm << "    privilege = "
-            << privilege.ref() << "\n";
-    }
-    else {
-        strm << "    privilege is not set\n";
-    }
-
-    if (recipientSettings.isSet()) {
-        strm << "    recipientSettings = "
-            << recipientSettings.ref() << "\n";
-    }
-    else {
-        strm << "    recipientSettings is not set\n";
-    }
-
-    if (sharerUserId.isSet()) {
-        strm << "    sharerUserId = "
-            << sharerUserId.ref() << "\n";
-    }
-    else {
-        strm << "    sharerUserId is not set\n";
-    }
-
-    if (recipientUsername.isSet()) {
-        strm << "    recipientUsername = "
-            << recipientUsername.ref() << "\n";
-    }
-    else {
-        strm << "    recipientUsername is not set\n";
-    }
-
-    if (recipientUserId.isSet()) {
-        strm << "    recipientUserId = "
-            << recipientUserId.ref() << "\n";
-    }
-    else {
-        strm << "    recipientUserId is not set\n";
-    }
-
-    if (serviceAssigned.isSet()) {
-        strm << "    serviceAssigned = "
-            << serviceAssigned.ref() << "\n";
-    }
-    else {
-        strm << "    serviceAssigned is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeCanMoveToContainerRestrictions(
     ThriftBinaryBufferWriter & writer,
     const CanMoveToContainerRestrictions & s)
 {
     writer.writeStructBegin(QStringLiteral("CanMoveToContainerRestrictions"));
-    if (s.canMoveToContainer.isSet()) {
+    if (s.canMoveToContainer()) {
         writer.writeFieldBegin(
             QStringLiteral("canMoveToContainer"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(static_cast<qint32>(s.canMoveToContainer.ref()));
+        writer.writeI32(static_cast<qint32>(*s.canMoveToContainer()));
         writer.writeFieldEnd();
     }
 
@@ -16664,7 +12400,7 @@ void readCanMoveToContainerRestrictions(
             if (fieldType == ThriftFieldType::T_I32) {
                 CanMoveToContainerStatus v;
                 readEnumCanMoveToContainerStatus(reader, v);
-                s.canMoveToContainer = v;
+                s.setCanMoveToContainer(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -16679,316 +12415,298 @@ void readCanMoveToContainerRestrictions(
     reader.readStructEnd();
 }
 
-void CanMoveToContainerRestrictions::print(QTextStream & strm) const
-{
-    strm << "CanMoveToContainerRestrictions: {\n";
-    localData.print(strm);
-
-    if (canMoveToContainer.isSet()) {
-        strm << "    canMoveToContainer = "
-            << canMoveToContainer.ref() << "\n";
-    }
-    else {
-        strm << "    canMoveToContainer is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotebookRestrictions(
     ThriftBinaryBufferWriter & writer,
     const NotebookRestrictions & s)
 {
     writer.writeStructBegin(QStringLiteral("NotebookRestrictions"));
-    if (s.noReadNotes.isSet()) {
+    if (s.noReadNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("noReadNotes"),
             ThriftFieldType::T_BOOL,
             1);
 
-        writer.writeBool(s.noReadNotes.ref());
+        writer.writeBool(*s.noReadNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.noCreateNotes.isSet()) {
+    if (s.noCreateNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("noCreateNotes"),
             ThriftFieldType::T_BOOL,
             2);
 
-        writer.writeBool(s.noCreateNotes.ref());
+        writer.writeBool(*s.noCreateNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.noUpdateNotes.isSet()) {
+    if (s.noUpdateNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("noUpdateNotes"),
             ThriftFieldType::T_BOOL,
             3);
 
-        writer.writeBool(s.noUpdateNotes.ref());
+        writer.writeBool(*s.noUpdateNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.noExpungeNotes.isSet()) {
+    if (s.noExpungeNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("noExpungeNotes"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.noExpungeNotes.ref());
+        writer.writeBool(*s.noExpungeNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.noShareNotes.isSet()) {
+    if (s.noShareNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("noShareNotes"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.noShareNotes.ref());
+        writer.writeBool(*s.noShareNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.noEmailNotes.isSet()) {
+    if (s.noEmailNotes()) {
         writer.writeFieldBegin(
             QStringLiteral("noEmailNotes"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.noEmailNotes.ref());
+        writer.writeBool(*s.noEmailNotes());
         writer.writeFieldEnd();
     }
 
-    if (s.noSendMessageToRecipients.isSet()) {
+    if (s.noSendMessageToRecipients()) {
         writer.writeFieldBegin(
             QStringLiteral("noSendMessageToRecipients"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.noSendMessageToRecipients.ref());
+        writer.writeBool(*s.noSendMessageToRecipients());
         writer.writeFieldEnd();
     }
 
-    if (s.noUpdateNotebook.isSet()) {
+    if (s.noUpdateNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("noUpdateNotebook"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.noUpdateNotebook.ref());
+        writer.writeBool(*s.noUpdateNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.noExpungeNotebook.isSet()) {
+    if (s.noExpungeNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("noExpungeNotebook"),
             ThriftFieldType::T_BOOL,
             9);
 
-        writer.writeBool(s.noExpungeNotebook.ref());
+        writer.writeBool(*s.noExpungeNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetDefaultNotebook.isSet()) {
+    if (s.noSetDefaultNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetDefaultNotebook"),
             ThriftFieldType::T_BOOL,
             10);
 
-        writer.writeBool(s.noSetDefaultNotebook.ref());
+        writer.writeBool(*s.noSetDefaultNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetNotebookStack.isSet()) {
+    if (s.noSetNotebookStack()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetNotebookStack"),
             ThriftFieldType::T_BOOL,
             11);
 
-        writer.writeBool(s.noSetNotebookStack.ref());
+        writer.writeBool(*s.noSetNotebookStack());
         writer.writeFieldEnd();
     }
 
-    if (s.noPublishToPublic.isSet()) {
+    if (s.noPublishToPublic()) {
         writer.writeFieldBegin(
             QStringLiteral("noPublishToPublic"),
             ThriftFieldType::T_BOOL,
             12);
 
-        writer.writeBool(s.noPublishToPublic.ref());
+        writer.writeBool(*s.noPublishToPublic());
         writer.writeFieldEnd();
     }
 
-    if (s.noPublishToBusinessLibrary.isSet()) {
+    if (s.noPublishToBusinessLibrary()) {
         writer.writeFieldBegin(
             QStringLiteral("noPublishToBusinessLibrary"),
             ThriftFieldType::T_BOOL,
             13);
 
-        writer.writeBool(s.noPublishToBusinessLibrary.ref());
+        writer.writeBool(*s.noPublishToBusinessLibrary());
         writer.writeFieldEnd();
     }
 
-    if (s.noCreateTags.isSet()) {
+    if (s.noCreateTags()) {
         writer.writeFieldBegin(
             QStringLiteral("noCreateTags"),
             ThriftFieldType::T_BOOL,
             14);
 
-        writer.writeBool(s.noCreateTags.ref());
+        writer.writeBool(*s.noCreateTags());
         writer.writeFieldEnd();
     }
 
-    if (s.noUpdateTags.isSet()) {
+    if (s.noUpdateTags()) {
         writer.writeFieldBegin(
             QStringLiteral("noUpdateTags"),
             ThriftFieldType::T_BOOL,
             15);
 
-        writer.writeBool(s.noUpdateTags.ref());
+        writer.writeBool(*s.noUpdateTags());
         writer.writeFieldEnd();
     }
 
-    if (s.noExpungeTags.isSet()) {
+    if (s.noExpungeTags()) {
         writer.writeFieldBegin(
             QStringLiteral("noExpungeTags"),
             ThriftFieldType::T_BOOL,
             16);
 
-        writer.writeBool(s.noExpungeTags.ref());
+        writer.writeBool(*s.noExpungeTags());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetParentTag.isSet()) {
+    if (s.noSetParentTag()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetParentTag"),
             ThriftFieldType::T_BOOL,
             17);
 
-        writer.writeBool(s.noSetParentTag.ref());
+        writer.writeBool(*s.noSetParentTag());
         writer.writeFieldEnd();
     }
 
-    if (s.noCreateSharedNotebooks.isSet()) {
+    if (s.noCreateSharedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("noCreateSharedNotebooks"),
             ThriftFieldType::T_BOOL,
             18);
 
-        writer.writeBool(s.noCreateSharedNotebooks.ref());
+        writer.writeBool(*s.noCreateSharedNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.updateWhichSharedNotebookRestrictions.isSet()) {
+    if (s.updateWhichSharedNotebookRestrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("updateWhichSharedNotebookRestrictions"),
             ThriftFieldType::T_I32,
             19);
 
-        writer.writeI32(static_cast<qint32>(s.updateWhichSharedNotebookRestrictions.ref()));
+        writer.writeI32(static_cast<qint32>(*s.updateWhichSharedNotebookRestrictions()));
         writer.writeFieldEnd();
     }
 
-    if (s.expungeWhichSharedNotebookRestrictions.isSet()) {
+    if (s.expungeWhichSharedNotebookRestrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("expungeWhichSharedNotebookRestrictions"),
             ThriftFieldType::T_I32,
             20);
 
-        writer.writeI32(static_cast<qint32>(s.expungeWhichSharedNotebookRestrictions.ref()));
+        writer.writeI32(static_cast<qint32>(*s.expungeWhichSharedNotebookRestrictions()));
         writer.writeFieldEnd();
     }
 
-    if (s.noShareNotesWithBusiness.isSet()) {
+    if (s.noShareNotesWithBusiness()) {
         writer.writeFieldBegin(
             QStringLiteral("noShareNotesWithBusiness"),
             ThriftFieldType::T_BOOL,
             21);
 
-        writer.writeBool(s.noShareNotesWithBusiness.ref());
+        writer.writeBool(*s.noShareNotesWithBusiness());
         writer.writeFieldEnd();
     }
 
-    if (s.noRenameNotebook.isSet()) {
+    if (s.noRenameNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("noRenameNotebook"),
             ThriftFieldType::T_BOOL,
             22);
 
-        writer.writeBool(s.noRenameNotebook.ref());
+        writer.writeBool(*s.noRenameNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetInMyList.isSet()) {
+    if (s.noSetInMyList()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetInMyList"),
             ThriftFieldType::T_BOOL,
             23);
 
-        writer.writeBool(s.noSetInMyList.ref());
+        writer.writeBool(*s.noSetInMyList());
         writer.writeFieldEnd();
     }
 
-    if (s.noChangeContact.isSet()) {
+    if (s.noChangeContact()) {
         writer.writeFieldBegin(
             QStringLiteral("noChangeContact"),
             ThriftFieldType::T_BOOL,
             24);
 
-        writer.writeBool(s.noChangeContact.ref());
+        writer.writeBool(*s.noChangeContact());
         writer.writeFieldEnd();
     }
 
-    if (s.canMoveToContainerRestrictions.isSet()) {
+    if (s.canMoveToContainerRestrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("canMoveToContainerRestrictions"),
             ThriftFieldType::T_STRUCT,
             26);
 
-        writeCanMoveToContainerRestrictions(writer, s.canMoveToContainerRestrictions.ref());
+        writeCanMoveToContainerRestrictions(writer, *s.canMoveToContainerRestrictions());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetReminderNotifyEmail.isSet()) {
+    if (s.noSetReminderNotifyEmail()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetReminderNotifyEmail"),
             ThriftFieldType::T_BOOL,
             27);
 
-        writer.writeBool(s.noSetReminderNotifyEmail.ref());
+        writer.writeBool(*s.noSetReminderNotifyEmail());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetReminderNotifyInApp.isSet()) {
+    if (s.noSetReminderNotifyInApp()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetReminderNotifyInApp"),
             ThriftFieldType::T_BOOL,
             28);
 
-        writer.writeBool(s.noSetReminderNotifyInApp.ref());
+        writer.writeBool(*s.noSetReminderNotifyInApp());
         writer.writeFieldEnd();
     }
 
-    if (s.noSetRecipientSettingsStack.isSet()) {
+    if (s.noSetRecipientSettingsStack()) {
         writer.writeFieldBegin(
             QStringLiteral("noSetRecipientSettingsStack"),
             ThriftFieldType::T_BOOL,
             29);
 
-        writer.writeBool(s.noSetRecipientSettingsStack.ref());
+        writer.writeBool(*s.noSetRecipientSettingsStack());
         writer.writeFieldEnd();
     }
 
-    if (s.noCanMoveNote.isSet()) {
+    if (s.noCanMoveNote()) {
         writer.writeFieldBegin(
             QStringLiteral("noCanMoveNote"),
             ThriftFieldType::T_BOOL,
             30);
 
-        writer.writeBool(s.noCanMoveNote.ref());
+        writer.writeBool(*s.noCanMoveNote());
         writer.writeFieldEnd();
     }
 
@@ -17012,7 +12730,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noReadNotes = v;
+                s.setNoReadNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17023,7 +12741,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noCreateNotes = v;
+                s.setNoCreateNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17034,7 +12752,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noUpdateNotes = v;
+                s.setNoUpdateNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17045,7 +12763,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noExpungeNotes = v;
+                s.setNoExpungeNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17056,7 +12774,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noShareNotes = v;
+                s.setNoShareNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17067,7 +12785,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noEmailNotes = v;
+                s.setNoEmailNotes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17078,7 +12796,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSendMessageToRecipients = v;
+                s.setNoSendMessageToRecipients(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17089,7 +12807,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noUpdateNotebook = v;
+                s.setNoUpdateNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17100,7 +12818,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noExpungeNotebook = v;
+                s.setNoExpungeNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17111,7 +12829,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetDefaultNotebook = v;
+                s.setNoSetDefaultNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17122,7 +12840,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetNotebookStack = v;
+                s.setNoSetNotebookStack(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17133,7 +12851,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noPublishToPublic = v;
+                s.setNoPublishToPublic(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17144,7 +12862,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noPublishToBusinessLibrary = v;
+                s.setNoPublishToBusinessLibrary(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17155,7 +12873,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noCreateTags = v;
+                s.setNoCreateTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17166,7 +12884,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noUpdateTags = v;
+                s.setNoUpdateTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17177,7 +12895,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noExpungeTags = v;
+                s.setNoExpungeTags(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17188,7 +12906,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetParentTag = v;
+                s.setNoSetParentTag(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17199,7 +12917,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noCreateSharedNotebooks = v;
+                s.setNoCreateSharedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17210,7 +12928,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotebookInstanceRestrictions v;
                 readEnumSharedNotebookInstanceRestrictions(reader, v);
-                s.updateWhichSharedNotebookRestrictions = v;
+                s.setUpdateWhichSharedNotebookRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17221,7 +12939,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_I32) {
                 SharedNotebookInstanceRestrictions v;
                 readEnumSharedNotebookInstanceRestrictions(reader, v);
-                s.expungeWhichSharedNotebookRestrictions = v;
+                s.setExpungeWhichSharedNotebookRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17232,7 +12950,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noShareNotesWithBusiness = v;
+                s.setNoShareNotesWithBusiness(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17243,7 +12961,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noRenameNotebook = v;
+                s.setNoRenameNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17254,7 +12972,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetInMyList = v;
+                s.setNoSetInMyList(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17265,7 +12983,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noChangeContact = v;
+                s.setNoChangeContact(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17276,7 +12994,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 CanMoveToContainerRestrictions v;
                 readCanMoveToContainerRestrictions(reader, v);
-                s.canMoveToContainerRestrictions = v;
+                s.setCanMoveToContainerRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17287,7 +13005,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetReminderNotifyEmail = v;
+                s.setNoSetReminderNotifyEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17298,7 +13016,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetReminderNotifyInApp = v;
+                s.setNoSetReminderNotifyInApp(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17309,7 +13027,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noSetRecipientSettingsStack = v;
+                s.setNoSetRecipientSettingsStack(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17320,7 +13038,7 @@ void readNotebookRestrictions(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.noCanMoveNote = v;
+                s.setNoCanMoveNote(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17335,351 +13053,109 @@ void readNotebookRestrictions(
     reader.readStructEnd();
 }
 
-void NotebookRestrictions::print(QTextStream & strm) const
-{
-    strm << "NotebookRestrictions: {\n";
-    localData.print(strm);
-
-    if (noReadNotes.isSet()) {
-        strm << "    noReadNotes = "
-            << noReadNotes.ref() << "\n";
-    }
-    else {
-        strm << "    noReadNotes is not set\n";
-    }
-
-    if (noCreateNotes.isSet()) {
-        strm << "    noCreateNotes = "
-            << noCreateNotes.ref() << "\n";
-    }
-    else {
-        strm << "    noCreateNotes is not set\n";
-    }
-
-    if (noUpdateNotes.isSet()) {
-        strm << "    noUpdateNotes = "
-            << noUpdateNotes.ref() << "\n";
-    }
-    else {
-        strm << "    noUpdateNotes is not set\n";
-    }
-
-    if (noExpungeNotes.isSet()) {
-        strm << "    noExpungeNotes = "
-            << noExpungeNotes.ref() << "\n";
-    }
-    else {
-        strm << "    noExpungeNotes is not set\n";
-    }
-
-    if (noShareNotes.isSet()) {
-        strm << "    noShareNotes = "
-            << noShareNotes.ref() << "\n";
-    }
-    else {
-        strm << "    noShareNotes is not set\n";
-    }
-
-    if (noEmailNotes.isSet()) {
-        strm << "    noEmailNotes = "
-            << noEmailNotes.ref() << "\n";
-    }
-    else {
-        strm << "    noEmailNotes is not set\n";
-    }
-
-    if (noSendMessageToRecipients.isSet()) {
-        strm << "    noSendMessageToRecipients = "
-            << noSendMessageToRecipients.ref() << "\n";
-    }
-    else {
-        strm << "    noSendMessageToRecipients is not set\n";
-    }
-
-    if (noUpdateNotebook.isSet()) {
-        strm << "    noUpdateNotebook = "
-            << noUpdateNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    noUpdateNotebook is not set\n";
-    }
-
-    if (noExpungeNotebook.isSet()) {
-        strm << "    noExpungeNotebook = "
-            << noExpungeNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    noExpungeNotebook is not set\n";
-    }
-
-    if (noSetDefaultNotebook.isSet()) {
-        strm << "    noSetDefaultNotebook = "
-            << noSetDefaultNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    noSetDefaultNotebook is not set\n";
-    }
-
-    if (noSetNotebookStack.isSet()) {
-        strm << "    noSetNotebookStack = "
-            << noSetNotebookStack.ref() << "\n";
-    }
-    else {
-        strm << "    noSetNotebookStack is not set\n";
-    }
-
-    if (noPublishToPublic.isSet()) {
-        strm << "    noPublishToPublic = "
-            << noPublishToPublic.ref() << "\n";
-    }
-    else {
-        strm << "    noPublishToPublic is not set\n";
-    }
-
-    if (noPublishToBusinessLibrary.isSet()) {
-        strm << "    noPublishToBusinessLibrary = "
-            << noPublishToBusinessLibrary.ref() << "\n";
-    }
-    else {
-        strm << "    noPublishToBusinessLibrary is not set\n";
-    }
-
-    if (noCreateTags.isSet()) {
-        strm << "    noCreateTags = "
-            << noCreateTags.ref() << "\n";
-    }
-    else {
-        strm << "    noCreateTags is not set\n";
-    }
-
-    if (noUpdateTags.isSet()) {
-        strm << "    noUpdateTags = "
-            << noUpdateTags.ref() << "\n";
-    }
-    else {
-        strm << "    noUpdateTags is not set\n";
-    }
-
-    if (noExpungeTags.isSet()) {
-        strm << "    noExpungeTags = "
-            << noExpungeTags.ref() << "\n";
-    }
-    else {
-        strm << "    noExpungeTags is not set\n";
-    }
-
-    if (noSetParentTag.isSet()) {
-        strm << "    noSetParentTag = "
-            << noSetParentTag.ref() << "\n";
-    }
-    else {
-        strm << "    noSetParentTag is not set\n";
-    }
-
-    if (noCreateSharedNotebooks.isSet()) {
-        strm << "    noCreateSharedNotebooks = "
-            << noCreateSharedNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    noCreateSharedNotebooks is not set\n";
-    }
-
-    if (updateWhichSharedNotebookRestrictions.isSet()) {
-        strm << "    updateWhichSharedNotebookRestrictions = "
-            << updateWhichSharedNotebookRestrictions.ref() << "\n";
-    }
-    else {
-        strm << "    updateWhichSharedNotebookRestrictions is not set\n";
-    }
-
-    if (expungeWhichSharedNotebookRestrictions.isSet()) {
-        strm << "    expungeWhichSharedNotebookRestrictions = "
-            << expungeWhichSharedNotebookRestrictions.ref() << "\n";
-    }
-    else {
-        strm << "    expungeWhichSharedNotebookRestrictions is not set\n";
-    }
-
-    if (noShareNotesWithBusiness.isSet()) {
-        strm << "    noShareNotesWithBusiness = "
-            << noShareNotesWithBusiness.ref() << "\n";
-    }
-    else {
-        strm << "    noShareNotesWithBusiness is not set\n";
-    }
-
-    if (noRenameNotebook.isSet()) {
-        strm << "    noRenameNotebook = "
-            << noRenameNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    noRenameNotebook is not set\n";
-    }
-
-    if (noSetInMyList.isSet()) {
-        strm << "    noSetInMyList = "
-            << noSetInMyList.ref() << "\n";
-    }
-    else {
-        strm << "    noSetInMyList is not set\n";
-    }
-
-    if (noChangeContact.isSet()) {
-        strm << "    noChangeContact = "
-            << noChangeContact.ref() << "\n";
-    }
-    else {
-        strm << "    noChangeContact is not set\n";
-    }
-
-    if (canMoveToContainerRestrictions.isSet()) {
-        strm << "    canMoveToContainerRestrictions = "
-            << canMoveToContainerRestrictions.ref() << "\n";
-    }
-    else {
-        strm << "    canMoveToContainerRestrictions is not set\n";
-    }
-
-    if (noSetReminderNotifyEmail.isSet()) {
-        strm << "    noSetReminderNotifyEmail = "
-            << noSetReminderNotifyEmail.ref() << "\n";
-    }
-    else {
-        strm << "    noSetReminderNotifyEmail is not set\n";
-    }
-
-    if (noSetReminderNotifyInApp.isSet()) {
-        strm << "    noSetReminderNotifyInApp = "
-            << noSetReminderNotifyInApp.ref() << "\n";
-    }
-    else {
-        strm << "    noSetReminderNotifyInApp is not set\n";
-    }
-
-    if (noSetRecipientSettingsStack.isSet()) {
-        strm << "    noSetRecipientSettingsStack = "
-            << noSetRecipientSettingsStack.ref() << "\n";
-    }
-    else {
-        strm << "    noSetRecipientSettingsStack is not set\n";
-    }
-
-    if (noCanMoveNote.isSet()) {
-        strm << "    noCanMoveNote = "
-            << noCanMoveNote.ref() << "\n";
-    }
-    else {
-        strm << "    noCanMoveNote is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotebook(
     ThriftBinaryBufferWriter & writer,
     const Notebook & s)
 {
     writer.writeStructBegin(QStringLiteral("Notebook"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.name.isSet()) {
+    if (s.name()) {
         writer.writeFieldBegin(
             QStringLiteral("name"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.name.ref());
+        writer.writeString(*s.name());
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.defaultNotebook.isSet()) {
+    if (s.defaultNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("defaultNotebook"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.defaultNotebook.ref());
+        writer.writeBool(*s.defaultNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceCreated.isSet()) {
+    if (s.serviceCreated()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceCreated"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.serviceCreated.ref());
+        writer.writeI64(*s.serviceCreated());
         writer.writeFieldEnd();
     }
 
-    if (s.serviceUpdated.isSet()) {
+    if (s.serviceUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceUpdated"),
             ThriftFieldType::T_I64,
             8);
 
-        writer.writeI64(s.serviceUpdated.ref());
+        writer.writeI64(*s.serviceUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.publishing.isSet()) {
+    if (s.publishing()) {
         writer.writeFieldBegin(
             QStringLiteral("publishing"),
             ThriftFieldType::T_STRUCT,
             10);
 
-        writePublishing(writer, s.publishing.ref());
+        writePublishing(writer, *s.publishing());
         writer.writeFieldEnd();
     }
 
-    if (s.published.isSet()) {
+    if (s.published()) {
         writer.writeFieldBegin(
             QStringLiteral("published"),
             ThriftFieldType::T_BOOL,
             11);
 
-        writer.writeBool(s.published.ref());
+        writer.writeBool(*s.published());
         writer.writeFieldEnd();
     }
 
-    if (s.stack.isSet()) {
+    if (s.stack()) {
         writer.writeFieldBegin(
             QStringLiteral("stack"),
             ThriftFieldType::T_STRING,
             12);
 
-        writer.writeString(s.stack.ref());
+        writer.writeString(*s.stack());
         writer.writeFieldEnd();
     }
 
-    if (s.sharedNotebookIds.isSet()) {
+    if (s.sharedNotebookIds()) {
         writer.writeFieldBegin(
             QStringLiteral("sharedNotebookIds"),
             ThriftFieldType::T_LIST,
             13);
 
-        writer.writeListBegin(ThriftFieldType::T_I64, s.sharedNotebookIds.ref().length());
-        for(const auto & value: qAsConst(s.sharedNotebookIds.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_I64, s.sharedNotebookIds()->length());
+        for(const auto & value: qAsConst(*s.sharedNotebookIds())) {
             writer.writeI64(value);
         }
         writer.writeListEnd();
@@ -17687,14 +13163,14 @@ void writeNotebook(
         writer.writeFieldEnd();
     }
 
-    if (s.sharedNotebooks.isSet()) {
+    if (s.sharedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("sharedNotebooks"),
             ThriftFieldType::T_LIST,
             14);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.sharedNotebooks.ref().length());
-        for(const auto & value: qAsConst(s.sharedNotebooks.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.sharedNotebooks()->length());
+        for(const auto & value: qAsConst(*s.sharedNotebooks())) {
             writeSharedNotebook(writer, value);
         }
         writer.writeListEnd();
@@ -17702,43 +13178,43 @@ void writeNotebook(
         writer.writeFieldEnd();
     }
 
-    if (s.businessNotebook.isSet()) {
+    if (s.businessNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("businessNotebook"),
             ThriftFieldType::T_STRUCT,
             15);
 
-        writeBusinessNotebook(writer, s.businessNotebook.ref());
+        writeBusinessNotebook(writer, *s.businessNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.contact.isSet()) {
+    if (s.contact()) {
         writer.writeFieldBegin(
             QStringLiteral("contact"),
             ThriftFieldType::T_STRUCT,
             16);
 
-        writeUser(writer, s.contact.ref());
+        writeUser(writer, *s.contact());
         writer.writeFieldEnd();
     }
 
-    if (s.restrictions.isSet()) {
+    if (s.restrictions()) {
         writer.writeFieldBegin(
             QStringLiteral("restrictions"),
             ThriftFieldType::T_STRUCT,
             17);
 
-        writeNotebookRestrictions(writer, s.restrictions.ref());
+        writeNotebookRestrictions(writer, *s.restrictions());
         writer.writeFieldEnd();
     }
 
-    if (s.recipientSettings.isSet()) {
+    if (s.recipientSettings()) {
         writer.writeFieldBegin(
             QStringLiteral("recipientSettings"),
             ThriftFieldType::T_STRUCT,
             18);
 
-        writeNotebookRecipientSettings(writer, s.recipientSettings.ref());
+        writeNotebookRecipientSettings(writer, *s.recipientSettings());
         writer.writeFieldEnd();
     }
 
@@ -17762,7 +13238,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17773,7 +13249,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17784,7 +13260,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17795,7 +13271,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.defaultNotebook = v;
+                s.setDefaultNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17806,7 +13282,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceCreated = v;
+                s.setServiceCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17817,7 +13293,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.serviceUpdated = v;
+                s.setServiceUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17828,7 +13304,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Publishing v;
                 readPublishing(reader, v);
-                s.publishing = v;
+                s.setPublishing(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17839,7 +13315,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.published = v;
+                s.setPublished(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17850,7 +13326,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.stack = v;
+                s.setStack(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17875,7 +13351,7 @@ void readNotebook(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.sharedNotebookIds = v;
+                s.setSharedNotebookIds(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17900,7 +13376,7 @@ void readNotebook(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.sharedNotebooks = v;
+                s.setSharedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17911,7 +13387,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 BusinessNotebook v;
                 readBusinessNotebook(reader, v);
-                s.businessNotebook = v;
+                s.setBusinessNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17922,7 +13398,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 User v;
                 readUser(reader, v);
-                s.contact = v;
+                s.setContact(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17933,7 +13409,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NotebookRestrictions v;
                 readNotebookRestrictions(reader, v);
-                s.restrictions = v;
+                s.setRestrictions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17944,7 +13420,7 @@ void readNotebook(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 NotebookRecipientSettings v;
                 readNotebookRecipientSettings(reader, v);
-                s.recipientSettings = v;
+                s.setRecipientSettings(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -17959,256 +13435,118 @@ void readNotebook(
     reader.readStructEnd();
 }
 
-void Notebook::print(QTextStream & strm) const
-{
-    strm << "Notebook: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (name.isSet()) {
-        strm << "    name = "
-            << name.ref() << "\n";
-    }
-    else {
-        strm << "    name is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (defaultNotebook.isSet()) {
-        strm << "    defaultNotebook = "
-            << defaultNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    defaultNotebook is not set\n";
-    }
-
-    if (serviceCreated.isSet()) {
-        strm << "    serviceCreated = "
-            << serviceCreated.ref() << "\n";
-    }
-    else {
-        strm << "    serviceCreated is not set\n";
-    }
-
-    if (serviceUpdated.isSet()) {
-        strm << "    serviceUpdated = "
-            << serviceUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    serviceUpdated is not set\n";
-    }
-
-    if (publishing.isSet()) {
-        strm << "    publishing = "
-            << publishing.ref() << "\n";
-    }
-    else {
-        strm << "    publishing is not set\n";
-    }
-
-    if (published.isSet()) {
-        strm << "    published = "
-            << published.ref() << "\n";
-    }
-    else {
-        strm << "    published is not set\n";
-    }
-
-    if (stack.isSet()) {
-        strm << "    stack = "
-            << stack.ref() << "\n";
-    }
-    else {
-        strm << "    stack is not set\n";
-    }
-
-    if (sharedNotebookIds.isSet()) {
-        strm << "    sharedNotebookIds = "
-            << "QList<qint64> {";
-        for(const auto & v: sharedNotebookIds.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    sharedNotebookIds is not set\n";
-    }
-
-    if (sharedNotebooks.isSet()) {
-        strm << "    sharedNotebooks = "
-            << "QList<SharedNotebook> {";
-        for(const auto & v: sharedNotebooks.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    sharedNotebooks is not set\n";
-    }
-
-    if (businessNotebook.isSet()) {
-        strm << "    businessNotebook = "
-            << businessNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    businessNotebook is not set\n";
-    }
-
-    if (contact.isSet()) {
-        strm << "    contact = "
-            << contact.ref() << "\n";
-    }
-    else {
-        strm << "    contact is not set\n";
-    }
-
-    if (restrictions.isSet()) {
-        strm << "    restrictions = "
-            << restrictions.ref() << "\n";
-    }
-    else {
-        strm << "    restrictions is not set\n";
-    }
-
-    if (recipientSettings.isSet()) {
-        strm << "    recipientSettings = "
-            << recipientSettings.ref() << "\n";
-    }
-    else {
-        strm << "    recipientSettings is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeLinkedNotebook(
     ThriftBinaryBufferWriter & writer,
     const LinkedNotebook & s)
 {
     writer.writeStructBegin(QStringLiteral("LinkedNotebook"));
-    if (s.shareName.isSet()) {
+    if (s.shareName()) {
         writer.writeFieldBegin(
             QStringLiteral("shareName"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.shareName.ref());
+        writer.writeString(*s.shareName());
         writer.writeFieldEnd();
     }
 
-    if (s.username.isSet()) {
+    if (s.username()) {
         writer.writeFieldBegin(
             QStringLiteral("username"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.username.ref());
+        writer.writeString(*s.username());
         writer.writeFieldEnd();
     }
 
-    if (s.shardId.isSet()) {
+    if (s.shardId()) {
         writer.writeFieldBegin(
             QStringLiteral("shardId"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.shardId.ref());
+        writer.writeString(*s.shardId());
         writer.writeFieldEnd();
     }
 
-    if (s.sharedNotebookGlobalId.isSet()) {
+    if (s.sharedNotebookGlobalId()) {
         writer.writeFieldBegin(
             QStringLiteral("sharedNotebookGlobalId"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.sharedNotebookGlobalId.ref());
+        writer.writeString(*s.sharedNotebookGlobalId());
         writer.writeFieldEnd();
     }
 
-    if (s.uri.isSet()) {
+    if (s.uri()) {
         writer.writeFieldBegin(
             QStringLiteral("uri"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.uri.ref());
+        writer.writeString(*s.uri());
         writer.writeFieldEnd();
     }
 
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             7);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.updateSequenceNum.isSet()) {
+    if (s.updateSequenceNum()) {
         writer.writeFieldBegin(
             QStringLiteral("updateSequenceNum"),
             ThriftFieldType::T_I32,
             8);
 
-        writer.writeI32(s.updateSequenceNum.ref());
+        writer.writeI32(*s.updateSequenceNum());
         writer.writeFieldEnd();
     }
 
-    if (s.noteStoreUrl.isSet()) {
+    if (s.noteStoreUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("noteStoreUrl"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.noteStoreUrl.ref());
+        writer.writeString(*s.noteStoreUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.webApiUrlPrefix.isSet()) {
+    if (s.webApiUrlPrefix()) {
         writer.writeFieldBegin(
             QStringLiteral("webApiUrlPrefix"),
             ThriftFieldType::T_STRING,
             10);
 
-        writer.writeString(s.webApiUrlPrefix.ref());
+        writer.writeString(*s.webApiUrlPrefix());
         writer.writeFieldEnd();
     }
 
-    if (s.stack.isSet()) {
+    if (s.stack()) {
         writer.writeFieldBegin(
             QStringLiteral("stack"),
             ThriftFieldType::T_STRING,
             11);
 
-        writer.writeString(s.stack.ref());
+        writer.writeString(*s.stack());
         writer.writeFieldEnd();
     }
 
-    if (s.businessId.isSet()) {
+    if (s.businessId()) {
         writer.writeFieldBegin(
             QStringLiteral("businessId"),
             ThriftFieldType::T_I32,
             12);
 
-        writer.writeI32(s.businessId.ref());
+        writer.writeI32(*s.businessId());
         writer.writeFieldEnd();
     }
 
@@ -18232,7 +13570,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.shareName = v;
+                s.setShareName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18243,7 +13581,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.username = v;
+                s.setUsername(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18254,7 +13592,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.shardId = v;
+                s.setShardId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18265,7 +13603,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sharedNotebookGlobalId = v;
+                s.setSharedNotebookGlobalId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18276,7 +13614,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.uri = v;
+                s.setUri(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18287,7 +13625,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18298,7 +13636,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.updateSequenceNum = v;
+                s.setUpdateSequenceNum(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18309,7 +13647,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.noteStoreUrl = v;
+                s.setNoteStoreUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18320,7 +13658,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.webApiUrlPrefix = v;
+                s.setWebApiUrlPrefix(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18331,7 +13669,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.stack = v;
+                s.setStack(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18342,7 +13680,7 @@ void readLinkedNotebook(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.businessId = v;
+                s.setBusinessId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18357,156 +13695,58 @@ void readLinkedNotebook(
     reader.readStructEnd();
 }
 
-void LinkedNotebook::print(QTextStream & strm) const
-{
-    strm << "LinkedNotebook: {\n";
-    localData.print(strm);
-
-    if (shareName.isSet()) {
-        strm << "    shareName = "
-            << shareName.ref() << "\n";
-    }
-    else {
-        strm << "    shareName is not set\n";
-    }
-
-    if (username.isSet()) {
-        strm << "    username = "
-            << username.ref() << "\n";
-    }
-    else {
-        strm << "    username is not set\n";
-    }
-
-    if (shardId.isSet()) {
-        strm << "    shardId = "
-            << shardId.ref() << "\n";
-    }
-    else {
-        strm << "    shardId is not set\n";
-    }
-
-    if (sharedNotebookGlobalId.isSet()) {
-        strm << "    sharedNotebookGlobalId = "
-            << sharedNotebookGlobalId.ref() << "\n";
-    }
-    else {
-        strm << "    sharedNotebookGlobalId is not set\n";
-    }
-
-    if (uri.isSet()) {
-        strm << "    uri = "
-            << uri.ref() << "\n";
-    }
-    else {
-        strm << "    uri is not set\n";
-    }
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (updateSequenceNum.isSet()) {
-        strm << "    updateSequenceNum = "
-            << updateSequenceNum.ref() << "\n";
-    }
-    else {
-        strm << "    updateSequenceNum is not set\n";
-    }
-
-    if (noteStoreUrl.isSet()) {
-        strm << "    noteStoreUrl = "
-            << noteStoreUrl.ref() << "\n";
-    }
-    else {
-        strm << "    noteStoreUrl is not set\n";
-    }
-
-    if (webApiUrlPrefix.isSet()) {
-        strm << "    webApiUrlPrefix = "
-            << webApiUrlPrefix.ref() << "\n";
-    }
-    else {
-        strm << "    webApiUrlPrefix is not set\n";
-    }
-
-    if (stack.isSet()) {
-        strm << "    stack = "
-            << stack.ref() << "\n";
-    }
-    else {
-        strm << "    stack is not set\n";
-    }
-
-    if (businessId.isSet()) {
-        strm << "    businessId = "
-            << businessId.ref() << "\n";
-    }
-    else {
-        strm << "    businessId is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeNotebookDescriptor(
     ThriftBinaryBufferWriter & writer,
     const NotebookDescriptor & s)
 {
     writer.writeStructBegin(QStringLiteral("NotebookDescriptor"));
-    if (s.guid.isSet()) {
+    if (s.guid()) {
         writer.writeFieldBegin(
             QStringLiteral("guid"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.guid.ref());
+        writer.writeString(*s.guid());
         writer.writeFieldEnd();
     }
 
-    if (s.notebookDisplayName.isSet()) {
+    if (s.notebookDisplayName()) {
         writer.writeFieldBegin(
             QStringLiteral("notebookDisplayName"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.notebookDisplayName.ref());
+        writer.writeString(*s.notebookDisplayName());
         writer.writeFieldEnd();
     }
 
-    if (s.contactName.isSet()) {
+    if (s.contactName()) {
         writer.writeFieldBegin(
             QStringLiteral("contactName"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.contactName.ref());
+        writer.writeString(*s.contactName());
         writer.writeFieldEnd();
     }
 
-    if (s.hasSharedNotebook.isSet()) {
+    if (s.hasSharedNotebook()) {
         writer.writeFieldBegin(
             QStringLiteral("hasSharedNotebook"),
             ThriftFieldType::T_BOOL,
             4);
 
-        writer.writeBool(s.hasSharedNotebook.ref());
+        writer.writeBool(*s.hasSharedNotebook());
         writer.writeFieldEnd();
     }
 
-    if (s.joinedUserCount.isSet()) {
+    if (s.joinedUserCount()) {
         writer.writeFieldBegin(
             QStringLiteral("joinedUserCount"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.joinedUserCount.ref());
+        writer.writeI32(*s.joinedUserCount());
         writer.writeFieldEnd();
     }
 
@@ -18530,7 +13770,7 @@ void readNotebookDescriptor(
             if (fieldType == ThriftFieldType::T_STRING) {
                 Guid v;
                 reader.readString(v);
-                s.guid = v;
+                s.setGuid(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18541,7 +13781,7 @@ void readNotebookDescriptor(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.notebookDisplayName = v;
+                s.setNotebookDisplayName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18552,7 +13792,7 @@ void readNotebookDescriptor(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.contactName = v;
+                s.setContactName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18563,7 +13803,7 @@ void readNotebookDescriptor(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.hasSharedNotebook = v;
+                s.setHasSharedNotebook(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18574,7 +13814,7 @@ void readNotebookDescriptor(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.joinedUserCount = v;
+                s.setJoinedUserCount(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18589,158 +13829,108 @@ void readNotebookDescriptor(
     reader.readStructEnd();
 }
 
-void NotebookDescriptor::print(QTextStream & strm) const
-{
-    strm << "NotebookDescriptor: {\n";
-    localData.print(strm);
-
-    if (guid.isSet()) {
-        strm << "    guid = "
-            << guid.ref() << "\n";
-    }
-    else {
-        strm << "    guid is not set\n";
-    }
-
-    if (notebookDisplayName.isSet()) {
-        strm << "    notebookDisplayName = "
-            << notebookDisplayName.ref() << "\n";
-    }
-    else {
-        strm << "    notebookDisplayName is not set\n";
-    }
-
-    if (contactName.isSet()) {
-        strm << "    contactName = "
-            << contactName.ref() << "\n";
-    }
-    else {
-        strm << "    contactName is not set\n";
-    }
-
-    if (hasSharedNotebook.isSet()) {
-        strm << "    hasSharedNotebook = "
-            << hasSharedNotebook.ref() << "\n";
-    }
-    else {
-        strm << "    hasSharedNotebook is not set\n";
-    }
-
-    if (joinedUserCount.isSet()) {
-        strm << "    joinedUserCount = "
-            << joinedUserCount.ref() << "\n";
-    }
-    else {
-        strm << "    joinedUserCount is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeUserProfile(
     ThriftBinaryBufferWriter & writer,
     const UserProfile & s)
 {
     writer.writeStructBegin(QStringLiteral("UserProfile"));
-    if (s.id.isSet()) {
+    if (s.id()) {
         writer.writeFieldBegin(
             QStringLiteral("id"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.id.ref());
+        writer.writeI32(*s.id());
         writer.writeFieldEnd();
     }
 
-    if (s.name.isSet()) {
+    if (s.name()) {
         writer.writeFieldBegin(
             QStringLiteral("name"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.name.ref());
+        writer.writeString(*s.name());
         writer.writeFieldEnd();
     }
 
-    if (s.email.isSet()) {
+    if (s.email()) {
         writer.writeFieldBegin(
             QStringLiteral("email"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.email.ref());
+        writer.writeString(*s.email());
         writer.writeFieldEnd();
     }
 
-    if (s.username.isSet()) {
+    if (s.username()) {
         writer.writeFieldBegin(
             QStringLiteral("username"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.username.ref());
+        writer.writeString(*s.username());
         writer.writeFieldEnd();
     }
 
-    if (s.attributes.isSet()) {
+    if (s.attributes()) {
         writer.writeFieldBegin(
             QStringLiteral("attributes"),
             ThriftFieldType::T_STRUCT,
             5);
 
-        writeBusinessUserAttributes(writer, s.attributes.ref());
+        writeBusinessUserAttributes(writer, *s.attributes());
         writer.writeFieldEnd();
     }
 
-    if (s.joined.isSet()) {
+    if (s.joined()) {
         writer.writeFieldBegin(
             QStringLiteral("joined"),
             ThriftFieldType::T_I64,
             6);
 
-        writer.writeI64(s.joined.ref());
+        writer.writeI64(*s.joined());
         writer.writeFieldEnd();
     }
 
-    if (s.photoLastUpdated.isSet()) {
+    if (s.photoLastUpdated()) {
         writer.writeFieldBegin(
             QStringLiteral("photoLastUpdated"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.photoLastUpdated.ref());
+        writer.writeI64(*s.photoLastUpdated());
         writer.writeFieldEnd();
     }
 
-    if (s.photoUrl.isSet()) {
+    if (s.photoUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("photoUrl"),
             ThriftFieldType::T_STRING,
             8);
 
-        writer.writeString(s.photoUrl.ref());
+        writer.writeString(*s.photoUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.role.isSet()) {
+    if (s.role()) {
         writer.writeFieldBegin(
             QStringLiteral("role"),
             ThriftFieldType::T_I32,
             9);
 
-        writer.writeI32(static_cast<qint32>(s.role.ref()));
+        writer.writeI32(static_cast<qint32>(*s.role()));
         writer.writeFieldEnd();
     }
 
-    if (s.status.isSet()) {
+    if (s.status()) {
         writer.writeFieldBegin(
             QStringLiteral("status"),
             ThriftFieldType::T_I32,
             10);
 
-        writer.writeI32(static_cast<qint32>(s.status.ref()));
+        writer.writeI32(static_cast<qint32>(*s.status()));
         writer.writeFieldEnd();
     }
 
@@ -18764,7 +13954,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.id = v;
+                s.setId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18775,7 +13965,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18786,7 +13976,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.email = v;
+                s.setEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18797,7 +13987,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.username = v;
+                s.setUsername(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18808,7 +13998,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 BusinessUserAttributes v;
                 readBusinessUserAttributes(reader, v);
-                s.attributes = v;
+                s.setAttributes(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18819,7 +14009,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.joined = v;
+                s.setJoined(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18830,7 +14020,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.photoLastUpdated = v;
+                s.setPhotoLastUpdated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18841,7 +14031,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.photoUrl = v;
+                s.setPhotoUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18852,7 +14042,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_I32) {
                 BusinessUserRole v;
                 readEnumBusinessUserRole(reader, v);
-                s.role = v;
+                s.setRole(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18863,7 +14053,7 @@ void readUserProfile(
             if (fieldType == ThriftFieldType::T_I32) {
                 BusinessUserStatus v;
                 readEnumBusinessUserStatus(reader, v);
-                s.status = v;
+                s.setStatus(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -18878,148 +14068,58 @@ void readUserProfile(
     reader.readStructEnd();
 }
 
-void UserProfile::print(QTextStream & strm) const
-{
-    strm << "UserProfile: {\n";
-    localData.print(strm);
-
-    if (id.isSet()) {
-        strm << "    id = "
-            << id.ref() << "\n";
-    }
-    else {
-        strm << "    id is not set\n";
-    }
-
-    if (name.isSet()) {
-        strm << "    name = "
-            << name.ref() << "\n";
-    }
-    else {
-        strm << "    name is not set\n";
-    }
-
-    if (email.isSet()) {
-        strm << "    email = "
-            << email.ref() << "\n";
-    }
-    else {
-        strm << "    email is not set\n";
-    }
-
-    if (username.isSet()) {
-        strm << "    username = "
-            << username.ref() << "\n";
-    }
-    else {
-        strm << "    username is not set\n";
-    }
-
-    if (attributes.isSet()) {
-        strm << "    attributes = "
-            << attributes.ref() << "\n";
-    }
-    else {
-        strm << "    attributes is not set\n";
-    }
-
-    if (joined.isSet()) {
-        strm << "    joined = "
-            << joined.ref() << "\n";
-    }
-    else {
-        strm << "    joined is not set\n";
-    }
-
-    if (photoLastUpdated.isSet()) {
-        strm << "    photoLastUpdated = "
-            << photoLastUpdated.ref() << "\n";
-    }
-    else {
-        strm << "    photoLastUpdated is not set\n";
-    }
-
-    if (photoUrl.isSet()) {
-        strm << "    photoUrl = "
-            << photoUrl.ref() << "\n";
-    }
-    else {
-        strm << "    photoUrl is not set\n";
-    }
-
-    if (role.isSet()) {
-        strm << "    role = "
-            << role.ref() << "\n";
-    }
-    else {
-        strm << "    role is not set\n";
-    }
-
-    if (status.isSet()) {
-        strm << "    status = "
-            << status.ref() << "\n";
-    }
-    else {
-        strm << "    status is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeRelatedContentImage(
     ThriftBinaryBufferWriter & writer,
     const RelatedContentImage & s)
 {
     writer.writeStructBegin(QStringLiteral("RelatedContentImage"));
-    if (s.url.isSet()) {
+    if (s.url()) {
         writer.writeFieldBegin(
             QStringLiteral("url"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.url.ref());
+        writer.writeString(*s.url());
         writer.writeFieldEnd();
     }
 
-    if (s.width.isSet()) {
+    if (s.width()) {
         writer.writeFieldBegin(
             QStringLiteral("width"),
             ThriftFieldType::T_I32,
             2);
 
-        writer.writeI32(s.width.ref());
+        writer.writeI32(*s.width());
         writer.writeFieldEnd();
     }
 
-    if (s.height.isSet()) {
+    if (s.height()) {
         writer.writeFieldBegin(
             QStringLiteral("height"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(s.height.ref());
+        writer.writeI32(*s.height());
         writer.writeFieldEnd();
     }
 
-    if (s.pixelRatio.isSet()) {
+    if (s.pixelRatio()) {
         writer.writeFieldBegin(
             QStringLiteral("pixelRatio"),
             ThriftFieldType::T_DOUBLE,
             4);
 
-        writer.writeDouble(s.pixelRatio.ref());
+        writer.writeDouble(*s.pixelRatio());
         writer.writeFieldEnd();
     }
 
-    if (s.fileSize.isSet()) {
+    if (s.fileSize()) {
         writer.writeFieldBegin(
             QStringLiteral("fileSize"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.fileSize.ref());
+        writer.writeI32(*s.fileSize());
         writer.writeFieldEnd();
     }
 
@@ -19043,7 +14143,7 @@ void readRelatedContentImage(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.url = v;
+                s.setUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19054,7 +14154,7 @@ void readRelatedContentImage(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.width = v;
+                s.setWidth(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19065,7 +14165,7 @@ void readRelatedContentImage(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.height = v;
+                s.setHeight(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19076,7 +14176,7 @@ void readRelatedContentImage(
             if (fieldType == ThriftFieldType::T_DOUBLE) {
                 double v;
                 reader.readDouble(v);
-                s.pixelRatio = v;
+                s.setPixelRatio(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19087,7 +14187,7 @@ void readRelatedContentImage(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.fileSize = v;
+                s.setFileSize(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19102,159 +14202,109 @@ void readRelatedContentImage(
     reader.readStructEnd();
 }
 
-void RelatedContentImage::print(QTextStream & strm) const
-{
-    strm << "RelatedContentImage: {\n";
-    localData.print(strm);
-
-    if (url.isSet()) {
-        strm << "    url = "
-            << url.ref() << "\n";
-    }
-    else {
-        strm << "    url is not set\n";
-    }
-
-    if (width.isSet()) {
-        strm << "    width = "
-            << width.ref() << "\n";
-    }
-    else {
-        strm << "    width is not set\n";
-    }
-
-    if (height.isSet()) {
-        strm << "    height = "
-            << height.ref() << "\n";
-    }
-    else {
-        strm << "    height is not set\n";
-    }
-
-    if (pixelRatio.isSet()) {
-        strm << "    pixelRatio = "
-            << pixelRatio.ref() << "\n";
-    }
-    else {
-        strm << "    pixelRatio is not set\n";
-    }
-
-    if (fileSize.isSet()) {
-        strm << "    fileSize = "
-            << fileSize.ref() << "\n";
-    }
-    else {
-        strm << "    fileSize is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeRelatedContent(
     ThriftBinaryBufferWriter & writer,
     const RelatedContent & s)
 {
     writer.writeStructBegin(QStringLiteral("RelatedContent"));
-    if (s.contentId.isSet()) {
+    if (s.contentId()) {
         writer.writeFieldBegin(
             QStringLiteral("contentId"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.contentId.ref());
+        writer.writeString(*s.contentId());
         writer.writeFieldEnd();
     }
 
-    if (s.title.isSet()) {
+    if (s.title()) {
         writer.writeFieldBegin(
             QStringLiteral("title"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.title.ref());
+        writer.writeString(*s.title());
         writer.writeFieldEnd();
     }
 
-    if (s.url.isSet()) {
+    if (s.url()) {
         writer.writeFieldBegin(
             QStringLiteral("url"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.url.ref());
+        writer.writeString(*s.url());
         writer.writeFieldEnd();
     }
 
-    if (s.sourceId.isSet()) {
+    if (s.sourceId()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceId"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.sourceId.ref());
+        writer.writeString(*s.sourceId());
         writer.writeFieldEnd();
     }
 
-    if (s.sourceUrl.isSet()) {
+    if (s.sourceUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceUrl"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.sourceUrl.ref());
+        writer.writeString(*s.sourceUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.sourceFaviconUrl.isSet()) {
+    if (s.sourceFaviconUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceFaviconUrl"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.sourceFaviconUrl.ref());
+        writer.writeString(*s.sourceFaviconUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.sourceName.isSet()) {
+    if (s.sourceName()) {
         writer.writeFieldBegin(
             QStringLiteral("sourceName"),
             ThriftFieldType::T_STRING,
             7);
 
-        writer.writeString(s.sourceName.ref());
+        writer.writeString(*s.sourceName());
         writer.writeFieldEnd();
     }
 
-    if (s.date.isSet()) {
+    if (s.date()) {
         writer.writeFieldBegin(
             QStringLiteral("date"),
             ThriftFieldType::T_I64,
             8);
 
-        writer.writeI64(s.date.ref());
+        writer.writeI64(*s.date());
         writer.writeFieldEnd();
     }
 
-    if (s.teaser.isSet()) {
+    if (s.teaser()) {
         writer.writeFieldBegin(
             QStringLiteral("teaser"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.teaser.ref());
+        writer.writeString(*s.teaser());
         writer.writeFieldEnd();
     }
 
-    if (s.thumbnails.isSet()) {
+    if (s.thumbnails()) {
         writer.writeFieldBegin(
             QStringLiteral("thumbnails"),
             ThriftFieldType::T_LIST,
             10);
 
-        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.thumbnails.ref().length());
-        for(const auto & value: qAsConst(s.thumbnails.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRUCT, s.thumbnails()->length());
+        for(const auto & value: qAsConst(*s.thumbnails())) {
             writeRelatedContentImage(writer, value);
         }
         writer.writeListEnd();
@@ -19262,64 +14312,64 @@ void writeRelatedContent(
         writer.writeFieldEnd();
     }
 
-    if (s.contentType.isSet()) {
+    if (s.contentType()) {
         writer.writeFieldBegin(
             QStringLiteral("contentType"),
             ThriftFieldType::T_I32,
             11);
 
-        writer.writeI32(static_cast<qint32>(s.contentType.ref()));
+        writer.writeI32(static_cast<qint32>(*s.contentType()));
         writer.writeFieldEnd();
     }
 
-    if (s.accessType.isSet()) {
+    if (s.accessType()) {
         writer.writeFieldBegin(
             QStringLiteral("accessType"),
             ThriftFieldType::T_I32,
             12);
 
-        writer.writeI32(static_cast<qint32>(s.accessType.ref()));
+        writer.writeI32(static_cast<qint32>(*s.accessType()));
         writer.writeFieldEnd();
     }
 
-    if (s.visibleUrl.isSet()) {
+    if (s.visibleUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("visibleUrl"),
             ThriftFieldType::T_STRING,
             13);
 
-        writer.writeString(s.visibleUrl.ref());
+        writer.writeString(*s.visibleUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.clipUrl.isSet()) {
+    if (s.clipUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("clipUrl"),
             ThriftFieldType::T_STRING,
             14);
 
-        writer.writeString(s.clipUrl.ref());
+        writer.writeString(*s.clipUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.contact.isSet()) {
+    if (s.contact()) {
         writer.writeFieldBegin(
             QStringLiteral("contact"),
             ThriftFieldType::T_STRUCT,
             15);
 
-        writeContact(writer, s.contact.ref());
+        writeContact(writer, *s.contact());
         writer.writeFieldEnd();
     }
 
-    if (s.authors.isSet()) {
+    if (s.authors()) {
         writer.writeFieldBegin(
             QStringLiteral("authors"),
             ThriftFieldType::T_LIST,
             16);
 
-        writer.writeListBegin(ThriftFieldType::T_STRING, s.authors.ref().length());
-        for(const auto & value: qAsConst(s.authors.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_STRING, s.authors()->length());
+        for(const auto & value: qAsConst(*s.authors())) {
             writer.writeString(value);
         }
         writer.writeListEnd();
@@ -19347,7 +14397,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.contentId = v;
+                s.setContentId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19358,7 +14408,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.title = v;
+                s.setTitle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19369,7 +14419,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.url = v;
+                s.setUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19380,7 +14430,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceId = v;
+                s.setSourceId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19391,7 +14441,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceUrl = v;
+                s.setSourceUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19402,7 +14452,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceFaviconUrl = v;
+                s.setSourceFaviconUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19413,7 +14463,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.sourceName = v;
+                s.setSourceName(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19424,7 +14474,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.date = v;
+                s.setDate(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19435,7 +14485,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.teaser = v;
+                s.setTeaser(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19460,7 +14510,7 @@ void readRelatedContent(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.thumbnails = v;
+                s.setThumbnails(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19471,7 +14521,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_I32) {
                 RelatedContentType v;
                 readEnumRelatedContentType(reader, v);
-                s.contentType = v;
+                s.setContentType(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19482,7 +14532,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_I32) {
                 RelatedContentAccess v;
                 readEnumRelatedContentAccess(reader, v);
-                s.accessType = v;
+                s.setAccessType(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19493,7 +14543,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.visibleUrl = v;
+                s.setVisibleUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19504,7 +14554,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.clipUrl = v;
+                s.setClipUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19515,7 +14565,7 @@ void readRelatedContent(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 Contact v;
                 readContact(reader, v);
-                s.contact = v;
+                s.setContact(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19540,7 +14590,7 @@ void readRelatedContent(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.authors = v;
+                s.setAuthors(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19555,234 +14605,88 @@ void readRelatedContent(
     reader.readStructEnd();
 }
 
-void RelatedContent::print(QTextStream & strm) const
-{
-    strm << "RelatedContent: {\n";
-    localData.print(strm);
-
-    if (contentId.isSet()) {
-        strm << "    contentId = "
-            << contentId.ref() << "\n";
-    }
-    else {
-        strm << "    contentId is not set\n";
-    }
-
-    if (title.isSet()) {
-        strm << "    title = "
-            << title.ref() << "\n";
-    }
-    else {
-        strm << "    title is not set\n";
-    }
-
-    if (url.isSet()) {
-        strm << "    url = "
-            << url.ref() << "\n";
-    }
-    else {
-        strm << "    url is not set\n";
-    }
-
-    if (sourceId.isSet()) {
-        strm << "    sourceId = "
-            << sourceId.ref() << "\n";
-    }
-    else {
-        strm << "    sourceId is not set\n";
-    }
-
-    if (sourceUrl.isSet()) {
-        strm << "    sourceUrl = "
-            << sourceUrl.ref() << "\n";
-    }
-    else {
-        strm << "    sourceUrl is not set\n";
-    }
-
-    if (sourceFaviconUrl.isSet()) {
-        strm << "    sourceFaviconUrl = "
-            << sourceFaviconUrl.ref() << "\n";
-    }
-    else {
-        strm << "    sourceFaviconUrl is not set\n";
-    }
-
-    if (sourceName.isSet()) {
-        strm << "    sourceName = "
-            << sourceName.ref() << "\n";
-    }
-    else {
-        strm << "    sourceName is not set\n";
-    }
-
-    if (date.isSet()) {
-        strm << "    date = "
-            << date.ref() << "\n";
-    }
-    else {
-        strm << "    date is not set\n";
-    }
-
-    if (teaser.isSet()) {
-        strm << "    teaser = "
-            << teaser.ref() << "\n";
-    }
-    else {
-        strm << "    teaser is not set\n";
-    }
-
-    if (thumbnails.isSet()) {
-        strm << "    thumbnails = "
-            << "QList<RelatedContentImage> {";
-        for(const auto & v: thumbnails.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    thumbnails is not set\n";
-    }
-
-    if (contentType.isSet()) {
-        strm << "    contentType = "
-            << contentType.ref() << "\n";
-    }
-    else {
-        strm << "    contentType is not set\n";
-    }
-
-    if (accessType.isSet()) {
-        strm << "    accessType = "
-            << accessType.ref() << "\n";
-    }
-    else {
-        strm << "    accessType is not set\n";
-    }
-
-    if (visibleUrl.isSet()) {
-        strm << "    visibleUrl = "
-            << visibleUrl.ref() << "\n";
-    }
-    else {
-        strm << "    visibleUrl is not set\n";
-    }
-
-    if (clipUrl.isSet()) {
-        strm << "    clipUrl = "
-            << clipUrl.ref() << "\n";
-    }
-    else {
-        strm << "    clipUrl is not set\n";
-    }
-
-    if (contact.isSet()) {
-        strm << "    contact = "
-            << contact.ref() << "\n";
-    }
-    else {
-        strm << "    contact is not set\n";
-    }
-
-    if (authors.isSet()) {
-        strm << "    authors = "
-            << "QList<QString> {";
-        for(const auto & v: authors.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    authors is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBusinessInvitation(
     ThriftBinaryBufferWriter & writer,
     const BusinessInvitation & s)
 {
     writer.writeStructBegin(QStringLiteral("BusinessInvitation"));
-    if (s.businessId.isSet()) {
+    if (s.businessId()) {
         writer.writeFieldBegin(
             QStringLiteral("businessId"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(s.businessId.ref());
+        writer.writeI32(*s.businessId());
         writer.writeFieldEnd();
     }
 
-    if (s.email.isSet()) {
+    if (s.email()) {
         writer.writeFieldBegin(
             QStringLiteral("email"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.email.ref());
+        writer.writeString(*s.email());
         writer.writeFieldEnd();
     }
 
-    if (s.role.isSet()) {
+    if (s.role()) {
         writer.writeFieldBegin(
             QStringLiteral("role"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(static_cast<qint32>(s.role.ref()));
+        writer.writeI32(static_cast<qint32>(*s.role()));
         writer.writeFieldEnd();
     }
 
-    if (s.status.isSet()) {
+    if (s.status()) {
         writer.writeFieldBegin(
             QStringLiteral("status"),
             ThriftFieldType::T_I32,
             4);
 
-        writer.writeI32(static_cast<qint32>(s.status.ref()));
+        writer.writeI32(static_cast<qint32>(*s.status()));
         writer.writeFieldEnd();
     }
 
-    if (s.requesterId.isSet()) {
+    if (s.requesterId()) {
         writer.writeFieldBegin(
             QStringLiteral("requesterId"),
             ThriftFieldType::T_I32,
             5);
 
-        writer.writeI32(s.requesterId.ref());
+        writer.writeI32(*s.requesterId());
         writer.writeFieldEnd();
     }
 
-    if (s.fromWorkChat.isSet()) {
+    if (s.fromWorkChat()) {
         writer.writeFieldBegin(
             QStringLiteral("fromWorkChat"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.fromWorkChat.ref());
+        writer.writeBool(*s.fromWorkChat());
         writer.writeFieldEnd();
     }
 
-    if (s.created.isSet()) {
+    if (s.created()) {
         writer.writeFieldBegin(
             QStringLiteral("created"),
             ThriftFieldType::T_I64,
             7);
 
-        writer.writeI64(s.created.ref());
+        writer.writeI64(*s.created());
         writer.writeFieldEnd();
     }
 
-    if (s.mostRecentReminder.isSet()) {
+    if (s.mostRecentReminder()) {
         writer.writeFieldBegin(
             QStringLiteral("mostRecentReminder"),
             ThriftFieldType::T_I64,
             8);
 
-        writer.writeI64(s.mostRecentReminder.ref());
+        writer.writeI64(*s.mostRecentReminder());
         writer.writeFieldEnd();
     }
 
@@ -19806,7 +14710,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.businessId = v;
+                s.setBusinessId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19817,7 +14721,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.email = v;
+                s.setEmail(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19828,7 +14732,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_I32) {
                 BusinessUserRole v;
                 readEnumBusinessUserRole(reader, v);
-                s.role = v;
+                s.setRole(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19839,7 +14743,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_I32) {
                 BusinessInvitationStatus v;
                 readEnumBusinessInvitationStatus(reader, v);
-                s.status = v;
+                s.setStatus(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19850,7 +14754,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserID v;
                 reader.readI32(v);
-                s.requesterId = v;
+                s.setRequesterId(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19861,7 +14765,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.fromWorkChat = v;
+                s.setFromWorkChat(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19872,7 +14776,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.created = v;
+                s.setCreated(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19883,7 +14787,7 @@ void readBusinessInvitation(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.mostRecentReminder = v;
+                s.setMostRecentReminder(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -19898,112 +14802,38 @@ void readBusinessInvitation(
     reader.readStructEnd();
 }
 
-void BusinessInvitation::print(QTextStream & strm) const
-{
-    strm << "BusinessInvitation: {\n";
-    localData.print(strm);
-
-    if (businessId.isSet()) {
-        strm << "    businessId = "
-            << businessId.ref() << "\n";
-    }
-    else {
-        strm << "    businessId is not set\n";
-    }
-
-    if (email.isSet()) {
-        strm << "    email = "
-            << email.ref() << "\n";
-    }
-    else {
-        strm << "    email is not set\n";
-    }
-
-    if (role.isSet()) {
-        strm << "    role = "
-            << role.ref() << "\n";
-    }
-    else {
-        strm << "    role is not set\n";
-    }
-
-    if (status.isSet()) {
-        strm << "    status = "
-            << status.ref() << "\n";
-    }
-    else {
-        strm << "    status is not set\n";
-    }
-
-    if (requesterId.isSet()) {
-        strm << "    requesterId = "
-            << requesterId.ref() << "\n";
-    }
-    else {
-        strm << "    requesterId is not set\n";
-    }
-
-    if (fromWorkChat.isSet()) {
-        strm << "    fromWorkChat = "
-            << fromWorkChat.ref() << "\n";
-    }
-    else {
-        strm << "    fromWorkChat is not set\n";
-    }
-
-    if (created.isSet()) {
-        strm << "    created = "
-            << created.ref() << "\n";
-    }
-    else {
-        strm << "    created is not set\n";
-    }
-
-    if (mostRecentReminder.isSet()) {
-        strm << "    mostRecentReminder = "
-            << mostRecentReminder.ref() << "\n";
-    }
-    else {
-        strm << "    mostRecentReminder is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeUserIdentity(
     ThriftBinaryBufferWriter & writer,
     const UserIdentity & s)
 {
     writer.writeStructBegin(QStringLiteral("UserIdentity"));
-    if (s.type.isSet()) {
+    if (s.type()) {
         writer.writeFieldBegin(
             QStringLiteral("type"),
             ThriftFieldType::T_I32,
             1);
 
-        writer.writeI32(static_cast<qint32>(s.type.ref()));
+        writer.writeI32(static_cast<qint32>(*s.type()));
         writer.writeFieldEnd();
     }
 
-    if (s.stringIdentifier.isSet()) {
+    if (s.stringIdentifier()) {
         writer.writeFieldBegin(
             QStringLiteral("stringIdentifier"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.stringIdentifier.ref());
+        writer.writeString(*s.stringIdentifier());
         writer.writeFieldEnd();
     }
 
-    if (s.longIdentifier.isSet()) {
+    if (s.longIdentifier()) {
         writer.writeFieldBegin(
             QStringLiteral("longIdentifier"),
             ThriftFieldType::T_I64,
             3);
 
-        writer.writeI64(s.longIdentifier.ref());
+        writer.writeI64(*s.longIdentifier());
         writer.writeFieldEnd();
     }
 
@@ -20027,7 +14857,7 @@ void readUserIdentity(
             if (fieldType == ThriftFieldType::T_I32) {
                 UserIdentityType v;
                 readEnumUserIdentityType(reader, v);
-                s.type = v;
+                s.setType(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20038,7 +14868,7 @@ void readUserIdentity(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.stringIdentifier = v;
+                s.setStringIdentifier(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20049,7 +14879,7 @@ void readUserIdentity(
             if (fieldType == ThriftFieldType::T_I64) {
                 qint64 v;
                 reader.readI64(v);
-                s.longIdentifier = v;
+                s.setLongIdentifier(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20064,40 +14894,6 @@ void readUserIdentity(
     reader.readStructEnd();
 }
 
-void UserIdentity::print(QTextStream & strm) const
-{
-    strm << "UserIdentity: {\n";
-    localData.print(strm);
-
-    if (type.isSet()) {
-        strm << "    type = "
-            << type.ref() << "\n";
-    }
-    else {
-        strm << "    type is not set\n";
-    }
-
-    if (stringIdentifier.isSet()) {
-        strm << "    stringIdentifier = "
-            << stringIdentifier.ref() << "\n";
-    }
-    else {
-        strm << "    stringIdentifier is not set\n";
-    }
-
-    if (longIdentifier.isSet()) {
-        strm << "    longIdentifier = "
-            << longIdentifier.ref() << "\n";
-    }
-    else {
-        strm << "    longIdentifier is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writePublicUserInfo(
     ThriftBinaryBufferWriter & writer,
     const PublicUserInfo & s)
@@ -20108,46 +14904,46 @@ void writePublicUserInfo(
         ThriftFieldType::T_I32,
         1);
 
-    writer.writeI32(s.userId);
+    writer.writeI32(s.userId());
     writer.writeFieldEnd();
 
-    if (s.serviceLevel.isSet()) {
+    if (s.serviceLevel()) {
         writer.writeFieldBegin(
             QStringLiteral("serviceLevel"),
             ThriftFieldType::T_I32,
             7);
 
-        writer.writeI32(static_cast<qint32>(s.serviceLevel.ref()));
+        writer.writeI32(static_cast<qint32>(*s.serviceLevel()));
         writer.writeFieldEnd();
     }
 
-    if (s.username.isSet()) {
+    if (s.username()) {
         writer.writeFieldBegin(
             QStringLiteral("username"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.username.ref());
+        writer.writeString(*s.username());
         writer.writeFieldEnd();
     }
 
-    if (s.noteStoreUrl.isSet()) {
+    if (s.noteStoreUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("noteStoreUrl"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.noteStoreUrl.ref());
+        writer.writeString(*s.noteStoreUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.webApiUrlPrefix.isSet()) {
+    if (s.webApiUrlPrefix()) {
         writer.writeFieldBegin(
             QStringLiteral("webApiUrlPrefix"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.webApiUrlPrefix.ref());
+        writer.writeString(*s.webApiUrlPrefix());
         writer.writeFieldEnd();
     }
 
@@ -20173,7 +14969,7 @@ void readPublicUserInfo(
                 userId_isset = true;
                 UserID v;
                 reader.readI32(v);
-                s.userId = v;
+                s.setUserId(v);
             }
             else {
                 reader.skip(fieldType);
@@ -20184,7 +14980,7 @@ void readPublicUserInfo(
             if (fieldType == ThriftFieldType::T_I32) {
                 ServiceLevel v;
                 readEnumServiceLevel(reader, v);
-                s.serviceLevel = v;
+                s.setServiceLevel(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20195,7 +14991,7 @@ void readPublicUserInfo(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.username = v;
+                s.setUsername(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20206,7 +15002,7 @@ void readPublicUserInfo(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.noteStoreUrl = v;
+                s.setNoteStoreUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20217,7 +15013,7 @@ void readPublicUserInfo(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.webApiUrlPrefix = v;
+                s.setWebApiUrlPrefix(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20233,112 +15029,68 @@ void readPublicUserInfo(
     if (!userId_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("PublicUserInfo.userId has no value"));
 }
 
-void PublicUserInfo::print(QTextStream & strm) const
-{
-    strm << "PublicUserInfo: {\n";
-    localData.print(strm);
-    strm << "    userId = "
-        << userId << "\n";
-
-    if (serviceLevel.isSet()) {
-        strm << "    serviceLevel = "
-            << serviceLevel.ref() << "\n";
-    }
-    else {
-        strm << "    serviceLevel is not set\n";
-    }
-
-    if (username.isSet()) {
-        strm << "    username = "
-            << username.ref() << "\n";
-    }
-    else {
-        strm << "    username is not set\n";
-    }
-
-    if (noteStoreUrl.isSet()) {
-        strm << "    noteStoreUrl = "
-            << noteStoreUrl.ref() << "\n";
-    }
-    else {
-        strm << "    noteStoreUrl is not set\n";
-    }
-
-    if (webApiUrlPrefix.isSet()) {
-        strm << "    webApiUrlPrefix = "
-            << webApiUrlPrefix.ref() << "\n";
-    }
-    else {
-        strm << "    webApiUrlPrefix is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeUserUrls(
     ThriftBinaryBufferWriter & writer,
     const UserUrls & s)
 {
     writer.writeStructBegin(QStringLiteral("UserUrls"));
-    if (s.noteStoreUrl.isSet()) {
+    if (s.noteStoreUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("noteStoreUrl"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.noteStoreUrl.ref());
+        writer.writeString(*s.noteStoreUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.webApiUrlPrefix.isSet()) {
+    if (s.webApiUrlPrefix()) {
         writer.writeFieldBegin(
             QStringLiteral("webApiUrlPrefix"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.webApiUrlPrefix.ref());
+        writer.writeString(*s.webApiUrlPrefix());
         writer.writeFieldEnd();
     }
 
-    if (s.userStoreUrl.isSet()) {
+    if (s.userStoreUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("userStoreUrl"),
             ThriftFieldType::T_STRING,
             3);
 
-        writer.writeString(s.userStoreUrl.ref());
+        writer.writeString(*s.userStoreUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.utilityUrl.isSet()) {
+    if (s.utilityUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("utilityUrl"),
             ThriftFieldType::T_STRING,
             4);
 
-        writer.writeString(s.utilityUrl.ref());
+        writer.writeString(*s.utilityUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.messageStoreUrl.isSet()) {
+    if (s.messageStoreUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("messageStoreUrl"),
             ThriftFieldType::T_STRING,
             5);
 
-        writer.writeString(s.messageStoreUrl.ref());
+        writer.writeString(*s.messageStoreUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.userWebSocketUrl.isSet()) {
+    if (s.userWebSocketUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("userWebSocketUrl"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.userWebSocketUrl.ref());
+        writer.writeString(*s.userWebSocketUrl());
         writer.writeFieldEnd();
     }
 
@@ -20362,7 +15114,7 @@ void readUserUrls(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.noteStoreUrl = v;
+                s.setNoteStoreUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20373,7 +15125,7 @@ void readUserUrls(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.webApiUrlPrefix = v;
+                s.setWebApiUrlPrefix(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20384,7 +15136,7 @@ void readUserUrls(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.userStoreUrl = v;
+                s.setUserStoreUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20395,7 +15147,7 @@ void readUserUrls(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.utilityUrl = v;
+                s.setUtilityUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20406,7 +15158,7 @@ void readUserUrls(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.messageStoreUrl = v;
+                s.setMessageStoreUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20417,7 +15169,7 @@ void readUserUrls(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.userWebSocketUrl = v;
+                s.setUserWebSocketUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20432,64 +15184,6 @@ void readUserUrls(
     reader.readStructEnd();
 }
 
-void UserUrls::print(QTextStream & strm) const
-{
-    strm << "UserUrls: {\n";
-    localData.print(strm);
-
-    if (noteStoreUrl.isSet()) {
-        strm << "    noteStoreUrl = "
-            << noteStoreUrl.ref() << "\n";
-    }
-    else {
-        strm << "    noteStoreUrl is not set\n";
-    }
-
-    if (webApiUrlPrefix.isSet()) {
-        strm << "    webApiUrlPrefix = "
-            << webApiUrlPrefix.ref() << "\n";
-    }
-    else {
-        strm << "    webApiUrlPrefix is not set\n";
-    }
-
-    if (userStoreUrl.isSet()) {
-        strm << "    userStoreUrl = "
-            << userStoreUrl.ref() << "\n";
-    }
-    else {
-        strm << "    userStoreUrl is not set\n";
-    }
-
-    if (utilityUrl.isSet()) {
-        strm << "    utilityUrl = "
-            << utilityUrl.ref() << "\n";
-    }
-    else {
-        strm << "    utilityUrl is not set\n";
-    }
-
-    if (messageStoreUrl.isSet()) {
-        strm << "    messageStoreUrl = "
-            << messageStoreUrl.ref() << "\n";
-    }
-    else {
-        strm << "    messageStoreUrl is not set\n";
-    }
-
-    if (userWebSocketUrl.isSet()) {
-        strm << "    userWebSocketUrl = "
-            << userWebSocketUrl.ref() << "\n";
-    }
-    else {
-        strm << "    userWebSocketUrl is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeAuthenticationResult(
     ThriftBinaryBufferWriter & writer,
     const AuthenticationResult & s)
@@ -20500,7 +15194,7 @@ void writeAuthenticationResult(
         ThriftFieldType::T_I64,
         1);
 
-    writer.writeI64(s.currentTime);
+    writer.writeI64(s.currentTime());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -20508,7 +15202,7 @@ void writeAuthenticationResult(
         ThriftFieldType::T_STRING,
         2);
 
-    writer.writeString(s.authenticationToken);
+    writer.writeString(s.authenticationToken());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -20516,76 +15210,76 @@ void writeAuthenticationResult(
         ThriftFieldType::T_I64,
         3);
 
-    writer.writeI64(s.expiration);
+    writer.writeI64(s.expiration());
     writer.writeFieldEnd();
 
-    if (s.user.isSet()) {
+    if (s.user()) {
         writer.writeFieldBegin(
             QStringLiteral("user"),
             ThriftFieldType::T_STRUCT,
             4);
 
-        writeUser(writer, s.user.ref());
+        writeUser(writer, *s.user());
         writer.writeFieldEnd();
     }
 
-    if (s.publicUserInfo.isSet()) {
+    if (s.publicUserInfo()) {
         writer.writeFieldBegin(
             QStringLiteral("publicUserInfo"),
             ThriftFieldType::T_STRUCT,
             5);
 
-        writePublicUserInfo(writer, s.publicUserInfo.ref());
+        writePublicUserInfo(writer, *s.publicUserInfo());
         writer.writeFieldEnd();
     }
 
-    if (s.noteStoreUrl.isSet()) {
+    if (s.noteStoreUrl()) {
         writer.writeFieldBegin(
             QStringLiteral("noteStoreUrl"),
             ThriftFieldType::T_STRING,
             6);
 
-        writer.writeString(s.noteStoreUrl.ref());
+        writer.writeString(*s.noteStoreUrl());
         writer.writeFieldEnd();
     }
 
-    if (s.webApiUrlPrefix.isSet()) {
+    if (s.webApiUrlPrefix()) {
         writer.writeFieldBegin(
             QStringLiteral("webApiUrlPrefix"),
             ThriftFieldType::T_STRING,
             7);
 
-        writer.writeString(s.webApiUrlPrefix.ref());
+        writer.writeString(*s.webApiUrlPrefix());
         writer.writeFieldEnd();
     }
 
-    if (s.secondFactorRequired.isSet()) {
+    if (s.secondFactorRequired()) {
         writer.writeFieldBegin(
             QStringLiteral("secondFactorRequired"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.secondFactorRequired.ref());
+        writer.writeBool(*s.secondFactorRequired());
         writer.writeFieldEnd();
     }
 
-    if (s.secondFactorDeliveryHint.isSet()) {
+    if (s.secondFactorDeliveryHint()) {
         writer.writeFieldBegin(
             QStringLiteral("secondFactorDeliveryHint"),
             ThriftFieldType::T_STRING,
             9);
 
-        writer.writeString(s.secondFactorDeliveryHint.ref());
+        writer.writeString(*s.secondFactorDeliveryHint());
         writer.writeFieldEnd();
     }
 
-    if (s.urls.isSet()) {
+    if (s.urls()) {
         writer.writeFieldBegin(
             QStringLiteral("urls"),
             ThriftFieldType::T_STRUCT,
             10);
 
-        writeUserUrls(writer, s.urls.ref());
+        writeUserUrls(writer, *s.urls());
         writer.writeFieldEnd();
     }
 
@@ -20613,7 +15307,7 @@ void readAuthenticationResult(
                 currentTime_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.currentTime = v;
+                s.setCurrentTime(v);
             }
             else {
                 reader.skip(fieldType);
@@ -20625,7 +15319,7 @@ void readAuthenticationResult(
                 authenticationToken_isset = true;
                 QString v;
                 reader.readString(v);
-                s.authenticationToken = v;
+                s.setAuthenticationToken(v);
             }
             else {
                 reader.skip(fieldType);
@@ -20637,7 +15331,7 @@ void readAuthenticationResult(
                 expiration_isset = true;
                 qint64 v;
                 reader.readI64(v);
-                s.expiration = v;
+                s.setExpiration(v);
             }
             else {
                 reader.skip(fieldType);
@@ -20648,7 +15342,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 User v;
                 readUser(reader, v);
-                s.user = v;
+                s.setUser(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20659,7 +15353,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 PublicUserInfo v;
                 readPublicUserInfo(reader, v);
-                s.publicUserInfo = v;
+                s.setPublicUserInfo(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20670,7 +15364,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.noteStoreUrl = v;
+                s.setNoteStoreUrl(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20681,7 +15375,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.webApiUrlPrefix = v;
+                s.setWebApiUrlPrefix(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20692,7 +15386,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.secondFactorRequired = v;
+                s.setSecondFactorRequired(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20703,7 +15397,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.secondFactorDeliveryHint = v;
+                s.setSecondFactorDeliveryHint(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20714,7 +15408,7 @@ void readAuthenticationResult(
             if (fieldType == ThriftFieldType::T_STRUCT) {
                 UserUrls v;
                 readUserUrls(reader, v);
-                s.urls = v;
+                s.setUrls(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -20732,78 +15426,6 @@ void readAuthenticationResult(
     if (!expiration_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("AuthenticationResult.expiration has no value"));
 }
 
-void AuthenticationResult::print(QTextStream & strm) const
-{
-    strm << "AuthenticationResult: {\n";
-    localData.print(strm);
-    strm << "    currentTime = "
-        << currentTime << "\n";
-    strm << "    authenticationToken = "
-        << authenticationToken << "\n";
-    strm << "    expiration = "
-        << expiration << "\n";
-
-    if (user.isSet()) {
-        strm << "    user = "
-            << user.ref() << "\n";
-    }
-    else {
-        strm << "    user is not set\n";
-    }
-
-    if (publicUserInfo.isSet()) {
-        strm << "    publicUserInfo = "
-            << publicUserInfo.ref() << "\n";
-    }
-    else {
-        strm << "    publicUserInfo is not set\n";
-    }
-
-    if (noteStoreUrl.isSet()) {
-        strm << "    noteStoreUrl = "
-            << noteStoreUrl.ref() << "\n";
-    }
-    else {
-        strm << "    noteStoreUrl is not set\n";
-    }
-
-    if (webApiUrlPrefix.isSet()) {
-        strm << "    webApiUrlPrefix = "
-            << webApiUrlPrefix.ref() << "\n";
-    }
-    else {
-        strm << "    webApiUrlPrefix is not set\n";
-    }
-
-    if (secondFactorRequired.isSet()) {
-        strm << "    secondFactorRequired = "
-            << secondFactorRequired.ref() << "\n";
-    }
-    else {
-        strm << "    secondFactorRequired is not set\n";
-    }
-
-    if (secondFactorDeliveryHint.isSet()) {
-        strm << "    secondFactorDeliveryHint = "
-            << secondFactorDeliveryHint.ref() << "\n";
-    }
-    else {
-        strm << "    secondFactorDeliveryHint is not set\n";
-    }
-
-    if (urls.isSet()) {
-        strm << "    urls = "
-            << urls.ref() << "\n";
-    }
-    else {
-        strm << "    urls is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBootstrapSettings(
     ThriftBinaryBufferWriter & writer,
     const BootstrapSettings & s)
@@ -20814,7 +15436,7 @@ void writeBootstrapSettings(
         ThriftFieldType::T_STRING,
         1);
 
-    writer.writeString(s.serviceHost);
+    writer.writeString(s.serviceHost());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -20822,7 +15444,7 @@ void writeBootstrapSettings(
         ThriftFieldType::T_STRING,
         2);
 
-    writer.writeString(s.marketingUrl);
+    writer.writeString(s.marketingUrl());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -20830,7 +15452,7 @@ void writeBootstrapSettings(
         ThriftFieldType::T_STRING,
         3);
 
-    writer.writeString(s.supportUrl);
+    writer.writeString(s.supportUrl());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -20838,106 +15460,106 @@ void writeBootstrapSettings(
         ThriftFieldType::T_STRING,
         4);
 
-    writer.writeString(s.accountEmailDomain);
+    writer.writeString(s.accountEmailDomain());
     writer.writeFieldEnd();
 
-    if (s.enableFacebookSharing.isSet()) {
+    if (s.enableFacebookSharing()) {
         writer.writeFieldBegin(
             QStringLiteral("enableFacebookSharing"),
             ThriftFieldType::T_BOOL,
             5);
 
-        writer.writeBool(s.enableFacebookSharing.ref());
+        writer.writeBool(*s.enableFacebookSharing());
         writer.writeFieldEnd();
     }
 
-    if (s.enableGiftSubscriptions.isSet()) {
+    if (s.enableGiftSubscriptions()) {
         writer.writeFieldBegin(
             QStringLiteral("enableGiftSubscriptions"),
             ThriftFieldType::T_BOOL,
             6);
 
-        writer.writeBool(s.enableGiftSubscriptions.ref());
+        writer.writeBool(*s.enableGiftSubscriptions());
         writer.writeFieldEnd();
     }
 
-    if (s.enableSupportTickets.isSet()) {
+    if (s.enableSupportTickets()) {
         writer.writeFieldBegin(
             QStringLiteral("enableSupportTickets"),
             ThriftFieldType::T_BOOL,
             7);
 
-        writer.writeBool(s.enableSupportTickets.ref());
+        writer.writeBool(*s.enableSupportTickets());
         writer.writeFieldEnd();
     }
 
-    if (s.enableSharedNotebooks.isSet()) {
+    if (s.enableSharedNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("enableSharedNotebooks"),
             ThriftFieldType::T_BOOL,
             8);
 
-        writer.writeBool(s.enableSharedNotebooks.ref());
+        writer.writeBool(*s.enableSharedNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.enableSingleNoteSharing.isSet()) {
+    if (s.enableSingleNoteSharing()) {
         writer.writeFieldBegin(
             QStringLiteral("enableSingleNoteSharing"),
             ThriftFieldType::T_BOOL,
             9);
 
-        writer.writeBool(s.enableSingleNoteSharing.ref());
+        writer.writeBool(*s.enableSingleNoteSharing());
         writer.writeFieldEnd();
     }
 
-    if (s.enableSponsoredAccounts.isSet()) {
+    if (s.enableSponsoredAccounts()) {
         writer.writeFieldBegin(
             QStringLiteral("enableSponsoredAccounts"),
             ThriftFieldType::T_BOOL,
             10);
 
-        writer.writeBool(s.enableSponsoredAccounts.ref());
+        writer.writeBool(*s.enableSponsoredAccounts());
         writer.writeFieldEnd();
     }
 
-    if (s.enableTwitterSharing.isSet()) {
+    if (s.enableTwitterSharing()) {
         writer.writeFieldBegin(
             QStringLiteral("enableTwitterSharing"),
             ThriftFieldType::T_BOOL,
             11);
 
-        writer.writeBool(s.enableTwitterSharing.ref());
+        writer.writeBool(*s.enableTwitterSharing());
         writer.writeFieldEnd();
     }
 
-    if (s.enableLinkedInSharing.isSet()) {
+    if (s.enableLinkedInSharing()) {
         writer.writeFieldBegin(
             QStringLiteral("enableLinkedInSharing"),
             ThriftFieldType::T_BOOL,
             12);
 
-        writer.writeBool(s.enableLinkedInSharing.ref());
+        writer.writeBool(*s.enableLinkedInSharing());
         writer.writeFieldEnd();
     }
 
-    if (s.enablePublicNotebooks.isSet()) {
+    if (s.enablePublicNotebooks()) {
         writer.writeFieldBegin(
             QStringLiteral("enablePublicNotebooks"),
             ThriftFieldType::T_BOOL,
             13);
 
-        writer.writeBool(s.enablePublicNotebooks.ref());
+        writer.writeBool(*s.enablePublicNotebooks());
         writer.writeFieldEnd();
     }
 
-    if (s.enableGoogle.isSet()) {
+    if (s.enableGoogle()) {
         writer.writeFieldBegin(
             QStringLiteral("enableGoogle"),
             ThriftFieldType::T_BOOL,
             16);
 
-        writer.writeBool(s.enableGoogle.ref());
+        writer.writeBool(*s.enableGoogle());
         writer.writeFieldEnd();
     }
 
@@ -20966,7 +15588,7 @@ void readBootstrapSettings(
                 serviceHost_isset = true;
                 QString v;
                 reader.readString(v);
-                s.serviceHost = v;
+                s.setServiceHost(v);
             }
             else {
                 reader.skip(fieldType);
@@ -20978,7 +15600,7 @@ void readBootstrapSettings(
                 marketingUrl_isset = true;
                 QString v;
                 reader.readString(v);
-                s.marketingUrl = v;
+                s.setMarketingUrl(v);
             }
             else {
                 reader.skip(fieldType);
@@ -20990,7 +15612,7 @@ void readBootstrapSettings(
                 supportUrl_isset = true;
                 QString v;
                 reader.readString(v);
-                s.supportUrl = v;
+                s.setSupportUrl(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21002,7 +15624,7 @@ void readBootstrapSettings(
                 accountEmailDomain_isset = true;
                 QString v;
                 reader.readString(v);
-                s.accountEmailDomain = v;
+                s.setAccountEmailDomain(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21013,7 +15635,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableFacebookSharing = v;
+                s.setEnableFacebookSharing(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21024,7 +15646,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableGiftSubscriptions = v;
+                s.setEnableGiftSubscriptions(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21035,7 +15657,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableSupportTickets = v;
+                s.setEnableSupportTickets(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21046,7 +15668,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableSharedNotebooks = v;
+                s.setEnableSharedNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21057,7 +15679,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableSingleNoteSharing = v;
+                s.setEnableSingleNoteSharing(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21068,7 +15690,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableSponsoredAccounts = v;
+                s.setEnableSponsoredAccounts(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21079,7 +15701,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableTwitterSharing = v;
+                s.setEnableTwitterSharing(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21090,7 +15712,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableLinkedInSharing = v;
+                s.setEnableLinkedInSharing(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21101,7 +15723,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enablePublicNotebooks = v;
+                s.setEnablePublicNotebooks(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21112,7 +15734,7 @@ void readBootstrapSettings(
             if (fieldType == ThriftFieldType::T_BOOL) {
                 bool v;
                 reader.readBool(v);
-                s.enableGoogle = v;
+                s.setEnableGoogle(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21131,104 +15753,6 @@ void readBootstrapSettings(
     if (!accountEmailDomain_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("BootstrapSettings.accountEmailDomain has no value"));
 }
 
-void BootstrapSettings::print(QTextStream & strm) const
-{
-    strm << "BootstrapSettings: {\n";
-    localData.print(strm);
-    strm << "    serviceHost = "
-        << serviceHost << "\n";
-    strm << "    marketingUrl = "
-        << marketingUrl << "\n";
-    strm << "    supportUrl = "
-        << supportUrl << "\n";
-    strm << "    accountEmailDomain = "
-        << accountEmailDomain << "\n";
-
-    if (enableFacebookSharing.isSet()) {
-        strm << "    enableFacebookSharing = "
-            << enableFacebookSharing.ref() << "\n";
-    }
-    else {
-        strm << "    enableFacebookSharing is not set\n";
-    }
-
-    if (enableGiftSubscriptions.isSet()) {
-        strm << "    enableGiftSubscriptions = "
-            << enableGiftSubscriptions.ref() << "\n";
-    }
-    else {
-        strm << "    enableGiftSubscriptions is not set\n";
-    }
-
-    if (enableSupportTickets.isSet()) {
-        strm << "    enableSupportTickets = "
-            << enableSupportTickets.ref() << "\n";
-    }
-    else {
-        strm << "    enableSupportTickets is not set\n";
-    }
-
-    if (enableSharedNotebooks.isSet()) {
-        strm << "    enableSharedNotebooks = "
-            << enableSharedNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    enableSharedNotebooks is not set\n";
-    }
-
-    if (enableSingleNoteSharing.isSet()) {
-        strm << "    enableSingleNoteSharing = "
-            << enableSingleNoteSharing.ref() << "\n";
-    }
-    else {
-        strm << "    enableSingleNoteSharing is not set\n";
-    }
-
-    if (enableSponsoredAccounts.isSet()) {
-        strm << "    enableSponsoredAccounts = "
-            << enableSponsoredAccounts.ref() << "\n";
-    }
-    else {
-        strm << "    enableSponsoredAccounts is not set\n";
-    }
-
-    if (enableTwitterSharing.isSet()) {
-        strm << "    enableTwitterSharing = "
-            << enableTwitterSharing.ref() << "\n";
-    }
-    else {
-        strm << "    enableTwitterSharing is not set\n";
-    }
-
-    if (enableLinkedInSharing.isSet()) {
-        strm << "    enableLinkedInSharing = "
-            << enableLinkedInSharing.ref() << "\n";
-    }
-    else {
-        strm << "    enableLinkedInSharing is not set\n";
-    }
-
-    if (enablePublicNotebooks.isSet()) {
-        strm << "    enablePublicNotebooks = "
-            << enablePublicNotebooks.ref() << "\n";
-    }
-    else {
-        strm << "    enablePublicNotebooks is not set\n";
-    }
-
-    if (enableGoogle.isSet()) {
-        strm << "    enableGoogle = "
-            << enableGoogle.ref() << "\n";
-    }
-    else {
-        strm << "    enableGoogle is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBootstrapProfile(
     ThriftBinaryBufferWriter & writer,
     const BootstrapProfile & s)
@@ -21239,7 +15763,7 @@ void writeBootstrapProfile(
         ThriftFieldType::T_STRING,
         1);
 
-    writer.writeString(s.name);
+    writer.writeString(s.name());
     writer.writeFieldEnd();
 
     writer.writeFieldBegin(
@@ -21247,7 +15771,7 @@ void writeBootstrapProfile(
         ThriftFieldType::T_STRUCT,
         2);
 
-    writeBootstrapSettings(writer, s.settings);
+    writeBootstrapSettings(writer, s.settings());
     writer.writeFieldEnd();
 
     writer.writeFieldStop();
@@ -21273,7 +15797,7 @@ void readBootstrapProfile(
                 name_isset = true;
                 QString v;
                 reader.readString(v);
-                s.name = v;
+                s.setName(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21285,7 +15809,7 @@ void readBootstrapProfile(
                 settings_isset = true;
                 BootstrapSettings v;
                 readBootstrapSettings(reader, v);
-                s.settings = v;
+                s.setSettings(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21302,19 +15826,6 @@ void readBootstrapProfile(
     if (!settings_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("BootstrapProfile.settings has no value"));
 }
 
-void BootstrapProfile::print(QTextStream & strm) const
-{
-    strm << "BootstrapProfile: {\n";
-    localData.print(strm);
-    strm << "    name = "
-        << name << "\n";
-    strm << "    settings = "
-        << settings << "\n";
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 void writeBootstrapInfo(
     ThriftBinaryBufferWriter & writer,
     const BootstrapInfo & s)
@@ -21325,8 +15836,8 @@ void writeBootstrapInfo(
         ThriftFieldType::T_LIST,
         1);
 
-    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.profiles.length());
-    for(const auto & value: qAsConst(s.profiles)) {
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.profiles().length());
+    for(const auto & value: qAsConst(s.profiles())) {
         writeBootstrapProfile(writer, value);
     }
     writer.writeListEnd();
@@ -21369,7 +15880,7 @@ void readBootstrapInfo(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.profiles = v;
+                s.setProfiles(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21385,28 +15896,6 @@ void readBootstrapInfo(
     if (!profiles_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("BootstrapInfo.profiles has no value"));
 }
 
-void BootstrapInfo::print(QTextStream & strm) const
-{
-    strm << "BootstrapInfo: {\n";
-    localData.print(strm);
-    strm << "    profiles = "
-        << "QList<BootstrapProfile> {";
-    for(const auto & v: profiles) {
-        strm << "    " << v << "\n";
-    }
-    strm << "}\n";
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-EDAMUserException::EDAMUserException() {}
-EDAMUserException::~EDAMUserException() noexcept {}
-EDAMUserException::EDAMUserException(const EDAMUserException& other) : EvernoteException(other)
-{
-   errorCode = other.errorCode;
-   parameter = other.parameter;
-}
 void writeEDAMUserException(
     ThriftBinaryBufferWriter & writer,
     const EDAMUserException & s)
@@ -21417,16 +15906,16 @@ void writeEDAMUserException(
         ThriftFieldType::T_I32,
         1);
 
-    writer.writeI32(static_cast<qint32>(s.errorCode));
+    writer.writeI32(static_cast<qint32>(s.errorCode()));
     writer.writeFieldEnd();
 
-    if (s.parameter.isSet()) {
+    if (s.parameter()) {
         writer.writeFieldBegin(
             QStringLiteral("parameter"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.parameter.ref());
+        writer.writeString(*s.parameter());
         writer.writeFieldEnd();
     }
 
@@ -21452,7 +15941,7 @@ void readEDAMUserException(
                 errorCode_isset = true;
                 EDAMErrorCode v;
                 readEnumEDAMErrorCode(reader, v);
-                s.errorCode = v;
+                s.setErrorCode(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21463,7 +15952,7 @@ void readEDAMUserException(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.parameter = v;
+                s.setParameter(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21479,33 +15968,6 @@ void readEDAMUserException(
     if (!errorCode_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("EDAMUserException.errorCode has no value"));
 }
 
-void EDAMUserException::print(QTextStream & strm) const
-{
-    strm << "EDAMUserException: {\n";
-    strm << "    errorCode = "
-        << errorCode << "\n";
-
-    if (parameter.isSet()) {
-        strm << "    parameter = "
-            << parameter.ref() << "\n";
-    }
-    else {
-        strm << "    parameter is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-EDAMSystemException::EDAMSystemException() {}
-EDAMSystemException::~EDAMSystemException() noexcept {}
-EDAMSystemException::EDAMSystemException(const EDAMSystemException& other) : EvernoteException(other)
-{
-   errorCode = other.errorCode;
-   message = other.message;
-   rateLimitDuration = other.rateLimitDuration;
-}
 void writeEDAMSystemException(
     ThriftBinaryBufferWriter & writer,
     const EDAMSystemException & s)
@@ -21516,26 +15978,26 @@ void writeEDAMSystemException(
         ThriftFieldType::T_I32,
         1);
 
-    writer.writeI32(static_cast<qint32>(s.errorCode));
+    writer.writeI32(static_cast<qint32>(s.errorCode()));
     writer.writeFieldEnd();
 
-    if (s.message.isSet()) {
+    if (s.message()) {
         writer.writeFieldBegin(
             QStringLiteral("message"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.message.ref());
+        writer.writeString(*s.message());
         writer.writeFieldEnd();
     }
 
-    if (s.rateLimitDuration.isSet()) {
+    if (s.rateLimitDuration()) {
         writer.writeFieldBegin(
             QStringLiteral("rateLimitDuration"),
             ThriftFieldType::T_I32,
             3);
 
-        writer.writeI32(s.rateLimitDuration.ref());
+        writer.writeI32(*s.rateLimitDuration());
         writer.writeFieldEnd();
     }
 
@@ -21561,7 +16023,7 @@ void readEDAMSystemException(
                 errorCode_isset = true;
                 EDAMErrorCode v;
                 readEnumEDAMErrorCode(reader, v);
-                s.errorCode = v;
+                s.setErrorCode(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21572,7 +16034,7 @@ void readEDAMSystemException(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.message = v;
+                s.setMessage(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21583,7 +16045,7 @@ void readEDAMSystemException(
             if (fieldType == ThriftFieldType::T_I32) {
                 qint32 v;
                 reader.readI32(v);
-                s.rateLimitDuration = v;
+                s.setRateLimitDuration(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21599,62 +16061,28 @@ void readEDAMSystemException(
     if (!errorCode_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("EDAMSystemException.errorCode has no value"));
 }
 
-void EDAMSystemException::print(QTextStream & strm) const
-{
-    strm << "EDAMSystemException: {\n";
-    strm << "    errorCode = "
-        << errorCode << "\n";
-
-    if (message.isSet()) {
-        strm << "    message = "
-            << message.ref() << "\n";
-    }
-    else {
-        strm << "    message is not set\n";
-    }
-
-    if (rateLimitDuration.isSet()) {
-        strm << "    rateLimitDuration = "
-            << rateLimitDuration.ref() << "\n";
-    }
-    else {
-        strm << "    rateLimitDuration is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-EDAMNotFoundException::EDAMNotFoundException() {}
-EDAMNotFoundException::~EDAMNotFoundException() noexcept {}
-EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException& other) : EvernoteException(other)
-{
-   identifier = other.identifier;
-   key = other.key;
-}
 void writeEDAMNotFoundException(
     ThriftBinaryBufferWriter & writer,
     const EDAMNotFoundException & s)
 {
     writer.writeStructBegin(QStringLiteral("EDAMNotFoundException"));
-    if (s.identifier.isSet()) {
+    if (s.identifier()) {
         writer.writeFieldBegin(
             QStringLiteral("identifier"),
             ThriftFieldType::T_STRING,
             1);
 
-        writer.writeString(s.identifier.ref());
+        writer.writeString(*s.identifier());
         writer.writeFieldEnd();
     }
 
-    if (s.key.isSet()) {
+    if (s.key()) {
         writer.writeFieldBegin(
             QStringLiteral("key"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.key.ref());
+        writer.writeString(*s.key());
         writer.writeFieldEnd();
     }
 
@@ -21678,7 +16106,7 @@ void readEDAMNotFoundException(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.identifier = v;
+                s.setIdentifier(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21689,7 +16117,7 @@ void readEDAMNotFoundException(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.key = v;
+                s.setKey(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21704,39 +16132,6 @@ void readEDAMNotFoundException(
     reader.readStructEnd();
 }
 
-void EDAMNotFoundException::print(QTextStream & strm) const
-{
-    strm << "EDAMNotFoundException: {\n";
-
-    if (identifier.isSet()) {
-        strm << "    identifier = "
-            << identifier.ref() << "\n";
-    }
-    else {
-        strm << "    identifier is not set\n";
-    }
-
-    if (key.isSet()) {
-        strm << "    key = "
-            << key.ref() << "\n";
-    }
-    else {
-        strm << "    key is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-EDAMInvalidContactsException::EDAMInvalidContactsException() {}
-EDAMInvalidContactsException::~EDAMInvalidContactsException() noexcept {}
-EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException& other) : EvernoteException(other)
-{
-   contacts = other.contacts;
-   parameter = other.parameter;
-   reasons = other.reasons;
-}
 void writeEDAMInvalidContactsException(
     ThriftBinaryBufferWriter & writer,
     const EDAMInvalidContactsException & s)
@@ -21747,32 +16142,32 @@ void writeEDAMInvalidContactsException(
         ThriftFieldType::T_LIST,
         1);
 
-    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.contacts.length());
-    for(const auto & value: qAsConst(s.contacts)) {
+    writer.writeListBegin(ThriftFieldType::T_STRUCT, s.contacts().length());
+    for(const auto & value: qAsConst(s.contacts())) {
         writeContact(writer, value);
     }
     writer.writeListEnd();
 
     writer.writeFieldEnd();
 
-    if (s.parameter.isSet()) {
+    if (s.parameter()) {
         writer.writeFieldBegin(
             QStringLiteral("parameter"),
             ThriftFieldType::T_STRING,
             2);
 
-        writer.writeString(s.parameter.ref());
+        writer.writeString(*s.parameter());
         writer.writeFieldEnd();
     }
 
-    if (s.reasons.isSet()) {
+    if (s.reasons()) {
         writer.writeFieldBegin(
             QStringLiteral("reasons"),
             ThriftFieldType::T_LIST,
             3);
 
-        writer.writeListBegin(ThriftFieldType::T_I32, s.reasons.ref().length());
-        for(const auto & value: qAsConst(s.reasons.ref())) {
+        writer.writeListBegin(ThriftFieldType::T_I32, s.reasons()->length());
+        for(const auto & value: qAsConst(*s.reasons())) {
             writer.writeI32(static_cast<qint32>(value));
         }
         writer.writeListEnd();
@@ -21816,7 +16211,7 @@ void readEDAMInvalidContactsException(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.contacts = v;
+                s.setContacts(v);
             }
             else {
                 reader.skip(fieldType);
@@ -21827,7 +16222,7 @@ void readEDAMInvalidContactsException(
             if (fieldType == ThriftFieldType::T_STRING) {
                 QString v;
                 reader.readString(v);
-                s.parameter = v;
+                s.setParameter(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21852,7 +16247,7 @@ void readEDAMInvalidContactsException(
                     v.append(elem);
                 }
                 reader.readListEnd();
-                s.reasons = v;
+                s.setReasons(std::make_optional(v));
             }
             else {
                 reader.skip(fieldType);
@@ -21867,41 +16262,6 @@ void readEDAMInvalidContactsException(
     reader.readStructEnd();
     if (!contacts_isset) throw ThriftException(ThriftException::Type::INVALID_DATA, QStringLiteral("EDAMInvalidContactsException.contacts has no value"));
 }
-
-void EDAMInvalidContactsException::print(QTextStream & strm) const
-{
-    strm << "EDAMInvalidContactsException: {\n";
-    strm << "    contacts = "
-        << "QList<Contact> {";
-    for(const auto & v: contacts) {
-        strm << "    " << v << "\n";
-    }
-    strm << "}\n";
-
-    if (parameter.isSet()) {
-        strm << "    parameter = "
-            << parameter.ref() << "\n";
-    }
-    else {
-        strm << "    parameter is not set\n";
-    }
-
-    if (reasons.isSet()) {
-        strm << "    reasons = "
-            << "QList<EDAMInvalidContactReason> {";
-        for(const auto & v: reasons.ref()) {
-            strm << "        " << v << "\n";
-        }
-        strm << "    }\n";
-    }
-    else {
-        strm << "    reasons is not set\n";
-    }
-
-    strm << "}\n";
-}
-
-////////////////////////////////////////////////////////////////////////////////
 
 /** @endcond */
 
