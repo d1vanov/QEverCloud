@@ -6,6 +6,11 @@
  * https://opensource.org/licenses/MIT
  */
 
+#ifndef QEVERCLOUD_NETWORK_COOKIE_JAR_H
+#define QEVERCLOUD_NETWORK_COOKIE_JAR_H
+
+#include <VersionInfo.h>
+
 #include <QNetworkCookieJar>
 
 namespace qevercloud {
@@ -44,3 +49,5 @@ private Q_SLOTS:
 };
 
 } // namespace qevercloud
+
+#endif // QEVERCLOUD_NETWORK_COOKIE_JAR_H

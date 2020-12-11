@@ -19,7 +19,6 @@
 #include "Helpers.h"
 #include "InkNoteImageDownloader.h"
 #include "Log.h"
-#include "Optional.h"
 #include "Printable.h"
 #include "RequestContext.h"
 #include "Thumbnail.h"

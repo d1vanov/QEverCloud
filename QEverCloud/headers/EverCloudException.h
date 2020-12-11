@@ -40,11 +40,11 @@ public:
     explicit EverCloudException(const std::string & error);
     explicit EverCloudException(const char * error);
 
-    virtual ~EverCloudException() noexcept override;
+    ~EverCloudException() noexcept override;
 
-    virtual const char * what() const noexcept override;
+    [[nodiscard]] const char * what() const noexcept override;
 
-    virtual std::shared_ptr<EverCloudExceptionData> exceptionData() const;
+    [[nodiscard]] virtual std::shared_ptr<EverCloudExceptionData> exceptionData() const;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -162,7 +162,7 @@ public:
     explicit EvernoteException(const std::string & error);
     explicit EvernoteException(const char * error);
 
-    virtual EverCloudExceptionDataPtr exceptionData() const override;
+    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@ class QEVERCLOUD_EXPORT EvernoteExceptionData: public EverCloudExceptionData
     Q_DISABLE_COPY(EvernoteExceptionData)
 public:
     explicit EvernoteExceptionData(QString error);
-    virtual void throwException() const override;
+    void throwException() const override;
 };
 
 } // namespace qevercloud

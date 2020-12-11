@@ -11,13 +11,14 @@
 
 #include "EverCloudException.h"
 #include "Export.h"
-#include "Optional.h"
 #include "generated/EDAMErrorCode.h"
 #include "generated/Types.h"
 
 #include <QNetworkReply>
 #include <QObject>
 #include <QString>
+
+#include <optional>
 
 namespace qevercloud {
 
@@ -133,13 +134,13 @@ class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData
     Q_DISABLE_COPY(EDAMUserExceptionData)
 public:
     explicit EDAMUserExceptionData(
-        QString error, EDAMErrorCode errorCode, Optional<QString> parameter);
+        QString error, EDAMErrorCode errorCode, std::optional<QString> parameter);
 
     virtual void throwException() const override;
 
 protected:
-    EDAMErrorCode       m_errorCode;
-    Optional<QString>   m_parameter;
+    EDAMErrorCode           m_errorCode;
+    std::optional<QString>  m_parameter;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -154,15 +155,15 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData
     Q_DISABLE_COPY(EDAMSystemExceptionData)
 public:
     explicit EDAMSystemExceptionData(
-        QString err, EDAMErrorCode errorCode, Optional<QString> message,
-        Optional<qint32> rateLimitDuration);
+        QString err, EDAMErrorCode errorCode, std::optional<QString> message,
+        std::optional<qint32> rateLimitDuration);
 
     virtual void throwException() const override;
 
 protected:
-    EDAMErrorCode       m_errorCode;
-    Optional<QString>   m_message;
-    Optional<qint32>    m_rateLimitDuration;
+    EDAMErrorCode           m_errorCode;
+    std::optional<QString>  m_message;
+    std::optional<qint32>   m_rateLimitDuration;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -177,13 +178,13 @@ class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData
     Q_DISABLE_COPY(EDAMNotFoundExceptionData)
 public:
     explicit EDAMNotFoundExceptionData(
-        QString error, Optional<QString> identifier, Optional<QString> key);
+        QString error, std::optional<QString> identifier, std::optional<QString> key);
 
     virtual void throwException() const override;
 
 protected:
-    Optional<QString> m_identifier;
-    Optional<QString> m_key;
+    std::optional<QString> m_identifier;
+    std::optional<QString> m_key;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -199,15 +200,15 @@ class QEVERCLOUD_EXPORT EDAMInvalidContactsExceptionData:
     Q_DISABLE_COPY(EDAMInvalidContactsExceptionData)
 public:
     explicit EDAMInvalidContactsExceptionData(
-        QList<Contact> contacts, Optional<QString> parameter,
-        Optional<QList<EDAMInvalidContactReason> > reasons);
+        QList<Contact> contacts, std::optional<QString> parameter,
+        std::optional<QList<EDAMInvalidContactReason> > reasons);
 
-    virtual void throwException() const override;
+    void throwException() const override;
 
 protected:
-    QList<Contact>      m_contacts;
-    Optional<QString>   m_parameter;
-    Optional<QList<EDAMInvalidContactReason>> m_reasons;
+    QList<Contact>          m_contacts;
+    std::optional<QString>  m_parameter;
+    std::optional<QList<EDAMInvalidContactReason>> m_reasons;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -235,8 +236,8 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReachedData:
     Q_DISABLE_COPY(EDAMSystemExceptionRateLimitReachedData)
 public:
     explicit EDAMSystemExceptionRateLimitReachedData(
-        QString error, EDAMErrorCode errorCode, Optional<QString> message,
-        Optional<qint32> rateLimitDuration);
+        QString error, EDAMErrorCode errorCode, std::optional<QString> message,
+        std::optional<qint32> rateLimitDuration);
 
     virtual void throwException() const override;
 };
@@ -265,8 +266,8 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpiredData:
     Q_DISABLE_COPY(EDAMSystemExceptionAuthExpiredData)
 public:
     explicit EDAMSystemExceptionAuthExpiredData(
-        QString error, EDAMErrorCode errorCode, Optional<QString> message,
-        Optional<qint32> rateLimitDuration);
+        QString error, EDAMErrorCode errorCode, std::optional<QString> message,
+        std::optional<qint32> rateLimitDuration);
 
     virtual void throwException() const override;
 };
