@@ -337,7 +337,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             EverCloudExceptionDataPtr data;
             try {
                 EDAMUserException e;
-                e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
+                e.setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
                 throw e;
             }
             catch(const EverCloudException & e) {
@@ -359,7 +359,7 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
     }
     catch(const EDAMUserException & e) {
         exceptionCaught = true;
-        QVERIFY(e.errorCode == EDAMErrorCode::AUTH_EXPIRED);
+        QVERIFY(e.errorCode() == EDAMErrorCode::AUTH_EXPIRED);
     }
     QVERIFY(exceptionCaught);
 }
@@ -387,7 +387,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
             EverCloudExceptionDataPtr data;
             try {
                 EDAMUserException e;
-                e.errorCode = EDAMErrorCode::AUTH_EXPIRED;
+                e.setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
                 throw e;
             }
             catch(const EverCloudException & e) {
@@ -420,7 +420,7 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
     }
     catch(const EDAMUserException & e) {
         exceptionCaught = true;
-        QVERIFY(e.errorCode == EDAMErrorCode::AUTH_EXPIRED);
+        QVERIFY(e.errorCode() == EDAMErrorCode::AUTH_EXPIRED);
     }
     QVERIFY(exceptionCaught);
 }

@@ -87,6 +87,11 @@ bool LinkedNotebook::isLocallyFavorited() const
     return d->m_locallyFavorited;
 }
 
+void LinkedNotebook::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
 const std::optional<QString> & LinkedNotebook::shareName() const noexcept
 {
     return d->m_shareName;

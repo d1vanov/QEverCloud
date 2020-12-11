@@ -13,7 +13,6 @@
 #define QEVERCLOUD_GENERATED_TYPES_IO_H
 
 #include "../Impl.h"
-#include <Optional.h>
 #include <generated/Types.h>
 
 namespace qevercloud {

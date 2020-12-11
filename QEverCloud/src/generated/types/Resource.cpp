@@ -87,6 +87,11 @@ bool Resource::isLocallyFavorited() const
     return d->m_locallyFavorited;
 }
 
+void Resource::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
 const std::optional<Guid> & Resource::guid() const noexcept
 {
     return d->m_guid;

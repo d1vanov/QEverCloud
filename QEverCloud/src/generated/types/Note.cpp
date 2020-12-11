@@ -87,6 +87,11 @@ bool Note::isLocallyFavorited() const
     return d->m_locallyFavorited;
 }
 
+void Note::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
 const std::optional<Guid> & Note::guid() const noexcept
 {
     return d->m_guid;

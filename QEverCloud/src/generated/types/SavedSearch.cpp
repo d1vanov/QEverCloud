@@ -87,6 +87,11 @@ bool SavedSearch::isLocallyFavorited() const
     return d->m_locallyFavorited;
 }
 
+void SavedSearch::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
 const std::optional<Guid> & SavedSearch::guid() const noexcept
 {
     return d->m_guid;

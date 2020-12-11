@@ -87,6 +87,11 @@ bool NoteMetadata::isLocallyFavorited() const
     return d->m_locallyFavorited;
 }
 
+void NoteMetadata::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
 const Guid & NoteMetadata::guid() const noexcept
 {
     return d->m_guid;

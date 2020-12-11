@@ -59,6 +59,8 @@ public:
     void setParameter(std::optional<QString> parameter);
 
     void print(QTextStream & strm) const override;
+    [[nodiscard]] const char * what() const noexcept override;
+    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     [[nodiscard]] bool operator==(const EDAMUserException & other) const noexcept;
     [[nodiscard]] bool operator!=(const EDAMUserException & other) const noexcept;

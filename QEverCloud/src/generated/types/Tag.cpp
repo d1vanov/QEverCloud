@@ -87,6 +87,11 @@ bool Tag::isLocallyFavorited() const
     return d->m_locallyFavorited;
 }
 
+void Tag::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
 const std::optional<Guid> & Tag::guid() const noexcept
 {
     return d->m_guid;

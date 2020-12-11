@@ -16,7 +16,6 @@
 
 #include "../AsyncResult.h"
 #include "../DurableService.h"
-#include "../Optional.h"
 #include "../RequestContext.h"
 #include "Constants.h"
 #include "Types.h"

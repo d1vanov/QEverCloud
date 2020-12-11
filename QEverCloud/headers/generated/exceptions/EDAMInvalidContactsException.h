@@ -70,6 +70,8 @@ public:
     void setReasons(std::optional<QList<EDAMInvalidContactReason>> reasons);
 
     void print(QTextStream & strm) const override;
+    [[nodiscard]] const char * what() const noexcept override;
+    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     [[nodiscard]] bool operator==(const EDAMInvalidContactsException & other) const noexcept;
     [[nodiscard]] bool operator!=(const EDAMInvalidContactsException & other) const noexcept;
