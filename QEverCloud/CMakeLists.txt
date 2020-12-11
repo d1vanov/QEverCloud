@@ -22,7 +22,6 @@ set(NON_GENERATED_HEADERS
     headers/Helpers.h
     headers/InkNoteImageDownloader.h
     headers/Log.h
-    headers/Optional.h
     headers/Printable.h
     headers/RequestContext.h
     headers/Thumbnail.h)
@@ -38,81 +37,81 @@ set(GENERATED_HEADERS
     headers/generated/Servers.h
     headers/generated/Types.h
     headers/generated/EDAMErrorCode.h
-    headers/generated/Accounting.h
-    headers/generated/AccountLimits.h
-    headers/generated/AuthenticationResult.h
-    headers/generated/BootstrapInfo.h
-    headers/generated/BootstrapProfile.h
-    headers/generated/BootstrapSettings.h
-    headers/generated/BusinessInvitation.h
-    headers/generated/BusinessNotebook.h
-    headers/generated/BusinessUserAttributes.h
-    headers/generated/BusinessUserInfo.h
-    headers/generated/CanMoveToContainerRestrictions.h
-    headers/generated/Contact.h
-    headers/generated/CreateOrUpdateNotebookSharesResult.h
-    headers/generated/Data.h
-    headers/generated/Identity.h
-    headers/generated/InvitationShareRelationship.h
-    headers/generated/LazyMap.h
-    headers/generated/LinkedNotebook.h
-    headers/generated/ManageNotebookSharesError.h
-    headers/generated/ManageNotebookSharesParameters.h
-    headers/generated/ManageNotebookSharesResult.h
-    headers/generated/ManageNoteSharesError.h
-    headers/generated/ManageNoteSharesParameters.h
-    headers/generated/ManageNoteSharesResult.h
-    headers/generated/MemberShareRelationship.h
-    headers/generated/Note.h
-    headers/generated/NoteAttributes.h
-    headers/generated/Notebook.h
-    headers/generated/NotebookDescriptor.h
-    headers/generated/NotebookRecipientSettings.h
-    headers/generated/NotebookRestrictions.h
-    headers/generated/NotebookShareTemplate.h
-    headers/generated/NoteCollectionCounts.h
-    headers/generated/NoteEmailParameters.h
-    headers/generated/NoteFilter.h
-    headers/generated/NoteInvitationShareRelationship.h
-    headers/generated/NoteLimits.h
-    headers/generated/NoteList.h
-    headers/generated/NoteMemberShareRelationship.h
-    headers/generated/NoteMetadata.h
-    headers/generated/NoteRestrictions.h
-    headers/generated/NoteResultSpec.h
-    headers/generated/NoteShareRelationshipRestrictions.h
-    headers/generated/NoteShareRelationships.h
-    headers/generated/NotesMetadataList.h
-    headers/generated/NotesMetadataResultSpec.h
-    headers/generated/NoteVersionId.h
-    headers/generated/PublicUserInfo.h
-    headers/generated/Publishing.h
-    headers/generated/RelatedContent.h
-    headers/generated/RelatedContentImage.h
-    headers/generated/RelatedQuery.h
-    headers/generated/RelatedResult.h
-    headers/generated/RelatedResultSpec.h
-    headers/generated/Resource.h
-    headers/generated/ResourceAttributes.h
-    headers/generated/SavedSearch.h
-    headers/generated/SavedSearchScope.h
-    headers/generated/SharedNote.h
-    headers/generated/SharedNotebook.h
-    headers/generated/SharedNotebookRecipientSettings.h
-    headers/generated/SharedNoteTemplate.h
-    headers/generated/ShareRelationshipRestrictions.h
-    headers/generated/ShareRelationships.h
-    headers/generated/SyncChunk.h
-    headers/generated/SyncChunkFilter.h
-    headers/generated/SyncState.h
-    headers/generated/Tag.h
-    headers/generated/TypeAliases.h
-    headers/generated/UpdateNoteIfUsnMatchesResult.h
-    headers/generated/User.h
-    headers/generated/UserAttributes.h
-    headers/generated/UserIdentity.h
-    headers/generated/UserProfile.h
-    headers/generated/UserUrls.h)
+    headers/generated/types/Accounting.h
+    headers/generated/types/AccountLimits.h
+    headers/generated/types/AuthenticationResult.h
+    headers/generated/types/BootstrapInfo.h
+    headers/generated/types/BootstrapProfile.h
+    headers/generated/types/BootstrapSettings.h
+    headers/generated/types/BusinessInvitation.h
+    headers/generated/types/BusinessNotebook.h
+    headers/generated/types/BusinessUserAttributes.h
+    headers/generated/types/BusinessUserInfo.h
+    headers/generated/types/CanMoveToContainerRestrictions.h
+    headers/generated/types/Contact.h
+    headers/generated/types/CreateOrUpdateNotebookSharesResult.h
+    headers/generated/types/Data.h
+    headers/generated/types/Identity.h
+    headers/generated/types/InvitationShareRelationship.h
+    headers/generated/types/LazyMap.h
+    headers/generated/types/LinkedNotebook.h
+    headers/generated/types/ManageNotebookSharesError.h
+    headers/generated/types/ManageNotebookSharesParameters.h
+    headers/generated/types/ManageNotebookSharesResult.h
+    headers/generated/types/ManageNoteSharesError.h
+    headers/generated/types/ManageNoteSharesParameters.h
+    headers/generated/types/ManageNoteSharesResult.h
+    headers/generated/types/MemberShareRelationship.h
+    headers/generated/types/Note.h
+    headers/generated/types/NoteAttributes.h
+    headers/generated/types/Notebook.h
+    headers/generated/types/NotebookDescriptor.h
+    headers/generated/types/NotebookRecipientSettings.h
+    headers/generated/types/NotebookRestrictions.h
+    headers/generated/types/NotebookShareTemplate.h
+    headers/generated/types/NoteCollectionCounts.h
+    headers/generated/types/NoteEmailParameters.h
+    headers/generated/types/NoteFilter.h
+    headers/generated/types/NoteInvitationShareRelationship.h
+    headers/generated/types/NoteLimits.h
+    headers/generated/types/NoteList.h
+    headers/generated/types/NoteMemberShareRelationship.h
+    headers/generated/types/NoteMetadata.h
+    headers/generated/types/NoteRestrictions.h
+    headers/generated/types/NoteResultSpec.h
+    headers/generated/types/NoteShareRelationshipRestrictions.h
+    headers/generated/types/NoteShareRelationships.h
+    headers/generated/types/NotesMetadataList.h
+    headers/generated/types/NotesMetadataResultSpec.h
+    headers/generated/types/NoteVersionId.h
+    headers/generated/types/PublicUserInfo.h
+    headers/generated/types/Publishing.h
+    headers/generated/types/RelatedContent.h
+    headers/generated/types/RelatedContentImage.h
+    headers/generated/types/RelatedQuery.h
+    headers/generated/types/RelatedResult.h
+    headers/generated/types/RelatedResultSpec.h
+    headers/generated/types/Resource.h
+    headers/generated/types/ResourceAttributes.h
+    headers/generated/types/SavedSearch.h
+    headers/generated/types/SavedSearchScope.h
+    headers/generated/types/SharedNote.h
+    headers/generated/types/SharedNotebook.h
+    headers/generated/types/SharedNotebookRecipientSettings.h
+    headers/generated/types/SharedNoteTemplate.h
+    headers/generated/types/ShareRelationshipRestrictions.h
+    headers/generated/types/ShareRelationships.h
+    headers/generated/types/SyncChunk.h
+    headers/generated/types/SyncChunkFilter.h
+    headers/generated/types/SyncState.h
+    headers/generated/types/Tag.h
+    headers/generated/types/TypeAliases.h
+    headers/generated/types/UpdateNoteIfUsnMatchesResult.h
+    headers/generated/types/User.h
+    headers/generated/types/UserAttributes.h
+    headers/generated/types/UserIdentity.h
+    headers/generated/types/UserProfile.h
+    headers/generated/types/UserUrls.h)
 
 set(PRIVATE_HEADERS
     src/AsyncResult_p.h
@@ -546,14 +545,12 @@ if(Qt5Test_FOUND)
   set(TEST_HEADERS
       src/tests/SocketHelpers.h
       src/tests/TestDurableService.h
-      src/tests/TestOptional.h
       src/tests/generated/RandomDataGenerators.h
       src/tests/generated/TestNoteStore.h
       src/tests/generated/TestUserStore.h)
   set(TEST_SOURCES
       src/tests/SocketHelpers.cpp
       src/tests/TestDurableService.cpp
-      src/tests/TestOptional.cpp
       src/tests/TestQEverCloud.cpp
       src/tests/generated/RandomDataGenerators.cpp
       src/tests/generated/TestNoteStore.cpp
