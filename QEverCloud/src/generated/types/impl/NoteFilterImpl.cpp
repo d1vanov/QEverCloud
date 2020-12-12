@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteFilterData.h"
+#include "NoteFilterImpl.h"
 
 #include <QTextStream>
 
@@ -44,7 +44,7 @@ bool NoteFilter::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteFilter::Data::print(QTextStream & strm) const
+void NoteFilter::Impl::print(QTextStream & strm) const
 {
     strm << "NoteFilter: {\n";
 

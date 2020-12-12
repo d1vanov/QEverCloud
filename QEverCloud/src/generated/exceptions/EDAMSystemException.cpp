@@ -106,10 +106,11 @@ EverCloudExceptionDataPtr EDAMSystemException::exceptionData() const
 }
 
 EDAMSystemExceptionData::EDAMSystemExceptionData(
+    QString error,
     EDAMErrorCode errorCode,
-    QString message,
-    qint32 rateLimitDuration):
-    EvernoteExceptionData(QStringLiteral("EDAMSystemExceptionData")),
+    std::optional<QString> message,
+    std::optional<qint32> rateLimitDuration):
+    EvernoteExceptionData(error),
     d(new EDAMSystemExceptionData::Impl)
 {
     d->m_errorCode = std::move(errorCode);
@@ -151,6 +152,8 @@ void EDAMSystemExceptionData::setRateLimitDuration(std::optional<qint32> rateLim
 {
     d->m_rateLimitDuration = rateLimitDuration;
 }
+
+EDAMSystemExceptionData::~EDAMSystemExceptionData() noexcept {}
 
 void EDAMSystemExceptionData::throwException() const
 {

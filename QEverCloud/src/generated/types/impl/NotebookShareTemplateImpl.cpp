@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NotebookShareTemplateData.h"
+#include "NotebookShareTemplateImpl.h"
 
 #include <QTextStream>
 
@@ -35,7 +35,7 @@ bool NotebookShareTemplate::Impl::operator!=(
     return !(*this == other);
 }
 
-void NotebookShareTemplate::Data::print(QTextStream & strm) const
+void NotebookShareTemplate::Impl::print(QTextStream & strm) const
 {
     strm << "NotebookShareTemplate: {\n";
 

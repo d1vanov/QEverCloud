@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "AccountLimitsData.h"
+#include "AccountLimitsImpl.h"
 
 #include <QTextStream>
 
@@ -42,7 +42,7 @@ bool AccountLimits::Impl::operator!=(
     return !(*this == other);
 }
 
-void AccountLimits::Data::print(QTextStream & strm) const
+void AccountLimits::Impl::print(QTextStream & strm) const
 {
     strm << "AccountLimits: {\n";
 

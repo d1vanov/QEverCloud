@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SyncStateData.h"
+#include "SyncStateImpl.h"
 
 #include <QTextStream>
 
@@ -37,7 +37,7 @@ bool SyncState::Impl::operator!=(
     return !(*this == other);
 }
 
-void SyncState::Data::print(QTextStream & strm) const
+void SyncState::Impl::print(QTextStream & strm) const
 {
     strm << "SyncState: {\n";
     strm << "    currentTime = "

@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "EDAMNotFoundExceptionData.h"
+#include "EDAMNotFoundExceptionImpl.h"
 
 #include <QTextStream>
 
@@ -33,7 +33,7 @@ bool EDAMNotFoundException::Impl::operator!=(
     return !(*this == other);
 }
 
-void EDAMNotFoundException::Data::print(QTextStream & strm) const
+void EDAMNotFoundException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMNotFoundException: {\n";
 

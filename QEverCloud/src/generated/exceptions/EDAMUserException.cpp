@@ -90,9 +90,10 @@ EverCloudExceptionDataPtr EDAMUserException::exceptionData() const
 }
 
 EDAMUserExceptionData::EDAMUserExceptionData(
+    QString error,
     EDAMErrorCode errorCode,
-    QString parameter):
-    EvernoteExceptionData(QStringLiteral("EDAMUserExceptionData")),
+    std::optional<QString> parameter):
+    EvernoteExceptionData(error),
     d(new EDAMUserExceptionData::Impl)
 {
     d->m_errorCode = std::move(errorCode);
@@ -118,6 +119,8 @@ void EDAMUserExceptionData::setParameter(std::optional<QString> parameter)
 {
     d->m_parameter = parameter;
 }
+
+EDAMUserExceptionData::~EDAMUserExceptionData() noexcept {}
 
 void EDAMUserExceptionData::throwException() const
 {

@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "ManageNoteSharesResultData.h"
+#include "ManageNoteSharesResultImpl.h"
 
 #include <QTextStream>
 
@@ -32,7 +32,7 @@ bool ManageNoteSharesResult::Impl::operator!=(
     return !(*this == other);
 }
 
-void ManageNoteSharesResult::Data::print(QTextStream & strm) const
+void ManageNoteSharesResult::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNoteSharesResult: {\n";
 

@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteVersionIdData.h"
+#include "NoteVersionIdImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool NoteVersionId::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteVersionId::Data::print(QTextStream & strm) const
+void NoteVersionId::Impl::print(QTextStream & strm) const
 {
     strm << "NoteVersionId: {\n";
     strm << "    updateSequenceNum = "

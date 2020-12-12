@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "AccountingData.h"
+#include "AccountingImpl.h"
 
 #include <QTextStream>
 
@@ -54,7 +54,7 @@ bool Accounting::Impl::operator!=(
     return !(*this == other);
 }
 
-void Accounting::Data::print(QTextStream & strm) const
+void Accounting::Impl::print(QTextStream & strm) const
 {
     strm << "Accounting: {\n";
 

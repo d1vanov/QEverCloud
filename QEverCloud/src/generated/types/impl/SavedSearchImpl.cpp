@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SavedSearchData.h"
+#include "SavedSearchImpl.h"
 
 #include <QTextStream>
 
@@ -42,7 +42,7 @@ bool SavedSearch::Impl::operator!=(
     return !(*this == other);
 }
 
-void SavedSearch::Data::print(QTextStream & strm) const
+void SavedSearch::Impl::print(QTextStream & strm) const
 {
     strm << "SavedSearch: {\n";
         strm << "    localId = " << m_localId << "\n";

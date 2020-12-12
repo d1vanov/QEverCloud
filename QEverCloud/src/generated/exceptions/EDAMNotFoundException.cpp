@@ -90,9 +90,10 @@ EverCloudExceptionDataPtr EDAMNotFoundException::exceptionData() const
 }
 
 EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(
-    QString identifier,
-    QString key):
-    EvernoteExceptionData(QStringLiteral("EDAMNotFoundExceptionData")),
+    QString error,
+    std::optional<QString> identifier,
+    std::optional<QString> key):
+    EvernoteExceptionData(error),
     d(new EDAMNotFoundExceptionData::Impl)
 {
     d->m_identifier = std::move(identifier);
@@ -118,6 +119,8 @@ void EDAMNotFoundExceptionData::setKey(std::optional<QString> key)
 {
     d->m_key = key;
 }
+
+EDAMNotFoundExceptionData::~EDAMNotFoundExceptionData() noexcept {}
 
 void EDAMNotFoundExceptionData::throwException() const
 {

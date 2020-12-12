@@ -49,6 +49,15 @@ public:
     Impl(const EDAMInvalidContactsExceptionData::Impl & other) = default;
     Impl(EDAMInvalidContactsExceptionData::Impl && other) noexcept = default;
 
+    explicit Impl(
+        QList<Contact> contacts,
+        std::optional<QString> parameter,
+        std::optional<QList<EDAMInvalidContactReason>> reasons) :
+        m_contacts(std::move(contacts)),
+        m_parameter(std::move(parameter)),
+        m_reasons(std::move(reasons))
+    {}
+
     EDAMInvalidContactsExceptionData::Impl & operator=(const EDAMInvalidContactsExceptionData::Impl & other) = delete;
     EDAMInvalidContactsExceptionData::Impl & operator=(EDAMInvalidContactsExceptionData::Impl && other) = delete;
 

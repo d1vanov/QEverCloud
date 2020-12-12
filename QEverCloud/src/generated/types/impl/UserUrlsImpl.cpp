@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "UserUrlsData.h"
+#include "UserUrlsImpl.h"
 
 #include <QTextStream>
 
@@ -37,7 +37,7 @@ bool UserUrls::Impl::operator!=(
     return !(*this == other);
 }
 
-void UserUrls::Data::print(QTextStream & strm) const
+void UserUrls::Impl::print(QTextStream & strm) const
 {
     strm << "UserUrls: {\n";
 

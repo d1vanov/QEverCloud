@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "BootstrapInfoData.h"
+#include "BootstrapInfoImpl.h"
 
 #include <QTextStream>
 
@@ -32,7 +32,7 @@ bool BootstrapInfo::Impl::operator!=(
     return !(*this == other);
 }
 
-void BootstrapInfo::Data::print(QTextStream & strm) const
+void BootstrapInfo::Impl::print(QTextStream & strm) const
 {
     strm << "BootstrapInfo: {\n";
     strm << "    profiles = "

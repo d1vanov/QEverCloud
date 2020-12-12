@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "ResourceAttributesData.h"
+#include "ResourceAttributesImpl.h"
 
 #include <QTextStream>
 
@@ -43,7 +43,7 @@ bool ResourceAttributes::Impl::operator!=(
     return !(*this == other);
 }
 
-void ResourceAttributes::Data::print(QTextStream & strm) const
+void ResourceAttributes::Impl::print(QTextStream & strm) const
 {
     strm << "ResourceAttributes: {\n";
 

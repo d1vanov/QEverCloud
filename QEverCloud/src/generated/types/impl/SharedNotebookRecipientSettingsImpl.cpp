@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SharedNotebookRecipientSettingsData.h"
+#include "SharedNotebookRecipientSettingsImpl.h"
 
 #include <QTextStream>
 
@@ -33,7 +33,7 @@ bool SharedNotebookRecipientSettings::Impl::operator!=(
     return !(*this == other);
 }
 
-void SharedNotebookRecipientSettings::Data::print(QTextStream & strm) const
+void SharedNotebookRecipientSettings::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNotebookRecipientSettings: {\n";
 

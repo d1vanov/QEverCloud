@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteEmailParametersData.h"
+#include "NoteEmailParametersImpl.h"
 
 #include <QTextStream>
 
@@ -37,7 +37,7 @@ bool NoteEmailParameters::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteEmailParameters::Data::print(QTextStream & strm) const
+void NoteEmailParameters::Impl::print(QTextStream & strm) const
 {
     strm << "NoteEmailParameters: {\n";
 

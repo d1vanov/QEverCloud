@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "BootstrapSettingsData.h"
+#include "BootstrapSettingsImpl.h"
 
 #include <QTextStream>
 
@@ -45,7 +45,7 @@ bool BootstrapSettings::Impl::operator!=(
     return !(*this == other);
 }
 
-void BootstrapSettings::Data::print(QTextStream & strm) const
+void BootstrapSettings::Impl::print(QTextStream & strm) const
 {
     strm << "BootstrapSettings: {\n";
     strm << "    serviceHost = "

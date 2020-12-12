@@ -111,10 +111,11 @@ EverCloudExceptionDataPtr EDAMInvalidContactsException::exceptionData() const
 }
 
 EDAMInvalidContactsExceptionData::EDAMInvalidContactsExceptionData(
+    QString error,
     QList<Contact> contacts,
-    QString parameter,
-    QList<EDAMInvalidContactReason> reasons):
-    EvernoteExceptionData(QStringLiteral("EDAMInvalidContactsExceptionData")),
+    std::optional<QString> parameter,
+    std::optional<QList<EDAMInvalidContactReason>> reasons):
+    EvernoteExceptionData(error),
     d(new EDAMInvalidContactsExceptionData::Impl)
 {
     d->m_contacts = std::move(contacts);
@@ -161,6 +162,8 @@ void EDAMInvalidContactsExceptionData::setReasons(std::optional<QList<EDAMInvali
 {
     d->m_reasons = reasons;
 }
+
+EDAMInvalidContactsExceptionData::~EDAMInvalidContactsExceptionData() noexcept {}
 
 void EDAMInvalidContactsExceptionData::throwException() const
 {

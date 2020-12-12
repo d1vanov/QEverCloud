@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "RelatedContentImageData.h"
+#include "RelatedContentImageImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool RelatedContentImage::Impl::operator!=(
     return !(*this == other);
 }
 
-void RelatedContentImage::Data::print(QTextStream & strm) const
+void RelatedContentImage::Impl::print(QTextStream & strm) const
 {
     strm << "RelatedContentImage: {\n";
 

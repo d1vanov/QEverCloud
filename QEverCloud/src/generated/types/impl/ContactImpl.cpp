@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "ContactData.h"
+#include "ContactImpl.h"
 
 #include <QTextStream>
 
@@ -38,7 +38,7 @@ bool Contact::Impl::operator!=(
     return !(*this == other);
 }
 
-void Contact::Data::print(QTextStream & strm) const
+void Contact::Impl::print(QTextStream & strm) const
 {
     strm << "Contact: {\n";
 

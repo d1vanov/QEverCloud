@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "RelatedContentData.h"
+#include "RelatedContentImpl.h"
 
 #include <QTextStream>
 
@@ -47,7 +47,7 @@ bool RelatedContent::Impl::operator!=(
     return !(*this == other);
 }
 
-void RelatedContent::Data::print(QTextStream & strm) const
+void RelatedContent::Impl::print(QTextStream & strm) const
 {
     strm << "RelatedContent: {\n";
 

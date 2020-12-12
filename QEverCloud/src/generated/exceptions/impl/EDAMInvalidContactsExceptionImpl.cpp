@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "EDAMInvalidContactsExceptionData.h"
+#include "EDAMInvalidContactsExceptionImpl.h"
 
 #include <QTextStream>
 
@@ -34,7 +34,7 @@ bool EDAMInvalidContactsException::Impl::operator!=(
     return !(*this == other);
 }
 
-void EDAMInvalidContactsException::Data::print(QTextStream & strm) const
+void EDAMInvalidContactsException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMInvalidContactsException: {\n";
     strm << "    contacts = "

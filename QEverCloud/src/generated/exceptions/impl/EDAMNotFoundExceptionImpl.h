@@ -48,6 +48,13 @@ public:
     Impl(const EDAMNotFoundExceptionData::Impl & other) = default;
     Impl(EDAMNotFoundExceptionData::Impl && other) noexcept = default;
 
+    explicit Impl(
+        std::optional<QString> identifier,
+        std::optional<QString> key) :
+        m_identifier(std::move(identifier)),
+        m_key(std::move(key))
+    {}
+
     EDAMNotFoundExceptionData::Impl & operator=(const EDAMNotFoundExceptionData::Impl & other) = delete;
     EDAMNotFoundExceptionData::Impl & operator=(EDAMNotFoundExceptionData::Impl && other) = delete;
 

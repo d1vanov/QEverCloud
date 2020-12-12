@@ -48,6 +48,13 @@ public:
     Impl(const EDAMUserExceptionData::Impl & other) = default;
     Impl(EDAMUserExceptionData::Impl && other) noexcept = default;
 
+    explicit Impl(
+        EDAMErrorCode errorCode,
+        std::optional<QString> parameter) :
+        m_errorCode(std::move(errorCode)),
+        m_parameter(std::move(parameter))
+    {}
+
     EDAMUserExceptionData::Impl & operator=(const EDAMUserExceptionData::Impl & other) = delete;
     EDAMUserExceptionData::Impl & operator=(EDAMUserExceptionData::Impl && other) = delete;
 

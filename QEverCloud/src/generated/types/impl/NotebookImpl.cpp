@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NotebookData.h"
+#include "NotebookImpl.h"
 
 #include <QTextStream>
 
@@ -51,7 +51,7 @@ bool Notebook::Impl::operator!=(
     return !(*this == other);
 }
 
-void Notebook::Data::print(QTextStream & strm) const
+void Notebook::Impl::print(QTextStream & strm) const
 {
     strm << "Notebook: {\n";
         strm << "    localId = " << m_localId << "\n";

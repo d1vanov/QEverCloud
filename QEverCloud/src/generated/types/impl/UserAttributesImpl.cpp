@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "UserAttributesData.h"
+#include "UserAttributesImpl.h"
 
 #include <QTextStream>
 
@@ -66,7 +66,7 @@ bool UserAttributes::Impl::operator!=(
     return !(*this == other);
 }
 
-void UserAttributes::Data::print(QTextStream & strm) const
+void UserAttributes::Impl::print(QTextStream & strm) const
 {
     strm << "UserAttributes: {\n";
 

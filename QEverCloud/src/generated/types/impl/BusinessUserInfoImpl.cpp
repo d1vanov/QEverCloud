@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "BusinessUserInfoData.h"
+#include "BusinessUserInfoImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool BusinessUserInfo::Impl::operator!=(
     return !(*this == other);
 }
 
-void BusinessUserInfo::Data::print(QTextStream & strm) const
+void BusinessUserInfo::Impl::print(QTextStream & strm) const
 {
     strm << "BusinessUserInfo: {\n";
 

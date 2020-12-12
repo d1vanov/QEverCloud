@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteListData.h"
+#include "NoteListImpl.h"
 
 #include <QTextStream>
 
@@ -39,7 +39,7 @@ bool NoteList::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteList::Data::print(QTextStream & strm) const
+void NoteList::Impl::print(QTextStream & strm) const
 {
     strm << "NoteList: {\n";
     strm << "    startIndex = "

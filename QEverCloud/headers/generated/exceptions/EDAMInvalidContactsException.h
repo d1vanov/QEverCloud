@@ -95,9 +95,12 @@ class QEVERCLOUD_EXPORT EDAMInvalidContactsExceptionData: public EvernoteExcepti
     Q_DISABLE_COPY(EDAMInvalidContactsExceptionData)
 public:
     explicit EDAMInvalidContactsExceptionData(
+        QString error,
         QList<Contact> contacts,
-        QString parameter,
-        QList<EDAMInvalidContactReason> reasons);
+        std::optional<QString> parameter,
+        std::optional<QList<EDAMInvalidContactReason>> reasons);
+
+    ~EDAMInvalidContactsExceptionData() noexcept override;
 
     [[nodiscard]] const QList<Contact> & contacts() const noexcept;
     [[nodiscard]] QList<Contact> & mutableContacts();
@@ -120,6 +123,5 @@ private:
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactsException)
-Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactsExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMINVALIDCONTACTSEXCEPTION_H

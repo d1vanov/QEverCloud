@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SyncChunkData.h"
+#include "SyncChunkImpl.h"
 
 #include <QTextStream>
 
@@ -45,7 +45,7 @@ bool SyncChunk::Impl::operator!=(
     return !(*this == other);
 }
 
-void SyncChunk::Data::print(QTextStream & strm) const
+void SyncChunk::Impl::print(QTextStream & strm) const
 {
     strm << "SyncChunk: {\n";
     strm << "    currentTime = "

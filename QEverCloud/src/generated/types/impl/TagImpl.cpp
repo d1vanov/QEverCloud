@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "TagData.h"
+#include "TagImpl.h"
 
 #include <QTextStream>
 
@@ -40,7 +40,7 @@ bool Tag::Impl::operator!=(
     return !(*this == other);
 }
 
-void Tag::Data::print(QTextStream & strm) const
+void Tag::Impl::print(QTextStream & strm) const
 {
     strm << "Tag: {\n";
         strm << "    localId = " << m_localId << "\n";

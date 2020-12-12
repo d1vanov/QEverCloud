@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NotebookRestrictionsData.h"
+#include "NotebookRestrictionsImpl.h"
 
 #include <QTextStream>
 
@@ -60,7 +60,7 @@ bool NotebookRestrictions::Impl::operator!=(
     return !(*this == other);
 }
 
-void NotebookRestrictions::Data::print(QTextStream & strm) const
+void NotebookRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "NotebookRestrictions: {\n";
 

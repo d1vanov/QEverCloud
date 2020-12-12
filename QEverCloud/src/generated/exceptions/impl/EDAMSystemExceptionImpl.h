@@ -49,6 +49,15 @@ public:
     Impl(const EDAMSystemExceptionData::Impl & other) = default;
     Impl(EDAMSystemExceptionData::Impl && other) noexcept = default;
 
+    explicit Impl(
+        EDAMErrorCode errorCode,
+        std::optional<QString> message,
+        std::optional<qint32> rateLimitDuration) :
+        m_errorCode(std::move(errorCode)),
+        m_message(std::move(message)),
+        m_rateLimitDuration(std::move(rateLimitDuration))
+    {}
+
     EDAMSystemExceptionData::Impl & operator=(const EDAMSystemExceptionData::Impl & other) = delete;
     EDAMSystemExceptionData::Impl & operator=(EDAMSystemExceptionData::Impl && other) = delete;
 

@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "BusinessInvitationData.h"
+#include "BusinessInvitationImpl.h"
 
 #include <QTextStream>
 
@@ -39,7 +39,7 @@ bool BusinessInvitation::Impl::operator!=(
     return !(*this == other);
 }
 
-void BusinessInvitation::Data::print(QTextStream & strm) const
+void BusinessInvitation::Impl::print(QTextStream & strm) const
 {
     strm << "BusinessInvitation: {\n";
 

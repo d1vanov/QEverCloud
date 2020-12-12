@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "ManageNotebookSharesParametersData.h"
+#include "ManageNotebookSharesParametersImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool ManageNotebookSharesParameters::Impl::operator!=(
     return !(*this == other);
 }
 
-void ManageNotebookSharesParameters::Data::print(QTextStream & strm) const
+void ManageNotebookSharesParameters::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesParameters: {\n";
 

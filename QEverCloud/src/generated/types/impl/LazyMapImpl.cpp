@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "LazyMapData.h"
+#include "LazyMapImpl.h"
 
 #include <QTextStream>
 
@@ -33,7 +33,7 @@ bool LazyMap::Impl::operator!=(
     return !(*this == other);
 }
 
-void LazyMap::Data::print(QTextStream & strm) const
+void LazyMap::Impl::print(QTextStream & strm) const
 {
     strm << "LazyMap: {\n";
 

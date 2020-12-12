@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NotesMetadataListData.h"
+#include "NotesMetadataListImpl.h"
 
 #include <QTextStream>
 
@@ -39,7 +39,7 @@ bool NotesMetadataList::Impl::operator!=(
     return !(*this == other);
 }
 
-void NotesMetadataList::Data::print(QTextStream & strm) const
+void NotesMetadataList::Impl::print(QTextStream & strm) const
 {
     strm << "NotesMetadataList: {\n";
     strm << "    startIndex = "

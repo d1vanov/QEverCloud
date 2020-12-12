@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SyncChunkFilterData.h"
+#include "SyncChunkFilterImpl.h"
 
 #include <QTextStream>
 
@@ -47,7 +47,7 @@ bool SyncChunkFilter::Impl::operator!=(
     return !(*this == other);
 }
 
-void SyncChunkFilter::Data::print(QTextStream & strm) const
+void SyncChunkFilter::Impl::print(QTextStream & strm) const
 {
     strm << "SyncChunkFilter: {\n";
 

@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteMetadataData.h"
+#include "NoteMetadataImpl.h"
 
 #include <QTextStream>
 
@@ -48,7 +48,7 @@ bool NoteMetadata::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteMetadata::Data::print(QTextStream & strm) const
+void NoteMetadata::Impl::print(QTextStream & strm) const
 {
     strm << "NoteMetadata: {\n";
         strm << "    localId = " << m_localId << "\n";

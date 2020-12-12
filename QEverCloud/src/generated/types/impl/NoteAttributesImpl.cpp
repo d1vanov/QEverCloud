@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteAttributesData.h"
+#include "NoteAttributesImpl.h"
 
 #include <QTextStream>
 
@@ -53,7 +53,7 @@ bool NoteAttributes::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteAttributes::Data::print(QTextStream & strm) const
+void NoteAttributes::Impl::print(QTextStream & strm) const
 {
     strm << "NoteAttributes: {\n";
 

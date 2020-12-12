@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "CanMoveToContainerRestrictionsData.h"
+#include "CanMoveToContainerRestrictionsImpl.h"
 
 #include <QTextStream>
 
@@ -32,7 +32,7 @@ bool CanMoveToContainerRestrictions::Impl::operator!=(
     return !(*this == other);
 }
 
-void CanMoveToContainerRestrictions::Data::print(QTextStream & strm) const
+void CanMoveToContainerRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "CanMoveToContainerRestrictions: {\n";
 

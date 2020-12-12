@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "EDAMSystemExceptionData.h"
+#include "EDAMSystemExceptionImpl.h"
 
 #include <QTextStream>
 
@@ -34,7 +34,7 @@ bool EDAMSystemException::Impl::operator!=(
     return !(*this == other);
 }
 
-void EDAMSystemException::Data::print(QTextStream & strm) const
+void EDAMSystemException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMSystemException: {\n";
     strm << "    errorCode = "

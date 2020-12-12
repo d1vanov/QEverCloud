@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteCollectionCountsData.h"
+#include "NoteCollectionCountsImpl.h"
 
 #include <QTextStream>
 
@@ -34,7 +34,7 @@ bool NoteCollectionCounts::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteCollectionCounts::Data::print(QTextStream & strm) const
+void NoteCollectionCounts::Impl::print(QTextStream & strm) const
 {
     strm << "NoteCollectionCounts: {\n";
 

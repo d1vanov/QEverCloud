@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteShareRelationshipRestrictionsData.h"
+#include "NoteShareRelationshipRestrictionsImpl.h"
 
 #include <QTextStream>
 
@@ -34,7 +34,7 @@ bool NoteShareRelationshipRestrictions::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteShareRelationshipRestrictions::Data::print(QTextStream & strm) const
+void NoteShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "NoteShareRelationshipRestrictions: {\n";
 

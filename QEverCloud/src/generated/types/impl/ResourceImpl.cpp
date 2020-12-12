@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "ResourceData.h"
+#include "ResourceImpl.h"
 
 #include <QTextStream>
 
@@ -48,7 +48,7 @@ bool Resource::Impl::operator!=(
     return !(*this == other);
 }
 
-void Resource::Data::print(QTextStream & strm) const
+void Resource::Impl::print(QTextStream & strm) const
 {
     strm << "Resource: {\n";
         strm << "    localId = " << m_localId << "\n";

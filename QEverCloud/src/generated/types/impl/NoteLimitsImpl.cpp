@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteLimitsData.h"
+#include "NoteLimitsImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool NoteLimits::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteLimits::Data::print(QTextStream & strm) const
+void NoteLimits::Impl::print(QTextStream & strm) const
 {
     strm << "NoteLimits: {\n";
 

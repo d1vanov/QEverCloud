@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "PublishingData.h"
+#include "PublishingImpl.h"
 
 #include <QTextStream>
 
@@ -35,7 +35,7 @@ bool Publishing::Impl::operator!=(
     return !(*this == other);
 }
 
-void Publishing::Data::print(QTextStream & strm) const
+void Publishing::Impl::print(QTextStream & strm) const
 {
     strm << "Publishing: {\n";
 

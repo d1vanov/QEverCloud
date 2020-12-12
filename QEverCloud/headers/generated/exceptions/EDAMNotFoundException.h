@@ -78,8 +78,11 @@ class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData
     Q_DISABLE_COPY(EDAMNotFoundExceptionData)
 public:
     explicit EDAMNotFoundExceptionData(
-        QString identifier,
-        QString key);
+        QString error,
+        std::optional<QString> identifier,
+        std::optional<QString> key);
+
+    ~EDAMNotFoundExceptionData() noexcept override;
 
     [[nodiscard]] const std::optional<QString> & identifier() const noexcept;
     void setIdentifier(std::optional<QString> identifier);
@@ -97,6 +100,5 @@ private:
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMNotFoundException)
-Q_DECLARE_METATYPE(qevercloud::EDAMNotFoundExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMNOTFOUNDEXCEPTION_H

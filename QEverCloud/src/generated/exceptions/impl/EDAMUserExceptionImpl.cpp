@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "EDAMUserExceptionData.h"
+#include "EDAMUserExceptionImpl.h"
 
 #include <QTextStream>
 
@@ -33,7 +33,7 @@ bool EDAMUserException::Impl::operator!=(
     return !(*this == other);
 }
 
-void EDAMUserException::Data::print(QTextStream & strm) const
+void EDAMUserException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMUserException: {\n";
     strm << "    errorCode = "

@@ -84,9 +84,12 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData
     Q_DISABLE_COPY(EDAMSystemExceptionData)
 public:
     explicit EDAMSystemExceptionData(
+        QString error,
         EDAMErrorCode errorCode,
-        QString message,
-        qint32 rateLimitDuration);
+        std::optional<QString> message,
+        std::optional<qint32> rateLimitDuration);
+
+    ~EDAMSystemExceptionData() noexcept override;
 
     [[nodiscard]] EDAMErrorCode errorCode() const noexcept;
     void setErrorCode(EDAMErrorCode errorCode);
@@ -108,6 +111,5 @@ private:
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMSystemException)
-Q_DECLARE_METATYPE(qevercloud::EDAMSystemExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMSYSTEMEXCEPTION_H

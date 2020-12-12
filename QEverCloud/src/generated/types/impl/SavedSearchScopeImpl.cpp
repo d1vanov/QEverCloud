@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SavedSearchScopeData.h"
+#include "SavedSearchScopeImpl.h"
 
 #include <QTextStream>
 
@@ -34,7 +34,7 @@ bool SavedSearchScope::Impl::operator!=(
     return !(*this == other);
 }
 
-void SavedSearchScope::Data::print(QTextStream & strm) const
+void SavedSearchScope::Impl::print(QTextStream & strm) const
 {
     strm << "SavedSearchScope: {\n";
 

@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "RelatedResultSpecData.h"
+#include "RelatedResultSpecImpl.h"
 
 #include <QTextStream>
 
@@ -40,7 +40,7 @@ bool RelatedResultSpec::Impl::operator!=(
     return !(*this == other);
 }
 
-void RelatedResultSpec::Data::print(QTextStream & strm) const
+void RelatedResultSpec::Impl::print(QTextStream & strm) const
 {
     strm << "RelatedResultSpec: {\n";
 

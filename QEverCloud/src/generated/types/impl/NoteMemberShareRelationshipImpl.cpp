@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "NoteMemberShareRelationshipData.h"
+#include "NoteMemberShareRelationshipImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool NoteMemberShareRelationship::Impl::operator!=(
     return !(*this == other);
 }
 
-void NoteMemberShareRelationship::Data::print(QTextStream & strm) const
+void NoteMemberShareRelationship::Impl::print(QTextStream & strm) const
 {
     strm << "NoteMemberShareRelationship: {\n";
 

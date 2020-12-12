@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "AuthenticationResultData.h"
+#include "AuthenticationResultImpl.h"
 
 #include <QTextStream>
 
@@ -41,7 +41,7 @@ bool AuthenticationResult::Impl::operator!=(
     return !(*this == other);
 }
 
-void AuthenticationResult::Data::print(QTextStream & strm) const
+void AuthenticationResult::Impl::print(QTextStream & strm) const
 {
     strm << "AuthenticationResult: {\n";
     strm << "    currentTime = "

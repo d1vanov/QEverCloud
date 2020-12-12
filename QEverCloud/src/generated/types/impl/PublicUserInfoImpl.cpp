@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "PublicUserInfoData.h"
+#include "PublicUserInfoImpl.h"
 
 #include <QTextStream>
 
@@ -36,7 +36,7 @@ bool PublicUserInfo::Impl::operator!=(
     return !(*this == other);
 }
 
-void PublicUserInfo::Data::print(QTextStream & strm) const
+void PublicUserInfo::Impl::print(QTextStream & strm) const
 {
     strm << "PublicUserInfo: {\n";
     strm << "    userId = "

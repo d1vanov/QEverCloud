@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "IdentityData.h"
+#include "IdentityImpl.h"
 
 #include <QTextStream>
 
@@ -39,7 +39,7 @@ bool Identity::Impl::operator!=(
     return !(*this == other);
 }
 
-void Identity::Data::print(QTextStream & strm) const
+void Identity::Impl::print(QTextStream & strm) const
 {
     strm << "Identity: {\n";
     strm << "    id = "

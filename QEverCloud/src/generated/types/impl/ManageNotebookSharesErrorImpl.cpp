@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "ManageNotebookSharesErrorData.h"
+#include "ManageNotebookSharesErrorImpl.h"
 
 #include <QTextStream>
 
@@ -34,7 +34,7 @@ bool ManageNotebookSharesError::Impl::operator!=(
     return !(*this == other);
 }
 
-void ManageNotebookSharesError::Data::print(QTextStream & strm) const
+void ManageNotebookSharesError::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesError: {\n";
 

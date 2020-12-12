@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "SharedNoteData.h"
+#include "SharedNoteImpl.h"
 
 #include <QTextStream>
 
@@ -37,7 +37,7 @@ bool SharedNote::Impl::operator!=(
     return !(*this == other);
 }
 
-void SharedNote::Data::print(QTextStream & strm) const
+void SharedNote::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNote: {\n";
 

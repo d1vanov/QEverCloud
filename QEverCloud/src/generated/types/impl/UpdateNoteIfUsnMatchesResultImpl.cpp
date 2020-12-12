@@ -9,7 +9,7 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include "UpdateNoteIfUsnMatchesResultData.h"
+#include "UpdateNoteIfUsnMatchesResultImpl.h"
 
 #include <QTextStream>
 
@@ -33,7 +33,7 @@ bool UpdateNoteIfUsnMatchesResult::Impl::operator!=(
     return !(*this == other);
 }
 
-void UpdateNoteIfUsnMatchesResult::Data::print(QTextStream & strm) const
+void UpdateNoteIfUsnMatchesResult::Impl::print(QTextStream & strm) const
 {
     strm << "UpdateNoteIfUsnMatchesResult: {\n";
 
