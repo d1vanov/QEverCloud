@@ -33,7 +33,7 @@ public:
     NetworkException();
     NetworkException(QNetworkReply::NetworkError error);
     NetworkException(QNetworkReply::NetworkError error, QString message);
-    virtual ~NetworkException() noexcept override;
+    ~NetworkException() noexcept override;
 
     bool operator==(const NetworkException & other) const;
     bool operator!=(const NetworkException & other) const;
@@ -57,8 +57,10 @@ class QEVERCLOUD_EXPORT NetworkExceptionData: public EverCloudExceptionData
     Q_OBJECT
     Q_DISABLE_COPY(NetworkExceptionData)
 public:
-    explicit NetworkExceptionData(QString error, QNetworkReply::NetworkError type);
-    virtual void throwException() const override;
+    explicit NetworkExceptionData(
+        QString error, QNetworkReply::NetworkError type);
+
+    void throwException() const override;
 
 protected:
     QNetworkReply::NetworkError m_type;
@@ -116,7 +118,7 @@ class QEVERCLOUD_EXPORT ThriftExceptionData: public EverCloudExceptionData
     Q_DISABLE_COPY(ThriftExceptionData)
 public:
     explicit ThriftExceptionData(QString error, ThriftException::Type type);
-    virtual void throwException() const override;
+    void throwException() const override;
 
 protected:
     ThriftException::Type m_type;
@@ -131,7 +133,7 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached:
     public EDAMSystemException
 {
 public:
-    virtual EverCloudExceptionDataPtr exceptionData() const override;
+    EverCloudExceptionDataPtr exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -150,7 +152,7 @@ public:
         QString error, EDAMErrorCode errorCode, std::optional<QString> message,
         std::optional<qint32> rateLimitDuration);
 
-    virtual void throwException() const override;
+    void throwException() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +163,7 @@ public:
 class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemException
 {
 public:
-    virtual EverCloudExceptionDataPtr exceptionData() const override;
+    EverCloudExceptionDataPtr exceptionData() const override;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +182,7 @@ public:
         QString error, EDAMErrorCode errorCode, std::optional<QString> message,
         std::optional<qint32> rateLimitDuration);
 
-    virtual void throwException() const override;
+    void throwException() const override;
 };
 
 } // namespace qevercloud

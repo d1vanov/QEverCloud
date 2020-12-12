@@ -423,9 +423,9 @@ EDAMSystemExceptionRateLimitReachedData::EDAMSystemExceptionRateLimitReachedData
 void EDAMSystemExceptionRateLimitReachedData::throwException() const
 {
     EDAMSystemExceptionRateLimitReached e;
-    e.setErrorCode(m_errorCode);
-    e.setMessage(m_message);
-    e.setRateLimitDuration(m_rateLimitDuration);
+    e.setErrorCode(errorCode());
+    e.setMessage(message());
+    e.setRateLimitDuration(rateLimitDuration());
     throw e;
 }
 
@@ -479,9 +479,9 @@ EDAMSystemExceptionAuthExpiredData::EDAMSystemExceptionAuthExpiredData(
 void EDAMSystemExceptionAuthExpiredData::throwException() const
 {
     EDAMSystemExceptionAuthExpired e;
-    e.setErrorCode(m_errorCode);
-    e.setMessage(m_message);
-    e.setRateLimitDuration(m_rateLimitDuration);
+    e.setErrorCode(errorCode());
+    e.setMessage(message());
+    e.setRateLimitDuration(rateLimitDuration());
     throw e;
 }
 

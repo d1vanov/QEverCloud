@@ -124,84 +124,84 @@ set(PRIVATE_HEADERS
     src/NetworkCookieJar.h
     src/Thrift.h
     src/generated/Types_io.h
-    src/generated/exceptions/data/EDAMInvalidContactsExceptionData.h
-    src/generated/exceptions/data/EDAMNotFoundExceptionData.h
-    src/generated/exceptions/data/EDAMSystemExceptionData.h
-    src/generated/exceptions/data/EDAMUserExceptionData.h
-    src/generated/types/data/AccountingData.h
-    src/generated/types/data/AccountLimitsData.h
-    src/generated/types/data/AuthenticationResultData.h
-    src/generated/types/data/BootstrapInfoData.h
-    src/generated/types/data/BootstrapProfileData.h
-    src/generated/types/data/BootstrapSettingsData.h
-    src/generated/types/data/BusinessInvitationData.h
-    src/generated/types/data/BusinessNotebookData.h
-    src/generated/types/data/BusinessUserAttributesData.h
-    src/generated/types/data/BusinessUserInfoData.h
-    src/generated/types/data/CanMoveToContainerRestrictionsData.h
-    src/generated/types/data/ContactData.h
-    src/generated/types/data/CreateOrUpdateNotebookSharesResultData.h
-    src/generated/types/data/DataData.h
-    src/generated/types/data/IdentityData.h
-    src/generated/types/data/InvitationShareRelationshipData.h
-    src/generated/types/data/LazyMapData.h
-    src/generated/types/data/LinkedNotebookData.h
-    src/generated/types/data/ManageNotebookSharesErrorData.h
-    src/generated/types/data/ManageNotebookSharesParametersData.h
-    src/generated/types/data/ManageNotebookSharesResultData.h
-    src/generated/types/data/ManageNoteSharesErrorData.h
-    src/generated/types/data/ManageNoteSharesParametersData.h
-    src/generated/types/data/ManageNoteSharesResultData.h
-    src/generated/types/data/MemberShareRelationshipData.h
-    src/generated/types/data/NoteAttributesData.h
-    src/generated/types/data/NotebookData.h
-    src/generated/types/data/NotebookDescriptorData.h
-    src/generated/types/data/NotebookRecipientSettingsData.h
-    src/generated/types/data/NotebookRestrictionsData.h
-    src/generated/types/data/NotebookShareTemplateData.h
-    src/generated/types/data/NoteCollectionCountsData.h
-    src/generated/types/data/NoteData.h
-    src/generated/types/data/NoteEmailParametersData.h
-    src/generated/types/data/NoteFilterData.h
-    src/generated/types/data/NoteInvitationShareRelationshipData.h
-    src/generated/types/data/NoteLimitsData.h
-    src/generated/types/data/NoteListData.h
-    src/generated/types/data/NoteMemberShareRelationshipData.h
-    src/generated/types/data/NoteMetadataData.h
-    src/generated/types/data/NoteRestrictionsData.h
-    src/generated/types/data/NoteResultSpecData.h
-    src/generated/types/data/NoteShareRelationshipRestrictionsData.h
-    src/generated/types/data/NoteShareRelationshipsData.h
-    src/generated/types/data/NotesMetadataListData.h
-    src/generated/types/data/NotesMetadataResultSpecData.h
-    src/generated/types/data/NoteVersionIdData.h
-    src/generated/types/data/PublicUserInfoData.h
-    src/generated/types/data/PublishingData.h
-    src/generated/types/data/RelatedContentData.h
-    src/generated/types/data/RelatedContentImageData.h
-    src/generated/types/data/RelatedQueryData.h
-    src/generated/types/data/RelatedResultData.h
-    src/generated/types/data/RelatedResultSpecData.h
-    src/generated/types/data/ResourceAttributesData.h
-    src/generated/types/data/ResourceData.h
-    src/generated/types/data/SavedSearchData.h
-    src/generated/types/data/SavedSearchScopeData.h
-    src/generated/types/data/SharedNotebookData.h
-    src/generated/types/data/SharedNotebookRecipientSettingsData.h
-    src/generated/types/data/SharedNoteData.h
-    src/generated/types/data/SharedNoteTemplateData.h
-    src/generated/types/data/ShareRelationshipRestrictionsData.h
-    src/generated/types/data/ShareRelationshipsData.h
-    src/generated/types/data/SyncChunkData.h
-    src/generated/types/data/SyncChunkFilterData.h
-    src/generated/types/data/SyncStateData.h
-    src/generated/types/data/TagData.h
-    src/generated/types/data/UpdateNoteIfUsnMatchesResultData.h
-    src/generated/types/data/UserAttributesData.h
-    src/generated/types/data/UserData.h
-    src/generated/types/data/UserIdentityData.h
-    src/generated/types/data/UserProfileData.h
-    src/generated/types/data/UserUrlsData.h)
+    src/generated/exceptions/impl/EDAMInvalidContactsExceptionImpl.h
+    src/generated/exceptions/impl/EDAMNotFoundExceptionImpl.h
+    src/generated/exceptions/impl/EDAMSystemExceptionImpl.h
+    src/generated/exceptions/impl/EDAMUserExceptionImpl.h
+    src/generated/types/impl/AccountingImpl.h
+    src/generated/types/impl/AccountLimitsImpl.h
+    src/generated/types/impl/AuthenticationResultImpl.h
+    src/generated/types/impl/BootstrapInfoImpl.h
+    src/generated/types/impl/BootstrapProfileImpl.h
+    src/generated/types/impl/BootstrapSettingsImpl.h
+    src/generated/types/impl/BusinessInvitationImpl.h
+    src/generated/types/impl/BusinessNotebookImpl.h
+    src/generated/types/impl/BusinessUserAttributesImpl.h
+    src/generated/types/impl/BusinessUserInfoImpl.h
+    src/generated/types/impl/CanMoveToContainerRestrictionsImpl.h
+    src/generated/types/impl/ContactImpl.h
+    src/generated/types/impl/CreateOrUpdateNotebookSharesResultImpl.h
+    src/generated/types/impl/DataImpl.h
+    src/generated/types/impl/IdentityImpl.h
+    src/generated/types/impl/InvitationShareRelationshipImpl.h
+    src/generated/types/impl/LazyMapImpl.h
+    src/generated/types/impl/LinkedNotebookImpl.h
+    src/generated/types/impl/ManageNotebookSharesErrorImpl.h
+    src/generated/types/impl/ManageNotebookSharesParametersImpl.h
+    src/generated/types/impl/ManageNotebookSharesResultImpl.h
+    src/generated/types/impl/ManageNoteSharesErrorImpl.h
+    src/generated/types/impl/ManageNoteSharesParametersImpl.h
+    src/generated/types/impl/ManageNoteSharesResultImpl.h
+    src/generated/types/impl/MemberShareRelationshipImpl.h
+    src/generated/types/impl/NoteAttributesImpl.h
+    src/generated/types/impl/NotebookImpl.h
+    src/generated/types/impl/NotebookDescriptorImpl.h
+    src/generated/types/impl/NotebookRecipientSettingsImpl.h
+    src/generated/types/impl/NotebookRestrictionsImpl.h
+    src/generated/types/impl/NotebookShareTemplateImpl.h
+    src/generated/types/impl/NoteCollectionCountsImpl.h
+    src/generated/types/impl/NoteImpl.h
+    src/generated/types/impl/NoteEmailParametersImpl.h
+    src/generated/types/impl/NoteFilterImpl.h
+    src/generated/types/impl/NoteInvitationShareRelationshipImpl.h
+    src/generated/types/impl/NoteLimitsImpl.h
+    src/generated/types/impl/NoteListImpl.h
+    src/generated/types/impl/NoteMemberShareRelationshipImpl.h
+    src/generated/types/impl/NoteMetadataImpl.h
+    src/generated/types/impl/NoteRestrictionsImpl.h
+    src/generated/types/impl/NoteResultSpecImpl.h
+    src/generated/types/impl/NoteShareRelationshipRestrictionsImpl.h
+    src/generated/types/impl/NoteShareRelationshipsImpl.h
+    src/generated/types/impl/NotesMetadataListImpl.h
+    src/generated/types/impl/NotesMetadataResultSpecImpl.h
+    src/generated/types/impl/NoteVersionIdImpl.h
+    src/generated/types/impl/PublicUserInfoImpl.h
+    src/generated/types/impl/PublishingImpl.h
+    src/generated/types/impl/RelatedContentImpl.h
+    src/generated/types/impl/RelatedContentImageImpl.h
+    src/generated/types/impl/RelatedQueryImpl.h
+    src/generated/types/impl/RelatedResultImpl.h
+    src/generated/types/impl/RelatedResultSpecImpl.h
+    src/generated/types/impl/ResourceAttributesImpl.h
+    src/generated/types/impl/ResourceImpl.h
+    src/generated/types/impl/SavedSearchImpl.h
+    src/generated/types/impl/SavedSearchScopeImpl.h
+    src/generated/types/impl/SharedNotebookImpl.h
+    src/generated/types/impl/SharedNotebookRecipientSettingsImpl.h
+    src/generated/types/impl/SharedNoteImpl.h
+    src/generated/types/impl/SharedNoteTemplateImpl.h
+    src/generated/types/impl/ShareRelationshipRestrictionsImpl.h
+    src/generated/types/impl/ShareRelationshipsImpl.h
+    src/generated/types/impl/SyncChunkImpl.h
+    src/generated/types/impl/SyncChunkFilterImpl.h
+    src/generated/types/impl/SyncStateImpl.h
+    src/generated/types/impl/TagImpl.h
+    src/generated/types/impl/UpdateNoteIfUsnMatchesResultImpl.h
+    src/generated/types/impl/UserAttributesImpl.h
+    src/generated/types/impl/UserImpl.h
+    src/generated/types/impl/UserIdentityImpl.h
+    src/generated/types/impl/UserProfileImpl.h
+    src/generated/types/impl/UserUrlsImpl.h)
 
 set(SOURCES
     src/AsyncResult.cpp
@@ -227,10 +227,10 @@ set(SOURCES
     src/generated/exceptions/EDAMNotFoundException.cpp
     src/generated/exceptions/EDAMSystemException.cpp
     src/generated/exceptions/EDAMUserException.cpp
-    src/generated/exceptions/data/EDAMInvalidContactsExceptionData.cpp
-    src/generated/exceptions/data/EDAMNotFoundExceptionData.cpp
-    src/generated/exceptions/data/EDAMSystemExceptionData.cpp
-    src/generated/exceptions/data/EDAMUserExceptionData.cpp
+    src/generated/exceptions/impl/EDAMInvalidContactsExceptionImpl.cpp
+    src/generated/exceptions/impl/EDAMNotFoundExceptionImpl.cpp
+    src/generated/exceptions/impl/EDAMSystemExceptionImpl.cpp
+    src/generated/exceptions/impl/EDAMUserExceptionImpl.cpp
     src/generated/types/Accounting.cpp
     src/generated/types/AccountLimits.cpp
     src/generated/types/AuthenticationResult.cpp
@@ -305,80 +305,80 @@ set(SOURCES
     src/generated/types/UserIdentity.cpp
     src/generated/types/UserProfile.cpp
     src/generated/types/UserUrls.cpp
-    src/generated/types/data/AccountingData.cpp
-    src/generated/types/data/AccountLimitsData.cpp
-    src/generated/types/data/AuthenticationResultData.cpp
-    src/generated/types/data/BootstrapInfoData.cpp
-    src/generated/types/data/BootstrapProfileData.cpp
-    src/generated/types/data/BootstrapSettingsData.cpp
-    src/generated/types/data/BusinessInvitationData.cpp
-    src/generated/types/data/BusinessNotebookData.cpp
-    src/generated/types/data/BusinessUserAttributesData.cpp
-    src/generated/types/data/BusinessUserInfoData.cpp
-    src/generated/types/data/CanMoveToContainerRestrictionsData.cpp
-    src/generated/types/data/ContactData.cpp
-    src/generated/types/data/CreateOrUpdateNotebookSharesResultData.cpp
-    src/generated/types/data/DataData.cpp
-    src/generated/types/data/IdentityData.cpp
-    src/generated/types/data/InvitationShareRelationshipData.cpp
-    src/generated/types/data/LazyMapData.cpp
-    src/generated/types/data/LinkedNotebookData.cpp
-    src/generated/types/data/ManageNotebookSharesErrorData.cpp
-    src/generated/types/data/ManageNotebookSharesParametersData.cpp
-    src/generated/types/data/ManageNotebookSharesResultData.cpp
-    src/generated/types/data/ManageNoteSharesErrorData.cpp
-    src/generated/types/data/ManageNoteSharesParametersData.cpp
-    src/generated/types/data/ManageNoteSharesResultData.cpp
-    src/generated/types/data/MemberShareRelationshipData.cpp
-    src/generated/types/data/NoteAttributesData.cpp
-    src/generated/types/data/NotebookData.cpp
-    src/generated/types/data/NotebookDescriptorData.cpp
-    src/generated/types/data/NotebookRecipientSettingsData.cpp
-    src/generated/types/data/NotebookRestrictionsData.cpp
-    src/generated/types/data/NotebookShareTemplateData.cpp
-    src/generated/types/data/NoteCollectionCountsData.cpp
-    src/generated/types/data/NoteData.cpp
-    src/generated/types/data/NoteEmailParametersData.cpp
-    src/generated/types/data/NoteFilterData.cpp
-    src/generated/types/data/NoteInvitationShareRelationshipData.cpp
-    src/generated/types/data/NoteLimitsData.cpp
-    src/generated/types/data/NoteListData.cpp
-    src/generated/types/data/NoteMemberShareRelationshipData.cpp
-    src/generated/types/data/NoteMetadataData.cpp
-    src/generated/types/data/NoteRestrictionsData.cpp
-    src/generated/types/data/NoteResultSpecData.cpp
-    src/generated/types/data/NoteShareRelationshipRestrictionsData.cpp
-    src/generated/types/data/NoteShareRelationshipsData.cpp
-    src/generated/types/data/NotesMetadataListData.cpp
-    src/generated/types/data/NotesMetadataResultSpecData.cpp
-    src/generated/types/data/NoteVersionIdData.cpp
-    src/generated/types/data/PublicUserInfoData.cpp
-    src/generated/types/data/PublishingData.cpp
-    src/generated/types/data/RelatedContentData.cpp
-    src/generated/types/data/RelatedContentImageData.cpp
-    src/generated/types/data/RelatedQueryData.cpp
-    src/generated/types/data/RelatedResultData.cpp
-    src/generated/types/data/RelatedResultSpecData.cpp
-    src/generated/types/data/ResourceAttributesData.cpp
-    src/generated/types/data/ResourceData.cpp
-    src/generated/types/data/SavedSearchData.cpp
-    src/generated/types/data/SavedSearchScopeData.cpp
-    src/generated/types/data/SharedNotebookData.cpp
-    src/generated/types/data/SharedNotebookRecipientSettingsData.cpp
-    src/generated/types/data/SharedNoteData.cpp
-    src/generated/types/data/SharedNoteTemplateData.cpp
-    src/generated/types/data/ShareRelationshipRestrictionsData.cpp
-    src/generated/types/data/ShareRelationshipsData.cpp
-    src/generated/types/data/SyncChunkData.cpp
-    src/generated/types/data/SyncChunkFilterData.cpp
-    src/generated/types/data/SyncStateData.cpp
-    src/generated/types/data/TagData.cpp
-    src/generated/types/data/UpdateNoteIfUsnMatchesResultData.cpp
-    src/generated/types/data/UserAttributesData.cpp
-    src/generated/types/data/UserData.cpp
-    src/generated/types/data/UserIdentityData.cpp
-    src/generated/types/data/UserProfileData.cpp
-    src/generated/types/data/UserUrlsData.cpp)
+    src/generated/types/impl/AccountingImpl.cpp
+    src/generated/types/impl/AccountLimitsImpl.cpp
+    src/generated/types/impl/AuthenticationResultImpl.cpp
+    src/generated/types/impl/BootstrapInfoImpl.cpp
+    src/generated/types/impl/BootstrapProfileImpl.cpp
+    src/generated/types/impl/BootstrapSettingsImpl.cpp
+    src/generated/types/impl/BusinessInvitationImpl.cpp
+    src/generated/types/impl/BusinessNotebookImpl.cpp
+    src/generated/types/impl/BusinessUserAttributesImpl.cpp
+    src/generated/types/impl/BusinessUserInfoImpl.cpp
+    src/generated/types/impl/CanMoveToContainerRestrictionsImpl.cpp
+    src/generated/types/impl/ContactImpl.cpp
+    src/generated/types/impl/CreateOrUpdateNotebookSharesResultImpl.cpp
+    src/generated/types/impl/DataImpl.cpp
+    src/generated/types/impl/IdentityImpl.cpp
+    src/generated/types/impl/InvitationShareRelationshipImpl.cpp
+    src/generated/types/impl/LazyMapImpl.cpp
+    src/generated/types/impl/LinkedNotebookImpl.cpp
+    src/generated/types/impl/ManageNotebookSharesErrorImpl.cpp
+    src/generated/types/impl/ManageNotebookSharesParametersImpl.cpp
+    src/generated/types/impl/ManageNotebookSharesResultImpl.cpp
+    src/generated/types/impl/ManageNoteSharesErrorImpl.cpp
+    src/generated/types/impl/ManageNoteSharesParametersImpl.cpp
+    src/generated/types/impl/ManageNoteSharesResultImpl.cpp
+    src/generated/types/impl/MemberShareRelationshipImpl.cpp
+    src/generated/types/impl/NoteAttributesImpl.cpp
+    src/generated/types/impl/NotebookImpl.cpp
+    src/generated/types/impl/NotebookDescriptorImpl.cpp
+    src/generated/types/impl/NotebookRecipientSettingsImpl.cpp
+    src/generated/types/impl/NotebookRestrictionsImpl.cpp
+    src/generated/types/impl/NotebookShareTemplateImpl.cpp
+    src/generated/types/impl/NoteCollectionCountsImpl.cpp
+    src/generated/types/impl/NoteImpl.cpp
+    src/generated/types/impl/NoteEmailParametersImpl.cpp
+    src/generated/types/impl/NoteFilterImpl.cpp
+    src/generated/types/impl/NoteInvitationShareRelationshipImpl.cpp
+    src/generated/types/impl/NoteLimitsImpl.cpp
+    src/generated/types/impl/NoteListImpl.cpp
+    src/generated/types/impl/NoteMemberShareRelationshipImpl.cpp
+    src/generated/types/impl/NoteMetadataImpl.cpp
+    src/generated/types/impl/NoteRestrictionsImpl.cpp
+    src/generated/types/impl/NoteResultSpecImpl.cpp
+    src/generated/types/impl/NoteShareRelationshipRestrictionsImpl.cpp
+    src/generated/types/impl/NoteShareRelationshipsImpl.cpp
+    src/generated/types/impl/NotesMetadataListImpl.cpp
+    src/generated/types/impl/NotesMetadataResultSpecImpl.cpp
+    src/generated/types/impl/NoteVersionIdImpl.cpp
+    src/generated/types/impl/PublicUserInfoImpl.cpp
+    src/generated/types/impl/PublishingImpl.cpp
+    src/generated/types/impl/RelatedContentImpl.cpp
+    src/generated/types/impl/RelatedContentImageImpl.cpp
+    src/generated/types/impl/RelatedQueryImpl.cpp
+    src/generated/types/impl/RelatedResultImpl.cpp
+    src/generated/types/impl/RelatedResultSpecImpl.cpp
+    src/generated/types/impl/ResourceAttributesImpl.cpp
+    src/generated/types/impl/ResourceImpl.cpp
+    src/generated/types/impl/SavedSearchImpl.cpp
+    src/generated/types/impl/SavedSearchScopeImpl.cpp
+    src/generated/types/impl/SharedNotebookImpl.cpp
+    src/generated/types/impl/SharedNotebookRecipientSettingsImpl.cpp
+    src/generated/types/impl/SharedNoteImpl.cpp
+    src/generated/types/impl/SharedNoteTemplateImpl.cpp
+    src/generated/types/impl/ShareRelationshipRestrictionsImpl.cpp
+    src/generated/types/impl/ShareRelationshipsImpl.cpp
+    src/generated/types/impl/SyncChunkImpl.cpp
+    src/generated/types/impl/SyncChunkFilterImpl.cpp
+    src/generated/types/impl/SyncStateImpl.cpp
+    src/generated/types/impl/TagImpl.cpp
+    src/generated/types/impl/UpdateNoteIfUsnMatchesResultImpl.cpp
+    src/generated/types/impl/UserAttributesImpl.cpp
+    src/generated/types/impl/UserImpl.cpp
+    src/generated/types/impl/UserIdentityImpl.cpp
+    src/generated/types/impl/UserProfileImpl.cpp
+    src/generated/types/impl/UserUrlsImpl.cpp)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   list(APPEND SOURCES
@@ -496,7 +496,7 @@ else()
   set(LIBNAME "qt5qevercloud")
 endif()
 
-add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
+add_library(${LIBNAME})
 
 if(BUILD_SHARED_LIBS)
   message(STATUS "Building QEverCloud shared library")
@@ -504,6 +504,8 @@ if(BUILD_SHARED_LIBS)
 else()
   message(STATUS "Building QEverCloud static library")
 endif()
+
+target_sources(${LIBNAME} PRIVATE ${ALL_HEADERS_AND_SOURCES})
 
 add_sanitizers(${LIBNAME})
 
