@@ -113,8 +113,8 @@ public:
     Q_PROPERTY(std::optional<QList<UserIdentity>> unshares READ unshares WRITE setUnshares)
 
 private:
-    class ManageNotebookSharesParametersData;
-    QSharedDataPointer<ManageNotebookSharesParametersData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

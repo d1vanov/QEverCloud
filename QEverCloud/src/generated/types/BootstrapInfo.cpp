@@ -11,11 +11,11 @@
 
 #include <generated/types/BootstrapInfo.h>
 
-#include "data/BootstrapInfoData.h"
+#include "impl/BootstrapInfoImpl.h"
 
 namespace qevercloud {
 
-BootstrapInfo::BootstrapInfo() : d(new BootstrapInfoData) {}
+BootstrapInfo::BootstrapInfo() : d(new BootstrapInfo::Impl) {}
 
 BootstrapInfo::BootstrapInfo(const BootstrapInfo & other) : d(other.d) {}
 

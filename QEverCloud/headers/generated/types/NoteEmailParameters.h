@@ -105,8 +105,8 @@ public:
     Q_PROPERTY(std::optional<QString> message READ message WRITE setMessage)
 
 private:
-    class NoteEmailParametersData;
-    QSharedDataPointer<NoteEmailParametersData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

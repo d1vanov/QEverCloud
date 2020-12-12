@@ -11,11 +11,11 @@
 
 #include <generated/types/UserUrls.h>
 
-#include "data/UserUrlsData.h"
+#include "impl/UserUrlsImpl.h"
 
 namespace qevercloud {
 
-UserUrls::UserUrls() : d(new UserUrlsData) {}
+UserUrls::UserUrls() : d(new UserUrls::Impl) {}
 
 UserUrls::UserUrls(const UserUrls & other) : d(other.d) {}
 

@@ -11,11 +11,11 @@
 
 #include <generated/types/Notebook.h>
 
-#include "data/NotebookData.h"
+#include "impl/NotebookImpl.h"
 
 namespace qevercloud {
 
-Notebook::Notebook() : d(new NotebookData) {}
+Notebook::Notebook() : d(new Notebook::Impl) {}
 
 Notebook::Notebook(const Notebook & other) : d(other.d) {}
 

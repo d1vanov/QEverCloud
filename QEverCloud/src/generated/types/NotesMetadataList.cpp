@@ -11,11 +11,11 @@
 
 #include <generated/types/NotesMetadataList.h>
 
-#include "data/NotesMetadataListData.h"
+#include "impl/NotesMetadataListImpl.h"
 
 namespace qevercloud {
 
-NotesMetadataList::NotesMetadataList() : d(new NotesMetadataListData) {}
+NotesMetadataList::NotesMetadataList() : d(new NotesMetadataList::Impl) {}
 
 NotesMetadataList::NotesMetadataList(const NotesMetadataList & other) : d(other.d) {}
 

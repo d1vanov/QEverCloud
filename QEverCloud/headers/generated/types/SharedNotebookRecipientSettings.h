@@ -77,8 +77,8 @@ public:
     Q_PROPERTY(std::optional<bool> reminderNotifyInApp READ reminderNotifyInApp WRITE setReminderNotifyInApp)
 
 private:
-    class SharedNotebookRecipientSettingsData;
-    QSharedDataPointer<SharedNotebookRecipientSettingsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -86,8 +86,8 @@ public:
     Q_PROPERTY(std::optional<SharedNotePrivilegeLevel> privilege READ privilege WRITE setPrivilege)
 
 private:
-    class SharedNoteTemplateData;
-    QSharedDataPointer<SharedNoteTemplateData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

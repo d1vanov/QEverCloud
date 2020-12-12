@@ -86,8 +86,8 @@ public:
     Q_PROPERTY(std::optional<UserID> sharerUserId READ sharerUserId WRITE setSharerUserId)
 
 private:
-    class NoteInvitationShareRelationshipData;
-    QSharedDataPointer<NoteInvitationShareRelationshipData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

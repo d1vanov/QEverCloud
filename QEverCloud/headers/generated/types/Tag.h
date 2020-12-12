@@ -156,8 +156,8 @@ public:
     Q_PROPERTY(std::optional<qint32> updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
 
 private:
-    class TagData;
-    QSharedDataPointer<TagData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -92,8 +92,8 @@ public:
     Q_PROPERTY(std::optional<UserID> lastEditorId READ lastEditorId WRITE setLastEditorId)
 
 private:
-    class NoteVersionIdData;
-    QSharedDataPointer<NoteVersionIdData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

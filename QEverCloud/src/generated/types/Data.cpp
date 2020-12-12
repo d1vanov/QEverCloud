@@ -11,11 +11,11 @@
 
 #include <generated/types/Data.h>
 
-#include "data/DataData.h"
+#include "impl/DataImpl.h"
 
 namespace qevercloud {
 
-Data::Data() : d(new DataData) {}
+Data::Data() : d(new Data::Impl) {}
 
 Data::Data(const Data & other) : d(other.d) {}
 

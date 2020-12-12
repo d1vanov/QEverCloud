@@ -227,8 +227,8 @@ public:
     Q_PROPERTY(std::optional<AccountLimits> accountLimits READ accountLimits WRITE setAccountLimits)
 
 private:
-    class UserData;
-    QSharedDataPointer<UserData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

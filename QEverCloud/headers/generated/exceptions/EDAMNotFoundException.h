@@ -64,12 +64,39 @@ public:
     Q_PROPERTY(std::optional<QString> key READ key WRITE setKey)
 
 private:
-    class EDAMNotFoundExceptionData;
-    QSharedDataPointer<EDAMNotFoundExceptionData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
+};
+
+/**
+ * Asynchronous API counterpart of EDAMNotFoundException. See EverCloudExceptionData
+ * for more details.
+ */
+class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(EDAMNotFoundExceptionData)
+public:
+    explicit EDAMNotFoundExceptionData(
+        QString identifier,
+        QString key);
+
+    [[nodiscard]] const std::optional<QString> & identifier() const noexcept;
+    void setIdentifier(std::optional<QString> identifier);
+
+    [[nodiscard]] const std::optional<QString> & key() const noexcept;
+    void setKey(std::optional<QString> key);
+
+    virtual void throwException() const override;
+
+private:
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMNotFoundException)
+Q_DECLARE_METATYPE(qevercloud::EDAMNotFoundExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMNOTFOUNDEXCEPTION_H

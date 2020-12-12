@@ -110,8 +110,8 @@ public:
     Q_PROPERTY(std::optional<QString> cacheKey READ cacheKey WRITE setCacheKey)
 
 private:
-    class RelatedQueryData;
-    QSharedDataPointer<RelatedQueryData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

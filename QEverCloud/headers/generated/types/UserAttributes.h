@@ -369,8 +369,8 @@ public:
     Q_PROPERTY(std::optional<bool> optOutMachineLearning READ optOutMachineLearning WRITE setOptOutMachineLearning)
 
 private:
-    class UserAttributesData;
-    QSharedDataPointer<UserAttributesData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -193,8 +193,8 @@ public:
     Q_PROPERTY(std::optional<QList<Guid>> expungedLinkedNotebooks READ expungedLinkedNotebooks WRITE setExpungedLinkedNotebooks)
 
 private:
-    class SyncChunkData;
-    QSharedDataPointer<SyncChunkData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

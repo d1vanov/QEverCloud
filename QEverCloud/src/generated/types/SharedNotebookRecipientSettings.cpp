@@ -11,11 +11,11 @@
 
 #include <generated/types/SharedNotebookRecipientSettings.h>
 
-#include "data/SharedNotebookRecipientSettingsData.h"
+#include "impl/SharedNotebookRecipientSettingsImpl.h"
 
 namespace qevercloud {
 
-SharedNotebookRecipientSettings::SharedNotebookRecipientSettings() : d(new SharedNotebookRecipientSettingsData) {}
+SharedNotebookRecipientSettings::SharedNotebookRecipientSettings() : d(new SharedNotebookRecipientSettings::Impl) {}
 
 SharedNotebookRecipientSettings::SharedNotebookRecipientSettings(const SharedNotebookRecipientSettings & other) : d(other.d) {}
 

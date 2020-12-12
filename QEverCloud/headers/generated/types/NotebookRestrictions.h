@@ -309,8 +309,8 @@ public:
     Q_PROPERTY(std::optional<bool> noCanMoveNote READ noCanMoveNote WRITE setNoCanMoveNote)
 
 private:
-    class NotebookRestrictionsData;
-    QSharedDataPointer<NotebookRestrictionsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

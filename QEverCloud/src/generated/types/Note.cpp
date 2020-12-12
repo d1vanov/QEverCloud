@@ -11,11 +11,11 @@
 
 #include <generated/types/Note.h>
 
-#include "data/NoteData.h"
+#include "impl/NoteImpl.h"
 
 namespace qevercloud {
 
-Note::Note() : d(new NoteData) {}
+Note::Note() : d(new Note::Impl) {}
 
 Note::Note(const Note & other) : d(other.d) {}
 

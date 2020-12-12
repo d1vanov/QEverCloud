@@ -11,11 +11,11 @@
 
 #include <generated/types/ShareRelationships.h>
 
-#include "data/ShareRelationshipsData.h"
+#include "impl/ShareRelationshipsImpl.h"
 
 namespace qevercloud {
 
-ShareRelationships::ShareRelationships() : d(new ShareRelationshipsData) {}
+ShareRelationships::ShareRelationships() : d(new ShareRelationships::Impl) {}
 
 ShareRelationships::ShareRelationships(const ShareRelationships & other) : d(other.d) {}
 

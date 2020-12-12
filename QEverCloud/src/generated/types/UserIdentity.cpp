@@ -11,11 +11,11 @@
 
 #include <generated/types/UserIdentity.h>
 
-#include "data/UserIdentityData.h"
+#include "impl/UserIdentityImpl.h"
 
 namespace qevercloud {
 
-UserIdentity::UserIdentity() : d(new UserIdentityData) {}
+UserIdentity::UserIdentity() : d(new UserIdentity::Impl) {}
 
 UserIdentity::UserIdentity(const UserIdentity & other) : d(other.d) {}
 

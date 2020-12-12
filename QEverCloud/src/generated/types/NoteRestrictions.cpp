@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteRestrictions.h>
 
-#include "data/NoteRestrictionsData.h"
+#include "impl/NoteRestrictionsImpl.h"
 
 namespace qevercloud {
 
-NoteRestrictions::NoteRestrictions() : d(new NoteRestrictionsData) {}
+NoteRestrictions::NoteRestrictions() : d(new NoteRestrictions::Impl) {}
 
 NoteRestrictions::NoteRestrictions(const NoteRestrictions & other) : d(other.d) {}
 

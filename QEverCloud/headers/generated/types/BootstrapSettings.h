@@ -157,8 +157,8 @@ public:
     Q_PROPERTY(std::optional<bool> enableGoogle READ enableGoogle WRITE setEnableGoogle)
 
 private:
-    class BootstrapSettingsData;
-    QSharedDataPointer<BootstrapSettingsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

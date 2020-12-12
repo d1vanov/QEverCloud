@@ -84,8 +84,8 @@ public:
     Q_PROPERTY(std::optional<EDAMNotFoundException> notFoundException READ notFoundException WRITE setNotFoundException)
 
 private:
-    class ManageNotebookSharesErrorData;
-    QSharedDataPointer<ManageNotebookSharesErrorData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

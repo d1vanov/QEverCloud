@@ -60,8 +60,8 @@ public:
     Q_PROPERTY(BootstrapSettings settings READ settings WRITE setSettings)
 
 private:
-    class BootstrapProfileData;
-    QSharedDataPointer<BootstrapProfileData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

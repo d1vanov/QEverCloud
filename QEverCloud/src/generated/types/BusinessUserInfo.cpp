@@ -11,11 +11,11 @@
 
 #include <generated/types/BusinessUserInfo.h>
 
-#include "data/BusinessUserInfoData.h"
+#include "impl/BusinessUserInfoImpl.h"
 
 namespace qevercloud {
 
-BusinessUserInfo::BusinessUserInfo() : d(new BusinessUserInfoData) {}
+BusinessUserInfo::BusinessUserInfo() : d(new BusinessUserInfo::Impl) {}
 
 BusinessUserInfo::BusinessUserInfo(const BusinessUserInfo & other) : d(other.d) {}
 

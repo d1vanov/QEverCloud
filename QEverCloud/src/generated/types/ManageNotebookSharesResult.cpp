@@ -11,11 +11,11 @@
 
 #include <generated/types/ManageNotebookSharesResult.h>
 
-#include "data/ManageNotebookSharesResultData.h"
+#include "impl/ManageNotebookSharesResultImpl.h"
 
 namespace qevercloud {
 
-ManageNotebookSharesResult::ManageNotebookSharesResult() : d(new ManageNotebookSharesResultData) {}
+ManageNotebookSharesResult::ManageNotebookSharesResult() : d(new ManageNotebookSharesResult::Impl) {}
 
 ManageNotebookSharesResult::ManageNotebookSharesResult(const ManageNotebookSharesResult & other) : d(other.d) {}
 

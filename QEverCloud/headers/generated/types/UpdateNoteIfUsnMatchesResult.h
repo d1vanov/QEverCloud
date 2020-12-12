@@ -68,8 +68,8 @@ public:
     Q_PROPERTY(std::optional<bool> updated READ updated WRITE setUpdated)
 
 private:
-    class UpdateNoteIfUsnMatchesResultData;
-    QSharedDataPointer<UpdateNoteIfUsnMatchesResultData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -11,11 +11,11 @@
 
 #include <generated/types/ManageNotebookSharesError.h>
 
-#include "data/ManageNotebookSharesErrorData.h"
+#include "impl/ManageNotebookSharesErrorImpl.h"
 
 namespace qevercloud {
 
-ManageNotebookSharesError::ManageNotebookSharesError() : d(new ManageNotebookSharesErrorData) {}
+ManageNotebookSharesError::ManageNotebookSharesError() : d(new ManageNotebookSharesError::Impl) {}
 
 ManageNotebookSharesError::ManageNotebookSharesError(const ManageNotebookSharesError & other) : d(other.d) {}
 

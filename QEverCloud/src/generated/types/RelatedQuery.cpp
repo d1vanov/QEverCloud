@@ -11,11 +11,11 @@
 
 #include <generated/types/RelatedQuery.h>
 
-#include "data/RelatedQueryData.h"
+#include "impl/RelatedQueryImpl.h"
 
 namespace qevercloud {
 
-RelatedQuery::RelatedQuery() : d(new RelatedQueryData) {}
+RelatedQuery::RelatedQuery() : d(new RelatedQuery::Impl) {}
 
 RelatedQuery::RelatedQuery(const RelatedQuery & other) : d(other.d) {}
 

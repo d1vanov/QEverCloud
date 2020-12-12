@@ -57,8 +57,8 @@ public:
     Q_PROPERTY(std::optional<QList<ManageNoteSharesError>> errors READ errors WRITE setErrors)
 
 private:
-    class ManageNoteSharesResultData;
-    QSharedDataPointer<ManageNoteSharesResultData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

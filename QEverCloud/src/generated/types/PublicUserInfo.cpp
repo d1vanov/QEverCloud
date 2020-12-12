@@ -11,11 +11,11 @@
 
 #include <generated/types/PublicUserInfo.h>
 
-#include "data/PublicUserInfoData.h"
+#include "impl/PublicUserInfoImpl.h"
 
 namespace qevercloud {
 
-PublicUserInfo::PublicUserInfo() : d(new PublicUserInfoData) {}
+PublicUserInfo::PublicUserInfo() : d(new PublicUserInfo::Impl) {}
 
 PublicUserInfo::PublicUserInfo(const PublicUserInfo & other) : d(other.d) {}
 

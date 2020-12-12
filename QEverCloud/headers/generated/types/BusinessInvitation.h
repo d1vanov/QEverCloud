@@ -111,8 +111,8 @@ public:
     Q_PROPERTY(std::optional<Timestamp> mostRecentReminder READ mostRecentReminder WRITE setMostRecentReminder)
 
 private:
-    class BusinessInvitationData;
-    QSharedDataPointer<BusinessInvitationData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

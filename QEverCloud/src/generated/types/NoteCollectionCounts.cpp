@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteCollectionCounts.h>
 
-#include "data/NoteCollectionCountsData.h"
+#include "impl/NoteCollectionCountsImpl.h"
 
 namespace qevercloud {
 
-NoteCollectionCounts::NoteCollectionCounts() : d(new NoteCollectionCountsData) {}
+NoteCollectionCounts::NoteCollectionCounts() : d(new NoteCollectionCounts::Impl) {}
 
 NoteCollectionCounts::NoteCollectionCounts(const NoteCollectionCounts & other) : d(other.d) {}
 

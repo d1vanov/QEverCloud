@@ -69,12 +69,39 @@ public:
     Q_PROPERTY(std::optional<QString> parameter READ parameter WRITE setParameter)
 
 private:
-    class EDAMUserExceptionData;
-    QSharedDataPointer<EDAMUserExceptionData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
+};
+
+/**
+ * Asynchronous API counterpart of EDAMUserException. See EverCloudExceptionData
+ * for more details.
+ */
+class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(EDAMUserExceptionData)
+public:
+    explicit EDAMUserExceptionData(
+        EDAMErrorCode errorCode,
+        QString parameter);
+
+    [[nodiscard]] EDAMErrorCode errorCode() const noexcept;
+    void setErrorCode(EDAMErrorCode errorCode);
+
+    [[nodiscard]] const std::optional<QString> & parameter() const noexcept;
+    void setParameter(std::optional<QString> parameter);
+
+    virtual void throwException() const override;
+
+private:
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMUserException)
+Q_DECLARE_METATYPE(qevercloud::EDAMUserExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMUSEREXCEPTION_H

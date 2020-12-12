@@ -11,11 +11,11 @@
 
 #include <generated/types/ResourceAttributes.h>
 
-#include "data/ResourceAttributesData.h"
+#include "impl/ResourceAttributesImpl.h"
 
 namespace qevercloud {
 
-ResourceAttributes::ResourceAttributes() : d(new ResourceAttributesData) {}
+ResourceAttributes::ResourceAttributes() : d(new ResourceAttributes::Impl) {}
 
 ResourceAttributes::ResourceAttributes(const ResourceAttributes & other) : d(other.d) {}
 

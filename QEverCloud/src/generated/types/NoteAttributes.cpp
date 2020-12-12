@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteAttributes.h>
 
-#include "data/NoteAttributesData.h"
+#include "impl/NoteAttributesImpl.h"
 
 namespace qevercloud {
 
-NoteAttributes::NoteAttributes() : d(new NoteAttributesData) {}
+NoteAttributes::NoteAttributes() : d(new NoteAttributes::Impl) {}
 
 NoteAttributes::NoteAttributes(const NoteAttributes & other) : d(other.d) {}
 

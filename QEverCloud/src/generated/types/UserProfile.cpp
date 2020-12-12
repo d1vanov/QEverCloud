@@ -11,11 +11,11 @@
 
 #include <generated/types/UserProfile.h>
 
-#include "data/UserProfileData.h"
+#include "impl/UserProfileImpl.h"
 
 namespace qevercloud {
 
-UserProfile::UserProfile() : d(new UserProfileData) {}
+UserProfile::UserProfile() : d(new UserProfile::Impl) {}
 
 UserProfile::UserProfile(const UserProfile & other) : d(other.d) {}
 

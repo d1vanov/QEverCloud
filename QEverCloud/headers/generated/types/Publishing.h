@@ -94,8 +94,8 @@ public:
     Q_PROPERTY(std::optional<QString> publicDescription READ publicDescription WRITE setPublicDescription)
 
 private:
-    class PublishingData;
-    QSharedDataPointer<PublishingData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

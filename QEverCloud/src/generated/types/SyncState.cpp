@@ -11,11 +11,11 @@
 
 #include <generated/types/SyncState.h>
 
-#include "data/SyncStateData.h"
+#include "impl/SyncStateImpl.h"
 
 namespace qevercloud {
 
-SyncState::SyncState() : d(new SyncStateData) {}
+SyncState::SyncState() : d(new SyncState::Impl) {}
 
 SyncState::SyncState(const SyncState & other) : d(other.d) {}
 

@@ -11,11 +11,11 @@
 
 #include <generated/types/LinkedNotebook.h>
 
-#include "data/LinkedNotebookData.h"
+#include "impl/LinkedNotebookImpl.h"
 
 namespace qevercloud {
 
-LinkedNotebook::LinkedNotebook() : d(new LinkedNotebookData) {}
+LinkedNotebook::LinkedNotebook() : d(new LinkedNotebook::Impl) {}
 
 LinkedNotebook::LinkedNotebook(const LinkedNotebook & other) : d(other.d) {}
 

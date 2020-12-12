@@ -11,11 +11,11 @@
 
 #include <generated/types/RelatedContentImage.h>
 
-#include "data/RelatedContentImageData.h"
+#include "impl/RelatedContentImageImpl.h"
 
 namespace qevercloud {
 
-RelatedContentImage::RelatedContentImage() : d(new RelatedContentImageData) {}
+RelatedContentImage::RelatedContentImage() : d(new RelatedContentImage::Impl) {}
 
 RelatedContentImage::RelatedContentImage(const RelatedContentImage & other) : d(other.d) {}
 

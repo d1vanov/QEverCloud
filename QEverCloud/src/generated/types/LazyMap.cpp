@@ -11,11 +11,11 @@
 
 #include <generated/types/LazyMap.h>
 
-#include "data/LazyMapData.h"
+#include "impl/LazyMapImpl.h"
 
 namespace qevercloud {
 
-LazyMap::LazyMap() : d(new LazyMapData) {}
+LazyMap::LazyMap() : d(new LazyMap::Impl) {}
 
 LazyMap::LazyMap(const LazyMap & other) : d(other.d) {}
 

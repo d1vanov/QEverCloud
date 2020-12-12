@@ -109,8 +109,8 @@ public:
     Q_PROPERTY(std::optional<bool> includeLargestResourceSize READ includeLargestResourceSize WRITE setIncludeLargestResourceSize)
 
 private:
-    class NotesMetadataResultSpecData;
-    QSharedDataPointer<NotesMetadataResultSpecData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -11,11 +11,11 @@
 
 #include <generated/types/UpdateNoteIfUsnMatchesResult.h>
 
-#include "data/UpdateNoteIfUsnMatchesResultData.h"
+#include "impl/UpdateNoteIfUsnMatchesResultImpl.h"
 
 namespace qevercloud {
 
-UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult() : d(new UpdateNoteIfUsnMatchesResultData) {}
+UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult() : d(new UpdateNoteIfUsnMatchesResult::Impl) {}
 
 UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult(const UpdateNoteIfUsnMatchesResult & other) : d(other.d) {}
 

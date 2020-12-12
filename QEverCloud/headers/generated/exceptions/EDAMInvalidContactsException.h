@@ -81,12 +81,45 @@ public:
     Q_PROPERTY(std::optional<QList<EDAMInvalidContactReason>> reasons READ reasons WRITE setReasons)
 
 private:
-    class EDAMInvalidContactsExceptionData;
-    QSharedDataPointer<EDAMInvalidContactsExceptionData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
+};
+
+/**
+ * Asynchronous API counterpart of EDAMInvalidContactsException. See EverCloudExceptionData
+ * for more details.
+ */
+class QEVERCLOUD_EXPORT EDAMInvalidContactsExceptionData: public EvernoteExceptionData
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(EDAMInvalidContactsExceptionData)
+public:
+    explicit EDAMInvalidContactsExceptionData(
+        QList<Contact> contacts,
+        QString parameter,
+        QList<EDAMInvalidContactReason> reasons);
+
+    [[nodiscard]] const QList<Contact> & contacts() const noexcept;
+    [[nodiscard]] QList<Contact> & mutableContacts();
+    void setContacts(QList<Contact> contacts);
+
+    [[nodiscard]] const std::optional<QString> & parameter() const noexcept;
+    void setParameter(std::optional<QString> parameter);
+
+    [[nodiscard]] const std::optional<QList<EDAMInvalidContactReason>> & reasons() const noexcept;
+    [[nodiscard]] std::optional<QList<EDAMInvalidContactReason>> & mutableReasons();
+    void setReasons(std::optional<QList<EDAMInvalidContactReason>> reasons);
+
+    virtual void throwException() const override;
+
+private:
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactsException)
+Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactsExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMINVALIDCONTACTSEXCEPTION_H

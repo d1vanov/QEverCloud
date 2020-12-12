@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteMemberShareRelationship.h>
 
-#include "data/NoteMemberShareRelationshipData.h"
+#include "impl/NoteMemberShareRelationshipImpl.h"
 
 namespace qevercloud {
 
-NoteMemberShareRelationship::NoteMemberShareRelationship() : d(new NoteMemberShareRelationshipData) {}
+NoteMemberShareRelationship::NoteMemberShareRelationship() : d(new NoteMemberShareRelationship::Impl) {}
 
 NoteMemberShareRelationship::NoteMemberShareRelationship(const NoteMemberShareRelationship & other) : d(other.d) {}
 

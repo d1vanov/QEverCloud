@@ -104,8 +104,8 @@ public:
     Q_PROPERTY(std::optional<QString> userWebSocketUrl READ userWebSocketUrl WRITE setUserWebSocketUrl)
 
 private:
-    class UserUrlsData;
-    QSharedDataPointer<UserUrlsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

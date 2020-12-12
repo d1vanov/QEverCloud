@@ -11,11 +11,11 @@
 
 #include <generated/types/AuthenticationResult.h>
 
-#include "data/AuthenticationResultData.h"
+#include "impl/AuthenticationResultImpl.h"
 
 namespace qevercloud {
 
-AuthenticationResult::AuthenticationResult() : d(new AuthenticationResultData) {}
+AuthenticationResult::AuthenticationResult() : d(new AuthenticationResult::Impl) {}
 
 AuthenticationResult::AuthenticationResult(const AuthenticationResult & other) : d(other.d) {}
 

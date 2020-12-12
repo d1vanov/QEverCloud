@@ -84,8 +84,8 @@ public:
     Q_PROPERTY(std::optional<ShareRelationshipRestrictions> invitationRestrictions READ invitationRestrictions WRITE setInvitationRestrictions)
 
 private:
-    class ShareRelationshipsData;
-    QSharedDataPointer<ShareRelationshipsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

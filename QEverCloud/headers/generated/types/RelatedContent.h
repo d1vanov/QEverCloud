@@ -174,8 +174,8 @@ public:
     Q_PROPERTY(std::optional<QStringList> authors READ authors WRITE setAuthors)
 
 private:
-    class RelatedContentData;
-    QSharedDataPointer<RelatedContentData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

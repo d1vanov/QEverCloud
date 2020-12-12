@@ -11,11 +11,11 @@
 
 #include <generated/types/NotebookRestrictions.h>
 
-#include "data/NotebookRestrictionsData.h"
+#include "impl/NotebookRestrictionsImpl.h"
 
 namespace qevercloud {
 
-NotebookRestrictions::NotebookRestrictions() : d(new NotebookRestrictionsData) {}
+NotebookRestrictions::NotebookRestrictions() : d(new NotebookRestrictions::Impl) {}
 
 NotebookRestrictions::NotebookRestrictions(const NotebookRestrictions & other) : d(other.d) {}
 

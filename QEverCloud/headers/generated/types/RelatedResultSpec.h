@@ -142,8 +142,8 @@ public:
     Q_PROPERTY(std::optional<QSet<RelatedContentType>> relatedContentTypes READ relatedContentTypes WRITE setRelatedContentTypes)
 
 private:
-    class RelatedResultSpecData;
-    QSharedDataPointer<RelatedResultSpecData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -11,11 +11,11 @@
 
 #include <generated/types/CanMoveToContainerRestrictions.h>
 
-#include "data/CanMoveToContainerRestrictionsData.h"
+#include "impl/CanMoveToContainerRestrictionsImpl.h"
 
 namespace qevercloud {
 
-CanMoveToContainerRestrictions::CanMoveToContainerRestrictions() : d(new CanMoveToContainerRestrictionsData) {}
+CanMoveToContainerRestrictions::CanMoveToContainerRestrictions() : d(new CanMoveToContainerRestrictions::Impl) {}
 
 CanMoveToContainerRestrictions::CanMoveToContainerRestrictions(const CanMoveToContainerRestrictions & other) : d(other.d) {}
 

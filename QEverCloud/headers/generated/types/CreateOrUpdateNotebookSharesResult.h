@@ -66,8 +66,8 @@ public:
     Q_PROPERTY(std::optional<QList<SharedNotebook>> matchingShares READ matchingShares WRITE setMatchingShares)
 
 private:
-    class CreateOrUpdateNotebookSharesResultData;
-    QSharedDataPointer<CreateOrUpdateNotebookSharesResultData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

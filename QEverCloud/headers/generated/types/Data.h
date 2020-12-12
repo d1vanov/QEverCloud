@@ -79,8 +79,8 @@ public:
     Q_PROPERTY(std::optional<QByteArray> body READ body WRITE setBody)
 
 private:
-    class DataData;
-    QSharedDataPointer<DataData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

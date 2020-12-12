@@ -76,8 +76,8 @@ public:
     Q_PROPERTY(std::optional<NoteShareRelationshipRestrictions> invitationRestrictions READ invitationRestrictions WRITE setInvitationRestrictions)
 
 private:
-    class NoteShareRelationshipsData;
-    QSharedDataPointer<NoteShareRelationshipsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

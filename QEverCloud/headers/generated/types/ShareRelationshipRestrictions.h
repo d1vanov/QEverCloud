@@ -61,8 +61,8 @@ public:
     Q_PROPERTY(std::optional<bool> noSetFullAccess READ noSetFullAccess WRITE setNoSetFullAccess)
 
 private:
-    class ShareRelationshipRestrictionsData;
-    QSharedDataPointer<ShareRelationshipRestrictionsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

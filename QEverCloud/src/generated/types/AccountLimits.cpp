@@ -11,11 +11,11 @@
 
 #include <generated/types/AccountLimits.h>
 
-#include "data/AccountLimitsData.h"
+#include "impl/AccountLimitsImpl.h"
 
 namespace qevercloud {
 
-AccountLimits::AccountLimits() : d(new AccountLimitsData) {}
+AccountLimits::AccountLimits() : d(new AccountLimits::Impl) {}
 
 AccountLimits::AccountLimits(const AccountLimits & other) : d(other.d) {}
 

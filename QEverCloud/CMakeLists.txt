@@ -37,6 +37,10 @@ set(GENERATED_HEADERS
     headers/generated/Servers.h
     headers/generated/Types.h
     headers/generated/EDAMErrorCode.h
+    headers/generated/exceptions/EDAMInvalidContactsException.h
+    headers/generated/exceptions/EDAMNotFoundException.h
+    headers/generated/exceptions/EDAMSystemException.h
+    headers/generated/exceptions/EDAMUserException.h
     headers/generated/types/Accounting.h
     headers/generated/types/AccountLimits.h
     headers/generated/types/AuthenticationResult.h
@@ -120,6 +124,10 @@ set(PRIVATE_HEADERS
     src/NetworkCookieJar.h
     src/Thrift.h
     src/generated/Types_io.h
+    src/generated/exceptions/data/EDAMInvalidContactsExceptionData.h
+    src/generated/exceptions/data/EDAMNotFoundExceptionData.h
+    src/generated/exceptions/data/EDAMSystemExceptionData.h
+    src/generated/exceptions/data/EDAMUserExceptionData.h
     src/generated/types/data/AccountingData.h
     src/generated/types/data/AccountLimitsData.h
     src/generated/types/data/AuthenticationResultData.h
@@ -215,6 +223,14 @@ set(SOURCES
     src/generated/Services.cpp
     src/generated/Servers.cpp
     src/generated/Types.cpp
+    src/generated/exceptions/EDAMInvalidContactsException.cpp
+    src/generated/exceptions/EDAMNotFoundException.cpp
+    src/generated/exceptions/EDAMSystemException.cpp
+    src/generated/exceptions/EDAMUserException.cpp
+    src/generated/exceptions/data/EDAMInvalidContactsExceptionData.cpp
+    src/generated/exceptions/data/EDAMNotFoundExceptionData.cpp
+    src/generated/exceptions/data/EDAMSystemExceptionData.cpp
+    src/generated/exceptions/data/EDAMUserExceptionData.cpp
     src/generated/types/Accounting.cpp
     src/generated/types/AccountLimits.cpp
     src/generated/types/AuthenticationResult.cpp

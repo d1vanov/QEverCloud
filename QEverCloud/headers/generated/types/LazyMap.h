@@ -81,8 +81,8 @@ public:
     Q_PROPERTY(std::optional<FullMap> fullMap READ fullMap WRITE setFullMap)
 
 private:
-    class LazyMapData;
-    QSharedDataPointer<LazyMapData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

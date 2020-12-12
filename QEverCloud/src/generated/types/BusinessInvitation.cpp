@@ -11,11 +11,11 @@
 
 #include <generated/types/BusinessInvitation.h>
 
-#include "data/BusinessInvitationData.h"
+#include "impl/BusinessInvitationImpl.h"
 
 namespace qevercloud {
 
-BusinessInvitation::BusinessInvitation() : d(new BusinessInvitationData) {}
+BusinessInvitation::BusinessInvitation() : d(new BusinessInvitation::Impl) {}
 
 BusinessInvitation::BusinessInvitation(const BusinessInvitation & other) : d(other.d) {}
 

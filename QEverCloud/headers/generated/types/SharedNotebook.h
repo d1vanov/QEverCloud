@@ -206,8 +206,8 @@ public:
     Q_PROPERTY(std::optional<Timestamp> serviceAssigned READ serviceAssigned WRITE setServiceAssigned)
 
 private:
-    class SharedNotebookData;
-    QSharedDataPointer<SharedNotebookData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

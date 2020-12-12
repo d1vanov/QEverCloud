@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteLimits.h>
 
-#include "data/NoteLimitsData.h"
+#include "impl/NoteLimitsImpl.h"
 
 namespace qevercloud {
 
-NoteLimits::NoteLimits() : d(new NoteLimitsData) {}
+NoteLimits::NoteLimits() : d(new NoteLimits::Impl) {}
 
 NoteLimits::NoteLimits(const NoteLimits & other) : d(other.d) {}
 

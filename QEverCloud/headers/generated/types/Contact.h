@@ -110,8 +110,8 @@ public:
     Q_PROPERTY(std::optional<Timestamp> messagingPermitExpires READ messagingPermitExpires WRITE setMessagingPermitExpires)
 
 private:
-    class ContactData;
-    QSharedDataPointer<ContactData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

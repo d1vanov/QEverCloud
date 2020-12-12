@@ -111,8 +111,8 @@ public:
     Q_PROPERTY(std::optional<UserID> sharerUserId READ sharerUserId WRITE setSharerUserId)
 
 private:
-    class MemberShareRelationshipData;
-    QSharedDataPointer<MemberShareRelationshipData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

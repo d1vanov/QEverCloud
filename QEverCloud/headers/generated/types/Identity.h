@@ -128,8 +128,8 @@ public:
     Q_PROPERTY(std::optional<MessageEventID> eventId READ eventId WRITE setEventId)
 
 private:
-    class IdentityData;
-    QSharedDataPointer<IdentityData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

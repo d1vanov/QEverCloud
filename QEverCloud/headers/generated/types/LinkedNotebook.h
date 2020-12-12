@@ -209,8 +209,8 @@ public:
     Q_PROPERTY(std::optional<qint32> businessId READ businessId WRITE setBusinessId)
 
 private:
-    class LinkedNotebookData;
-    QSharedDataPointer<LinkedNotebookData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

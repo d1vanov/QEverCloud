@@ -11,11 +11,11 @@
 
 #include <generated/types/Publishing.h>
 
-#include "data/PublishingData.h"
+#include "impl/PublishingImpl.h"
 
 namespace qevercloud {
 
-Publishing::Publishing() : d(new PublishingData) {}
+Publishing::Publishing() : d(new Publishing::Impl) {}
 
 Publishing::Publishing(const Publishing & other) : d(other.d) {}
 

@@ -11,11 +11,11 @@
 
 #include <generated/types/SyncChunk.h>
 
-#include "data/SyncChunkData.h"
+#include "impl/SyncChunkImpl.h"
 
 namespace qevercloud {
 
-SyncChunk::SyncChunk() : d(new SyncChunkData) {}
+SyncChunk::SyncChunk() : d(new SyncChunk::Impl) {}
 
 SyncChunk::SyncChunk(const SyncChunk & other) : d(other.d) {}
 

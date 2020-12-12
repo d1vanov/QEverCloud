@@ -11,11 +11,11 @@
 
 #include <generated/types/NotebookRecipientSettings.h>
 
-#include "data/NotebookRecipientSettingsData.h"
+#include "impl/NotebookRecipientSettingsImpl.h"
 
 namespace qevercloud {
 
-NotebookRecipientSettings::NotebookRecipientSettings() : d(new NotebookRecipientSettingsData) {}
+NotebookRecipientSettings::NotebookRecipientSettings() : d(new NotebookRecipientSettings::Impl) {}
 
 NotebookRecipientSettings::NotebookRecipientSettings(const NotebookRecipientSettings & other) : d(other.d) {}
 

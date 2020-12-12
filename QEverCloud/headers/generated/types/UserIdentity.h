@@ -84,8 +84,8 @@ public:
     Q_PROPERTY(std::optional<qint64> longIdentifier READ longIdentifier WRITE setLongIdentifier)
 
 private:
-    class UserIdentityData;
-    QSharedDataPointer<UserIdentityData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

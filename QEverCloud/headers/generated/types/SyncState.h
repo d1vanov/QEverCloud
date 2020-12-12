@@ -124,8 +124,8 @@ public:
     Q_PROPERTY(std::optional<MessageEventID> userMaxMessageEventId READ userMaxMessageEventId WRITE setUserMaxMessageEventId)
 
 private:
-    class SyncStateData;
-    QSharedDataPointer<SyncStateData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

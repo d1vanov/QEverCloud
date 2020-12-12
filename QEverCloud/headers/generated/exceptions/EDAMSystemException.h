@@ -70,12 +70,44 @@ public:
     Q_PROPERTY(std::optional<qint32> rateLimitDuration READ rateLimitDuration WRITE setRateLimitDuration)
 
 private:
-    class EDAMSystemExceptionData;
-    QSharedDataPointer<EDAMSystemExceptionData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
+};
+
+/**
+ * Asynchronous API counterpart of EDAMSystemException. See EverCloudExceptionData
+ * for more details.
+ */
+class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(EDAMSystemExceptionData)
+public:
+    explicit EDAMSystemExceptionData(
+        EDAMErrorCode errorCode,
+        QString message,
+        qint32 rateLimitDuration);
+
+    [[nodiscard]] EDAMErrorCode errorCode() const noexcept;
+    void setErrorCode(EDAMErrorCode errorCode);
+
+    [[nodiscard]] const std::optional<QString> & message() const noexcept;
+    void setMessage(std::optional<QString> message);
+
+    [[nodiscard]] const std::optional<qint32> & rateLimitDuration() const noexcept;
+    [[nodiscard]] std::optional<qint32> & mutableRateLimitDuration();
+    void setRateLimitDuration(std::optional<qint32> rateLimitDuration);
+
+    virtual void throwException() const override;
+
+private:
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud
 
 Q_DECLARE_METATYPE(qevercloud::EDAMSystemException)
+Q_DECLARE_METATYPE(qevercloud::EDAMSystemExceptionData)
 
 #endif // QEVERCLOUD_GENERATED_EDAMSYSTEMEXCEPTION_H

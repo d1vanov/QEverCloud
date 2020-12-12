@@ -167,8 +167,8 @@ public:
     Q_PROPERTY(std::optional<qint32> cacheExpires READ cacheExpires WRITE setCacheExpires)
 
 private:
-    class RelatedResultData;
-    QSharedDataPointer<RelatedResultData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

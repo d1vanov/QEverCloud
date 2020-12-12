@@ -282,8 +282,8 @@ public:
     Q_PROPERTY(std::optional<NotebookRecipientSettings> recipientSettings READ recipientSettings WRITE setRecipientSettings)
 
 private:
-    class NotebookData;
-    QSharedDataPointer<NotebookData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

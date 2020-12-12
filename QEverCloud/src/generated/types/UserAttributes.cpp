@@ -11,11 +11,11 @@
 
 #include <generated/types/UserAttributes.h>
 
-#include "data/UserAttributesData.h"
+#include "impl/UserAttributesImpl.h"
 
 namespace qevercloud {
 
-UserAttributes::UserAttributes() : d(new UserAttributesData) {}
+UserAttributes::UserAttributes() : d(new UserAttributes::Impl) {}
 
 UserAttributes::UserAttributes(const UserAttributes & other) : d(other.d) {}
 

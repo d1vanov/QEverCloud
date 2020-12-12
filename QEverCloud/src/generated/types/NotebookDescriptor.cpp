@@ -11,11 +11,11 @@
 
 #include <generated/types/NotebookDescriptor.h>
 
-#include "data/NotebookDescriptorData.h"
+#include "impl/NotebookDescriptorImpl.h"
 
 namespace qevercloud {
 
-NotebookDescriptor::NotebookDescriptor() : d(new NotebookDescriptorData) {}
+NotebookDescriptor::NotebookDescriptor() : d(new NotebookDescriptor::Impl) {}
 
 NotebookDescriptor::NotebookDescriptor(const NotebookDescriptor & other) : d(other.d) {}
 

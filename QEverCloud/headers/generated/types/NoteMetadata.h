@@ -175,8 +175,8 @@ public:
     Q_PROPERTY(std::optional<qint32> largestResourceSize READ largestResourceSize WRITE setLargestResourceSize)
 
 private:
-    class NoteMetadataData;
-    QSharedDataPointer<NoteMetadataData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

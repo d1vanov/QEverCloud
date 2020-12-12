@@ -173,8 +173,8 @@ public:
     Q_PROPERTY(std::optional<SavedSearchScope> scope READ scope WRITE setScope)
 
 private:
-    class SavedSearchData;
-    QSharedDataPointer<SavedSearchData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

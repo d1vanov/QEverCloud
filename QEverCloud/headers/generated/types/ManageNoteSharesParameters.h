@@ -101,8 +101,8 @@ public:
     Q_PROPERTY(std::optional<QList<IdentityID>> invitationsToUnshare READ invitationsToUnshare WRITE setInvitationsToUnshare)
 
 private:
-    class ManageNoteSharesParametersData;
-    QSharedDataPointer<ManageNoteSharesParametersData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -11,11 +11,11 @@
 
 #include <generated/types/Accounting.h>
 
-#include "data/AccountingData.h"
+#include "impl/AccountingImpl.h"
 
 namespace qevercloud {
 
-Accounting::Accounting() : d(new AccountingData) {}
+Accounting::Accounting() : d(new Accounting::Impl) {}
 
 Accounting::Accounting(const Accounting & other) : d(other.d) {}
 

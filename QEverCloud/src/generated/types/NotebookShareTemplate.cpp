@@ -11,11 +11,11 @@
 
 #include <generated/types/NotebookShareTemplate.h>
 
-#include "data/NotebookShareTemplateData.h"
+#include "impl/NotebookShareTemplateImpl.h"
 
 namespace qevercloud {
 
-NotebookShareTemplate::NotebookShareTemplate() : d(new NotebookShareTemplateData) {}
+NotebookShareTemplate::NotebookShareTemplate() : d(new NotebookShareTemplate::Impl) {}
 
 NotebookShareTemplate::NotebookShareTemplate(const NotebookShareTemplate & other) : d(other.d) {}
 

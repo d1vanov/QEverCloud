@@ -11,11 +11,11 @@
 
 #include <generated/types/SyncChunkFilter.h>
 
-#include "data/SyncChunkFilterData.h"
+#include "impl/SyncChunkFilterImpl.h"
 
 namespace qevercloud {
 
-SyncChunkFilter::SyncChunkFilter() : d(new SyncChunkFilterData) {}
+SyncChunkFilter::SyncChunkFilter() : d(new SyncChunkFilter::Impl) {}
 
 SyncChunkFilter::SyncChunkFilter(const SyncChunkFilter & other) : d(other.d) {}
 

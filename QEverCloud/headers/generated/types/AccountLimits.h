@@ -142,8 +142,8 @@ public:
     Q_PROPERTY(std::optional<qint32> noteResourceCountMax READ noteResourceCountMax WRITE setNoteResourceCountMax)
 
 private:
-    class AccountLimitsData;
-    QSharedDataPointer<AccountLimitsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

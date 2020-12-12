@@ -11,11 +11,11 @@
 
 #include <generated/types/RelatedResultSpec.h>
 
-#include "data/RelatedResultSpecData.h"
+#include "impl/RelatedResultSpecImpl.h"
 
 namespace qevercloud {
 
-RelatedResultSpec::RelatedResultSpec() : d(new RelatedResultSpecData) {}
+RelatedResultSpec::RelatedResultSpec() : d(new RelatedResultSpec::Impl) {}
 
 RelatedResultSpec::RelatedResultSpec(const RelatedResultSpec & other) : d(other.d) {}
 

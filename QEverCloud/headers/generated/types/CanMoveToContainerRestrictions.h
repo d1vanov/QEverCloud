@@ -49,8 +49,8 @@ public:
     Q_PROPERTY(std::optional<CanMoveToContainerStatus> canMoveToContainer READ canMoveToContainer WRITE setCanMoveToContainer)
 
 private:
-    class CanMoveToContainerRestrictionsData;
-    QSharedDataPointer<CanMoveToContainerRestrictionsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -11,11 +11,11 @@
 
 #include <generated/types/SharedNotebook.h>
 
-#include "data/SharedNotebookData.h"
+#include "impl/SharedNotebookImpl.h"
 
 namespace qevercloud {
 
-SharedNotebook::SharedNotebook() : d(new SharedNotebookData) {}
+SharedNotebook::SharedNotebook() : d(new SharedNotebook::Impl) {}
 
 SharedNotebook::SharedNotebook(const SharedNotebook & other) : d(other.d) {}
 

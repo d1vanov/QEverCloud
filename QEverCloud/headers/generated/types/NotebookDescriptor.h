@@ -141,8 +141,8 @@ public:
     Q_PROPERTY(std::optional<qint32> joinedUserCount READ joinedUserCount WRITE setJoinedUserCount)
 
 private:
-    class NotebookDescriptorData;
-    QSharedDataPointer<NotebookDescriptorData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

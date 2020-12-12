@@ -11,11 +11,11 @@
 
 #include <generated/types/ManageNotebookSharesParameters.h>
 
-#include "data/ManageNotebookSharesParametersData.h"
+#include "impl/ManageNotebookSharesParametersImpl.h"
 
 namespace qevercloud {
 
-ManageNotebookSharesParameters::ManageNotebookSharesParameters() : d(new ManageNotebookSharesParametersData) {}
+ManageNotebookSharesParameters::ManageNotebookSharesParameters() : d(new ManageNotebookSharesParameters::Impl) {}
 
 ManageNotebookSharesParameters::ManageNotebookSharesParameters(const ManageNotebookSharesParameters & other) : d(other.d) {}
 

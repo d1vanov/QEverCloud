@@ -11,11 +11,11 @@
 
 #include <generated/types/BusinessNotebook.h>
 
-#include "data/BusinessNotebookData.h"
+#include "impl/BusinessNotebookImpl.h"
 
 namespace qevercloud {
 
-BusinessNotebook::BusinessNotebook() : d(new BusinessNotebookData) {}
+BusinessNotebook::BusinessNotebook() : d(new BusinessNotebook::Impl) {}
 
 BusinessNotebook::BusinessNotebook(const BusinessNotebook & other) : d(other.d) {}
 

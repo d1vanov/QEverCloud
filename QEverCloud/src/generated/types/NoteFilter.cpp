@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteFilter.h>
 
-#include "data/NoteFilterData.h"
+#include "impl/NoteFilterImpl.h"
 
 namespace qevercloud {
 
-NoteFilter::NoteFilter() : d(new NoteFilterData) {}
+NoteFilter::NoteFilter() : d(new NoteFilter::Impl) {}
 
 NoteFilter::NoteFilter(const NoteFilter & other) : d(other.d) {}
 

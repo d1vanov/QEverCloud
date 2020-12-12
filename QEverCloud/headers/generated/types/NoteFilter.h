@@ -173,8 +173,8 @@ public:
     Q_PROPERTY(std::optional<QByteArray> searchContextBytes READ searchContextBytes WRITE setSearchContextBytes)
 
 private:
-    class NoteFilterData;
-    QSharedDataPointer<NoteFilterData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

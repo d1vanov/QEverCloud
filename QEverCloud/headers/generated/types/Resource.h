@@ -225,8 +225,8 @@ public:
     Q_PROPERTY(std::optional<Data> alternateData READ alternateData WRITE setAlternateData)
 
 private:
-    class ResourceData;
-    QSharedDataPointer<ResourceData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

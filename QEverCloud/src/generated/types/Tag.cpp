@@ -11,11 +11,11 @@
 
 #include <generated/types/Tag.h>
 
-#include "data/TagData.h"
+#include "impl/TagImpl.h"
 
 namespace qevercloud {
 
-Tag::Tag() : d(new TagData) {}
+Tag::Tag() : d(new Tag::Impl) {}
 
 Tag::Tag(const Tag & other) : d(other.d) {}
 

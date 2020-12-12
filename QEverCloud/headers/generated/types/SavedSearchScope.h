@@ -72,8 +72,8 @@ public:
     Q_PROPERTY(std::optional<bool> includeBusinessLinkedNotebooks READ includeBusinessLinkedNotebooks WRITE setIncludeBusinessLinkedNotebooks)
 
 private:
-    class SavedSearchScopeData;
-    QSharedDataPointer<SavedSearchScopeData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -164,8 +164,8 @@ public:
     Q_PROPERTY(std::optional<LazyMap> applicationData READ applicationData WRITE setApplicationData)
 
 private:
-    class ResourceAttributesData;
-    QSharedDataPointer<ResourceAttributesData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

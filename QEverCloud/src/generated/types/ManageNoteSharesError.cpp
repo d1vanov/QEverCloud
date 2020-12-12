@@ -11,11 +11,11 @@
 
 #include <generated/types/ManageNoteSharesError.h>
 
-#include "data/ManageNoteSharesErrorData.h"
+#include "impl/ManageNoteSharesErrorImpl.h"
 
 namespace qevercloud {
 
-ManageNoteSharesError::ManageNoteSharesError() : d(new ManageNoteSharesErrorData) {}
+ManageNoteSharesError::ManageNoteSharesError() : d(new ManageNoteSharesError::Impl) {}
 
 ManageNoteSharesError::ManageNoteSharesError(const ManageNoteSharesError & other) : d(other.d) {}
 

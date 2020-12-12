@@ -11,11 +11,11 @@
 
 #include <generated/types/ShareRelationshipRestrictions.h>
 
-#include "data/ShareRelationshipRestrictionsData.h"
+#include "impl/ShareRelationshipRestrictionsImpl.h"
 
 namespace qevercloud {
 
-ShareRelationshipRestrictions::ShareRelationshipRestrictions() : d(new ShareRelationshipRestrictionsData) {}
+ShareRelationshipRestrictions::ShareRelationshipRestrictions() : d(new ShareRelationshipRestrictions::Impl) {}
 
 ShareRelationshipRestrictions::ShareRelationshipRestrictions(const ShareRelationshipRestrictions & other) : d(other.d) {}
 

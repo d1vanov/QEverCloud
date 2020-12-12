@@ -11,11 +11,11 @@
 
 #include <generated/types/User.h>
 
-#include "data/UserData.h"
+#include "impl/UserImpl.h"
 
 namespace qevercloud {
 
-User::User() : d(new UserData) {}
+User::User() : d(new User::Impl) {}
 
 User::User(const User & other) : d(other.d) {}
 

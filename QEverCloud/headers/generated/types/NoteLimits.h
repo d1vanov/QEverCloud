@@ -74,8 +74,8 @@ public:
     Q_PROPERTY(std::optional<qint64> uploaded READ uploaded WRITE setUploaded)
 
 private:
-    class NoteLimitsData;
-    QSharedDataPointer<NoteLimitsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

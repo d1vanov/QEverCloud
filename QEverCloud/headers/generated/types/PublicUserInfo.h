@@ -87,8 +87,8 @@ public:
     Q_PROPERTY(std::optional<QString> webApiUrlPrefix READ webApiUrlPrefix WRITE setWebApiUrlPrefix)
 
 private:
-    class PublicUserInfoData;
-    QSharedDataPointer<PublicUserInfoData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

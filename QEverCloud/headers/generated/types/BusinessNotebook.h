@@ -80,8 +80,8 @@ public:
     Q_PROPERTY(std::optional<bool> recommended READ recommended WRITE setRecommended)
 
 private:
-    class BusinessNotebookData;
-    QSharedDataPointer<BusinessNotebookData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

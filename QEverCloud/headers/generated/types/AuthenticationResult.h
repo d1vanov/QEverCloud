@@ -140,8 +140,8 @@ public:
     Q_PROPERTY(std::optional<UserUrls> urls READ urls WRITE setUrls)
 
 private:
-    class AuthenticationResultData;
-    QSharedDataPointer<AuthenticationResultData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

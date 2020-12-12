@@ -11,11 +11,11 @@
 
 #include <generated/types/NotesMetadataResultSpec.h>
 
-#include "data/NotesMetadataResultSpecData.h"
+#include "impl/NotesMetadataResultSpecImpl.h"
 
 namespace qevercloud {
 
-NotesMetadataResultSpec::NotesMetadataResultSpec() : d(new NotesMetadataResultSpecData) {}
+NotesMetadataResultSpec::NotesMetadataResultSpec() : d(new NotesMetadataResultSpec::Impl) {}
 
 NotesMetadataResultSpec::NotesMetadataResultSpec(const NotesMetadataResultSpec & other) : d(other.d) {}
 

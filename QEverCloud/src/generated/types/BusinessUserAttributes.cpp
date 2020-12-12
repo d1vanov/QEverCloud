@@ -11,11 +11,11 @@
 
 #include <generated/types/BusinessUserAttributes.h>
 
-#include "data/BusinessUserAttributesData.h"
+#include "impl/BusinessUserAttributesImpl.h"
 
 namespace qevercloud {
 
-BusinessUserAttributes::BusinessUserAttributes() : d(new BusinessUserAttributesData) {}
+BusinessUserAttributes::BusinessUserAttributes() : d(new BusinessUserAttributes::Impl) {}
 
 BusinessUserAttributes::BusinessUserAttributes(const BusinessUserAttributes & other) : d(other.d) {}
 

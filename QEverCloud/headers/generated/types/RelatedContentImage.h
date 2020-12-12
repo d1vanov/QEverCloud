@@ -86,8 +86,8 @@ public:
     Q_PROPERTY(std::optional<qint32> fileSize READ fileSize WRITE setFileSize)
 
 private:
-    class RelatedContentImageData;
-    QSharedDataPointer<RelatedContentImageData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

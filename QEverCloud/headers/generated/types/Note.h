@@ -316,8 +316,8 @@ public:
     Q_PROPERTY(std::optional<NoteLimits> limits READ limits WRITE setLimits)
 
 private:
-    class NoteData;
-    QSharedDataPointer<NoteData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

@@ -11,11 +11,11 @@
 
 #include <generated/types/SharedNoteTemplate.h>
 
-#include "data/SharedNoteTemplateData.h"
+#include "impl/SharedNoteTemplateImpl.h"
 
 namespace qevercloud {
 
-SharedNoteTemplate::SharedNoteTemplate() : d(new SharedNoteTemplateData) {}
+SharedNoteTemplate::SharedNoteTemplate() : d(new SharedNoteTemplate::Impl) {}
 
 SharedNoteTemplate::SharedNoteTemplate(const SharedNoteTemplate & other) : d(other.d) {}
 

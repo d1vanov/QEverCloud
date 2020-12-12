@@ -11,11 +11,11 @@
 
 #include <generated/exceptions/EDAMSystemException.h>
 
-#include "data/EDAMSystemExceptionData.h"
+#include "impl/EDAMSystemExceptionImpl.h"
 
 namespace qevercloud {
 
-EDAMSystemException::EDAMSystemException() : d(new EDAMSystemExceptionData) {}
+EDAMSystemException::EDAMSystemException() : d(new EDAMSystemException::Impl) {}
 
 EDAMSystemException::EDAMSystemException(const EDAMSystemException & other) : d(other.d) {}
 
@@ -90,6 +90,75 @@ bool EDAMSystemException::operator==(const EDAMSystemException & other) const no
 bool EDAMSystemException::operator!=(const EDAMSystemException & other) const noexcept
 {
     return !(*this == other);
+}
+
+const char * EDAMSystemException::what() const noexcept
+{
+    return EvernoteException::what();
+}
+
+EverCloudExceptionDataPtr EDAMSystemException::exceptionData() const
+{
+    return std::make_shared<EDAMSystemExceptionData>(
+        errorCode(),
+        message(),
+        rateLimitDuration());
+}
+
+EDAMSystemExceptionData::EDAMSystemExceptionData(
+    EDAMErrorCode errorCode,
+    QString message,
+    qint32 rateLimitDuration):
+    EvernoteExceptionData(QStringLiteral("EDAMSystemExceptionData")),
+    d(new EDAMSystemExceptionData::Impl)
+{
+    d->m_errorCode = std::move(errorCode);
+    d->m_message = std::move(message);
+    d->m_rateLimitDuration = std::move(rateLimitDuration);
+}
+
+EDAMErrorCode EDAMSystemExceptionData::errorCode() const noexcept
+{
+    return d->m_errorCode;
+}
+
+void EDAMSystemExceptionData::setErrorCode(EDAMErrorCode errorCode)
+{
+    d->m_errorCode = errorCode;
+}
+
+const std::optional<QString> & EDAMSystemExceptionData::message() const noexcept
+{
+    return d->m_message;
+}
+
+void EDAMSystemExceptionData::setMessage(std::optional<QString> message)
+{
+    d->m_message = message;
+}
+
+const std::optional<qint32> & EDAMSystemExceptionData::rateLimitDuration() const noexcept
+{
+    return d->m_rateLimitDuration;
+}
+
+std::optional<qint32> & EDAMSystemExceptionData::mutableRateLimitDuration()
+{
+    return d->m_rateLimitDuration;
+}
+
+void EDAMSystemExceptionData::setRateLimitDuration(std::optional<qint32> rateLimitDuration)
+{
+    d->m_rateLimitDuration = rateLimitDuration;
+}
+
+void EDAMSystemExceptionData::throwException() const
+{
+    EDAMSystemException e;
+    e.setErrorCode(d->m_errorCode);
+    e.setMessage(d->m_message);
+    e.setRateLimitDuration(d->m_rateLimitDuration);
+    throw e;
 }
 
 } // namespace qevercloud

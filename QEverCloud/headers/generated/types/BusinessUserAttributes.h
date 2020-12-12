@@ -97,8 +97,8 @@ public:
     Q_PROPERTY(std::optional<Timestamp> companyStartDate READ companyStartDate WRITE setCompanyStartDate)
 
 private:
-    class BusinessUserAttributesData;
-    QSharedDataPointer<BusinessUserAttributesData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

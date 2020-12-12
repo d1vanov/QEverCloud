@@ -118,8 +118,8 @@ public:
     Q_PROPERTY(std::optional<bool> includeAccountLimits READ includeAccountLimits WRITE setIncludeAccountLimits)
 
 private:
-    class NoteResultSpecData;
-    QSharedDataPointer<NoteResultSpecData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

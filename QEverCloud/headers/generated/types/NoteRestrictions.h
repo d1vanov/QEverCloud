@@ -116,8 +116,8 @@ public:
     Q_PROPERTY(std::optional<bool> noSharePublicly READ noSharePublicly WRITE setNoSharePublicly)
 
 private:
-    class NoteRestrictionsData;
-    QSharedDataPointer<NoteRestrictionsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

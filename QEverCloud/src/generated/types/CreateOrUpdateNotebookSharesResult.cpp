@@ -11,11 +11,11 @@
 
 #include <generated/types/CreateOrUpdateNotebookSharesResult.h>
 
-#include "data/CreateOrUpdateNotebookSharesResultData.h"
+#include "impl/CreateOrUpdateNotebookSharesResultImpl.h"
 
 namespace qevercloud {
 
-CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult() : d(new CreateOrUpdateNotebookSharesResultData) {}
+CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult() : d(new CreateOrUpdateNotebookSharesResult::Impl) {}
 
 CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult(const CreateOrUpdateNotebookSharesResult & other) : d(other.d) {}
 

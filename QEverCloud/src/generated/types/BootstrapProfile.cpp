@@ -11,11 +11,11 @@
 
 #include <generated/types/BootstrapProfile.h>
 
-#include "data/BootstrapProfileData.h"
+#include "impl/BootstrapProfileImpl.h"
 
 namespace qevercloud {
 
-BootstrapProfile::BootstrapProfile() : d(new BootstrapProfileData) {}
+BootstrapProfile::BootstrapProfile() : d(new BootstrapProfile::Impl) {}
 
 BootstrapProfile::BootstrapProfile(const BootstrapProfile & other) : d(other.d) {}
 

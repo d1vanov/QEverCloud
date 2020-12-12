@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteVersionId.h>
 
-#include "data/NoteVersionIdData.h"
+#include "impl/NoteVersionIdImpl.h"
 
 namespace qevercloud {
 
-NoteVersionId::NoteVersionId() : d(new NoteVersionIdData) {}
+NoteVersionId::NoteVersionId() : d(new NoteVersionId::Impl) {}
 
 NoteVersionId::NoteVersionId(const NoteVersionId & other) : d(other.d) {}
 

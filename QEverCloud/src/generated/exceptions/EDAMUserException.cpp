@@ -11,11 +11,11 @@
 
 #include <generated/exceptions/EDAMUserException.h>
 
-#include "data/EDAMUserExceptionData.h"
+#include "impl/EDAMUserExceptionImpl.h"
 
 namespace qevercloud {
 
-EDAMUserException::EDAMUserException() : d(new EDAMUserExceptionData) {}
+EDAMUserException::EDAMUserException() : d(new EDAMUserException::Impl) {}
 
 EDAMUserException::EDAMUserException(const EDAMUserException & other) : d(other.d) {}
 
@@ -75,6 +75,56 @@ bool EDAMUserException::operator==(const EDAMUserException & other) const noexce
 bool EDAMUserException::operator!=(const EDAMUserException & other) const noexcept
 {
     return !(*this == other);
+}
+
+const char * EDAMUserException::what() const noexcept
+{
+    return EvernoteException::what();
+}
+
+EverCloudExceptionDataPtr EDAMUserException::exceptionData() const
+{
+    return std::make_shared<EDAMUserExceptionData>(
+        errorCode(),
+        parameter());
+}
+
+EDAMUserExceptionData::EDAMUserExceptionData(
+    EDAMErrorCode errorCode,
+    QString parameter):
+    EvernoteExceptionData(QStringLiteral("EDAMUserExceptionData")),
+    d(new EDAMUserExceptionData::Impl)
+{
+    d->m_errorCode = std::move(errorCode);
+    d->m_parameter = std::move(parameter);
+}
+
+EDAMErrorCode EDAMUserExceptionData::errorCode() const noexcept
+{
+    return d->m_errorCode;
+}
+
+void EDAMUserExceptionData::setErrorCode(EDAMErrorCode errorCode)
+{
+    d->m_errorCode = errorCode;
+}
+
+const std::optional<QString> & EDAMUserExceptionData::parameter() const noexcept
+{
+    return d->m_parameter;
+}
+
+void EDAMUserExceptionData::setParameter(std::optional<QString> parameter)
+{
+    d->m_parameter = parameter;
+}
+
+void EDAMUserExceptionData::throwException() const
+{
+    EDAMUserException e;
+    e.setErrorCode(d->m_errorCode);
+    e.setParameter(d->m_parameter);
+    throw e;
 }
 
 } // namespace qevercloud

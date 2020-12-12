@@ -128,8 +128,8 @@ public:
     Q_PROPERTY(std::optional<QString> debugInfo READ debugInfo WRITE setDebugInfo)
 
 private:
-    class NotesMetadataListData;
-    QSharedDataPointer<NotesMetadataListData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

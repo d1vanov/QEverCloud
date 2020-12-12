@@ -11,11 +11,11 @@
 
 #include <generated/types/Contact.h>
 
-#include "data/ContactData.h"
+#include "impl/ContactImpl.h"
 
 namespace qevercloud {
 
-Contact::Contact() : d(new ContactData) {}
+Contact::Contact() : d(new Contact::Impl) {}
 
 Contact::Contact(const Contact & other) : d(other.d) {}
 

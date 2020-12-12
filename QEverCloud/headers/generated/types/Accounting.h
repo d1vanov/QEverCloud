@@ -237,8 +237,8 @@ public:
     Q_PROPERTY(std::optional<qint32> availablePoints READ availablePoints WRITE setAvailablePoints)
 
 private:
-    class AccountingData;
-    QSharedDataPointer<AccountingData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

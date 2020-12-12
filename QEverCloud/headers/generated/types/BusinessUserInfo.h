@@ -89,8 +89,8 @@ public:
     Q_PROPERTY(std::optional<Timestamp> updated READ updated WRITE setUpdated)
 
 private:
-    class BusinessUserInfoData;
-    QSharedDataPointer<BusinessUserInfoData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

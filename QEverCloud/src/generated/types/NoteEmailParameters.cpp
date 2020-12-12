@@ -11,11 +11,11 @@
 
 #include <generated/types/NoteEmailParameters.h>
 
-#include "data/NoteEmailParametersData.h"
+#include "impl/NoteEmailParametersImpl.h"
 
 namespace qevercloud {
 
-NoteEmailParameters::NoteEmailParameters() : d(new NoteEmailParametersData) {}
+NoteEmailParameters::NoteEmailParameters() : d(new NoteEmailParameters::Impl) {}
 
 NoteEmailParameters::NoteEmailParameters(const NoteEmailParameters & other) : d(other.d) {}
 

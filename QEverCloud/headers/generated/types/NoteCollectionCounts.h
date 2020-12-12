@@ -78,8 +78,8 @@ public:
     Q_PROPERTY(std::optional<qint32> trashCount READ trashCount WRITE setTrashCount)
 
 private:
-    class NoteCollectionCountsData;
-    QSharedDataPointer<NoteCollectionCountsData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

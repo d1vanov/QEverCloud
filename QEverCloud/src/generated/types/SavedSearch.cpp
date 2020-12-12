@@ -11,11 +11,11 @@
 
 #include <generated/types/SavedSearch.h>
 
-#include "data/SavedSearchData.h"
+#include "impl/SavedSearchImpl.h"
 
 namespace qevercloud {
 
-SavedSearch::SavedSearch() : d(new SavedSearchData) {}
+SavedSearch::SavedSearch() : d(new SavedSearch::Impl) {}
 
 SavedSearch::SavedSearch(const SavedSearch & other) : d(other.d) {}
 

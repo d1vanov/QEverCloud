@@ -123,8 +123,8 @@ public:
     Q_PROPERTY(std::optional<BusinessUserStatus> status READ status WRITE setStatus)
 
 private:
-    class UserProfileData;
-    QSharedDataPointer<UserProfileData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

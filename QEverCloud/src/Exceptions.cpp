@@ -413,76 +413,6 @@ void writeThriftException(
     writer.writeStructEnd();
 }
 
-EverCloudExceptionDataPtr EDAMInvalidContactsException::exceptionData() const
-{
-    return std::make_shared<qevercloud::EDAMInvalidContactsExceptionData>(
-        contacts(), parameter(), reasons());
-}
-
-EDAMInvalidContactsExceptionData::EDAMInvalidContactsExceptionData(
-        QList<Contact> contacts,
-        std::optional<QString> parameter,
-        std::optional<QList<EDAMInvalidContactReason> > reasons) :
-    EvernoteExceptionData(QStringLiteral("EDAMInvalidContactsExceptionData")),
-    m_contacts(contacts),
-    m_parameter(parameter),
-    m_reasons(reasons)
-{}
-
-const char * EDAMInvalidContactsException::what() const noexcept
-{
-    return "EDAMInvalidContactsException";
-}
-
-void EDAMInvalidContactsExceptionData::throwException() const
-{
-    EDAMInvalidContactsException e;
-    e.setContacts(m_contacts);
-    e.setParameter(m_parameter);
-    e.setReasons(m_reasons);
-    throw e;
-}
-
-EverCloudExceptionDataPtr EDAMUserException::exceptionData() const
-{
-    return std::make_shared<qevercloud::EDAMUserExceptionData>(
-        QString::fromUtf8(what()), errorCode(), parameter());
-}
-
-void EDAMUserExceptionData::throwException() const
-{
-    EDAMUserException e;
-    e.setErrorCode(m_errorCode);
-    e.setParameter(m_parameter);
-    throw e;
-}
-
-EverCloudExceptionDataPtr EDAMSystemException::exceptionData() const
-{
-    return std::make_shared<qevercloud::EDAMSystemExceptionData>(
-        QString::fromUtf8(what()), errorCode(), message(), rateLimitDuration());
-}
-
-EDAMSystemExceptionData::EDAMSystemExceptionData(
-        QString error,
-        EDAMErrorCode errorCode,
-        std::optional<QString> message,
-        std::optional<qint32> rateLimitDuration) :
-    EvernoteExceptionData(error),
-    m_errorCode(errorCode),
-    m_message(message),
-    m_rateLimitDuration(rateLimitDuration)
-{}
-
-void EDAMSystemExceptionData::throwException() const
-{
-    EDAMSystemException e;
-    e.setErrorCode(m_errorCode);
-    e.setMessage(m_message);
-    e.setRateLimitDuration(m_rateLimitDuration);
-    throw e;
-}
-
 EDAMSystemExceptionRateLimitReachedData::EDAMSystemExceptionRateLimitReachedData(
         QString error, EDAMErrorCode errorCode,
         std::optional<QString> message,
@@ -496,29 +426,6 @@ void EDAMSystemExceptionRateLimitReachedData::throwException() const
     e.setErrorCode(m_errorCode);
     e.setMessage(m_message);
     e.setRateLimitDuration(m_rateLimitDuration);
-    throw e;
-}
-
-EverCloudExceptionDataPtr EDAMNotFoundException::exceptionData() const
-{
-    return std::make_shared<qevercloud::EDAMNotFoundExceptionData>(
-        QString::fromUtf8(what()), identifier(), key());
-}
-
-EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(
-        QString error,
-        std::optional<QString> identifier,
-        std::optional<QString> key) :
-    EvernoteExceptionData(error),
-    m_identifier(identifier),
-    m_key(key)
-{}
-
-void EDAMNotFoundExceptionData::throwException() const
-{
-    EDAMNotFoundException e;
-    e.setIdentifier(m_identifier);
-    e.setKey(m_key);
     throw e;
 }
 
@@ -577,14 +484,5 @@ void EDAMSystemExceptionAuthExpiredData::throwException() const
     e.setRateLimitDuration(m_rateLimitDuration);
     throw e;
 }
-
-EDAMUserExceptionData::EDAMUserExceptionData(
-        QString error,
-        EDAMErrorCode errorCode,
-        std::optional<QString> parameter) :
-    EvernoteExceptionData(error),
-    m_errorCode(errorCode),
-    m_parameter(parameter)
-{}
 
 } // namespace qevercloud

@@ -210,8 +210,8 @@ public:
     Q_PROPERTY(std::optional<QSet<QString>> notebookGuids READ notebookGuids WRITE setNotebookGuids)
 
 private:
-    class SyncChunkFilterData;
-    QSharedDataPointer<SyncChunkFilterData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud

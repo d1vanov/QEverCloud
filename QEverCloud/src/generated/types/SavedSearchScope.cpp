@@ -11,11 +11,11 @@
 
 #include <generated/types/SavedSearchScope.h>
 
-#include "data/SavedSearchScopeData.h"
+#include "impl/SavedSearchScopeImpl.h"
 
 namespace qevercloud {
 
-SavedSearchScope::SavedSearchScope() : d(new SavedSearchScopeData) {}
+SavedSearchScope::SavedSearchScope() : d(new SavedSearchScope::Impl) {}
 
 SavedSearchScope::SavedSearchScope(const SavedSearchScope & other) : d(other.d) {}
 

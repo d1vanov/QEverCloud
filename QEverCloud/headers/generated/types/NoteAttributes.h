@@ -335,8 +335,8 @@ public:
     Q_PROPERTY(std::optional<qint32> noteTitleQuality READ noteTitleQuality WRITE setNoteTitleQuality)
 
 private:
-    class NoteAttributesData;
-    QSharedDataPointer<NoteAttributesData> d;
+    class Impl;
+    QSharedDataPointer<Impl> d;
 };
 
 } // namespace qevercloud
