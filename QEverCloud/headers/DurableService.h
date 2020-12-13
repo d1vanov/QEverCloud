@@ -8,9 +8,9 @@
 #ifndef QEVERCLOUD_DURABLE_SERVICE_H
 #define QEVERCLOUD_DURABLE_SERVICE_H
 
-#include "AsyncResult.h"
-#include "Export.h"
-#include "RequestContext.h"
+#include <AsyncResult.h>
+#include <Export.h>
+#include <RequestContext.h>
 
 #include <QDateTime>
 #include <QVariant>

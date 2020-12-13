@@ -9,8 +9,8 @@
 #ifndef QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 #define QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 
-#include "Export.h"
-#include "Helpers.h"
+#include <Export.h>
+#include <Helpers.h>
 
 #include <QObject>
 #include <QString>
@@ -87,8 +87,17 @@ QObject::connect(ns->getNotebook(notebookGuid), &AsyncResult::finished,
 
                          if (!errorNotFound.isNull())
                          {
-                             qDebug() << "notebook not found"
-                                 << errorNotFound.identifier << errorNotFound.key;
+                             qDebug() << "Notebook not found";
+
+                             if (errorNotFound.identifier()) {
+                                 qDebug() << "identifier = "
+                                     << *errorNotFound.identifier();
+                             }
+
+                             if (errorNotFound.key()) {
+                                 qDebug() << "key = "
+                                     << *errorNotFound.key();
+                             }
                          }
                          else if (!errorUser.isNull())
                          {
@@ -97,7 +106,7 @@ QObject::connect(ns->getNotebook(notebookGuid), &AsyncResult::finished,
                          else if (!errorSystem.isNull())
                          {
                              if (errorSystem.errorCode ==
-                                EDAMErrorCode::RATE_LIMIT_REACHED)
+                                 EDAMErrorCode::RATE_LIMIT_REACHED)
                              {
                                  qDebug() << "Evernote API rate limits are reached";
                              }

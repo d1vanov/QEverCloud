@@ -9,10 +9,10 @@
 #ifndef QEVERCLOUD_EXCEPTIONS_H
 #define QEVERCLOUD_EXCEPTIONS_H
 
-#include "EverCloudException.h"
-#include "Export.h"
-#include "generated/EDAMErrorCode.h"
-#include "generated/Types.h"
+#include <EverCloudException.h>
+#include <Export.h>
+#include <generated/EDAMErrorCode.h>
+#include <generated/Types.h>
 
 #include <QNetworkReply>
 #include <QObject>

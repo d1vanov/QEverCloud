@@ -8,14 +8,13 @@
 #ifndef QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
 #define QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
 
-#include "AsyncResult.h"
-#include "Export.h"
-
-#include "generated/Types.h"
+#include <AsyncResult.h>
+#include <Export.h>
+#include <generated/Types.h>
 
 #include <QByteArray>
-#include <QString>
 #include <QNetworkAccessManager>
+#include <QString>
 
 namespace qevercloud {
 

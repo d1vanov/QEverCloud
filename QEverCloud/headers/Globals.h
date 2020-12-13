@@ -9,7 +9,7 @@
 #ifndef QEVERCLOUD_GLOBALS_H
 #define QEVERCLOUD_GLOBALS_H
 
-#include "Export.h"
+#include <Export.h>
 
 #include <QNetworkProxy>
 

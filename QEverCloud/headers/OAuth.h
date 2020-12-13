@@ -9,11 +9,10 @@
 #ifndef QEVERCLOUD_OAUTH_H
 #define QEVERCLOUD_OAUTH_H
 
-#include "Export.h"
-#include "Helpers.h"
-#include "Printable.h"
-
-#include "generated/Types.h"
+#include <Export.h>
+#include <Helpers.h>
+#include <Printable.h>
+#include <generated/Types.h>
 
 #include <QDialog>
 #include <QList>

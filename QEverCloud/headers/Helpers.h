@@ -8,10 +8,10 @@
 #ifndef QEVERCLOUD_HELPERS_H
 #define QEVERCLOUD_HELPERS_H
 
+#include <VersionInfo.h>
+
 #include <QtGlobal>
 #include <QObject>
-
-#include "VersionInfo.h"
 
 namespace qevercloud {
 

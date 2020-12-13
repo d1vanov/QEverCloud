@@ -9,10 +9,9 @@
 #ifndef QEVERCLOUD_THUMBNAIL_H
 #define QEVERCLOUD_THUMBNAIL_H
 
-#include "AsyncResult.h"
-#include "Export.h"
-
-#include "generated/Types.h"
+#include <AsyncResult.h>
+#include <Export.h>
+#include <generated/Types.h>
 
 #include <QByteArray>
 #include <QNetworkAccessManager>

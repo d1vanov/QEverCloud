@@ -9,23 +9,23 @@
 #ifndef QEVERCLOUD_INFTHEADER_H
 #define QEVERCLOUD_INFTHEADER_H
 
-#include "AsyncResult.h"
-#include "DurableService.h"
-#include "EventLoopFinisher.h"
-#include "EverCloudException.h"
-#include "Exceptions.h"
-#include "Export.h"
-#include "Globals.h"
-#include "Helpers.h"
-#include "InkNoteImageDownloader.h"
-#include "Log.h"
-#include "Printable.h"
-#include "RequestContext.h"
-#include "Thumbnail.h"
-#include "VersionInfo.h"
-#include "generated/EDAMErrorCode.h"
-#include "generated/Constants.h"
-#include "generated/Services.h"
-#include "generated/Types.h"
+#include <AsyncResult.h>
+#include <DurableService.h>
+#include <EventLoopFinisher.h>
+#include <EverCloudException.h>
+#include <Exceptions.h>
+#include <Export.h>
+#include <Globals.h>
+#include <Helpers.h>
+#include <InkNoteImageDownloader.h>
+#include <Log.h>
+#include <Printable.h>
+#include <RequestContext.h>
+#include <Thumbnail.h>
+#include <VersionInfo.h>
+#include <generated/EDAMErrorCode.h>
+#include <generated/Constants.h>
+#include <generated/Services.h>
+#include <generated/Types.h>
 
 #endif // QEVERCLOUD_INFTHEADER_H

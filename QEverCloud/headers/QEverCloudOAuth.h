@@ -9,7 +9,7 @@
 #ifndef QEVERCLOUDOAUTH_INFTHEADER_H
 #define QEVERCLOUDOAUTH_INFTHEADER_H
 
-#include "OAuth.h"
-#include "QEverCloud.h"
+#include <OAuth.h>
+#include <QEverCloud.h>
 
 #endif // QEVERCLOUDOAUTH_INFTHEADER_H

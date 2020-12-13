@@ -8,10 +8,10 @@
 #ifndef QEVERCLOUD_PRINTABLE_H
 #define QEVERCLOUD_PRINTABLE_H
 
-#include "Export.h"
+#include <Export.h>
 
-#include <QTextStream>
 #include <QDebug>
+#include <QTextStream>
 
 namespace qevercloud {
 

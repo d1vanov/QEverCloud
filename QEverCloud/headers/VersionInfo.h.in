@@ -8,8 +8,7 @@
 #ifndef QEVERCLOUD_VERSION_INFO_H
 #define QEVERCLOUD_VERSION_INFO_H
 
-#include "Export.h"
-
+#include <Export.h>
 #include <LibraryType.h>
 
 #include <QString>

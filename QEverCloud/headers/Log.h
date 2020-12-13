@@ -8,8 +8,8 @@
 #ifndef QEVERCLOUD_LOG_H
 #define QEVERCLOUD_LOG_H
 
-#include "Export.h"
-#include "Helpers.h"
+#include <Export.h>
+#include <Helpers.h>
 
 #include <QDateTime>
 #include <QDebug>
