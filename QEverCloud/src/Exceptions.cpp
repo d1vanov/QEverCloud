@@ -290,58 +290,6 @@ void ThriftExceptionData::throwException() const
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const char * EDAMUserException::what() const noexcept
-{
-    if (m_error.isEmpty())
-    {
-        QTextStream strm(&m_error);
-        strm << "EDAMUserException: " << errorCode();
-        if (parameter()) {
-            strm << " parameter=" << parameter()->toUtf8();
-        }
-    }
-
-    return EvernoteException::what();
-}
-
-const char * EDAMSystemException::what() const noexcept
-{
-    if (m_error.isEmpty())
-    {
-        QTextStream strm(&m_error);
-        strm << "EDAMSystemException: " << errorCode();
-
-        if (message()) {
-            strm << " " << message()->toUtf8();
-        }
-
-        if (rateLimitDuration()) {
-            strm << " rateLimitDuration= " << *rateLimitDuration() << " sec.";
-        }
-    }
-
-    return EvernoteException::what();
-}
-
-const char * EDAMNotFoundException::what() const noexcept
-{
-    if (m_error.isEmpty())
-    {
-        QTextStream strm(&m_error);
-        strm << "EDAMNotFoundException: ";
-
-        if (identifier()) {
-            strm << " identifier=" << *identifier();
-        }
-
-        if (key()) {
-            strm << " key=" << *key();
-        }
-    }
-
-    return EvernoteException::what();
-}
-
 ThriftException readThriftException(ThriftBinaryBufferReader & reader)
 {
     QString name;

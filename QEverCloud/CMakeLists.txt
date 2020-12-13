@@ -566,6 +566,7 @@ if(Qt5Test_FOUND)
       src/tests/generated/RandomDataGenerators.h
       src/tests/generated/TestNoteStore.h
       src/tests/generated/TestUserStore.h)
+
   set(TEST_SOURCES
       src/tests/SocketHelpers.cpp
       src/tests/TestDurableService.cpp
@@ -576,7 +577,9 @@ if(Qt5Test_FOUND)
 
   add_executable(test_${LIBNAME} ${TEST_HEADERS} ${TEST_SOURCES})
   add_sanitizers(test_${LIBNAME})
-  add_test(test_${LIBNAME} test_${PROJECT_NAME})
+  add_test(NAME test_${LIBNAME}
+    COMMAND test_${LIBNAME}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
   set_target_properties(test_${LIBNAME} PROPERTIES
     CXX_STANDARD 17
@@ -587,6 +590,8 @@ if(Qt5Test_FOUND)
   target_include_directories(test_${LIBNAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/headers
     ${PROJECT_BINARY_DIR})
+
+  add_custom_target(check COMMAND "${CMAKE_CTEST_COMMAND}" "--verbose")
 else()
   message(STATUS "Could not find Qt5::Test, won't build tests")
 endif()

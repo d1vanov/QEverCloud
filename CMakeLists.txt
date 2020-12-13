@@ -48,4 +48,3 @@ find_package(Sanitizers)
 
 enable_testing()
 add_subdirectory(QEverCloud)
-add_custom_target(check COMMAND "${CMAKE_CTEST_COMMAND}" "--verbose")
