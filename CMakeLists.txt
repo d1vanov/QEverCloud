@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.10.2)
 
 project(QEverCloud VERSION 7.0.0)
 
@@ -32,17 +32,27 @@ if(BUILD_DOCUMENTATION)
   ADD_DOCUMENTATION(doc Doxyfile)
 endif()
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 include(QEverCloudCompilerSettings)
 
-set(QEVERCLOUD_USE_QT_WEB_ENGINE NOT USE_QT5_WEBKIT)
+if(USE_QT5_WEBKIT)
+  set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
+else()
+  set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
+endif()
+
 set(QEVERCLOUD_FIND_QT_ARGS REQUIRED)
+
 include(QEverCloudFindDependencies)
 
 configure_file(QEverCloud/cmake/modules/QEverCloudConfig.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}Config.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-qt5Config.cmake @ONLY)
 
 configure_file(QEverCloud/cmake/modules/QEverCloudConfigVersion.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}ConfigVersion.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-qt5ConfigVersion.cmake @ONLY)
 
 find_package(Sanitizers)
 

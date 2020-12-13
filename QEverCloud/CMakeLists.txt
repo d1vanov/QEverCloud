@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.10.2)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -496,7 +496,7 @@ else()
   set(LIBNAME "qt5qevercloud")
 endif()
 
-add_library(${LIBNAME})
+add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
 
 if(BUILD_SHARED_LIBS)
   message(STATUS "Building QEverCloud shared library")
@@ -505,8 +505,6 @@ else()
   message(STATUS "Building QEverCloud static library")
 endif()
 
-target_sources(${LIBNAME} PRIVATE ${ALL_HEADERS_AND_SOURCES})
-
 add_sanitizers(${LIBNAME})
 
 set_target_properties(${LIBNAME} PROPERTIES
@@ -514,24 +512,7 @@ set_target_properties(${LIBNAME} PROPERTIES
   SOVERSION ${PROJECT_VERSION_MAJOR}
   CXX_STANDARD 17
   CXX_EXTENSIONS OFF
-  MACOSX_RPATH 1)
-
-target_compile_features(${LIBNAME} INTERFACE
-  cxx_auto_type
-  cxx_defaulted_functions
-  cxx_defaulted_move_initializers
-  cxx_deleted_functions
-  cxx_noexcept
-  cxx_nullptr
-  cxx_override
-  cxx_right_angle_brackets
-  cxx_rvalue_references
-  cxx_strong_enums)
-
-target_compile_features(${LIBNAME} PRIVATE
-  cxx_final
-  cxx_lambdas
-  cxx_range_for)
+  MACOSX_RPATH ON)
 
 target_link_libraries(${LIBNAME}
   PUBLIC
@@ -618,18 +599,17 @@ install(TARGETS ${LIBNAME}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install(DIRECTORY headers/
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qt5qevercloud
   FILES_MATCHING
-  PATTERN *.in
-  EXCLUDE)
+  PATTERN *.h
+  PATTERN *.in EXCLUDE)
 
-# install VersionInfo.h header
+install(FILES ${PROJECT_BINARY_DIR}/LibraryType.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qt5qevercloud")
 install(FILES ${PROJECT_BINARY_DIR}/VersionInfo.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qt5qevercloud")
 
-# install cmake module
 if(BUILD_SHARED_LIBS)
   install(EXPORT QEverCloudExport DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
   install(FILES ${PROJECT_SOURCE_DIR}/QEverCloud/cmake/modules/QEverCloudFindDependencies.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
-  install(FILES ${QEVERCLOUD_BINARY_DIR}/QEverCloud-qt5Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
-  install(FILES ${QEVERCLOUD_BINARY_DIR}/QEverCloud-qt5ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
+  install(FILES ${PROJECT_BINARY_DIR}/QEverCloud-qt5Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
+  install(FILES ${PROJECT_BINARY_DIR}/QEverCloud-qt5ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
 endif()
