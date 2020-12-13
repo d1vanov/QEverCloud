@@ -9,7 +9,6 @@
 #include "Http.h"
 
 #include <qevercloud/Globals.h>
-#include <qevercloud/Helpers.h>
 #include <qevercloud/InkNoteImageDownloader.h>
 #include <qevercloud/Log.h>
 

@@ -11,6 +11,8 @@
 
 #include "PublishingImpl.h"
 
+#include "../../../../src/Impl.h"
+
 #include <QTextStream>
 
 namespace qevercloud {

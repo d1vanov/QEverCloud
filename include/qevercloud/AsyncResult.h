@@ -11,7 +11,6 @@
 
 #include <qevercloud/EverCloudException.h>
 #include <qevercloud/Export.h>
-#include <qevercloud/Helpers.h>
 #include <qevercloud/RequestContext.h>
 
 #include <QNetworkRequest>

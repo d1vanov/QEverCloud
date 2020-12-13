@@ -11,6 +11,8 @@
 
 #include "IdentityImpl.h"
 
+#include "../../../../src/Impl.h"
+
 #include <QTextStream>
 
 namespace qevercloud {

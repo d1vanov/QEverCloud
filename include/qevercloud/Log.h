@@ -9,7 +9,6 @@
 #define QEVERCLOUD_LOG_H
 
 #include <qevercloud/Export.h>
-#include <qevercloud/Helpers.h>
 
 #include <QDateTime>
 #include <QDebug>

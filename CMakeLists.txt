@@ -78,12 +78,12 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/Export.h
     include/qevercloud/Exceptions.h
     include/qevercloud/Globals.h
-    include/qevercloud/Helpers.h
     include/qevercloud/InkNoteImageDownloader.h
     include/qevercloud/Log.h
     include/qevercloud/Printable.h
     include/qevercloud/RequestContext.h
-    include/qevercloud/Thumbnail.h)
+    include/qevercloud/Thumbnail.h
+    include/qevercloud/utility/ToRange.h)
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   list(APPEND NON_GENERATED_HEADERS

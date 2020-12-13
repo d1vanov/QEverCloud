@@ -11,6 +11,8 @@
 
 #include "MemberShareRelationshipImpl.h"
 
+#include "../../../../src/Impl.h"
+
 #include <QTextStream>
 
 namespace qevercloud {

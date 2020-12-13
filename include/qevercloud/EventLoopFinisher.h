@@ -10,7 +10,6 @@
 #define QEVERCLOUD_EVENT_LOOP_FINISHER_H
 
 #include <qevercloud/Export.h>
-#include <qevercloud/Helpers.h>
 
 #include <QEventLoop>
 #include <QObject>

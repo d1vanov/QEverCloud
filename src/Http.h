@@ -10,8 +10,6 @@
 #ifndef QEVERCLOUD_HTTP_H
 #define QEVERCLOUD_HTTP_H
 
-#include <qevercloud/Helpers.h>
-
 #include <QByteArray>
 #include <QList>
 #include <QNetworkAccessManager>

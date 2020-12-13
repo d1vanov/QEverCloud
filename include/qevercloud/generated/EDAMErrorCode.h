@@ -14,7 +14,6 @@
 
 #include "../Export.h"
 
-#include "../Helpers.h"
 #include <QDebug>
 #include <QMetaType>
 #include <QTextStream>

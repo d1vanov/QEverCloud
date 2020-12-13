@@ -12,7 +12,6 @@
 #include "NetworkCookieJar.h"
 
 #include <qevercloud/Globals.h>
-#include <qevercloud/Helpers.h>
 #include <qevercloud/Log.h>
 #include <qevercloud/OAuth.h>
 

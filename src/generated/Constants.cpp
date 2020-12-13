@@ -11,7 +11,6 @@
 
 #include <qevercloud/generated/Constants.h>
 #include "../Impl.h"
-#include <qevercloud/Helpers.h>
 
 namespace qevercloud {
 

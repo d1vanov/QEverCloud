@@ -11,8 +11,8 @@
 
 #include <qevercloud/generated/Types.h>
 #include "../Impl.h"
+#include "../Impl.h"
 #include "Types_io.h"
-#include <qevercloud/Helpers.h>
 #include <QDebug>
 #include <QUuid>
 #include <optional>

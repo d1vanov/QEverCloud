@@ -10,7 +10,6 @@
 #define QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 
 #include <qevercloud/Export.h>
-#include <qevercloud/Helpers.h>
 
 #include <QObject>
 #include <QString>

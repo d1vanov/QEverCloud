@@ -16,7 +16,6 @@
 #include "Exceptions.h"
 #include "Export.h"
 #include "Globals.h"
-#include "Helpers.h"
 #include "InkNoteImageDownloader.h"
 #include "Log.h"
 #include "Printable.h"
@@ -27,5 +26,6 @@
 #include "generated/Constants.h"
 #include "generated/Services.h"
 #include "generated/Types.h"
+#include "utility/ToRange.h"
 
 #endif // QEVERCLOUD_INFTHEADER_H

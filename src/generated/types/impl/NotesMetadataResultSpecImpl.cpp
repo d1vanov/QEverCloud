@@ -11,6 +11,8 @@
 
 #include "NotesMetadataResultSpecImpl.h"
 
+#include "../../../../src/Impl.h"
+
 #include <QTextStream>
 
 namespace qevercloud {

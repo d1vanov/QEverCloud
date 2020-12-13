@@ -15,6 +15,7 @@
 
 #include <qevercloud/Exceptions.h>
 #include <qevercloud/Globals.h>
+#include <qevercloud/utility/ToRange.h>
 
 /**
 

@@ -5,7 +5,6 @@
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/Helpers.h>
 #include <qevercloud/RequestContext.h>
 
 namespace qevercloud {

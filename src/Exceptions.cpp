@@ -11,7 +11,6 @@
 #include "generated/Types_io.h"
 
 #include <qevercloud/EverCloudException.h>
-#include <qevercloud/Helpers.h>
 #include <qevercloud/generated/Types.h>
 
 #include <QTextStream>

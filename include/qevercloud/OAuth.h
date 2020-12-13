@@ -10,7 +10,6 @@
 #define QEVERCLOUD_OAUTH_H
 
 #include <qevercloud/Export.h>
-#include <qevercloud/Helpers.h>
 #include <qevercloud/Printable.h>
 #include <qevercloud/generated/Types.h>
 

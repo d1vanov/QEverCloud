@@ -11,7 +11,6 @@
 #define QEVERCLOUD_THRIFT_H
 
 #include <qevercloud/Exceptions.h>
-#include <qevercloud/Helpers.h>
 
 #include <QByteArray>
 #include <QtEndian>
