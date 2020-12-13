@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-RelatedResultSpec::RelatedResultSpec() : d(new RelatedResultSpec::Impl) {}
+RelatedResultSpec::RelatedResultSpec() :
+    d(new RelatedResultSpec::Impl)
+ {}
 
-RelatedResultSpec::RelatedResultSpec(const RelatedResultSpec & other) : d(other.d) {}
+RelatedResultSpec::RelatedResultSpec(const RelatedResultSpec & other) :
+    d(other.d)
+{}
 
-RelatedResultSpec::RelatedResultSpec(RelatedResultSpec && other) noexcept : d(std::move(other.d))
+RelatedResultSpec::RelatedResultSpec(RelatedResultSpec && other) noexcept :
+    d(std::move(other.d))
 {}
 
 RelatedResultSpec::~RelatedResultSpec() noexcept {}

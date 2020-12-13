@@ -15,11 +15,17 @@
 
 namespace qevercloud {
 
-EDAMInvalidContactsException::EDAMInvalidContactsException() : d(new EDAMInvalidContactsException::Impl) {}
+EDAMInvalidContactsException::EDAMInvalidContactsException() :
+    EvernoteException(QStringLiteral("EDAMInvalidContactsException")),
+    d(new EDAMInvalidContactsException::Impl)
+ {}
 
-EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException & other) : d(other.d) {}
+EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException & other) :
+    d(other.d)
+{}
 
-EDAMInvalidContactsException::EDAMInvalidContactsException(EDAMInvalidContactsException && other) noexcept : d(std::move(other.d))
+EDAMInvalidContactsException::EDAMInvalidContactsException(EDAMInvalidContactsException && other) noexcept :
+    d(std::move(other.d))
 {}
 
 EDAMInvalidContactsException::~EDAMInvalidContactsException() noexcept {}

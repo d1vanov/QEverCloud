@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SharedNote::SharedNote() : d(new SharedNote::Impl) {}
+SharedNote::SharedNote() :
+    d(new SharedNote::Impl)
+ {}
 
-SharedNote::SharedNote(const SharedNote & other) : d(other.d) {}
+SharedNote::SharedNote(const SharedNote & other) :
+    d(other.d)
+{}
 
-SharedNote::SharedNote(SharedNote && other) noexcept : d(std::move(other.d))
+SharedNote::SharedNote(SharedNote && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SharedNote::~SharedNote() noexcept {}

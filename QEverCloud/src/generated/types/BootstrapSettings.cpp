@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-BootstrapSettings::BootstrapSettings() : d(new BootstrapSettings::Impl) {}
+BootstrapSettings::BootstrapSettings() :
+    d(new BootstrapSettings::Impl)
+ {}
 
-BootstrapSettings::BootstrapSettings(const BootstrapSettings & other) : d(other.d) {}
+BootstrapSettings::BootstrapSettings(const BootstrapSettings & other) :
+    d(other.d)
+{}
 
-BootstrapSettings::BootstrapSettings(BootstrapSettings && other) noexcept : d(std::move(other.d))
+BootstrapSettings::BootstrapSettings(BootstrapSettings && other) noexcept :
+    d(std::move(other.d))
 {}
 
 BootstrapSettings::~BootstrapSettings() noexcept {}

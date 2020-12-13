@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-LinkedNotebook::LinkedNotebook() : d(new LinkedNotebook::Impl) {}
+LinkedNotebook::LinkedNotebook() :
+    d(new LinkedNotebook::Impl)
+ {}
 
-LinkedNotebook::LinkedNotebook(const LinkedNotebook & other) : d(other.d) {}
+LinkedNotebook::LinkedNotebook(const LinkedNotebook & other) :
+    d(other.d)
+{}
 
-LinkedNotebook::LinkedNotebook(LinkedNotebook && other) noexcept : d(std::move(other.d))
+LinkedNotebook::LinkedNotebook(LinkedNotebook && other) noexcept :
+    d(std::move(other.d))
 {}
 
 LinkedNotebook::~LinkedNotebook() noexcept {}

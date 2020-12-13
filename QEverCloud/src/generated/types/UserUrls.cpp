@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-UserUrls::UserUrls() : d(new UserUrls::Impl) {}
+UserUrls::UserUrls() :
+    d(new UserUrls::Impl)
+ {}
 
-UserUrls::UserUrls(const UserUrls & other) : d(other.d) {}
+UserUrls::UserUrls(const UserUrls & other) :
+    d(other.d)
+{}
 
-UserUrls::UserUrls(UserUrls && other) noexcept : d(std::move(other.d))
+UserUrls::UserUrls(UserUrls && other) noexcept :
+    d(std::move(other.d))
 {}
 
 UserUrls::~UserUrls() noexcept {}

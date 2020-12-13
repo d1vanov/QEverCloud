@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-RelatedContentImage::RelatedContentImage() : d(new RelatedContentImage::Impl) {}
+RelatedContentImage::RelatedContentImage() :
+    d(new RelatedContentImage::Impl)
+ {}
 
-RelatedContentImage::RelatedContentImage(const RelatedContentImage & other) : d(other.d) {}
+RelatedContentImage::RelatedContentImage(const RelatedContentImage & other) :
+    d(other.d)
+{}
 
-RelatedContentImage::RelatedContentImage(RelatedContentImage && other) noexcept : d(std::move(other.d))
+RelatedContentImage::RelatedContentImage(RelatedContentImage && other) noexcept :
+    d(std::move(other.d))
 {}
 
 RelatedContentImage::~RelatedContentImage() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-BusinessInvitation::BusinessInvitation() : d(new BusinessInvitation::Impl) {}
+BusinessInvitation::BusinessInvitation() :
+    d(new BusinessInvitation::Impl)
+ {}
 
-BusinessInvitation::BusinessInvitation(const BusinessInvitation & other) : d(other.d) {}
+BusinessInvitation::BusinessInvitation(const BusinessInvitation & other) :
+    d(other.d)
+{}
 
-BusinessInvitation::BusinessInvitation(BusinessInvitation && other) noexcept : d(std::move(other.d))
+BusinessInvitation::BusinessInvitation(BusinessInvitation && other) noexcept :
+    d(std::move(other.d))
 {}
 
 BusinessInvitation::~BusinessInvitation() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Identity::Identity() : d(new Identity::Impl) {}
+Identity::Identity() :
+    d(new Identity::Impl)
+ {}
 
-Identity::Identity(const Identity & other) : d(other.d) {}
+Identity::Identity(const Identity & other) :
+    d(other.d)
+{}
 
-Identity::Identity(Identity && other) noexcept : d(std::move(other.d))
+Identity::Identity(Identity && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Identity::~Identity() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-BusinessUserInfo::BusinessUserInfo() : d(new BusinessUserInfo::Impl) {}
+BusinessUserInfo::BusinessUserInfo() :
+    d(new BusinessUserInfo::Impl)
+ {}
 
-BusinessUserInfo::BusinessUserInfo(const BusinessUserInfo & other) : d(other.d) {}
+BusinessUserInfo::BusinessUserInfo(const BusinessUserInfo & other) :
+    d(other.d)
+{}
 
-BusinessUserInfo::BusinessUserInfo(BusinessUserInfo && other) noexcept : d(std::move(other.d))
+BusinessUserInfo::BusinessUserInfo(BusinessUserInfo && other) noexcept :
+    d(std::move(other.d))
 {}
 
 BusinessUserInfo::~BusinessUserInfo() noexcept {}

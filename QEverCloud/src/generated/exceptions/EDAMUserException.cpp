@@ -15,11 +15,17 @@
 
 namespace qevercloud {
 
-EDAMUserException::EDAMUserException() : d(new EDAMUserException::Impl) {}
+EDAMUserException::EDAMUserException() :
+    EvernoteException(QStringLiteral("EDAMUserException")),
+    d(new EDAMUserException::Impl)
+ {}
 
-EDAMUserException::EDAMUserException(const EDAMUserException & other) : d(other.d) {}
+EDAMUserException::EDAMUserException(const EDAMUserException & other) :
+    d(other.d)
+{}
 
-EDAMUserException::EDAMUserException(EDAMUserException && other) noexcept : d(std::move(other.d))
+EDAMUserException::EDAMUserException(EDAMUserException && other) noexcept :
+    d(std::move(other.d))
 {}
 
 EDAMUserException::~EDAMUserException() noexcept {}

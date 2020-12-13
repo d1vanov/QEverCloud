@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-BusinessUserAttributes::BusinessUserAttributes() : d(new BusinessUserAttributes::Impl) {}
+BusinessUserAttributes::BusinessUserAttributes() :
+    d(new BusinessUserAttributes::Impl)
+ {}
 
-BusinessUserAttributes::BusinessUserAttributes(const BusinessUserAttributes & other) : d(other.d) {}
+BusinessUserAttributes::BusinessUserAttributes(const BusinessUserAttributes & other) :
+    d(other.d)
+{}
 
-BusinessUserAttributes::BusinessUserAttributes(BusinessUserAttributes && other) noexcept : d(std::move(other.d))
+BusinessUserAttributes::BusinessUserAttributes(BusinessUserAttributes && other) noexcept :
+    d(std::move(other.d))
 {}
 
 BusinessUserAttributes::~BusinessUserAttributes() noexcept {}

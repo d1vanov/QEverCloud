@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteList::NoteList() : d(new NoteList::Impl) {}
+NoteList::NoteList() :
+    d(new NoteList::Impl)
+ {}
 
-NoteList::NoteList(const NoteList & other) : d(other.d) {}
+NoteList::NoteList(const NoteList & other) :
+    d(other.d)
+{}
 
-NoteList::NoteList(NoteList && other) noexcept : d(std::move(other.d))
+NoteList::NoteList(NoteList && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteList::~NoteList() noexcept {}

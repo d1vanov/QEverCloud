@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NotesMetadataResultSpec::NotesMetadataResultSpec() : d(new NotesMetadataResultSpec::Impl) {}
+NotesMetadataResultSpec::NotesMetadataResultSpec() :
+    d(new NotesMetadataResultSpec::Impl)
+ {}
 
-NotesMetadataResultSpec::NotesMetadataResultSpec(const NotesMetadataResultSpec & other) : d(other.d) {}
+NotesMetadataResultSpec::NotesMetadataResultSpec(const NotesMetadataResultSpec & other) :
+    d(other.d)
+{}
 
-NotesMetadataResultSpec::NotesMetadataResultSpec(NotesMetadataResultSpec && other) noexcept : d(std::move(other.d))
+NotesMetadataResultSpec::NotesMetadataResultSpec(NotesMetadataResultSpec && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NotesMetadataResultSpec::~NotesMetadataResultSpec() noexcept {}

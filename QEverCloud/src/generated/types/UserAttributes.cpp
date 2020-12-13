@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-UserAttributes::UserAttributes() : d(new UserAttributes::Impl) {}
+UserAttributes::UserAttributes() :
+    d(new UserAttributes::Impl)
+ {}
 
-UserAttributes::UserAttributes(const UserAttributes & other) : d(other.d) {}
+UserAttributes::UserAttributes(const UserAttributes & other) :
+    d(other.d)
+{}
 
-UserAttributes::UserAttributes(UserAttributes && other) noexcept : d(std::move(other.d))
+UserAttributes::UserAttributes(UserAttributes && other) noexcept :
+    d(std::move(other.d))
 {}
 
 UserAttributes::~UserAttributes() noexcept {}

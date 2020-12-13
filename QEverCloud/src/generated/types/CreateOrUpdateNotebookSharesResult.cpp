@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult() : d(new CreateOrUpdateNotebookSharesResult::Impl) {}
+CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult() :
+    d(new CreateOrUpdateNotebookSharesResult::Impl)
+ {}
 
-CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult(const CreateOrUpdateNotebookSharesResult & other) : d(other.d) {}
+CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult(const CreateOrUpdateNotebookSharesResult & other) :
+    d(other.d)
+{}
 
-CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult(CreateOrUpdateNotebookSharesResult && other) noexcept : d(std::move(other.d))
+CreateOrUpdateNotebookSharesResult::CreateOrUpdateNotebookSharesResult(CreateOrUpdateNotebookSharesResult && other) noexcept :
+    d(std::move(other.d))
 {}
 
 CreateOrUpdateNotebookSharesResult::~CreateOrUpdateNotebookSharesResult() noexcept {}

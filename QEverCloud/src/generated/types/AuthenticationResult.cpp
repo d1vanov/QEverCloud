@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-AuthenticationResult::AuthenticationResult() : d(new AuthenticationResult::Impl) {}
+AuthenticationResult::AuthenticationResult() :
+    d(new AuthenticationResult::Impl)
+ {}
 
-AuthenticationResult::AuthenticationResult(const AuthenticationResult & other) : d(other.d) {}
+AuthenticationResult::AuthenticationResult(const AuthenticationResult & other) :
+    d(other.d)
+{}
 
-AuthenticationResult::AuthenticationResult(AuthenticationResult && other) noexcept : d(std::move(other.d))
+AuthenticationResult::AuthenticationResult(AuthenticationResult && other) noexcept :
+    d(std::move(other.d))
 {}
 
 AuthenticationResult::~AuthenticationResult() noexcept {}

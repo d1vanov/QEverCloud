@@ -15,11 +15,17 @@
 
 namespace qevercloud {
 
-EDAMSystemException::EDAMSystemException() : d(new EDAMSystemException::Impl) {}
+EDAMSystemException::EDAMSystemException() :
+    EvernoteException(QStringLiteral("EDAMSystemException")),
+    d(new EDAMSystemException::Impl)
+ {}
 
-EDAMSystemException::EDAMSystemException(const EDAMSystemException & other) : d(other.d) {}
+EDAMSystemException::EDAMSystemException(const EDAMSystemException & other) :
+    d(other.d)
+{}
 
-EDAMSystemException::EDAMSystemException(EDAMSystemException && other) noexcept : d(std::move(other.d))
+EDAMSystemException::EDAMSystemException(EDAMSystemException && other) noexcept :
+    d(std::move(other.d))
 {}
 
 EDAMSystemException::~EDAMSystemException() noexcept {}

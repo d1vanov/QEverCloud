@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Data::Data() : d(new Data::Impl) {}
+Data::Data() :
+    d(new Data::Impl)
+ {}
 
-Data::Data(const Data & other) : d(other.d) {}
+Data::Data(const Data & other) :
+    d(other.d)
+{}
 
-Data::Data(Data && other) noexcept : d(std::move(other.d))
+Data::Data(Data && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Data::~Data() noexcept {}

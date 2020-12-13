@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-CanMoveToContainerRestrictions::CanMoveToContainerRestrictions() : d(new CanMoveToContainerRestrictions::Impl) {}
+CanMoveToContainerRestrictions::CanMoveToContainerRestrictions() :
+    d(new CanMoveToContainerRestrictions::Impl)
+ {}
 
-CanMoveToContainerRestrictions::CanMoveToContainerRestrictions(const CanMoveToContainerRestrictions & other) : d(other.d) {}
+CanMoveToContainerRestrictions::CanMoveToContainerRestrictions(const CanMoveToContainerRestrictions & other) :
+    d(other.d)
+{}
 
-CanMoveToContainerRestrictions::CanMoveToContainerRestrictions(CanMoveToContainerRestrictions && other) noexcept : d(std::move(other.d))
+CanMoveToContainerRestrictions::CanMoveToContainerRestrictions(CanMoveToContainerRestrictions && other) noexcept :
+    d(std::move(other.d))
 {}
 
 CanMoveToContainerRestrictions::~CanMoveToContainerRestrictions() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-AccountLimits::AccountLimits() : d(new AccountLimits::Impl) {}
+AccountLimits::AccountLimits() :
+    d(new AccountLimits::Impl)
+ {}
 
-AccountLimits::AccountLimits(const AccountLimits & other) : d(other.d) {}
+AccountLimits::AccountLimits(const AccountLimits & other) :
+    d(other.d)
+{}
 
-AccountLimits::AccountLimits(AccountLimits && other) noexcept : d(std::move(other.d))
+AccountLimits::AccountLimits(AccountLimits && other) noexcept :
+    d(std::move(other.d))
 {}
 
 AccountLimits::~AccountLimits() noexcept {}

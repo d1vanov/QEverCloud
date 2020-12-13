@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NotebookRestrictions::NotebookRestrictions() : d(new NotebookRestrictions::Impl) {}
+NotebookRestrictions::NotebookRestrictions() :
+    d(new NotebookRestrictions::Impl)
+ {}
 
-NotebookRestrictions::NotebookRestrictions(const NotebookRestrictions & other) : d(other.d) {}
+NotebookRestrictions::NotebookRestrictions(const NotebookRestrictions & other) :
+    d(other.d)
+{}
 
-NotebookRestrictions::NotebookRestrictions(NotebookRestrictions && other) noexcept : d(std::move(other.d))
+NotebookRestrictions::NotebookRestrictions(NotebookRestrictions && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NotebookRestrictions::~NotebookRestrictions() noexcept {}

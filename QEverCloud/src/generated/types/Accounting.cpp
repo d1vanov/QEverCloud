@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Accounting::Accounting() : d(new Accounting::Impl) {}
+Accounting::Accounting() :
+    d(new Accounting::Impl)
+ {}
 
-Accounting::Accounting(const Accounting & other) : d(other.d) {}
+Accounting::Accounting(const Accounting & other) :
+    d(other.d)
+{}
 
-Accounting::Accounting(Accounting && other) noexcept : d(std::move(other.d))
+Accounting::Accounting(Accounting && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Accounting::~Accounting() noexcept {}

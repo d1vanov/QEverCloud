@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SyncChunk::SyncChunk() : d(new SyncChunk::Impl) {}
+SyncChunk::SyncChunk() :
+    d(new SyncChunk::Impl)
+ {}
 
-SyncChunk::SyncChunk(const SyncChunk & other) : d(other.d) {}
+SyncChunk::SyncChunk(const SyncChunk & other) :
+    d(other.d)
+{}
 
-SyncChunk::SyncChunk(SyncChunk && other) noexcept : d(std::move(other.d))
+SyncChunk::SyncChunk(SyncChunk && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SyncChunk::~SyncChunk() noexcept {}

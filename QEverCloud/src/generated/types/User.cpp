@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-User::User() : d(new User::Impl) {}
+User::User() :
+    d(new User::Impl)
+ {}
 
-User::User(const User & other) : d(other.d) {}
+User::User(const User & other) :
+    d(other.d)
+{}
 
-User::User(User && other) noexcept : d(std::move(other.d))
+User::User(User && other) noexcept :
+    d(std::move(other.d))
 {}
 
 User::~User() noexcept {}

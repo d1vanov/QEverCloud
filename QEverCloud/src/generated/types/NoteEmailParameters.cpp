@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteEmailParameters::NoteEmailParameters() : d(new NoteEmailParameters::Impl) {}
+NoteEmailParameters::NoteEmailParameters() :
+    d(new NoteEmailParameters::Impl)
+ {}
 
-NoteEmailParameters::NoteEmailParameters(const NoteEmailParameters & other) : d(other.d) {}
+NoteEmailParameters::NoteEmailParameters(const NoteEmailParameters & other) :
+    d(other.d)
+{}
 
-NoteEmailParameters::NoteEmailParameters(NoteEmailParameters && other) noexcept : d(std::move(other.d))
+NoteEmailParameters::NoteEmailParameters(NoteEmailParameters && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteEmailParameters::~NoteEmailParameters() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-RelatedQuery::RelatedQuery() : d(new RelatedQuery::Impl) {}
+RelatedQuery::RelatedQuery() :
+    d(new RelatedQuery::Impl)
+ {}
 
-RelatedQuery::RelatedQuery(const RelatedQuery & other) : d(other.d) {}
+RelatedQuery::RelatedQuery(const RelatedQuery & other) :
+    d(other.d)
+{}
 
-RelatedQuery::RelatedQuery(RelatedQuery && other) noexcept : d(std::move(other.d))
+RelatedQuery::RelatedQuery(RelatedQuery && other) noexcept :
+    d(std::move(other.d))
 {}
 
 RelatedQuery::~RelatedQuery() noexcept {}

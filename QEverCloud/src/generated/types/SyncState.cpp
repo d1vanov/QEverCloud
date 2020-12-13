@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SyncState::SyncState() : d(new SyncState::Impl) {}
+SyncState::SyncState() :
+    d(new SyncState::Impl)
+ {}
 
-SyncState::SyncState(const SyncState & other) : d(other.d) {}
+SyncState::SyncState(const SyncState & other) :
+    d(other.d)
+{}
 
-SyncState::SyncState(SyncState && other) noexcept : d(std::move(other.d))
+SyncState::SyncState(SyncState && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SyncState::~SyncState() noexcept {}

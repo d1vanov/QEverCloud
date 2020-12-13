@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-ResourceAttributes::ResourceAttributes() : d(new ResourceAttributes::Impl) {}
+ResourceAttributes::ResourceAttributes() :
+    d(new ResourceAttributes::Impl)
+ {}
 
-ResourceAttributes::ResourceAttributes(const ResourceAttributes & other) : d(other.d) {}
+ResourceAttributes::ResourceAttributes(const ResourceAttributes & other) :
+    d(other.d)
+{}
 
-ResourceAttributes::ResourceAttributes(ResourceAttributes && other) noexcept : d(std::move(other.d))
+ResourceAttributes::ResourceAttributes(ResourceAttributes && other) noexcept :
+    d(std::move(other.d))
 {}
 
 ResourceAttributes::~ResourceAttributes() noexcept {}

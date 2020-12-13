@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult() : d(new UpdateNoteIfUsnMatchesResult::Impl) {}
+UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult() :
+    d(new UpdateNoteIfUsnMatchesResult::Impl)
+ {}
 
-UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult(const UpdateNoteIfUsnMatchesResult & other) : d(other.d) {}
+UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult(const UpdateNoteIfUsnMatchesResult & other) :
+    d(other.d)
+{}
 
-UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult(UpdateNoteIfUsnMatchesResult && other) noexcept : d(std::move(other.d))
+UpdateNoteIfUsnMatchesResult::UpdateNoteIfUsnMatchesResult(UpdateNoteIfUsnMatchesResult && other) noexcept :
+    d(std::move(other.d))
 {}
 
 UpdateNoteIfUsnMatchesResult::~UpdateNoteIfUsnMatchesResult() noexcept {}

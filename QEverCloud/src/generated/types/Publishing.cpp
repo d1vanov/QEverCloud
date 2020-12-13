@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Publishing::Publishing() : d(new Publishing::Impl) {}
+Publishing::Publishing() :
+    d(new Publishing::Impl)
+ {}
 
-Publishing::Publishing(const Publishing & other) : d(other.d) {}
+Publishing::Publishing(const Publishing & other) :
+    d(other.d)
+{}
 
-Publishing::Publishing(Publishing && other) noexcept : d(std::move(other.d))
+Publishing::Publishing(Publishing && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Publishing::~Publishing() noexcept {}

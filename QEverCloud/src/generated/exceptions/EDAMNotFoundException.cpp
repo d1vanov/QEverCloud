@@ -15,11 +15,17 @@
 
 namespace qevercloud {
 
-EDAMNotFoundException::EDAMNotFoundException() : d(new EDAMNotFoundException::Impl) {}
+EDAMNotFoundException::EDAMNotFoundException() :
+    EvernoteException(QStringLiteral("EDAMNotFoundException")),
+    d(new EDAMNotFoundException::Impl)
+ {}
 
-EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException & other) : d(other.d) {}
+EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException & other) :
+    d(other.d)
+{}
 
-EDAMNotFoundException::EDAMNotFoundException(EDAMNotFoundException && other) noexcept : d(std::move(other.d))
+EDAMNotFoundException::EDAMNotFoundException(EDAMNotFoundException && other) noexcept :
+    d(std::move(other.d))
 {}
 
 EDAMNotFoundException::~EDAMNotFoundException() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteVersionId::NoteVersionId() : d(new NoteVersionId::Impl) {}
+NoteVersionId::NoteVersionId() :
+    d(new NoteVersionId::Impl)
+ {}
 
-NoteVersionId::NoteVersionId(const NoteVersionId & other) : d(other.d) {}
+NoteVersionId::NoteVersionId(const NoteVersionId & other) :
+    d(other.d)
+{}
 
-NoteVersionId::NoteVersionId(NoteVersionId && other) noexcept : d(std::move(other.d))
+NoteVersionId::NoteVersionId(NoteVersionId && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteVersionId::~NoteVersionId() noexcept {}

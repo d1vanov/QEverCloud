@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SyncChunkFilter::SyncChunkFilter() : d(new SyncChunkFilter::Impl) {}
+SyncChunkFilter::SyncChunkFilter() :
+    d(new SyncChunkFilter::Impl)
+ {}
 
-SyncChunkFilter::SyncChunkFilter(const SyncChunkFilter & other) : d(other.d) {}
+SyncChunkFilter::SyncChunkFilter(const SyncChunkFilter & other) :
+    d(other.d)
+{}
 
-SyncChunkFilter::SyncChunkFilter(SyncChunkFilter && other) noexcept : d(std::move(other.d))
+SyncChunkFilter::SyncChunkFilter(SyncChunkFilter && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SyncChunkFilter::~SyncChunkFilter() noexcept {}

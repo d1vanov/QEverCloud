@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SavedSearch::SavedSearch() : d(new SavedSearch::Impl) {}
+SavedSearch::SavedSearch() :
+    d(new SavedSearch::Impl)
+ {}
 
-SavedSearch::SavedSearch(const SavedSearch & other) : d(other.d) {}
+SavedSearch::SavedSearch(const SavedSearch & other) :
+    d(other.d)
+{}
 
-SavedSearch::SavedSearch(SavedSearch && other) noexcept : d(std::move(other.d))
+SavedSearch::SavedSearch(SavedSearch && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SavedSearch::~SavedSearch() noexcept {}

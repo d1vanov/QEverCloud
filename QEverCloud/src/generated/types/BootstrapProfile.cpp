@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-BootstrapProfile::BootstrapProfile() : d(new BootstrapProfile::Impl) {}
+BootstrapProfile::BootstrapProfile() :
+    d(new BootstrapProfile::Impl)
+ {}
 
-BootstrapProfile::BootstrapProfile(const BootstrapProfile & other) : d(other.d) {}
+BootstrapProfile::BootstrapProfile(const BootstrapProfile & other) :
+    d(other.d)
+{}
 
-BootstrapProfile::BootstrapProfile(BootstrapProfile && other) noexcept : d(std::move(other.d))
+BootstrapProfile::BootstrapProfile(BootstrapProfile && other) noexcept :
+    d(std::move(other.d))
 {}
 
 BootstrapProfile::~BootstrapProfile() noexcept {}

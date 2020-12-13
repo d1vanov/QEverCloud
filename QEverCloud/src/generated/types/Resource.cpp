@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Resource::Resource() : d(new Resource::Impl) {}
+Resource::Resource() :
+    d(new Resource::Impl)
+ {}
 
-Resource::Resource(const Resource & other) : d(other.d) {}
+Resource::Resource(const Resource & other) :
+    d(other.d)
+{}
 
-Resource::Resource(Resource && other) noexcept : d(std::move(other.d))
+Resource::Resource(Resource && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Resource::~Resource() noexcept {}

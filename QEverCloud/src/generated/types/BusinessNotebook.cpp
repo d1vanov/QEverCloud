@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-BusinessNotebook::BusinessNotebook() : d(new BusinessNotebook::Impl) {}
+BusinessNotebook::BusinessNotebook() :
+    d(new BusinessNotebook::Impl)
+ {}
 
-BusinessNotebook::BusinessNotebook(const BusinessNotebook & other) : d(other.d) {}
+BusinessNotebook::BusinessNotebook(const BusinessNotebook & other) :
+    d(other.d)
+{}
 
-BusinessNotebook::BusinessNotebook(BusinessNotebook && other) noexcept : d(std::move(other.d))
+BusinessNotebook::BusinessNotebook(BusinessNotebook && other) noexcept :
+    d(std::move(other.d))
 {}
 
 BusinessNotebook::~BusinessNotebook() noexcept {}

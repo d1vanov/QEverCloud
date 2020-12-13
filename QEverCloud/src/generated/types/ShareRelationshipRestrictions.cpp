@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-ShareRelationshipRestrictions::ShareRelationshipRestrictions() : d(new ShareRelationshipRestrictions::Impl) {}
+ShareRelationshipRestrictions::ShareRelationshipRestrictions() :
+    d(new ShareRelationshipRestrictions::Impl)
+ {}
 
-ShareRelationshipRestrictions::ShareRelationshipRestrictions(const ShareRelationshipRestrictions & other) : d(other.d) {}
+ShareRelationshipRestrictions::ShareRelationshipRestrictions(const ShareRelationshipRestrictions & other) :
+    d(other.d)
+{}
 
-ShareRelationshipRestrictions::ShareRelationshipRestrictions(ShareRelationshipRestrictions && other) noexcept : d(std::move(other.d))
+ShareRelationshipRestrictions::ShareRelationshipRestrictions(ShareRelationshipRestrictions && other) noexcept :
+    d(std::move(other.d))
 {}
 
 ShareRelationshipRestrictions::~ShareRelationshipRestrictions() noexcept {}

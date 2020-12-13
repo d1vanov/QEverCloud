@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Contact::Contact() : d(new Contact::Impl) {}
+Contact::Contact() :
+    d(new Contact::Impl)
+ {}
 
-Contact::Contact(const Contact & other) : d(other.d) {}
+Contact::Contact(const Contact & other) :
+    d(other.d)
+{}
 
-Contact::Contact(Contact && other) noexcept : d(std::move(other.d))
+Contact::Contact(Contact && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Contact::~Contact() noexcept {}

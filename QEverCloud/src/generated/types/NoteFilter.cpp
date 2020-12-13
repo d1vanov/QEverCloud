@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteFilter::NoteFilter() : d(new NoteFilter::Impl) {}
+NoteFilter::NoteFilter() :
+    d(new NoteFilter::Impl)
+ {}
 
-NoteFilter::NoteFilter(const NoteFilter & other) : d(other.d) {}
+NoteFilter::NoteFilter(const NoteFilter & other) :
+    d(other.d)
+{}
 
-NoteFilter::NoteFilter(NoteFilter && other) noexcept : d(std::move(other.d))
+NoteFilter::NoteFilter(NoteFilter && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteFilter::~NoteFilter() noexcept {}

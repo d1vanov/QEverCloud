@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-ManageNotebookSharesError::ManageNotebookSharesError() : d(new ManageNotebookSharesError::Impl) {}
+ManageNotebookSharesError::ManageNotebookSharesError() :
+    d(new ManageNotebookSharesError::Impl)
+ {}
 
-ManageNotebookSharesError::ManageNotebookSharesError(const ManageNotebookSharesError & other) : d(other.d) {}
+ManageNotebookSharesError::ManageNotebookSharesError(const ManageNotebookSharesError & other) :
+    d(other.d)
+{}
 
-ManageNotebookSharesError::ManageNotebookSharesError(ManageNotebookSharesError && other) noexcept : d(std::move(other.d))
+ManageNotebookSharesError::ManageNotebookSharesError(ManageNotebookSharesError && other) noexcept :
+    d(std::move(other.d))
 {}
 
 ManageNotebookSharesError::~ManageNotebookSharesError() noexcept {}

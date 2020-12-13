@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteMetadata::NoteMetadata() : d(new NoteMetadata::Impl) {}
+NoteMetadata::NoteMetadata() :
+    d(new NoteMetadata::Impl)
+ {}
 
-NoteMetadata::NoteMetadata(const NoteMetadata & other) : d(other.d) {}
+NoteMetadata::NoteMetadata(const NoteMetadata & other) :
+    d(other.d)
+{}
 
-NoteMetadata::NoteMetadata(NoteMetadata && other) noexcept : d(std::move(other.d))
+NoteMetadata::NoteMetadata(NoteMetadata && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteMetadata::~NoteMetadata() noexcept {}

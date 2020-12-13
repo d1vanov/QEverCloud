@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteCollectionCounts::NoteCollectionCounts() : d(new NoteCollectionCounts::Impl) {}
+NoteCollectionCounts::NoteCollectionCounts() :
+    d(new NoteCollectionCounts::Impl)
+ {}
 
-NoteCollectionCounts::NoteCollectionCounts(const NoteCollectionCounts & other) : d(other.d) {}
+NoteCollectionCounts::NoteCollectionCounts(const NoteCollectionCounts & other) :
+    d(other.d)
+{}
 
-NoteCollectionCounts::NoteCollectionCounts(NoteCollectionCounts && other) noexcept : d(std::move(other.d))
+NoteCollectionCounts::NoteCollectionCounts(NoteCollectionCounts && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteCollectionCounts::~NoteCollectionCounts() noexcept {}

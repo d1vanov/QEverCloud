@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteRestrictions::NoteRestrictions() : d(new NoteRestrictions::Impl) {}
+NoteRestrictions::NoteRestrictions() :
+    d(new NoteRestrictions::Impl)
+ {}
 
-NoteRestrictions::NoteRestrictions(const NoteRestrictions & other) : d(other.d) {}
+NoteRestrictions::NoteRestrictions(const NoteRestrictions & other) :
+    d(other.d)
+{}
 
-NoteRestrictions::NoteRestrictions(NoteRestrictions && other) noexcept : d(std::move(other.d))
+NoteRestrictions::NoteRestrictions(NoteRestrictions && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteRestrictions::~NoteRestrictions() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-LazyMap::LazyMap() : d(new LazyMap::Impl) {}
+LazyMap::LazyMap() :
+    d(new LazyMap::Impl)
+ {}
 
-LazyMap::LazyMap(const LazyMap & other) : d(other.d) {}
+LazyMap::LazyMap(const LazyMap & other) :
+    d(other.d)
+{}
 
-LazyMap::LazyMap(LazyMap && other) noexcept : d(std::move(other.d))
+LazyMap::LazyMap(LazyMap && other) noexcept :
+    d(std::move(other.d))
 {}
 
 LazyMap::~LazyMap() noexcept {}

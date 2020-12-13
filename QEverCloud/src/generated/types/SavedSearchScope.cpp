@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SavedSearchScope::SavedSearchScope() : d(new SavedSearchScope::Impl) {}
+SavedSearchScope::SavedSearchScope() :
+    d(new SavedSearchScope::Impl)
+ {}
 
-SavedSearchScope::SavedSearchScope(const SavedSearchScope & other) : d(other.d) {}
+SavedSearchScope::SavedSearchScope(const SavedSearchScope & other) :
+    d(other.d)
+{}
 
-SavedSearchScope::SavedSearchScope(SavedSearchScope && other) noexcept : d(std::move(other.d))
+SavedSearchScope::SavedSearchScope(SavedSearchScope && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SavedSearchScope::~SavedSearchScope() noexcept {}

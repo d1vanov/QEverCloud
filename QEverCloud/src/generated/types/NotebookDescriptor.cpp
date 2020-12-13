@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NotebookDescriptor::NotebookDescriptor() : d(new NotebookDescriptor::Impl) {}
+NotebookDescriptor::NotebookDescriptor() :
+    d(new NotebookDescriptor::Impl)
+ {}
 
-NotebookDescriptor::NotebookDescriptor(const NotebookDescriptor & other) : d(other.d) {}
+NotebookDescriptor::NotebookDescriptor(const NotebookDescriptor & other) :
+    d(other.d)
+{}
 
-NotebookDescriptor::NotebookDescriptor(NotebookDescriptor && other) noexcept : d(std::move(other.d))
+NotebookDescriptor::NotebookDescriptor(NotebookDescriptor && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NotebookDescriptor::~NotebookDescriptor() noexcept {}

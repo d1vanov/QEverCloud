@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-SharedNotebookRecipientSettings::SharedNotebookRecipientSettings() : d(new SharedNotebookRecipientSettings::Impl) {}
+SharedNotebookRecipientSettings::SharedNotebookRecipientSettings() :
+    d(new SharedNotebookRecipientSettings::Impl)
+ {}
 
-SharedNotebookRecipientSettings::SharedNotebookRecipientSettings(const SharedNotebookRecipientSettings & other) : d(other.d) {}
+SharedNotebookRecipientSettings::SharedNotebookRecipientSettings(const SharedNotebookRecipientSettings & other) :
+    d(other.d)
+{}
 
-SharedNotebookRecipientSettings::SharedNotebookRecipientSettings(SharedNotebookRecipientSettings && other) noexcept : d(std::move(other.d))
+SharedNotebookRecipientSettings::SharedNotebookRecipientSettings(SharedNotebookRecipientSettings && other) noexcept :
+    d(std::move(other.d))
 {}
 
 SharedNotebookRecipientSettings::~SharedNotebookRecipientSettings() noexcept {}

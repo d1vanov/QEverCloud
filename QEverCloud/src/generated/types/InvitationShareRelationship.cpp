@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-InvitationShareRelationship::InvitationShareRelationship() : d(new InvitationShareRelationship::Impl) {}
+InvitationShareRelationship::InvitationShareRelationship() :
+    d(new InvitationShareRelationship::Impl)
+ {}
 
-InvitationShareRelationship::InvitationShareRelationship(const InvitationShareRelationship & other) : d(other.d) {}
+InvitationShareRelationship::InvitationShareRelationship(const InvitationShareRelationship & other) :
+    d(other.d)
+{}
 
-InvitationShareRelationship::InvitationShareRelationship(InvitationShareRelationship && other) noexcept : d(std::move(other.d))
+InvitationShareRelationship::InvitationShareRelationship(InvitationShareRelationship && other) noexcept :
+    d(std::move(other.d))
 {}
 
 InvitationShareRelationship::~InvitationShareRelationship() noexcept {}

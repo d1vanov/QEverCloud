@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Tag::Tag() : d(new Tag::Impl) {}
+Tag::Tag() :
+    d(new Tag::Impl)
+ {}
 
-Tag::Tag(const Tag & other) : d(other.d) {}
+Tag::Tag(const Tag & other) :
+    d(other.d)
+{}
 
-Tag::Tag(Tag && other) noexcept : d(std::move(other.d))
+Tag::Tag(Tag && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Tag::~Tag() noexcept {}

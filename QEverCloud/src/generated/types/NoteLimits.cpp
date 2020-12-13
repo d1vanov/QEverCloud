@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NoteLimits::NoteLimits() : d(new NoteLimits::Impl) {}
+NoteLimits::NoteLimits() :
+    d(new NoteLimits::Impl)
+ {}
 
-NoteLimits::NoteLimits(const NoteLimits & other) : d(other.d) {}
+NoteLimits::NoteLimits(const NoteLimits & other) :
+    d(other.d)
+{}
 
-NoteLimits::NoteLimits(NoteLimits && other) noexcept : d(std::move(other.d))
+NoteLimits::NoteLimits(NoteLimits && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NoteLimits::~NoteLimits() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-PublicUserInfo::PublicUserInfo() : d(new PublicUserInfo::Impl) {}
+PublicUserInfo::PublicUserInfo() :
+    d(new PublicUserInfo::Impl)
+ {}
 
-PublicUserInfo::PublicUserInfo(const PublicUserInfo & other) : d(other.d) {}
+PublicUserInfo::PublicUserInfo(const PublicUserInfo & other) :
+    d(other.d)
+{}
 
-PublicUserInfo::PublicUserInfo(PublicUserInfo && other) noexcept : d(std::move(other.d))
+PublicUserInfo::PublicUserInfo(PublicUserInfo && other) noexcept :
+    d(std::move(other.d))
 {}
 
 PublicUserInfo::~PublicUserInfo() noexcept {}

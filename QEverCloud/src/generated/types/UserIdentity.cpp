@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-UserIdentity::UserIdentity() : d(new UserIdentity::Impl) {}
+UserIdentity::UserIdentity() :
+    d(new UserIdentity::Impl)
+ {}
 
-UserIdentity::UserIdentity(const UserIdentity & other) : d(other.d) {}
+UserIdentity::UserIdentity(const UserIdentity & other) :
+    d(other.d)
+{}
 
-UserIdentity::UserIdentity(UserIdentity && other) noexcept : d(std::move(other.d))
+UserIdentity::UserIdentity(UserIdentity && other) noexcept :
+    d(std::move(other.d))
 {}
 
 UserIdentity::~UserIdentity() noexcept {}

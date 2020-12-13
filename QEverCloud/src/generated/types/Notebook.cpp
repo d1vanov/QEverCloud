@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-Notebook::Notebook() : d(new Notebook::Impl) {}
+Notebook::Notebook() :
+    d(new Notebook::Impl)
+ {}
 
-Notebook::Notebook(const Notebook & other) : d(other.d) {}
+Notebook::Notebook(const Notebook & other) :
+    d(other.d)
+{}
 
-Notebook::Notebook(Notebook && other) noexcept : d(std::move(other.d))
+Notebook::Notebook(Notebook && other) noexcept :
+    d(std::move(other.d))
 {}
 
 Notebook::~Notebook() noexcept {}

@@ -15,11 +15,16 @@
 
 namespace qevercloud {
 
-NotebookShareTemplate::NotebookShareTemplate() : d(new NotebookShareTemplate::Impl) {}
+NotebookShareTemplate::NotebookShareTemplate() :
+    d(new NotebookShareTemplate::Impl)
+ {}
 
-NotebookShareTemplate::NotebookShareTemplate(const NotebookShareTemplate & other) : d(other.d) {}
+NotebookShareTemplate::NotebookShareTemplate(const NotebookShareTemplate & other) :
+    d(other.d)
+{}
 
-NotebookShareTemplate::NotebookShareTemplate(NotebookShareTemplate && other) noexcept : d(std::move(other.d))
+NotebookShareTemplate::NotebookShareTemplate(NotebookShareTemplate && other) noexcept :
+    d(std::move(other.d))
 {}
 
 NotebookShareTemplate::~NotebookShareTemplate() noexcept {}
