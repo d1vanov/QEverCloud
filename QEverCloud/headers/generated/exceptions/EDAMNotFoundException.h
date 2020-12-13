@@ -54,6 +54,7 @@ public:
     void setKey(std::optional<QString> key);
 
     void print(QTextStream & strm) const override;
+
     [[nodiscard]] const char * what() const noexcept override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 

@@ -59,6 +59,7 @@ public:
     void setRateLimitDuration(std::optional<qint32> rateLimitDuration);
 
     void print(QTextStream & strm) const override;
+
     [[nodiscard]] const char * what() const noexcept override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
