@@ -85,6 +85,7 @@ const char * EDAMUserException::what() const noexcept
 EverCloudExceptionDataPtr EDAMUserException::exceptionData() const
 {
     return std::make_shared<EDAMUserExceptionData>(
+        QString::fromUtf8(what()),
         errorCode(),
         parameter());
 }

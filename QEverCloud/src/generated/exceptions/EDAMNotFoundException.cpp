@@ -85,6 +85,7 @@ const char * EDAMNotFoundException::what() const noexcept
 EverCloudExceptionDataPtr EDAMNotFoundException::exceptionData() const
 {
     return std::make_shared<EDAMNotFoundExceptionData>(
+        QString::fromUtf8(what()),
         identifier(),
         key());
 }

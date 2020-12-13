@@ -100,6 +100,7 @@ const char * EDAMSystemException::what() const noexcept
 EverCloudExceptionDataPtr EDAMSystemException::exceptionData() const
 {
     return std::make_shared<EDAMSystemExceptionData>(
+        QString::fromUtf8(what()),
         errorCode(),
         message(),
         rateLimitDuration());

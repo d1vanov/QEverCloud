@@ -105,6 +105,7 @@ const char * EDAMInvalidContactsException::what() const noexcept
 EverCloudExceptionDataPtr EDAMInvalidContactsException::exceptionData() const
 {
     return std::make_shared<EDAMInvalidContactsExceptionData>(
+        QString::fromUtf8(what()),
         contacts(),
         parameter(),
         reasons());
