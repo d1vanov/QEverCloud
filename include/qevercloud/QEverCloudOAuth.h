@@ -6,10 +6,10 @@
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#ifndef QEVERCLOUD_OAUTH_H
-#define QEVERCLOUD_OAUTH_H
+#ifndef QEVERCLOUD_OAUTH_INFTHEADER_H
+#define QEVERCLOUD_OAUTH_INFTHEADER_H
 
 #include "OAuth.h"
 #include "QEverCloud.h"
 
-#endif // QEVERCLOUD_OAUTH_H
+#endif // QEVERCLOUD_OAUTH_INFTHEADER_H
