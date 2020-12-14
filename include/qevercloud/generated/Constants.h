@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_CONSTANTS_H
 #define QEVERCLOUD_GENERATED_CONSTANTS_H
 
-#include "../Export.h"
+#include <qevercloud/Export.h>
 
 namespace qevercloud {
 

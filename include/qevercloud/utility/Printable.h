@@ -19,7 +19,7 @@ class QEVERCLOUD_EXPORT Printable
 {
 public:
     Printable() = default;
-    virtual ~Printable() = default;
+    virtual ~Printable() noexcept = default;
 
     virtual void print(QTextStream & strm) const = 0;
 

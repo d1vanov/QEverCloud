@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_TYPEALIASES_H
 #define QEVERCLOUD_GENERATED_TYPEALIASES_H
 
-#include "../../Export.h"
+#include <qevercloud/Export.h>
 
 #include <QString>
 #include <QtGlobal>

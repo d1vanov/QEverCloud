@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_NOTE_H
 #define QEVERCLOUD_GENERATED_NOTE_H
 
-#include "../../Export.h"
+#include <qevercloud/Export.h>
 
 #include "NoteAttributes.h"
 #include "NoteLimits.h"
@@ -20,9 +20,9 @@
 #include "Resource.h"
 #include "SharedNote.h"
 #include <qevercloud/EverCloudException.h>
-#include <qevercloud/Printable.h>
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
+#include <qevercloud/utility/Printable.h>
 #include <QByteArray>
 #include <QList>
 #include <optional>

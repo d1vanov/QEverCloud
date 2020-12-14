@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_SERVICES_H
 #define QEVERCLOUD_GENERATED_SERVICES_H
 
-#include "../Export.h"
+#include <qevercloud/Export.h>
 
 #include <qevercloud/AsyncResult.h>
 #include <qevercloud/DurableService.h>

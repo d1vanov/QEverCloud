@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_SYNCCHUNK_H
 #define QEVERCLOUD_GENERATED_SYNCCHUNK_H
 
-#include "../../Export.h"
+#include <qevercloud/Export.h>
 
 #include "LinkedNotebook.h"
 #include "Note.h"
@@ -21,9 +21,9 @@
 #include "SavedSearch.h"
 #include "Tag.h"
 #include <qevercloud/EverCloudException.h>
-#include <qevercloud/Printable.h>
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
+#include <qevercloud/utility/Printable.h>
 #include <QList>
 #include <optional>
 

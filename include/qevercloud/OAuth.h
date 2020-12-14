@@ -10,8 +10,8 @@
 #define QEVERCLOUD_OAUTH_H
 
 #include <qevercloud/Export.h>
-#include <qevercloud/Printable.h>
 #include <qevercloud/generated/Types.h>
+#include <qevercloud/utility/Printable.h>
 
 #include <QDialog>
 #include <QList>

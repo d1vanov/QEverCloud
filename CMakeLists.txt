@@ -80,9 +80,9 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/Globals.h
     include/qevercloud/InkNoteImageDownloader.h
     include/qevercloud/Log.h
-    include/qevercloud/Printable.h
     include/qevercloud/RequestContext.h
     include/qevercloud/Thumbnail.h
+    include/qevercloud/utility/Printable.h
     include/qevercloud/utility/ToRange.h)
 
 if(BUILD_WITH_OAUTH_SUPPORT)

@@ -5,7 +5,7 @@
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/Printable.h>
+#include <qevercloud/utility/Printable.h>
 
 namespace qevercloud {
 

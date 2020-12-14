@@ -12,12 +12,12 @@
 #ifndef QEVERCLOUD_GENERATED_BUSINESSINVITATION_H
 #define QEVERCLOUD_GENERATED_BUSINESSINVITATION_H
 
-#include "../../Export.h"
+#include <qevercloud/Export.h>
 
 #include <qevercloud/EverCloudException.h>
-#include <qevercloud/Printable.h>
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
+#include <qevercloud/utility/Printable.h>
 #include <optional>
 
 namespace qevercloud {

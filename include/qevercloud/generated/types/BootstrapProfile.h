@@ -12,13 +12,13 @@
 #ifndef QEVERCLOUD_GENERATED_BOOTSTRAPPROFILE_H
 #define QEVERCLOUD_GENERATED_BOOTSTRAPPROFILE_H
 
-#include "../../Export.h"
+#include <qevercloud/Export.h>
 
 #include "BootstrapSettings.h"
 #include <qevercloud/EverCloudException.h>
-#include <qevercloud/Printable.h>
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
+#include <qevercloud/utility/Printable.h>
 
 namespace qevercloud {
 

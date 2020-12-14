@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_SERVERS_H
 #define QEVERCLOUD_GENERATED_SERVERS_H
 
-#include "../Export.h"
+#include <qevercloud/Export.h>
 
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/generated/Constants.h>

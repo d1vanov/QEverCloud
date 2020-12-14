@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_EDAMERRORCODE_H
 #define QEVERCLOUD_GENERATED_EDAMERRORCODE_H
 
-#include "../Export.h"
+#include <qevercloud/Export.h>
 
 #include <QDebug>
 #include <QMetaType>

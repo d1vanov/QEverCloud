@@ -18,13 +18,13 @@
 #include "Globals.h"
 #include "InkNoteImageDownloader.h"
 #include "Log.h"
-#include "Printable.h"
 #include "RequestContext.h"
 #include "Thumbnail.h"
 #include "generated/EDAMErrorCode.h"
 #include "generated/Constants.h"
 #include "generated/Services.h"
 #include "generated/Types.h"
+#include "utility/Printable.h"
 #include "utility/ToRange.h"
 
 #include <qevercloud/VersionInfo.h>
