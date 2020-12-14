@@ -10,7 +10,7 @@
 
 #include <qevercloud/Globals.h>
 #include <qevercloud/InkNoteImageDownloader.h>
-#include <qevercloud/Log.h>
+#include <qevercloud/utility/Log.h>
 
 #include <QBuffer>
 #include <QImage>

@@ -10,7 +10,7 @@
 #include "Http.h"
 
 #include <qevercloud/Globals.h>
-#include <qevercloud/Log.h>
+#include <qevercloud/utility/Log.h>
 
 #include <QNetworkAccessManager>
 

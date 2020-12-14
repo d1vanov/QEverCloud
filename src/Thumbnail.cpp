@@ -10,9 +10,9 @@
 #include "Http.h"
 
 #include <qevercloud/Globals.h>
-#include <qevercloud/Log.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/Thumbnail.h>
+#include <qevercloud/utility/Log.h>
 
 namespace qevercloud {
 

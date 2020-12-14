@@ -9,7 +9,7 @@
 
 #include <qevercloud/DurableService.h>
 #include <qevercloud/Exceptions.h>
-#include <qevercloud/Log.h>
+#include <qevercloud/utility/Log.h>
 
 #include <algorithm>
 #include <cmath>

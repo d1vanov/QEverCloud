@@ -13,7 +13,7 @@
 #include "../Impl.h"
 #include "../Thrift.h"
 #include "Types_io.h"
-#include <qevercloud/Log.h>
+#include <qevercloud/utility/Log.h>
 
 namespace qevercloud {
 

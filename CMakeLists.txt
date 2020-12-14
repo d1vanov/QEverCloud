@@ -79,9 +79,9 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/Exceptions.h
     include/qevercloud/Globals.h
     include/qevercloud/InkNoteImageDownloader.h
-    include/qevercloud/Log.h
     include/qevercloud/RequestContext.h
     include/qevercloud/Thumbnail.h
+    include/qevercloud/utility/Log.h
     include/qevercloud/utility/Printable.h
     include/qevercloud/utility/ToRange.h)
 

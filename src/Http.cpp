@@ -11,8 +11,8 @@
 
 #include <qevercloud/Exceptions.h>
 #include <qevercloud/Globals.h>
-#include <qevercloud/Log.h>
 #include <qevercloud/VersionInfo.h>
+#include <qevercloud/utility/Log.h>
 
 #include <QEventLoop>
 #include <QtNetwork>
