@@ -557,6 +557,8 @@ endif()
 
 add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
 
+add_library(QEverCloud::${LIBNAME} ALIAS ${LIBNAME})
+
 if(BUILD_SHARED_LIBS)
   message(STATUS "Building QEverCloud shared library")
   target_compile_definitions(${LIBNAME} PRIVATE "-DBUILDING_QEVERCLOUD_SHARED_LIBRARY")
@@ -594,6 +596,9 @@ target_compile_definitions(${LIBNAME} PRIVATE
   "-DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT")
 
 target_include_directories(${LIBNAME}
+  PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
   PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${PROJECT_BINARY_DIR})
@@ -666,8 +671,8 @@ install(DIRECTORY include/qevercloud/
   PATTERN *.h
   PATTERN *.in EXCLUDE)
 
-install(FILES ${PROJECT_BINARY_DIR}/LibraryType.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
-install(FILES ${PROJECT_BINARY_DIR}/VersionInfo.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
+install(FILES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
+install(FILES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 
 if(BUILD_SHARED_LIBS)
   install(EXPORT QEverCloudExport DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
