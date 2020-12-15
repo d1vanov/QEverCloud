@@ -77,8 +77,9 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/EverCloudException.h
     include/qevercloud/Export.h
     include/qevercloud/Exceptions.h
-    include/qevercloud/Globals.h
+    include/qevercloud/Initialization.h
     include/qevercloud/InkNoteImageDownloader.h
+    include/qevercloud/NetworkProxy.h
     include/qevercloud/RequestContext.h
     include/qevercloud/Thumbnail.h
     include/qevercloud/utility/Log.h
@@ -269,10 +270,11 @@ set(SOURCES
     src/EventLoopFinisher.cpp
     src/EverCloudException.cpp
     src/Exceptions.cpp
-    src/Globals.cpp
     src/Http.cpp
+    src/Initialization.cpp
     src/InkNoteImageDownloader.cpp
     src/Log.cpp
+    src/NetworkProxy.cpp
     src/Printable.cpp
     src/RequestContext.cpp
     src/Thumbnail.cpp

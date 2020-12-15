@@ -1,22 +1,18 @@
 /**
- * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Copyright (c) 2020 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
- * of MIT license:
- * https://opensource.org/licenses/MIT
+ * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/AsyncResult.h>
-#include <qevercloud/Globals.h>
-#include <qevercloud/RequestContext.h>
-#include <qevercloud/VersionInfo.h>
+#include <qevercloud/NetworkProxy.h>
 
 #include <QGlobalStatic>
-#include <QMetaType>
 #include <QReadLocker>
 #include <QReadWriteLock>
 #include <QWriteLocker>
+
+#include <memory>
 
 namespace qevercloud {
 
@@ -68,14 +64,6 @@ private:
 
 Q_GLOBAL_STATIC(EvernoteProxySettingsHolder, evernoteProxySettingsHolder)
 
-////////////////////////////////////////////////////////////////////////////////
-
-void registerMetatypes()
-{
-    qRegisterMetaType<EverCloudExceptionDataPtr>("EverCloudExceptionDataPtr");
-    qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
-}
-
 } // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -93,30 +81,6 @@ void setEvernoteNetworkProxy(QNetworkProxy proxy)
 void resetEvernoteNetworkProxy()
 {
     evernoteProxySettingsHolder->resetProxy();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-#if defined(QT_WARNING_PUSH) && defined(QT_WARNING_DISABLE_DEPRECATED) && defined(QT_WARNING_POP)
-QT_WARNING_PUSH
-QT_WARNING_DISABLE_DEPRECATED
-#endif
-
-int libraryVersion()
-{
-    return qevercloudVersionMajor() * 10000 + qevercloudVersionMinor() * 100 +
-        qevercloudVersionPatch();
-}
-
-#if defined(QT_WARNING_PUSH) && defined(QT_WARNING_DISABLE_DEPRECATED) && defined(QT_WARNING_POP)
-QT_WARNING_POP
-#endif
-
-////////////////////////////////////////////////////////////////////////////////
-
-void initializeQEverCloud()
-{
-    registerMetatypes();
 }
 
 } // namespace qevercloud

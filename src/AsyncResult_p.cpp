@@ -9,7 +9,7 @@
 #include "AsyncResult_p.h"
 #include "Http.h"
 
-#include <qevercloud/Globals.h>
+#include <qevercloud/NetworkProxy.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QNetworkAccessManager>

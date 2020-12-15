@@ -10,7 +10,7 @@
 #include "Http.h"
 
 #include <qevercloud/Exceptions.h>
-#include <qevercloud/Globals.h>
+#include <qevercloud/NetworkProxy.h>
 #include <qevercloud/VersionInfo.h>
 #include <qevercloud/utility/Log.h>
 
