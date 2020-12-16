@@ -9,9 +9,13 @@ include(QEverCloudDoxygen)
 
 option(BUILD_DOCUMENTATION "Build documentation for QEverCloud" ON)
 option(BUILD_QCH_DOCUMENTATION "Build documentation for QEverCloud in qch format" OFF)
-option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
 option(BUILD_WITH_Q_NAMESPACE "Use Q_NAMESPACE and Q_ENUM_NS macros for introspection" ON)
-option(USE_QT5_WEBKIT "Use QtWebKit instead of QtWebEngine" OFF)
+option(BUILD_WITH_QT6 "Build with Qt6" OFF)
+
+if(NOT BUILD_WITH_QT6)
+  option(BUILD_WITH_OAUTH_SUPPORT "Build QEverCloud with OAuth support" ON)
+  option(USE_QT5_WEBKIT "Use QtWebKit instead of QtWebEngine" OFF)
+endif()
 
 if(BUILD_DOCUMENTATION)
   set(DOXY_INPUT                  "${PROJECT_SOURCE_DIR}/QEverCloud/include/qevercloud ${PROJECT_SOURCE_DIR}/README.md")
@@ -39,7 +43,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(QEverCloudCompilerSettings)
 
-if(USE_QT5_WEBKIT)
+if(USE_QT5_WEBKIT OR BUILD_WITH_QT6)
   set(QEVERCLOUD_USE_QT_WEB_ENGINE OFF)
 else()
   set(QEVERCLOUD_USE_QT_WEB_ENGINE ON)
@@ -47,13 +51,27 @@ endif()
 
 set(QEVERCLOUD_FIND_QT_ARGS REQUIRED)
 
+if (BUILD_WITH_OAUTH_SUPPORT)
+  set(QEVERCLOUD_HAS_OAUTH ON)
+else()
+  set(QEVERCLOUD_HAS_OAUTH OFF)
+endif()
+
+if(BUILD_WITH_QT6)
+  set(QEVERCLOUD_QT_VERSION 6)
+  set(_QEVERCLOUD_USE_QT6 ON)
+else()
+  set(QEVERCLOUD_QT_VERSION 5)
+  set(_QEVERCLOUD_USE_QT6 OFF)
+endif()
+
 include(QEverCloudFindDependencies)
 
 configure_file(cmake/modules/QEverCloudConfig.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud-qt5Config.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-qt${QEVERCLOUD_QT_VERSION}Config.cmake @ONLY)
 
 configure_file(cmake/modules/QEverCloudConfigVersion.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud-qt5ConfigVersion.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-qt${QEVERCLOUD_QT_VERSION}ConfigVersion.cmake @ONLY)
 
 find_package(Sanitizers)
 
@@ -552,9 +570,9 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType
 list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h)
 
 if(MSVC)
-  set(LIBNAME "libqt5qevercloud")
+  set(LIBNAME "libqt${QEVERCLOUD_QT_VERSION}qevercloud")
 else()
-  set(LIBNAME "qt5qevercloud")
+  set(LIBNAME "qt${QEVERCLOUD_QT_VERSION}qevercloud")
 endif()
 
 add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
@@ -577,11 +595,20 @@ set_target_properties(${LIBNAME} PROPERTIES
   CXX_EXTENSIONS OFF
   MACOSX_RPATH ON)
 
-target_link_libraries(${LIBNAME}
-  PUBLIC
-  Qt5::Core
-  PRIVATE
-  Qt5::Network)
+if(BUILD_WITH_QT6)
+  target_link_libraries(${LIBNAME}
+    PUBLIC
+    Qt6::Core
+    PRIVATE
+    Qt6::Gui
+    Qt6::Network)
+else()
+  target_link_libraries(${LIBNAME}
+    PUBLIC
+    Qt5::Core
+    PRIVATE
+    Qt5::Network)
+endif()
 
 if(BUILD_WITH_OAUTH_SUPPORT)
   if(USE_QT5_WEBKIT)
@@ -606,8 +633,13 @@ target_include_directories(${LIBNAME}
   ${PROJECT_BINARY_DIR})
 
 # Tests
-find_package(Qt5Test QUIET)
-if(Qt5Test_FOUND)
+if(BUILD_WITH_QT6)
+  find_package(Qt6Test QUIET)
+else()
+  find_package(Qt5Test QUIET)
+endif()
+
+if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
   set(TEST_HEADERS
       tests/SocketHelpers.h
       tests/TestDurableService.h
@@ -635,7 +667,11 @@ if(Qt5Test_FOUND)
     CXX_STANDARD 17
     CXX_EXTENSIONS OFF)
 
-  target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt5::Network Qt5::Test)
+  if(BUILD_WITH_QT6)
+    target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt6::Network Qt6::Test)
+  else()
+    target_link_libraries(test_${LIBNAME} ${LIBNAME} Qt5::Network Qt5::Test)
+  endif()
 
   target_include_directories(test_${LIBNAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -677,8 +713,8 @@ install(FILES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType.h DESTINATION "${CMAK
 install(FILES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 
 if(BUILD_SHARED_LIBS)
-  install(EXPORT QEverCloudExport DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
-  install(FILES ${PROJECT_SOURCE_DIR}/cmake/modules/QEverCloudFindDependencies.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
-  install(FILES ${PROJECT_BINARY_DIR}/QEverCloud-qt5Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
-  install(FILES ${PROJECT_BINARY_DIR}/QEverCloud-qt5ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt5)
+  install(EXPORT QEverCloudExport DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})
+  install(FILES ${PROJECT_SOURCE_DIR}/cmake/modules/QEverCloudFindDependencies.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})
+  install(FILES ${PROJECT_BINARY_DIR}/QEverCloud-qt${QEVERCLOUD_QT_VERSION}Config.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})
+  install(FILES ${PROJECT_BINARY_DIR}/QEverCloud-qt${QEVERCLOUD_QT_VERSION}ConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})
 endif()
