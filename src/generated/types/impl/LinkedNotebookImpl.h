@@ -13,7 +13,9 @@
 #define QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL_H
 
 #include <qevercloud/generated/types/LinkedNotebook.h>
+#include <QHash>
 #include <QSharedData>
+#include <QVariant>
 
 namespace qevercloud {
 
@@ -41,6 +43,7 @@ public:
     bool m_locallyModified = false;
     bool m_localOnly = false;
     bool m_locallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
 
     std::optional<QString> m_shareName;
     std::optional<QString> m_username;

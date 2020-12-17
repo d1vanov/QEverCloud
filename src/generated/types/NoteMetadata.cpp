@@ -47,7 +47,7 @@ NoteMetadata & NoteMetadata::operator=(NoteMetadata && other) noexcept
     return *this;
 }
 
-QString NoteMetadata::localId() const
+QString NoteMetadata::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void NoteMetadata::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString NoteMetadata::parentLocalId() const
+QString NoteMetadata::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void NoteMetadata::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool NoteMetadata::isLocallyModified() const
+bool NoteMetadata::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void NoteMetadata::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool NoteMetadata::isLocalOnly() const
+bool NoteMetadata::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void NoteMetadata::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool NoteMetadata::isLocallyFavorited() const
+bool NoteMetadata::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool NoteMetadata::isLocallyFavorited() const
 void NoteMetadata::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & NoteMetadata::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & NoteMetadata::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void NoteMetadata::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const Guid & NoteMetadata::guid() const noexcept

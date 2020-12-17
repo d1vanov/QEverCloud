@@ -47,7 +47,7 @@ Tag & Tag::operator=(Tag && other) noexcept
     return *this;
 }
 
-QString Tag::localId() const
+QString Tag::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void Tag::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString Tag::parentLocalId() const
+QString Tag::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void Tag::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool Tag::isLocallyModified() const
+bool Tag::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void Tag::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool Tag::isLocalOnly() const
+bool Tag::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void Tag::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool Tag::isLocallyFavorited() const
+bool Tag::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool Tag::isLocallyFavorited() const
 void Tag::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & Tag::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & Tag::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void Tag::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & Tag::guid() const noexcept

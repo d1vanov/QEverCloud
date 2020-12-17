@@ -20,6 +20,8 @@
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
+#include <QHash>
+#include <QVariant>
 #include <optional>
 
 namespace qevercloud {
@@ -48,7 +50,7 @@ public:
      * localId is generated automatically on
      * construction for convenience but can be overridden manually
      */
-    [[nodiscard]] QString localId() const;
+    [[nodiscard]] QString localId() const noexcept;
     void setLocalId(QString id);
 
     /**
@@ -62,7 +64,7 @@ public:
      *
      * By default the parentLocalId property is empty
      */
-    [[nodiscard]] QString parentLocalId() const;
+    [[nodiscard]] QString parentLocalId() const noexcept;
     void setParentLocalId(QString id);
 
     /**
@@ -70,7 +72,7 @@ public:
      * objects have been modified locally and thus need to be synchronized
      * with Evernote service
      */
-    [[nodiscard]] bool isLocallyModified() const;
+    [[nodiscard]] bool isLocallyModified() const noexcept;
     void setLocallyModified(bool modified = true);
 
     /**
@@ -78,7 +80,7 @@ public:
      * data items are meant to be local only and thus never be synchronized
      * with Evernote service
      */
-    [[nodiscard]] bool isLocalOnly() const;
+    [[nodiscard]] bool isLocalOnly() const noexcept;
     void setLocalOnly(bool localOnly = true);
 
     /**
@@ -87,8 +89,12 @@ public:
      * Evernote has never provided a way to synchronize such
      * a property between different clients
      */
-    [[nodiscard]] bool isLocallyFavorited() const;
+    [[nodiscard]] bool isLocallyFavorited() const noexcept;
     void setLocallyFavorited(bool favorited = true);
+
+    [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
+    [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
+    void setLocalData(QHash<QString, QVariant> localData);
 
     /**
     The unique identifier of this resource.  Will be set whenever

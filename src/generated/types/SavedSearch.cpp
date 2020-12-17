@@ -47,7 +47,7 @@ SavedSearch & SavedSearch::operator=(SavedSearch && other) noexcept
     return *this;
 }
 
-QString SavedSearch::localId() const
+QString SavedSearch::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void SavedSearch::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString SavedSearch::parentLocalId() const
+QString SavedSearch::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void SavedSearch::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool SavedSearch::isLocallyModified() const
+bool SavedSearch::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void SavedSearch::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool SavedSearch::isLocalOnly() const
+bool SavedSearch::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void SavedSearch::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool SavedSearch::isLocallyFavorited() const
+bool SavedSearch::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool SavedSearch::isLocallyFavorited() const
 void SavedSearch::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & SavedSearch::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & SavedSearch::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void SavedSearch::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & SavedSearch::guid() const noexcept

@@ -47,7 +47,7 @@ LinkedNotebook & LinkedNotebook::operator=(LinkedNotebook && other) noexcept
     return *this;
 }
 
-QString LinkedNotebook::localId() const
+QString LinkedNotebook::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void LinkedNotebook::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString LinkedNotebook::parentLocalId() const
+QString LinkedNotebook::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void LinkedNotebook::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool LinkedNotebook::isLocallyModified() const
+bool LinkedNotebook::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void LinkedNotebook::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool LinkedNotebook::isLocalOnly() const
+bool LinkedNotebook::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void LinkedNotebook::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool LinkedNotebook::isLocallyFavorited() const
+bool LinkedNotebook::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool LinkedNotebook::isLocallyFavorited() const
 void LinkedNotebook::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & LinkedNotebook::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & LinkedNotebook::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void LinkedNotebook::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<QString> & LinkedNotebook::shareName() const noexcept

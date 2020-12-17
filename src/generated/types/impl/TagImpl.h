@@ -13,7 +13,9 @@
 #define QEVERCLOUD_GENERATED_TAGIMPL_H
 
 #include <qevercloud/generated/types/Tag.h>
+#include <QHash>
 #include <QSharedData>
+#include <QVariant>
 
 namespace qevercloud {
 
@@ -41,6 +43,7 @@ public:
     bool m_locallyModified = false;
     bool m_localOnly = false;
     bool m_locallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
 
     std::optional<Guid> m_guid;
     std::optional<QString> m_name;

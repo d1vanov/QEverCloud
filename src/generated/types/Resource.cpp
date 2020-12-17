@@ -47,7 +47,7 @@ Resource & Resource::operator=(Resource && other) noexcept
     return *this;
 }
 
-QString Resource::localId() const
+QString Resource::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void Resource::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString Resource::parentLocalId() const
+QString Resource::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void Resource::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool Resource::isLocallyModified() const
+bool Resource::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void Resource::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool Resource::isLocalOnly() const
+bool Resource::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void Resource::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool Resource::isLocallyFavorited() const
+bool Resource::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool Resource::isLocallyFavorited() const
 void Resource::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & Resource::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & Resource::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void Resource::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & Resource::guid() const noexcept

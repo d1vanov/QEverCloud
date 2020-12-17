@@ -47,6 +47,71 @@ User & User::operator=(User && other) noexcept
     return *this;
 }
 
+QString User::localId() const noexcept
+{
+    return d->m_localId;
+}
+
+void User::setLocalId(QString id)
+{
+    d->m_localId = id;
+}
+
+QString User::parentLocalId() const noexcept
+{
+    return d->m_parentLocalId;
+}
+
+void User::setParentLocalId(QString id)
+{
+    d->m_parentLocalId = id;
+}
+
+bool User::isLocallyModified() const noexcept
+{
+    return d->m_locallyModified;
+}
+
+void User::setLocallyModified(const bool modified)
+{
+    d->m_locallyModified = modified;
+}
+
+bool User::isLocalOnly() const noexcept
+{
+    return d->m_localOnly;
+}
+
+void User::setLocalOnly(const bool localOnly)
+{
+    d->m_localOnly = localOnly;
+}
+
+bool User::isLocallyFavorited() const noexcept
+{
+    return d->m_locallyFavorited;
+}
+
+void User::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & User::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & User::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void User::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
+}
+
 const std::optional<UserID> & User::id() const noexcept
 {
     return d->m_id;

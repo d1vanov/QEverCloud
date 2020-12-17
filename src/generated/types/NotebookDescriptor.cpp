@@ -47,7 +47,7 @@ NotebookDescriptor & NotebookDescriptor::operator=(NotebookDescriptor && other) 
     return *this;
 }
 
-QString NotebookDescriptor::localId() const
+QString NotebookDescriptor::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void NotebookDescriptor::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString NotebookDescriptor::parentLocalId() const
+QString NotebookDescriptor::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void NotebookDescriptor::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool NotebookDescriptor::isLocallyModified() const
+bool NotebookDescriptor::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void NotebookDescriptor::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool NotebookDescriptor::isLocalOnly() const
+bool NotebookDescriptor::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void NotebookDescriptor::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool NotebookDescriptor::isLocallyFavorited() const
+bool NotebookDescriptor::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool NotebookDescriptor::isLocallyFavorited() const
 void NotebookDescriptor::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & NotebookDescriptor::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & NotebookDescriptor::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void NotebookDescriptor::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & NotebookDescriptor::guid() const noexcept

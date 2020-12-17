@@ -47,7 +47,7 @@ Note & Note::operator=(Note && other) noexcept
     return *this;
 }
 
-QString Note::localId() const
+QString Note::localId() const noexcept
 {
     return d->m_localId;
 }
@@ -57,7 +57,7 @@ void Note::setLocalId(QString id)
     d->m_localId = id;
 }
 
-QString Note::parentLocalId() const
+QString Note::parentLocalId() const noexcept
 {
     return d->m_parentLocalId;
 }
@@ -67,7 +67,7 @@ void Note::setParentLocalId(QString id)
     d->m_parentLocalId = id;
 }
 
-bool Note::isLocallyModified() const
+bool Note::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
 }
@@ -77,7 +77,7 @@ void Note::setLocallyModified(const bool modified)
     d->m_locallyModified = modified;
 }
 
-bool Note::isLocalOnly() const
+bool Note::isLocalOnly() const noexcept
 {
     return d->m_localOnly;
 }
@@ -87,7 +87,7 @@ void Note::setLocalOnly(const bool localOnly)
     d->m_localOnly = localOnly;
 }
 
-bool Note::isLocallyFavorited() const
+bool Note::isLocallyFavorited() const noexcept
 {
     return d->m_locallyFavorited;
 }
@@ -95,6 +95,21 @@ bool Note::isLocallyFavorited() const
 void Note::setLocallyFavorited(const bool favorited)
 {
     d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & Note::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & Note::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void Note::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
 }
 
 const std::optional<Guid> & Note::guid() const noexcept

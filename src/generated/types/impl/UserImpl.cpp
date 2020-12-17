@@ -25,6 +25,11 @@ bool User::Impl::operator==(
     }
 
     return
+        m_localId == other.m_localId &&
+        m_parentLocalId == other.m_parentLocalId &&
+        m_locallyModified == other.m_locallyModified &&
+        m_localOnly == other.m_localOnly &&
+        m_locallyFavorited == other.m_locallyFavorited &&
         m_id == other.m_id &&
         m_username == other.m_username &&
         m_email == other.m_email &&
@@ -54,6 +59,11 @@ bool User::Impl::operator!=(
 void User::Impl::print(QTextStream & strm) const
 {
     strm << "User: {\n";
+        strm << "    localId = " << m_localId << "\n";
+        strm << "    parentLocalId = " << m_parentLocalId << "\n";
+        strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
+        strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
+        strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";
 
     if (m_id) {
         strm << "    id = "
