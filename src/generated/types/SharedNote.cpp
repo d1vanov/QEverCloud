@@ -47,6 +47,71 @@ SharedNote & SharedNote::operator=(SharedNote && other) noexcept
     return *this;
 }
 
+QString SharedNote::localId() const noexcept
+{
+    return d->m_localId;
+}
+
+void SharedNote::setLocalId(QString id)
+{
+    d->m_localId = id;
+}
+
+QString SharedNote::parentLocalId() const noexcept
+{
+    return d->m_parentLocalId;
+}
+
+void SharedNote::setParentLocalId(QString id)
+{
+    d->m_parentLocalId = id;
+}
+
+bool SharedNote::isLocallyModified() const noexcept
+{
+    return d->m_locallyModified;
+}
+
+void SharedNote::setLocallyModified(const bool modified)
+{
+    d->m_locallyModified = modified;
+}
+
+bool SharedNote::isLocalOnly() const noexcept
+{
+    return d->m_localOnly;
+}
+
+void SharedNote::setLocalOnly(const bool localOnly)
+{
+    d->m_localOnly = localOnly;
+}
+
+bool SharedNote::isLocallyFavorited() const noexcept
+{
+    return d->m_locallyFavorited;
+}
+
+void SharedNote::setLocallyFavorited(const bool favorited)
+{
+    d->m_locallyFavorited = favorited;
+}
+
+const QHash<QString, QVariant> & SharedNote::localData() const noexcept
+{
+    return d->m_localData;
+}
+
+QHash<QString, QVariant> & SharedNote::mutableLocalData()
+{
+    return d->m_localData;
+}
+
+void SharedNote::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
+}
+
 const std::optional<UserID> & SharedNote::sharerUserID() const noexcept
 {
     return d->m_sharerUserID;

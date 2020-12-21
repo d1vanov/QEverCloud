@@ -19,6 +19,8 @@
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
+#include <QHash>
+#include <QVariant>
 #include <optional>
 
 namespace qevercloud {
@@ -38,6 +40,60 @@ public:
 
     SharedNotebook & operator=(const SharedNotebook & other);
     SharedNotebook & operator=(SharedNotebook && other) noexcept;
+
+    /**
+     * @brief localId can be used as a local unique identifier
+     * for any data item before it has been synchronized with
+     * Evernote and thus before it can be identified using its guid.
+     *
+     * localId is generated automatically on
+     * construction for convenience but can be overridden manually
+     */
+    [[nodiscard]] QString localId() const noexcept;
+    void setLocalId(QString id);
+
+    /**
+     * @brief parentLocalId can be used as a local unique identifier
+     * of the data item being a parent to this data item.
+     *
+     * For example, a note is a parent to a resource, a notebook
+     * is a parent to a note. So note's localId is a parentLocalId for a
+     * resource, notebook's localId is a parentLocalId for a note,
+     * tag's localId is a parentLocalId to a child tag.
+     *
+     * By default the parentLocalId property is empty
+     */
+    [[nodiscard]] QString parentLocalId() const noexcept;
+    void setParentLocalId(QString id);
+
+    /**
+     * @brief locallyModified flag can be used to keep track which
+     * objects have been modified locally and thus need to be synchronized
+     * with Evernote service
+     */
+    [[nodiscard]] bool isLocallyModified() const noexcept;
+    void setLocallyModified(bool modified = true);
+
+    /**
+     * @brief localOnly flag can be used to keep track which
+     * data items are meant to be local only and thus never be synchronized
+     * with Evernote service
+     */
+    [[nodiscard]] bool isLocalOnly() const noexcept;
+    void setLocalOnly(bool localOnly = true);
+
+    /**
+     * @brief locallyFavorited property can be used to keep track which
+     * data items were favorited in the client. Unfortunately,
+     * Evernote has never provided a way to synchronize such
+     * a property between different clients
+     */
+    [[nodiscard]] bool isLocallyFavorited() const noexcept;
+    void setLocallyFavorited(bool favorited = true);
+
+    [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
+    [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
+    void setLocalData(QHash<QString, QVariant> localData);
 
     /**
     The primary identifier of the share, which is not globally unique.
@@ -188,6 +244,11 @@ public:
     [[nodiscard]] bool operator==(const SharedNotebook & other) const noexcept;
     [[nodiscard]] bool operator!=(const SharedNotebook & other) const noexcept;
 
+    Q_PROPERTY(QString localId READ localId WRITE setLocalId)
+    Q_PROPERTY(QString parentLocalId READ parentLocalId WRITE setParentLocalId)
+    Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
+    Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
+    Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)
     Q_PROPERTY(std::optional<qint64> id READ id WRITE setId)
     Q_PROPERTY(std::optional<UserID> userId READ userId WRITE setUserId)
     Q_PROPERTY(std::optional<Guid> notebookGuid READ notebookGuid WRITE setNotebookGuid)

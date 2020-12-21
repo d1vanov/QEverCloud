@@ -25,6 +25,11 @@ bool SharedNote::Impl::operator==(
     }
 
     return
+        m_localId == other.m_localId &&
+        m_parentLocalId == other.m_parentLocalId &&
+        m_locallyModified == other.m_locallyModified &&
+        m_localOnly == other.m_localOnly &&
+        m_locallyFavorited == other.m_locallyFavorited &&
         m_sharerUserID == other.m_sharerUserID &&
         m_recipientIdentity == other.m_recipientIdentity &&
         m_privilege == other.m_privilege &&
@@ -42,6 +47,11 @@ bool SharedNote::Impl::operator!=(
 void SharedNote::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNote: {\n";
+        strm << "    localId = " << m_localId << "\n";
+        strm << "    parentLocalId = " << m_parentLocalId << "\n";
+        strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
+        strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
+        strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";
 
     if (m_sharerUserID) {
         strm << "    sharerUserID = "

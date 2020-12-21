@@ -13,7 +13,9 @@
 #define QEVERCLOUD_GENERATED_SHAREDNOTEIMPL_H
 
 #include <qevercloud/generated/types/SharedNote.h>
+#include <QHash>
 #include <QSharedData>
+#include <QVariant>
 
 namespace qevercloud {
 
@@ -35,6 +37,13 @@ public:
     [[nodiscard]] bool operator!=(const SharedNote::Impl & other) const noexcept;
 
     void print(QTextStream & strm) const override;
+
+    QString m_localId;
+    QString m_parentLocalId;
+    bool m_locallyModified = false;
+    bool m_localOnly = false;
+    bool m_locallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
 
     std::optional<UserID> m_sharerUserID;
     std::optional<Identity> m_recipientIdentity;
