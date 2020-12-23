@@ -20,6 +20,7 @@
 #include <qevercloud/generated/exceptions/EDAMUserException.h>
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
+#include <QSharedDataPointer>
 #include <optional>
 
 namespace qevercloud {

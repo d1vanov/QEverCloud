@@ -19,6 +19,7 @@
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
 #include <QByteArray>
+#include <QSharedDataPointer>
 #include <optional>
 
 namespace qevercloud {

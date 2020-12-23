@@ -21,6 +21,7 @@
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
 #include <QHash>
+#include <QSharedDataPointer>
 #include <QVariant>
 #include <optional>
 

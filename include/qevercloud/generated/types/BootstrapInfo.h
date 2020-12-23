@@ -20,6 +20,7 @@
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
 #include <QList>
+#include <QSharedDataPointer>
 
 namespace qevercloud {
 

@@ -26,6 +26,7 @@
 #include <qevercloud/utility/Printable.h>
 #include <QHash>
 #include <QList>
+#include <QSharedDataPointer>
 #include <QVariant>
 #include <optional>
 

@@ -26,6 +26,7 @@
 #include <QByteArray>
 #include <QHash>
 #include <QList>
+#include <QSharedDataPointer>
 #include <QVariant>
 #include <optional>
 

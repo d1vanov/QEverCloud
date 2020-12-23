@@ -20,6 +20,7 @@
 #include <qevercloud/utility/Printable.h>
 #include <QByteArray>
 #include <QList>
+#include <QSharedDataPointer>
 #include <optional>
 
 namespace qevercloud {

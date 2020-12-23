@@ -19,6 +19,7 @@
 #include <qevercloud/generated/EDAMErrorCode.h>
 #include <qevercloud/generated/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
+#include <QSharedDataPointer>
 
 namespace qevercloud {
 
