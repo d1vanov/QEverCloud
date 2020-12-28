@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN SharedNote::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const SharedNote::Impl & other) = default;
     Impl(SharedNote::Impl && other) noexcept = default;
 

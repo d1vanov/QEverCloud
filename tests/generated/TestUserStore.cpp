@@ -12,6 +12,7 @@
 #include "TestUserStore.h"
 #include "../../src/Impl.h"
 #include "../SocketHelpers.h"
+#include "ClearLocalIds.h"
 #include "RandomDataGenerators.h"
 #include <qevercloud/generated/Servers.h>
 #include <qevercloud/generated/Services.h>
@@ -19,6 +20,80 @@
 #include <QtTest/QtTest>
 
 namespace qevercloud {
+
+////////////////////////////////////////////////////////////////////////////////
+
+namespace {
+
+////////////////////////////////////////////////////////////////////////////////
+
+template <class T>
+void compareValuesWithoutLocalIds(const T & lhs, const T & rhs)
+{
+    T lhsCopy = lhs;
+    clearLocalIds(lhsCopy);
+
+    T rhsCopy = rhs;
+    clearLocalIds(rhsCopy);
+
+    Q_ASSERT(lhsCopy == rhsCopy);
+}
+
+template <class T>
+void compareListValuesWithoutLocalIds(const QList<T> & lhs, const QList<T> & rhs)
+{
+    Q_ASSERT(lhs.size() == rhs.size());
+
+    QList<T> lhsCopy = lhs;
+    for (auto & v: lhsCopy) {
+        clearLocalIds(v);
+    }
+
+    QList<T> rhsCopy = rhs;
+    for (auto & v: rhsCopy) {
+        clearLocalIds(v);
+    }
+
+    Q_ASSERT(lhsCopy == rhsCopy);
+}
+
+template <class T>
+void compareSetValuesWithoutLocalIds(const QSet<T> & lhs, const QSet<T> & rhs)
+{
+    Q_ASSERT(lhs.size() == rhs.size());
+
+    QSet<T> lhsCopy = lhs;
+    for (auto & v: lhsCopy) {
+        clearLocalIds(v);
+    }
+
+    QSet<T> rhsCopy = rhs;
+    for (auto & v: rhsCopy) {
+        clearLocalIds(v);
+    }
+
+    Q_ASSERT(lhsCopy == rhsCopy);
+}
+
+template <class K, class V>
+void compareMapValuesWithoutLocalIds(const QMap<K, V> & lhs, const QMap<K, V> & rhs)
+{
+    Q_ASSERT(lhs.size() == rhs.size());
+
+    QMap<K, V> lhsCopy = lhs;
+    for (auto it = lhsCopy.begin(); it != lhsCopy.end(); ++it) {
+        clearLocalIds(it.value());
+    }
+
+    QMap<K, V> rhsCopy = rhs;
+    for (auto it = rhsCopy.begin(); it != rhsCopy.end(); ++it) {
+        clearLocalIds(it.value());
+    }
+
+    Q_ASSERT(lhsCopy == rhsCopy);
+}
+
+} // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -2158,7 +2233,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
         deviceDescription,
         supportsTwoFactor,
         ctx);
-    QVERIFY(res == response);
+    compareValuesWithoutLocalIds(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
@@ -2643,7 +2718,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
 
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
+    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -3154,7 +3229,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
         deviceIdentifier,
         deviceDescription,
         ctx);
-    QVERIFY(res == response);
+    compareValuesWithoutLocalIds(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentication()
@@ -3583,7 +3658,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
 
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
+    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -4833,7 +4908,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
             nullRetryPolicy()));
     AuthenticationResult res = userStore->authenticateToBusiness(
         ctx);
-    QVERIFY(res == response);
+    compareValuesWithoutLocalIds(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
@@ -5214,7 +5289,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
 
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
+    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -5635,7 +5710,7 @@ void UserStoreTester::shouldExecuteGetUser()
             nullRetryPolicy()));
     User res = userStore->getUser(
         ctx);
-    QVERIFY(res == response);
+    compareValuesWithoutLocalIds(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
@@ -6016,7 +6091,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
 
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
+    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 

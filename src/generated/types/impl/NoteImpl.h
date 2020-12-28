@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN Note::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const Note::Impl & other) = default;
     Impl(Note::Impl && other) noexcept = default;
 

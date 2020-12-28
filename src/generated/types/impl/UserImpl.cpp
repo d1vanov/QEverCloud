@@ -14,8 +14,17 @@
 #include "../../../../src/Impl.h"
 
 #include <QTextStream>
+#include <QUuid>
 
 namespace qevercloud {
+
+User::Impl::Impl()
+{
+    m_localId = QUuid::createUuid().toString();
+    // Remove curvy braces
+    m_localId.remove(m_localId.size() - 1, 1);
+    m_localId.remove(0, 1);
+}
 
 bool User::Impl::operator==(
     const User::Impl & other) const noexcept

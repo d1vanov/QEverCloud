@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN NoteMetadata::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const NoteMetadata::Impl & other) = default;
     Impl(NoteMetadata::Impl && other) noexcept = default;
 

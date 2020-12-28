@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN NotebookDescriptor::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const NotebookDescriptor::Impl & other) = default;
     Impl(NotebookDescriptor::Impl && other) noexcept = default;
 

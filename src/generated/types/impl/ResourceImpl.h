@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN Resource::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const Resource::Impl & other) = default;
     Impl(Resource::Impl && other) noexcept = default;
 

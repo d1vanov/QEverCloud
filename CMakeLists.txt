@@ -643,6 +643,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
   set(TEST_HEADERS
       tests/SocketHelpers.h
       tests/TestDurableService.h
+      tests/generated/ClearLocalIds.h
       tests/generated/RandomDataGenerators.h
       tests/generated/TestNoteStore.h
       tests/generated/TestUserStore.h)
@@ -651,6 +652,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/SocketHelpers.cpp
       tests/TestDurableService.cpp
       tests/TestQEverCloud.cpp
+      tests/generated/ClearLocalIds.cpp
       tests/generated/RandomDataGenerators.cpp
       tests/generated/TestNoteStore.cpp
       tests/generated/TestUserStore.cpp)

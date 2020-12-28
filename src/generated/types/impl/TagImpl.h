@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN Tag::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const Tag::Impl & other) = default;
     Impl(Tag::Impl && other) noexcept = default;
 

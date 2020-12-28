@@ -14,8 +14,17 @@
 #include "../../../../src/Impl.h"
 
 #include <QTextStream>
+#include <QUuid>
 
 namespace qevercloud {
+
+NotebookDescriptor::Impl::Impl()
+{
+    m_localId = QUuid::createUuid().toString();
+    // Remove curvy braces
+    m_localId.remove(m_localId.size() - 1, 1);
+    m_localId.remove(0, 1);
+}
 
 bool NotebookDescriptor::Impl::operator==(
     const NotebookDescriptor::Impl & other) const noexcept

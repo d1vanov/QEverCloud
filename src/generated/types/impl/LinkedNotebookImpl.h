@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN LinkedNotebook::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const LinkedNotebook::Impl & other) = default;
     Impl(LinkedNotebook::Impl && other) noexcept = default;
 

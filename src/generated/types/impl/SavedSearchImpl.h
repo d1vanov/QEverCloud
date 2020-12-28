@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN SavedSearch::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const SavedSearch::Impl & other) = default;
     Impl(SavedSearch::Impl && other) noexcept = default;
 

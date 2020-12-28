@@ -1,0 +1,41 @@
+/**
+ * Original work: Copyright (c) 2014 Sergey Skoblikov
+ * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ *
+ * This file is a part of QEverCloud project and is distributed under the terms
+ * of MIT license:
+ * https://opensource.org/licenses/MIT
+ *
+ * This file was generated from Evernote Thrift API
+ */
+
+#ifndef QEVERCLOUD_GENERATED_CLEARLOCALIDS_H
+#define QEVERCLOUD_GENERATED_CLEARLOCALIDS_H
+
+#include <qevercloud/generated/Types.h>
+
+namespace qevercloud {
+
+void clearLocalIds(AuthenticationResult & v);
+void clearLocalIds(CreateOrUpdateNotebookSharesResult & v);
+void clearLocalIds(LinkedNotebook & v);
+void clearLocalIds(Note & v);
+void clearLocalIds(Notebook & v);
+void clearLocalIds(NotebookDescriptor & v);
+void clearLocalIds(NoteEmailParameters & v);
+void clearLocalIds(NoteList & v);
+void clearLocalIds(NoteMetadata & v);
+void clearLocalIds(NotesMetadataList & v);
+void clearLocalIds(RelatedResult & v);
+void clearLocalIds(Resource & v);
+void clearLocalIds(SavedSearch & v);
+void clearLocalIds(SharedNote & v);
+void clearLocalIds(SharedNotebook & v);
+void clearLocalIds(SyncChunk & v);
+void clearLocalIds(Tag & v);
+void clearLocalIds(UpdateNoteIfUsnMatchesResult & v);
+void clearLocalIds(User & v);
+
+} // namespace qevercloud
+
+#endif // QEVERCLOUD_GENERATED_CLEARLOCALIDS_H

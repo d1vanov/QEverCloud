@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN User::Impl final:
     public Printable
 {
 public:
-    Impl() = default;
+    Impl();
     Impl(const User::Impl & other) = default;
     Impl(User::Impl && other) noexcept = default;
 
