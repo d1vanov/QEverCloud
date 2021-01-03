@@ -91,6 +91,10 @@ It is possible to build the library with enabled sanitizers using additional CMa
 
 Two "cumulative" headers - *QEverCloud.h* or *QEverCloudOAuth.h* - include everything needed for the general and OAuth functionality correspondingly. More "fine-grained" headers can also be used if needed.
 
+## Seeding random numbers generator for Qt < 5.10
+
+QEverCloud requires random numbers generator for OAuth procedure. When QEverCloud is built against Qt >= 5.10, it uses `QRandomGenerator` which is cryptographically secure on supported platforms and is seeded by Qt internals. With Qt < 5.10 QEverCloud uses `qrand`. It requires the client application to call `qsrand` with seed value before using OAuth calls of QEverCloud. So if you are using QEverCloud built with Qt < 5.10, make sure to call `qsrand` before using QEverCloud's OAuth.
+
 ## Related projects
 
 * [QEverCloudGenerator](https://github.com/d1vanov/QEverCloudGenerator) repository hosts code generating parser of [Evernote Thrift IDL files](https://github.com/evernote/evernote-thrift). This parser is used to autogenerate a portion of QEverCloud's headers and sources.

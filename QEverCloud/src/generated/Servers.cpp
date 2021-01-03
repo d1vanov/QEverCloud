@@ -5624,8 +5624,8 @@ void NoteStoreServer::onRequest(QByteArray data)
     }
     else if (fname == QStringLiteral("getFilteredSyncChunk"))
     {
-        qint32 afterUSN;
-        qint32 maxEntries;
+        qint32 afterUSN = 0;
+        qint32 maxEntries = 0;
         SyncChunkFilter filter;
         IRequestContextPtr ctx;
 
@@ -5659,9 +5659,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getLinkedNotebookSyncChunk"))
     {
         LinkedNotebook linkedNotebook;
-        qint32 afterUSN;
-        qint32 maxEntries;
-        bool fullSyncOnly;
+        qint32 afterUSN = 0;
+        qint32 maxEntries = 0;
+        bool fullSyncOnly = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreGetLinkedNotebookSyncChunkParams(
@@ -5950,8 +5950,8 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("findNotesMetadata"))
     {
         NoteFilter filter;
-        qint32 offset;
-        qint32 maxNotes;
+        qint32 offset = 0;
+        qint32 maxNotes = 0;
         NotesMetadataResultSpec resultSpec;
         IRequestContextPtr ctx;
 
@@ -5973,7 +5973,7 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("findNoteCounts"))
     {
         NoteFilter filter;
-        bool withTrash;
+        bool withTrash = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreFindNoteCountsParams(
@@ -6007,10 +6007,10 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getNote"))
     {
         Guid guid;
-        bool withContent;
-        bool withResourcesData;
-        bool withResourcesRecognition;
-        bool withResourcesAlternateData;
+        bool withContent = false;
+        bool withResourcesData = false;
+        bool withResourcesRecognition = false;
+        bool withResourcesAlternateData = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreGetNoteParams(
@@ -6115,8 +6115,8 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getNoteSearchText"))
     {
         Guid guid;
-        bool noteOnly;
-        bool tokenizeForIndexing;
+        bool noteOnly = false;
+        bool tokenizeForIndexing = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreGetNoteSearchTextParams(
@@ -6250,10 +6250,10 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getNoteVersion"))
     {
         Guid noteGuid;
-        qint32 updateSequenceNum;
-        bool withResourcesData;
-        bool withResourcesRecognition;
-        bool withResourcesAlternateData;
+        qint32 updateSequenceNum = 0;
+        bool withResourcesData = false;
+        bool withResourcesRecognition = false;
+        bool withResourcesAlternateData = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreGetNoteVersionParams(
@@ -6276,10 +6276,10 @@ void NoteStoreServer::onRequest(QByteArray data)
     else if (fname == QStringLiteral("getResource"))
     {
         Guid guid;
-        bool withData;
-        bool withRecognition;
-        bool withAttributes;
-        bool withAlternateData;
+        bool withData = false;
+        bool withRecognition = false;
+        bool withAttributes = false;
+        bool withAlternateData = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreGetResourceParams(
@@ -6399,9 +6399,9 @@ void NoteStoreServer::onRequest(QByteArray data)
     {
         Guid noteGuid;
         QByteArray contentHash;
-        bool withData;
-        bool withRecognition;
-        bool withAlternateData;
+        bool withData = false;
+        bool withRecognition = false;
+        bool withAlternateData = false;
         IRequestContextPtr ctx;
 
         parseNoteStoreGetResourceByHashParams(
@@ -16206,8 +16206,8 @@ void UserStoreServer::onRequest(QByteArray data)
     if (fname == QStringLiteral("checkVersion"))
     {
         QString clientName;
-        qint16 edamVersionMajor;
-        qint16 edamVersionMinor;
+        qint16 edamVersionMajor = 0;
+        qint16 edamVersionMinor = 0;
         IRequestContextPtr ctx;
 
         parseUserStoreCheckVersionParams(
@@ -16245,7 +16245,7 @@ void UserStoreServer::onRequest(QByteArray data)
         QString consumerSecret;
         QString deviceIdentifier;
         QString deviceDescription;
-        bool supportsTwoFactor;
+        bool supportsTwoFactor = false;
         IRequestContextPtr ctx;
 
         parseUserStoreAuthenticateLongSessionParams(
@@ -16405,7 +16405,7 @@ void UserStoreServer::onRequest(QByteArray data)
     }
     else if (fname == QStringLiteral("listBusinessInvitations"))
     {
-        bool includeRequestedInvitations;
+        bool includeRequestedInvitations = false;
         IRequestContextPtr ctx;
 
         parseUserStoreListBusinessInvitationsParams(

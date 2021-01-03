@@ -175,7 +175,7 @@ public:
     /**
     The server's current date and time.
     */
-    Timestamp currentTime;
+    Timestamp currentTime = 0;
     /**
     The cutoff date and time for client caches to be
        updated via incremental synchronization.  Any clients that were last
@@ -183,7 +183,7 @@ public:
        objects.  This cutoff point will change over time as archival data is
        deleted or special circumstances on the service require resynchronization.
     */
-    Timestamp fullSyncBefore;
+    Timestamp fullSyncBefore = 0;
     /**
     Indicates the total number of transactions that have
        been committed within the account.  This reflects (for example) the
@@ -192,7 +192,7 @@ public:
        This number is the "high water mark" for Update Sequence Numbers (USN)
        within the account.
     */
-    qint32 updateCount;
+    qint32 updateCount = 0;
     /**
     The total number of bytes that have been uploaded to
        this account in the current monthly period.  This can be compared against
@@ -805,7 +805,7 @@ public:
         This serves to uniquely identify each version of the note, since USN
         values are unique within an account for each update.
     */
-    qint32 updateSequenceNum;
+    qint32 updateSequenceNum = 0;
     /**
     The 'updated' time that was set on the Note when it had this version
         of the content.  This is the user-modifiable modification time on the
@@ -813,12 +813,12 @@ public:
         versions.  (E.g. if someone modifies the note, then changes this time
         manually into the past and then updates the note again.)
     */
-    Timestamp updated;
+    Timestamp updated = 0;
     /**
     A timestamp that holds the date and time when this version of the note
         was backed up by Evernote's servers.
     */
-    Timestamp saved;
+    Timestamp saved = 0;
     /**
     The title of the note when this particular version was saved.  (The
         current title of the note may differ from this value.)
@@ -2559,7 +2559,7 @@ public:
     /**
     The unique identifier for this mapping.
     */
-    IdentityID id;
+    IdentityID id = 0;
     /** NOT DOCUMENTED */
     Optional<Contact> contact;
     /**
@@ -5409,7 +5409,7 @@ public:
     /**
     The unique numeric user identifier for the user account.
     */
-    UserID userId;
+    UserID userId = 0;
     /**
     The service level of the account.
     */
@@ -5560,7 +5560,7 @@ public:
     The server-side date and time when this result was
        generated.
     */
-    Timestamp currentTime;
+    Timestamp currentTime = 0;
     /**
     Holds an opaque, ASCII-encoded token that can be
        used by the client to perform actions on a NoteStore.
@@ -5572,7 +5572,7 @@ public:
        This time can be compared to "currentTime" to produce an expiration
        time that can be reconciled with the client's local clock.
     */
-    Timestamp expiration;
+    Timestamp expiration = 0;
     /**
     Holds the information about the account which was
        authenticated if this was a full authentication.  May be absent if this
@@ -6073,7 +6073,7 @@ public:
     /**
     The server's current date and time.
     */
-    Timestamp currentTime;
+    Timestamp currentTime = 0;
     /**
     The highest USN for any of the data objects represented
        in this sync chunk.  If there are no objects in the chunk, this will not be
@@ -6087,7 +6087,7 @@ public:
        and chunkHighUSN are identical, that means that this is the last chunk
        in the account ... there is no more recent information.
     */
-    qint32 updateCount;
+    qint32 updateCount = 0;
     /**
     If present, this is a list of non-expunged notes that
        have a USN in this chunk.  This will include notes that are "deleted"
@@ -6212,13 +6212,13 @@ public:
     The starting index within the overall set of notes.  This
        is also the number of notes that are "before" this list in the set.
     */
-    qint32 startIndex;
+    qint32 startIndex = 0;
     /**
     The number of notes in the larger set.  This can be used
        to calculate how many notes are "after" this note in the set.
        (I.e.  remaining = totalNotes - (startIndex + notes.length)  )
     */
-    qint32 totalNotes;
+    qint32 totalNotes = 0;
     /**
     The list of notes from this range.  The Notes will include all
        metadata (attributes, resources, etc.), but will not include the ENML
@@ -6400,13 +6400,13 @@ public:
     The starting index within the overall set of notes.  This
        is also the number of notes that are "before" this list in the set.
     */
-    qint32 startIndex;
+    qint32 startIndex = 0;
     /**
     The number of notes in the larger set.  This can be used
        to calculate how many notes are "after" this note in the set.
        (I.e.  remaining = totalNotes - (startIndex + notes.length)  )
     */
-    qint32 totalNotes;
+    qint32 totalNotes = 0;
     /**
     The list of metadata for Notes in this range.  The set of optional fields
        that are set in each metadata structure will depend on the

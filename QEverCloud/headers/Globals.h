@@ -70,6 +70,7 @@ QEVERCLOUD_EXPORT void resetEvernoteNetworkProxy();
 /**
  * QEverCloud library version.
  */
+Q_DECL_DEPRECATED_X("libraryVersion is deprecated, use qevercloudVersionMajor/Minor/Patch instead")
 QEVERCLOUD_EXPORT int libraryVersion();
 
 ////////////////////////////////////////////////////////////////////////////////

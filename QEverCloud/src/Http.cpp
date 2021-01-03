@@ -13,6 +13,7 @@
 #include <Helpers.h>
 #include <Globals.h>
 #include <Log.h>
+#include <VersionInfo.h>
 
 #include <QEventLoop>
 #include <QtNetwork>
@@ -74,7 +75,13 @@ void ReplyFetcher::start(
         this,
         &ReplyFetcher::onFinished);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    QObject::connect(
+        m_pReply.get(),
+        &QNetworkReply::errorOccurred,
+        this,
+        &ReplyFetcher::onError);
+#elif QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
     QObject::connect(
         m_pReply.get(),
         qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error),
@@ -249,16 +256,15 @@ QNetworkRequest createEvernoteRequest(
 
     request.setHeader(
         QNetworkRequest::UserAgentHeader,
-        QString::fromUtf8("QEverCloud %1.%2")
-        .arg(libraryVersion() / 10000)
-        .arg(libraryVersion() % 10000));
+        QString::fromUtf8("QEverCloud %1.%2.%3")
+        .arg(qevercloudVersionMajor())
+        .arg(qevercloudVersionMinor())
+        .arg(qevercloudVersionPatch()));
 
     request.setRawHeader("Accept", "application/x-thrift");
 
-    for(const auto & cookie: qAsConst(cookies)) {
-        request.setHeader(
-            QNetworkRequest::CookieHeader,
-            QVariant::fromValue(cookie));
+    if (!cookies.isEmpty()) {
+        request.setHeader(QNetworkRequest::CookieHeader, QVariant::fromValue(cookies));
     }
 
     return request;
