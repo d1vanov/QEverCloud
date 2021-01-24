@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -35,10 +35,10 @@ bool Notebook::Impl::operator==(
 
     return
         m_localId == other.m_localId &&
-        m_parentLocalId == other.m_parentLocalId &&
         m_locallyModified == other.m_locallyModified &&
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
+        m_linkedNotebookGuid == other.m_linkedNotebookGuid &&
         m_guid == other.m_guid &&
         m_name == other.m_name &&
         m_updateSequenceNum == other.m_updateSequenceNum &&
@@ -65,8 +65,8 @@ bool Notebook::Impl::operator!=(
 void Notebook::Impl::print(QTextStream & strm) const
 {
     strm << "Notebook: {\n";
+        strm << "    linkedNotebookGuid = " << m_linkedNotebookGuid << "\n";
         strm << "    localId = " << m_localId << "\n";
-        strm << "    parentLocalId = " << m_parentLocalId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

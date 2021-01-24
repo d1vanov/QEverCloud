@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -29,10 +29,12 @@ class Q_DECL_HIDDEN NoteStore: public INoteStore
 public:
     explicit NoteStore(
             QString noteStoreUrl = {},
+            QString linkedNotebookGuid = {},
             IRequestContextPtr ctx = {},
             QObject * parent = nullptr) :
         INoteStore(parent),
         m_url(std::move(noteStoreUrl)),
+        m_linkedNotebookGuid(std::move(linkedNotebookGuid)),
         m_ctx(std::move(ctx))
     {
         if (!m_ctx) {
@@ -46,243 +48,253 @@ public:
         m_ctx = newRequestContext();
     }
 
-    virtual void setNoteStoreUrl(QString noteStoreUrl) override
+    void setNoteStoreUrl(QString noteStoreUrl) override
     {
         m_url = std::move(noteStoreUrl);
     }
 
-    virtual QString noteStoreUrl() const override
+    QString noteStoreUrl() const override
     {
         return m_url;
     }
 
-    virtual SyncState getSyncState(
+    QString linkedNotebookGuid() const override
+    {
+        return m_linkedNotebookGuid;
+    }
+
+    void setLinkedNotebookGuid(QString linkedNotebookGuid) override
+    {
+        m_linkedNotebookGuid = std::move(linkedNotebookGuid);
+    }
+
+    SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getSyncStateAsync(
+    AsyncResult * getSyncStateAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual SyncChunk getFilteredSyncChunk(
+    SyncChunk getFilteredSyncChunk(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getFilteredSyncChunkAsync(
+    AsyncResult * getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SyncState getLinkedNotebookSyncState(
+    SyncState getLinkedNotebookSyncState(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getLinkedNotebookSyncStateAsync(
+    AsyncResult * getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SyncChunk getLinkedNotebookSyncChunk(
+    SyncChunk getLinkedNotebookSyncChunk(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getLinkedNotebookSyncChunkAsync(
+    AsyncResult * getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Notebook> listNotebooks(
+    QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listNotebooksAsync(
+    AsyncResult * listNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Notebook> listAccessibleBusinessNotebooks(
+    QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listAccessibleBusinessNotebooksAsync(
+    AsyncResult * listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook getNotebook(
+    Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNotebookAsync(
+    AsyncResult * getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook getDefaultNotebook(
+    Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getDefaultNotebookAsync(
+    AsyncResult * getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook createNotebook(
+    Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createNotebookAsync(
+    AsyncResult * createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateNotebook(
+    qint32 updateNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateNotebookAsync(
+    AsyncResult * updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeNotebook(
+    qint32 expungeNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeNotebookAsync(
+    AsyncResult * expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Tag> listTags(
+    QList<Tag> listTags(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listTagsAsync(
+    AsyncResult * listTagsAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Tag> listTagsByNotebook(
+    QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listTagsByNotebookAsync(
+    AsyncResult * listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Tag getTag(
+    Tag getTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getTagAsync(
+    AsyncResult * getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Tag createTag(
+    Tag createTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createTagAsync(
+    AsyncResult * createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateTag(
+    qint32 updateTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateTagAsync(
+    AsyncResult * updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void untagAll(
+    void untagAll(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * untagAllAsync(
+    AsyncResult * untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeTag(
+    qint32 expungeTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeTagAsync(
+    AsyncResult * expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<SavedSearch> listSearches(
+    QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listSearchesAsync(
+    AsyncResult * listSearchesAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual SavedSearch getSearch(
+    SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getSearchAsync(
+    AsyncResult * getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SavedSearch createSearch(
+    SavedSearch createSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createSearchAsync(
+    AsyncResult * createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateSearch(
+    qint32 updateSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateSearchAsync(
+    AsyncResult * updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeSearch(
+    qint32 expungeSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeSearchAsync(
+    AsyncResult * expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 findNoteOffset(
+    qint32 findNoteOffset(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findNoteOffsetAsync(
+    AsyncResult * findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual NotesMetadataList findNotesMetadata(
+    NotesMetadataList findNotesMetadata(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findNotesMetadataAsync(
+    AsyncResult * findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual NoteCollectionCounts findNoteCounts(
+    NoteCollectionCounts findNoteCounts(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findNoteCountsAsync(
+    AsyncResult * findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note getNoteWithResultSpec(
+    Note getNoteWithResultSpec(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteWithResultSpecAsync(
+    AsyncResult * getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note getNote(
+    Note getNote(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -290,7 +302,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteAsync(
+    AsyncResult * getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -298,133 +310,133 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual LazyMap getNoteApplicationData(
+    LazyMap getNoteApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteApplicationDataAsync(
+    AsyncResult * getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getNoteApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    virtual AsyncResult * getNoteApplicationDataEntryAsync(
+    QString getNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 setNoteApplicationDataEntry(
+    AsyncResult * getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * setNoteApplicationDataEntryAsync(
+    qint32 setNoteApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 unsetNoteApplicationDataEntry(
+    AsyncResult * setNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    qint32 unsetNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * unsetNoteApplicationDataEntryAsync(
+    AsyncResult * unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getNoteContent(
+    QString getNoteContent(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteContentAsync(
+    AsyncResult * getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getNoteSearchText(
+    QString getNoteSearchText(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteSearchTextAsync(
+    AsyncResult * getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getResourceSearchText(
+    QString getResourceSearchText(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceSearchTextAsync(
+    AsyncResult * getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QStringList getNoteTagNames(
+    QStringList getNoteTagNames(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteTagNamesAsync(
+    AsyncResult * getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note createNote(
+    Note createNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createNoteAsync(
+    AsyncResult * createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note updateNote(
+    Note updateNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateNoteAsync(
+    AsyncResult * updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 deleteNote(
+    qint32 deleteNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * deleteNoteAsync(
+    AsyncResult * deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeNote(
+    qint32 expungeNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeNoteAsync(
+    AsyncResult * expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note copyNote(
+    Note copyNote(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * copyNoteAsync(
+    AsyncResult * copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<NoteVersionId> listNoteVersions(
+    QList<NoteVersionId> listNoteVersions(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listNoteVersionsAsync(
+    AsyncResult * listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note getNoteVersion(
+    Note getNoteVersion(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -432,7 +444,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteVersionAsync(
+    AsyncResult * getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -440,7 +452,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Resource getResource(
+    Resource getResource(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -448,7 +460,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceAsync(
+    AsyncResult * getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -456,63 +468,63 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual LazyMap getResourceApplicationData(
+    LazyMap getResourceApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceApplicationDataAsync(
+    AsyncResult * getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getResourceApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    virtual AsyncResult * getResourceApplicationDataEntryAsync(
+    QString getResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 setResourceApplicationDataEntry(
+    AsyncResult * getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * setResourceApplicationDataEntryAsync(
+    qint32 setResourceApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 unsetResourceApplicationDataEntry(
+    AsyncResult * setResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    qint32 unsetResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * unsetResourceApplicationDataEntryAsync(
+    AsyncResult * unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateResource(
+    qint32 updateResource(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateResourceAsync(
+    AsyncResult * updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QByteArray getResourceData(
+    QByteArray getResourceData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceDataAsync(
+    AsyncResult * getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Resource getResourceByHash(
+    Resource getResourceByHash(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -520,7 +532,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceByHashAsync(
+    AsyncResult * getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -528,196 +540,197 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QByteArray getResourceRecognition(
+    QByteArray getResourceRecognition(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceRecognitionAsync(
+    AsyncResult * getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QByteArray getResourceAlternateData(
+    QByteArray getResourceAlternateData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceAlternateDataAsync(
+    AsyncResult * getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual ResourceAttributes getResourceAttributes(
+    ResourceAttributes getResourceAttributes(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceAttributesAsync(
+    AsyncResult * getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook getPublicNotebook(
+    Notebook getPublicNotebook(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getPublicNotebookAsync(
+    AsyncResult * getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SharedNotebook shareNotebook(
+    SharedNotebook shareNotebook(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * shareNotebookAsync(
+    AsyncResult * shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    virtual CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+    CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createOrUpdateNotebookSharesAsync(
+    AsyncResult * createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateSharedNotebook(
+    qint32 updateSharedNotebook(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateSharedNotebookAsync(
+    AsyncResult * updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook setNotebookRecipientSettings(
+    Notebook setNotebookRecipientSettings(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * setNotebookRecipientSettingsAsync(
+    AsyncResult * setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<SharedNotebook> listSharedNotebooks(
+    QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listSharedNotebooksAsync(
+    AsyncResult * listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual LinkedNotebook createLinkedNotebook(
+    LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createLinkedNotebookAsync(
+    AsyncResult * createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateLinkedNotebook(
+    qint32 updateLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateLinkedNotebookAsync(
+    AsyncResult * updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<LinkedNotebook> listLinkedNotebooks(
+    QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listLinkedNotebooksAsync(
+    AsyncResult * listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeLinkedNotebook(
+    qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeLinkedNotebookAsync(
+    AsyncResult * expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateToSharedNotebook(
+    AuthenticationResult authenticateToSharedNotebook(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateToSharedNotebookAsync(
+    AsyncResult * authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SharedNotebook getSharedNotebookByAuth(
+    SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getSharedNotebookByAuthAsync(
+    AsyncResult * getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual void emailNote(
+    void emailNote(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * emailNoteAsync(
+    AsyncResult * emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString shareNote(
+    QString shareNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * shareNoteAsync(
+    AsyncResult * shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void stopSharingNote(
+    void stopSharingNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * stopSharingNoteAsync(
+    AsyncResult * stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateToSharedNote(
+    AuthenticationResult authenticateToSharedNote(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateToSharedNoteAsync(
+    AsyncResult * authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    virtual RelatedResult findRelated(
+    RelatedResult findRelated(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findRelatedAsync(
+    AsyncResult * findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+    UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateNoteIfUsnMatchesAsync(
+    AsyncResult * updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual ManageNotebookSharesResult manageNotebookShares(
+    ManageNotebookSharesResult manageNotebookShares(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * manageNotebookSharesAsync(
+    AsyncResult * manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual ShareRelationships getNotebookShares(
+    ShareRelationships getNotebookShares(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNotebookSharesAsync(
+    AsyncResult * getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
 private:
     QString m_url;
+    QString m_linkedNotebookGuid;
     IRequestContextPtr m_ctx;
 };
 
@@ -16006,37 +16019,37 @@ public:
         m_ctx = newRequestContext();
     }
 
-    virtual void setUserStoreUrl(QString userStoreUrl) override
+    void setUserStoreUrl(QString userStoreUrl) override
     {
         m_url = std::move(userStoreUrl);
     }
 
-    virtual QString userStoreUrl() const override
+    QString userStoreUrl() const override
     {
         return m_url;
     }
 
-    virtual bool checkVersion(
+    bool checkVersion(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * checkVersionAsync(
+    AsyncResult * checkVersionAsync(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    virtual BootstrapInfo getBootstrapInfo(
+    BootstrapInfo getBootstrapInfo(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getBootstrapInfoAsync(
+    AsyncResult * getBootstrapInfoAsync(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateLongSession(
+    AuthenticationResult authenticateLongSession(
         QString username,
         QString password,
         QString consumerKey,
@@ -16046,7 +16059,7 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateLongSessionAsync(
+    AsyncResult * authenticateLongSessionAsync(
         QString username,
         QString password,
         QString consumerKey,
@@ -16056,95 +16069,95 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult completeTwoFactorAuthentication(
+    AuthenticationResult completeTwoFactorAuthentication(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * completeTwoFactorAuthenticationAsync(
+    AsyncResult * completeTwoFactorAuthenticationAsync(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void revokeLongSession(
+    void revokeLongSession(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * revokeLongSessionAsync(
+    AsyncResult * revokeLongSessionAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateToBusiness(
+    AuthenticationResult authenticateToBusiness(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateToBusinessAsync(
+    AsyncResult * authenticateToBusinessAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual User getUser(
+    User getUser(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getUserAsync(
+    AsyncResult * getUserAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual PublicUserInfo getPublicUserInfo(
+    PublicUserInfo getPublicUserInfo(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getPublicUserInfoAsync(
+    AsyncResult * getPublicUserInfoAsync(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    virtual UserUrls getUserUrls(
+    UserUrls getUserUrls(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getUserUrlsAsync(
+    AsyncResult * getUserUrlsAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual void inviteToBusiness(
+    void inviteToBusiness(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * inviteToBusinessAsync(
+    AsyncResult * inviteToBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void removeFromBusiness(
+    void removeFromBusiness(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * removeFromBusinessAsync(
+    AsyncResult * removeFromBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void updateBusinessUserIdentifier(
+    void updateBusinessUserIdentifier(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateBusinessUserIdentifierAsync(
+    AsyncResult * updateBusinessUserIdentifierAsync(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<UserProfile> listBusinessUsers(
+    QList<UserProfile> listBusinessUsers(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listBusinessUsersAsync(
+    AsyncResult * listBusinessUsersAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<BusinessInvitation> listBusinessInvitations(
+    QList<BusinessInvitation> listBusinessInvitations(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listBusinessInvitationsAsync(
+    AsyncResult * listBusinessInvitationsAsync(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AccountLimits getAccountLimits(
+    AccountLimits getAccountLimits(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getAccountLimitsAsync(
+    AsyncResult * getAccountLimitsAsync(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
@@ -18961,243 +18974,253 @@ public:
         m_service->setParent(nullptr);
     }
 
-    virtual void setNoteStoreUrl(QString noteStoreUrl) override
+    void setNoteStoreUrl(QString noteStoreUrl) override
     {
         m_service->setNoteStoreUrl(noteStoreUrl);
     }
 
-    virtual QString noteStoreUrl() const override
+    QString noteStoreUrl() const override
     {
         return m_service->noteStoreUrl();
     }
 
-    virtual SyncState getSyncState(
+    QString linkedNotebookGuid() const override
+    {
+        return m_service->linkedNotebookGuid();
+    }
+
+    void setLinkedNotebookGuid(QString linkedNotebookGuid) override
+    {
+        m_service->setLinkedNotebookGuid(std::move(linkedNotebookGuid));
+    }
+
+    SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getSyncStateAsync(
+    AsyncResult * getSyncStateAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual SyncChunk getFilteredSyncChunk(
+    SyncChunk getFilteredSyncChunk(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getFilteredSyncChunkAsync(
+    AsyncResult * getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SyncState getLinkedNotebookSyncState(
+    SyncState getLinkedNotebookSyncState(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getLinkedNotebookSyncStateAsync(
+    AsyncResult * getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SyncChunk getLinkedNotebookSyncChunk(
+    SyncChunk getLinkedNotebookSyncChunk(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getLinkedNotebookSyncChunkAsync(
+    AsyncResult * getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Notebook> listNotebooks(
+    QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listNotebooksAsync(
+    AsyncResult * listNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Notebook> listAccessibleBusinessNotebooks(
+    QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listAccessibleBusinessNotebooksAsync(
+    AsyncResult * listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook getNotebook(
+    Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNotebookAsync(
+    AsyncResult * getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook getDefaultNotebook(
+    Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getDefaultNotebookAsync(
+    AsyncResult * getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook createNotebook(
+    Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createNotebookAsync(
+    AsyncResult * createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateNotebook(
+    qint32 updateNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateNotebookAsync(
+    AsyncResult * updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeNotebook(
+    qint32 expungeNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeNotebookAsync(
+    AsyncResult * expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Tag> listTags(
+    QList<Tag> listTags(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listTagsAsync(
+    AsyncResult * listTagsAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<Tag> listTagsByNotebook(
+    QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listTagsByNotebookAsync(
+    AsyncResult * listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Tag getTag(
+    Tag getTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getTagAsync(
+    AsyncResult * getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Tag createTag(
+    Tag createTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createTagAsync(
+    AsyncResult * createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateTag(
+    qint32 updateTag(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateTagAsync(
+    AsyncResult * updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void untagAll(
+    void untagAll(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * untagAllAsync(
+    AsyncResult * untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeTag(
+    qint32 expungeTag(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeTagAsync(
+    AsyncResult * expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<SavedSearch> listSearches(
+    QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listSearchesAsync(
+    AsyncResult * listSearchesAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual SavedSearch getSearch(
+    SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getSearchAsync(
+    AsyncResult * getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SavedSearch createSearch(
+    SavedSearch createSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createSearchAsync(
+    AsyncResult * createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateSearch(
+    qint32 updateSearch(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateSearchAsync(
+    AsyncResult * updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeSearch(
+    qint32 expungeSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeSearchAsync(
+    AsyncResult * expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 findNoteOffset(
+    qint32 findNoteOffset(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findNoteOffsetAsync(
+    AsyncResult * findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual NotesMetadataList findNotesMetadata(
+    NotesMetadataList findNotesMetadata(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findNotesMetadataAsync(
+    AsyncResult * findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual NoteCollectionCounts findNoteCounts(
+    NoteCollectionCounts findNoteCounts(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findNoteCountsAsync(
+    AsyncResult * findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note getNoteWithResultSpec(
+    Note getNoteWithResultSpec(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteWithResultSpecAsync(
+    AsyncResult * getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note getNote(
+    Note getNote(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -19205,7 +19228,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteAsync(
+    AsyncResult * getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -19213,133 +19236,133 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual LazyMap getNoteApplicationData(
+    LazyMap getNoteApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteApplicationDataAsync(
+    AsyncResult * getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getNoteApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    virtual AsyncResult * getNoteApplicationDataEntryAsync(
+    QString getNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 setNoteApplicationDataEntry(
+    AsyncResult * getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * setNoteApplicationDataEntryAsync(
+    qint32 setNoteApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 unsetNoteApplicationDataEntry(
+    AsyncResult * setNoteApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    qint32 unsetNoteApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * unsetNoteApplicationDataEntryAsync(
+    AsyncResult * unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getNoteContent(
+    QString getNoteContent(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteContentAsync(
+    AsyncResult * getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getNoteSearchText(
+    QString getNoteSearchText(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteSearchTextAsync(
+    AsyncResult * getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getResourceSearchText(
+    QString getResourceSearchText(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceSearchTextAsync(
+    AsyncResult * getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QStringList getNoteTagNames(
+    QStringList getNoteTagNames(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteTagNamesAsync(
+    AsyncResult * getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note createNote(
+    Note createNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createNoteAsync(
+    AsyncResult * createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note updateNote(
+    Note updateNote(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateNoteAsync(
+    AsyncResult * updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 deleteNote(
+    qint32 deleteNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * deleteNoteAsync(
+    AsyncResult * deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeNote(
+    qint32 expungeNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeNoteAsync(
+    AsyncResult * expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note copyNote(
+    Note copyNote(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * copyNoteAsync(
+    AsyncResult * copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<NoteVersionId> listNoteVersions(
+    QList<NoteVersionId> listNoteVersions(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listNoteVersionsAsync(
+    AsyncResult * listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Note getNoteVersion(
+    Note getNoteVersion(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -19347,7 +19370,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNoteVersionAsync(
+    AsyncResult * getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -19355,7 +19378,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Resource getResource(
+    Resource getResource(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -19363,7 +19386,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceAsync(
+    AsyncResult * getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -19371,63 +19394,63 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual LazyMap getResourceApplicationData(
+    LazyMap getResourceApplicationData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceApplicationDataAsync(
+    AsyncResult * getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString getResourceApplicationDataEntry(
-        Guid guid,
-        QString key,
-        IRequestContextPtr ctx = {}) override;
-
-    virtual AsyncResult * getResourceApplicationDataEntryAsync(
+    QString getResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 setResourceApplicationDataEntry(
+    AsyncResult * getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
-        QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * setResourceApplicationDataEntryAsync(
+    qint32 setResourceApplicationDataEntry(
         Guid guid,
         QString key,
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 unsetResourceApplicationDataEntry(
+    AsyncResult * setResourceApplicationDataEntryAsync(
+        Guid guid,
+        QString key,
+        QString value,
+        IRequestContextPtr ctx = {}) override;
+
+    qint32 unsetResourceApplicationDataEntry(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * unsetResourceApplicationDataEntryAsync(
+    AsyncResult * unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateResource(
+    qint32 updateResource(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateResourceAsync(
+    AsyncResult * updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QByteArray getResourceData(
+    QByteArray getResourceData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceDataAsync(
+    AsyncResult * getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Resource getResourceByHash(
+    Resource getResourceByHash(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -19435,7 +19458,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceByHashAsync(
+    AsyncResult * getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -19443,191 +19466,191 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QByteArray getResourceRecognition(
+    QByteArray getResourceRecognition(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceRecognitionAsync(
+    AsyncResult * getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QByteArray getResourceAlternateData(
+    QByteArray getResourceAlternateData(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceAlternateDataAsync(
+    AsyncResult * getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual ResourceAttributes getResourceAttributes(
+    ResourceAttributes getResourceAttributes(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getResourceAttributesAsync(
+    AsyncResult * getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook getPublicNotebook(
+    Notebook getPublicNotebook(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getPublicNotebookAsync(
+    AsyncResult * getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SharedNotebook shareNotebook(
+    SharedNotebook shareNotebook(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * shareNotebookAsync(
+    AsyncResult * shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    virtual CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
+    CreateOrUpdateNotebookSharesResult createOrUpdateNotebookShares(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createOrUpdateNotebookSharesAsync(
+    AsyncResult * createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateSharedNotebook(
+    qint32 updateSharedNotebook(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateSharedNotebookAsync(
+    AsyncResult * updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual Notebook setNotebookRecipientSettings(
+    Notebook setNotebookRecipientSettings(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * setNotebookRecipientSettingsAsync(
+    AsyncResult * setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<SharedNotebook> listSharedNotebooks(
+    QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listSharedNotebooksAsync(
+    AsyncResult * listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual LinkedNotebook createLinkedNotebook(
+    LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * createLinkedNotebookAsync(
+    AsyncResult * createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 updateLinkedNotebook(
+    qint32 updateLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateLinkedNotebookAsync(
+    AsyncResult * updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<LinkedNotebook> listLinkedNotebooks(
+    QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listLinkedNotebooksAsync(
+    AsyncResult * listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual qint32 expungeLinkedNotebook(
+    qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * expungeLinkedNotebookAsync(
+    AsyncResult * expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateToSharedNotebook(
+    AuthenticationResult authenticateToSharedNotebook(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateToSharedNotebookAsync(
+    AsyncResult * authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    virtual SharedNotebook getSharedNotebookByAuth(
+    SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getSharedNotebookByAuthAsync(
+    AsyncResult * getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual void emailNote(
+    void emailNote(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * emailNoteAsync(
+    AsyncResult * emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QString shareNote(
+    QString shareNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * shareNoteAsync(
+    AsyncResult * shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void stopSharingNote(
+    void stopSharingNote(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * stopSharingNoteAsync(
+    AsyncResult * stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateToSharedNote(
+    AuthenticationResult authenticateToSharedNote(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateToSharedNoteAsync(
+    AsyncResult * authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    virtual RelatedResult findRelated(
+    RelatedResult findRelated(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * findRelatedAsync(
+    AsyncResult * findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    virtual UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
+    UpdateNoteIfUsnMatchesResult updateNoteIfUsnMatches(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateNoteIfUsnMatchesAsync(
+    AsyncResult * updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    virtual ManageNotebookSharesResult manageNotebookShares(
+    ManageNotebookSharesResult manageNotebookShares(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * manageNotebookSharesAsync(
+    AsyncResult * manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    virtual ShareRelationships getNotebookShares(
+    ShareRelationships getNotebookShares(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getNotebookSharesAsync(
+    AsyncResult * getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -19667,37 +19690,37 @@ public:
         m_service->setParent(nullptr);
     }
 
-    virtual void setUserStoreUrl(QString userStoreUrl) override
+    void setUserStoreUrl(QString userStoreUrl) override
     {
         m_service->setUserStoreUrl(userStoreUrl);
     }
 
-    virtual QString userStoreUrl() const override
+    QString userStoreUrl() const override
     {
         return m_service->userStoreUrl();
     }
 
-    virtual bool checkVersion(
+    bool checkVersion(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * checkVersionAsync(
+    AsyncResult * checkVersionAsync(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
         IRequestContextPtr ctx = {}) override;
 
-    virtual BootstrapInfo getBootstrapInfo(
+    BootstrapInfo getBootstrapInfo(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getBootstrapInfoAsync(
+    AsyncResult * getBootstrapInfoAsync(
         QString locale,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateLongSession(
+    AuthenticationResult authenticateLongSession(
         QString username,
         QString password,
         QString consumerKey,
@@ -19707,7 +19730,7 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateLongSessionAsync(
+    AsyncResult * authenticateLongSessionAsync(
         QString username,
         QString password,
         QString consumerKey,
@@ -19717,95 +19740,95 @@ public:
         bool supportsTwoFactor,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult completeTwoFactorAuthentication(
+    AuthenticationResult completeTwoFactorAuthentication(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * completeTwoFactorAuthenticationAsync(
+    AsyncResult * completeTwoFactorAuthenticationAsync(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void revokeLongSession(
+    void revokeLongSession(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * revokeLongSessionAsync(
+    AsyncResult * revokeLongSessionAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AuthenticationResult authenticateToBusiness(
+    AuthenticationResult authenticateToBusiness(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * authenticateToBusinessAsync(
+    AsyncResult * authenticateToBusinessAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual User getUser(
+    User getUser(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getUserAsync(
+    AsyncResult * getUserAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual PublicUserInfo getPublicUserInfo(
+    PublicUserInfo getPublicUserInfo(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getPublicUserInfoAsync(
+    AsyncResult * getPublicUserInfoAsync(
         QString username,
         IRequestContextPtr ctx = {}) override;
 
-    virtual UserUrls getUserUrls(
+    UserUrls getUserUrls(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getUserUrlsAsync(
+    AsyncResult * getUserUrlsAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual void inviteToBusiness(
+    void inviteToBusiness(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * inviteToBusinessAsync(
+    AsyncResult * inviteToBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void removeFromBusiness(
+    void removeFromBusiness(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * removeFromBusinessAsync(
+    AsyncResult * removeFromBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual void updateBusinessUserIdentifier(
+    void updateBusinessUserIdentifier(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * updateBusinessUserIdentifierAsync(
+    AsyncResult * updateBusinessUserIdentifierAsync(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<UserProfile> listBusinessUsers(
+    QList<UserProfile> listBusinessUsers(
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listBusinessUsersAsync(
+    AsyncResult * listBusinessUsersAsync(
         IRequestContextPtr ctx = {}) override;
 
-    virtual QList<BusinessInvitation> listBusinessInvitations(
+    QList<BusinessInvitation> listBusinessInvitations(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * listBusinessInvitationsAsync(
+    AsyncResult * listBusinessInvitationsAsync(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AccountLimits getAccountLimits(
+    AccountLimits getAccountLimits(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
-    virtual AsyncResult * getAccountLimitsAsync(
+    AsyncResult * getAccountLimitsAsync(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) override;
 
@@ -26145,13 +26168,14 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
 
 INoteStore * newNoteStore(
     QString noteStoreUrl,
+    QString linkedNotebookGuid,
     IRequestContextPtr ctx,
     QObject * parent,
     IRetryPolicyPtr retryPolicy)
 {
     if (ctx && ctx->maxRequestRetryCount() == 0)
     {
-        return new NoteStore(noteStoreUrl, ctx);
+        return new NoteStore(std::move(noteStoreUrl), std::move(linkedNotebookGuid), ctx);
     }
     else
     {
@@ -26160,7 +26184,7 @@ INoteStore * newNoteStore(
         }
 
         return new DurableNoteStore(
-            std::make_shared<NoteStore>(noteStoreUrl, ctx),
+            std::make_shared<NoteStore>(std::move(noteStoreUrl), std::move(linkedNotebookGuid), ctx),
             ctx,
             retryPolicy,
             parent);
@@ -26175,7 +26199,7 @@ IUserStore * newUserStore(
 {
     if (ctx && ctx->maxRequestRetryCount() == 0)
     {
-        return new UserStore(userStoreUrl, ctx);
+        return new UserStore(std::move(userStoreUrl), ctx);
     }
     else
     {
@@ -26184,7 +26208,7 @@ IUserStore * newUserStore(
         }
 
         return new DurableUserStore(
-            std::make_shared<UserStore>(userStoreUrl, ctx),
+            std::make_shared<UserStore>(std::move(userStoreUrl), ctx),
             ctx,
             retryPolicy,
             parent);

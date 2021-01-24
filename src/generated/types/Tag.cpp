@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -47,6 +47,26 @@ Tag & Tag::operator=(Tag && other) noexcept
     return *this;
 }
 
+QString Tag::linkedNotebookGuid() const
+{
+    return d->m_linkedNotebookGuid;
+}
+
+void Tag::setLinkedNotebookGuid(QString linkedNotebookGuid)
+{
+    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
+}
+
+QString Tag::parentTagLocalId() const
+{
+    return d->m_parentTagLocalId;
+}
+
+void Tag::setParentTagLocalId(QString parentTagLocalId)
+{
+    d->m_parentTagLocalId = std::move(parentTagLocalId);
+}
+
 QString Tag::localId() const noexcept
 {
     return d->m_localId;
@@ -55,16 +75,6 @@ QString Tag::localId() const noexcept
 void Tag::setLocalId(QString id)
 {
     d->m_localId = id;
-}
-
-QString Tag::parentLocalId() const noexcept
-{
-    return d->m_parentLocalId;
-}
-
-void Tag::setParentLocalId(QString id)
-{
-    d->m_parentLocalId = id;
 }
 
 bool Tag::isLocallyModified() const noexcept

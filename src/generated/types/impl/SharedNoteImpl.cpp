@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -35,10 +35,11 @@ bool SharedNote::Impl::operator==(
 
     return
         m_localId == other.m_localId &&
-        m_parentLocalId == other.m_parentLocalId &&
         m_locallyModified == other.m_locallyModified &&
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
+        m_noteGuid == other.m_noteGuid &&
+        m_indexInNote == other.m_indexInNote &&
         m_sharerUserID == other.m_sharerUserID &&
         m_recipientIdentity == other.m_recipientIdentity &&
         m_privilege == other.m_privilege &&
@@ -56,8 +57,9 @@ bool SharedNote::Impl::operator!=(
 void SharedNote::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNote: {\n";
+        strm << "    noteGuid = " << m_noteGuid.value_or(QStringLiteral("not set")) << "\n";
+        strm << "    indexInNote = " << (m_indexInNote ? QString::number(*m_indexInNote) : QStringLiteral("<not set>")) << "\n";
         strm << "    localId = " << m_localId << "\n";
-        strm << "    parentLocalId = " << m_parentLocalId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

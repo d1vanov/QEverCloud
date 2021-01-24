@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -39,15 +39,15 @@ public:
     BootstrapProfile & operator=(BootstrapProfile && other) noexcept;
 
     /**
-    The unique name of the profile, which is guaranteed to remain consistent across
-       calls to getBootstrapInfo.
-    */
+     * The unique name of the profile, which is guaranteed to remain consistent across
+     * calls to getBootstrapInfo.
+     */
     [[nodiscard]] const QString & name() const noexcept;
     void setName(QString name);
 
     /**
-    The settings for this profile.
-    */
+     * The settings for this profile.
+     */
     [[nodiscard]] const BootstrapSettings & settings() const noexcept;
     [[nodiscard]] BootstrapSettings & mutableSettings();
     void setSettings(BootstrapSettings settings);

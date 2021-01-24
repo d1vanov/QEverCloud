@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -41,37 +41,37 @@ public:
     NoteInvitationShareRelationship & operator=(NoteInvitationShareRelationship && other) noexcept;
 
     /**
-    The string that clients should show to users to represent this
-     invitation.
-    */
+     * The string that clients should show to users to represent this
+     * invitation.
+     */
     [[nodiscard]] const std::optional<QString> & displayName() const noexcept;
     void setDisplayName(std::optional<QString> displayName);
 
     /**
-    Identifies the identity of the invitation recipient. Once the
-     identity has been claimed by an Evernote user and they have accessed
-     the note at least once, the invitation will be used up and will no
-     longer be returned by the service to clients. Instead, that recipient
-     will be included in the list of NoteMemberShareRelationships.
-    */
+     * Identifies the identity of the invitation recipient. Once the
+     * identity has been claimed by an Evernote user and they have accessed
+     * the note at least once, the invitation will be used up and will no
+     * longer be returned by the service to clients. Instead, that recipient
+     * will be included in the list of NoteMemberShareRelationships.
+     */
     [[nodiscard]] const std::optional<IdentityID> & recipientIdentityId() const noexcept;
     [[nodiscard]] std::optional<IdentityID> & mutableRecipientIdentityId();
     void setRecipientIdentityId(std::optional<IdentityID> recipientIdentityId);
 
     /**
-    The privilege level that the recipient will be granted when they
-     accept this invitation. If the user already has a higher privilege to
-     access this note then this will not affect the recipient's privileges.
-    */
+     * The privilege level that the recipient will be granted when they
+     * accept this invitation. If the user already has a higher privilege to
+     * access this note then this will not affect the recipient's privileges.
+     */
     [[nodiscard]] const std::optional<SharedNotePrivilegeLevel> & privilege() const noexcept;
     [[nodiscard]] std::optional<SharedNotePrivilegeLevel> & mutablePrivilege();
     void setPrivilege(std::optional<SharedNotePrivilegeLevel> privilege);
 
     /**
-    The user id of the user who most recently shared this note to this
-     recipient. This field is used by the service to convey information
-     to the user, so clients should treat it as read-only.
-    */
+     * The user id of the user who most recently shared this note to this
+     * recipient. This field is used by the service to convey information
+     * to the user, so clients should treat it as read-only.
+     */
     [[nodiscard]] const std::optional<UserID> & sharerUserId() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableSharerUserId();
     void setSharerUserId(std::optional<UserID> sharerUserId);

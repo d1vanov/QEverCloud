@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -35,10 +35,10 @@ bool SharedNotebook::Impl::operator==(
 
     return
         m_localId == other.m_localId &&
-        m_parentLocalId == other.m_parentLocalId &&
         m_locallyModified == other.m_locallyModified &&
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
+        m_indexInNotebook == other.m_indexInNotebook &&
         m_id == other.m_id &&
         m_userId == other.m_userId &&
         m_notebookGuid == other.m_notebookGuid &&
@@ -66,8 +66,8 @@ bool SharedNotebook::Impl::operator!=(
 void SharedNotebook::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNotebook: {\n";
+        strm << "    indexInNotebook = " << (m_indexInNotebook ? QString::number(*m_indexInNotebook) : QStringLiteral("<not set>")) << "\n";
         strm << "    localId = " << m_localId << "\n";
-        strm << "    parentLocalId = " << m_parentLocalId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -44,113 +44,113 @@ public:
     NoteFilter & operator=(NoteFilter && other) noexcept;
 
     /**
-    The NoteSortOrder value indicating what criterion should be
-       used to sort the results of the filter.
-    */
+     * The NoteSortOrder value indicating what criterion should be
+     * used to sort the results of the filter.
+     */
     [[nodiscard]] const std::optional<qint32> & order() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableOrder();
     void setOrder(std::optional<qint32> order);
 
     /**
-    If true, the results will be ascending in the requested
-       sort order.  If false, the results will be descending.
-    */
+     * If true, the results will be ascending in the requested
+     * sort order. If false, the results will be descending.
+     */
     [[nodiscard]] const std::optional<bool> & ascending() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableAscending();
     void setAscending(std::optional<bool> ascending);
 
     /**
-    If present, a search query string that will filter the set of notes to be returned.
-       Accepts the full search grammar documented in the Evernote API Overview.
-    */
+     * If present, a search query string that will filter the set of notes to be returned.
+     * Accepts the full search grammar documented in the Evernote API Overview.
+     */
     [[nodiscard]] const std::optional<QString> & words() const noexcept;
     void setWords(std::optional<QString> words);
 
     /**
-    If present, the Guid of the notebook that must contain
-       the notes.
-    */
+     * If present, the Guid of the notebook that must contain
+     * the notes.
+     */
     [[nodiscard]] const std::optional<Guid> & notebookGuid() const noexcept;
     [[nodiscard]] std::optional<Guid> & mutableNotebookGuid();
     void setNotebookGuid(std::optional<Guid> notebookGuid);
 
     /**
-    If present, the list of tags (by GUID) that must be present
-       on the notes.
-    */
+     * If present, the list of tags (by GUID) that must be present
+     * on the notes.
+     */
     [[nodiscard]] const std::optional<QList<Guid>> & tagGuids() const noexcept;
     [[nodiscard]] std::optional<QList<Guid>> & mutableTagGuids();
     void setTagGuids(std::optional<QList<Guid>> tagGuids);
 
     /**
-    The zone ID for the user, which will be used to interpret
-       any dates or times in the queries that do not include their desired zone
-       information.
-       For example, if a query requests notes created "yesterday", this
-       will be evaluated from the provided time zone, if provided.
-       The format must be encoded as a standard zone ID such as
-       "America/Los_Angeles".
-    */
+     * The zone ID for the user, which will be used to interpret
+     * any dates or times in the queries that do not include their desired zone
+     * information.
+     * For example, if a query requests notes created "yesterday", this
+     * will be evaluated from the provided time zone, if provided.
+     * The format must be encoded as a standard zone ID such as
+     * "America/Los_Angeles".
+     */
     [[nodiscard]] const std::optional<QString> & timeZone() const noexcept;
     void setTimeZone(std::optional<QString> timeZone);
 
     /**
-    If true, then only notes that are not active (i.e. notes in
-       the Trash) will be returned. Otherwise, only active notes will be returned.
-       There is no way to find both active and inactive notes in a single query.
-    */
+     * If true, then only notes that are not active (i.e. notes in
+     * the Trash) will be returned. Otherwise, only active notes will be returned.
+     * There is no way to find both active and inactive notes in a single query.
+     */
     [[nodiscard]] const std::optional<bool> & inactive() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableInactive();
     void setInactive(std::optional<bool> inactive);
 
     /**
-    If present, a search query string that may or may not influence the notes
-       to be returned, both in terms of coverage as well as of order. Think of it
-       as a wish list, not a requirement.
-       Accepts the full search grammar documented in the Evernote API Overview.
-    */
+     * If present, a search query string that may or may not influence the notes
+     * to be returned, both in terms of coverage as well as of order. Think of it
+     * as a wish list, not a requirement.
+     * Accepts the full search grammar documented in the Evernote API Overview.
+     */
     [[nodiscard]] const std::optional<QString> & emphasized() const noexcept;
     void setEmphasized(std::optional<QString> emphasized);
 
     /**
-    If true, then the search will include all business notebooks that are readable
-       by the user. A business authentication token must be supplied for
-       this option to take effect when calling search APIs.
-    */
+     * If true, then the search will include all business notebooks that are readable
+     * by the user. A business authentication token must be supplied for
+     * this option to take effect when calling search APIs.
+     */
     [[nodiscard]] const std::optional<bool> & includeAllReadableNotebooks() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeAllReadableNotebooks();
     void setIncludeAllReadableNotebooks(std::optional<bool> includeAllReadableNotebooks);
 
     /**
-    If true, then the search will include all workspaces that are readable
-       by the user. A business authentication token must be supplied for
-       this option to take effect when calling search APIs.
-    */
+     * If true, then the search will include all workspaces that are readable
+     * by the user. A business authentication token must be supplied for
+     * this option to take effect when calling search APIs.
+     */
     [[nodiscard]] const std::optional<bool> & includeAllReadableWorkspaces() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeAllReadableWorkspaces();
     void setIncludeAllReadableWorkspaces(std::optional<bool> includeAllReadableWorkspaces);
 
     /**
-    Specifies the context to consider when determining result ranking.
-       Clients must leave this value unset unless they wish to explicitly specify a known
-       non-default context.
-    */
+     * Specifies the context to consider when determining result ranking.
+     * Clients must leave this value unset unless they wish to explicitly specify a known
+     * non-default context.
+     */
     [[nodiscard]] const std::optional<QString> & context() const noexcept;
     void setContext(std::optional<QString> context);
 
     /**
-    If present, the raw user query input.
-       Accepts the full search grammar documented in the Evernote API Overview.
-    */
+     * If present, the raw user query input.
+     * Accepts the full search grammar documented in the Evernote API Overview.
+     */
     [[nodiscard]] const std::optional<QString> & rawWords() const noexcept;
     void setRawWords(std::optional<QString> rawWords);
 
     /**
-    Specifies the correlating information about the current search session, in byte array.
-       If this request is not for the first page of search results, the client should populate
-       this field with the value of searchContextBytes from the NotesMetadataList of the
-       original search response.
-    */
+     * Specifies the correlating information about the current search session, in byte array.
+     * If this request is not for the first page of search results, the client should populate
+     * this field with the value of searchContextBytes from the NotesMetadataList of the
+     * original search response.
+     */
     [[nodiscard]] const std::optional<QByteArray> & searchContextBytes() const noexcept;
     void setSearchContextBytes(std::optional<QByteArray> searchContextBytes);
 

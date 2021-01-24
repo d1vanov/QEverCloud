@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -47,6 +47,16 @@ SharedNotebook & SharedNotebook::operator=(SharedNotebook && other) noexcept
     return *this;
 }
 
+const std::optional<int> & SharedNotebook::indexInNotebook() const noexcept
+{
+    return d->m_indexInNotebook;
+}
+
+void SharedNotebook::setIndexInNotebook(std::optional<int> indexInNotebook)
+{
+    d->m_indexInNotebook = std::move(indexInNotebook);
+}
+
 QString SharedNotebook::localId() const noexcept
 {
     return d->m_localId;
@@ -55,16 +65,6 @@ QString SharedNotebook::localId() const noexcept
 void SharedNotebook::setLocalId(QString id)
 {
     d->m_localId = id;
-}
-
-QString SharedNotebook::parentLocalId() const noexcept
-{
-    return d->m_parentLocalId;
-}
-
-void SharedNotebook::setParentLocalId(QString id)
-{
-    d->m_parentLocalId = id;
 }
 
 bool SharedNotebook::isLocallyModified() const noexcept

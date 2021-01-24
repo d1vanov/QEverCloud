@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -6186,6 +6186,7 @@ void NoteStoreTester::shouldExecuteGetSyncState()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6269,6 +6270,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6364,6 +6366,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6458,6 +6461,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6550,6 +6554,7 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6651,6 +6656,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6764,6 +6770,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6876,6 +6883,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -6997,6 +7005,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7092,6 +7101,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7199,6 +7209,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7305,6 +7316,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7409,6 +7421,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7522,6 +7535,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7647,6 +7661,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7771,6 +7786,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7889,6 +7905,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -7976,6 +7993,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8075,6 +8093,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8173,6 +8192,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8271,6 +8291,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8367,6 +8388,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8472,6 +8494,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8589,6 +8612,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8705,6 +8729,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8821,6 +8846,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -8946,6 +8972,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9045,6 +9072,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9156,6 +9184,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9266,6 +9295,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9376,6 +9406,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9484,6 +9515,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9601,6 +9633,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9730,6 +9763,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9858,6 +9892,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -9986,6 +10021,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10105,6 +10141,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10188,6 +10225,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10283,6 +10321,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10377,6 +10416,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10472,6 +10512,7 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10573,6 +10614,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10686,6 +10728,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10798,6 +10841,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10913,6 +10957,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -10996,6 +11041,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11091,6 +11137,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11185,6 +11232,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11280,6 +11328,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11381,6 +11430,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11494,6 +11544,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11606,6 +11657,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11721,6 +11773,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11808,6 +11861,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -11907,6 +11961,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12005,6 +12060,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12103,6 +12159,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12199,6 +12256,7 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12304,6 +12362,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12421,6 +12480,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12537,6 +12597,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12653,6 +12714,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12766,6 +12828,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12849,6 +12912,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -12944,6 +13008,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13038,6 +13103,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13130,6 +13196,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13231,6 +13298,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13344,6 +13412,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13456,6 +13525,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13571,6 +13641,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13658,6 +13729,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13757,6 +13829,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13855,6 +13928,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -13953,6 +14027,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14049,6 +14124,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14154,6 +14230,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14271,6 +14348,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14387,6 +14465,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14503,6 +14582,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14619,6 +14699,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14706,6 +14787,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14805,6 +14887,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -14903,6 +14986,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15001,6 +15085,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15097,6 +15182,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15202,6 +15288,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15319,6 +15406,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15435,6 +15523,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15551,6 +15640,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15667,6 +15757,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15754,6 +15845,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15853,6 +15945,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -15951,6 +16044,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16049,6 +16143,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16145,6 +16240,7 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16250,6 +16346,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16367,6 +16464,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16483,6 +16581,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16599,6 +16698,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16715,6 +16815,7 @@ void NoteStoreTester::shouldExecuteListTags()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16798,6 +16899,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16893,6 +16995,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -16987,6 +17090,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17082,6 +17186,7 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17183,6 +17288,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17296,6 +17402,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17408,6 +17515,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17526,6 +17634,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17613,6 +17722,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17712,6 +17822,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17810,6 +17921,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -17908,6 +18020,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18007,6 +18120,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18112,6 +18226,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18229,6 +18344,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18345,6 +18461,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18461,6 +18578,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18577,6 +18695,7 @@ void NoteStoreTester::shouldExecuteGetTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18664,6 +18783,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18763,6 +18883,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18861,6 +18982,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -18959,6 +19081,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19055,6 +19178,7 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19160,6 +19284,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19277,6 +19402,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19393,6 +19519,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19509,6 +19636,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19625,6 +19753,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19712,6 +19841,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19811,6 +19941,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -19909,6 +20040,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20007,6 +20139,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20103,6 +20236,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20208,6 +20342,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20325,6 +20460,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20441,6 +20577,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20557,6 +20694,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20673,6 +20811,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20760,6 +20899,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20859,6 +20999,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -20957,6 +21098,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21055,6 +21197,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21151,6 +21294,7 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21256,6 +21400,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21373,6 +21518,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21489,6 +21635,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21605,6 +21752,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21719,6 +21867,7 @@ void NoteStoreTester::shouldExecuteUntagAll()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21805,6 +21954,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -21903,6 +22053,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22000,6 +22151,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22097,6 +22249,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22190,6 +22343,7 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22294,6 +22448,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22411,6 +22566,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22527,6 +22683,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22643,6 +22800,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22759,6 +22917,7 @@ void NoteStoreTester::shouldExecuteExpungeTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22846,6 +23005,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -22945,6 +23105,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23043,6 +23204,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23141,6 +23303,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23237,6 +23400,7 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23342,6 +23506,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23459,6 +23624,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23575,6 +23741,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23691,6 +23858,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23807,6 +23975,7 @@ void NoteStoreTester::shouldExecuteListSearches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23890,6 +24059,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -23985,6 +24155,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24079,6 +24250,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24174,6 +24346,7 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24275,6 +24448,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24388,6 +24562,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24500,6 +24675,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24615,6 +24791,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24702,6 +24879,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24801,6 +24979,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24899,6 +25078,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -24997,6 +25177,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25093,6 +25274,7 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25198,6 +25380,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25315,6 +25498,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25431,6 +25615,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25547,6 +25732,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25663,6 +25849,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25750,6 +25937,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25849,6 +26037,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -25947,6 +26136,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26043,6 +26233,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26148,6 +26339,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26265,6 +26457,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26381,6 +26574,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26497,6 +26691,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26584,6 +26779,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26683,6 +26879,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26781,6 +26978,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26879,6 +27077,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -26975,6 +27174,7 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27080,6 +27280,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27197,6 +27398,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27313,6 +27515,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27429,6 +27632,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27545,6 +27749,7 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27632,6 +27837,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27731,6 +27937,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27829,6 +28036,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -27927,6 +28135,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28023,6 +28232,7 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28128,6 +28338,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28245,6 +28456,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28361,6 +28573,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28477,6 +28690,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28596,6 +28810,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28687,6 +28902,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28790,6 +29006,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28892,6 +29109,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -28994,6 +29212,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29094,6 +29313,7 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29203,6 +29423,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29324,6 +29545,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29444,6 +29666,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29564,6 +29787,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29690,6 +29914,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29789,6 +30014,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -29900,6 +30126,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30010,6 +30237,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30120,6 +30348,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30228,6 +30457,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30345,6 +30575,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30474,6 +30705,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30602,6 +30834,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30730,6 +30963,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30852,6 +31086,7 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -30943,6 +31178,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31046,6 +31282,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31148,6 +31385,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31250,6 +31488,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31350,6 +31589,7 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31459,6 +31699,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31580,6 +31821,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31700,6 +31942,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31820,6 +32063,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -31940,6 +32184,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32031,6 +32276,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32134,6 +32380,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32236,6 +32483,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32338,6 +32586,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32438,6 +32687,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32547,6 +32797,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32668,6 +32919,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32788,6 +33040,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -32908,6 +33161,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33037,6 +33291,7 @@ void NoteStoreTester::shouldExecuteGetNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33140,6 +33395,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33255,6 +33511,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33369,6 +33626,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33483,6 +33741,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33595,6 +33854,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33716,6 +33976,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33849,6 +34110,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -33981,6 +34243,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34113,6 +34376,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34233,6 +34497,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34320,6 +34585,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34419,6 +34685,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34517,6 +34784,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34615,6 +34883,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34711,6 +34980,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34816,6 +35086,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -34933,6 +35204,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35049,6 +35321,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35165,6 +35438,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35284,6 +35558,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35375,6 +35650,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35478,6 +35754,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35580,6 +35857,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35682,6 +35960,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35782,6 +36061,7 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -35891,6 +36171,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36012,6 +36293,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36132,6 +36414,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36252,6 +36535,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36375,6 +36659,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36470,6 +36755,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36577,6 +36863,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36683,6 +36970,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36789,6 +37077,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -36893,6 +37182,7 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37006,6 +37296,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37131,6 +37422,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37255,6 +37547,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37379,6 +37672,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37500,6 +37794,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37591,6 +37886,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37694,6 +37990,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37796,6 +38093,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37898,6 +38196,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -37998,6 +38297,7 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38107,6 +38407,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38228,6 +38529,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38348,6 +38650,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38468,6 +38771,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38585,6 +38889,7 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38672,6 +38977,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38771,6 +39077,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38869,6 +39176,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -38967,6 +39275,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39063,6 +39372,7 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39168,6 +39478,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39285,6 +39596,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39401,6 +39713,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39517,6 +39830,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39639,6 +39953,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39734,6 +40049,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39841,6 +40157,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -39947,6 +40264,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40053,6 +40371,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40157,6 +40476,7 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40270,6 +40590,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40395,6 +40716,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40519,6 +40841,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40643,6 +40966,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40761,6 +41085,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40848,6 +41173,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -40947,6 +41273,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41045,6 +41372,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41143,6 +41471,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41239,6 +41568,7 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41344,6 +41674,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41461,6 +41792,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41577,6 +41909,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41693,6 +42026,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41812,6 +42146,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41899,6 +42234,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -41998,6 +42334,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42096,6 +42433,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42194,6 +42532,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42293,6 +42632,7 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42398,6 +42738,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42515,6 +42856,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42631,6 +42973,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42747,6 +43090,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42863,6 +43207,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -42950,6 +43295,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43049,6 +43395,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43147,6 +43494,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43245,6 +43593,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43341,6 +43690,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43446,6 +43796,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43563,6 +43914,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43679,6 +44031,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43795,6 +44148,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43911,6 +44265,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -43998,6 +44353,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44097,6 +44453,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44195,6 +44552,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44293,6 +44651,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44389,6 +44748,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44494,6 +44854,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44611,6 +44972,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44727,6 +45089,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44843,6 +45206,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -44959,6 +45323,7 @@ void NoteStoreTester::shouldExecuteDeleteNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45046,6 +45411,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45145,6 +45511,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45243,6 +45610,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45341,6 +45709,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45437,6 +45806,7 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45542,6 +45912,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45659,6 +46030,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45775,6 +46147,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -45891,6 +46264,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46007,6 +46381,7 @@ void NoteStoreTester::shouldExecuteExpungeNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46094,6 +46469,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46193,6 +46569,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46291,6 +46668,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46389,6 +46767,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46485,6 +46864,7 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46590,6 +46970,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46707,6 +47088,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46823,6 +47205,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -46939,6 +47322,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47058,6 +47442,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47149,6 +47534,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47252,6 +47638,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47354,6 +47741,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47456,6 +47844,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47556,6 +47945,7 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47665,6 +48055,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47786,6 +48177,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -47906,6 +48298,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48026,6 +48419,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48146,6 +48540,7 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48233,6 +48628,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48332,6 +48728,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48430,6 +48827,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48528,6 +48926,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48627,6 +49026,7 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48732,6 +49132,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48849,6 +49250,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -48965,6 +49367,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49081,6 +49484,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49209,6 +49613,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49312,6 +49717,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49427,6 +49833,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49541,6 +49948,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49655,6 +50063,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49767,6 +50176,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -49888,6 +50298,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50021,6 +50432,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50153,6 +50565,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50285,6 +50698,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50417,6 +50831,7 @@ void NoteStoreTester::shouldExecuteGetResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50520,6 +50935,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50635,6 +51051,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50749,6 +51166,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50863,6 +51281,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -50975,6 +51394,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51096,6 +51516,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51229,6 +51650,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51361,6 +51783,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51493,6 +51916,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51613,6 +52037,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51700,6 +52125,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51799,6 +52225,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51897,6 +52324,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -51995,6 +52423,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52091,6 +52520,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52196,6 +52626,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52313,6 +52744,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52429,6 +52861,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52545,6 +52978,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52664,6 +53098,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52755,6 +53190,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52858,6 +53294,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -52960,6 +53397,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53062,6 +53500,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53162,6 +53601,7 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53271,6 +53711,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53392,6 +53833,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53512,6 +53954,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53632,6 +54075,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53755,6 +54199,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53850,6 +54295,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -53957,6 +54403,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54063,6 +54510,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54169,6 +54617,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54273,6 +54722,7 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54386,6 +54836,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54511,6 +54962,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54635,6 +55087,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54759,6 +55212,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54880,6 +55334,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -54971,6 +55426,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55074,6 +55530,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55176,6 +55633,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55278,6 +55736,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55378,6 +55837,7 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55487,6 +55947,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55608,6 +56069,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55728,6 +56190,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55848,6 +56311,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -55965,6 +56429,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56052,6 +56517,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56151,6 +56617,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56249,6 +56716,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56347,6 +56815,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56443,6 +56912,7 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56548,6 +57018,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56665,6 +57136,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56781,6 +57253,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -56897,6 +57370,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57013,6 +57487,7 @@ void NoteStoreTester::shouldExecuteGetResourceData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57100,6 +57575,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57199,6 +57675,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57297,6 +57774,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57395,6 +57873,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57491,6 +57970,7 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57596,6 +58076,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57713,6 +58194,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57829,6 +58311,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -57945,6 +58428,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58073,6 +58557,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58176,6 +58661,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58291,6 +58777,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58405,6 +58892,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58519,6 +59007,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58631,6 +59120,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58752,6 +59242,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -58885,6 +59376,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59017,6 +59509,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59149,6 +59642,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59269,6 +59763,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59356,6 +59851,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59455,6 +59951,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59553,6 +60050,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59651,6 +60149,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59747,6 +60246,7 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59852,6 +60352,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -59969,6 +60470,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60085,6 +60587,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60201,6 +60704,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60317,6 +60821,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60404,6 +60909,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60503,6 +61009,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60601,6 +61108,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60699,6 +61207,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60795,6 +61304,7 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -60900,6 +61410,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61017,6 +61528,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61133,6 +61645,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61249,6 +61762,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61365,6 +61879,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61452,6 +61967,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61551,6 +62067,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61649,6 +62166,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61747,6 +62265,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61843,6 +62362,7 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -61948,6 +62468,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62065,6 +62586,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62181,6 +62703,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62297,6 +62820,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62414,6 +62938,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62504,6 +63029,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62604,6 +63130,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62704,6 +63231,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62802,6 +63330,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -62910,6 +63439,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63028,6 +63558,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63146,6 +63677,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63266,6 +63798,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63357,6 +63890,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63459,6 +63993,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63562,6 +64097,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63664,6 +64200,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63764,6 +64301,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63873,6 +64411,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -63993,6 +64532,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64114,6 +64654,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64234,6 +64775,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64351,6 +64893,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64438,6 +64981,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64536,6 +65080,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64635,6 +65180,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64739,6 +65285,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64837,6 +65384,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -64933,6 +65481,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65038,6 +65587,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65154,6 +65704,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65271,6 +65822,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65393,6 +65945,7 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65509,6 +66062,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65625,6 +66179,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65712,6 +66267,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65810,6 +66366,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -65909,6 +66466,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66007,6 +66565,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66103,6 +66662,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66208,6 +66768,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66324,6 +66885,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66441,6 +67003,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66557,6 +67120,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66676,6 +67240,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66767,6 +67332,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66869,6 +67435,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -66972,6 +67539,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67074,6 +67642,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67174,6 +67743,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67283,6 +67853,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67403,6 +67974,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67524,6 +68096,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67644,6 +68217,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67761,6 +68335,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67844,6 +68419,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -67938,6 +68514,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68033,6 +68610,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68127,6 +68705,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68222,6 +68801,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68323,6 +68903,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68435,6 +69016,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68548,6 +69130,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68660,6 +69243,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68775,6 +69359,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68862,6 +69447,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -68960,6 +69546,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69059,6 +69646,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69157,6 +69745,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69253,6 +69842,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69358,6 +69948,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69474,6 +70065,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69591,6 +70183,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69707,6 +70300,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69823,6 +70417,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -69910,6 +70505,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70008,6 +70604,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70107,6 +70704,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70205,6 +70803,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70301,6 +70900,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70406,6 +71006,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70522,6 +71123,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70639,6 +71241,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70755,6 +71358,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70871,6 +71475,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -70954,6 +71559,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71048,6 +71654,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71143,6 +71750,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71237,6 +71845,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71332,6 +71941,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71433,6 +72043,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71545,6 +72156,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71658,6 +72270,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71770,6 +72383,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71885,6 +72499,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -71972,6 +72587,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72070,6 +72686,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72169,6 +72786,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72267,6 +72885,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72363,6 +72982,7 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72468,6 +73088,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72584,6 +73205,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72701,6 +73323,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72817,6 +73440,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -72933,6 +73557,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73020,6 +73645,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73118,6 +73744,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73217,6 +73844,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73315,6 +73943,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73411,6 +74040,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73516,6 +74146,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73632,6 +74263,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73749,6 +74381,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73865,6 +74498,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -73978,6 +74612,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74061,6 +74696,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74155,6 +74791,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74250,6 +74887,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74344,6 +74982,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74436,6 +75075,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74537,6 +75177,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74649,6 +75290,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74762,6 +75404,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74874,6 +75517,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -74987,6 +75631,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75073,6 +75718,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75170,6 +75816,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75268,6 +75915,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75365,6 +76013,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75458,6 +76107,7 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75562,6 +76212,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75678,6 +76329,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75795,6 +76447,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -75911,6 +76564,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76027,6 +76681,7 @@ void NoteStoreTester::shouldExecuteShareNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76114,6 +76769,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76212,6 +76868,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76311,6 +76968,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76409,6 +77067,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76505,6 +77164,7 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76610,6 +77270,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76726,6 +77387,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76843,6 +77505,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -76959,6 +77622,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77073,6 +77737,7 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77159,6 +77824,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77256,6 +77922,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77354,6 +78021,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77451,6 +78119,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77544,6 +78213,7 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77648,6 +78318,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77764,6 +78435,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77881,6 +78553,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -77997,6 +78670,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78116,6 +78790,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78207,6 +78882,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78309,6 +78985,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78412,6 +79089,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78514,6 +79192,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78614,6 +79293,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78723,6 +79403,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78843,6 +79524,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -78964,6 +79646,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79084,6 +79767,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79204,6 +79888,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79295,6 +79980,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79398,6 +80084,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79500,6 +80187,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79602,6 +80290,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79702,6 +80391,7 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79811,6 +80501,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -79932,6 +80623,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80052,6 +80744,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80172,6 +80865,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80289,6 +80983,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80376,6 +81071,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80474,6 +81170,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80573,6 +81270,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80671,6 +81369,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80767,6 +81466,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80872,6 +81572,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -80988,6 +81689,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81105,6 +81807,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81221,6 +81924,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81337,6 +82041,7 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81424,6 +82129,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81522,6 +82228,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81621,6 +82328,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81719,6 +82427,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81815,6 +82524,7 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -81920,6 +82630,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82036,6 +82747,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82153,6 +82865,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82269,6 +82982,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82385,6 +83099,7 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82472,6 +83187,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82570,6 +83286,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82669,6 +83386,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82767,6 +83485,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82863,6 +83582,7 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -82968,6 +83688,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -83084,6 +83805,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -83201,6 +83923,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));
@@ -83317,6 +84040,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
     std::unique_ptr<INoteStore> noteStore(
         newNoteStore(
             QStringLiteral("http://127.0.0.1:") + QString::number(port),
+            QString{},
             nullptr,
             nullptr,
             nullRetryPolicy()));

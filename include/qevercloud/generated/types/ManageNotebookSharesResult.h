@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,10 +42,10 @@ public:
     ManageNotebookSharesResult & operator=(ManageNotebookSharesResult && other) noexcept;
 
     /**
-    If the method completed without throwing exceptions, some errors
-     might still have occurred, and in that case, this field will contain
-     the list of those errors the occurred.
-    */
+     * If the method completed without throwing exceptions, some errors
+     * might still have occurred, and in that case, this field will contain
+     * the list of those errors the occurred.
+     */
     [[nodiscard]] const std::optional<QList<ManageNotebookSharesError>> & errors() const noexcept;
     [[nodiscard]] std::optional<QList<ManageNotebookSharesError>> & mutableErrors();
     void setErrors(std::optional<QList<ManageNotebookSharesError>> errors);

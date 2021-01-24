@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -50,21 +50,21 @@ public:
     SharedNotebookRecipientSettings & operator=(SharedNotebookRecipientSettings && other) noexcept;
 
     /**
-    Indicates that the user wishes to receive daily e-mail notifications
-         for reminders associated with the notebook. This may be true only for
-         business notebooks that belong to the business of which the user is a
-         member. You may only set this value on a notebook in your business.
-    */
+     * Indicates that the user wishes to receive daily e-mail notifications
+     * for reminders associated with the notebook. This may be true only for
+     * business notebooks that belong to the business of which the user is a
+     * member. You may only set this value on a notebook in your business.
+     */
     [[nodiscard]] const std::optional<bool> & reminderNotifyEmail() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableReminderNotifyEmail();
     void setReminderNotifyEmail(std::optional<bool> reminderNotifyEmail);
 
     /**
-    Indicates that the user wishes to receive notifications for
-         reminders by applications that support providing such
-         notifications.  The exact nature of the notification is defined
-         by the individual applications.
-    */
+     * Indicates that the user wishes to receive notifications for
+     * reminders by applications that support providing such
+     * notifications. The exact nature of the notification is defined
+     * by the individual applications.
+     */
     [[nodiscard]] const std::optional<bool> & reminderNotifyInApp() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableReminderNotifyInApp();
     void setReminderNotifyInApp(std::optional<bool> reminderNotifyInApp);

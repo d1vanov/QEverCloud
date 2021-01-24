@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -50,27 +50,27 @@ public:
     ManageNotebookSharesError & operator=(ManageNotebookSharesError && other) noexcept;
 
     /**
-    The identity of the share relationship whose update encountered
-     an error.
-    */
+     * The identity of the share relationship whose update encountered
+     * an error.
+     */
     [[nodiscard]] const std::optional<UserIdentity> & userIdentity() const noexcept;
     [[nodiscard]] std::optional<UserIdentity> & mutableUserIdentity();
     void setUserIdentity(std::optional<UserIdentity> userIdentity);
 
     /**
-    If the error is represented as an EDAMUserException that would
-     have otherwise been thrown without best-effort execution.  Only one
-     exception field will be set.
-    */
+     * If the error is represented as an EDAMUserException that would
+     * have otherwise been thrown without best-effort execution. Only one
+     * exception field will be set.
+     */
     [[nodiscard]] const std::optional<EDAMUserException> & userException() const noexcept;
     [[nodiscard]] std::optional<EDAMUserException> & mutableUserException();
     void setUserException(std::optional<EDAMUserException> userException);
 
     /**
-    If the error is represented as an EDAMNotFoundException that would
-     have otherwise been thrown without best-effort execution.  Only one
-     exception field will be set.
-    */
+     * If the error is represented as an EDAMNotFoundException that would
+     * have otherwise been thrown without best-effort execution. Only one
+     * exception field will be set.
+     */
     [[nodiscard]] const std::optional<EDAMNotFoundException> & notFoundException() const noexcept;
     [[nodiscard]] std::optional<EDAMNotFoundException> & mutableNotFoundException();
     void setNotFoundException(std::optional<EDAMNotFoundException> notFoundException);

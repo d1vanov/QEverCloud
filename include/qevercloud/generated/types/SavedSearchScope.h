@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -40,25 +40,25 @@ public:
     SavedSearchScope & operator=(SavedSearchScope && other) noexcept;
 
     /**
-    The search should include notes from the account that contains the SavedSearch.
-    */
+     * The search should include notes from the account that contains the SavedSearch.
+     */
     [[nodiscard]] const std::optional<bool> & includeAccount() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeAccount();
     void setIncludeAccount(std::optional<bool> includeAccount);
 
     /**
-    The search should include notes within those shared notebooks
-       that the user has joined that are NOT business notebooks.
-    */
+     * The search should include notes within those shared notebooks
+     * that the user has joined that are NOT business notebooks.
+     */
     [[nodiscard]] const std::optional<bool> & includePersonalLinkedNotebooks() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludePersonalLinkedNotebooks();
     void setIncludePersonalLinkedNotebooks(std::optional<bool> includePersonalLinkedNotebooks);
 
     /**
-    The search should include notes within those shared notebooks
-       that the user has joined that are business notebooks in the business that
-       the user is currently a member of.
-    */
+     * The search should include notes within those shared notebooks
+     * that the user has joined that are business notebooks in the business that
+     * the user is currently a member of.
+     */
     [[nodiscard]] const std::optional<bool> & includeBusinessLinkedNotebooks() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeBusinessLinkedNotebooks();
     void setIncludeBusinessLinkedNotebooks(std::optional<bool> includeBusinessLinkedNotebooks);

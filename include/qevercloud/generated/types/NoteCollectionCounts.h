@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,27 +42,27 @@ public:
     NoteCollectionCounts & operator=(NoteCollectionCounts && other) noexcept;
 
     /**
-    A mapping from the Notebook GUID to the number of
-       notes (from some selection) that are in the corresponding notebook.
-    */
+     * A mapping from the Notebook GUID to the number of
+     * notes (from some selection) that are in the corresponding notebook.
+     */
     [[nodiscard]] const std::optional<QMap<Guid, qint32>> & notebookCounts() const noexcept;
     [[nodiscard]] std::optional<QMap<Guid, qint32>> & mutableNotebookCounts();
     void setNotebookCounts(std::optional<QMap<Guid, qint32>> notebookCounts);
 
     /**
-    A mapping from the Tag GUID to the number of notes (from some
-       selection) that have the corresponding tag.
-    */
+     * A mapping from the Tag GUID to the number of notes (from some
+     * selection) that have the corresponding tag.
+     */
     [[nodiscard]] const std::optional<QMap<Guid, qint32>> & tagCounts() const noexcept;
     [[nodiscard]] std::optional<QMap<Guid, qint32>> & mutableTagCounts();
     void setTagCounts(std::optional<QMap<Guid, qint32>> tagCounts);
 
     /**
-    If this is set, then this is the number of notes that are in the trash.
-       If this is not set, then the number of notes in the trash hasn't been
-       reported.  (I.e. if there are no notes in the trash, this will be set
-       to 0.)
-    */
+     * If this is set, then this is the number of notes that are in the trash.
+     * If this is not set, then the number of notes in the trash hasn't been
+     * reported. (I.e. if there are no notes in the trash, this will be set
+     * to 0.)
+     */
     [[nodiscard]] const std::optional<qint32> & trashCount() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableTrashCount();
     void setTrashCount(std::optional<qint32> trashCount);

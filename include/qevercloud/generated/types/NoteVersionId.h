@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,41 +42,41 @@ public:
     NoteVersionId & operator=(NoteVersionId && other) noexcept;
 
     /**
-    The update sequence number for the Note when it last had this content.
-        This serves to uniquely identify each version of the note, since USN
-        values are unique within an account for each update.
-    */
+     * The update sequence number for the Note when it last had this content.
+     * This serves to uniquely identify each version of the note, since USN
+     * values are unique within an account for each update.
+     */
     [[nodiscard]] qint32 updateSequenceNum() const noexcept;
     void setUpdateSequenceNum(qint32 updateSequenceNum);
 
     /**
-    The 'updated' time that was set on the Note when it had this version
-        of the content.  This is the user-modifiable modification time on the
-        note, so it's not reliable for guaranteeing the order of various
-        versions.  (E.g. if someone modifies the note, then changes this time
-        manually into the past and then updates the note again.)
-    */
+     * The 'updated' time that was set on the Note when it had this version
+     * of the content. This is the user-modifiable modification time on the
+     * note, so it's not reliable for guaranteeing the order of various
+     * versions. (E.g. if someone modifies the note, then changes this time
+     * manually into the past and then updates the note again.)
+     */
     [[nodiscard]] Timestamp updated() const noexcept;
     void setUpdated(Timestamp updated);
 
     /**
-    A timestamp that holds the date and time when this version of the note
-        was backed up by Evernote's servers.
-    */
+     * A timestamp that holds the date and time when this version of the note
+     * was backed up by Evernote's servers.
+     */
     [[nodiscard]] Timestamp saved() const noexcept;
     void setSaved(Timestamp saved);
 
     /**
-    The title of the note when this particular version was saved.  (The
-        current title of the note may differ from this value.)
-    */
+     * The title of the note when this particular version was saved. (The
+     * current title of the note may differ from this value.)
+     */
     [[nodiscard]] const QString & title() const noexcept;
     void setTitle(QString title);
 
     /**
-    The ID of the user who made the change to this version of the note. This will be
-        unset if the note version was edited by the owner of the account.
-    */
+     * The ID of the user who made the change to this version of the note. This will be
+     * unset if the note version was edited by the owner of the account.
+     */
     [[nodiscard]] const std::optional<UserID> & lastEditorId() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableLastEditorId();
     void setLastEditorId(std::optional<UserID> lastEditorId);

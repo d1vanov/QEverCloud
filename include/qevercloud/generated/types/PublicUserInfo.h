@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -40,14 +40,14 @@ public:
     PublicUserInfo & operator=(PublicUserInfo && other) noexcept;
 
     /**
-    The unique numeric user identifier for the user account.
-    */
+     * The unique numeric user identifier for the user account.
+     */
     [[nodiscard]] UserID userId() const noexcept;
     void setUserId(UserID userId);
 
     /**
-    The service level of the account.
-    */
+     * The service level of the account.
+     */
     [[nodiscard]] const std::optional<ServiceLevel> & serviceLevel() const noexcept;
     [[nodiscard]] std::optional<ServiceLevel> & mutableServiceLevel();
     void setServiceLevel(std::optional<ServiceLevel> serviceLevel);
@@ -56,23 +56,23 @@ public:
     void setUsername(std::optional<QString> username);
 
     /**
-    This field will contain the full URL that clients should use to make
-       NoteStore requests to the server shard that contains that user's data.
-       I.e. this is the URL that should be used to create the Thrift HTTP client
-       transport to send messages to the NoteStore service for the account.
-    */
+     * This field will contain the full URL that clients should use to make
+     * NoteStore requests to the server shard that contains that user's data.
+     * I.e. this is the URL that should be used to create the Thrift HTTP client
+     * transport to send messages to the NoteStore service for the account.
+     */
     [[nodiscard]] const std::optional<QString> & noteStoreUrl() const noexcept;
     void setNoteStoreUrl(std::optional<QString> noteStoreUrl);
 
     /**
-    This field will contain the initial part of the URLs that should be used
-       to make requests to Evernote's thin client "web API", which provide
-       optimized operations for clients that aren't capable of manipulating
-       the full contents of accounts via the full Thrift data model. Clients
-       should concatenate the relative path for the various servlets onto the
-       end of this string to construct the full URL, as documented on our
-       developer web site.
-    */
+     * This field will contain the initial part of the URLs that should be used
+     * to make requests to Evernote's thin client "web API", which provide
+     * optimized operations for clients that aren't capable of manipulating
+     * the full contents of accounts via the full Thrift data model. Clients
+     * should concatenate the relative path for the various servlets onto the
+     * end of this string to construct the full URL, as documented on our
+     * developer web site.
+     */
     [[nodiscard]] const std::optional<QString> & webApiUrlPrefix() const noexcept;
     void setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix);
 

@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -61,20 +61,6 @@ public:
     void setLocalId(QString id);
 
     /**
-     * @brief parentLocalId can be used as a local unique identifier
-     * of the data item being a parent to this data item.
-     *
-     * For example, a note is a parent to a resource, a notebook
-     * is a parent to a note. So note's localId is a parentLocalId for a
-     * resource, notebook's localId is a parentLocalId for a note,
-     * tag's localId is a parentLocalId to a child tag.
-     *
-     * By default the parentLocalId property is empty
-     */
-    [[nodiscard]] QString parentLocalId() const noexcept;
-    void setParentLocalId(QString id);
-
-    /**
      * @brief locallyModified flag can be used to keep track which
      * objects have been modified locally and thus need to be synchronized
      * with Evernote service
@@ -99,6 +85,11 @@ public:
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
     void setLocallyFavorited(bool favorited = true);
 
+    /**
+     * @brief localData property can be used to store any additional
+     * data which might be needed to be set for the type object
+     * by QEverCloud's client code
+     */
     [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
     [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
     void setLocalData(QHash<QString, QVariant> localData);
@@ -142,18 +133,18 @@ public:
     void setAttributes(std::optional<NoteAttributes> attributes);
 
     /**
-    If set, then this will contain the MIME type of the largest Resource
-       (in bytes) within the Note.  This may be useful, for example, to choose
-       an appropriate icon or thumbnail to represent the Note.
-    */
+     * If set, then this will contain the MIME type of the largest Resource
+     * (in bytes) within the Note. This may be useful, for example, to choose
+     * an appropriate icon or thumbnail to represent the Note.
+     */
     [[nodiscard]] const std::optional<QString> & largestResourceMime() const noexcept;
     void setLargestResourceMime(std::optional<QString> largestResourceMime);
 
     /**
-    If set, this will contain the size of the largest Resource file, in
-      bytes, within the Note.  This may be useful, for example, to decide whether
-      to ask the server for a thumbnail to represent the Note.
-    */
+     * If set, this will contain the size of the largest Resource file, in
+     * bytes, within the Note. This may be useful, for example, to decide whether
+     * to ask the server for a thumbnail to represent the Note.
+     */
     [[nodiscard]] const std::optional<qint32> & largestResourceSize() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableLargestResourceSize();
     void setLargestResourceSize(std::optional<qint32> largestResourceSize);
@@ -164,7 +155,6 @@ public:
     [[nodiscard]] bool operator!=(const NoteMetadata & other) const noexcept;
 
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
-    Q_PROPERTY(QString parentLocalId READ parentLocalId WRITE setParentLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)

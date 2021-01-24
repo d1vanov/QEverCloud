@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -54,121 +54,121 @@ public:
     SyncChunk & operator=(SyncChunk && other) noexcept;
 
     /**
-    The server's current date and time.
-    */
+     * The server's current date and time.
+     */
     [[nodiscard]] Timestamp currentTime() const noexcept;
     void setCurrentTime(Timestamp currentTime);
 
     /**
-    The highest USN for any of the data objects represented
-       in this sync chunk.  If there are no objects in the chunk, this will not be
-       set.
-    */
+     * The highest USN for any of the data objects represented
+     * in this sync chunk. If there are no objects in the chunk, this will not be
+     * set.
+     */
     [[nodiscard]] const std::optional<qint32> & chunkHighUSN() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableChunkHighUSN();
     void setChunkHighUSN(std::optional<qint32> chunkHighUSN);
 
     /**
-    The total number of updates that have been performed in
-       the service for this account.  This is equal to the highest USN within the
-       account at the point that this SyncChunk was generated.  If updateCount
-       and chunkHighUSN are identical, that means that this is the last chunk
-       in the account ... there is no more recent information.
-    */
+     * The total number of updates that have been performed in
+     * the service for this account. This is equal to the highest USN within the
+     * account at the point that this SyncChunk was generated. If updateCount
+     * and chunkHighUSN are identical, that means that this is the last chunk
+     * in the account ... there is no more recent information.
+     */
     [[nodiscard]] qint32 updateCount() const noexcept;
     void setUpdateCount(qint32 updateCount);
 
     /**
-    If present, this is a list of non-expunged notes that
-       have a USN in this chunk.  This will include notes that are "deleted"
-       but not expunged (i.e. in the trash).  The notes will include their list
-       of tags and resources, but the note content, resource content, resource
-       recognition data and resource alternate data will not be supplied.
-    */
+     * If present, this is a list of non-expunged notes that
+     * have a USN in this chunk. This will include notes that are "deleted"
+     * but not expunged (i.e. in the trash). The notes will include their list
+     * of tags and resources, but the note content, resource content, resource
+     * recognition data and resource alternate data will not be supplied.
+     */
     [[nodiscard]] const std::optional<QList<Note>> & notes() const noexcept;
     [[nodiscard]] std::optional<QList<Note>> & mutableNotes();
     void setNotes(std::optional<QList<Note>> notes);
 
     /**
-    If present, this is a list of non-expunged notebooks that
-       have a USN in this chunk.
-    */
+     * If present, this is a list of non-expunged notebooks that
+     * have a USN in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<Notebook>> & notebooks() const noexcept;
     [[nodiscard]] std::optional<QList<Notebook>> & mutableNotebooks();
     void setNotebooks(std::optional<QList<Notebook>> notebooks);
 
     /**
-    If present, this is a list of the non-expunged tags that have a
-       USN in this chunk.
-    */
+     * If present, this is a list of the non-expunged tags that have a
+     * USN in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<Tag>> & tags() const noexcept;
     [[nodiscard]] std::optional<QList<Tag>> & mutableTags();
     void setTags(std::optional<QList<Tag>> tags);
 
     /**
-    If present, this is a list of non-expunged searches that
-       have a USN in this chunk.
-    */
+     * If present, this is a list of non-expunged searches that
+     * have a USN in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<SavedSearch>> & searches() const noexcept;
     [[nodiscard]] std::optional<QList<SavedSearch>> & mutableSearches();
     void setSearches(std::optional<QList<SavedSearch>> searches);
 
     /**
-    If present, this is a list of the non-expunged resources
-       that have a USN in this chunk.  This will include the metadata for each
-       resource, but not its binary contents or recognition data, which must be
-       retrieved separately.
-    */
+     * If present, this is a list of the non-expunged resources
+     * that have a USN in this chunk. This will include the metadata for each
+     * resource, but not its binary contents or recognition data, which must be
+     * retrieved separately.
+     */
     [[nodiscard]] const std::optional<QList<Resource>> & resources() const noexcept;
     [[nodiscard]] std::optional<QList<Resource>> & mutableResources();
     void setResources(std::optional<QList<Resource>> resources);
 
     /**
-    If present, the GUIDs of all of the notes that were
-       permanently expunged in this chunk.
-    */
+     * If present, the GUIDs of all of the notes that were
+     * permanently expunged in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<Guid>> & expungedNotes() const noexcept;
     [[nodiscard]] std::optional<QList<Guid>> & mutableExpungedNotes();
     void setExpungedNotes(std::optional<QList<Guid>> expungedNotes);
 
     /**
-    If present, the GUIDs of all of the notebooks that
-       were permanently expunged in this chunk.  When a notebook is expunged,
-       this implies that all of its child notes (and their resources) were
-       also expunged.
-    */
+     * If present, the GUIDs of all of the notebooks that
+     * were permanently expunged in this chunk. When a notebook is expunged,
+     * this implies that all of its child notes (and their resources) were
+     * also expunged.
+     */
     [[nodiscard]] const std::optional<QList<Guid>> & expungedNotebooks() const noexcept;
     [[nodiscard]] std::optional<QList<Guid>> & mutableExpungedNotebooks();
     void setExpungedNotebooks(std::optional<QList<Guid>> expungedNotebooks);
 
     /**
-    If present, the GUIDs of all of the tags that were
-       permanently expunged in this chunk.
-    */
+     * If present, the GUIDs of all of the tags that were
+     * permanently expunged in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<Guid>> & expungedTags() const noexcept;
     [[nodiscard]] std::optional<QList<Guid>> & mutableExpungedTags();
     void setExpungedTags(std::optional<QList<Guid>> expungedTags);
 
     /**
-    If present, the GUIDs of all of the saved searches
-       that were permanently expunged in this chunk.
-    */
+     * If present, the GUIDs of all of the saved searches
+     * that were permanently expunged in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<Guid>> & expungedSearches() const noexcept;
     [[nodiscard]] std::optional<QList<Guid>> & mutableExpungedSearches();
     void setExpungedSearches(std::optional<QList<Guid>> expungedSearches);
 
     /**
-    If present, this is a list of non-expunged LinkedNotebooks that
-       have a USN in this chunk.
-    */
+     * If present, this is a list of non-expunged LinkedNotebooks that
+     * have a USN in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<LinkedNotebook>> & linkedNotebooks() const noexcept;
     [[nodiscard]] std::optional<QList<LinkedNotebook>> & mutableLinkedNotebooks();
     void setLinkedNotebooks(std::optional<QList<LinkedNotebook>> linkedNotebooks);
 
     /**
-    If present, the GUIDs of all of the LinkedNotebooks
-       that were permanently expunged in this chunk.
-    */
+     * If present, the GUIDs of all of the LinkedNotebooks
+     * that were permanently expunged in this chunk.
+     */
     [[nodiscard]] const std::optional<QList<Guid>> & expungedLinkedNotebooks() const noexcept;
     [[nodiscard]] std::optional<QList<Guid>> & mutableExpungedLinkedNotebooks();
     void setExpungedLinkedNotebooks(std::optional<QList<Guid>> expungedLinkedNotebooks);

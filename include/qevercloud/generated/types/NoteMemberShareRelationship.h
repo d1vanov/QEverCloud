@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,45 +42,45 @@ public:
     NoteMemberShareRelationship & operator=(NoteMemberShareRelationship && other) noexcept;
 
     /**
-    The string that clients should show to users to represent this
-     member.
-    */
+     * The string that clients should show to users to represent this
+     * member.
+     */
     [[nodiscard]] const std::optional<QString> & displayName() const noexcept;
     void setDisplayName(std::optional<QString> displayName);
 
     /**
-    The Evernote UserID of the user who is a member to the note.
-    */
+     * The Evernote UserID of the user who is a member to the note.
+     */
     [[nodiscard]] const std::optional<UserID> & recipientUserId() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableRecipientUserId();
     void setRecipientUserId(std::optional<UserID> recipientUserId);
 
     /**
-    The privilege at which the member can access the note,
-     which is the best privilege granted to the user across all of their
-     individual shares for this note. This field is used by the service
-     to convey information to the user, so clients should treat it as
-     read-only.
-    */
+     * The privilege at which the member can access the note,
+     * which is the best privilege granted to the user across all of their
+     * individual shares for this note. This field is used by the service
+     * to convey information to the user, so clients should treat it as
+     * read-only.
+     */
     [[nodiscard]] const std::optional<SharedNotePrivilegeLevel> & privilege() const noexcept;
     [[nodiscard]] std::optional<SharedNotePrivilegeLevel> & mutablePrivilege();
     void setPrivilege(std::optional<SharedNotePrivilegeLevel> privilege);
 
     /**
-    The restrictions on which privileges may be individually
-     assigned to the recipient of this share relationship. This field
-     is used by the service to convey information to the user, so
-     clients should treat it as read-only.
-    */
+     * The restrictions on which privileges may be individually
+     * assigned to the recipient of this share relationship. This field
+     * is used by the service to convey information to the user, so
+     * clients should treat it as read-only.
+     */
     [[nodiscard]] const std::optional<NoteShareRelationshipRestrictions> & restrictions() const noexcept;
     [[nodiscard]] std::optional<NoteShareRelationshipRestrictions> & mutableRestrictions();
     void setRestrictions(std::optional<NoteShareRelationshipRestrictions> restrictions);
 
     /**
-    The user id of the user who most recently shared the note with
-     this user. This field is used by the service to convey information
-     to the user, so clients should treat it as read-only.
-    */
+     * The user id of the user who most recently shared the note with
+     * this user. This field is used by the service to convey information
+     * to the user, so clients should treat it as read-only.
+     */
     [[nodiscard]] const std::optional<UserID> & sharerUserId() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableSharerUserId();
     void setSharerUserId(std::optional<UserID> sharerUserId);

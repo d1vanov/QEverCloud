@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -53,20 +53,6 @@ public:
     void setLocalId(QString id);
 
     /**
-     * @brief parentLocalId can be used as a local unique identifier
-     * of the data item being a parent to this data item.
-     *
-     * For example, a note is a parent to a resource, a notebook
-     * is a parent to a note. So note's localId is a parentLocalId for a
-     * resource, notebook's localId is a parentLocalId for a note,
-     * tag's localId is a parentLocalId to a child tag.
-     *
-     * By default the parentLocalId property is empty
-     */
-    [[nodiscard]] QString parentLocalId() const noexcept;
-    void setParentLocalId(QString id);
-
-    /**
      * @brief locallyModified flag can be used to keep track which
      * objects have been modified locally and thus need to be synchronized
      * with Evernote service
@@ -91,73 +77,73 @@ public:
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
     void setLocallyFavorited(bool favorited = true);
 
+    /**
+     * @brief localData property can be used to store any additional
+     * data which might be needed to be set for the type object
+     * by QEverCloud's client code
+     */
     [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
     [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
     void setLocalData(QHash<QString, QVariant> localData);
 
     /**
-    The unique identifier of this search.  Will be set by the
-       service, so may be omitted by the client when creating.
-       <br/>
-       Length:  EDAM_GUID_LEN_MIN - EDAM_GUID_LEN_MAX
-       <br/>
-       Regex:  EDAM_GUID_REGEX
-    */
+     * The unique identifier of this search. Will be set by the
+     * service, so may be omitted by the client when creating.
+     * Length: EDAM_GUID_LEN_MIN - EDAM_GUID_LEN_MAX
+     * Regex: EDAM_GUID_REGEX
+     */
     [[nodiscard]] const std::optional<Guid> & guid() const noexcept;
     [[nodiscard]] std::optional<Guid> & mutableGuid();
     void setGuid(std::optional<Guid> guid);
 
     /**
-    The name of the saved search to display in the GUI.  The
-       account may only contain one search with a given name (case-insensitive
-       compare). Can't begin or end with a space.
-       <br/>
-       Length:  EDAM_SAVED_SEARCH_NAME_LEN_MIN - EDAM_SAVED_SEARCH_NAME_LEN_MAX
-       <br/>
-       Regex:  EDAM_SAVED_SEARCH_NAME_REGEX
-    */
+     * The name of the saved search to display in the GUI. The
+     * account may only contain one search with a given name (case-insensitive
+     * compare). Can't begin or end with a space.
+     * Length: EDAM_SAVED_SEARCH_NAME_LEN_MIN - EDAM_SAVED_SEARCH_NAME_LEN_MAX
+     * Regex: EDAM_SAVED_SEARCH_NAME_REGEX
+     */
     [[nodiscard]] const std::optional<QString> & name() const noexcept;
     void setName(std::optional<QString> name);
 
     /**
-    A string expressing the search to be performed.
-       <br/>
-       Length:  EDAM_SAVED_SEARCH_QUERY_LEN_MIN - EDAM_SAVED_SEARCH_QUERY_LEN_MAX
-    */
+     * A string expressing the search to be performed.
+     * Length: EDAM_SAVED_SEARCH_QUERY_LEN_MIN - EDAM_SAVED_SEARCH_QUERY_LEN_MAX
+     */
     [[nodiscard]] const std::optional<QString> & query() const noexcept;
     void setQuery(std::optional<QString> query);
 
     /**
-    The format of the query string, to determine how to parse
-       and process it.
-    */
+     * The format of the query string, to determine how to parse
+     * and process it.
+     */
     [[nodiscard]] const std::optional<QueryFormat> & format() const noexcept;
     [[nodiscard]] std::optional<QueryFormat> & mutableFormat();
     void setFormat(std::optional<QueryFormat> format);
 
     /**
-    A number identifying the last transaction to
-       modify the state of this object.  The USN values are sequential within an
-       account, and can be used to compare the order of modifications within the
-       service.
-    */
+     * A number identifying the last transaction to
+     * modify the state of this object. The USN values are sequential within an
+     * account, and can be used to compare the order of modifications within the
+     * service.
+     */
     [[nodiscard]] const std::optional<qint32> & updateSequenceNum() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableUpdateSequenceNum();
     void setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
 
     /**
-    <p>Specifies the set of notes that should be included in the search, if
-        possible.</p>
-        <p>Clients are expected to search as much of the desired scope as possible,
-        with the understanding that a given client may not be able to cover the full
-        specified scope. For example, when executing a search that includes notes in both
-        the owner's account and business notebooks, a mobile client may choose to only
-        search within the user's account because it is not capable of searching both
-        scopes simultaneously. When a search across multiple scopes is not possible,
-        a client may choose which scope to search based on the current application
-        context. If a client cannot search any of the desired scopes, it should refuse
-        to execute the search.</p>
-    */
+     * <p>Specifies the set of notes that should be included in the search, if
+     * possible.</p>
+     * <p>Clients are expected to search as much of the desired scope as possible,
+     * with the understanding that a given client may not be able to cover the full
+     * specified scope. For example, when executing a search that includes notes in both
+     * the owner's account and business notebooks, a mobile client may choose to only
+     * search within the user's account because it is not capable of searching both
+     * scopes simultaneously. When a search across multiple scopes is not possible,
+     * a client may choose which scope to search based on the current application
+     * context. If a client cannot search any of the desired scopes, it should refuse
+     * to execute the search.</p>
+     */
     [[nodiscard]] const std::optional<SavedSearchScope> & scope() const noexcept;
     [[nodiscard]] std::optional<SavedSearchScope> & mutableScope();
     void setScope(std::optional<SavedSearchScope> scope);
@@ -168,7 +154,6 @@ public:
     [[nodiscard]] bool operator!=(const SavedSearch & other) const noexcept;
 
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
-    Q_PROPERTY(QString parentLocalId READ parentLocalId WRITE setParentLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)

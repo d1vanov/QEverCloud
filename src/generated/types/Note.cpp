@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -47,6 +47,36 @@ Note & Note::operator=(Note && other) noexcept
     return *this;
 }
 
+QString Note::notebookLocalId() const
+{
+    return d->m_notebookLocalId;
+}
+
+void Note::setNotebookLocalId(QString notebookLocalId)
+{
+    d->m_notebookLocalId = std::move(notebookLocalId);
+}
+
+QStringList Note::tagLocalIds() const
+{
+    return d->m_tagLocalIds;
+}
+
+void Note::setTagLocalIds(QStringList tagLocalIds)
+{
+    d->m_tagLocalIds = std::move(tagLocalIds);
+}
+
+QByteArray Note::thumbnailData() const
+{
+    return d->m_thumbnailData;
+}
+
+void Note::setThumbnailData(QByteArray thumbnailData)
+{
+    d->m_thumbnailData = std::move(thumbnailData);
+}
+
 QString Note::localId() const noexcept
 {
     return d->m_localId;
@@ -55,16 +85,6 @@ QString Note::localId() const noexcept
 void Note::setLocalId(QString id)
 {
     d->m_localId = id;
-}
-
-QString Note::parentLocalId() const noexcept
-{
-    return d->m_parentLocalId;
-}
-
-void Note::setParentLocalId(QString id)
-{
-    d->m_parentLocalId = id;
 }
 
 bool Note::isLocallyModified() const noexcept

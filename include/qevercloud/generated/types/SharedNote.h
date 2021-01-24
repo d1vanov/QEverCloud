@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -56,20 +56,6 @@ public:
     void setLocalId(QString id);
 
     /**
-     * @brief parentLocalId can be used as a local unique identifier
-     * of the data item being a parent to this data item.
-     *
-     * For example, a note is a parent to a resource, a notebook
-     * is a parent to a note. So note's localId is a parentLocalId for a
-     * resource, notebook's localId is a parentLocalId for a note,
-     * tag's localId is a parentLocalId to a child tag.
-     *
-     * By default the parentLocalId property is empty
-     */
-    [[nodiscard]] QString parentLocalId() const noexcept;
-    void setParentLocalId(QString id);
-
-    /**
      * @brief locallyModified flag can be used to keep track which
      * objects have been modified locally and thus need to be synchronized
      * with Evernote service
@@ -94,54 +80,82 @@ public:
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
     void setLocallyFavorited(bool favorited = true);
 
+    /**
+     * @brief localData property can be used to store any additional
+     * data which might be needed to be set for the type object
+     * by QEverCloud's client code
+     */
     [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
     [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
     void setLocalData(QHash<QString, QVariant> localData);
 
     /**
-    The user ID of the user who shared the note with the recipient.
-    */
+     * The user ID of the user who shared the note with the recipient.
+     */
     [[nodiscard]] const std::optional<UserID> & sharerUserID() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableSharerUserID();
     void setSharerUserID(std::optional<UserID> sharerUserID);
 
     /**
-    The identity of the recipient of the share. For a given note, there may be only one
-         SharedNote per recipient identity. Only recipientIdentity.id is guaranteed to be set.
-         Other fields on the Identity may or my not be set based on the requesting user's
-         relationship with the recipient.
-    */
+     * The identity of the recipient of the share. For a given note, there may be only one
+     * SharedNote per recipient identity. Only recipientIdentity.id is guaranteed to be set.
+     * Other fields on the Identity may or my not be set based on the requesting user's
+     * relationship with the recipient.
+     */
     [[nodiscard]] const std::optional<Identity> & recipientIdentity() const noexcept;
     [[nodiscard]] std::optional<Identity> & mutableRecipientIdentity();
     void setRecipientIdentity(std::optional<Identity> recipientIdentity);
 
     /**
-    The privilege level that the share grants to the recipient.
-    */
+     * The privilege level that the share grants to the recipient.
+     */
     [[nodiscard]] const std::optional<SharedNotePrivilegeLevel> & privilege() const noexcept;
     [[nodiscard]] std::optional<SharedNotePrivilegeLevel> & mutablePrivilege();
     void setPrivilege(std::optional<SharedNotePrivilegeLevel> privilege);
 
     /**
-    The time at which the share was created.
-    */
+     * The time at which the share was created.
+     */
     [[nodiscard]] const std::optional<Timestamp> & serviceCreated() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableServiceCreated();
     void setServiceCreated(std::optional<Timestamp> serviceCreated);
 
     /**
-    The time at which the share was last updated.
-    */
+     * The time at which the share was last updated.
+     */
     [[nodiscard]] const std::optional<Timestamp> & serviceUpdated() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableServiceUpdated();
     void setServiceUpdated(std::optional<Timestamp> serviceUpdated);
 
     /**
-    The time at which the share was assigned to a specific recipient user ID.
-    */
+     * The time at which the share was assigned to a specific recipient user ID.
+     */
     [[nodiscard]] const std::optional<Timestamp> & serviceAssigned() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableServiceAssigned();
     void setServiceAssigned(std::optional<Timestamp> serviceAssigned);
+
+    /**
+     * Methods below correspond to fields which are NOT set by QEverCloud itself.
+     * They exist for convenience of client code and are intended to be called
+     * and used by QEverCloud's client code if/when appropriate
+     */
+
+    /**
+     * Guid of a note to which this shared note belongs
+     */
+    [[nodiscard]] const std::optional<Guid> & noteGuid() const noexcept;
+    [[nodiscard]] std::optional<Guid> & mutableNoteGuid();
+    void setNoteGuid(std::optional<Guid> noteGuid);
+
+    /**
+     * Index of this shared note within the note
+     */
+    [[nodiscard]] const std::optional<int> & indexInNote() const noexcept;
+
+    /**
+     * Set index of this shared note within the note
+     */
+    void setIndexInNote(std::optional<int> index);
 
     void print(QTextStream & strm) const override;
 
@@ -149,7 +163,6 @@ public:
     [[nodiscard]] bool operator!=(const SharedNote & other) const noexcept;
 
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
-    Q_PROPERTY(QString parentLocalId READ parentLocalId WRITE setParentLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)
@@ -159,6 +172,8 @@ public:
     Q_PROPERTY(std::optional<Timestamp> serviceCreated READ serviceCreated WRITE setServiceCreated)
     Q_PROPERTY(std::optional<Timestamp> serviceUpdated READ serviceUpdated WRITE setServiceUpdated)
     Q_PROPERTY(std::optional<Timestamp> serviceAssigned READ serviceAssigned WRITE setServiceAssigned)
+    Q_PROPERTY(std::optional<Guid> noteGuid READ noteGuid WRITE setNoteGuid)
+    Q_PROPERTY(std::optional<int> indexInNote READ indexInNote WRITE setIndexInNote)
 
 private:
     class Impl;

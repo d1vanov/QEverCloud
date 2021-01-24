@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -41,11 +41,11 @@ public:
     BusinessUserInfo & operator=(BusinessUserInfo && other) noexcept;
 
     /**
-    The ID of the Evernote Business account that the user is a member of.
-     <dt>businessName
-       The human-readable name of the Evernote Business account that the user
-           is a member of.
-    */
+     * The ID of the Evernote Business account that the user is a member of.
+     * <dt>businessName
+     * The human-readable name of the Evernote Business account that the user
+     * is a member of.
+     */
     [[nodiscard]] const std::optional<qint32> & businessId() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableBusinessId();
     void setBusinessId(std::optional<qint32> businessId);
@@ -54,26 +54,26 @@ public:
     void setBusinessName(std::optional<QString> businessName);
 
     /**
-    The role of the user within the Evernote Business account that
-           they are a member of.
-    */
+     * The role of the user within the Evernote Business account that
+     * they are a member of.
+     */
     [[nodiscard]] const std::optional<BusinessUserRole> & role() const noexcept;
     [[nodiscard]] std::optional<BusinessUserRole> & mutableRole();
     void setRole(std::optional<BusinessUserRole> role);
 
     /**
-    An e-mail address that will be used by the service in the context of your
-           Evernote Business activities.  For example, this e-mail address will be used
-           when you e-mail a business note, when you update notes in the account of
-           your business, etc.  The business e-mail cannot be used for identification
-           purposes such as for logging into the service.
-    */
+     * An e-mail address that will be used by the service in the context of your
+     * Evernote Business activities. For example, this e-mail address will be used
+     * when you e-mail a business note, when you update notes in the account of
+     * your business, etc. The business e-mail cannot be used for identification
+     * purposes such as for logging into the service.
+     */
     [[nodiscard]] const std::optional<QString> & email() const noexcept;
     void setEmail(std::optional<QString> email);
 
     /**
-    Last time the business user or business user attributes were updated.
-    */
+     * Last time the business user or business user attributes were updated.
+     */
     [[nodiscard]] const std::optional<Timestamp> & updated() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableUpdated();
     void setUpdated(std::optional<Timestamp> updated);

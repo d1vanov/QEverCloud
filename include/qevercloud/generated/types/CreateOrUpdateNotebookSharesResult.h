@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,18 +42,18 @@ public:
     CreateOrUpdateNotebookSharesResult & operator=(CreateOrUpdateNotebookSharesResult && other) noexcept;
 
     /**
-    The USN of the notebook after the call.
-    */
+     * The USN of the notebook after the call.
+     */
     [[nodiscard]] const std::optional<qint32> & updateSequenceNum() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableUpdateSequenceNum();
     void setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
 
     /**
-    A list of SharedNotebook records that match the desired recipients. These
-           records may have been either created or updated by the call to
-           createOrUpdateNotebookShares, or they may have been at the desired privilege
-           privilege level prior to the call.
-    */
+     * A list of SharedNotebook records that match the desired recipients. These
+     * records may have been either created or updated by the call to
+     * createOrUpdateNotebookShares, or they may have been at the desired privilege
+     * privilege level prior to the call.
+     */
     [[nodiscard]] const std::optional<QList<SharedNotebook>> & matchingShares() const noexcept;
     [[nodiscard]] std::optional<QList<SharedNotebook>> & mutableMatchingShares();
     void setMatchingShares(std::optional<QList<SharedNotebook>> matchingShares);

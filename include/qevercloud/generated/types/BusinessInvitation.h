@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -40,59 +40,59 @@ public:
     BusinessInvitation & operator=(BusinessInvitation && other) noexcept;
 
     /**
-    The ID of the business to which the invitation grants access.
-    */
+     * The ID of the business to which the invitation grants access.
+     */
     [[nodiscard]] const std::optional<qint32> & businessId() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableBusinessId();
     void setBusinessId(std::optional<qint32> businessId);
 
     /**
-    The email address that was invited to join the business.
-    */
+     * The email address that was invited to join the business.
+     */
     [[nodiscard]] const std::optional<QString> & email() const noexcept;
     void setEmail(std::optional<QString> email);
 
     /**
-    The role to grant the user after the invitation is accepted.
-    */
+     * The role to grant the user after the invitation is accepted.
+     */
     [[nodiscard]] const std::optional<BusinessUserRole> & role() const noexcept;
     [[nodiscard]] std::optional<BusinessUserRole> & mutableRole();
     void setRole(std::optional<BusinessUserRole> role);
 
     /**
-    The status of the invitation.
-    */
+     * The status of the invitation.
+     */
     [[nodiscard]] const std::optional<BusinessInvitationStatus> & status() const noexcept;
     [[nodiscard]] std::optional<BusinessInvitationStatus> & mutableStatus();
     void setStatus(std::optional<BusinessInvitationStatus> status);
 
     /**
-    For invitations that were initially requested by a non-admin member of the business,
-           this field specifies the user ID of the requestor. For all other invitations, this field
-           will be unset.
-    */
+     * For invitations that were initially requested by a non-admin member of the business,
+     * this field specifies the user ID of the requestor. For all other invitations, this field
+     * will be unset.
+     */
     [[nodiscard]] const std::optional<UserID> & requesterId() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableRequesterId();
     void setRequesterId(std::optional<UserID> requesterId);
 
     /**
-    If this invitation was created implicitly via a WorkChat, this field
-           will be true.
-    */
+     * If this invitation was created implicitly via a WorkChat, this field
+     * will be true.
+     */
     [[nodiscard]] const std::optional<bool> & fromWorkChat() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableFromWorkChat();
     void setFromWorkChat(std::optional<bool> fromWorkChat);
 
     /**
-    The timestamp at which this invitation was created.
-    */
+     * The timestamp at which this invitation was created.
+     */
     [[nodiscard]] const std::optional<Timestamp> & created() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableCreated();
     void setCreated(std::optional<Timestamp> created);
 
     /**
-    The timestamp at which the most recent reminder was sent.
-    */
+     * The timestamp at which the most recent reminder was sent.
+     */
     [[nodiscard]] const std::optional<Timestamp> & mostRecentReminder() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableMostRecentReminder();
     void setMostRecentReminder(std::optional<Timestamp> mostRecentReminder);

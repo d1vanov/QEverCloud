@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,20 +42,20 @@ public:
     UpdateNoteIfUsnMatchesResult & operator=(UpdateNoteIfUsnMatchesResult && other) noexcept;
 
     /**
-    Either the current state of the note if <tt>updated</tt> is false or the
-     result of updating the note as would be done via the <tt>updateNote</tt> method.
-     If the note was not updated, you will receive a Note that does not include note
-     content, resources data, resources recognition data, or resources alternate data.
-     You can check for updates to these large objects by checking the Data.bodyHash
-     values and downloading accordingly.
-    */
+     * Either the current state of the note if <tt>updated</tt> is false or the
+     * result of updating the note as would be done via the <tt>updateNote</tt> method.
+     * If the note was not updated, you will receive a Note that does not include note
+     * content, resources data, resources recognition data, or resources alternate data.
+     * You can check for updates to these large objects by checking the Data.bodyHash
+     * values and downloading accordingly.
+     */
     [[nodiscard]] const std::optional<Note> & note() const noexcept;
     [[nodiscard]] std::optional<Note> & mutableNote();
     void setNote(std::optional<Note> note);
 
     /**
-    Whether or not the note was updated by the operation.
-    */
+     * Whether or not the note was updated by the operation.
+     */
     [[nodiscard]] const std::optional<bool> & updated() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableUpdated();
     void setUpdated(std::optional<bool> updated);

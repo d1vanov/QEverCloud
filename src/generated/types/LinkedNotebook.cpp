@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -55,16 +55,6 @@ QString LinkedNotebook::localId() const noexcept
 void LinkedNotebook::setLocalId(QString id)
 {
     d->m_localId = id;
-}
-
-QString LinkedNotebook::parentLocalId() const noexcept
-{
-    return d->m_parentLocalId;
-}
-
-void LinkedNotebook::setParentLocalId(QString id)
-{
-    d->m_parentLocalId = id;
 }
 
 bool LinkedNotebook::isLocallyModified() const noexcept

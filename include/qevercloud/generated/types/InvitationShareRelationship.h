@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,40 +42,40 @@ public:
     InvitationShareRelationship & operator=(InvitationShareRelationship && other) noexcept;
 
     /**
-    The string that clients should show to users to represent this
-     invitation.
-    */
+     * The string that clients should show to users to represent this
+     * invitation.
+     */
     [[nodiscard]] const std::optional<QString> & displayName() const noexcept;
     void setDisplayName(std::optional<QString> displayName);
 
     /**
-    Identifies the recipient of the invitation. The user identity
-     type can be either EMAIL, EVERNOTE or IDENTITYID. If the
-     invitation was created using the classic notebook sharing APIs it will be EMAIL. If it
-     was created using the new identity-based notebook sharing APIs it will either be
-     EVERNOTE or IDENTITYID, depending on whether we can map the identity to an Evernote
-     user at the time of creation.
-    */
+     * Identifies the recipient of the invitation. The user identity
+     * type can be either EMAIL, EVERNOTE or IDENTITYID. If the
+     * invitation was created using the classic notebook sharing APIs it will be EMAIL. If it
+     * was created using the new identity-based notebook sharing APIs it will either be
+     * EVERNOTE or IDENTITYID, depending on whether we can map the identity to an Evernote
+     * user at the time of creation.
+     */
     [[nodiscard]] const std::optional<UserIdentity> & recipientUserIdentity() const noexcept;
     [[nodiscard]] std::optional<UserIdentity> & mutableRecipientUserIdentity();
     void setRecipientUserIdentity(std::optional<UserIdentity> recipientUserIdentity);
 
     /**
-    The privilege level at which the member will be joined, if it
-     turns out that the member is not already joined at a higher level.
-     Note that the <tt>identity</tt> field may not uniquely identify an
-     Evernote User ID, and so we won't know until the invitation is
-     redeemed whether or not the recipient already has privilege.
-    */
+     * The privilege level at which the member will be joined, if it
+     * turns out that the member is not already joined at a higher level.
+     * Note that the <tt>identity</tt> field may not uniquely identify an
+     * Evernote User ID, and so we won't know until the invitation is
+     * redeemed whether or not the recipient already has privilege.
+     */
     [[nodiscard]] const std::optional<ShareRelationshipPrivilegeLevel> & privilege() const noexcept;
     [[nodiscard]] std::optional<ShareRelationshipPrivilegeLevel> & mutablePrivilege();
     void setPrivilege(std::optional<ShareRelationshipPrivilegeLevel> privilege);
 
     /**
-    The user id of the user who most recently shared this notebook
-     to this identity. This field is used by the service to convey information
-     to the user, so clients should treat it as read-only.
-    */
+     * The user id of the user who most recently shared this notebook
+     * to this identity. This field is used by the service to convey information
+     * to the user, so clients should treat it as read-only.
+     */
     [[nodiscard]] const std::optional<UserID> & sharerUserId() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableSharerUserId();
     void setSharerUserId(std::optional<UserID> sharerUserId);

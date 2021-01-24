@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -46,48 +46,48 @@ public:
     NotebookRecipientSettings & operator=(NotebookRecipientSettings && other) noexcept;
 
     /**
-    Indicates that the user wishes to receive daily e-mail notifications
-         for reminders associated with the notebook. This may be
-         true only for business notebooks that belong to the business of
-         which the user is a member. You may only set this value on a
-         notebook in your business. This value will initially be unset.
-    */
+     * Indicates that the user wishes to receive daily e-mail notifications
+     * for reminders associated with the notebook. This may be
+     * true only for business notebooks that belong to the business of
+     * which the user is a member. You may only set this value on a
+     * notebook in your business. This value will initially be unset.
+     */
     [[nodiscard]] const std::optional<bool> & reminderNotifyEmail() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableReminderNotifyEmail();
     void setReminderNotifyEmail(std::optional<bool> reminderNotifyEmail);
 
     /**
-    Indicates that the user wishes to receive notifications for
-         reminders by applications that support providing such
-         notifications.  The exact nature of the notification is defined
-         by the individual applications. This value will initially be unset.
-    */
+     * Indicates that the user wishes to receive notifications for
+     * reminders by applications that support providing such
+     * notifications. The exact nature of the notification is defined
+     * by the individual applications. This value will initially be unset.
+     */
     [[nodiscard]] const std::optional<bool> & reminderNotifyInApp() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableReminderNotifyInApp();
     void setReminderNotifyInApp(std::optional<bool> reminderNotifyInApp);
 
     /**
-    DEPRECATED: Use recipientStatus instead.
-         The notebook is on the recipient's notebook list (formerly, we would say
-         that the recipient has "joined" the notebook)
-    */
+     * DEPRECATED: Use recipientStatus instead.
+     * The notebook is on the recipient's notebook list (formerly, we would say
+     * that the recipient has "joined" the notebook)
+     */
     [[nodiscard]] const std::optional<bool> & inMyList() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableInMyList();
     void setInMyList(std::optional<bool> inMyList);
 
     /**
-    The stack the recipient has put this notebook into. See Notebook.stack
-     for a definition. Every recipient can have their own stack value for the same
-     notebook.
-    */
+     * The stack the recipient has put this notebook into. See Notebook.stack
+     * for a definition. Every recipient can have their own stack value for the same
+     * notebook.
+     */
     [[nodiscard]] const std::optional<QString> & stack() const noexcept;
     void setStack(std::optional<QString> stack);
 
     /**
-    The notebook is on/off the recipient's notebook list (formerly, we would say
-         that the recipient has "joined" the notebook) and perhaps also their
-         default notebook
-    */
+     * The notebook is on/off the recipient's notebook list (formerly, we would say
+     * that the recipient has "joined" the notebook) and perhaps also their
+     * default notebook
+     */
     [[nodiscard]] const std::optional<RecipientStatus> & recipientStatus() const noexcept;
     [[nodiscard]] std::optional<RecipientStatus> & mutableRecipientStatus();
     void setRecipientStatus(std::optional<RecipientStatus> recipientStatus);

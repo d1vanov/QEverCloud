@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -38,8 +38,9 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    QString m_noteLocalId;
+    std::optional<int> m_indexInNote;
     QString m_localId;
-    QString m_parentLocalId;
     bool m_locallyModified = false;
     bool m_localOnly = false;
     bool m_locallyFavorited = false;

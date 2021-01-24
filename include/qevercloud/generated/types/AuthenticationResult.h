@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -43,83 +43,83 @@ public:
     AuthenticationResult & operator=(AuthenticationResult && other) noexcept;
 
     /**
-    The server-side date and time when this result was
-       generated.
-    */
+     * The server-side date and time when this result was
+     * generated.
+     */
     [[nodiscard]] Timestamp currentTime() const noexcept;
     void setCurrentTime(Timestamp currentTime);
 
     /**
-    Holds an opaque, ASCII-encoded token that can be
-       used by the client to perform actions on a NoteStore.
-    */
+     * Holds an opaque, ASCII-encoded token that can be
+     * used by the client to perform actions on a NoteStore.
+     */
     [[nodiscard]] const QString & authenticationToken() const noexcept;
     void setAuthenticationToken(QString authenticationToken);
 
     /**
-    Holds the server-side date and time when the
-       authentication token will expire.
-       This time can be compared to "currentTime" to produce an expiration
-       time that can be reconciled with the client's local clock.
-    */
+     * Holds the server-side date and time when the
+     * authentication token will expire.
+     * This time can be compared to "currentTime" to produce an expiration
+     * time that can be reconciled with the client's local clock.
+     */
     [[nodiscard]] Timestamp expiration() const noexcept;
     void setExpiration(Timestamp expiration);
 
     /**
-    Holds the information about the account which was
-       authenticated if this was a full authentication.  May be absent if this
-       particular authentication did not require user information.
-    */
+     * Holds the information about the account which was
+     * authenticated if this was a full authentication. May be absent if this
+     * particular authentication did not require user information.
+     */
     [[nodiscard]] const std::optional<User> & user() const noexcept;
     [[nodiscard]] std::optional<User> & mutableUser();
     void setUser(std::optional<User> user);
 
     /**
-    If this authentication result was achieved without full permissions to
-       access the full User structure, this field may be set to give back
-       a more limited public set of data.
-    */
+     * If this authentication result was achieved without full permissions to
+     * access the full User structure, this field may be set to give back
+     * a more limited public set of data.
+     */
     [[nodiscard]] const std::optional<PublicUserInfo> & publicUserInfo() const noexcept;
     [[nodiscard]] std::optional<PublicUserInfo> & mutablePublicUserInfo();
     void setPublicUserInfo(std::optional<PublicUserInfo> publicUserInfo);
 
     /**
-    DEPRECATED - Client applications should use urls.noteStoreUrl.
-    */
+     * DEPRECATED - Client applications should use urls.noteStoreUrl.
+     */
     [[nodiscard]] const std::optional<QString> & noteStoreUrl() const noexcept;
     void setNoteStoreUrl(std::optional<QString> noteStoreUrl);
 
     /**
-    DEPRECATED - Client applications should use urls.webApiUrlPrefix.
-    */
+     * DEPRECATED - Client applications should use urls.webApiUrlPrefix.
+     */
     [[nodiscard]] const std::optional<QString> & webApiUrlPrefix() const noexcept;
     void setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix);
 
     /**
-    If set to true, this field indicates that the user has enabled two-factor
-       authentication and must enter their second factor in order to complete
-       authentication. In this case the value of authenticationResult will be
-       a short-lived authentication token that may only be used to make a
-       subsequent call to completeTwoFactorAuthentication.
-    */
+     * If set to true, this field indicates that the user has enabled two-factor
+     * authentication and must enter their second factor in order to complete
+     * authentication. In this case the value of authenticationResult will be
+     * a short-lived authentication token that may only be used to make a
+     * subsequent call to completeTwoFactorAuthentication.
+     */
     [[nodiscard]] const std::optional<bool> & secondFactorRequired() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableSecondFactorRequired();
     void setSecondFactorRequired(std::optional<bool> secondFactorRequired);
 
     /**
-    When secondFactorRequired is set to true, this field may contain a string
-       describing the second factor delivery method that the user has configured.
-       This will typically be an obfuscated mobile device number, such as
-       "(xxx) xxx-x095". This string can be displayed to the user to remind them
-       how to obtain the required second factor.
-    */
+     * When secondFactorRequired is set to true, this field may contain a string
+     * describing the second factor delivery method that the user has configured.
+     * This will typically be an obfuscated mobile device number, such as
+     * "(xxx) xxx-x095". This string can be displayed to the user to remind them
+     * how to obtain the required second factor.
+     */
     [[nodiscard]] const std::optional<QString> & secondFactorDeliveryHint() const noexcept;
     void setSecondFactorDeliveryHint(std::optional<QString> secondFactorDeliveryHint);
 
     /**
-    This structure will contain all of the URLs that clients need to make requests to the
-       Evernote service on behalf of the authenticated User.
-    */
+     * This structure will contain all of the URLs that clients need to make requests to the
+     * Evernote service on behalf of the authenticated User.
+     */
     [[nodiscard]] const std::optional<UserUrls> & urls() const noexcept;
     [[nodiscard]] std::optional<UserUrls> & mutableUrls();
     void setUrls(std::optional<UserUrls> urls);

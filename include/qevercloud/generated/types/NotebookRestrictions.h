@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -63,182 +63,182 @@ public:
     NotebookRestrictions & operator=(NotebookRestrictions && other) noexcept;
 
     /**
-    The client is not able to read notes from the service and
-       the notebook is write-only.
-    */
+     * The client is not able to read notes from the service and
+     * the notebook is write-only.
+     */
     [[nodiscard]] const std::optional<bool> & noReadNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoReadNotes();
     void setNoReadNotes(std::optional<bool> noReadNotes);
 
     /**
-    The client may not create new notes in the notebook.
-    */
+     * The client may not create new notes in the notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noCreateNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoCreateNotes();
     void setNoCreateNotes(std::optional<bool> noCreateNotes);
 
     /**
-    The client may not update notes currently in the notebook.
-    */
+     * The client may not update notes currently in the notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noUpdateNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoUpdateNotes();
     void setNoUpdateNotes(std::optional<bool> noUpdateNotes);
 
     /**
-    The client may not expunge notes currently in the notebook.
-    */
+     * The client may not expunge notes currently in the notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noExpungeNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoExpungeNotes();
     void setNoExpungeNotes(std::optional<bool> noExpungeNotes);
 
     /**
-    The client may not share notes in the notebook via the
-       shareNote or createOrUpdateSharedNotes methods.
-    */
+     * The client may not share notes in the notebook via the
+     * shareNote or createOrUpdateSharedNotes methods.
+     */
     [[nodiscard]] const std::optional<bool> & noShareNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoShareNotes();
     void setNoShareNotes(std::optional<bool> noShareNotes);
 
     /**
-    The client may not e-mail notes by guid via the Evernote
-       service by using the emailNote method.  Email notes by value
-       by populating the note parameter instead.
-    */
+     * The client may not e-mail notes by guid via the Evernote
+     * service by using the emailNote method. Email notes by value
+     * by populating the note parameter instead.
+     */
     [[nodiscard]] const std::optional<bool> & noEmailNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoEmailNotes();
     void setNoEmailNotes(std::optional<bool> noEmailNotes);
 
     /**
-    The client may not send messages to the share recipients of
-       the notebook.
-    */
+     * The client may not send messages to the share recipients of
+     * the notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noSendMessageToRecipients() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSendMessageToRecipients();
     void setNoSendMessageToRecipients(std::optional<bool> noSendMessageToRecipients);
 
     /**
-    The client may not update the Notebook object itself, for
-       example, via the updateNotebook method.
-    */
+     * The client may not update the Notebook object itself, for
+     * example, via the updateNotebook method.
+     */
     [[nodiscard]] const std::optional<bool> & noUpdateNotebook() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoUpdateNotebook();
     void setNoUpdateNotebook(std::optional<bool> noUpdateNotebook);
 
     /**
-    The client may not expunge the Notebook object itself, for
-       example, via the expungeNotebook method.
-    */
+     * The client may not expunge the Notebook object itself, for
+     * example, via the expungeNotebook method.
+     */
     [[nodiscard]] const std::optional<bool> & noExpungeNotebook() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoExpungeNotebook();
     void setNoExpungeNotebook(std::optional<bool> noExpungeNotebook);
 
     /**
-    The client may not set this notebook to be the default notebook.
-       The caller should leave Notebook.defaultNotebook unset.
-    */
+     * The client may not set this notebook to be the default notebook.
+     * The caller should leave Notebook.defaultNotebook unset.
+     */
     [[nodiscard]] const std::optional<bool> & noSetDefaultNotebook() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetDefaultNotebook();
     void setNoSetDefaultNotebook(std::optional<bool> noSetDefaultNotebook);
 
     /**
-    If the client is able to update the Notebook, the Notebook.stack
-       value may not be set.
-    */
+     * If the client is able to update the Notebook, the Notebook.stack
+     * value may not be set.
+     */
     [[nodiscard]] const std::optional<bool> & noSetNotebookStack() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetNotebookStack();
     void setNoSetNotebookStack(std::optional<bool> noSetNotebookStack);
 
     /**
-    The client may not publish the notebook to the public.
-       For example, business notebooks may not be shared publicly.
-    */
+     * The client may not publish the notebook to the public.
+     * For example, business notebooks may not be shared publicly.
+     */
     [[nodiscard]] const std::optional<bool> & noPublishToPublic() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoPublishToPublic();
     void setNoPublishToPublic(std::optional<bool> noPublishToPublic);
 
     /**
-    The client may not publish the notebook to the business library.
-    */
+     * The client may not publish the notebook to the business library.
+     */
     [[nodiscard]] const std::optional<bool> & noPublishToBusinessLibrary() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoPublishToBusinessLibrary();
     void setNoPublishToBusinessLibrary(std::optional<bool> noPublishToBusinessLibrary);
 
     /**
-    The client may not complete an operation that results in a new tag
-       being created in the owner's account.
-    */
+     * The client may not complete an operation that results in a new tag
+     * being created in the owner's account.
+     */
     [[nodiscard]] const std::optional<bool> & noCreateTags() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoCreateTags();
     void setNoCreateTags(std::optional<bool> noCreateTags);
 
     /**
-    The client may not update tags in the owner's account.
-    */
+     * The client may not update tags in the owner's account.
+     */
     [[nodiscard]] const std::optional<bool> & noUpdateTags() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoUpdateTags();
     void setNoUpdateTags(std::optional<bool> noUpdateTags);
 
     /**
-    The client may not expunge tags in the owner's account.
-    */
+     * The client may not expunge tags in the owner's account.
+     */
     [[nodiscard]] const std::optional<bool> & noExpungeTags() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoExpungeTags();
     void setNoExpungeTags(std::optional<bool> noExpungeTags);
 
     /**
-    If the client is able to create or update tags in the owner's account,
-       then they will not be able to set the parent tag.  Leave the value unset.
-    */
+     * If the client is able to create or update tags in the owner's account,
+     * then they will not be able to set the parent tag. Leave the value unset.
+     */
     [[nodiscard]] const std::optional<bool> & noSetParentTag() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetParentTag();
     void setNoSetParentTag(std::optional<bool> noSetParentTag);
 
     /**
-    The client is unable to create shared notebooks for the notebook.
-    */
+     * The client is unable to create shared notebooks for the notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noCreateSharedNotebooks() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoCreateSharedNotebooks();
     void setNoCreateSharedNotebooks(std::optional<bool> noCreateSharedNotebooks);
 
     /**
-    Restrictions on which shared notebook instances can be updated.  If the
-       value is not set or null, then the client can update any of the shared notebooks
-       associated with the notebook on which the NotebookRestrictions are defined.
-       See the enumeration for further details.
-    */
+     * Restrictions on which shared notebook instances can be updated. If the
+     * value is not set or null, then the client can update any of the shared notebooks
+     * associated with the notebook on which the NotebookRestrictions are defined.
+     * See the enumeration for further details.
+     */
     [[nodiscard]] const std::optional<SharedNotebookInstanceRestrictions> & updateWhichSharedNotebookRestrictions() const noexcept;
     [[nodiscard]] std::optional<SharedNotebookInstanceRestrictions> & mutableUpdateWhichSharedNotebookRestrictions();
     void setUpdateWhichSharedNotebookRestrictions(std::optional<SharedNotebookInstanceRestrictions> updateWhichSharedNotebookRestrictions);
 
     /**
-    Restrictions on which shared notebook instances can be expunged.  If the
-       value is not set or null, then the client can expunge any of the shared notebooks
-       associated with the notebook on which the NotebookRestrictions are defined.
-       See the enumeration for further details.
-    */
+     * Restrictions on which shared notebook instances can be expunged. If the
+     * value is not set or null, then the client can expunge any of the shared notebooks
+     * associated with the notebook on which the NotebookRestrictions are defined.
+     * See the enumeration for further details.
+     */
     [[nodiscard]] const std::optional<SharedNotebookInstanceRestrictions> & expungeWhichSharedNotebookRestrictions() const noexcept;
     [[nodiscard]] std::optional<SharedNotebookInstanceRestrictions> & mutableExpungeWhichSharedNotebookRestrictions();
     void setExpungeWhichSharedNotebookRestrictions(std::optional<SharedNotebookInstanceRestrictions> expungeWhichSharedNotebookRestrictions);
 
     /**
-    The client may not share notes in the notebook via the shareNoteWithBusiness
-       method.
-    */
+     * The client may not share notes in the notebook via the shareNoteWithBusiness
+     * method.
+     */
     [[nodiscard]] const std::optional<bool> & noShareNotesWithBusiness() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoShareNotesWithBusiness();
     void setNoShareNotesWithBusiness(std::optional<bool> noShareNotesWithBusiness);
 
     /**
-    The client may not rename this notebook.
-    */
+     * The client may not rename this notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noRenameNotebook() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoRenameNotebook();
     void setNoRenameNotebook(std::optional<bool> noRenameNotebook);
 
     /**
-    clients may not change the NotebookRecipientSettings.inMyList settings for
-       this notebook.
-    */
+     * clients may not change the NotebookRecipientSettings.inMyList settings for
+     * this notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noSetInMyList() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetInMyList();
     void setNoSetInMyList(std::optional<bool> noSetInMyList);
@@ -248,9 +248,9 @@ public:
     void setNoChangeContact(std::optional<bool> noChangeContact);
 
     /**
-    Specifies if the client can move this notebook to a container and if not,
-       the reason why.
-    */
+     * Specifies if the client can move this notebook to a container and if not,
+     * the reason why.
+     */
     [[nodiscard]] const std::optional<CanMoveToContainerRestrictions> & canMoveToContainerRestrictions() const noexcept;
     [[nodiscard]] std::optional<CanMoveToContainerRestrictions> & mutableCanMoveToContainerRestrictions();
     void setCanMoveToContainerRestrictions(std::optional<CanMoveToContainerRestrictions> canMoveToContainerRestrictions);
@@ -268,8 +268,8 @@ public:
     void setNoSetRecipientSettingsStack(std::optional<bool> noSetRecipientSettingsStack);
 
     /**
-    If set, the client cannot move a Note into or out of the Notebook.
-    */
+     * If set, the client cannot move a Note into or out of the Notebook.
+     */
     [[nodiscard]] const std::optional<bool> & noCanMoveNote() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoCanMoveNote();
     void setNoCanMoveNote(std::optional<bool> noCanMoveNote);

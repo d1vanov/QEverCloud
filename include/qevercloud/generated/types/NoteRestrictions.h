@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -73,8 +73,8 @@ public:
     NoteRestrictions & operator=(NoteRestrictions && other) noexcept;
 
     /**
-    The client may not update the note's title (Note.title).
-    */
+     * The client may not update the note's title (Note.title).
+     */
     [[nodiscard]] const std::optional<bool> & noUpdateTitle() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoUpdateTitle();
     void setNoUpdateTitle(std::optional<bool> noUpdateTitle);
@@ -84,23 +84,23 @@ public:
     void setNoUpdateContent(std::optional<bool> noUpdateContent);
 
     /**
-    The client may not email the note (NoteStore.emailNote).
-    */
+     * The client may not email the note (NoteStore.emailNote).
+     */
     [[nodiscard]] const std::optional<bool> & noEmail() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoEmail();
     void setNoEmail(std::optional<bool> noEmail);
 
     /**
-    The client may not share the note with specific recipients
-         (NoteStore.createOrUpdateSharedNotes).
-    */
+     * The client may not share the note with specific recipients
+     * (NoteStore.createOrUpdateSharedNotes).
+     */
     [[nodiscard]] const std::optional<bool> & noShare() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoShare();
     void setNoShare(std::optional<bool> noShare);
 
     /**
-    The client may not make the note public (NoteStore.shareNote).
-    */
+     * The client may not make the note public (NoteStore.shareNote).
+     */
     [[nodiscard]] const std::optional<bool> & noSharePublicly() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSharePublicly();
     void setNoSharePublicly(std::optional<bool> noSharePublicly);

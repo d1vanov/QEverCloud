@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -40,9 +40,9 @@ public:
     BootstrapInfo & operator=(BootstrapInfo && other) noexcept;
 
     /**
-    List of one or more bootstrap profiles, in descending
-       preference order.
-    */
+     * List of one or more bootstrap profiles, in descending
+     * preference order.
+     */
     [[nodiscard]] const QList<BootstrapProfile> & profiles() const noexcept;
     [[nodiscard]] QList<BootstrapProfile> & mutableProfiles();
     void setProfiles(QList<BootstrapProfile> profiles);

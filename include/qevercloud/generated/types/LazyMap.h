@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -57,16 +57,16 @@ public:
     LazyMap & operator=(LazyMap && other) noexcept;
 
     /**
-    The set of keys for the map.  This field is ignored by the
-           server when set.
-    */
+     * The set of keys for the map. This field is ignored by the
+     * server when set.
+     */
     [[nodiscard]] const std::optional<QSet<QString>> & keysOnly() const noexcept;
     [[nodiscard]] std::optional<QSet<QString>> & mutableKeysOnly();
     void setKeysOnly(std::optional<QSet<QString>> keysOnly);
 
     /**
-    The complete map, including all keys and values.
-    */
+     * The complete map, including all keys and values.
+     */
     [[nodiscard]] const std::optional<QMap<QString, QString>> & fullMap() const noexcept;
     [[nodiscard]] std::optional<QMap<QString, QString>> & mutableFullMap();
     void setFullMap(std::optional<QMap<QString, QString>> fullMap);

@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -47,30 +47,30 @@ public:
     ShareRelationships & operator=(ShareRelationships && other) noexcept;
 
     /**
-    A list of open invitations that can be redeemed into
-     memberships to the notebook.
-    */
+     * A list of open invitations that can be redeemed into
+     * memberships to the notebook.
+     */
     [[nodiscard]] const std::optional<QList<InvitationShareRelationship>> & invitations() const noexcept;
     [[nodiscard]] std::optional<QList<InvitationShareRelationship>> & mutableInvitations();
     void setInvitations(std::optional<QList<InvitationShareRelationship>> invitations);
 
     /**
-    A list of memberships of the notebook.  A member is identified
-     by their Evernote UserID and has rights to access the
-     notebook.
-    */
+     * A list of memberships of the notebook. A member is identified
+     * by their Evernote UserID and has rights to access the
+     * notebook.
+     */
     [[nodiscard]] const std::optional<QList<MemberShareRelationship>> & memberships() const noexcept;
     [[nodiscard]] std::optional<QList<MemberShareRelationship>> & mutableMemberships();
     void setMemberships(std::optional<QList<MemberShareRelationship>> memberships);
 
     /**
-    The restrictions on what privileges may be granted to invitees
-     to this notebook. These restrictions may be specific to the calling
-     user or to the notebook itself. They represent the
-     union of all possible invite cases, so it is possible that once the
-     recipient of the invitation has been identified by the service, such
-     as by a business auto-join, the actual assigned privilege may change.
-    */
+     * The restrictions on what privileges may be granted to invitees
+     * to this notebook. These restrictions may be specific to the calling
+     * user or to the notebook itself. They represent the
+     * union of all possible invite cases, so it is possible that once the
+     * recipient of the invitation has been identified by the service, such
+     * as by a business auto-join, the actual assigned privilege may change.
+     */
     [[nodiscard]] const std::optional<ShareRelationshipRestrictions> & invitationRestrictions() const noexcept;
     [[nodiscard]] std::optional<ShareRelationshipRestrictions> & mutableInvitationRestrictions();
     void setInvitationRestrictions(std::optional<ShareRelationshipRestrictions> invitationRestrictions);

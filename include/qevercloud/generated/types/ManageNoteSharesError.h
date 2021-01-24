@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -49,36 +49,36 @@ public:
     ManageNoteSharesError & operator=(ManageNoteSharesError && other) noexcept;
 
     /**
-    The identity ID of an outstanding invitation that was not updated
-         due to the error.
-    */
+     * The identity ID of an outstanding invitation that was not updated
+     * due to the error.
+     */
     [[nodiscard]] const std::optional<IdentityID> & identityID() const noexcept;
     [[nodiscard]] std::optional<IdentityID> & mutableIdentityID();
     void setIdentityID(std::optional<IdentityID> identityID);
 
     /**
-    The user ID of an existing membership that was not updated due
-         to the error.
-    */
+     * The user ID of an existing membership that was not updated due
+     * to the error.
+     */
     [[nodiscard]] const std::optional<UserID> & userID() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableUserID();
     void setUserID(std::optional<UserID> userID);
 
     /**
-    If the error is represented as an EDAMUserException that would
-         have otherwise been thrown without best-effort execution.
-    */
+     * If the error is represented as an EDAMUserException that would
+     * have otherwise been thrown without best-effort execution.
+     */
     [[nodiscard]] const std::optional<EDAMUserException> & userException() const noexcept;
     [[nodiscard]] std::optional<EDAMUserException> & mutableUserException();
     void setUserException(std::optional<EDAMUserException> userException);
 
     /**
-    If the error is represented as an EDAMNotFoundException that
-         would have otherwise been thrown without best-effort execution.
-         The identifier field of the exception will be either "Identity.id"
-         or "User.id", indicating that no existing share could be found for
-         the specified recipient.
-    */
+     * If the error is represented as an EDAMNotFoundException that
+     * would have otherwise been thrown without best-effort execution.
+     * The identifier field of the exception will be either "Identity.id"
+     * or "User.id", indicating that no existing share could be found for
+     * the specified recipient.
+     */
     [[nodiscard]] const std::optional<EDAMNotFoundException> & notFoundException() const noexcept;
     [[nodiscard]] std::optional<EDAMNotFoundException> & mutableNotFoundException();
     void setNotFoundException(std::optional<EDAMNotFoundException> notFoundException);

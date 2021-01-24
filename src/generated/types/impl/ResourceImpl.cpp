@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -35,10 +35,11 @@ bool Resource::Impl::operator==(
 
     return
         m_localId == other.m_localId &&
-        m_parentLocalId == other.m_parentLocalId &&
         m_locallyModified == other.m_locallyModified &&
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
+        m_noteLocalId == other.m_noteLocalId &&
+        m_indexInNote == other.m_indexInNote &&
         m_guid == other.m_guid &&
         m_noteGuid == other.m_noteGuid &&
         m_data == other.m_data &&
@@ -62,8 +63,9 @@ bool Resource::Impl::operator!=(
 void Resource::Impl::print(QTextStream & strm) const
 {
     strm << "Resource: {\n";
+        strm << "    noteLocalId = " << m_noteLocalId << "\n";
+        strm << "    indexInNote = " << (m_indexInNote ? QString::number(*m_indexInNote) : QStringLiteral("<not set>")) << "\n";
         strm << "    localId = " << m_localId << "\n";
-        strm << "    parentLocalId = " << m_parentLocalId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

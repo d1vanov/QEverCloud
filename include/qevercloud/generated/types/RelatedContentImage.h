@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,35 +42,35 @@ public:
     RelatedContentImage & operator=(RelatedContentImage && other) noexcept;
 
     /**
-    The external URL of the image
-    */
+     * The external URL of the image
+     */
     [[nodiscard]] const std::optional<QString> & url() const noexcept;
     void setUrl(std::optional<QString> url);
 
     /**
-    The width of the image, in pixels.
-    */
+     * The width of the image, in pixels.
+     */
     [[nodiscard]] const std::optional<qint32> & width() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableWidth();
     void setWidth(std::optional<qint32> width);
 
     /**
-    The height of the image, in pixels.
-    */
+     * The height of the image, in pixels.
+     */
     [[nodiscard]] const std::optional<qint32> & height() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableHeight();
     void setHeight(std::optional<qint32> height);
 
     /**
-    the pixel ratio (usually either 1.0, 1.5 or 2.0)
-    */
+     * the pixel ratio (usually either 1.0, 1.5 or 2.0)
+     */
     [[nodiscard]] const std::optional<double> & pixelRatio() const noexcept;
     [[nodiscard]] std::optional<double> & mutablePixelRatio();
     void setPixelRatio(std::optional<double> pixelRatio);
 
     /**
-    the size of the image file, in bytes
-    */
+     * the size of the image file, in bytes
+     */
     [[nodiscard]] const std::optional<qint32> & fileSize() const noexcept;
     [[nodiscard]] std::optional<qint32> & mutableFileSize();
     void setFileSize(std::optional<qint32> fileSize);

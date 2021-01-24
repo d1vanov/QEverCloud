@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,25 +42,25 @@ public:
     NoteShareRelationshipRestrictions & operator=(NoteShareRelationshipRestrictions && other) noexcept;
 
     /**
-    This value is true if the user is not allowed to set the privilege
-     level to SharedNotePrivilegeLevel.READ_NOTE.
-    */
+     * This value is true if the user is not allowed to set the privilege
+     * level to SharedNotePrivilegeLevel.READ_NOTE.
+     */
     [[nodiscard]] const std::optional<bool> & noSetReadNote() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetReadNote();
     void setNoSetReadNote(std::optional<bool> noSetReadNote);
 
     /**
-    This value is true if the user is not allowed to set the privilege
-     level to SharedNotePrivilegeLevel.MODIFY_NOTE.
-    */
+     * This value is true if the user is not allowed to set the privilege
+     * level to SharedNotePrivilegeLevel.MODIFY_NOTE.
+     */
     [[nodiscard]] const std::optional<bool> & noSetModifyNote() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetModifyNote();
     void setNoSetModifyNote(std::optional<bool> noSetModifyNote);
 
     /**
-    This value is true if the user is not allowed to set the
-     privilege level to SharedNotePrivilegeLevel.FULL_ACCESS.
-    */
+     * This value is true if the user is not allowed to set the
+     * privilege level to SharedNotePrivilegeLevel.FULL_ACCESS.
+     */
     [[nodiscard]] const std::optional<bool> & noSetFullAccess() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableNoSetFullAccess();
     void setNoSetFullAccess(std::optional<bool> noSetFullAccess);

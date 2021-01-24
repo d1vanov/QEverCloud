@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -42,57 +42,57 @@ public:
     Contact & operator=(Contact && other) noexcept;
 
     /**
-    The displayable name of this contact. This field is filled in by the service and
-         is read-only to clients.
-    */
+     * The displayable name of this contact. This field is filled in by the service and
+     * is read-only to clients.
+     */
     [[nodiscard]] const std::optional<QString> & name() const noexcept;
     void setName(std::optional<QString> name);
 
     /**
-    A unique identifier for this ContactType.
-    */
+     * A unique identifier for this ContactType.
+     */
     [[nodiscard]] const std::optional<QString> & id() const noexcept;
     void setId(std::optional<QString> id);
 
     /**
-    What service does this contact come from?
-    */
+     * What service does this contact come from?
+     */
     [[nodiscard]] const std::optional<ContactType> & type() const noexcept;
     [[nodiscard]] std::optional<ContactType> & mutableType();
     void setType(std::optional<ContactType> type);
 
     /**
-    A URL of a profile photo representing this Contact. This field is filled in by the
-         service and is read-only to clients.
-    */
+     * A URL of a profile photo representing this Contact. This field is filled in by the
+     * service and is read-only to clients.
+     */
     [[nodiscard]] const std::optional<QString> & photoUrl() const noexcept;
     void setPhotoUrl(std::optional<QString> photoUrl);
 
     /**
-    timestamp when the profile photo at 'photoUrl' was last updated.
-         This field will be null if the user has never set a profile photo.
-         This field is filled in by the service and is read-only to clients.
-    */
+     * timestamp when the profile photo at 'photoUrl' was last updated.
+     * This field will be null if the user has never set a profile photo.
+     * This field is filled in by the service and is read-only to clients.
+     */
     [[nodiscard]] const std::optional<Timestamp> & photoLastUpdated() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutablePhotoLastUpdated();
     void setPhotoLastUpdated(std::optional<Timestamp> photoLastUpdated);
 
     /**
-    This field will only be filled by the service when it is giving a Contact record
-         to a client, and that client does not normally have enough permission to send a
-         new message to the person represented through this Contact. In that case, this
-         whole Contact record could be used to send a new Message to the Contact, and the
-         service will inspect this permit to confirm that operation was allowed.
-    */
+     * This field will only be filled by the service when it is giving a Contact record
+     * to a client, and that client does not normally have enough permission to send a
+     * new message to the person represented through this Contact. In that case, this
+     * whole Contact record could be used to send a new Message to the Contact, and the
+     * service will inspect this permit to confirm that operation was allowed.
+     */
     [[nodiscard]] const std::optional<QByteArray> & messagingPermit() const noexcept;
     void setMessagingPermit(std::optional<QByteArray> messagingPermit);
 
     /**
-    If this field is set, then this (whole) Contact record may be used in calls to
-         sendMessage until this time. After that time, those calls may be rejected by the
-         service if the caller does not have direct permission to initiate a message with
-         the represented Evernote user.
-    */
+     * If this field is set, then this (whole) Contact record may be used in calls to
+     * sendMessage until this time. After that time, those calls may be rejected by the
+     * service if the caller does not have direct permission to initiate a message with
+     * the represented Evernote user.
+     */
     [[nodiscard]] const std::optional<Timestamp> & messagingPermitExpires() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableMessagingPermitExpires();
     void setMessagingPermitExpires(std::optional<Timestamp> messagingPermitExpires);

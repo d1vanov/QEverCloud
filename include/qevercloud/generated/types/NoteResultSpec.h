@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -46,60 +46,60 @@ public:
     NoteResultSpec & operator=(NoteResultSpec && other) noexcept;
 
     /**
-    If true, the Note.content field will be populated with the note's ENML contents.
-    */
+     * If true, the Note.content field will be populated with the note's ENML contents.
+     */
     [[nodiscard]] const std::optional<bool> & includeContent() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeContent();
     void setIncludeContent(std::optional<bool> includeContent);
 
     /**
-    If true, any Resource elements will include the binary contents of their 'data' field's
-         body.
-    */
+     * If true, any Resource elements will include the binary contents of their 'data' field's
+     * body.
+     */
     [[nodiscard]] const std::optional<bool> & includeResourcesData() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeResourcesData();
     void setIncludeResourcesData(std::optional<bool> includeResourcesData);
 
     /**
-    If true, any Resource elements will include the binary contents of their 'recognition'
-         field's body if recognition data is available.
-    */
+     * If true, any Resource elements will include the binary contents of their 'recognition'
+     * field's body if recognition data is available.
+     */
     [[nodiscard]] const std::optional<bool> & includeResourcesRecognition() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeResourcesRecognition();
     void setIncludeResourcesRecognition(std::optional<bool> includeResourcesRecognition);
 
     /**
-    If true, any Resource elements will include the binary contents of their 'alternateData'
-         field's body, if an alternate form is available.
-    */
+     * If true, any Resource elements will include the binary contents of their 'alternateData'
+     * field's body, if an alternate form is available.
+     */
     [[nodiscard]] const std::optional<bool> & includeResourcesAlternateData() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeResourcesAlternateData();
     void setIncludeResourcesAlternateData(std::optional<bool> includeResourcesAlternateData);
 
     /**
-    If true, the Note.sharedNotes field will be populated with the note's shares.
-    */
+     * If true, the Note.sharedNotes field will be populated with the note's shares.
+     */
     [[nodiscard]] const std::optional<bool> & includeSharedNotes() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeSharedNotes();
     void setIncludeSharedNotes(std::optional<bool> includeSharedNotes);
 
     /**
-    If true, the Note.attributes.applicationData.fullMap field will be populated.
-    */
+     * If true, the Note.attributes.applicationData.fullMap field will be populated.
+     */
     [[nodiscard]] const std::optional<bool> & includeNoteAppDataValues() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeNoteAppDataValues();
     void setIncludeNoteAppDataValues(std::optional<bool> includeNoteAppDataValues);
 
     /**
-    If true, the Note.resource.attributes.applicationData.fullMap field will be populated.
-    */
+     * If true, the Note.resource.attributes.applicationData.fullMap field will be populated.
+     */
     [[nodiscard]] const std::optional<bool> & includeResourceAppDataValues() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeResourceAppDataValues();
     void setIncludeResourceAppDataValues(std::optional<bool> includeResourceAppDataValues);
 
     /**
-    If true, the Note.limits field will be populated with the note owner's account limits.
-    */
+     * If true, the Note.limits field will be populated with the note owner's account limits.
+     */
     [[nodiscard]] const std::optional<bool> & includeAccountLimits() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableIncludeAccountLimits();
     void setIncludeAccountLimits(std::optional<bool> includeAccountLimits);

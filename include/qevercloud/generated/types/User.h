@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -56,20 +56,6 @@ public:
     void setLocalId(QString id);
 
     /**
-     * @brief parentLocalId can be used as a local unique identifier
-     * of the data item being a parent to this data item.
-     *
-     * For example, a note is a parent to a resource, a notebook
-     * is a parent to a note. So note's localId is a parentLocalId for a
-     * resource, notebook's localId is a parentLocalId for a note,
-     * tag's localId is a parentLocalId to a child tag.
-     *
-     * By default the parentLocalId property is empty
-     */
-    [[nodiscard]] QString parentLocalId() const noexcept;
-    void setParentLocalId(QString id);
-
-    /**
      * @brief locallyModified flag can be used to keep track which
      * objects have been modified locally and thus need to be synchronized
      * with Evernote service
@@ -94,68 +80,66 @@ public:
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
     void setLocallyFavorited(bool favorited = true);
 
+    /**
+     * @brief localData property can be used to store any additional
+     * data which might be needed to be set for the type object
+     * by QEverCloud's client code
+     */
     [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
     [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
     void setLocalData(QHash<QString, QVariant> localData);
 
     /**
-    The unique numeric identifier for the account, which will not
-       change for the lifetime of the account.
-    */
+     * The unique numeric identifier for the account, which will not
+     * change for the lifetime of the account.
+     */
     [[nodiscard]] const std::optional<UserID> & id() const noexcept;
     [[nodiscard]] std::optional<UserID> & mutableId();
     void setId(std::optional<UserID> id);
 
     /**
-    The name that uniquely identifies a single user account. This name
-       may be presented by the user, along with their password, to log into
-       their account.
-       May only contain a-z, 0-9, or '-', and may not start or end with the '-'
-       <br/>
-       Length:  EDAM_USER_USERNAME_LEN_MIN - EDAM_USER_USERNAME_LEN_MAX
-       <br/>
-       Regex:  EDAM_USER_USERNAME_REGEX
-    */
+     * The name that uniquely identifies a single user account. This name
+     * may be presented by the user, along with their password, to log into
+     * their account.
+     * May only contain a-z, 0-9, or '-', and may not start or end with the '-'
+     * Length: EDAM_USER_USERNAME_LEN_MIN - EDAM_USER_USERNAME_LEN_MAX
+     * Regex: EDAM_USER_USERNAME_REGEX
+     */
     [[nodiscard]] const std::optional<QString> & username() const noexcept;
     void setUsername(std::optional<QString> username);
 
     /**
-    The email address registered for the user.  Must comply with
-       RFC 2821 and RFC 2822.<br/>
-       Third party applications that authenticate using OAuth do not have
-       access to this field.
-       Length:  EDAM_EMAIL_LEN_MIN - EDAM_EMAIL_LEN_MAX
-       <br/>
-       Regex:  EDAM_EMAIL_REGEX
-    */
+     * The email address registered for the user. Must comply with
+     * RFC 2821 and RFC 2822.<br/>
+     * Third party applications that authenticate using OAuth do not have
+     * access to this field.
+     * Length: EDAM_EMAIL_LEN_MIN - EDAM_EMAIL_LEN_MAX
+     * Regex: EDAM_EMAIL_REGEX
+     */
     [[nodiscard]] const std::optional<QString> & email() const noexcept;
     void setEmail(std::optional<QString> email);
 
     /**
-    The printable name of the user, which may be a combination
-       of given and family names.  This is used instead of separate "first"
-       and "last" names due to variations in international name format/order.
-       May not start or end with a whitespace character.  May contain any
-       character but carriage return or newline (Unicode classes Zl and Zp).
-       <br/>
-       Length:  EDAM_USER_NAME_LEN_MIN - EDAM_USER_NAME_LEN_MAX
-       <br/>
-       Regex:  EDAM_USER_NAME_REGEX
-    */
+     * The printable name of the user, which may be a combination
+     * of given and family names. This is used instead of separate "first"
+     * and "last" names due to variations in international name format/order.
+     * May not start or end with a whitespace character. May contain any
+     * character but carriage return or newline (Unicode classes Zl and Zp).
+     * Length: EDAM_USER_NAME_LEN_MIN - EDAM_USER_NAME_LEN_MAX
+     * Regex: EDAM_USER_NAME_REGEX
+     */
     [[nodiscard]] const std::optional<QString> & name() const noexcept;
     void setName(std::optional<QString> name);
 
     /**
-    The zone ID for the user's default location.  If present,
-       this may be used to localize the display of any timestamp for which no
-       other timezone is available.
-       The format must be encoded as a standard zone ID such as
-       "America/Los_Angeles" or "GMT+08:00"
-       <br/>
-       Length:  EDAM_TIMEZONE_LEN_MIN - EDAM_TIMEZONE_LEN_MAX
-       <br/>
-       Regex:  EDAM_TIMEZONE_REGEX
-    */
+     * The zone ID for the user's default location. If present,
+     * this may be used to localize the display of any timestamp for which no
+     * other timezone is available.
+     * The format must be encoded as a standard zone ID such as
+     * "America/Los_Angeles" or "GMT+08:00"
+     * Length: EDAM_TIMEZONE_LEN_MIN - EDAM_TIMEZONE_LEN_MAX
+     * Regex: EDAM_TIMEZONE_REGEX
+     */
     [[nodiscard]] const std::optional<QString> & timezone() const noexcept;
     void setTimezone(std::optional<QString> timezone);
 
@@ -164,97 +148,97 @@ public:
     void setPrivilege(std::optional<PrivilegeLevel> privilege);
 
     /**
-    The level of service the user currently receives. This will always be populated
-           for users retrieved from the Evernote service.
-    */
+     * The level of service the user currently receives. This will always be populated
+     * for users retrieved from the Evernote service.
+     */
     [[nodiscard]] const std::optional<ServiceLevel> & serviceLevel() const noexcept;
     [[nodiscard]] std::optional<ServiceLevel> & mutableServiceLevel();
     void setServiceLevel(std::optional<ServiceLevel> serviceLevel);
 
     /**
-    The date and time when this user account was created in the
-       service.
-    */
+     * The date and time when this user account was created in the
+     * service.
+     */
     [[nodiscard]] const std::optional<Timestamp> & created() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableCreated();
     void setCreated(std::optional<Timestamp> created);
 
     /**
-    The date and time when this user account was last modified
-       in the service.
-    */
+     * The date and time when this user account was last modified
+     * in the service.
+     */
     [[nodiscard]] const std::optional<Timestamp> & updated() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableUpdated();
     void setUpdated(std::optional<Timestamp> updated);
 
     /**
-    If the account has been deleted from the system (e.g. as
-       the result of a legal request by the user), the date and time of the
-       deletion will be represented here.  If not, this value will not be set.
-    */
+     * If the account has been deleted from the system (e.g. as
+     * the result of a legal request by the user), the date and time of the
+     * deletion will be represented here. If not, this value will not be set.
+     */
     [[nodiscard]] const std::optional<Timestamp> & deleted() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutableDeleted();
     void setDeleted(std::optional<Timestamp> deleted);
 
     /**
-    If the user account is available for login and
-       synchronization, this flag will be set to true.
-    */
+     * If the user account is available for login and
+     * synchronization, this flag will be set to true.
+     */
     [[nodiscard]] const std::optional<bool> & active() const noexcept;
     [[nodiscard]] std::optional<bool> & mutableActive();
     void setActive(std::optional<bool> active);
 
     /**
-    DEPRECATED - Client applications should have no need to use this field.
-    */
+     * DEPRECATED - Client applications should have no need to use this field.
+     */
     [[nodiscard]] const std::optional<QString> & shardId() const noexcept;
     void setShardId(std::optional<QString> shardId);
 
     /**
-    If present, this will contain a list of the attributes
-       for this user account.
-    */
+     * If present, this will contain a list of the attributes
+     * for this user account.
+     */
     [[nodiscard]] const std::optional<UserAttributes> & attributes() const noexcept;
     [[nodiscard]] std::optional<UserAttributes> & mutableAttributes();
     void setAttributes(std::optional<UserAttributes> attributes);
 
     /**
-    Bookkeeping information for the user's subscription.
-    */
+     * Bookkeeping information for the user's subscription.
+     */
     [[nodiscard]] const std::optional<Accounting> & accounting() const noexcept;
     [[nodiscard]] std::optional<Accounting> & mutableAccounting();
     void setAccounting(std::optional<Accounting> accounting);
 
     /**
-    If present, this will contain a set of business information
-       relating to the user's business membership.  If not present, the
-       user is not currently part of a business.
-    */
+     * If present, this will contain a set of business information
+     * relating to the user's business membership. If not present, the
+     * user is not currently part of a business.
+     */
     [[nodiscard]] const std::optional<BusinessUserInfo> & businessUserInfo() const noexcept;
     [[nodiscard]] std::optional<BusinessUserInfo> & mutableBusinessUserInfo();
     void setBusinessUserInfo(std::optional<BusinessUserInfo> businessUserInfo);
 
     /**
-    The URL of the photo that represents this User. This field is filled in by the
-       service and is read-only to clients. If <code>photoLastUpdated</code> is
-       not set, this url will point to a placeholder user photo generated by the
-       service.
-    */
+     * The URL of the photo that represents this User. This field is filled in by the
+     * service and is read-only to clients. If <code>photoLastUpdated</code> is
+     * not set, this url will point to a placeholder user photo generated by the
+     * service.
+     */
     [[nodiscard]] const std::optional<QString> & photoUrl() const noexcept;
     void setPhotoUrl(std::optional<QString> photoUrl);
 
     /**
-    The time at which the photo at 'photoUrl' was last updated by this User. This
-       field will be null if the User never set a profile photo. This field is filled in by
-       the service and is read-only to clients.
-    */
+     * The time at which the photo at 'photoUrl' was last updated by this User. This
+     * field will be null if the User never set a profile photo. This field is filled in by
+     * the service and is read-only to clients.
+     */
     [[nodiscard]] const std::optional<Timestamp> & photoLastUpdated() const noexcept;
     [[nodiscard]] std::optional<Timestamp> & mutablePhotoLastUpdated();
     void setPhotoLastUpdated(std::optional<Timestamp> photoLastUpdated);
 
     /**
-    Account limits applicable for this user.
-    */
+     * Account limits applicable for this user.
+     */
     [[nodiscard]] const std::optional<AccountLimits> & accountLimits() const noexcept;
     [[nodiscard]] std::optional<AccountLimits> & mutableAccountLimits();
     void setAccountLimits(std::optional<AccountLimits> accountLimits);
@@ -265,7 +249,6 @@ public:
     [[nodiscard]] bool operator!=(const User & other) const noexcept;
 
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
-    Q_PROPERTY(QString parentLocalId READ parentLocalId WRITE setParentLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)

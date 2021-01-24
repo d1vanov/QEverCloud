@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2020 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -47,6 +47,26 @@ Resource & Resource::operator=(Resource && other) noexcept
     return *this;
 }
 
+QString Resource::noteLocalId() const
+{
+    return d->m_noteLocalId;
+}
+
+void Resource::setNoteLocalId(QString noteLocalId)
+{
+    d->m_noteLocalId = std::move(noteLocalId);
+}
+
+const std::optional<int> & Resource::indexInNote() const noexcept
+{
+    return d->m_indexInNote;
+}
+
+void Resource::setIndexInNote(std::optional<int> indexInNote)
+{
+    d->m_indexInNote = std::move(indexInNote);
+}
+
 QString Resource::localId() const noexcept
 {
     return d->m_localId;
@@ -55,16 +75,6 @@ QString Resource::localId() const noexcept
 void Resource::setLocalId(QString id)
 {
     d->m_localId = id;
-}
-
-QString Resource::parentLocalId() const noexcept
-{
-    return d->m_parentLocalId;
-}
-
-void Resource::setParentLocalId(QString id)
-{
-    d->m_parentLocalId = id;
 }
 
 bool Resource::isLocallyModified() const noexcept
