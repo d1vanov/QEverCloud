@@ -143,13 +143,13 @@ public:
      * this tag belongs to user's own content i.e. doesn't
      * come from any linked notebook, this field would be empty
      */
-    [[nodiscard]] QString linkedNotebookGuid() const;
+    [[nodiscard]] const std::optional<QString> & linkedNotebookGuid() const;
 
     /**
      * Set guid of linked notebook to which this tag belongs
      * or empty string if this tag belongs to user's own content
      */
-    void setLinkedNotebookGuid(QString guid);
+    void setLinkedNotebookGuid(std::optional<QString> guid);
 
     /**
      * Local id of a tag which is this tag's parent
@@ -174,7 +174,7 @@ void setParentTagLocalId(QString parentTagLocalId);
     Q_PROPERTY(std::optional<QString> name READ name WRITE setName)
     Q_PROPERTY(std::optional<Guid> parentGuid READ parentGuid WRITE setParentGuid)
     Q_PROPERTY(std::optional<qint32> updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
-    Q_PROPERTY(QString linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
+    Q_PROPERTY(std::optional<QString> linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
     Q_PROPERTY(QString parentTagLocalId READ parentTagLocalId WRITE setParentTagLocalId)
 
 private:

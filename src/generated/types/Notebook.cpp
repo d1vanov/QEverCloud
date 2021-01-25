@@ -47,12 +47,12 @@ Notebook & Notebook::operator=(Notebook && other) noexcept
     return *this;
 }
 
-QString Notebook::linkedNotebookGuid() const
+const std::optional<QString> & Notebook::linkedNotebookGuid() const
 {
     return d->m_linkedNotebookGuid;
 }
 
-void Notebook::setLinkedNotebookGuid(QString linkedNotebookGuid)
+void Notebook::setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid)
 {
     d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
 }

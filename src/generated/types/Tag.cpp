@@ -47,12 +47,12 @@ Tag & Tag::operator=(Tag && other) noexcept
     return *this;
 }
 
-QString Tag::linkedNotebookGuid() const
+const std::optional<QString> & Tag::linkedNotebookGuid() const
 {
     return d->m_linkedNotebookGuid;
 }
 
-void Tag::setLinkedNotebookGuid(QString linkedNotebookGuid)
+void Tag::setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid)
 {
     d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
 }

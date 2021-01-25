@@ -38,7 +38,7 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    QString m_linkedNotebookGuid;
+    std::optional<QString> m_linkedNotebookGuid;
 
     QString m_localId;
     bool m_locallyModified = false;

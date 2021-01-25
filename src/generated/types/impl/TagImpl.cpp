@@ -55,7 +55,7 @@ bool Tag::Impl::operator!=(
 void Tag::Impl::print(QTextStream & strm) const
 {
     strm << "Tag: {\n";
-        strm << "    linkedNotebookGuid = " << m_linkedNotebookGuid << "\n";
+        strm << "    linkedNotebookGuid = " << m_linkedNotebookGuid.value_or(QStringLiteral("<not set>")) << "\n";
         strm << "    parentTagLocalId = " << m_parentTagLocalId << "\n";
         strm << "    localId = " << m_localId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";

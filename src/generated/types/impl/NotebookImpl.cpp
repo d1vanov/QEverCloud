@@ -65,7 +65,7 @@ bool Notebook::Impl::operator!=(
 void Notebook::Impl::print(QTextStream & strm) const
 {
     strm << "Notebook: {\n";
-        strm << "    linkedNotebookGuid = " << m_linkedNotebookGuid << "\n";
+        strm << "    linkedNotebookGuid = " << m_linkedNotebookGuid.value_or(QStringLiteral("<not set>")) << "\n";
         strm << "    localId = " << m_localId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";

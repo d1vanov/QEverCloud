@@ -64,8 +64,8 @@ public:
     virtual QString noteStoreUrl() const = 0;
     virtual void setNoteStoreUrl(QString url) = 0;
 
-    virtual QString linkedNotebookGuid() const = 0;
-    virtual void setLinkedNotebookGuid(QString linkedNotebookGuid) = 0;
+    virtual const std::optional<QString> & linkedNotebookGuid() const = 0;
+    virtual void setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid) = 0;
 
     /**
        * Asks the NoteStore to provide information about the status of the user
@@ -3314,7 +3314,7 @@ using IUserStorePtr = std::shared_ptr<IUserStore>;
 
 QEVERCLOUD_EXPORT INoteStore * newNoteStore(
     QString noteStoreUrl = {},
-    QString linkedNotebookGuid = {},
+    std::optional<QString> linkedNotebookGuid = {},
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr,
     IRetryPolicyPtr retryPolicy = {});

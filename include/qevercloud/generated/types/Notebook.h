@@ -260,13 +260,13 @@ public:
      * this notebook belongs to user's own content i.e. doesn't
      * come from any linked notebook, this field would be empty
      */
-    [[nodiscard]] QString linkedNotebookGuid() const;
+    [[nodiscard]] const std::optional<QString> & linkedNotebookGuid() const;
 
     /**
      * Set guid of linked notebook to which this notebook belongs
      * or empty string if this notebook belongs to user's own content
      */
-    void setLinkedNotebookGuid(QString guid);
+    void setLinkedNotebookGuid(std::optional<QString> guid);
 
     void print(QTextStream & strm) const override;
 
@@ -292,7 +292,7 @@ public:
     Q_PROPERTY(std::optional<User> contact READ contact WRITE setContact)
     Q_PROPERTY(std::optional<NotebookRestrictions> restrictions READ restrictions WRITE setRestrictions)
     Q_PROPERTY(std::optional<NotebookRecipientSettings> recipientSettings READ recipientSettings WRITE setRecipientSettings)
-    Q_PROPERTY(QString linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
+    Q_PROPERTY(std::optional<QString> linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
 
 private:
     class Impl;

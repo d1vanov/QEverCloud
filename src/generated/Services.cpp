@@ -29,7 +29,7 @@ class Q_DECL_HIDDEN NoteStore: public INoteStore
 public:
     explicit NoteStore(
             QString noteStoreUrl = {},
-            QString linkedNotebookGuid = {},
+            std::optional<QString> linkedNotebookGuid = {},
             IRequestContextPtr ctx = {},
             QObject * parent = nullptr) :
         INoteStore(parent),
@@ -58,12 +58,12 @@ public:
         return m_url;
     }
 
-    QString linkedNotebookGuid() const override
+    const std::optional<QString> & linkedNotebookGuid() const override
     {
         return m_linkedNotebookGuid;
     }
 
-    void setLinkedNotebookGuid(QString linkedNotebookGuid) override
+    void setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid) override
     {
         m_linkedNotebookGuid = std::move(linkedNotebookGuid);
     }
@@ -730,7 +730,7 @@ public:
 
 private:
     QString m_url;
-    QString m_linkedNotebookGuid;
+    std::optional<QString> m_linkedNotebookGuid;
     IRequestContextPtr m_ctx;
 };
 
@@ -18984,12 +18984,12 @@ public:
         return m_service->noteStoreUrl();
     }
 
-    QString linkedNotebookGuid() const override
+    const std::optional<QString> & linkedNotebookGuid() const override
     {
         return m_service->linkedNotebookGuid();
     }
 
-    void setLinkedNotebookGuid(QString linkedNotebookGuid) override
+    void setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid) override
     {
         m_service->setLinkedNotebookGuid(std::move(linkedNotebookGuid));
     }
@@ -26168,7 +26168,7 @@ AsyncResult * DurableUserStore::getAccountLimitsAsync(
 
 INoteStore * newNoteStore(
     QString noteStoreUrl,
-    QString linkedNotebookGuid,
+    std::optional<QString> linkedNotebookGuid,
     IRequestContextPtr ctx,
     QObject * parent,
     IRetryPolicyPtr retryPolicy)
