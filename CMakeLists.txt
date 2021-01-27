@@ -569,13 +569,12 @@ configure_file(include/qevercloud/VersionInfo.h.in
 list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType.h)
 list(APPEND ALL_HEADERS_AND_SOURCES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h)
 
-if(MSVC)
-  set(LIBNAME "libqt${QEVERCLOUD_QT_VERSION}qevercloud")
-else()
-  set(LIBNAME "qt${QEVERCLOUD_QT_VERSION}qevercloud")
-endif()
-
+set(LIBNAME "qt${QEVERCLOUD_QT_VERSION}qevercloud")
 add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
+
+if(MSVC)
+  set_target_properties(${LIBNAME} PROPERTIES PREFIX "lib")
+endif()
 
 add_library(QEverCloud::${LIBNAME} ALIAS ${LIBNAME})
 
