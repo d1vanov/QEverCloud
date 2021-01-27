@@ -577,7 +577,7 @@ endif()
 
 add_library(${LIBNAME} ${ALL_HEADERS_AND_SOURCES})
 
-add_library(QEverCloud::qt${QEVERCLOUD_QT_VERSION}qevercloud ALIAS ${LIBNAME})
+add_library(QEverCloud::${LIBNAME} ALIAS ${LIBNAME})
 
 if(BUILD_SHARED_LIBS)
   message(STATUS "Building QEverCloud shared library")
