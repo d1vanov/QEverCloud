@@ -296,6 +296,7 @@ public:
      * Local ids of this note's tags
      */
     [[nodiscard]] QStringList tagLocalIds() const;
+    [[nodiscard]] QStringList & mutableTagLocalIds();
     void setTagLocalIds(QStringList tagLocalIds);
 
     /**

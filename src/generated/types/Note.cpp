@@ -62,6 +62,11 @@ QStringList Note::tagLocalIds() const
     return d->m_tagLocalIds;
 }
 
+QStringList & Note::mutableTagLocalIds()
+{
+    return d->m_tagLocalIds;
+}
+
 void Note::setTagLocalIds(QStringList tagLocalIds)
 {
     d->m_tagLocalIds = std::move(tagLocalIds);
