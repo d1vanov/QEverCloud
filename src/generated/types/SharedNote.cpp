@@ -67,16 +67,6 @@ void SharedNote::setIndexInNote(std::optional<int> indexInNote)
     d->m_indexInNote = std::move(indexInNote);
 }
 
-QString SharedNote::localId() const noexcept
-{
-    return d->m_localId;
-}
-
-void SharedNote::setLocalId(QString id)
-{
-    d->m_localId = id;
-}
-
 bool SharedNote::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;

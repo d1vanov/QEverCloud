@@ -20,10 +20,6 @@ namespace qevercloud {
 
 SharedNote::Impl::Impl()
 {
-    m_localId = QUuid::createUuid().toString();
-    // Remove curvy braces
-    m_localId.remove(m_localId.size() - 1, 1);
-    m_localId.remove(0, 1);
 }
 
 bool SharedNote::Impl::operator==(
@@ -34,7 +30,6 @@ bool SharedNote::Impl::operator==(
     }
 
     return
-        m_localId == other.m_localId &&
         m_locallyModified == other.m_locallyModified &&
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
@@ -59,7 +54,6 @@ void SharedNote::Impl::print(QTextStream & strm) const
     strm << "SharedNote: {\n";
         strm << "    noteGuid = " << m_noteGuid.value_or(QStringLiteral("not set")) << "\n";
         strm << "    indexInNote = " << (m_indexInNote ? QString::number(*m_indexInNote) : QStringLiteral("<not set>")) << "\n";
-        strm << "    localId = " << m_localId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

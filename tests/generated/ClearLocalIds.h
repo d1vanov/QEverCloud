@@ -17,8 +17,6 @@
 namespace qevercloud {
 
 void clearLocalIds(AuthenticationResult & v);
-void clearLocalIds(CreateOrUpdateNotebookSharesResult & v);
-void clearLocalIds(LinkedNotebook & v);
 void clearLocalIds(Note & v);
 void clearLocalIds(Notebook & v);
 void clearLocalIds(NotebookDescriptor & v);
@@ -29,8 +27,6 @@ void clearLocalIds(NotesMetadataList & v);
 void clearLocalIds(RelatedResult & v);
 void clearLocalIds(Resource & v);
 void clearLocalIds(SavedSearch & v);
-void clearLocalIds(SharedNote & v);
-void clearLocalIds(SharedNotebook & v);
 void clearLocalIds(SyncChunk & v);
 void clearLocalIds(Tag & v);
 void clearLocalIds(UpdateNoteIfUsnMatchesResult & v);

@@ -22,20 +22,6 @@ void clearLocalIds(AuthenticationResult & v)
     }
 }
 
-void clearLocalIds(CreateOrUpdateNotebookSharesResult & v)
-{
-    if (v.matchingShares()) {
-        for (auto & i: *v.mutableMatchingShares()) {
-            clearLocalIds(i);
-        }
-    }
-}
-
-void clearLocalIds(LinkedNotebook & v)
-{
-    v.setLocalId(QString{});
-}
-
 void clearLocalIds(Note & v)
 {
     v.setLocalId(QString{});
@@ -44,21 +30,11 @@ void clearLocalIds(Note & v)
             clearLocalIds(i);
         }
     }
-    if (v.sharedNotes()) {
-        for (auto & i: *v.mutableSharedNotes()) {
-            clearLocalIds(i);
-        }
-    }
 }
 
 void clearLocalIds(Notebook & v)
 {
     v.setLocalId(QString{});
-    if (v.sharedNotebooks()) {
-        for (auto & i: *v.mutableSharedNotebooks()) {
-            clearLocalIds(i);
-        }
-    }
     if (v.contact()) {
         clearLocalIds(*v.mutableContact());
     }
@@ -129,16 +105,6 @@ void clearLocalIds(SavedSearch & v)
     v.setLocalId(QString{});
 }
 
-void clearLocalIds(SharedNote & v)
-{
-    v.setLocalId(QString{});
-}
-
-void clearLocalIds(SharedNotebook & v)
-{
-    v.setLocalId(QString{});
-}
-
 void clearLocalIds(SyncChunk & v)
 {
     if (v.notes()) {
@@ -163,11 +129,6 @@ void clearLocalIds(SyncChunk & v)
     }
     if (v.resources()) {
         for (auto & i: *v.mutableResources()) {
-            clearLocalIds(i);
-        }
-    }
-    if (v.linkedNotebooks()) {
-        for (auto & i: *v.mutableLinkedNotebooks()) {
             clearLocalIds(i);
         }
     }

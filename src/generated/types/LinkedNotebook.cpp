@@ -47,16 +47,6 @@ LinkedNotebook & LinkedNotebook::operator=(LinkedNotebook && other) noexcept
     return *this;
 }
 
-QString LinkedNotebook::localId() const noexcept
-{
-    return d->m_localId;
-}
-
-void LinkedNotebook::setLocalId(QString id)
-{
-    d->m_localId = id;
-}
-
 bool LinkedNotebook::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;
