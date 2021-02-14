@@ -47,14 +47,14 @@ NotebookDescriptor & NotebookDescriptor::operator=(NotebookDescriptor && other) 
     return *this;
 }
 
-QString NotebookDescriptor::localId() const noexcept
+const QString & NotebookDescriptor::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void NotebookDescriptor::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool NotebookDescriptor::isLocallyModified() const noexcept

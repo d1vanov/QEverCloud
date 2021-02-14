@@ -47,14 +47,14 @@ SavedSearch & SavedSearch::operator=(SavedSearch && other) noexcept
     return *this;
 }
 
-QString SavedSearch::localId() const noexcept
+const QString & SavedSearch::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void SavedSearch::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool SavedSearch::isLocallyModified() const noexcept

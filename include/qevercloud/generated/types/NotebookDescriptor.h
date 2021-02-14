@@ -50,7 +50,7 @@ public:
      * localId is generated automatically on
      * construction for convenience but can be overridden manually
      */
-    [[nodiscard]] QString localId() const noexcept;
+    [[nodiscard]] const QString & localId() const noexcept;
     void setLocalId(QString id);
 
     /**

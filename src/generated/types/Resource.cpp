@@ -67,14 +67,14 @@ void Resource::setIndexInNote(std::optional<int> indexInNote)
     d->m_indexInNote = std::move(indexInNote);
 }
 
-QString Resource::localId() const noexcept
+const QString & Resource::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void Resource::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool Resource::isLocallyModified() const noexcept

@@ -67,14 +67,14 @@ void Tag::setParentTagLocalId(QString parentTagLocalId)
     d->m_parentTagLocalId = std::move(parentTagLocalId);
 }
 
-QString Tag::localId() const noexcept
+const QString & Tag::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void Tag::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool Tag::isLocallyModified() const noexcept

@@ -82,14 +82,14 @@ void Note::setThumbnailData(QByteArray thumbnailData)
     d->m_thumbnailData = std::move(thumbnailData);
 }
 
-QString Note::localId() const noexcept
+const QString & Note::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void Note::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool Note::isLocallyModified() const noexcept

@@ -57,14 +57,14 @@ void Notebook::setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid)
     d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
 }
 
-QString Notebook::localId() const noexcept
+const QString & Notebook::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void Notebook::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool Notebook::isLocallyModified() const noexcept

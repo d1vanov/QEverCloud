@@ -47,14 +47,14 @@ NoteMetadata & NoteMetadata::operator=(NoteMetadata && other) noexcept
     return *this;
 }
 
-QString NoteMetadata::localId() const noexcept
+const QString & NoteMetadata::localId() const noexcept
 {
     return d->m_localId;
 }
 
 void NoteMetadata::setLocalId(QString id)
 {
-    d->m_localId = id;
+    d->m_localId = std::move(id);
 }
 
 bool NoteMetadata::isLocallyModified() const noexcept
