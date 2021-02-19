@@ -47,16 +47,6 @@ User & User::operator=(User && other) noexcept
     return *this;
 }
 
-const QString & User::localId() const noexcept
-{
-    return d->m_localId;
-}
-
-void User::setLocalId(QString id)
-{
-    d->m_localId = std::move(id);
-}
-
 bool User::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;

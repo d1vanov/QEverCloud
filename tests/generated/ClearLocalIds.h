@@ -16,7 +16,6 @@
 
 namespace qevercloud {
 
-void clearLocalIds(AuthenticationResult & v);
 void clearLocalIds(Note & v);
 void clearLocalIds(Notebook & v);
 void clearLocalIds(NotebookDescriptor & v);
@@ -30,7 +29,6 @@ void clearLocalIds(SavedSearch & v);
 void clearLocalIds(SyncChunk & v);
 void clearLocalIds(Tag & v);
 void clearLocalIds(UpdateNoteIfUsnMatchesResult & v);
-void clearLocalIds(User & v);
 
 } // namespace qevercloud
 

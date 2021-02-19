@@ -2233,7 +2233,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
         deviceDescription,
         supportsTwoFactor,
         ctx);
-    compareValuesWithoutLocalIds(res, response);
+    QVERIFY(res == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
@@ -2718,7 +2718,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
 
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
+    QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -3229,7 +3229,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
         deviceIdentifier,
         deviceDescription,
         ctx);
-    compareValuesWithoutLocalIds(res, response);
+    QVERIFY(res == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentication()
@@ -3658,7 +3658,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
 
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
+    QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -4908,7 +4908,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
             nullRetryPolicy()));
     AuthenticationResult res = userStore->authenticateToBusiness(
         ctx);
-    compareValuesWithoutLocalIds(res, response);
+    QVERIFY(res == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
@@ -5289,7 +5289,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
 
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
+    QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -5710,7 +5710,7 @@ void UserStoreTester::shouldExecuteGetUser()
             nullRetryPolicy()));
     User res = userStore->getUser(
         ctx);
-    compareValuesWithoutLocalIds(res, response);
+    QVERIFY(res == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
@@ -6091,7 +6091,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
 
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
+    QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 

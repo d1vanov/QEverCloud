@@ -38,7 +38,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    QString m_localId;
     bool m_locallyModified = false;
     bool m_localOnly = false;
     bool m_locallyFavorited = false;

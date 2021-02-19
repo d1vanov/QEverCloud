@@ -20,10 +20,6 @@ namespace qevercloud {
 
 User::Impl::Impl()
 {
-    m_localId = QUuid::createUuid().toString();
-    // Remove curvy braces
-    m_localId.remove(m_localId.size() - 1, 1);
-    m_localId.remove(0, 1);
 }
 
 bool User::Impl::operator==(
@@ -34,7 +30,6 @@ bool User::Impl::operator==(
     }
 
     return
-        m_localId == other.m_localId &&
         m_locallyModified == other.m_locallyModified &&
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
@@ -67,7 +62,6 @@ bool User::Impl::operator!=(
 void User::Impl::print(QTextStream & strm) const
 {
     strm << "User: {\n";
-        strm << "    localId = " << m_localId << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

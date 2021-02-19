@@ -15,13 +15,6 @@
 
 namespace qevercloud {
 
-void clearLocalIds(AuthenticationResult & v)
-{
-    if (v.user()) {
-        clearLocalIds(*v.mutableUser());
-    }
-}
-
 void clearLocalIds(Note & v)
 {
     v.setLocalId(QString{});
@@ -35,9 +28,6 @@ void clearLocalIds(Note & v)
 void clearLocalIds(Notebook & v)
 {
     v.setLocalId(QString{});
-    if (v.contact()) {
-        clearLocalIds(*v.mutableContact());
-    }
 }
 
 void clearLocalIds(NotebookDescriptor & v)
@@ -144,11 +134,6 @@ void clearLocalIds(UpdateNoteIfUsnMatchesResult & v)
     if (v.note()) {
         clearLocalIds(*v.mutableNote());
     }
-}
-
-void clearLocalIds(User & v)
-{
-    v.setLocalId(QString{});
 }
 
 } // namespace qevercloud

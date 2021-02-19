@@ -73564,7 +73564,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
     AuthenticationResult res = noteStore->authenticateToSharedNotebook(
         shareKeyOrGlobalId,
         ctx);
-    compareValuesWithoutLocalIds(res, response);
+    QVERIFY(res == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebook()
@@ -74064,7 +74064,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
 
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
+    QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
@@ -78798,7 +78798,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
         guid,
         noteKey,
         ctx);
-    compareValuesWithoutLocalIds(res, response);
+    QVERIFY(res == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
@@ -79318,7 +79318,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
 
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
+    QVERIFY(valueFetcher.m_value == response);
     QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
