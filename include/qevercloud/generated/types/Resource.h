@@ -209,16 +209,6 @@ public:
      */
     void setNoteLocalId(QString noteLocalId);
 
-    /**
-     * Index of this resource within the note
-     */
-    [[nodiscard]] const std::optional<int> & indexInNote() const noexcept;
-
-    /**
-     * Set index of this resource within the note
-     */
-    void setIndexInNote(std::optional<int> index);
-
     void print(QTextStream & strm) const override;
 
     [[nodiscard]] bool operator==(const Resource & other) const noexcept;
@@ -241,7 +231,6 @@ public:
     Q_PROPERTY(std::optional<qint32> updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
     Q_PROPERTY(std::optional<Data> alternateData READ alternateData WRITE setAlternateData)
     Q_PROPERTY(QString noteLocalId READ noteLocalId WRITE setNoteLocalId)
-    Q_PROPERTY(std::optional<int> indexInNote READ indexInNote WRITE setIndexInNote)
 
 private:
     class Impl;

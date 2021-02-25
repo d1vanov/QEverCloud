@@ -57,16 +57,6 @@ void SharedNote::setNoteGuid(std::optional<Guid> noteGuid)
     d->m_noteGuid = std::move(noteGuid);
 }
 
-const std::optional<int> & SharedNote::indexInNote() const noexcept
-{
-    return d->m_indexInNote;
-}
-
-void SharedNote::setIndexInNote(std::optional<int> indexInNote)
-{
-    d->m_indexInNote = std::move(indexInNote);
-}
-
 bool SharedNote::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;

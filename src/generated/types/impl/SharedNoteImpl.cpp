@@ -34,7 +34,6 @@ bool SharedNote::Impl::operator==(
         m_localOnly == other.m_localOnly &&
         m_locallyFavorited == other.m_locallyFavorited &&
         m_noteGuid == other.m_noteGuid &&
-        m_indexInNote == other.m_indexInNote &&
         m_sharerUserID == other.m_sharerUserID &&
         m_recipientIdentity == other.m_recipientIdentity &&
         m_privilege == other.m_privilege &&
@@ -53,7 +52,7 @@ void SharedNote::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNote: {\n";
         strm << "    noteGuid = " << m_noteGuid.value_or(QStringLiteral("not set")) << "\n";
-        strm << "    indexInNote = " << (m_indexInNote ? QString::number(*m_indexInNote) : QStringLiteral("<not set>")) << "\n";
+        strm << "\n";
         strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
         strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
         strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";

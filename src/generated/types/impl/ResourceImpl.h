@@ -39,7 +39,6 @@ public:
     void print(QTextStream & strm) const override;
 
     QString m_noteLocalId;
-    std::optional<int> m_indexInNote;
     QString m_localId;
     bool m_locallyModified = false;
     bool m_localOnly = false;

@@ -57,16 +57,6 @@ void Resource::setNoteLocalId(QString noteLocalId)
     d->m_noteLocalId = std::move(noteLocalId);
 }
 
-const std::optional<int> & Resource::indexInNote() const noexcept
-{
-    return d->m_indexInNote;
-}
-
-void Resource::setIndexInNote(std::optional<int> indexInNote)
-{
-    d->m_indexInNote = std::move(indexInNote);
-}
-
 const QString & Resource::localId() const noexcept
 {
     return d->m_localId;

@@ -47,16 +47,6 @@ SharedNotebook & SharedNotebook::operator=(SharedNotebook && other) noexcept
     return *this;
 }
 
-const std::optional<int> & SharedNotebook::indexInNotebook() const noexcept
-{
-    return d->m_indexInNotebook;
-}
-
-void SharedNotebook::setIndexInNotebook(std::optional<int> indexInNotebook)
-{
-    d->m_indexInNotebook = std::move(indexInNotebook);
-}
-
 bool SharedNotebook::isLocallyModified() const noexcept
 {
     return d->m_locallyModified;

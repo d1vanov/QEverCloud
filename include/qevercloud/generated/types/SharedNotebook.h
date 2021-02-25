@@ -220,16 +220,6 @@ public:
     [[nodiscard]] std::optional<Timestamp> & mutableServiceAssigned();
     void setServiceAssigned(std::optional<Timestamp> serviceAssigned);
 
-    /**
-     * Index of this shared notebook within the notebook
-     */
-    [[nodiscard]] const std::optional<int> & indexInNotebook() const noexcept;
-
-    /**
-     * Set index of this shared notebook within the notebook
-     */
-    void setIndexInNotebook(std::optional<int> index);
-
     void print(QTextStream & strm) const override;
 
     [[nodiscard]] bool operator==(const SharedNotebook & other) const noexcept;
@@ -254,7 +244,6 @@ public:
     Q_PROPERTY(std::optional<QString> recipientUsername READ recipientUsername WRITE setRecipientUsername)
     Q_PROPERTY(std::optional<UserID> recipientUserId READ recipientUserId WRITE setRecipientUserId)
     Q_PROPERTY(std::optional<Timestamp> serviceAssigned READ serviceAssigned WRITE setServiceAssigned)
-    Q_PROPERTY(std::optional<int> indexInNotebook READ indexInNotebook WRITE setIndexInNotebook)
 
 private:
     class Impl;

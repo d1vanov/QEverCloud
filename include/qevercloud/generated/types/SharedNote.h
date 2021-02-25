@@ -136,16 +136,6 @@ public:
     [[nodiscard]] std::optional<Guid> & mutableNoteGuid();
     void setNoteGuid(std::optional<Guid> noteGuid);
 
-    /**
-     * Index of this shared note within the note
-     */
-    [[nodiscard]] const std::optional<int> & indexInNote() const noexcept;
-
-    /**
-     * Set index of this shared note within the note
-     */
-    void setIndexInNote(std::optional<int> index);
-
     void print(QTextStream & strm) const override;
 
     [[nodiscard]] bool operator==(const SharedNote & other) const noexcept;
@@ -161,7 +151,6 @@ public:
     Q_PROPERTY(std::optional<Timestamp> serviceUpdated READ serviceUpdated WRITE setServiceUpdated)
     Q_PROPERTY(std::optional<Timestamp> serviceAssigned READ serviceAssigned WRITE setServiceAssigned)
     Q_PROPERTY(std::optional<Guid> noteGuid READ noteGuid WRITE setNoteGuid)
-    Q_PROPERTY(std::optional<int> indexInNote READ indexInNote WRITE setIndexInNote)
 
 private:
     class Impl;
