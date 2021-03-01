@@ -57,7 +57,7 @@ void Note::setNotebookLocalId(QString notebookLocalId)
     d->m_notebookLocalId = std::move(notebookLocalId);
 }
 
-QStringList Note::tagLocalIds() const
+const QStringList & Note::tagLocalIds() const noexcept
 {
     return d->m_tagLocalIds;
 }
