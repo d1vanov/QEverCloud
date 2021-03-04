@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool ManageNoteSharesParameters::Impl::operator==(
-    const ManageNoteSharesParameters::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noteGuid == other.m_noteGuid &&
-        m_membershipsToUpdate == other.m_membershipsToUpdate &&
-        m_invitationsToUpdate == other.m_invitationsToUpdate &&
-        m_membershipsToUnshare == other.m_membershipsToUnshare &&
-        m_invitationsToUnshare == other.m_invitationsToUnshare;
-}
-
-bool ManageNoteSharesParameters::Impl::operator!=(
-    const ManageNoteSharesParameters::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void ManageNoteSharesParameters::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNoteSharesParameters: {\n";

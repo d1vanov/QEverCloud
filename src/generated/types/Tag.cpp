@@ -182,14 +182,28 @@ void Tag::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Tag::operator==(const Tag & other) const noexcept
+bool operator==(const Tag & lhs, const Tag & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.linkedNotebookGuid() == rhs.linkedNotebookGuid() &&
+        lhs.parentTagLocalId() == rhs.parentTagLocalId() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.name() == rhs.name() &&
+        lhs.parentGuid() == rhs.parentGuid() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum();
 }
 
-bool Tag::operator!=(const Tag & other) const noexcept
+bool operator!=(const Tag & lhs, const Tag & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

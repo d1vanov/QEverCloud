@@ -95,9 +95,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteEmailParameters & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteEmailParameters & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> guid READ guid WRITE setGuid)
     Q_PROPERTY(std::optional<Note> note READ note WRITE setNote)
     Q_PROPERTY(std::optional<QStringList> toAddresses READ toAddresses WRITE setToAddresses)
@@ -109,6 +106,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept;
 
 } // namespace qevercloud
 

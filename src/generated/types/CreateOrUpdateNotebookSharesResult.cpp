@@ -82,14 +82,20 @@ void CreateOrUpdateNotebookSharesResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool CreateOrUpdateNotebookSharesResult::operator==(const CreateOrUpdateNotebookSharesResult & other) const noexcept
+bool operator==(const CreateOrUpdateNotebookSharesResult & lhs, const CreateOrUpdateNotebookSharesResult & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.matchingShares() == rhs.matchingShares();
 }
 
-bool CreateOrUpdateNotebookSharesResult::operator!=(const CreateOrUpdateNotebookSharesResult & other) const noexcept
+bool operator!=(const CreateOrUpdateNotebookSharesResult & lhs, const CreateOrUpdateNotebookSharesResult & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

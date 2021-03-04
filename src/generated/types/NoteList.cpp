@@ -152,14 +152,26 @@ void NoteList::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteList::operator==(const NoteList & other) const noexcept
+bool operator==(const NoteList & lhs, const NoteList & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.startIndex() == rhs.startIndex() &&
+        lhs.totalNotes() == rhs.totalNotes() &&
+        lhs.notes() == rhs.notes() &&
+        lhs.stoppedWords() == rhs.stoppedWords() &&
+        lhs.searchedWords() == rhs.searchedWords() &&
+        lhs.updateCount() == rhs.updateCount() &&
+        lhs.searchContextBytes() == rhs.searchContextBytes() &&
+        lhs.debugInfo() == rhs.debugInfo();
 }
 
-bool NoteList::operator!=(const NoteList & other) const noexcept
+bool operator!=(const NoteList & lhs, const NoteList & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

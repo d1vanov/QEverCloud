@@ -272,14 +272,34 @@ void NoteMetadata::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteMetadata::operator==(const NoteMetadata & other) const noexcept
+bool operator==(const NoteMetadata & lhs, const NoteMetadata & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.title() == rhs.title() &&
+        lhs.contentLength() == rhs.contentLength() &&
+        lhs.created() == rhs.created() &&
+        lhs.updated() == rhs.updated() &&
+        lhs.deleted() == rhs.deleted() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.notebookGuid() == rhs.notebookGuid() &&
+        lhs.tagGuids() == rhs.tagGuids() &&
+        lhs.attributes() == rhs.attributes() &&
+        lhs.largestResourceMime() == rhs.largestResourceMime() &&
+        lhs.largestResourceSize() == rhs.largestResourceSize();
 }
 
-bool NoteMetadata::operator!=(const NoteMetadata & other) const noexcept
+bool operator!=(const NoteMetadata & lhs, const NoteMetadata & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

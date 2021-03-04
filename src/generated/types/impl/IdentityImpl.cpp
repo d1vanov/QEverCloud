@@ -17,30 +17,6 @@
 
 namespace qevercloud {
 
-bool Identity::Impl::operator==(
-    const Identity::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_id == other.m_id &&
-        m_contact == other.m_contact &&
-        m_userId == other.m_userId &&
-        m_deactivated == other.m_deactivated &&
-        m_sameBusiness == other.m_sameBusiness &&
-        m_blocked == other.m_blocked &&
-        m_userConnected == other.m_userConnected &&
-        m_eventId == other.m_eventId;
-}
-
-bool Identity::Impl::operator!=(
-    const Identity::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Identity::Impl::print(QTextStream & strm) const
 {
     strm << "Identity: {\n";

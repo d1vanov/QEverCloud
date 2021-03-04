@@ -93,16 +93,6 @@ void EDAMInvalidContactsException::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool EDAMInvalidContactsException::operator==(const EDAMInvalidContactsException & other) const noexcept
-{
-    return *d == *other.d;
-}
-
-bool EDAMInvalidContactsException::operator!=(const EDAMInvalidContactsException & other) const noexcept
-{
-    return !(*this == other);
-}
-
 const char * EDAMInvalidContactsException::what() const noexcept
 {
     return EvernoteException::what();
@@ -179,6 +169,23 @@ void EDAMInvalidContactsExceptionData::throwException() const
     e.setParameter(d->m_parameter);
     e.setReasons(d->m_reasons);
     throw e;
+}
+
+bool operator==(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept
+{
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.contacts() == rhs.contacts() &&
+        lhs.parameter() == rhs.parameter() &&
+        lhs.reasons() == rhs.reasons();
+}
+
+bool operator!=(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept
+{
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

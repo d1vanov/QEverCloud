@@ -64,9 +64,6 @@ public:
     [[nodiscard]] const char * what() const noexcept override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
-    [[nodiscard]] bool operator==(const EDAMSystemException & other) const noexcept;
-    [[nodiscard]] bool operator!=(const EDAMSystemException & other) const noexcept;
-
     Q_PROPERTY(EDAMErrorCode errorCode READ errorCode WRITE setErrorCode)
     Q_PROPERTY(std::optional<QString> message READ message WRITE setMessage)
     Q_PROPERTY(std::optional<qint32> rateLimitDuration READ rateLimitDuration WRITE setRateLimitDuration)
@@ -75,6 +72,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept;
+[[nodiscard]] bool operator!=(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept;
 
 /**
  * Asynchronous API counterpart of EDAMSystemException. See EverCloudExceptionData

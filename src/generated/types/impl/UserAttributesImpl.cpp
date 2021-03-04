@@ -17,57 +17,6 @@
 
 namespace qevercloud {
 
-bool UserAttributes::Impl::operator==(
-    const UserAttributes::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_defaultLocationName == other.m_defaultLocationName &&
-        m_defaultLatitude == other.m_defaultLatitude &&
-        m_defaultLongitude == other.m_defaultLongitude &&
-        m_preactivation == other.m_preactivation &&
-        m_viewedPromotions == other.m_viewedPromotions &&
-        m_incomingEmailAddress == other.m_incomingEmailAddress &&
-        m_recentMailedAddresses == other.m_recentMailedAddresses &&
-        m_comments == other.m_comments &&
-        m_dateAgreedToTermsOfService == other.m_dateAgreedToTermsOfService &&
-        m_maxReferrals == other.m_maxReferrals &&
-        m_referralCount == other.m_referralCount &&
-        m_refererCode == other.m_refererCode &&
-        m_sentEmailDate == other.m_sentEmailDate &&
-        m_sentEmailCount == other.m_sentEmailCount &&
-        m_dailyEmailLimit == other.m_dailyEmailLimit &&
-        m_emailOptOutDate == other.m_emailOptOutDate &&
-        m_partnerEmailOptInDate == other.m_partnerEmailOptInDate &&
-        m_preferredLanguage == other.m_preferredLanguage &&
-        m_preferredCountry == other.m_preferredCountry &&
-        m_clipFullPage == other.m_clipFullPage &&
-        m_twitterUserName == other.m_twitterUserName &&
-        m_twitterId == other.m_twitterId &&
-        m_groupName == other.m_groupName &&
-        m_recognitionLanguage == other.m_recognitionLanguage &&
-        m_referralProof == other.m_referralProof &&
-        m_educationalDiscount == other.m_educationalDiscount &&
-        m_businessAddress == other.m_businessAddress &&
-        m_hideSponsorBilling == other.m_hideSponsorBilling &&
-        m_useEmailAutoFiling == other.m_useEmailAutoFiling &&
-        m_reminderEmailConfig == other.m_reminderEmailConfig &&
-        m_emailAddressLastConfirmed == other.m_emailAddressLastConfirmed &&
-        m_passwordUpdated == other.m_passwordUpdated &&
-        m_salesforcePushEnabled == other.m_salesforcePushEnabled &&
-        m_shouldLogClientEvent == other.m_shouldLogClientEvent &&
-        m_optOutMachineLearning == other.m_optOutMachineLearning;
-}
-
-bool UserAttributes::Impl::operator!=(
-    const UserAttributes::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void UserAttributes::Impl::print(QTextStream & strm) const
 {
     strm << "UserAttributes: {\n";

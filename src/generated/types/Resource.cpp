@@ -292,14 +292,35 @@ void Resource::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Resource::operator==(const Resource & other) const noexcept
+bool operator==(const Resource & lhs, const Resource & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.noteLocalId() == rhs.noteLocalId() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.noteGuid() == rhs.noteGuid() &&
+        lhs.data() == rhs.data() &&
+        lhs.mime() == rhs.mime() &&
+        lhs.width() == rhs.width() &&
+        lhs.height() == rhs.height() &&
+        lhs.duration() == rhs.duration() &&
+        lhs.active() == rhs.active() &&
+        lhs.recognition() == rhs.recognition() &&
+        lhs.attributes() == rhs.attributes() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.alternateData() == rhs.alternateData();
 }
 
-bool Resource::operator!=(const Resource & other) const noexcept
+bool operator!=(const Resource & lhs, const Resource & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

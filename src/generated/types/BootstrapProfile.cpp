@@ -77,14 +77,20 @@ void BootstrapProfile::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool BootstrapProfile::operator==(const BootstrapProfile & other) const noexcept
+bool operator==(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.name() == rhs.name() &&
+        lhs.settings() == rhs.settings();
 }
 
-bool BootstrapProfile::operator!=(const BootstrapProfile & other) const noexcept
+bool operator!=(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

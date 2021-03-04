@@ -487,14 +487,47 @@ void NotebookRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NotebookRestrictions::operator==(const NotebookRestrictions & other) const noexcept
+bool operator==(const NotebookRestrictions & lhs, const NotebookRestrictions & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noReadNotes() == rhs.noReadNotes() &&
+        lhs.noCreateNotes() == rhs.noCreateNotes() &&
+        lhs.noUpdateNotes() == rhs.noUpdateNotes() &&
+        lhs.noExpungeNotes() == rhs.noExpungeNotes() &&
+        lhs.noShareNotes() == rhs.noShareNotes() &&
+        lhs.noEmailNotes() == rhs.noEmailNotes() &&
+        lhs.noSendMessageToRecipients() == rhs.noSendMessageToRecipients() &&
+        lhs.noUpdateNotebook() == rhs.noUpdateNotebook() &&
+        lhs.noExpungeNotebook() == rhs.noExpungeNotebook() &&
+        lhs.noSetDefaultNotebook() == rhs.noSetDefaultNotebook() &&
+        lhs.noSetNotebookStack() == rhs.noSetNotebookStack() &&
+        lhs.noPublishToPublic() == rhs.noPublishToPublic() &&
+        lhs.noPublishToBusinessLibrary() == rhs.noPublishToBusinessLibrary() &&
+        lhs.noCreateTags() == rhs.noCreateTags() &&
+        lhs.noUpdateTags() == rhs.noUpdateTags() &&
+        lhs.noExpungeTags() == rhs.noExpungeTags() &&
+        lhs.noSetParentTag() == rhs.noSetParentTag() &&
+        lhs.noCreateSharedNotebooks() == rhs.noCreateSharedNotebooks() &&
+        lhs.updateWhichSharedNotebookRestrictions() == rhs.updateWhichSharedNotebookRestrictions() &&
+        lhs.expungeWhichSharedNotebookRestrictions() == rhs.expungeWhichSharedNotebookRestrictions() &&
+        lhs.noShareNotesWithBusiness() == rhs.noShareNotesWithBusiness() &&
+        lhs.noRenameNotebook() == rhs.noRenameNotebook() &&
+        lhs.noSetInMyList() == rhs.noSetInMyList() &&
+        lhs.noChangeContact() == rhs.noChangeContact() &&
+        lhs.canMoveToContainerRestrictions() == rhs.canMoveToContainerRestrictions() &&
+        lhs.noSetReminderNotifyEmail() == rhs.noSetReminderNotifyEmail() &&
+        lhs.noSetReminderNotifyInApp() == rhs.noSetReminderNotifyInApp() &&
+        lhs.noSetRecipientSettingsStack() == rhs.noSetRecipientSettingsStack() &&
+        lhs.noCanMoveNote() == rhs.noCanMoveNote();
 }
 
-bool NotebookRestrictions::operator!=(const NotebookRestrictions & other) const noexcept
+bool operator!=(const NotebookRestrictions & lhs, const NotebookRestrictions & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

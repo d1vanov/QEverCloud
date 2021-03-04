@@ -31,9 +31,6 @@ public:
 
     ~Impl() noexcept override = default;
 
-    [[nodiscard]] bool operator==(const ManageNoteSharesError::Impl & other) const noexcept;
-    [[nodiscard]] bool operator!=(const ManageNoteSharesError::Impl & other) const noexcept;
-
     void print(QTextStream & strm) const override;
 
     std::optional<IdentityID> m_identityID;

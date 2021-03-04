@@ -234,9 +234,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const User & other) const noexcept;
-    [[nodiscard]] bool operator!=(const User & other) const noexcept;
-
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)
@@ -263,6 +260,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const User & lhs, const User & rhs) noexcept;
+[[nodiscard]] bool operator!=(const User & lhs, const User & rhs) noexcept;
 
 } // namespace qevercloud
 

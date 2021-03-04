@@ -88,16 +88,6 @@ void EDAMSystemException::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool EDAMSystemException::operator==(const EDAMSystemException & other) const noexcept
-{
-    return *d == *other.d;
-}
-
-bool EDAMSystemException::operator!=(const EDAMSystemException & other) const noexcept
-{
-    return !(*this == other);
-}
-
 const char * EDAMSystemException::what() const noexcept
 {
     return EvernoteException::what();
@@ -169,6 +159,23 @@ void EDAMSystemExceptionData::throwException() const
     e.setMessage(d->m_message);
     e.setRateLimitDuration(d->m_rateLimitDuration);
     throw e;
+}
+
+bool operator==(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept
+{
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.errorCode() == rhs.errorCode() &&
+        lhs.message() == rhs.message() &&
+        lhs.rateLimitDuration() == rhs.rateLimitDuration();
+}
+
+bool operator!=(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept
+{
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

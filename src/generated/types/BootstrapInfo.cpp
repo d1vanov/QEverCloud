@@ -67,14 +67,19 @@ void BootstrapInfo::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool BootstrapInfo::operator==(const BootstrapInfo & other) const noexcept
+bool operator==(const BootstrapInfo & lhs, const BootstrapInfo & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.profiles() == rhs.profiles();
 }
 
-bool BootstrapInfo::operator!=(const BootstrapInfo & other) const noexcept
+bool operator!=(const BootstrapInfo & lhs, const BootstrapInfo & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

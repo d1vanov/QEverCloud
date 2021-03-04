@@ -26,47 +26,6 @@ Note::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool Note::Impl::operator==(
-    const Note::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_notebookLocalId == other.m_notebookLocalId &&
-        m_tagLocalIds == other.m_tagLocalIds &&
-        m_thumbnailData == other.m_thumbnailData &&
-        m_guid == other.m_guid &&
-        m_title == other.m_title &&
-        m_content == other.m_content &&
-        m_contentHash == other.m_contentHash &&
-        m_contentLength == other.m_contentLength &&
-        m_created == other.m_created &&
-        m_updated == other.m_updated &&
-        m_deleted == other.m_deleted &&
-        m_active == other.m_active &&
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_notebookGuid == other.m_notebookGuid &&
-        m_tagGuids == other.m_tagGuids &&
-        m_resources == other.m_resources &&
-        m_attributes == other.m_attributes &&
-        m_tagNames == other.m_tagNames &&
-        m_sharedNotes == other.m_sharedNotes &&
-        m_restrictions == other.m_restrictions &&
-        m_limits == other.m_limits;
-}
-
-bool Note::Impl::operator!=(
-    const Note::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Note::Impl::print(QTextStream & strm) const
 {
     strm << "Note: {\n";

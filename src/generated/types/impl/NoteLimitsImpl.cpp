@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteLimits::Impl::operator==(
-    const NoteLimits::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noteResourceCountMax == other.m_noteResourceCountMax &&
-        m_uploadLimit == other.m_uploadLimit &&
-        m_resourceSizeMax == other.m_resourceSizeMax &&
-        m_noteSizeMax == other.m_noteSizeMax &&
-        m_uploaded == other.m_uploaded;
-}
-
-bool NoteLimits::Impl::operator!=(
-    const NoteLimits::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteLimits::Impl::print(QTextStream & strm) const
 {
     strm << "NoteLimits: {\n";

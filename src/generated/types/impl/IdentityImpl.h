@@ -31,9 +31,6 @@ public:
 
     ~Impl() noexcept override = default;
 
-    [[nodiscard]] bool operator==(const Identity::Impl & other) const noexcept;
-    [[nodiscard]] bool operator!=(const Identity::Impl & other) const noexcept;
-
     void print(QTextStream & strm) const override;
 
     IdentityID m_id = 0;

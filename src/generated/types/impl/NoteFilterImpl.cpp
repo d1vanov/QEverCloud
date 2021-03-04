@@ -17,35 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteFilter::Impl::operator==(
-    const NoteFilter::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_order == other.m_order &&
-        m_ascending == other.m_ascending &&
-        m_words == other.m_words &&
-        m_notebookGuid == other.m_notebookGuid &&
-        m_tagGuids == other.m_tagGuids &&
-        m_timeZone == other.m_timeZone &&
-        m_inactive == other.m_inactive &&
-        m_emphasized == other.m_emphasized &&
-        m_includeAllReadableNotebooks == other.m_includeAllReadableNotebooks &&
-        m_includeAllReadableWorkspaces == other.m_includeAllReadableWorkspaces &&
-        m_context == other.m_context &&
-        m_rawWords == other.m_rawWords &&
-        m_searchContextBytes == other.m_searchContextBytes;
-}
-
-bool NoteFilter::Impl::operator!=(
-    const NoteFilter::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteFilter::Impl::print(QTextStream & strm) const
 {
     strm << "NoteFilter: {\n";

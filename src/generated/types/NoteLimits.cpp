@@ -127,14 +127,23 @@ void NoteLimits::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteLimits::operator==(const NoteLimits & other) const noexcept
+bool operator==(const NoteLimits & lhs, const NoteLimits & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noteResourceCountMax() == rhs.noteResourceCountMax() &&
+        lhs.uploadLimit() == rhs.uploadLimit() &&
+        lhs.resourceSizeMax() == rhs.resourceSizeMax() &&
+        lhs.noteSizeMax() == rhs.noteSizeMax() &&
+        lhs.uploaded() == rhs.uploaded();
 }
 
-bool NoteLimits::operator!=(const NoteLimits & other) const noexcept
+bool operator!=(const NoteLimits & lhs, const NoteLimits & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

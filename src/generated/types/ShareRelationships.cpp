@@ -97,14 +97,21 @@ void ShareRelationships::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool ShareRelationships::operator==(const ShareRelationships & other) const noexcept
+bool operator==(const ShareRelationships & lhs, const ShareRelationships & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.invitations() == rhs.invitations() &&
+        lhs.memberships() == rhs.memberships() &&
+        lhs.invitationRestrictions() == rhs.invitationRestrictions();
 }
 
-bool ShareRelationships::operator!=(const ShareRelationships & other) const noexcept
+bool operator!=(const ShareRelationships & lhs, const ShareRelationships & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

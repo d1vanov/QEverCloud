@@ -300,9 +300,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteAttributes & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteAttributes & other) const noexcept;
-
     using Classifications = QMap<QString, QString>;
 
     Q_PROPERTY(std::optional<Timestamp> subjectDate READ subjectDate WRITE setSubjectDate)
@@ -332,6 +329,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept;
 
 } // namespace qevercloud
 

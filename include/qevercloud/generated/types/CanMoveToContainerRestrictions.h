@@ -44,15 +44,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const CanMoveToContainerRestrictions & other) const noexcept;
-    [[nodiscard]] bool operator!=(const CanMoveToContainerRestrictions & other) const noexcept;
-
     Q_PROPERTY(std::optional<CanMoveToContainerStatus> canMoveToContainer READ canMoveToContainer WRITE setCanMoveToContainer)
 
 private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const CanMoveToContainerRestrictions & lhs, const CanMoveToContainerRestrictions & rhs) noexcept;
+[[nodiscard]] bool operator!=(const CanMoveToContainerRestrictions & lhs, const CanMoveToContainerRestrictions & rhs) noexcept;
 
 } // namespace qevercloud
 

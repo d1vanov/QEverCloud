@@ -127,9 +127,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const AccountLimits & other) const noexcept;
-    [[nodiscard]] bool operator!=(const AccountLimits & other) const noexcept;
-
     Q_PROPERTY(std::optional<qint32> userMailLimitDaily READ userMailLimitDaily WRITE setUserMailLimitDaily)
     Q_PROPERTY(std::optional<qint64> noteSizeMax READ noteSizeMax WRITE setNoteSizeMax)
     Q_PROPERTY(std::optional<qint64> resourceSizeMax READ resourceSizeMax WRITE setResourceSizeMax)
@@ -146,6 +143,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const AccountLimits & lhs, const AccountLimits & rhs) noexcept;
+[[nodiscard]] bool operator!=(const AccountLimits & lhs, const AccountLimits & rhs) noexcept;
 
 } // namespace qevercloud
 

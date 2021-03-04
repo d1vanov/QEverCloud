@@ -222,14 +222,32 @@ void LinkedNotebook::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool LinkedNotebook::operator==(const LinkedNotebook & other) const noexcept
+bool operator==(const LinkedNotebook & lhs, const LinkedNotebook & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.shareName() == rhs.shareName() &&
+        lhs.username() == rhs.username() &&
+        lhs.shardId() == rhs.shardId() &&
+        lhs.sharedNotebookGlobalId() == rhs.sharedNotebookGlobalId() &&
+        lhs.uri() == rhs.uri() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.noteStoreUrl() == rhs.noteStoreUrl() &&
+        lhs.webApiUrlPrefix() == rhs.webApiUrlPrefix() &&
+        lhs.stack() == rhs.stack() &&
+        lhs.businessId() == rhs.businessId();
 }
 
-bool LinkedNotebook::operator!=(const LinkedNotebook & other) const noexcept
+bool operator!=(const LinkedNotebook & lhs, const LinkedNotebook & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

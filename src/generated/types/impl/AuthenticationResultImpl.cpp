@@ -17,32 +17,6 @@
 
 namespace qevercloud {
 
-bool AuthenticationResult::Impl::operator==(
-    const AuthenticationResult::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_currentTime == other.m_currentTime &&
-        m_authenticationToken == other.m_authenticationToken &&
-        m_expiration == other.m_expiration &&
-        m_user == other.m_user &&
-        m_publicUserInfo == other.m_publicUserInfo &&
-        m_noteStoreUrl == other.m_noteStoreUrl &&
-        m_webApiUrlPrefix == other.m_webApiUrlPrefix &&
-        m_secondFactorRequired == other.m_secondFactorRequired &&
-        m_secondFactorDeliveryHint == other.m_secondFactorDeliveryHint &&
-        m_urls == other.m_urls;
-}
-
-bool AuthenticationResult::Impl::operator!=(
-    const AuthenticationResult::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void AuthenticationResult::Impl::print(QTextStream & strm) const
 {
     strm << "AuthenticationResult: {\n";

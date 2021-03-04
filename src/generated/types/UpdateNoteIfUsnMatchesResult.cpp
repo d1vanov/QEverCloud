@@ -82,14 +82,20 @@ void UpdateNoteIfUsnMatchesResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool UpdateNoteIfUsnMatchesResult::operator==(const UpdateNoteIfUsnMatchesResult & other) const noexcept
+bool operator==(const UpdateNoteIfUsnMatchesResult & lhs, const UpdateNoteIfUsnMatchesResult & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.note() == rhs.note() &&
+        lhs.updated() == rhs.updated();
 }
 
-bool UpdateNoteIfUsnMatchesResult::operator!=(const UpdateNoteIfUsnMatchesResult & other) const noexcept
+bool operator!=(const UpdateNoteIfUsnMatchesResult & lhs, const UpdateNoteIfUsnMatchesResult & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

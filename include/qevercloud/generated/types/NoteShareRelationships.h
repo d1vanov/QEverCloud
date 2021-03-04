@@ -69,9 +69,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteShareRelationships & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteShareRelationships & other) const noexcept;
-
     Q_PROPERTY(std::optional<QList<NoteInvitationShareRelationship>> invitations READ invitations WRITE setInvitations)
     Q_PROPERTY(std::optional<QList<NoteMemberShareRelationship>> memberships READ memberships WRITE setMemberships)
     Q_PROPERTY(std::optional<NoteShareRelationshipRestrictions> invitationRestrictions READ invitationRestrictions WRITE setInvitationRestrictions)
@@ -80,6 +77,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteShareRelationships & lhs, const NoteShareRelationships & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteShareRelationships & lhs, const NoteShareRelationships & rhs) noexcept;
 
 } // namespace qevercloud
 

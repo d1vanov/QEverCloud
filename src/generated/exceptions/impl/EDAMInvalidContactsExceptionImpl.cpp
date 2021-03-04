@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool EDAMInvalidContactsException::Impl::operator==(
-    const EDAMInvalidContactsException::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_contacts == other.m_contacts &&
-        m_parameter == other.m_parameter &&
-        m_reasons == other.m_reasons;
-}
-
-bool EDAMInvalidContactsException::Impl::operator!=(
-    const EDAMInvalidContactsException::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void EDAMInvalidContactsException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMInvalidContactsException: {\n";

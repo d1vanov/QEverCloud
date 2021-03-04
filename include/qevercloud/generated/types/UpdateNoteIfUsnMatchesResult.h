@@ -62,9 +62,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const UpdateNoteIfUsnMatchesResult & other) const noexcept;
-    [[nodiscard]] bool operator!=(const UpdateNoteIfUsnMatchesResult & other) const noexcept;
-
     Q_PROPERTY(std::optional<Note> note READ note WRITE setNote)
     Q_PROPERTY(std::optional<bool> updated READ updated WRITE setUpdated)
 
@@ -72,6 +69,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const UpdateNoteIfUsnMatchesResult & lhs, const UpdateNoteIfUsnMatchesResult & rhs) noexcept;
+[[nodiscard]] bool operator!=(const UpdateNoteIfUsnMatchesResult & lhs, const UpdateNoteIfUsnMatchesResult & rhs) noexcept;
 
 } // namespace qevercloud
 

@@ -287,14 +287,34 @@ void SyncChunkFilter::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SyncChunkFilter::operator==(const SyncChunkFilter & other) const noexcept
+bool operator==(const SyncChunkFilter & lhs, const SyncChunkFilter & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.includeNotes() == rhs.includeNotes() &&
+        lhs.includeNoteResources() == rhs.includeNoteResources() &&
+        lhs.includeNoteAttributes() == rhs.includeNoteAttributes() &&
+        lhs.includeNotebooks() == rhs.includeNotebooks() &&
+        lhs.includeTags() == rhs.includeTags() &&
+        lhs.includeSearches() == rhs.includeSearches() &&
+        lhs.includeResources() == rhs.includeResources() &&
+        lhs.includeLinkedNotebooks() == rhs.includeLinkedNotebooks() &&
+        lhs.includeExpunged() == rhs.includeExpunged() &&
+        lhs.includeNoteApplicationDataFullMap() == rhs.includeNoteApplicationDataFullMap() &&
+        lhs.includeResourceApplicationDataFullMap() == rhs.includeResourceApplicationDataFullMap() &&
+        lhs.includeNoteResourceApplicationDataFullMap() == rhs.includeNoteResourceApplicationDataFullMap() &&
+        lhs.includeSharedNotes() == rhs.includeSharedNotes() &&
+        lhs.omitSharedNotebooks() == rhs.omitSharedNotebooks() &&
+        lhs.requireNoteContentClass() == rhs.requireNoteContentClass() &&
+        lhs.notebookGuids() == rhs.notebookGuids();
 }
 
-bool SyncChunkFilter::operator!=(const SyncChunkFilter & other) const noexcept
+bool operator!=(const SyncChunkFilter & lhs, const SyncChunkFilter & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

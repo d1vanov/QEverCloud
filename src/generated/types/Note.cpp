@@ -392,14 +392,43 @@ void Note::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Note::operator==(const Note & other) const noexcept
+bool operator==(const Note & lhs, const Note & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.notebookLocalId() == rhs.notebookLocalId() &&
+        lhs.tagLocalIds() == rhs.tagLocalIds() &&
+        lhs.thumbnailData() == rhs.thumbnailData() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.title() == rhs.title() &&
+        lhs.content() == rhs.content() &&
+        lhs.contentHash() == rhs.contentHash() &&
+        lhs.contentLength() == rhs.contentLength() &&
+        lhs.created() == rhs.created() &&
+        lhs.updated() == rhs.updated() &&
+        lhs.deleted() == rhs.deleted() &&
+        lhs.active() == rhs.active() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.notebookGuid() == rhs.notebookGuid() &&
+        lhs.tagGuids() == rhs.tagGuids() &&
+        lhs.resources() == rhs.resources() &&
+        lhs.attributes() == rhs.attributes() &&
+        lhs.tagNames() == rhs.tagNames() &&
+        lhs.sharedNotes() == rhs.sharedNotes() &&
+        lhs.restrictions() == rhs.restrictions() &&
+        lhs.limits() == rhs.limits();
 }
 
-bool Note::operator!=(const Note & other) const noexcept
+bool operator!=(const Note & lhs, const Note & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

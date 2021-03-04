@@ -182,14 +182,28 @@ void UserProfile::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool UserProfile::operator==(const UserProfile & other) const noexcept
+bool operator==(const UserProfile & lhs, const UserProfile & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.id() == rhs.id() &&
+        lhs.name() == rhs.name() &&
+        lhs.email() == rhs.email() &&
+        lhs.username() == rhs.username() &&
+        lhs.attributes() == rhs.attributes() &&
+        lhs.joined() == rhs.joined() &&
+        lhs.photoLastUpdated() == rhs.photoLastUpdated() &&
+        lhs.photoUrl() == rhs.photoUrl() &&
+        lhs.role() == rhs.role() &&
+        lhs.status() == rhs.status();
 }
 
-bool UserProfile::operator!=(const UserProfile & other) const noexcept
+bool operator!=(const UserProfile & lhs, const UserProfile & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

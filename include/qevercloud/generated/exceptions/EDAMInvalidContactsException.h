@@ -75,9 +75,6 @@ public:
     [[nodiscard]] const char * what() const noexcept override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
-    [[nodiscard]] bool operator==(const EDAMInvalidContactsException & other) const noexcept;
-    [[nodiscard]] bool operator!=(const EDAMInvalidContactsException & other) const noexcept;
-
     Q_PROPERTY(QList<Contact> contacts READ contacts WRITE setContacts)
     Q_PROPERTY(std::optional<QString> parameter READ parameter WRITE setParameter)
     Q_PROPERTY(std::optional<QList<EDAMInvalidContactReason>> reasons READ reasons WRITE setReasons)
@@ -86,6 +83,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept;
+[[nodiscard]] bool operator!=(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept;
 
 /**
  * Asynchronous API counterpart of EDAMInvalidContactsException. See EverCloudExceptionData

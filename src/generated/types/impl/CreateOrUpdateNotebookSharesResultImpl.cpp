@@ -17,24 +17,6 @@
 
 namespace qevercloud {
 
-bool CreateOrUpdateNotebookSharesResult::Impl::operator==(
-    const CreateOrUpdateNotebookSharesResult::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_matchingShares == other.m_matchingShares;
-}
-
-bool CreateOrUpdateNotebookSharesResult::Impl::operator!=(
-    const CreateOrUpdateNotebookSharesResult::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void CreateOrUpdateNotebookSharesResult::Impl::print(QTextStream & strm) const
 {
     strm << "CreateOrUpdateNotebookSharesResult: {\n";

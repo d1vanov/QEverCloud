@@ -65,9 +65,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const SavedSearchScope & other) const noexcept;
-    [[nodiscard]] bool operator!=(const SavedSearchScope & other) const noexcept;
-
     Q_PROPERTY(std::optional<bool> includeAccount READ includeAccount WRITE setIncludeAccount)
     Q_PROPERTY(std::optional<bool> includePersonalLinkedNotebooks READ includePersonalLinkedNotebooks WRITE setIncludePersonalLinkedNotebooks)
     Q_PROPERTY(std::optional<bool> includeBusinessLinkedNotebooks READ includeBusinessLinkedNotebooks WRITE setIncludeBusinessLinkedNotebooks)
@@ -76,6 +73,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const SavedSearchScope & lhs, const SavedSearchScope & rhs) noexcept;
+[[nodiscard]] bool operator!=(const SavedSearchScope & lhs, const SavedSearchScope & rhs) noexcept;
 
 } // namespace qevercloud
 

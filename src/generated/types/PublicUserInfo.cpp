@@ -107,14 +107,23 @@ void PublicUserInfo::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool PublicUserInfo::operator==(const PublicUserInfo & other) const noexcept
+bool operator==(const PublicUserInfo & lhs, const PublicUserInfo & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.userId() == rhs.userId() &&
+        lhs.serviceLevel() == rhs.serviceLevel() &&
+        lhs.username() == rhs.username() &&
+        lhs.noteStoreUrl() == rhs.noteStoreUrl() &&
+        lhs.webApiUrlPrefix() == rhs.webApiUrlPrefix();
 }
 
-bool PublicUserInfo::operator!=(const PublicUserInfo & other) const noexcept
+bool operator!=(const PublicUserInfo & lhs, const PublicUserInfo & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

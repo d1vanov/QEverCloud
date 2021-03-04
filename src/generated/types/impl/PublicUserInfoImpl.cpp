@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool PublicUserInfo::Impl::operator==(
-    const PublicUserInfo::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_userId == other.m_userId &&
-        m_serviceLevel == other.m_serviceLevel &&
-        m_username == other.m_username &&
-        m_noteStoreUrl == other.m_noteStoreUrl &&
-        m_webApiUrlPrefix == other.m_webApiUrlPrefix;
-}
-
-bool PublicUserInfo::Impl::operator!=(
-    const PublicUserInfo::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void PublicUserInfo::Impl::print(QTextStream & strm) const
 {
     strm << "PublicUserInfo: {\n";

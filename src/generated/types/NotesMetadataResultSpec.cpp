@@ -217,14 +217,29 @@ void NotesMetadataResultSpec::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NotesMetadataResultSpec::operator==(const NotesMetadataResultSpec & other) const noexcept
+bool operator==(const NotesMetadataResultSpec & lhs, const NotesMetadataResultSpec & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.includeTitle() == rhs.includeTitle() &&
+        lhs.includeContentLength() == rhs.includeContentLength() &&
+        lhs.includeCreated() == rhs.includeCreated() &&
+        lhs.includeUpdated() == rhs.includeUpdated() &&
+        lhs.includeDeleted() == rhs.includeDeleted() &&
+        lhs.includeUpdateSequenceNum() == rhs.includeUpdateSequenceNum() &&
+        lhs.includeNotebookGuid() == rhs.includeNotebookGuid() &&
+        lhs.includeTagGuids() == rhs.includeTagGuids() &&
+        lhs.includeAttributes() == rhs.includeAttributes() &&
+        lhs.includeLargestResourceMime() == rhs.includeLargestResourceMime() &&
+        lhs.includeLargestResourceSize() == rhs.includeLargestResourceSize();
 }
 
-bool NotesMetadataResultSpec::operator!=(const NotesMetadataResultSpec & other) const noexcept
+bool operator!=(const NotesMetadataResultSpec & lhs, const NotesMetadataResultSpec & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

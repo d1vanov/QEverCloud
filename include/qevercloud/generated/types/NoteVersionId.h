@@ -83,9 +83,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteVersionId & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteVersionId & other) const noexcept;
-
     Q_PROPERTY(qint32 updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
     Q_PROPERTY(Timestamp updated READ updated WRITE setUpdated)
     Q_PROPERTY(Timestamp saved READ saved WRITE setSaved)
@@ -96,6 +93,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteVersionId & lhs, const NoteVersionId & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteVersionId & lhs, const NoteVersionId & rhs) noexcept;
 
 } // namespace qevercloud
 

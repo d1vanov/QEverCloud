@@ -69,9 +69,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteCollectionCounts & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteCollectionCounts & other) const noexcept;
-
     using TagCounts = QMap<Guid, qint32>;
 
     Q_PROPERTY(std::optional<TagCounts> notebookCounts READ notebookCounts WRITE setNotebookCounts)
@@ -82,6 +79,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteCollectionCounts & lhs, const NoteCollectionCounts & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteCollectionCounts & lhs, const NoteCollectionCounts & rhs) noexcept;
 
 } // namespace qevercloud
 

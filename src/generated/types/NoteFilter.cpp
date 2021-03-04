@@ -217,14 +217,31 @@ void NoteFilter::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteFilter::operator==(const NoteFilter & other) const noexcept
+bool operator==(const NoteFilter & lhs, const NoteFilter & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.order() == rhs.order() &&
+        lhs.ascending() == rhs.ascending() &&
+        lhs.words() == rhs.words() &&
+        lhs.notebookGuid() == rhs.notebookGuid() &&
+        lhs.tagGuids() == rhs.tagGuids() &&
+        lhs.timeZone() == rhs.timeZone() &&
+        lhs.inactive() == rhs.inactive() &&
+        lhs.emphasized() == rhs.emphasized() &&
+        lhs.includeAllReadableNotebooks() == rhs.includeAllReadableNotebooks() &&
+        lhs.includeAllReadableWorkspaces() == rhs.includeAllReadableWorkspaces() &&
+        lhs.context() == rhs.context() &&
+        lhs.rawWords() == rhs.rawWords() &&
+        lhs.searchContextBytes() == rhs.searchContextBytes();
 }
 
-bool NoteFilter::operator!=(const NoteFilter & other) const noexcept
+bool operator!=(const NoteFilter & lhs, const NoteFilter & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

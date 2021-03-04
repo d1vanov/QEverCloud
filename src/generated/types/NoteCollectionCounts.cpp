@@ -97,14 +97,21 @@ void NoteCollectionCounts::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteCollectionCounts::operator==(const NoteCollectionCounts & other) const noexcept
+bool operator==(const NoteCollectionCounts & lhs, const NoteCollectionCounts & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.notebookCounts() == rhs.notebookCounts() &&
+        lhs.tagCounts() == rhs.tagCounts() &&
+        lhs.trashCount() == rhs.trashCount();
 }
 
-bool NoteCollectionCounts::operator!=(const NoteCollectionCounts & other) const noexcept
+bool operator!=(const NoteCollectionCounts & lhs, const NoteCollectionCounts & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

@@ -116,9 +116,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const Identity & other) const noexcept;
-    [[nodiscard]] bool operator!=(const Identity & other) const noexcept;
-
     Q_PROPERTY(IdentityID id READ id WRITE setId)
     Q_PROPERTY(std::optional<Contact> contact READ contact WRITE setContact)
     Q_PROPERTY(std::optional<UserID> userId READ userId WRITE setUserId)
@@ -132,6 +129,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const Identity & lhs, const Identity & rhs) noexcept;
+[[nodiscard]] bool operator!=(const Identity & lhs, const Identity & rhs) noexcept;
 
 } // namespace qevercloud
 

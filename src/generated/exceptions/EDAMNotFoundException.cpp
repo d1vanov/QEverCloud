@@ -73,16 +73,6 @@ void EDAMNotFoundException::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool EDAMNotFoundException::operator==(const EDAMNotFoundException & other) const noexcept
-{
-    return *d == *other.d;
-}
-
-bool EDAMNotFoundException::operator!=(const EDAMNotFoundException & other) const noexcept
-{
-    return !(*this == other);
-}
-
 const char * EDAMNotFoundException::what() const noexcept
 {
     return EvernoteException::what();
@@ -135,6 +125,22 @@ void EDAMNotFoundExceptionData::throwException() const
     e.setIdentifier(d->m_identifier);
     e.setKey(d->m_key);
     throw e;
+}
+
+bool operator==(const EDAMNotFoundException & lhs, const EDAMNotFoundException & rhs) noexcept
+{
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.identifier() == rhs.identifier() &&
+        lhs.key() == rhs.key();
+}
+
+bool operator!=(const EDAMNotFoundException & lhs, const EDAMNotFoundException & rhs) noexcept
+{
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

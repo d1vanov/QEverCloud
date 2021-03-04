@@ -17,33 +17,6 @@
 
 namespace qevercloud {
 
-bool AccountLimits::Impl::operator==(
-    const AccountLimits::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_userMailLimitDaily == other.m_userMailLimitDaily &&
-        m_noteSizeMax == other.m_noteSizeMax &&
-        m_resourceSizeMax == other.m_resourceSizeMax &&
-        m_userLinkedNotebookMax == other.m_userLinkedNotebookMax &&
-        m_uploadLimit == other.m_uploadLimit &&
-        m_userNoteCountMax == other.m_userNoteCountMax &&
-        m_userNotebookCountMax == other.m_userNotebookCountMax &&
-        m_userTagCountMax == other.m_userTagCountMax &&
-        m_noteTagCountMax == other.m_noteTagCountMax &&
-        m_userSavedSearchesMax == other.m_userSavedSearchesMax &&
-        m_noteResourceCountMax == other.m_noteResourceCountMax;
-}
-
-bool AccountLimits::Impl::operator!=(
-    const AccountLimits::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void AccountLimits::Impl::print(QTextStream & strm) const
 {
     strm << "AccountLimits: {\n";

@@ -137,14 +137,25 @@ void Contact::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Contact::operator==(const Contact & other) const noexcept
+bool operator==(const Contact & lhs, const Contact & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.name() == rhs.name() &&
+        lhs.id() == rhs.id() &&
+        lhs.type() == rhs.type() &&
+        lhs.photoUrl() == rhs.photoUrl() &&
+        lhs.photoLastUpdated() == rhs.photoLastUpdated() &&
+        lhs.messagingPermit() == rhs.messagingPermit() &&
+        lhs.messagingPermitExpires() == rhs.messagingPermitExpires();
 }
 
-bool Contact::operator!=(const Contact & other) const noexcept
+bool operator!=(const Contact & lhs, const Contact & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

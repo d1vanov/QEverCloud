@@ -17,26 +17,6 @@
 
 namespace qevercloud {
 
-bool Publishing::Impl::operator==(
-    const Publishing::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_uri == other.m_uri &&
-        m_order == other.m_order &&
-        m_ascending == other.m_ascending &&
-        m_publicDescription == other.m_publicDescription;
-}
-
-bool Publishing::Impl::operator!=(
-    const Publishing::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Publishing::Impl::print(QTextStream & strm) const
 {
     strm << "Publishing: {\n";

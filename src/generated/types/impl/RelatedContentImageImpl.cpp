@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool RelatedContentImage::Impl::operator==(
-    const RelatedContentImage::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_url == other.m_url &&
-        m_width == other.m_width &&
-        m_height == other.m_height &&
-        m_pixelRatio == other.m_pixelRatio &&
-        m_fileSize == other.m_fileSize;
-}
-
-bool RelatedContentImage::Impl::operator!=(
-    const RelatedContentImage::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void RelatedContentImage::Impl::print(QTextStream & strm) const
 {
     strm << "RelatedContentImage: {\n";

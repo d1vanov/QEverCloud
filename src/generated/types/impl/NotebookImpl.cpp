@@ -26,42 +26,6 @@ Notebook::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool Notebook::Impl::operator==(
-    const Notebook::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_linkedNotebookGuid == other.m_linkedNotebookGuid &&
-        m_guid == other.m_guid &&
-        m_name == other.m_name &&
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_defaultNotebook == other.m_defaultNotebook &&
-        m_serviceCreated == other.m_serviceCreated &&
-        m_serviceUpdated == other.m_serviceUpdated &&
-        m_publishing == other.m_publishing &&
-        m_published == other.m_published &&
-        m_stack == other.m_stack &&
-        m_sharedNotebookIds == other.m_sharedNotebookIds &&
-        m_sharedNotebooks == other.m_sharedNotebooks &&
-        m_businessNotebook == other.m_businessNotebook &&
-        m_contact == other.m_contact &&
-        m_restrictions == other.m_restrictions &&
-        m_recipientSettings == other.m_recipientSettings;
-}
-
-bool Notebook::Impl::operator!=(
-    const Notebook::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Notebook::Impl::print(QTextStream & strm) const
 {
     strm << "Notebook: {\n";

@@ -112,14 +112,22 @@ void NotebookShareTemplate::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NotebookShareTemplate::operator==(const NotebookShareTemplate & other) const noexcept
+bool operator==(const NotebookShareTemplate & lhs, const NotebookShareTemplate & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.notebookGuid() == rhs.notebookGuid() &&
+        lhs.recipientThreadId() == rhs.recipientThreadId() &&
+        lhs.recipientContacts() == rhs.recipientContacts() &&
+        lhs.privilege() == rhs.privilege();
 }
 
-bool NotebookShareTemplate::operator!=(const NotebookShareTemplate & other) const noexcept
+bool operator!=(const NotebookShareTemplate & lhs, const NotebookShareTemplate & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

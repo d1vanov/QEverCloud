@@ -332,14 +332,38 @@ void Notebook::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Notebook::operator==(const Notebook & other) const noexcept
+bool operator==(const Notebook & lhs, const Notebook & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.linkedNotebookGuid() == rhs.linkedNotebookGuid() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.name() == rhs.name() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.defaultNotebook() == rhs.defaultNotebook() &&
+        lhs.serviceCreated() == rhs.serviceCreated() &&
+        lhs.serviceUpdated() == rhs.serviceUpdated() &&
+        lhs.publishing() == rhs.publishing() &&
+        lhs.published() == rhs.published() &&
+        lhs.stack() == rhs.stack() &&
+        lhs.sharedNotebookIds() == rhs.sharedNotebookIds() &&
+        lhs.sharedNotebooks() == rhs.sharedNotebooks() &&
+        lhs.businessNotebook() == rhs.businessNotebook() &&
+        lhs.contact() == rhs.contact() &&
+        lhs.restrictions() == rhs.restrictions() &&
+        lhs.recipientSettings() == rhs.recipientSettings();
 }
 
-bool Notebook::operator!=(const Notebook & other) const noexcept
+bool operator!=(const Notebook & lhs, const Notebook & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

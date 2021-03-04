@@ -177,14 +177,27 @@ void RelatedResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool RelatedResult::operator==(const RelatedResult & other) const noexcept
+bool operator==(const RelatedResult & lhs, const RelatedResult & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.notes() == rhs.notes() &&
+        lhs.notebooks() == rhs.notebooks() &&
+        lhs.tags() == rhs.tags() &&
+        lhs.containingNotebooks() == rhs.containingNotebooks() &&
+        lhs.debugInfo() == rhs.debugInfo() &&
+        lhs.experts() == rhs.experts() &&
+        lhs.relatedContent() == rhs.relatedContent() &&
+        lhs.cacheKey() == rhs.cacheKey() &&
+        lhs.cacheExpires() == rhs.cacheExpires();
 }
 
-bool RelatedResult::operator!=(const RelatedResult & other) const noexcept
+bool operator!=(const RelatedResult & lhs, const RelatedResult & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

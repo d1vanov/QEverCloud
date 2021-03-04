@@ -112,14 +112,22 @@ void SharedNoteTemplate::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SharedNoteTemplate::operator==(const SharedNoteTemplate & other) const noexcept
+bool operator==(const SharedNoteTemplate & lhs, const SharedNoteTemplate & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noteGuid() == rhs.noteGuid() &&
+        lhs.recipientThreadId() == rhs.recipientThreadId() &&
+        lhs.recipientContacts() == rhs.recipientContacts() &&
+        lhs.privilege() == rhs.privilege();
 }
 
-bool SharedNoteTemplate::operator!=(const SharedNoteTemplate & other) const noexcept
+bool operator!=(const SharedNoteTemplate & lhs, const SharedNoteTemplate & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

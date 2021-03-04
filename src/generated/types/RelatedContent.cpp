@@ -242,14 +242,34 @@ void RelatedContent::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool RelatedContent::operator==(const RelatedContent & other) const noexcept
+bool operator==(const RelatedContent & lhs, const RelatedContent & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.contentId() == rhs.contentId() &&
+        lhs.title() == rhs.title() &&
+        lhs.url() == rhs.url() &&
+        lhs.sourceId() == rhs.sourceId() &&
+        lhs.sourceUrl() == rhs.sourceUrl() &&
+        lhs.sourceFaviconUrl() == rhs.sourceFaviconUrl() &&
+        lhs.sourceName() == rhs.sourceName() &&
+        lhs.date() == rhs.date() &&
+        lhs.teaser() == rhs.teaser() &&
+        lhs.thumbnails() == rhs.thumbnails() &&
+        lhs.contentType() == rhs.contentType() &&
+        lhs.accessType() == rhs.accessType() &&
+        lhs.visibleUrl() == rhs.visibleUrl() &&
+        lhs.clipUrl() == rhs.clipUrl() &&
+        lhs.contact() == rhs.contact() &&
+        lhs.authors() == rhs.authors();
 }
 
-bool RelatedContent::operator!=(const RelatedContent & other) const noexcept
+bool operator!=(const RelatedContent & lhs, const RelatedContent & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

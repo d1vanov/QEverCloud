@@ -17,30 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteResultSpec::Impl::operator==(
-    const NoteResultSpec::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_includeContent == other.m_includeContent &&
-        m_includeResourcesData == other.m_includeResourcesData &&
-        m_includeResourcesRecognition == other.m_includeResourcesRecognition &&
-        m_includeResourcesAlternateData == other.m_includeResourcesAlternateData &&
-        m_includeSharedNotes == other.m_includeSharedNotes &&
-        m_includeNoteAppDataValues == other.m_includeNoteAppDataValues &&
-        m_includeResourceAppDataValues == other.m_includeResourceAppDataValues &&
-        m_includeAccountLimits == other.m_includeAccountLimits;
-}
-
-bool NoteResultSpec::Impl::operator!=(
-    const NoteResultSpec::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteResultSpec::Impl::print(QTextStream & strm) const
 {
     strm << "NoteResultSpec: {\n";

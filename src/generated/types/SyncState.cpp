@@ -127,14 +127,24 @@ void SyncState::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SyncState::operator==(const SyncState & other) const noexcept
+bool operator==(const SyncState & lhs, const SyncState & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.currentTime() == rhs.currentTime() &&
+        lhs.fullSyncBefore() == rhs.fullSyncBefore() &&
+        lhs.updateCount() == rhs.updateCount() &&
+        lhs.uploaded() == rhs.uploaded() &&
+        lhs.userLastUpdated() == rhs.userLastUpdated() &&
+        lhs.userMaxMessageEventId() == rhs.userMaxMessageEventId();
 }
 
-bool SyncState::operator!=(const SyncState & other) const noexcept
+bool operator!=(const SyncState & lhs, const SyncState & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

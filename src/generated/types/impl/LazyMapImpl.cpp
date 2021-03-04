@@ -17,24 +17,6 @@
 
 namespace qevercloud {
 
-bool LazyMap::Impl::operator==(
-    const LazyMap::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_keysOnly == other.m_keysOnly &&
-        m_fullMap == other.m_fullMap;
-}
-
-bool LazyMap::Impl::operator!=(
-    const LazyMap::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void LazyMap::Impl::print(QTextStream & strm) const
 {
     strm << "LazyMap: {\n";

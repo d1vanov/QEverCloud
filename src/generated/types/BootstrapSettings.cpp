@@ -242,14 +242,32 @@ void BootstrapSettings::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool BootstrapSettings::operator==(const BootstrapSettings & other) const noexcept
+bool operator==(const BootstrapSettings & lhs, const BootstrapSettings & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.serviceHost() == rhs.serviceHost() &&
+        lhs.marketingUrl() == rhs.marketingUrl() &&
+        lhs.supportUrl() == rhs.supportUrl() &&
+        lhs.accountEmailDomain() == rhs.accountEmailDomain() &&
+        lhs.enableFacebookSharing() == rhs.enableFacebookSharing() &&
+        lhs.enableGiftSubscriptions() == rhs.enableGiftSubscriptions() &&
+        lhs.enableSupportTickets() == rhs.enableSupportTickets() &&
+        lhs.enableSharedNotebooks() == rhs.enableSharedNotebooks() &&
+        lhs.enableSingleNoteSharing() == rhs.enableSingleNoteSharing() &&
+        lhs.enableSponsoredAccounts() == rhs.enableSponsoredAccounts() &&
+        lhs.enableTwitterSharing() == rhs.enableTwitterSharing() &&
+        lhs.enableLinkedInSharing() == rhs.enableLinkedInSharing() &&
+        lhs.enablePublicNotebooks() == rhs.enablePublicNotebooks() &&
+        lhs.enableGoogle() == rhs.enableGoogle();
 }
 
-bool BootstrapSettings::operator!=(const BootstrapSettings & other) const noexcept
+bool operator!=(const BootstrapSettings & lhs, const BootstrapSettings & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

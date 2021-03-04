@@ -26,39 +26,6 @@ Resource::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool Resource::Impl::operator==(
-    const Resource::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_noteLocalId == other.m_noteLocalId &&
-        m_guid == other.m_guid &&
-        m_noteGuid == other.m_noteGuid &&
-        m_data == other.m_data &&
-        m_mime == other.m_mime &&
-        m_width == other.m_width &&
-        m_height == other.m_height &&
-        m_duration == other.m_duration &&
-        m_active == other.m_active &&
-        m_recognition == other.m_recognition &&
-        m_attributes == other.m_attributes &&
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_alternateData == other.m_alternateData;
-}
-
-bool Resource::Impl::operator!=(
-    const Resource::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Resource::Impl::print(QTextStream & strm) const
 {
     strm << "Resource: {\n";

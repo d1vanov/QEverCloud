@@ -172,14 +172,26 @@ void NoteResultSpec::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteResultSpec::operator==(const NoteResultSpec & other) const noexcept
+bool operator==(const NoteResultSpec & lhs, const NoteResultSpec & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.includeContent() == rhs.includeContent() &&
+        lhs.includeResourcesData() == rhs.includeResourcesData() &&
+        lhs.includeResourcesRecognition() == rhs.includeResourcesRecognition() &&
+        lhs.includeResourcesAlternateData() == rhs.includeResourcesAlternateData() &&
+        lhs.includeSharedNotes() == rhs.includeSharedNotes() &&
+        lhs.includeNoteAppDataValues() == rhs.includeNoteAppDataValues() &&
+        lhs.includeResourceAppDataValues() == rhs.includeResourceAppDataValues() &&
+        lhs.includeAccountLimits() == rhs.includeAccountLimits();
 }
 
-bool NoteResultSpec::operator!=(const NoteResultSpec & other) const noexcept
+bool operator!=(const NoteResultSpec & lhs, const NoteResultSpec & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

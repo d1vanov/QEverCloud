@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool BusinessUserInfo::Impl::operator==(
-    const BusinessUserInfo::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_businessId == other.m_businessId &&
-        m_businessName == other.m_businessName &&
-        m_role == other.m_role &&
-        m_email == other.m_email &&
-        m_updated == other.m_updated;
-}
-
-bool BusinessUserInfo::Impl::operator!=(
-    const BusinessUserInfo::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void BusinessUserInfo::Impl::print(QTextStream & strm) const
 {
     strm << "BusinessUserInfo: {\n";

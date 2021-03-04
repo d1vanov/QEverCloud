@@ -94,9 +94,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NotesMetadataResultSpec & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NotesMetadataResultSpec & other) const noexcept;
-
     Q_PROPERTY(std::optional<bool> includeTitle READ includeTitle WRITE setIncludeTitle)
     Q_PROPERTY(std::optional<bool> includeContentLength READ includeContentLength WRITE setIncludeContentLength)
     Q_PROPERTY(std::optional<bool> includeCreated READ includeCreated WRITE setIncludeCreated)
@@ -113,6 +110,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NotesMetadataResultSpec & lhs, const NotesMetadataResultSpec & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NotesMetadataResultSpec & lhs, const NotesMetadataResultSpec & rhs) noexcept;
 
 } // namespace qevercloud
 

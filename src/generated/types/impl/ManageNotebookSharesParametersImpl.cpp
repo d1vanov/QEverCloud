@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool ManageNotebookSharesParameters::Impl::operator==(
-    const ManageNotebookSharesParameters::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_notebookGuid == other.m_notebookGuid &&
-        m_inviteMessage == other.m_inviteMessage &&
-        m_membershipsToUpdate == other.m_membershipsToUpdate &&
-        m_invitationsToCreateOrUpdate == other.m_invitationsToCreateOrUpdate &&
-        m_unshares == other.m_unshares;
-}
-
-bool ManageNotebookSharesParameters::Impl::operator!=(
-    const ManageNotebookSharesParameters::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void ManageNotebookSharesParameters::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesParameters: {\n";

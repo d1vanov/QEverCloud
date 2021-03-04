@@ -77,9 +77,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const RelatedContentImage & other) const noexcept;
-    [[nodiscard]] bool operator!=(const RelatedContentImage & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> url READ url WRITE setUrl)
     Q_PROPERTY(std::optional<qint32> width READ width WRITE setWidth)
     Q_PROPERTY(std::optional<qint32> height READ height WRITE setHeight)
@@ -90,6 +87,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const RelatedContentImage & lhs, const RelatedContentImage & rhs) noexcept;
+[[nodiscard]] bool operator!=(const RelatedContentImage & lhs, const RelatedContentImage & rhs) noexcept;
 
 } // namespace qevercloud
 

@@ -17,23 +17,6 @@
 
 namespace qevercloud {
 
-bool BootstrapInfo::Impl::operator==(
-    const BootstrapInfo::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_profiles == other.m_profiles;
-}
-
-bool BootstrapInfo::Impl::operator!=(
-    const BootstrapInfo::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void BootstrapInfo::Impl::print(QTextStream & strm) const
 {
     strm << "BootstrapInfo: {\n";

@@ -362,14 +362,41 @@ void Accounting::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Accounting::operator==(const Accounting & other) const noexcept
+bool operator==(const Accounting & lhs, const Accounting & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.uploadLimitEnd() == rhs.uploadLimitEnd() &&
+        lhs.uploadLimitNextMonth() == rhs.uploadLimitNextMonth() &&
+        lhs.premiumServiceStatus() == rhs.premiumServiceStatus() &&
+        lhs.premiumOrderNumber() == rhs.premiumOrderNumber() &&
+        lhs.premiumCommerceService() == rhs.premiumCommerceService() &&
+        lhs.premiumServiceStart() == rhs.premiumServiceStart() &&
+        lhs.premiumServiceSKU() == rhs.premiumServiceSKU() &&
+        lhs.lastSuccessfulCharge() == rhs.lastSuccessfulCharge() &&
+        lhs.lastFailedCharge() == rhs.lastFailedCharge() &&
+        lhs.lastFailedChargeReason() == rhs.lastFailedChargeReason() &&
+        lhs.nextPaymentDue() == rhs.nextPaymentDue() &&
+        lhs.premiumLockUntil() == rhs.premiumLockUntil() &&
+        lhs.updated() == rhs.updated() &&
+        lhs.premiumSubscriptionNumber() == rhs.premiumSubscriptionNumber() &&
+        lhs.lastRequestedCharge() == rhs.lastRequestedCharge() &&
+        lhs.currency() == rhs.currency() &&
+        lhs.unitPrice() == rhs.unitPrice() &&
+        lhs.businessId() == rhs.businessId() &&
+        lhs.businessName() == rhs.businessName() &&
+        lhs.businessRole() == rhs.businessRole() &&
+        lhs.unitDiscount() == rhs.unitDiscount() &&
+        lhs.nextChargeDate() == rhs.nextChargeDate() &&
+        lhs.availablePoints() == rhs.availablePoints();
 }
 
-bool Accounting::operator!=(const Accounting & other) const noexcept
+bool operator!=(const Accounting & lhs, const Accounting & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

@@ -17,51 +17,6 @@
 
 namespace qevercloud {
 
-bool NotebookRestrictions::Impl::operator==(
-    const NotebookRestrictions::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noReadNotes == other.m_noReadNotes &&
-        m_noCreateNotes == other.m_noCreateNotes &&
-        m_noUpdateNotes == other.m_noUpdateNotes &&
-        m_noExpungeNotes == other.m_noExpungeNotes &&
-        m_noShareNotes == other.m_noShareNotes &&
-        m_noEmailNotes == other.m_noEmailNotes &&
-        m_noSendMessageToRecipients == other.m_noSendMessageToRecipients &&
-        m_noUpdateNotebook == other.m_noUpdateNotebook &&
-        m_noExpungeNotebook == other.m_noExpungeNotebook &&
-        m_noSetDefaultNotebook == other.m_noSetDefaultNotebook &&
-        m_noSetNotebookStack == other.m_noSetNotebookStack &&
-        m_noPublishToPublic == other.m_noPublishToPublic &&
-        m_noPublishToBusinessLibrary == other.m_noPublishToBusinessLibrary &&
-        m_noCreateTags == other.m_noCreateTags &&
-        m_noUpdateTags == other.m_noUpdateTags &&
-        m_noExpungeTags == other.m_noExpungeTags &&
-        m_noSetParentTag == other.m_noSetParentTag &&
-        m_noCreateSharedNotebooks == other.m_noCreateSharedNotebooks &&
-        m_updateWhichSharedNotebookRestrictions == other.m_updateWhichSharedNotebookRestrictions &&
-        m_expungeWhichSharedNotebookRestrictions == other.m_expungeWhichSharedNotebookRestrictions &&
-        m_noShareNotesWithBusiness == other.m_noShareNotesWithBusiness &&
-        m_noRenameNotebook == other.m_noRenameNotebook &&
-        m_noSetInMyList == other.m_noSetInMyList &&
-        m_noChangeContact == other.m_noChangeContact &&
-        m_canMoveToContainerRestrictions == other.m_canMoveToContainerRestrictions &&
-        m_noSetReminderNotifyEmail == other.m_noSetReminderNotifyEmail &&
-        m_noSetReminderNotifyInApp == other.m_noSetReminderNotifyInApp &&
-        m_noSetRecipientSettingsStack == other.m_noSetRecipientSettingsStack &&
-        m_noCanMoveNote == other.m_noCanMoveNote;
-}
-
-bool NotebookRestrictions::Impl::operator!=(
-    const NotebookRestrictions::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NotebookRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "NotebookRestrictions: {\n";

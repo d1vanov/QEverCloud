@@ -17,34 +17,6 @@
 
 namespace qevercloud {
 
-bool ResourceAttributes::Impl::operator==(
-    const ResourceAttributes::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_sourceURL == other.m_sourceURL &&
-        m_timestamp == other.m_timestamp &&
-        m_latitude == other.m_latitude &&
-        m_longitude == other.m_longitude &&
-        m_altitude == other.m_altitude &&
-        m_cameraMake == other.m_cameraMake &&
-        m_cameraModel == other.m_cameraModel &&
-        m_clientWillIndex == other.m_clientWillIndex &&
-        m_recoType == other.m_recoType &&
-        m_fileName == other.m_fileName &&
-        m_attachment == other.m_attachment &&
-        m_applicationData == other.m_applicationData;
-}
-
-bool ResourceAttributes::Impl::operator!=(
-    const ResourceAttributes::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void ResourceAttributes::Impl::print(QTextStream & strm) const
 {
     strm << "ResourceAttributes: {\n";

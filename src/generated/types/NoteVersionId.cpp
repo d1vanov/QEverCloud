@@ -107,14 +107,23 @@ void NoteVersionId::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteVersionId::operator==(const NoteVersionId & other) const noexcept
+bool operator==(const NoteVersionId & lhs, const NoteVersionId & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.updated() == rhs.updated() &&
+        lhs.saved() == rhs.saved() &&
+        lhs.title() == rhs.title() &&
+        lhs.lastEditorId() == rhs.lastEditorId();
 }
 
-bool NoteVersionId::operator!=(const NoteVersionId & other) const noexcept
+bool operator!=(const NoteVersionId & lhs, const NoteVersionId & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

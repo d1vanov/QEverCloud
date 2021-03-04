@@ -17,30 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteList::Impl::operator==(
-    const NoteList::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_startIndex == other.m_startIndex &&
-        m_totalNotes == other.m_totalNotes &&
-        m_notes == other.m_notes &&
-        m_stoppedWords == other.m_stoppedWords &&
-        m_searchedWords == other.m_searchedWords &&
-        m_updateCount == other.m_updateCount &&
-        m_searchContextBytes == other.m_searchContextBytes &&
-        m_debugInfo == other.m_debugInfo;
-}
-
-bool NoteList::Impl::operator!=(
-    const NoteList::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteList::Impl::print(QTextStream & strm) const
 {
     strm << "NoteList: {\n";

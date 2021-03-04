@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool Data::Impl::operator==(
-    const Data::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_bodyHash == other.m_bodyHash &&
-        m_size == other.m_size &&
-        m_body == other.m_body;
-}
-
-bool Data::Impl::operator!=(
-    const Data::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Data::Impl::print(QTextStream & strm) const
 {
     strm << "Data: {\n";

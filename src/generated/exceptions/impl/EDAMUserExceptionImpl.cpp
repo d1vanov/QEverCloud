@@ -17,24 +17,6 @@
 
 namespace qevercloud {
 
-bool EDAMUserException::Impl::operator==(
-    const EDAMUserException::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_errorCode == other.m_errorCode &&
-        m_parameter == other.m_parameter;
-}
-
-bool EDAMUserException::Impl::operator!=(
-    const EDAMUserException::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void EDAMUserException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMUserException: {\n";

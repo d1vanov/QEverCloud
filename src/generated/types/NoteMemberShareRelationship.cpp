@@ -122,14 +122,23 @@ void NoteMemberShareRelationship::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteMemberShareRelationship::operator==(const NoteMemberShareRelationship & other) const noexcept
+bool operator==(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.displayName() == rhs.displayName() &&
+        lhs.recipientUserId() == rhs.recipientUserId() &&
+        lhs.privilege() == rhs.privilege() &&
+        lhs.restrictions() == rhs.restrictions() &&
+        lhs.sharerUserId() == rhs.sharerUserId();
 }
 
-bool NoteMemberShareRelationship::operator!=(const NoteMemberShareRelationship & other) const noexcept
+bool operator!=(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

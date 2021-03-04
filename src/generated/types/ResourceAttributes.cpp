@@ -207,14 +207,30 @@ void ResourceAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool ResourceAttributes::operator==(const ResourceAttributes & other) const noexcept
+bool operator==(const ResourceAttributes & lhs, const ResourceAttributes & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.sourceURL() == rhs.sourceURL() &&
+        lhs.timestamp() == rhs.timestamp() &&
+        lhs.latitude() == rhs.latitude() &&
+        lhs.longitude() == rhs.longitude() &&
+        lhs.altitude() == rhs.altitude() &&
+        lhs.cameraMake() == rhs.cameraMake() &&
+        lhs.cameraModel() == rhs.cameraModel() &&
+        lhs.clientWillIndex() == rhs.clientWillIndex() &&
+        lhs.recoType() == rhs.recoType() &&
+        lhs.fileName() == rhs.fileName() &&
+        lhs.attachment() == rhs.attachment() &&
+        lhs.applicationData() == rhs.applicationData();
 }
 
-bool ResourceAttributes::operator!=(const ResourceAttributes & other) const noexcept
+bool operator!=(const ResourceAttributes & lhs, const ResourceAttributes & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteCollectionCounts::Impl::operator==(
-    const NoteCollectionCounts::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_notebookCounts == other.m_notebookCounts &&
-        m_tagCounts == other.m_tagCounts &&
-        m_trashCount == other.m_trashCount;
-}
-
-bool NoteCollectionCounts::Impl::operator!=(
-    const NoteCollectionCounts::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteCollectionCounts::Impl::print(QTextStream & strm) const
 {
     strm << "NoteCollectionCounts: {\n";

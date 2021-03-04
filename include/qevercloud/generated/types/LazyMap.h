@@ -73,9 +73,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const LazyMap & other) const noexcept;
-    [[nodiscard]] bool operator!=(const LazyMap & other) const noexcept;
-
     using FullMap = QMap<QString, QString>;
 
     Q_PROPERTY(std::optional<QSet<QString>> keysOnly READ keysOnly WRITE setKeysOnly)
@@ -85,6 +82,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const LazyMap & lhs, const LazyMap & rhs) noexcept;
+[[nodiscard]] bool operator!=(const LazyMap & lhs, const LazyMap & rhs) noexcept;
 
 } // namespace qevercloud
 

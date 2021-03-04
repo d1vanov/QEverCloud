@@ -190,9 +190,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const SyncChunkFilter & other) const noexcept;
-    [[nodiscard]] bool operator!=(const SyncChunkFilter & other) const noexcept;
-
     Q_PROPERTY(std::optional<bool> includeNotes READ includeNotes WRITE setIncludeNotes)
     Q_PROPERTY(std::optional<bool> includeNoteResources READ includeNoteResources WRITE setIncludeNoteResources)
     Q_PROPERTY(std::optional<bool> includeNoteAttributes READ includeNoteAttributes WRITE setIncludeNoteAttributes)
@@ -214,6 +211,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const SyncChunkFilter & lhs, const SyncChunkFilter & rhs) noexcept;
+[[nodiscard]] bool operator!=(const SyncChunkFilter & lhs, const SyncChunkFilter & rhs) noexcept;
 
 } // namespace qevercloud
 

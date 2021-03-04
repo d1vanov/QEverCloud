@@ -17,45 +17,6 @@
 
 namespace qevercloud {
 
-bool Accounting::Impl::operator==(
-    const Accounting::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_uploadLimitEnd == other.m_uploadLimitEnd &&
-        m_uploadLimitNextMonth == other.m_uploadLimitNextMonth &&
-        m_premiumServiceStatus == other.m_premiumServiceStatus &&
-        m_premiumOrderNumber == other.m_premiumOrderNumber &&
-        m_premiumCommerceService == other.m_premiumCommerceService &&
-        m_premiumServiceStart == other.m_premiumServiceStart &&
-        m_premiumServiceSKU == other.m_premiumServiceSKU &&
-        m_lastSuccessfulCharge == other.m_lastSuccessfulCharge &&
-        m_lastFailedCharge == other.m_lastFailedCharge &&
-        m_lastFailedChargeReason == other.m_lastFailedChargeReason &&
-        m_nextPaymentDue == other.m_nextPaymentDue &&
-        m_premiumLockUntil == other.m_premiumLockUntil &&
-        m_updated == other.m_updated &&
-        m_premiumSubscriptionNumber == other.m_premiumSubscriptionNumber &&
-        m_lastRequestedCharge == other.m_lastRequestedCharge &&
-        m_currency == other.m_currency &&
-        m_unitPrice == other.m_unitPrice &&
-        m_businessId == other.m_businessId &&
-        m_businessName == other.m_businessName &&
-        m_businessRole == other.m_businessRole &&
-        m_unitDiscount == other.m_unitDiscount &&
-        m_nextChargeDate == other.m_nextChargeDate &&
-        m_availablePoints == other.m_availablePoints;
-}
-
-bool Accounting::Impl::operator!=(
-    const Accounting::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Accounting::Impl::print(QTextStream & strm) const
 {
     strm << "Accounting: {\n";

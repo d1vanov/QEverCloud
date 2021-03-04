@@ -17,30 +17,6 @@
 
 namespace qevercloud {
 
-bool BusinessInvitation::Impl::operator==(
-    const BusinessInvitation::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_businessId == other.m_businessId &&
-        m_email == other.m_email &&
-        m_role == other.m_role &&
-        m_status == other.m_status &&
-        m_requesterId == other.m_requesterId &&
-        m_fromWorkChat == other.m_fromWorkChat &&
-        m_created == other.m_created &&
-        m_mostRecentReminder == other.m_mostRecentReminder;
-}
-
-bool BusinessInvitation::Impl::operator!=(
-    const BusinessInvitation::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void BusinessInvitation::Impl::print(QTextStream & strm) const
 {
     strm << "BusinessInvitation: {\n";

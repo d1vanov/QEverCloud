@@ -31,9 +31,6 @@ public:
 
     ~Impl() noexcept override = default;
 
-    [[nodiscard]] bool operator==(const NoteCollectionCounts::Impl & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteCollectionCounts::Impl & other) const noexcept;
-
     void print(QTextStream & strm) const override;
 
     std::optional<QMap<Guid, qint32>> m_notebookCounts;

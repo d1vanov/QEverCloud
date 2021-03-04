@@ -26,31 +26,6 @@ NotebookDescriptor::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool NotebookDescriptor::Impl::operator==(
-    const NotebookDescriptor::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_guid == other.m_guid &&
-        m_notebookDisplayName == other.m_notebookDisplayName &&
-        m_contactName == other.m_contactName &&
-        m_hasSharedNotebook == other.m_hasSharedNotebook &&
-        m_joinedUserCount == other.m_joinedUserCount;
-}
-
-bool NotebookDescriptor::Impl::operator!=(
-    const NotebookDescriptor::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NotebookDescriptor::Impl::print(QTextStream & strm) const
 {
     strm << "NotebookDescriptor: {\n";

@@ -77,9 +77,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const UserIdentity & other) const noexcept;
-    [[nodiscard]] bool operator!=(const UserIdentity & other) const noexcept;
-
     Q_PROPERTY(std::optional<UserIdentityType> type READ type WRITE setType)
     Q_PROPERTY(std::optional<QString> stringIdentifier READ stringIdentifier WRITE setStringIdentifier)
     Q_PROPERTY(std::optional<qint64> longIdentifier READ longIdentifier WRITE setLongIdentifier)
@@ -88,6 +85,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const UserIdentity & lhs, const UserIdentity & rhs) noexcept;
+[[nodiscard]] bool operator!=(const UserIdentity & lhs, const UserIdentity & rhs) noexcept;
 
 } // namespace qevercloud
 

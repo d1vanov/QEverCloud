@@ -67,14 +67,19 @@ void CanMoveToContainerRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool CanMoveToContainerRestrictions::operator==(const CanMoveToContainerRestrictions & other) const noexcept
+bool operator==(const CanMoveToContainerRestrictions & lhs, const CanMoveToContainerRestrictions & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.canMoveToContainer() == rhs.canMoveToContainer();
 }
 
-bool CanMoveToContainerRestrictions::operator!=(const CanMoveToContainerRestrictions & other) const noexcept
+bool operator!=(const CanMoveToContainerRestrictions & lhs, const CanMoveToContainerRestrictions & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

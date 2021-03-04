@@ -82,14 +82,20 @@ void SharedNotebookRecipientSettings::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SharedNotebookRecipientSettings::operator==(const SharedNotebookRecipientSettings & other) const noexcept
+bool operator==(const SharedNotebookRecipientSettings & lhs, const SharedNotebookRecipientSettings & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.reminderNotifyEmail() == rhs.reminderNotifyEmail() &&
+        lhs.reminderNotifyInApp() == rhs.reminderNotifyInApp();
 }
 
-bool SharedNotebookRecipientSettings::operator!=(const SharedNotebookRecipientSettings & other) const noexcept
+bool operator!=(const SharedNotebookRecipientSettings & lhs, const SharedNotebookRecipientSettings & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

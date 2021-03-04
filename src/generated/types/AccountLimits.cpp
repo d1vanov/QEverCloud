@@ -217,14 +217,29 @@ void AccountLimits::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool AccountLimits::operator==(const AccountLimits & other) const noexcept
+bool operator==(const AccountLimits & lhs, const AccountLimits & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.userMailLimitDaily() == rhs.userMailLimitDaily() &&
+        lhs.noteSizeMax() == rhs.noteSizeMax() &&
+        lhs.resourceSizeMax() == rhs.resourceSizeMax() &&
+        lhs.userLinkedNotebookMax() == rhs.userLinkedNotebookMax() &&
+        lhs.uploadLimit() == rhs.uploadLimit() &&
+        lhs.userNoteCountMax() == rhs.userNoteCountMax() &&
+        lhs.userNotebookCountMax() == rhs.userNotebookCountMax() &&
+        lhs.userTagCountMax() == rhs.userTagCountMax() &&
+        lhs.noteTagCountMax() == rhs.noteTagCountMax() &&
+        lhs.userSavedSearchesMax() == rhs.userSavedSearchesMax() &&
+        lhs.noteResourceCountMax() == rhs.noteResourceCountMax();
 }
 
-bool AccountLimits::operator!=(const AccountLimits & other) const noexcept
+bool operator!=(const AccountLimits & lhs, const AccountLimits & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

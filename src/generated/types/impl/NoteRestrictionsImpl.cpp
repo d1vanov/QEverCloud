@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteRestrictions::Impl::operator==(
-    const NoteRestrictions::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noUpdateTitle == other.m_noUpdateTitle &&
-        m_noUpdateContent == other.m_noUpdateContent &&
-        m_noEmail == other.m_noEmail &&
-        m_noShare == other.m_noShare &&
-        m_noSharePublicly == other.m_noSharePublicly;
-}
-
-bool NoteRestrictions::Impl::operator!=(
-    const NoteRestrictions::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "NoteRestrictions: {\n";

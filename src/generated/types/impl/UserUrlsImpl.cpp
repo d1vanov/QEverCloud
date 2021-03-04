@@ -17,28 +17,6 @@
 
 namespace qevercloud {
 
-bool UserUrls::Impl::operator==(
-    const UserUrls::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noteStoreUrl == other.m_noteStoreUrl &&
-        m_webApiUrlPrefix == other.m_webApiUrlPrefix &&
-        m_userStoreUrl == other.m_userStoreUrl &&
-        m_utilityUrl == other.m_utilityUrl &&
-        m_messageStoreUrl == other.m_messageStoreUrl &&
-        m_userWebSocketUrl == other.m_userWebSocketUrl;
-}
-
-bool UserUrls::Impl::operator!=(
-    const UserUrls::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void UserUrls::Impl::print(QTextStream & strm) const
 {
     strm << "UserUrls: {\n";

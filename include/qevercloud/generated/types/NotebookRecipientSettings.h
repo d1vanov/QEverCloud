@@ -94,9 +94,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NotebookRecipientSettings & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NotebookRecipientSettings & other) const noexcept;
-
     Q_PROPERTY(std::optional<bool> reminderNotifyEmail READ reminderNotifyEmail WRITE setReminderNotifyEmail)
     Q_PROPERTY(std::optional<bool> reminderNotifyInApp READ reminderNotifyInApp WRITE setReminderNotifyInApp)
     Q_PROPERTY(std::optional<bool> inMyList READ inMyList WRITE setInMyList)
@@ -107,6 +104,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NotebookRecipientSettings & lhs, const NotebookRecipientSettings & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NotebookRecipientSettings & lhs, const NotebookRecipientSettings & rhs) noexcept;
 
 } // namespace qevercloud
 

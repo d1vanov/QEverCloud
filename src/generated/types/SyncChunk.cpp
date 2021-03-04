@@ -252,14 +252,32 @@ void SyncChunk::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SyncChunk::operator==(const SyncChunk & other) const noexcept
+bool operator==(const SyncChunk & lhs, const SyncChunk & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.currentTime() == rhs.currentTime() &&
+        lhs.chunkHighUSN() == rhs.chunkHighUSN() &&
+        lhs.updateCount() == rhs.updateCount() &&
+        lhs.notes() == rhs.notes() &&
+        lhs.notebooks() == rhs.notebooks() &&
+        lhs.tags() == rhs.tags() &&
+        lhs.searches() == rhs.searches() &&
+        lhs.resources() == rhs.resources() &&
+        lhs.expungedNotes() == rhs.expungedNotes() &&
+        lhs.expungedNotebooks() == rhs.expungedNotebooks() &&
+        lhs.expungedTags() == rhs.expungedTags() &&
+        lhs.expungedSearches() == rhs.expungedSearches() &&
+        lhs.linkedNotebooks() == rhs.linkedNotebooks() &&
+        lhs.expungedLinkedNotebooks() == rhs.expungedLinkedNotebooks();
 }
 
-bool SyncChunk::operator!=(const SyncChunk & other) const noexcept
+bool operator!=(const SyncChunk & lhs, const SyncChunk & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

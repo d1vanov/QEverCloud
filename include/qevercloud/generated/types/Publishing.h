@@ -82,9 +82,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const Publishing & other) const noexcept;
-    [[nodiscard]] bool operator!=(const Publishing & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> uri READ uri WRITE setUri)
     Q_PROPERTY(std::optional<NoteSortOrder> order READ order WRITE setOrder)
     Q_PROPERTY(std::optional<bool> ascending READ ascending WRITE setAscending)
@@ -94,6 +91,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const Publishing & lhs, const Publishing & rhs) noexcept;
+[[nodiscard]] bool operator!=(const Publishing & lhs, const Publishing & rhs) noexcept;
 
 } // namespace qevercloud
 

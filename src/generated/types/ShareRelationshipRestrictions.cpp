@@ -112,14 +112,22 @@ void ShareRelationshipRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool ShareRelationshipRestrictions::operator==(const ShareRelationshipRestrictions & other) const noexcept
+bool operator==(const ShareRelationshipRestrictions & lhs, const ShareRelationshipRestrictions & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noSetReadOnly() == rhs.noSetReadOnly() &&
+        lhs.noSetReadPlusActivity() == rhs.noSetReadPlusActivity() &&
+        lhs.noSetModify() == rhs.noSetModify() &&
+        lhs.noSetFullAccess() == rhs.noSetFullAccess();
 }
 
-bool ShareRelationshipRestrictions::operator!=(const ShareRelationshipRestrictions & other) const noexcept
+bool operator!=(const ShareRelationshipRestrictions & lhs, const ShareRelationshipRestrictions & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

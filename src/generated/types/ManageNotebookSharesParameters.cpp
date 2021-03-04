@@ -117,14 +117,23 @@ void ManageNotebookSharesParameters::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool ManageNotebookSharesParameters::operator==(const ManageNotebookSharesParameters & other) const noexcept
+bool operator==(const ManageNotebookSharesParameters & lhs, const ManageNotebookSharesParameters & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.notebookGuid() == rhs.notebookGuid() &&
+        lhs.inviteMessage() == rhs.inviteMessage() &&
+        lhs.membershipsToUpdate() == rhs.membershipsToUpdate() &&
+        lhs.invitationsToCreateOrUpdate() == rhs.invitationsToCreateOrUpdate() &&
+        lhs.unshares() == rhs.unshares();
 }
 
-bool ManageNotebookSharesParameters::operator!=(const ManageNotebookSharesParameters & other) const noexcept
+bool operator!=(const ManageNotebookSharesParameters & lhs, const ManageNotebookSharesParameters & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

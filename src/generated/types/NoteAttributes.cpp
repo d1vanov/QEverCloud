@@ -347,14 +347,40 @@ void NoteAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteAttributes::operator==(const NoteAttributes & other) const noexcept
+bool operator==(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.subjectDate() == rhs.subjectDate() &&
+        lhs.latitude() == rhs.latitude() &&
+        lhs.longitude() == rhs.longitude() &&
+        lhs.altitude() == rhs.altitude() &&
+        lhs.author() == rhs.author() &&
+        lhs.source() == rhs.source() &&
+        lhs.sourceURL() == rhs.sourceURL() &&
+        lhs.sourceApplication() == rhs.sourceApplication() &&
+        lhs.shareDate() == rhs.shareDate() &&
+        lhs.reminderOrder() == rhs.reminderOrder() &&
+        lhs.reminderDoneTime() == rhs.reminderDoneTime() &&
+        lhs.reminderTime() == rhs.reminderTime() &&
+        lhs.placeName() == rhs.placeName() &&
+        lhs.contentClass() == rhs.contentClass() &&
+        lhs.applicationData() == rhs.applicationData() &&
+        lhs.lastEditedBy() == rhs.lastEditedBy() &&
+        lhs.classifications() == rhs.classifications() &&
+        lhs.creatorId() == rhs.creatorId() &&
+        lhs.lastEditorId() == rhs.lastEditorId() &&
+        lhs.sharedWithBusiness() == rhs.sharedWithBusiness() &&
+        lhs.conflictSourceNoteGuid() == rhs.conflictSourceNoteGuid() &&
+        lhs.noteTitleQuality() == rhs.noteTitleQuality();
 }
 
-bool NoteAttributes::operator!=(const NoteAttributes & other) const noexcept
+bool operator!=(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

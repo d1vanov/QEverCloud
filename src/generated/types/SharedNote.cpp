@@ -197,14 +197,28 @@ void SharedNote::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SharedNote::operator==(const SharedNote & other) const noexcept
+bool operator==(const SharedNote & lhs, const SharedNote & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.noteGuid() == rhs.noteGuid() &&
+        lhs.sharerUserID() == rhs.sharerUserID() &&
+        lhs.recipientIdentity() == rhs.recipientIdentity() &&
+        lhs.privilege() == rhs.privilege() &&
+        lhs.serviceCreated() == rhs.serviceCreated() &&
+        lhs.serviceUpdated() == rhs.serviceUpdated() &&
+        lhs.serviceAssigned() == rhs.serviceAssigned();
 }
 
-bool SharedNote::operator!=(const SharedNote & other) const noexcept
+bool operator!=(const SharedNote & lhs, const SharedNote & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

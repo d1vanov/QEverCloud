@@ -17,24 +17,6 @@
 
 namespace qevercloud {
 
-bool UpdateNoteIfUsnMatchesResult::Impl::operator==(
-    const UpdateNoteIfUsnMatchesResult::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_note == other.m_note &&
-        m_updated == other.m_updated;
-}
-
-bool UpdateNoteIfUsnMatchesResult::Impl::operator!=(
-    const UpdateNoteIfUsnMatchesResult::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void UpdateNoteIfUsnMatchesResult::Impl::print(QTextStream & strm) const
 {
     strm << "UpdateNoteIfUsnMatchesResult: {\n";

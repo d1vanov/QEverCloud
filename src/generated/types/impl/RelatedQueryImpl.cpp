@@ -17,28 +17,6 @@
 
 namespace qevercloud {
 
-bool RelatedQuery::Impl::operator==(
-    const RelatedQuery::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noteGuid == other.m_noteGuid &&
-        m_plainText == other.m_plainText &&
-        m_filter == other.m_filter &&
-        m_referenceUri == other.m_referenceUri &&
-        m_context == other.m_context &&
-        m_cacheKey == other.m_cacheKey;
-}
-
-bool RelatedQuery::Impl::operator!=(
-    const RelatedQuery::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void RelatedQuery::Impl::print(QTextStream & strm) const
 {
     strm << "RelatedQuery: {\n";

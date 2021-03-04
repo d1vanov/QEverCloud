@@ -54,9 +54,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const BootstrapProfile & other) const noexcept;
-    [[nodiscard]] bool operator!=(const BootstrapProfile & other) const noexcept;
-
     Q_PROPERTY(QString name READ name WRITE setName)
     Q_PROPERTY(BootstrapSettings settings READ settings WRITE setSettings)
 
@@ -64,6 +61,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept;
+[[nodiscard]] bool operator!=(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept;
 
 } // namespace qevercloud
 

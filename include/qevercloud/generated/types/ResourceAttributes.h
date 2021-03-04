@@ -143,9 +143,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const ResourceAttributes & other) const noexcept;
-    [[nodiscard]] bool operator!=(const ResourceAttributes & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> sourceURL READ sourceURL WRITE setSourceURL)
     Q_PROPERTY(std::optional<Timestamp> timestamp READ timestamp WRITE setTimestamp)
     Q_PROPERTY(std::optional<double> latitude READ latitude WRITE setLatitude)
@@ -163,6 +160,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const ResourceAttributes & lhs, const ResourceAttributes & rhs) noexcept;
+[[nodiscard]] bool operator!=(const ResourceAttributes & lhs, const ResourceAttributes & rhs) noexcept;
 
 } // namespace qevercloud
 

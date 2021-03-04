@@ -87,14 +87,21 @@ void Data::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Data::operator==(const Data & other) const noexcept
+bool operator==(const Data & lhs, const Data & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.bodyHash() == rhs.bodyHash() &&
+        lhs.size() == rhs.size() &&
+        lhs.body() == rhs.body();
 }
 
-bool Data::operator!=(const Data & other) const noexcept
+bool operator!=(const Data & lhs, const Data & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

@@ -187,14 +187,28 @@ void SavedSearch::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SavedSearch::operator==(const SavedSearch & other) const noexcept
+bool operator==(const SavedSearch & lhs, const SavedSearch & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.name() == rhs.name() &&
+        lhs.query() == rhs.query() &&
+        lhs.format() == rhs.format() &&
+        lhs.updateSequenceNum() == rhs.updateSequenceNum() &&
+        lhs.scope() == rhs.scope();
 }
 
-bool SavedSearch::operator!=(const SavedSearch & other) const noexcept
+bool operator!=(const SavedSearch & lhs, const SavedSearch & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

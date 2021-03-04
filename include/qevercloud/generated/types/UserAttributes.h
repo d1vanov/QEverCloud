@@ -330,9 +330,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const UserAttributes & other) const noexcept;
-    [[nodiscard]] bool operator!=(const UserAttributes & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> defaultLocationName READ defaultLocationName WRITE setDefaultLocationName)
     Q_PROPERTY(std::optional<double> defaultLatitude READ defaultLatitude WRITE setDefaultLatitude)
     Q_PROPERTY(std::optional<double> defaultLongitude READ defaultLongitude WRITE setDefaultLongitude)
@@ -373,6 +370,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const UserAttributes & lhs, const UserAttributes & rhs) noexcept;
+[[nodiscard]] bool operator!=(const UserAttributes & lhs, const UserAttributes & rhs) noexcept;
 
 } // namespace qevercloud
 

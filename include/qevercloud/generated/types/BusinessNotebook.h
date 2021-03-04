@@ -71,9 +71,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const BusinessNotebook & other) const noexcept;
-    [[nodiscard]] bool operator!=(const BusinessNotebook & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> notebookDescription READ notebookDescription WRITE setNotebookDescription)
     Q_PROPERTY(std::optional<SharedNotebookPrivilegeLevel> privilege READ privilege WRITE setPrivilege)
     Q_PROPERTY(std::optional<bool> recommended READ recommended WRITE setRecommended)
@@ -82,6 +79,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const BusinessNotebook & lhs, const BusinessNotebook & rhs) noexcept;
+[[nodiscard]] bool operator!=(const BusinessNotebook & lhs, const BusinessNotebook & rhs) noexcept;
 
 } // namespace qevercloud
 

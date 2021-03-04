@@ -317,14 +317,37 @@ void SharedNotebook::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SharedNotebook::operator==(const SharedNotebook & other) const noexcept
+bool operator==(const SharedNotebook & lhs, const SharedNotebook & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.id() == rhs.id() &&
+        lhs.userId() == rhs.userId() &&
+        lhs.notebookGuid() == rhs.notebookGuid() &&
+        lhs.email() == rhs.email() &&
+        lhs.recipientIdentityId() == rhs.recipientIdentityId() &&
+        lhs.notebookModifiable() == rhs.notebookModifiable() &&
+        lhs.serviceCreated() == rhs.serviceCreated() &&
+        lhs.serviceUpdated() == rhs.serviceUpdated() &&
+        lhs.globalId() == rhs.globalId() &&
+        lhs.username() == rhs.username() &&
+        lhs.privilege() == rhs.privilege() &&
+        lhs.recipientSettings() == rhs.recipientSettings() &&
+        lhs.sharerUserId() == rhs.sharerUserId() &&
+        lhs.recipientUsername() == rhs.recipientUsername() &&
+        lhs.recipientUserId() == rhs.recipientUserId() &&
+        lhs.serviceAssigned() == rhs.serviceAssigned();
 }
 
-bool SharedNotebook::operator!=(const SharedNotebook & other) const noexcept
+bool operator!=(const SharedNotebook & lhs, const SharedNotebook & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

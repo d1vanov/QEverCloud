@@ -17,26 +17,6 @@
 
 namespace qevercloud {
 
-bool SharedNoteTemplate::Impl::operator==(
-    const SharedNoteTemplate::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noteGuid == other.m_noteGuid &&
-        m_recipientThreadId == other.m_recipientThreadId &&
-        m_recipientContacts == other.m_recipientContacts &&
-        m_privilege == other.m_privilege;
-}
-
-bool SharedNoteTemplate::Impl::operator!=(
-    const SharedNoteTemplate::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SharedNoteTemplate::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNoteTemplate: {\n";

@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool EDAMSystemException::Impl::operator==(
-    const EDAMSystemException::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_errorCode == other.m_errorCode &&
-        m_message == other.m_message &&
-        m_rateLimitDuration == other.m_rateLimitDuration;
-}
-
-bool EDAMSystemException::Impl::operator!=(
-    const EDAMSystemException::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void EDAMSystemException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMSystemException: {\n";

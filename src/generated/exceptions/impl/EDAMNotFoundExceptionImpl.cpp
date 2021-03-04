@@ -17,24 +17,6 @@
 
 namespace qevercloud {
 
-bool EDAMNotFoundException::Impl::operator==(
-    const EDAMNotFoundException::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_identifier == other.m_identifier &&
-        m_key == other.m_key;
-}
-
-bool EDAMNotFoundException::Impl::operator!=(
-    const EDAMNotFoundException::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void EDAMNotFoundException::Impl::print(QTextStream & strm) const
 {
     strm << "EDAMNotFoundException: {\n";

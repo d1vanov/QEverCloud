@@ -26,32 +26,6 @@ Tag::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool Tag::Impl::operator==(
-    const Tag::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_linkedNotebookGuid == other.m_linkedNotebookGuid &&
-        m_parentTagLocalId == other.m_parentTagLocalId &&
-        m_guid == other.m_guid &&
-        m_name == other.m_name &&
-        m_parentGuid == other.m_parentGuid &&
-        m_updateSequenceNum == other.m_updateSequenceNum;
-}
-
-bool Tag::Impl::operator!=(
-    const Tag::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Tag::Impl::print(QTextStream & strm) const
 {
     strm << "Tag: {\n";

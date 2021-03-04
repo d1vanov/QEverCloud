@@ -17,33 +17,6 @@
 
 namespace qevercloud {
 
-bool NotesMetadataResultSpec::Impl::operator==(
-    const NotesMetadataResultSpec::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_includeTitle == other.m_includeTitle &&
-        m_includeContentLength == other.m_includeContentLength &&
-        m_includeCreated == other.m_includeCreated &&
-        m_includeUpdated == other.m_includeUpdated &&
-        m_includeDeleted == other.m_includeDeleted &&
-        m_includeUpdateSequenceNum == other.m_includeUpdateSequenceNum &&
-        m_includeNotebookGuid == other.m_includeNotebookGuid &&
-        m_includeTagGuids == other.m_includeTagGuids &&
-        m_includeAttributes == other.m_includeAttributes &&
-        m_includeLargestResourceMime == other.m_includeLargestResourceMime &&
-        m_includeLargestResourceSize == other.m_includeLargestResourceSize;
-}
-
-bool NotesMetadataResultSpec::Impl::operator!=(
-    const NotesMetadataResultSpec::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 {
     strm << "NotesMetadataResultSpec: {\n";

@@ -127,14 +127,24 @@ void NoteEmailParameters::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteEmailParameters::operator==(const NoteEmailParameters & other) const noexcept
+bool operator==(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.guid() == rhs.guid() &&
+        lhs.note() == rhs.note() &&
+        lhs.toAddresses() == rhs.toAddresses() &&
+        lhs.ccAddresses() == rhs.ccAddresses() &&
+        lhs.subject() == rhs.subject() &&
+        lhs.message() == rhs.message();
 }
 
-bool NoteEmailParameters::operator!=(const NoteEmailParameters & other) const noexcept
+bool operator!=(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

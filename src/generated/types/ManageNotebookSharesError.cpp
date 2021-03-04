@@ -97,14 +97,21 @@ void ManageNotebookSharesError::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool ManageNotebookSharesError::operator==(const ManageNotebookSharesError & other) const noexcept
+bool operator==(const ManageNotebookSharesError & lhs, const ManageNotebookSharesError & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.userIdentity() == rhs.userIdentity() &&
+        lhs.userException() == rhs.userException() &&
+        lhs.notFoundException() == rhs.notFoundException();
 }
 
-bool ManageNotebookSharesError::operator!=(const ManageNotebookSharesError & other) const noexcept
+bool operator!=(const ManageNotebookSharesError & lhs, const ManageNotebookSharesError & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

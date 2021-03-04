@@ -78,9 +78,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const SharedNoteTemplate & other) const noexcept;
-    [[nodiscard]] bool operator!=(const SharedNoteTemplate & other) const noexcept;
-
     Q_PROPERTY(std::optional<Guid> noteGuid READ noteGuid WRITE setNoteGuid)
     Q_PROPERTY(std::optional<MessageThreadID> recipientThreadId READ recipientThreadId WRITE setRecipientThreadId)
     Q_PROPERTY(std::optional<QList<Contact>> recipientContacts READ recipientContacts WRITE setRecipientContacts)
@@ -90,6 +87,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const SharedNoteTemplate & lhs, const SharedNoteTemplate & rhs) noexcept;
+[[nodiscard]] bool operator!=(const SharedNoteTemplate & lhs, const SharedNoteTemplate & rhs) noexcept;
 
 } // namespace qevercloud
 

@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool ShareRelationships::Impl::operator==(
-    const ShareRelationships::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_invitations == other.m_invitations &&
-        m_memberships == other.m_memberships &&
-        m_invitationRestrictions == other.m_invitationRestrictions;
-}
-
-bool ShareRelationships::Impl::operator!=(
-    const ShareRelationships::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void ShareRelationships::Impl::print(QTextStream & strm) const
 {
     strm << "ShareRelationships: {\n";

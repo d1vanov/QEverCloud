@@ -112,14 +112,24 @@ void UserUrls::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool UserUrls::operator==(const UserUrls & other) const noexcept
+bool operator==(const UserUrls & lhs, const UserUrls & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noteStoreUrl() == rhs.noteStoreUrl() &&
+        lhs.webApiUrlPrefix() == rhs.webApiUrlPrefix() &&
+        lhs.userStoreUrl() == rhs.userStoreUrl() &&
+        lhs.utilityUrl() == rhs.utilityUrl() &&
+        lhs.messageStoreUrl() == rhs.messageStoreUrl() &&
+        lhs.userWebSocketUrl() == rhs.userWebSocketUrl();
 }
 
-bool UserUrls::operator!=(const UserUrls & other) const noexcept
+bool operator!=(const UserUrls & lhs, const UserUrls & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

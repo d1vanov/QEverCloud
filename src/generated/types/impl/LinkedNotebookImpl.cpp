@@ -22,36 +22,6 @@ LinkedNotebook::Impl::Impl()
 {
 }
 
-bool LinkedNotebook::Impl::operator==(
-    const LinkedNotebook::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_shareName == other.m_shareName &&
-        m_username == other.m_username &&
-        m_shardId == other.m_shardId &&
-        m_sharedNotebookGlobalId == other.m_sharedNotebookGlobalId &&
-        m_uri == other.m_uri &&
-        m_guid == other.m_guid &&
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_noteStoreUrl == other.m_noteStoreUrl &&
-        m_webApiUrlPrefix == other.m_webApiUrlPrefix &&
-        m_stack == other.m_stack &&
-        m_businessId == other.m_businessId;
-}
-
-bool LinkedNotebook::Impl::operator!=(
-    const LinkedNotebook::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void LinkedNotebook::Impl::print(QTextStream & strm) const
 {
     strm << "LinkedNotebook: {\n";

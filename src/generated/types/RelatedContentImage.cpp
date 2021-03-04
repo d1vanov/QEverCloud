@@ -122,14 +122,23 @@ void RelatedContentImage::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool RelatedContentImage::operator==(const RelatedContentImage & other) const noexcept
+bool operator==(const RelatedContentImage & lhs, const RelatedContentImage & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.url() == rhs.url() &&
+        lhs.width() == rhs.width() &&
+        lhs.height() == rhs.height() &&
+        lhs.pixelRatio() == rhs.pixelRatio() &&
+        lhs.fileSize() == rhs.fileSize();
 }
 
-bool RelatedContentImage::operator!=(const RelatedContentImage & other) const noexcept
+bool operator!=(const RelatedContentImage & lhs, const RelatedContentImage & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

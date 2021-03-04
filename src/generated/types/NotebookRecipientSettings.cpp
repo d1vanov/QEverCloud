@@ -122,14 +122,23 @@ void NotebookRecipientSettings::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NotebookRecipientSettings::operator==(const NotebookRecipientSettings & other) const noexcept
+bool operator==(const NotebookRecipientSettings & lhs, const NotebookRecipientSettings & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.reminderNotifyEmail() == rhs.reminderNotifyEmail() &&
+        lhs.reminderNotifyInApp() == rhs.reminderNotifyInApp() &&
+        lhs.inMyList() == rhs.inMyList() &&
+        lhs.stack() == rhs.stack() &&
+        lhs.recipientStatus() == rhs.recipientStatus();
 }
 
-bool NotebookRecipientSettings::operator!=(const NotebookRecipientSettings & other) const noexcept
+bool operator!=(const NotebookRecipientSettings & lhs, const NotebookRecipientSettings & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

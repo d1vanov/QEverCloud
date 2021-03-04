@@ -127,14 +127,23 @@ void NoteRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteRestrictions::operator==(const NoteRestrictions & other) const noexcept
+bool operator==(const NoteRestrictions & lhs, const NoteRestrictions & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noUpdateTitle() == rhs.noUpdateTitle() &&
+        lhs.noUpdateContent() == rhs.noUpdateContent() &&
+        lhs.noEmail() == rhs.noEmail() &&
+        lhs.noShare() == rhs.noShare() &&
+        lhs.noSharePublicly() == rhs.noSharePublicly();
 }
 
-bool NoteRestrictions::operator!=(const NoteRestrictions & other) const noexcept
+bool operator!=(const NoteRestrictions & lhs, const NoteRestrictions & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

@@ -31,9 +31,6 @@ public:
 
     ~Impl() noexcept override = default;
 
-    [[nodiscard]] bool operator==(const NoteList::Impl & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteList::Impl & other) const noexcept;
-
     void print(QTextStream & strm) const override;
 
     qint32 m_startIndex = 0;

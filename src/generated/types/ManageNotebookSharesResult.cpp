@@ -67,14 +67,19 @@ void ManageNotebookSharesResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool ManageNotebookSharesResult::operator==(const ManageNotebookSharesResult & other) const noexcept
+bool operator==(const ManageNotebookSharesResult & lhs, const ManageNotebookSharesResult & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.errors() == rhs.errors();
 }
 
-bool ManageNotebookSharesResult::operator!=(const ManageNotebookSharesResult & other) const noexcept
+bool operator!=(const ManageNotebookSharesResult & lhs, const ManageNotebookSharesResult & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

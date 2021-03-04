@@ -117,14 +117,23 @@ void BusinessUserInfo::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool BusinessUserInfo::operator==(const BusinessUserInfo & other) const noexcept
+bool operator==(const BusinessUserInfo & lhs, const BusinessUserInfo & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.businessId() == rhs.businessId() &&
+        lhs.businessName() == rhs.businessName() &&
+        lhs.role() == rhs.role() &&
+        lhs.email() == rhs.email() &&
+        lhs.updated() == rhs.updated();
 }
 
-bool BusinessUserInfo::operator!=(const BusinessUserInfo & other) const noexcept
+bool operator!=(const BusinessUserInfo & lhs, const BusinessUserInfo & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

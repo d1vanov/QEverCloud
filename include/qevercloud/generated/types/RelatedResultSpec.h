@@ -129,9 +129,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const RelatedResultSpec & other) const noexcept;
-    [[nodiscard]] bool operator!=(const RelatedResultSpec & other) const noexcept;
-
     Q_PROPERTY(std::optional<qint32> maxNotes READ maxNotes WRITE setMaxNotes)
     Q_PROPERTY(std::optional<qint32> maxNotebooks READ maxNotebooks WRITE setMaxNotebooks)
     Q_PROPERTY(std::optional<qint32> maxTags READ maxTags WRITE setMaxTags)
@@ -146,6 +143,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const RelatedResultSpec & lhs, const RelatedResultSpec & rhs) noexcept;
+[[nodiscard]] bool operator!=(const RelatedResultSpec & lhs, const RelatedResultSpec & rhs) noexcept;
 
 } // namespace qevercloud
 

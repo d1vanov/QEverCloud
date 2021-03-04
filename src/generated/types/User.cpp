@@ -337,14 +337,39 @@ void User::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool User::operator==(const User & other) const noexcept
+bool operator==(const User & lhs, const User & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.id() == rhs.id() &&
+        lhs.username() == rhs.username() &&
+        lhs.email() == rhs.email() &&
+        lhs.name() == rhs.name() &&
+        lhs.timezone() == rhs.timezone() &&
+        lhs.privilege() == rhs.privilege() &&
+        lhs.serviceLevel() == rhs.serviceLevel() &&
+        lhs.created() == rhs.created() &&
+        lhs.updated() == rhs.updated() &&
+        lhs.deleted() == rhs.deleted() &&
+        lhs.active() == rhs.active() &&
+        lhs.shardId() == rhs.shardId() &&
+        lhs.attributes() == rhs.attributes() &&
+        lhs.accounting() == rhs.accounting() &&
+        lhs.businessUserInfo() == rhs.businessUserInfo() &&
+        lhs.photoUrl() == rhs.photoUrl() &&
+        lhs.photoLastUpdated() == rhs.photoLastUpdated() &&
+        lhs.accountLimits() == rhs.accountLimits();
 }
 
-bool User::operator!=(const User & other) const noexcept
+bool operator!=(const User & lhs, const User & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

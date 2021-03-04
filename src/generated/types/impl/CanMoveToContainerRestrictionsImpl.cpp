@@ -17,23 +17,6 @@
 
 namespace qevercloud {
 
-bool CanMoveToContainerRestrictions::Impl::operator==(
-    const CanMoveToContainerRestrictions::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_canMoveToContainer == other.m_canMoveToContainer;
-}
-
-bool CanMoveToContainerRestrictions::Impl::operator!=(
-    const CanMoveToContainerRestrictions::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void CanMoveToContainerRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "CanMoveToContainerRestrictions: {\n";

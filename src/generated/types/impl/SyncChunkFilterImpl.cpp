@@ -17,38 +17,6 @@
 
 namespace qevercloud {
 
-bool SyncChunkFilter::Impl::operator==(
-    const SyncChunkFilter::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_includeNotes == other.m_includeNotes &&
-        m_includeNoteResources == other.m_includeNoteResources &&
-        m_includeNoteAttributes == other.m_includeNoteAttributes &&
-        m_includeNotebooks == other.m_includeNotebooks &&
-        m_includeTags == other.m_includeTags &&
-        m_includeSearches == other.m_includeSearches &&
-        m_includeResources == other.m_includeResources &&
-        m_includeLinkedNotebooks == other.m_includeLinkedNotebooks &&
-        m_includeExpunged == other.m_includeExpunged &&
-        m_includeNoteApplicationDataFullMap == other.m_includeNoteApplicationDataFullMap &&
-        m_includeResourceApplicationDataFullMap == other.m_includeResourceApplicationDataFullMap &&
-        m_includeNoteResourceApplicationDataFullMap == other.m_includeNoteResourceApplicationDataFullMap &&
-        m_includeSharedNotes == other.m_includeSharedNotes &&
-        m_omitSharedNotebooks == other.m_omitSharedNotebooks &&
-        m_requireNoteContentClass == other.m_requireNoteContentClass &&
-        m_notebookGuids == other.m_notebookGuids;
-}
-
-bool SyncChunkFilter::Impl::operator!=(
-    const SyncChunkFilter::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SyncChunkFilter::Impl::print(QTextStream & strm) const
 {
     strm << "SyncChunkFilter: {\n";

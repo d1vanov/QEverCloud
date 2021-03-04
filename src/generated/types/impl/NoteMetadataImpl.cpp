@@ -26,38 +26,6 @@ NoteMetadata::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool NoteMetadata::Impl::operator==(
-    const NoteMetadata::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_guid == other.m_guid &&
-        m_title == other.m_title &&
-        m_contentLength == other.m_contentLength &&
-        m_created == other.m_created &&
-        m_updated == other.m_updated &&
-        m_deleted == other.m_deleted &&
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_notebookGuid == other.m_notebookGuid &&
-        m_tagGuids == other.m_tagGuids &&
-        m_attributes == other.m_attributes &&
-        m_largestResourceMime == other.m_largestResourceMime &&
-        m_largestResourceSize == other.m_largestResourceSize;
-}
-
-bool NoteMetadata::Impl::operator!=(
-    const NoteMetadata::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteMetadata::Impl::print(QTextStream & strm) const
 {
     strm << "NoteMetadata: {\n";

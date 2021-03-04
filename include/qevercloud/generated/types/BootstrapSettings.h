@@ -139,9 +139,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const BootstrapSettings & other) const noexcept;
-    [[nodiscard]] bool operator!=(const BootstrapSettings & other) const noexcept;
-
     Q_PROPERTY(QString serviceHost READ serviceHost WRITE setServiceHost)
     Q_PROPERTY(QString marketingUrl READ marketingUrl WRITE setMarketingUrl)
     Q_PROPERTY(QString supportUrl READ supportUrl WRITE setSupportUrl)
@@ -161,6 +158,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const BootstrapSettings & lhs, const BootstrapSettings & rhs) noexcept;
+[[nodiscard]] bool operator!=(const BootstrapSettings & lhs, const BootstrapSettings & rhs) noexcept;
 
 } // namespace qevercloud
 

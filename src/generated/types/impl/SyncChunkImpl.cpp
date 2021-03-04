@@ -17,36 +17,6 @@
 
 namespace qevercloud {
 
-bool SyncChunk::Impl::operator==(
-    const SyncChunk::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_currentTime == other.m_currentTime &&
-        m_chunkHighUSN == other.m_chunkHighUSN &&
-        m_updateCount == other.m_updateCount &&
-        m_notes == other.m_notes &&
-        m_notebooks == other.m_notebooks &&
-        m_tags == other.m_tags &&
-        m_searches == other.m_searches &&
-        m_resources == other.m_resources &&
-        m_expungedNotes == other.m_expungedNotes &&
-        m_expungedNotebooks == other.m_expungedNotebooks &&
-        m_expungedTags == other.m_expungedTags &&
-        m_expungedSearches == other.m_expungedSearches &&
-        m_linkedNotebooks == other.m_linkedNotebooks &&
-        m_expungedLinkedNotebooks == other.m_expungedLinkedNotebooks;
-}
-
-bool SyncChunk::Impl::operator!=(
-    const SyncChunk::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SyncChunk::Impl::print(QTextStream & strm) const
 {
     strm << "SyncChunk: {\n";

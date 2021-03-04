@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteShareRelationshipRestrictions::Impl::operator==(
-    const NoteShareRelationshipRestrictions::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_noSetReadNote == other.m_noSetReadNote &&
-        m_noSetModifyNote == other.m_noSetModifyNote &&
-        m_noSetFullAccess == other.m_noSetFullAccess;
-}
-
-bool NoteShareRelationshipRestrictions::Impl::operator!=(
-    const NoteShareRelationshipRestrictions::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 {
     strm << "NoteShareRelationshipRestrictions: {\n";

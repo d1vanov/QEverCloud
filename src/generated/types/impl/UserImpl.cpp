@@ -22,43 +22,6 @@ User::Impl::Impl()
 {
 }
 
-bool User::Impl::operator==(
-    const User::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_id == other.m_id &&
-        m_username == other.m_username &&
-        m_email == other.m_email &&
-        m_name == other.m_name &&
-        m_timezone == other.m_timezone &&
-        m_privilege == other.m_privilege &&
-        m_serviceLevel == other.m_serviceLevel &&
-        m_created == other.m_created &&
-        m_updated == other.m_updated &&
-        m_deleted == other.m_deleted &&
-        m_active == other.m_active &&
-        m_shardId == other.m_shardId &&
-        m_attributes == other.m_attributes &&
-        m_accounting == other.m_accounting &&
-        m_businessUserInfo == other.m_businessUserInfo &&
-        m_photoUrl == other.m_photoUrl &&
-        m_photoLastUpdated == other.m_photoLastUpdated &&
-        m_accountLimits == other.m_accountLimits;
-}
-
-bool User::Impl::operator!=(
-    const User::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void User::Impl::print(QTextStream & strm) const
 {
     strm << "User: {\n";

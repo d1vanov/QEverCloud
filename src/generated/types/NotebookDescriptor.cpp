@@ -172,14 +172,27 @@ void NotebookDescriptor::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NotebookDescriptor::operator==(const NotebookDescriptor & other) const noexcept
+bool operator==(const NotebookDescriptor & lhs, const NotebookDescriptor & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.localId() == rhs.localId() &&
+        lhs.isLocallyModified() == rhs.isLocallyModified() &&
+        lhs.isLocalOnly() == rhs.isLocalOnly() &&
+        lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.guid() == rhs.guid() &&
+        lhs.notebookDisplayName() == rhs.notebookDisplayName() &&
+        lhs.contactName() == rhs.contactName() &&
+        lhs.hasSharedNotebook() == rhs.hasSharedNotebook() &&
+        lhs.joinedUserCount() == rhs.joinedUserCount();
 }
 
-bool NotebookDescriptor::operator!=(const NotebookDescriptor & other) const noexcept
+bool operator!=(const NotebookDescriptor & lhs, const NotebookDescriptor & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

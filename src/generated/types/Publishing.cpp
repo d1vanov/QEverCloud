@@ -102,14 +102,22 @@ void Publishing::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Publishing::operator==(const Publishing & other) const noexcept
+bool operator==(const Publishing & lhs, const Publishing & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.uri() == rhs.uri() &&
+        lhs.order() == rhs.order() &&
+        lhs.ascending() == rhs.ascending() &&
+        lhs.publicDescription() == rhs.publicDescription();
 }
 
-bool Publishing::operator!=(const Publishing & other) const noexcept
+bool operator!=(const Publishing & lhs, const Publishing & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

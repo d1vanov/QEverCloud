@@ -60,9 +60,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const CreateOrUpdateNotebookSharesResult & other) const noexcept;
-    [[nodiscard]] bool operator!=(const CreateOrUpdateNotebookSharesResult & other) const noexcept;
-
     Q_PROPERTY(std::optional<qint32> updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
     Q_PROPERTY(std::optional<QList<SharedNotebook>> matchingShares READ matchingShares WRITE setMatchingShares)
 
@@ -70,6 +67,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const CreateOrUpdateNotebookSharesResult & lhs, const CreateOrUpdateNotebookSharesResult & rhs) noexcept;
+[[nodiscard]] bool operator!=(const CreateOrUpdateNotebookSharesResult & lhs, const CreateOrUpdateNotebookSharesResult & rhs) noexcept;
 
 } // namespace qevercloud
 

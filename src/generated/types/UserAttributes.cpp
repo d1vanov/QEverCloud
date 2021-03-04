@@ -517,14 +517,53 @@ void UserAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool UserAttributes::operator==(const UserAttributes & other) const noexcept
+bool operator==(const UserAttributes & lhs, const UserAttributes & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.defaultLocationName() == rhs.defaultLocationName() &&
+        lhs.defaultLatitude() == rhs.defaultLatitude() &&
+        lhs.defaultLongitude() == rhs.defaultLongitude() &&
+        lhs.preactivation() == rhs.preactivation() &&
+        lhs.viewedPromotions() == rhs.viewedPromotions() &&
+        lhs.incomingEmailAddress() == rhs.incomingEmailAddress() &&
+        lhs.recentMailedAddresses() == rhs.recentMailedAddresses() &&
+        lhs.comments() == rhs.comments() &&
+        lhs.dateAgreedToTermsOfService() == rhs.dateAgreedToTermsOfService() &&
+        lhs.maxReferrals() == rhs.maxReferrals() &&
+        lhs.referralCount() == rhs.referralCount() &&
+        lhs.refererCode() == rhs.refererCode() &&
+        lhs.sentEmailDate() == rhs.sentEmailDate() &&
+        lhs.sentEmailCount() == rhs.sentEmailCount() &&
+        lhs.dailyEmailLimit() == rhs.dailyEmailLimit() &&
+        lhs.emailOptOutDate() == rhs.emailOptOutDate() &&
+        lhs.partnerEmailOptInDate() == rhs.partnerEmailOptInDate() &&
+        lhs.preferredLanguage() == rhs.preferredLanguage() &&
+        lhs.preferredCountry() == rhs.preferredCountry() &&
+        lhs.clipFullPage() == rhs.clipFullPage() &&
+        lhs.twitterUserName() == rhs.twitterUserName() &&
+        lhs.twitterId() == rhs.twitterId() &&
+        lhs.groupName() == rhs.groupName() &&
+        lhs.recognitionLanguage() == rhs.recognitionLanguage() &&
+        lhs.referralProof() == rhs.referralProof() &&
+        lhs.educationalDiscount() == rhs.educationalDiscount() &&
+        lhs.businessAddress() == rhs.businessAddress() &&
+        lhs.hideSponsorBilling() == rhs.hideSponsorBilling() &&
+        lhs.useEmailAutoFiling() == rhs.useEmailAutoFiling() &&
+        lhs.reminderEmailConfig() == rhs.reminderEmailConfig() &&
+        lhs.emailAddressLastConfirmed() == rhs.emailAddressLastConfirmed() &&
+        lhs.passwordUpdated() == rhs.passwordUpdated() &&
+        lhs.salesforcePushEnabled() == rhs.salesforcePushEnabled() &&
+        lhs.shouldLogClientEvent() == rhs.shouldLogClientEvent() &&
+        lhs.optOutMachineLearning() == rhs.optOutMachineLearning();
 }
 
-bool UserAttributes::operator!=(const UserAttributes & other) const noexcept
+bool operator!=(const UserAttributes & lhs, const UserAttributes & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

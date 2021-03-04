@@ -82,14 +82,20 @@ void LazyMap::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool LazyMap::operator==(const LazyMap & other) const noexcept
+bool operator==(const LazyMap & lhs, const LazyMap & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.keysOnly() == rhs.keysOnly() &&
+        lhs.fullMap() == rhs.fullMap();
 }
 
-bool LazyMap::operator!=(const LazyMap & other) const noexcept
+bool operator!=(const LazyMap & lhs, const LazyMap & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

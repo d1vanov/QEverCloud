@@ -17,26 +17,6 @@
 
 namespace qevercloud {
 
-bool ManageNoteSharesError::Impl::operator==(
-    const ManageNoteSharesError::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_identityID == other.m_identityID &&
-        m_userID == other.m_userID &&
-        m_userException == other.m_userException &&
-        m_notFoundException == other.m_notFoundException;
-}
-
-bool ManageNoteSharesError::Impl::operator!=(
-    const ManageNoteSharesError::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void ManageNoteSharesError::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNoteSharesError: {\n";

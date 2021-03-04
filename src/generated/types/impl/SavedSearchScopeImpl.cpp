@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool SavedSearchScope::Impl::operator==(
-    const SavedSearchScope::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_includeAccount == other.m_includeAccount &&
-        m_includePersonalLinkedNotebooks == other.m_includePersonalLinkedNotebooks &&
-        m_includeBusinessLinkedNotebooks == other.m_includeBusinessLinkedNotebooks;
-}
-
-bool SavedSearchScope::Impl::operator!=(
-    const SavedSearchScope::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SavedSearchScope::Impl::print(QTextStream & strm) const
 {
     strm << "SavedSearchScope: {\n";

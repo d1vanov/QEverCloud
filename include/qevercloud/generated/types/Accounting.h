@@ -210,9 +210,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const Accounting & other) const noexcept;
-    [[nodiscard]] bool operator!=(const Accounting & other) const noexcept;
-
     Q_PROPERTY(std::optional<Timestamp> uploadLimitEnd READ uploadLimitEnd WRITE setUploadLimitEnd)
     Q_PROPERTY(std::optional<qint64> uploadLimitNextMonth READ uploadLimitNextMonth WRITE setUploadLimitNextMonth)
     Q_PROPERTY(std::optional<PremiumOrderStatus> premiumServiceStatus READ premiumServiceStatus WRITE setPremiumServiceStatus)
@@ -241,6 +238,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const Accounting & lhs, const Accounting & rhs) noexcept;
+[[nodiscard]] bool operator!=(const Accounting & lhs, const Accounting & rhs) noexcept;
 
 } // namespace qevercloud
 

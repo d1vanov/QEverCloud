@@ -22,32 +22,6 @@ SharedNote::Impl::Impl()
 {
 }
 
-bool SharedNote::Impl::operator==(
-    const SharedNote::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_noteGuid == other.m_noteGuid &&
-        m_sharerUserID == other.m_sharerUserID &&
-        m_recipientIdentity == other.m_recipientIdentity &&
-        m_privilege == other.m_privilege &&
-        m_serviceCreated == other.m_serviceCreated &&
-        m_serviceUpdated == other.m_serviceUpdated &&
-        m_serviceAssigned == other.m_serviceAssigned;
-}
-
-bool SharedNote::Impl::operator!=(
-    const SharedNote::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SharedNote::Impl::print(QTextStream & strm) const
 {
     strm << "SharedNote: {\n";

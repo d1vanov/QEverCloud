@@ -17,28 +17,6 @@
 
 namespace qevercloud {
 
-bool SyncState::Impl::operator==(
-    const SyncState::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_currentTime == other.m_currentTime &&
-        m_fullSyncBefore == other.m_fullSyncBefore &&
-        m_updateCount == other.m_updateCount &&
-        m_uploaded == other.m_uploaded &&
-        m_userLastUpdated == other.m_userLastUpdated &&
-        m_userMaxMessageEventId == other.m_userMaxMessageEventId;
-}
-
-bool SyncState::Impl::operator!=(
-    const SyncState::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SyncState::Impl::print(QTextStream & strm) const
 {
     strm << "SyncState: {\n";

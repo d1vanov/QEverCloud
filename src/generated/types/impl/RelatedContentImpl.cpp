@@ -17,38 +17,6 @@
 
 namespace qevercloud {
 
-bool RelatedContent::Impl::operator==(
-    const RelatedContent::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_contentId == other.m_contentId &&
-        m_title == other.m_title &&
-        m_url == other.m_url &&
-        m_sourceId == other.m_sourceId &&
-        m_sourceUrl == other.m_sourceUrl &&
-        m_sourceFaviconUrl == other.m_sourceFaviconUrl &&
-        m_sourceName == other.m_sourceName &&
-        m_date == other.m_date &&
-        m_teaser == other.m_teaser &&
-        m_thumbnails == other.m_thumbnails &&
-        m_contentType == other.m_contentType &&
-        m_accessType == other.m_accessType &&
-        m_visibleUrl == other.m_visibleUrl &&
-        m_clipUrl == other.m_clipUrl &&
-        m_contact == other.m_contact &&
-        m_authors == other.m_authors;
-}
-
-bool RelatedContent::Impl::operator!=(
-    const RelatedContent::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void RelatedContent::Impl::print(QTextStream & strm) const
 {
     strm << "RelatedContent: {\n";

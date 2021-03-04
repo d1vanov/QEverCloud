@@ -175,9 +175,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const SyncChunk & other) const noexcept;
-    [[nodiscard]] bool operator!=(const SyncChunk & other) const noexcept;
-
     Q_PROPERTY(Timestamp currentTime READ currentTime WRITE setCurrentTime)
     Q_PROPERTY(std::optional<qint32> chunkHighUSN READ chunkHighUSN WRITE setChunkHighUSN)
     Q_PROPERTY(qint32 updateCount READ updateCount WRITE setUpdateCount)
@@ -197,6 +194,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const SyncChunk & lhs, const SyncChunk & rhs) noexcept;
+[[nodiscard]] bool operator!=(const SyncChunk & lhs, const SyncChunk & rhs) noexcept;
 
 } // namespace qevercloud
 

@@ -116,9 +116,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NotesMetadataList & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NotesMetadataList & other) const noexcept;
-
     Q_PROPERTY(qint32 startIndex READ startIndex WRITE setStartIndex)
     Q_PROPERTY(qint32 totalNotes READ totalNotes WRITE setTotalNotes)
     Q_PROPERTY(QList<NoteMetadata> notes READ notes WRITE setNotes)
@@ -132,6 +129,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NotesMetadataList & lhs, const NotesMetadataList & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NotesMetadataList & lhs, const NotesMetadataList & rhs) noexcept;
 
 } // namespace qevercloud
 

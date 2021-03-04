@@ -97,14 +97,21 @@ void SavedSearchScope::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool SavedSearchScope::operator==(const SavedSearchScope & other) const noexcept
+bool operator==(const SavedSearchScope & lhs, const SavedSearchScope & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.includeAccount() == rhs.includeAccount() &&
+        lhs.includePersonalLinkedNotebooks() == rhs.includePersonalLinkedNotebooks() &&
+        lhs.includeBusinessLinkedNotebooks() == rhs.includeBusinessLinkedNotebooks();
 }
 
-bool SavedSearchScope::operator!=(const SavedSearchScope & other) const noexcept
+bool operator!=(const SavedSearchScope & lhs, const SavedSearchScope & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

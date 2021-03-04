@@ -92,14 +92,21 @@ void UserIdentity::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool UserIdentity::operator==(const UserIdentity & other) const noexcept
+bool operator==(const UserIdentity & lhs, const UserIdentity & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.type() == rhs.type() &&
+        lhs.stringIdentifier() == rhs.stringIdentifier() &&
+        lhs.longIdentifier() == rhs.longIdentifier();
 }
 
-bool UserIdentity::operator!=(const UserIdentity & other) const noexcept
+bool operator!=(const UserIdentity & lhs, const UserIdentity & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

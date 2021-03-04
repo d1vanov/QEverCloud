@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteVersionId::Impl::operator==(
-    const NoteVersionId::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_updated == other.m_updated &&
-        m_saved == other.m_saved &&
-        m_title == other.m_title &&
-        m_lastEditorId == other.m_lastEditorId;
-}
-
-bool NoteVersionId::Impl::operator!=(
-    const NoteVersionId::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteVersionId::Impl::print(QTextStream & strm) const
 {
     strm << "NoteVersionId: {\n";

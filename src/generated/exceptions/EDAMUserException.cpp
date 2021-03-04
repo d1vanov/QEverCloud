@@ -73,16 +73,6 @@ void EDAMUserException::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool EDAMUserException::operator==(const EDAMUserException & other) const noexcept
-{
-    return *d == *other.d;
-}
-
-bool EDAMUserException::operator!=(const EDAMUserException & other) const noexcept
-{
-    return !(*this == other);
-}
-
 const char * EDAMUserException::what() const noexcept
 {
     return EvernoteException::what();
@@ -135,6 +125,22 @@ void EDAMUserExceptionData::throwException() const
     e.setErrorCode(d->m_errorCode);
     e.setParameter(d->m_parameter);
     throw e;
+}
+
+bool operator==(const EDAMUserException & lhs, const EDAMUserException & rhs) noexcept
+{
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.errorCode() == rhs.errorCode() &&
+        lhs.parameter() == rhs.parameter();
+}
+
+bool operator!=(const EDAMUserException & lhs, const EDAMUserException & rhs) noexcept
+{
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

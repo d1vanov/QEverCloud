@@ -17,36 +17,6 @@
 
 namespace qevercloud {
 
-bool BootstrapSettings::Impl::operator==(
-    const BootstrapSettings::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_serviceHost == other.m_serviceHost &&
-        m_marketingUrl == other.m_marketingUrl &&
-        m_supportUrl == other.m_supportUrl &&
-        m_accountEmailDomain == other.m_accountEmailDomain &&
-        m_enableFacebookSharing == other.m_enableFacebookSharing &&
-        m_enableGiftSubscriptions == other.m_enableGiftSubscriptions &&
-        m_enableSupportTickets == other.m_enableSupportTickets &&
-        m_enableSharedNotebooks == other.m_enableSharedNotebooks &&
-        m_enableSingleNoteSharing == other.m_enableSingleNoteSharing &&
-        m_enableSponsoredAccounts == other.m_enableSponsoredAccounts &&
-        m_enableTwitterSharing == other.m_enableTwitterSharing &&
-        m_enableLinkedInSharing == other.m_enableLinkedInSharing &&
-        m_enablePublicNotebooks == other.m_enablePublicNotebooks &&
-        m_enableGoogle == other.m_enableGoogle;
-}
-
-bool BootstrapSettings::Impl::operator!=(
-    const BootstrapSettings::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void BootstrapSettings::Impl::print(QTextStream & strm) const
 {
     strm << "BootstrapSettings: {\n";

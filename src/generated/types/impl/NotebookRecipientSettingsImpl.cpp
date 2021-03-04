@@ -17,27 +17,6 @@
 
 namespace qevercloud {
 
-bool NotebookRecipientSettings::Impl::operator==(
-    const NotebookRecipientSettings::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_reminderNotifyEmail == other.m_reminderNotifyEmail &&
-        m_reminderNotifyInApp == other.m_reminderNotifyInApp &&
-        m_inMyList == other.m_inMyList &&
-        m_stack == other.m_stack &&
-        m_recipientStatus == other.m_recipientStatus;
-}
-
-bool NotebookRecipientSettings::Impl::operator!=(
-    const NotebookRecipientSettings::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NotebookRecipientSettings::Impl::print(QTextStream & strm) const
 {
     strm << "NotebookRecipientSettings: {\n";

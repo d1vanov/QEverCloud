@@ -126,9 +126,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const AuthenticationResult & other) const noexcept;
-    [[nodiscard]] bool operator!=(const AuthenticationResult & other) const noexcept;
-
     Q_PROPERTY(Timestamp currentTime READ currentTime WRITE setCurrentTime)
     Q_PROPERTY(QString authenticationToken READ authenticationToken WRITE setAuthenticationToken)
     Q_PROPERTY(Timestamp expiration READ expiration WRITE setExpiration)
@@ -144,6 +141,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const AuthenticationResult & lhs, const AuthenticationResult & rhs) noexcept;
+[[nodiscard]] bool operator!=(const AuthenticationResult & lhs, const AuthenticationResult & rhs) noexcept;
 
 } // namespace qevercloud
 

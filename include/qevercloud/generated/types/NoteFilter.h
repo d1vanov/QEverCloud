@@ -156,9 +156,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteFilter & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteFilter & other) const noexcept;
-
     Q_PROPERTY(std::optional<qint32> order READ order WRITE setOrder)
     Q_PROPERTY(std::optional<bool> ascending READ ascending WRITE setAscending)
     Q_PROPERTY(std::optional<QString> words READ words WRITE setWords)
@@ -177,6 +174,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteFilter & lhs, const NoteFilter & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteFilter & lhs, const NoteFilter & rhs) noexcept;
 
 } // namespace qevercloud
 

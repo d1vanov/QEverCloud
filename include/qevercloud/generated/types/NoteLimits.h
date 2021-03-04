@@ -65,9 +65,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const NoteLimits & other) const noexcept;
-    [[nodiscard]] bool operator!=(const NoteLimits & other) const noexcept;
-
     Q_PROPERTY(std::optional<qint32> noteResourceCountMax READ noteResourceCountMax WRITE setNoteResourceCountMax)
     Q_PROPERTY(std::optional<qint64> uploadLimit READ uploadLimit WRITE setUploadLimit)
     Q_PROPERTY(std::optional<qint64> resourceSizeMax READ resourceSizeMax WRITE setResourceSizeMax)
@@ -78,6 +75,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const NoteLimits & lhs, const NoteLimits & rhs) noexcept;
+[[nodiscard]] bool operator!=(const NoteLimits & lhs, const NoteLimits & rhs) noexcept;
 
 } // namespace qevercloud
 

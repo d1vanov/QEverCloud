@@ -104,9 +104,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const ManageNotebookSharesParameters & other) const noexcept;
-    [[nodiscard]] bool operator!=(const ManageNotebookSharesParameters & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> notebookGuid READ notebookGuid WRITE setNotebookGuid)
     Q_PROPERTY(std::optional<QString> inviteMessage READ inviteMessage WRITE setInviteMessage)
     Q_PROPERTY(std::optional<QList<MemberShareRelationship>> membershipsToUpdate READ membershipsToUpdate WRITE setMembershipsToUpdate)
@@ -117,6 +114,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const ManageNotebookSharesParameters & lhs, const ManageNotebookSharesParameters & rhs) noexcept;
+[[nodiscard]] bool operator!=(const ManageNotebookSharesParameters & lhs, const ManageNotebookSharesParameters & rhs) noexcept;
 
 } // namespace qevercloud
 

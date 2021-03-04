@@ -26,32 +26,6 @@ SavedSearch::Impl::Impl()
     m_localId.remove(0, 1);
 }
 
-bool SavedSearch::Impl::operator==(
-    const SavedSearch::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_localId == other.m_localId &&
-        m_locallyModified == other.m_locallyModified &&
-        m_localOnly == other.m_localOnly &&
-        m_locallyFavorited == other.m_locallyFavorited &&
-        m_guid == other.m_guid &&
-        m_name == other.m_name &&
-        m_query == other.m_query &&
-        m_format == other.m_format &&
-        m_updateSequenceNum == other.m_updateSequenceNum &&
-        m_scope == other.m_scope;
-}
-
-bool SavedSearch::Impl::operator!=(
-    const SavedSearch::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void SavedSearch::Impl::print(QTextStream & strm) const
 {
     strm << "SavedSearch: {\n";

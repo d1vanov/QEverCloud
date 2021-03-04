@@ -31,9 +31,6 @@ public:
 
     ~Impl() noexcept override = default;
 
-    [[nodiscard]] bool operator==(const ManageNoteSharesResult::Impl & other) const noexcept;
-    [[nodiscard]] bool operator!=(const ManageNoteSharesResult::Impl & other) const noexcept;
-
     void print(QTextStream & strm) const override;
 
     std::optional<QList<ManageNoteSharesError>> m_errors;

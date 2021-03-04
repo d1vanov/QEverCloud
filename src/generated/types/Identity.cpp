@@ -167,14 +167,26 @@ void Identity::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool Identity::operator==(const Identity & other) const noexcept
+bool operator==(const Identity & lhs, const Identity & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.id() == rhs.id() &&
+        lhs.contact() == rhs.contact() &&
+        lhs.userId() == rhs.userId() &&
+        lhs.deactivated() == rhs.deactivated() &&
+        lhs.sameBusiness() == rhs.sameBusiness() &&
+        lhs.blocked() == rhs.blocked() &&
+        lhs.userConnected() == rhs.userConnected() &&
+        lhs.eventId() == rhs.eventId();
 }
 
-bool Identity::operator!=(const Identity & other) const noexcept
+bool operator!=(const Identity & lhs, const Identity & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

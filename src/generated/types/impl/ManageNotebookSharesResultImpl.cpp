@@ -17,23 +17,6 @@
 
 namespace qevercloud {
 
-bool ManageNotebookSharesResult::Impl::operator==(
-    const ManageNotebookSharesResult::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_errors == other.m_errors;
-}
-
-bool ManageNotebookSharesResult::Impl::operator!=(
-    const ManageNotebookSharesResult::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void ManageNotebookSharesResult::Impl::print(QTextStream & strm) const
 {
     strm << "ManageNotebookSharesResult: {\n";

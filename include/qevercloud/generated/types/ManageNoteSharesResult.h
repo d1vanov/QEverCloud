@@ -52,15 +52,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const ManageNoteSharesResult & other) const noexcept;
-    [[nodiscard]] bool operator!=(const ManageNoteSharesResult & other) const noexcept;
-
     Q_PROPERTY(std::optional<QList<ManageNoteSharesError>> errors READ errors WRITE setErrors)
 
 private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const ManageNoteSharesResult & lhs, const ManageNoteSharesResult & rhs) noexcept;
+[[nodiscard]] bool operator!=(const ManageNoteSharesResult & lhs, const ManageNoteSharesResult & rhs) noexcept;
 
 } // namespace qevercloud
 

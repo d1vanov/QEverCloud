@@ -31,9 +31,6 @@ public:
 
     ~Impl() noexcept override = default;
 
-    [[nodiscard]] bool operator==(const AuthenticationResult::Impl & other) const noexcept;
-    [[nodiscard]] bool operator!=(const AuthenticationResult::Impl & other) const noexcept;
-
     void print(QTextStream & strm) const override;
 
     Timestamp m_currentTime = 0;

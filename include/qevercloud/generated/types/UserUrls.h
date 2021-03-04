@@ -94,9 +94,6 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    [[nodiscard]] bool operator==(const UserUrls & other) const noexcept;
-    [[nodiscard]] bool operator!=(const UserUrls & other) const noexcept;
-
     Q_PROPERTY(std::optional<QString> noteStoreUrl READ noteStoreUrl WRITE setNoteStoreUrl)
     Q_PROPERTY(std::optional<QString> webApiUrlPrefix READ webApiUrlPrefix WRITE setWebApiUrlPrefix)
     Q_PROPERTY(std::optional<QString> userStoreUrl READ userStoreUrl WRITE setUserStoreUrl)
@@ -108,6 +105,9 @@ private:
     class Impl;
     QSharedDataPointer<Impl> d;
 };
+
+[[nodiscard]] bool operator==(const UserUrls & lhs, const UserUrls & rhs) noexcept;
+[[nodiscard]] bool operator!=(const UserUrls & lhs, const UserUrls & rhs) noexcept;
 
 } // namespace qevercloud
 

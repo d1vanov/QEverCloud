@@ -17,25 +17,6 @@
 
 namespace qevercloud {
 
-bool BusinessNotebook::Impl::operator==(
-    const BusinessNotebook::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_notebookDescription == other.m_notebookDescription &&
-        m_privilege == other.m_privilege &&
-        m_recommended == other.m_recommended;
-}
-
-bool BusinessNotebook::Impl::operator!=(
-    const BusinessNotebook::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void BusinessNotebook::Impl::print(QTextStream & strm) const
 {
     strm << "BusinessNotebook: {\n";

@@ -17,44 +17,6 @@
 
 namespace qevercloud {
 
-bool NoteAttributes::Impl::operator==(
-    const NoteAttributes::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_subjectDate == other.m_subjectDate &&
-        m_latitude == other.m_latitude &&
-        m_longitude == other.m_longitude &&
-        m_altitude == other.m_altitude &&
-        m_author == other.m_author &&
-        m_source == other.m_source &&
-        m_sourceURL == other.m_sourceURL &&
-        m_sourceApplication == other.m_sourceApplication &&
-        m_shareDate == other.m_shareDate &&
-        m_reminderOrder == other.m_reminderOrder &&
-        m_reminderDoneTime == other.m_reminderDoneTime &&
-        m_reminderTime == other.m_reminderTime &&
-        m_placeName == other.m_placeName &&
-        m_contentClass == other.m_contentClass &&
-        m_applicationData == other.m_applicationData &&
-        m_lastEditedBy == other.m_lastEditedBy &&
-        m_classifications == other.m_classifications &&
-        m_creatorId == other.m_creatorId &&
-        m_lastEditorId == other.m_lastEditorId &&
-        m_sharedWithBusiness == other.m_sharedWithBusiness &&
-        m_conflictSourceNoteGuid == other.m_conflictSourceNoteGuid &&
-        m_noteTitleQuality == other.m_noteTitleQuality;
-}
-
-bool NoteAttributes::Impl::operator!=(
-    const NoteAttributes::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void NoteAttributes::Impl::print(QTextStream & strm) const
 {
     strm << "NoteAttributes: {\n";

@@ -17,29 +17,6 @@
 
 namespace qevercloud {
 
-bool Contact::Impl::operator==(
-    const Contact::Impl & other) const noexcept
-{
-    if (this == &other) {
-        return true;
-    }
-
-    return
-        m_name == other.m_name &&
-        m_id == other.m_id &&
-        m_type == other.m_type &&
-        m_photoUrl == other.m_photoUrl &&
-        m_photoLastUpdated == other.m_photoLastUpdated &&
-        m_messagingPermit == other.m_messagingPermit &&
-        m_messagingPermitExpires == other.m_messagingPermitExpires;
-}
-
-bool Contact::Impl::operator!=(
-    const Contact::Impl & other) const noexcept
-{
-    return !(*this == other);
-}
-
 void Contact::Impl::print(QTextStream & strm) const
 {
     strm << "Contact: {\n";

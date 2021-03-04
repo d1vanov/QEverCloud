@@ -97,14 +97,21 @@ void NoteShareRelationshipRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool NoteShareRelationshipRestrictions::operator==(const NoteShareRelationshipRestrictions & other) const noexcept
+bool operator==(const NoteShareRelationshipRestrictions & lhs, const NoteShareRelationshipRestrictions & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.noSetReadNote() == rhs.noSetReadNote() &&
+        lhs.noSetModifyNote() == rhs.noSetModifyNote() &&
+        lhs.noSetFullAccess() == rhs.noSetFullAccess();
 }
 
-bool NoteShareRelationshipRestrictions::operator!=(const NoteShareRelationshipRestrictions & other) const noexcept
+bool operator!=(const NoteShareRelationshipRestrictions & lhs, const NoteShareRelationshipRestrictions & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud

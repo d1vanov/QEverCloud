@@ -167,14 +167,26 @@ void BusinessInvitation::print(QTextStream & strm) const
     d->print(strm);
 }
 
-bool BusinessInvitation::operator==(const BusinessInvitation & other) const noexcept
+bool operator==(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept
 {
-    return *d == *other.d;
+    if (&lhs == &rhs) {
+        return true;
+    }
+
+    return
+        lhs.businessId() == rhs.businessId() &&
+        lhs.email() == rhs.email() &&
+        lhs.role() == rhs.role() &&
+        lhs.status() == rhs.status() &&
+        lhs.requesterId() == rhs.requesterId() &&
+        lhs.fromWorkChat() == rhs.fromWorkChat() &&
+        lhs.created() == rhs.created() &&
+        lhs.mostRecentReminder() == rhs.mostRecentReminder();
 }
 
-bool BusinessInvitation::operator!=(const BusinessInvitation & other) const noexcept
+bool operator!=(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept
 {
-    return !(*this == other);
+    return !operator==(lhs, rhs);
 }
 
 } // namespace qevercloud
