@@ -8,10 +8,10 @@
  */
 
 #include "Impl.h"
-#include "generated/Types_io.h"
+#include "Types_io.h"
 
 #include <qevercloud/EverCloudException.h>
-#include <qevercloud/generated/Types.h>
+#include <qevercloud/Types.h>
 
 #include <QTextStream>
 

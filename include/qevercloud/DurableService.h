@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -33,7 +33,7 @@ using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QT_FORWARD_DECLARE_CLASS(DurableServicePrivate)
+class DurableServicePrivate;
 
 class QEVERCLOUD_EXPORT IDurableService
 {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -7,8 +7,8 @@
  */
 
 #include "TestDurableService.h"
-#include "generated/TestNoteStore.h"
-#include "generated/TestUserStore.h"
+#include "TestNoteStore.h"
+#include "TestUserStore.h"
 
 #include <qevercloud/QEverCloud.h>
 

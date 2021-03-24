@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -19,8 +19,8 @@
 
 namespace qevercloud {
 
-QT_FORWARD_DECLARE_CLASS(AsyncResultPrivate)
-QT_FORWARD_DECLARE_CLASS(DurableService)
+class AsyncResultPrivate;
+class DurableService;
 
 /**
  * @brief Returned by asynchonous versions of functions.

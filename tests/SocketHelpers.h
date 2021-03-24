@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019 Dmitry Ivanov
+ * Copyright (c) 2019-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -9,7 +9,7 @@
 #ifndef QEVERCLOUD_TEST_COMMON_H
 #define QEVERCLOUD_TEST_COMMON_H
 
-#include <qevercloud/generated/Types.h>
+#include <qevercloud/Types.h>
 
 #include <QTcpSocket>
 
