@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_PUBLISHING_H
-#define QEVERCLOUD_GENERATED_PUBLISHING_H
+#ifndef QEVERCLOUD_GENERATED_PUBLISHING
+#define QEVERCLOUD_GENERATED_PUBLISHING
 
 #include <qevercloud/Export.h>
 
@@ -99,4 +99,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::Publishing)
 
-#endif // QEVERCLOUD_GENERATED_PUBLISHING_H
+#endif // QEVERCLOUD_GENERATED_PUBLISHING

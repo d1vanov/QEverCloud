@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_USERATTRIBUTESIMPL_H
-#define QEVERCLOUD_GENERATED_USERATTRIBUTESIMPL_H
+#ifndef QEVERCLOUD_GENERATED_USERATTRIBUTESIMPL
+#define QEVERCLOUD_GENERATED_USERATTRIBUTESIMPL
 
 #include <qevercloud/types/UserAttributes.h>
 #include <QSharedData>
@@ -72,4 +72,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_USERATTRIBUTESIMPL_H
+#endif // QEVERCLOUD_GENERATED_USERATTRIBUTESIMPL

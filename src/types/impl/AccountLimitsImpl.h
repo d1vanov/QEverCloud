@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_ACCOUNTLIMITSIMPL_H
-#define QEVERCLOUD_GENERATED_ACCOUNTLIMITSIMPL_H
+#ifndef QEVERCLOUD_GENERATED_ACCOUNTLIMITSIMPL
+#define QEVERCLOUD_GENERATED_ACCOUNTLIMITSIMPL
 
 #include <qevercloud/types/AccountLimits.h>
 #include <QSharedData>
@@ -48,4 +48,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_ACCOUNTLIMITSIMPL_H
+#endif // QEVERCLOUD_GENERATED_ACCOUNTLIMITSIMPL

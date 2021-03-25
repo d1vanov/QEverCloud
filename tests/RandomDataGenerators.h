@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_RANDOMDATAGENERATORS_H
-#define QEVERCLOUD_GENERATED_RANDOMDATAGENERATORS_H
+#ifndef QEVERCLOUD_GENERATED_RANDOMDATAGENERATORS
+#define QEVERCLOUD_GENERATED_RANDOMDATAGENERATORS
 
 #include <qevercloud/Types.h>
 
@@ -192,4 +192,4 @@ BootstrapInfo generateRandomBootstrapInfo();
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_RANDOMDATAGENERATORS_H
+#endif // QEVERCLOUD_GENERATED_RANDOMDATAGENERATORS

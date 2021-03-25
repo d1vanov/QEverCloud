@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_LAZYMAPIMPL_H
-#define QEVERCLOUD_GENERATED_LAZYMAPIMPL_H
+#ifndef QEVERCLOUD_GENERATED_LAZYMAPIMPL
+#define QEVERCLOUD_GENERATED_LAZYMAPIMPL
 
 #include <qevercloud/types/LazyMap.h>
 #include <QSharedData>
@@ -39,4 +39,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_LAZYMAPIMPL_H
+#endif // QEVERCLOUD_GENERATED_LAZYMAPIMPL

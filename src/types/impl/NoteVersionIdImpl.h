@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTEVERSIONIDIMPL_H
-#define QEVERCLOUD_GENERATED_NOTEVERSIONIDIMPL_H
+#ifndef QEVERCLOUD_GENERATED_NOTEVERSIONIDIMPL
+#define QEVERCLOUD_GENERATED_NOTEVERSIONIDIMPL
 
 #include <qevercloud/types/NoteVersionId.h>
 #include <QSharedData>
@@ -42,4 +42,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_NOTEVERSIONIDIMPL_H
+#endif // QEVERCLOUD_GENERATED_NOTEVERSIONIDIMPL

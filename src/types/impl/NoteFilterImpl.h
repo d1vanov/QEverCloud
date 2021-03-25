@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTEFILTERIMPL_H
-#define QEVERCLOUD_GENERATED_NOTEFILTERIMPL_H
+#ifndef QEVERCLOUD_GENERATED_NOTEFILTERIMPL
+#define QEVERCLOUD_GENERATED_NOTEFILTERIMPL
 
 #include <qevercloud/types/NoteFilter.h>
 #include <QSharedData>
@@ -50,4 +50,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_NOTEFILTERIMPL_H
+#endif // QEVERCLOUD_GENERATED_NOTEFILTERIMPL

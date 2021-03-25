@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_RESOURCE_H
-#define QEVERCLOUD_GENERATED_RESOURCE_H
+#ifndef QEVERCLOUD_GENERATED_RESOURCE
+#define QEVERCLOUD_GENERATED_RESOURCE
 
 #include <qevercloud/Export.h>
 
@@ -241,4 +241,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::Resource)
 
-#endif // QEVERCLOUD_GENERATED_RESOURCE_H
+#endif // QEVERCLOUD_GENERATED_RESOURCE

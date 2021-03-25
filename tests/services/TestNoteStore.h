@@ -9,10 +9,10 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_TESTNOTESTORE_H
-#define QEVERCLOUD_GENERATED_TESTNOTESTORE_H
+#ifndef QEVERCLOUD_GENERATED_TESTNOTESTORE
+#define QEVERCLOUD_GENERATED_TESTNOTESTORE
 
-#include "SocketHelpers.h"
+#include "../SocketHelpers.h"
 #include <QObject>
 
 namespace qevercloud {
@@ -754,4 +754,4 @@ private Q_SLOTS:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_TESTNOTESTORE_H
+#endif // QEVERCLOUD_GENERATED_TESTNOTESTORE

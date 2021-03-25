@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_LAZYMAP_H
-#define QEVERCLOUD_GENERATED_LAZYMAP_H
+#ifndef QEVERCLOUD_GENERATED_LAZYMAP
+#define QEVERCLOUD_GENERATED_LAZYMAP
 
 #include <qevercloud/Export.h>
 
@@ -90,4 +90,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::LazyMap)
 
-#endif // QEVERCLOUD_GENERATED_LAZYMAP_H
+#endif // QEVERCLOUD_GENERATED_LAZYMAP

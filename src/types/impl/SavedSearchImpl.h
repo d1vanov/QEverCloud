@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_SAVEDSEARCHIMPL_H
-#define QEVERCLOUD_GENERATED_SAVEDSEARCHIMPL_H
+#ifndef QEVERCLOUD_GENERATED_SAVEDSEARCHIMPL
+#define QEVERCLOUD_GENERATED_SAVEDSEARCHIMPL
 
 #include <qevercloud/types/SavedSearch.h>
 #include <QHash>
@@ -51,4 +51,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_SAVEDSEARCHIMPL_H
+#endif // QEVERCLOUD_GENERATED_SAVEDSEARCHIMPL

@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_TYPEALIASES_H
-#define QEVERCLOUD_GENERATED_TYPEALIASES_H
+#ifndef QEVERCLOUD_GENERATED_TYPEALIASES
+#define QEVERCLOUD_GENERATED_TYPEALIASES
 
 #include <qevercloud/Export.h>
 
@@ -81,4 +81,4 @@ using MessageThreadID = qint64;
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_TYPEALIASES_H
+#endif // QEVERCLOUD_GENERATED_TYPEALIASES

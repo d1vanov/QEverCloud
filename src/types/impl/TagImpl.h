@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_TAGIMPL_H
-#define QEVERCLOUD_GENERATED_TAGIMPL_H
+#ifndef QEVERCLOUD_GENERATED_TAGIMPL
+#define QEVERCLOUD_GENERATED_TAGIMPL
 
 #include <qevercloud/types/Tag.h>
 #include <QHash>
@@ -52,4 +52,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_TAGIMPL_H
+#endif // QEVERCLOUD_GENERATED_TAGIMPL

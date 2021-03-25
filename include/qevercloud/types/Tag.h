@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_TAG_H
-#define QEVERCLOUD_GENERATED_TAG_H
+#ifndef QEVERCLOUD_GENERATED_TAG
+#define QEVERCLOUD_GENERATED_TAG
 
 #include <qevercloud/Export.h>
 
@@ -186,4 +186,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::Tag)
 
-#endif // QEVERCLOUD_GENERATED_TAG_H
+#endif // QEVERCLOUD_GENERATED_TAG

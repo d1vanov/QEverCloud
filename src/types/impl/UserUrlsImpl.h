@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_USERURLSIMPL_H
-#define QEVERCLOUD_GENERATED_USERURLSIMPL_H
+#ifndef QEVERCLOUD_GENERATED_USERURLSIMPL
+#define QEVERCLOUD_GENERATED_USERURLSIMPL
 
 #include <qevercloud/types/UserUrls.h>
 #include <QSharedData>
@@ -43,4 +43,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_USERURLSIMPL_H
+#endif // QEVERCLOUD_GENERATED_USERURLSIMPL

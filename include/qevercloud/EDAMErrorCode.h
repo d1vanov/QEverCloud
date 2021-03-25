@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_EDAMERRORCODE_H
-#define QEVERCLOUD_GENERATED_EDAMERRORCODE_H
+#ifndef QEVERCLOUD_GENERATED_EDAMERRORCODE
+#define QEVERCLOUD_GENERATED_EDAMERRORCODE
 
 #include <qevercloud/Export.h>
 
@@ -1131,4 +1131,4 @@ Q_DECLARE_METATYPE(qevercloud::RelatedContentType)
 Q_DECLARE_METATYPE(qevercloud::RelatedContentAccess)
 Q_DECLARE_METATYPE(qevercloud::UserIdentityType)
 
-#endif // QEVERCLOUD_GENERATED_EDAMERRORCODE_H
+#endif // QEVERCLOUD_GENERATED_EDAMERRORCODE

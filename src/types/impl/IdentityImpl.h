@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_IDENTITYIMPL_H
-#define QEVERCLOUD_GENERATED_IDENTITYIMPL_H
+#ifndef QEVERCLOUD_GENERATED_IDENTITYIMPL
+#define QEVERCLOUD_GENERATED_IDENTITYIMPL
 
 #include <qevercloud/types/Identity.h>
 #include <QSharedData>
@@ -45,4 +45,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_IDENTITYIMPL_H
+#endif // QEVERCLOUD_GENERATED_IDENTITYIMPL

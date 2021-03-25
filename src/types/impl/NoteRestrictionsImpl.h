@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTERESTRICTIONSIMPL_H
-#define QEVERCLOUD_GENERATED_NOTERESTRICTIONSIMPL_H
+#ifndef QEVERCLOUD_GENERATED_NOTERESTRICTIONSIMPL
+#define QEVERCLOUD_GENERATED_NOTERESTRICTIONSIMPL
 
 #include <qevercloud/types/NoteRestrictions.h>
 #include <QSharedData>
@@ -42,4 +42,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_NOTERESTRICTIONSIMPL_H
+#endif // QEVERCLOUD_GENERATED_NOTERESTRICTIONSIMPL

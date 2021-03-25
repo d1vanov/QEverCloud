@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_USER_H
-#define QEVERCLOUD_GENERATED_USER_H
+#ifndef QEVERCLOUD_GENERATED_USER
+#define QEVERCLOUD_GENERATED_USER
 
 #include <qevercloud/Export.h>
 
@@ -268,4 +268,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::User)
 
-#endif // QEVERCLOUD_GENERATED_USER_H
+#endif // QEVERCLOUD_GENERATED_USER

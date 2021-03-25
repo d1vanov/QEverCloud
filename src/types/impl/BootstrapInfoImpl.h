@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_BOOTSTRAPINFOIMPL_H
-#define QEVERCLOUD_GENERATED_BOOTSTRAPINFOIMPL_H
+#ifndef QEVERCLOUD_GENERATED_BOOTSTRAPINFOIMPL
+#define QEVERCLOUD_GENERATED_BOOTSTRAPINFOIMPL
 
 #include <qevercloud/types/BootstrapInfo.h>
 #include <QSharedData>
@@ -38,4 +38,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_BOOTSTRAPINFOIMPL_H
+#endif // QEVERCLOUD_GENERATED_BOOTSTRAPINFOIMPL

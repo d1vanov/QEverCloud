@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_PUBLICUSERINFOIMPL_H
-#define QEVERCLOUD_GENERATED_PUBLICUSERINFOIMPL_H
+#ifndef QEVERCLOUD_GENERATED_PUBLICUSERINFOIMPL
+#define QEVERCLOUD_GENERATED_PUBLICUSERINFOIMPL
 
 #include <qevercloud/types/PublicUserInfo.h>
 #include <QSharedData>
@@ -42,4 +42,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_PUBLICUSERINFOIMPL_H
+#endif // QEVERCLOUD_GENERATED_PUBLICUSERINFOIMPL

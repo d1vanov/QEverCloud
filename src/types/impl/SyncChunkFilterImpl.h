@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_SYNCCHUNKFILTERIMPL_H
-#define QEVERCLOUD_GENERATED_SYNCCHUNKFILTERIMPL_H
+#ifndef QEVERCLOUD_GENERATED_SYNCCHUNKFILTERIMPL
+#define QEVERCLOUD_GENERATED_SYNCCHUNKFILTERIMPL
 
 #include <qevercloud/types/SyncChunkFilter.h>
 #include <QSharedData>
@@ -53,4 +53,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_SYNCCHUNKFILTERIMPL_H
+#endif // QEVERCLOUD_GENERATED_SYNCCHUNKFILTERIMPL

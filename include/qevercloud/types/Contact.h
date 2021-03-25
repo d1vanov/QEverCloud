@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_CONTACT_H
-#define QEVERCLOUD_GENERATED_CONTACT_H
+#ifndef QEVERCLOUD_GENERATED_CONTACT
+#define QEVERCLOUD_GENERATED_CONTACT
 
 #include <qevercloud/Export.h>
 
@@ -119,4 +119,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::Contact)
 
-#endif // QEVERCLOUD_GENERATED_CONTACT_H
+#endif // QEVERCLOUD_GENERATED_CONTACT

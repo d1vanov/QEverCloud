@@ -7,8 +7,8 @@
  */
 
 #include "TestDurableService.h"
-#include "TestNoteStore.h"
-#include "TestUserStore.h"
+#include "services/TestNoteStore.h"
+#include "services/TestUserStore.h"
 
 #include <qevercloud/QEverCloud.h>
 

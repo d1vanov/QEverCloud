@@ -10,12 +10,12 @@
  */
 
 #include "TestUserStore.h"
-#include "../src/Impl.h"
-#include "ClearLocalIds.h"
-#include "RandomDataGenerators.h"
-#include "SocketHelpers.h"
-#include <qevercloud/Servers.h>
-#include <qevercloud/Services.h>
+#include "../../src/Impl.h"
+#include "../ClearLocalIds.h"
+#include "../RandomDataGenerators.h"
+#include "../SocketHelpers.h"
+#include <qevercloud/services/IUserStore.h>
+#include <qevercloud/services/UserStoreServer.h>
 #include <QTcpServer>
 #include <QtTest/QtTest>
 

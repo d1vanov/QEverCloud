@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTELIMITS_H
-#define QEVERCLOUD_GENERATED_NOTELIMITS_H
+#ifndef QEVERCLOUD_GENERATED_NOTELIMITS
+#define QEVERCLOUD_GENERATED_NOTELIMITS
 
 #include <qevercloud/Export.h>
 
@@ -83,4 +83,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::NoteLimits)
 
-#endif // QEVERCLOUD_GENERATED_NOTELIMITS_H
+#endif // QEVERCLOUD_GENERATED_NOTELIMITS

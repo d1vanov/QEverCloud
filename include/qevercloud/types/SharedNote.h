@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_SHAREDNOTE_H
-#define QEVERCLOUD_GENERATED_SHAREDNOTE_H
+#ifndef QEVERCLOUD_GENERATED_SHAREDNOTE
+#define QEVERCLOUD_GENERATED_SHAREDNOTE
 
 #include <qevercloud/Export.h>
 
@@ -161,4 +161,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::SharedNote)
 
-#endif // QEVERCLOUD_GENERATED_SHAREDNOTE_H
+#endif // QEVERCLOUD_GENERATED_SHAREDNOTE

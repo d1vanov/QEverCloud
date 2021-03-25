@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTELIST_H
-#define QEVERCLOUD_GENERATED_NOTELIST_H
+#ifndef QEVERCLOUD_GENERATED_NOTELIST
+#define QEVERCLOUD_GENERATED_NOTELIST
 
 #include <qevercloud/Export.h>
 
@@ -133,4 +133,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::NoteList)
 
-#endif // QEVERCLOUD_GENERATED_NOTELIST_H
+#endif // QEVERCLOUD_GENERATED_NOTELIST

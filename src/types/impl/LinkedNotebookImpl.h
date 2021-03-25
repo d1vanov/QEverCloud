@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL_H
-#define QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL_H
+#ifndef QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL
+#define QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL
 
 #include <qevercloud/types/LinkedNotebook.h>
 #include <QHash>
@@ -55,4 +55,4 @@ public:
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL_H
+#endif // QEVERCLOUD_GENERATED_LINKEDNOTEBOOKIMPL

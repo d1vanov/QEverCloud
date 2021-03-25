@@ -111,16 +111,19 @@ endif()
 
 set(GENERATED_HEADERS
     include/qevercloud/Constants.h
-    include/qevercloud/Services.h
-    include/qevercloud/Servers.h
-    include/qevercloud/Types.h
     include/qevercloud/EDAMErrorCode.h
+    include/qevercloud/exceptions/All.h
     include/qevercloud/exceptions/EDAMInvalidContactsException.h
     include/qevercloud/exceptions/EDAMNotFoundException.h
     include/qevercloud/exceptions/EDAMSystemException.h
     include/qevercloud/exceptions/EDAMUserException.h
+    include/qevercloud/services/INoteStore.h
+    include/qevercloud/services/IUserStore.h
+    include/qevercloud/services/NoteStoreServer.h
+    include/qevercloud/services/UserStoreServer.h
     include/qevercloud/types/Accounting.h
     include/qevercloud/types/AccountLimits.h
+    include/qevercloud/types/All.h
     include/qevercloud/types/AuthenticationResult.h
     include/qevercloud/types/BootstrapInfo.h
     include/qevercloud/types/BootstrapProfile.h
@@ -201,11 +204,11 @@ set(PRIVATE_HEADERS
     src/Impl.h
     src/NetworkCookieJar.h
     src/Thrift.h
-    src/Types_io.h
     src/exceptions/impl/EDAMInvalidContactsExceptionImpl.h
     src/exceptions/impl/EDAMNotFoundExceptionImpl.h
     src/exceptions/impl/EDAMSystemExceptionImpl.h
     src/exceptions/impl/EDAMUserExceptionImpl.h
+    src/types/Types_io.h
     src/types/impl/AccountingImpl.h
     src/types/impl/AccountLimitsImpl.h
     src/types/impl/AuthenticationResultImpl.h
@@ -299,9 +302,6 @@ set(SOURCES
     src/VersionInfo.cpp
     src/Constants.cpp
     src/EDAMErrorCode.cpp
-    src/Services.cpp
-    src/Servers.cpp
-    src/Types.cpp
     src/exceptions/EDAMInvalidContactsException.cpp
     src/exceptions/EDAMNotFoundException.cpp
     src/exceptions/EDAMSystemException.cpp
@@ -310,6 +310,10 @@ set(SOURCES
     src/exceptions/impl/EDAMNotFoundExceptionImpl.cpp
     src/exceptions/impl/EDAMSystemExceptionImpl.cpp
     src/exceptions/impl/EDAMUserExceptionImpl.cpp
+    src/services/NoteStore.cpp
+    src/services/NoteStoreServer.cpp
+    src/services/UserStore.cpp
+    src/services/UserStoreServer.cpp
     src/types/Accounting.cpp
     src/types/AccountLimits.cpp
     src/types/AuthenticationResult.cpp
@@ -378,6 +382,7 @@ set(SOURCES
     src/types/SyncChunkFilter.cpp
     src/types/SyncState.cpp
     src/types/Tag.cpp
+    src/types/Types_io.cpp
     src/types/UpdateNoteIfUsnMatchesResult.cpp
     src/types/User.cpp
     src/types/UserAttributes.cpp
@@ -644,8 +649,8 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/TestDurableService.h
       tests/ClearLocalIds.h
       tests/RandomDataGenerators.h
-      tests/TestNoteStore.h
-      tests/TestUserStore.h)
+      tests/services/TestNoteStore.h
+      tests/services/TestUserStore.h)
 
   set(TEST_SOURCES
       tests/SocketHelpers.cpp
@@ -653,8 +658,8 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/TestQEverCloud.cpp
       tests/ClearLocalIds.cpp
       tests/RandomDataGenerators.cpp
-      tests/TestNoteStore.cpp
-      tests/TestUserStore.cpp)
+      tests/services/TestNoteStore.cpp
+      tests/services/TestUserStore.cpp)
 
   add_executable(test_${LIBNAME} ${TEST_HEADERS} ${TEST_SOURCES})
 

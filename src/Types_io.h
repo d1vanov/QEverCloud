@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_TYPES_IO_H
-#define QEVERCLOUD_GENERATED_TYPES_IO_H
+#ifndef QEVERCLOUD_GENERATED_TYPES_IO
+#define QEVERCLOUD_GENERATED_TYPES_IO
 
 #include "Impl.h"
 #include <qevercloud/Types.h>
@@ -203,4 +203,4 @@ void readEnumUserIdentityType(ThriftBinaryBufferReader & reader, UserIdentityTyp
 /** @endcond */
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_TYPES_IO_H
+#endif // QEVERCLOUD_GENERATED_TYPES_IO

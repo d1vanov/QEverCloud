@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTEBOOK_H
-#define QEVERCLOUD_GENERATED_NOTEBOOK_H
+#ifndef QEVERCLOUD_GENERATED_NOTEBOOK
+#define QEVERCLOUD_GENERATED_NOTEBOOK
 
 #include <qevercloud/Export.h>
 
@@ -303,4 +303,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::Notebook)
 
-#endif // QEVERCLOUD_GENERATED_NOTEBOOK_H
+#endif // QEVERCLOUD_GENERATED_NOTEBOOK

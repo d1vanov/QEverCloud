@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_CONSTANTS_H
-#define QEVERCLOUD_GENERATED_CONSTANTS_H
+#ifndef QEVERCLOUD_GENERATED_CONSTANTS
+#define QEVERCLOUD_GENERATED_CONSTANTS
 
 #include <qevercloud/Export.h>
 
@@ -1390,4 +1390,4 @@ QEVERCLOUD_EXPORT extern const qint16 EDAM_VERSION_MINOR;
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_CONSTANTS_H
+#endif // QEVERCLOUD_GENERATED_CONSTANTS

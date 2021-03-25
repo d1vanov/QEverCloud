@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_CLEARLOCALIDS_H
-#define QEVERCLOUD_GENERATED_CLEARLOCALIDS_H
+#ifndef QEVERCLOUD_GENERATED_CLEARLOCALIDS
+#define QEVERCLOUD_GENERATED_CLEARLOCALIDS
 
 #include <qevercloud/Types.h>
 
@@ -32,4 +32,4 @@ void clearLocalIds(UpdateNoteIfUsnMatchesResult & v);
 
 } // namespace qevercloud
 
-#endif // QEVERCLOUD_GENERATED_CLEARLOCALIDS_H
+#endif // QEVERCLOUD_GENERATED_CLEARLOCALIDS

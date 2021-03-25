@@ -9,10 +9,10 @@
  * This file was generated from Evernote Thrift API
  */
 
-#include <qevercloud/Types.h>
-#include "Impl.h"
-#include "Impl.h"
 #include "Types_io.h"
+#include "../Impl.h"
+#include <qevercloud/exceptions/All.h>
+#include <qevercloud/types/All.h>
 #include <QDebug>
 #include <QUuid>
 #include <optional>

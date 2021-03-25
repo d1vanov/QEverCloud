@@ -9,8 +9,8 @@
  * This file was generated from Evernote Thrift API
  */
 
-#ifndef QEVERCLOUD_GENERATED_NOTEVERSIONID_H
-#define QEVERCLOUD_GENERATED_NOTEVERSIONID_H
+#ifndef QEVERCLOUD_GENERATED_NOTEVERSIONID
+#define QEVERCLOUD_GENERATED_NOTEVERSIONID
 
 #include <qevercloud/Export.h>
 
@@ -101,4 +101,4 @@ private:
 
 Q_DECLARE_METATYPE(qevercloud::NoteVersionId)
 
-#endif // QEVERCLOUD_GENERATED_NOTEVERSIONID_H
+#endif // QEVERCLOUD_GENERATED_NOTEVERSIONID
