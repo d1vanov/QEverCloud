@@ -9,9 +9,9 @@
 
 #include "Http.h"
 
-#include <qevercloud/Exceptions.h>
 #include <qevercloud/NetworkProxy.h>
 #include <qevercloud/VersionInfo.h>
+#include <qevercloud/exceptions/NetworkException.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QEventLoop>

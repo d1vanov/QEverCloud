@@ -13,7 +13,7 @@
 #include "Http.h"
 #include "Thrift.h"
 
-#include <qevercloud/Exceptions.h>
+#include <qevercloud/exceptions/EDAMSystemException.h>
 #include <qevercloud/utility/ToRange.h>
 
 /**

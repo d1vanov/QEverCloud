@@ -13,7 +13,8 @@
 #define QEVERCLOUD_GENERATED_TYPES_IO
 
 #include "Impl.h"
-#include <qevercloud/Types.h>
+#include <qevercloud/exceptions/All.h>
+#include <qevercloud/types/All.h>
 
 namespace qevercloud {
 

@@ -92,14 +92,18 @@ set(NON_GENERATED_HEADERS
     include/qevercloud/AsyncResult.h
     include/qevercloud/DurableService.h
     include/qevercloud/EventLoopFinisher.h
-    include/qevercloud/EverCloudException.h
     include/qevercloud/Export.h
-    include/qevercloud/Exceptions.h
     include/qevercloud/Initialization.h
     include/qevercloud/InkNoteImageDownloader.h
     include/qevercloud/NetworkProxy.h
     include/qevercloud/RequestContext.h
     include/qevercloud/Thumbnail.h
+    include/qevercloud/exceptions/EDAMSystemExceptionAuthExpired.h
+    include/qevercloud/exceptions/EDAMSystemExceptionRateLimitReached.h
+    include/qevercloud/exceptions/EverCloudException.h
+    include/qevercloud/exceptions/EvernoteException.h
+    include/qevercloud/exceptions/NetworkException.h
+    include/qevercloud/exceptions/ThriftException.h
     include/qevercloud/utility/Log.h
     include/qevercloud/utility/Printable.h
     include/qevercloud/utility/ToRange.h)
@@ -289,9 +293,8 @@ set(SOURCES
     src/AsyncResult_p.cpp
     src/DurableService.cpp
     src/EventLoopFinisher.cpp
-    src/EverCloudException.cpp
-    src/Exceptions.cpp
     src/Http.cpp
+    src/Impl.cpp
     src/Initialization.cpp
     src/InkNoteImageDownloader.cpp
     src/Log.cpp
@@ -305,7 +308,13 @@ set(SOURCES
     src/exceptions/EDAMInvalidContactsException.cpp
     src/exceptions/EDAMNotFoundException.cpp
     src/exceptions/EDAMSystemException.cpp
+    src/exceptions/EDAMSystemExceptionAuthExpired.cpp
+    src/exceptions/EDAMSystemExceptionRateLimitReached.cpp
     src/exceptions/EDAMUserException.cpp
+    src/exceptions/EverCloudException.cpp
+    src/exceptions/EvernoteException.cpp
+    src/exceptions/NetworkException.cpp
+    src/exceptions/ThriftException.cpp
     src/exceptions/impl/EDAMInvalidContactsExceptionImpl.cpp
     src/exceptions/impl/EDAMNotFoundExceptionImpl.cpp
     src/exceptions/impl/EDAMSystemExceptionImpl.cpp

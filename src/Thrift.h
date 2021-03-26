@@ -10,7 +10,7 @@
 #ifndef QEVERCLOUD_THRIFT_H
 #define QEVERCLOUD_THRIFT_H
 
-#include <qevercloud/Exceptions.h>
+#include <qevercloud/exceptions/ThriftException.h>
 
 #include <QByteArray>
 #include <QtEndian>

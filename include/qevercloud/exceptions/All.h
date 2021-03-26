@@ -15,6 +15,12 @@
 #include "EDAMInvalidContactsException.h"
 #include "EDAMNotFoundException.h"
 #include "EDAMSystemException.h"
+#include "EDAMSystemExceptionAuthExpired.h"
+#include "EDAMSystemExceptionRateLimitReached.h"
 #include "EDAMUserException.h"
+#include "EverCloudException.h"
+#include "EvernoteException.h"
+#include "NetworkException.h"
+#include "ThriftException.h"
 
 #endif // QEVERCLOUD_GENERATED_EXCEPTIONS_ALL_H

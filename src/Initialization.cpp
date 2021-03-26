@@ -5,7 +5,7 @@
  * of MIT license: https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/EverCloudException.h>
+#include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/Initialization.h>
 #include <qevercloud/RequestContext.h>
 

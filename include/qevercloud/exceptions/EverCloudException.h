@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2019 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license: https://opensource.org/licenses/MIT
@@ -19,11 +19,7 @@
 
 namespace qevercloud {
 
-////////////////////////////////////////////////////////////////////////////////
-
 class QEVERCLOUD_EXPORT EverCloudExceptionData;
-
-////////////////////////////////////////////////////////////////////////////////
 
 /**
  * All exceptions thrown by the library are of this class or its descendants.
@@ -45,8 +41,6 @@ public:
 
     [[nodiscard]] virtual std::shared_ptr<EverCloudExceptionData> exceptionData() const;
 };
-
-////////////////////////////////////////////////////////////////////////////////
 
 /**
  * @brief EverCloudException counterpart for asynchronous API.
@@ -155,38 +149,6 @@ public:
 };
 
 using EverCloudExceptionDataPtr = std::shared_ptr<EverCloudExceptionData>;
-
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * All exception sent by Evernote servers (as opposed to other error conditions,
- * for example http errors) are descendants of this class.
- */
-class QEVERCLOUD_EXPORT EvernoteException: public EverCloudException
-{
-public:
-    explicit EvernoteException();
-    explicit EvernoteException(QString error);
-    explicit EvernoteException(const std::string & error);
-    explicit EvernoteException(const char * error);
-
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Asynchronous API conterpart of EvernoteException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT EvernoteExceptionData: public EverCloudExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EvernoteExceptionData)
-public:
-    explicit EvernoteExceptionData(QString error);
-    void throwException() const override;
-};
 
 } // namespace qevercloud
 

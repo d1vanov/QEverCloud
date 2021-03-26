@@ -8,7 +8,9 @@
 #include "AsyncResult_p.h"
 
 #include <qevercloud/DurableService.h>
-#include <qevercloud/Exceptions.h>
+#include <qevercloud/exceptions/NetworkException.h>
+#include <qevercloud/exceptions/ThriftException.h>
+#include <qevercloud/exceptions/EDAMSystemException.h>
 #include <qevercloud/utility/Log.h>
 
 #include <algorithm>

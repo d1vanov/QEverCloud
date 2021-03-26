@@ -21,7 +21,7 @@
 #include "Tag.h"
 #include "UserProfile.h"
 #include <qevercloud/EDAMErrorCode.h>
-#include <qevercloud/EverCloudException.h>
+#include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/types/TypeAliases.h>
 #include <qevercloud/utility/Printable.h>
 #include <QList>

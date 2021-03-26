@@ -9,9 +9,12 @@
 #include "TestDurableService.h"
 
 #include <qevercloud/DurableService.h>
-#include <qevercloud/Exceptions.h>
+#include <qevercloud/EDAMErrorCode.h>
+#include <qevercloud/exceptions/NetworkException.h>
+#include <qevercloud/exceptions/EDAMUserException.h>
 
 #include <QEventLoop>
+#include <QNetworkReply>
 #include <QtTest/QtTest>
 
 namespace qevercloud {
