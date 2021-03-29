@@ -116,11 +116,14 @@ endif()
 set(GENERATED_HEADERS
     include/qevercloud/Constants.h
     include/qevercloud/EDAMErrorCode.h
+    include/qevercloud/Fwd.h
     include/qevercloud/exceptions/All.h
     include/qevercloud/exceptions/EDAMInvalidContactsException.h
     include/qevercloud/exceptions/EDAMNotFoundException.h
     include/qevercloud/exceptions/EDAMSystemException.h
     include/qevercloud/exceptions/EDAMUserException.h
+    include/qevercloud/exceptions/Fwd.h
+    include/qevercloud/services/Fwd.h
     include/qevercloud/services/INoteStore.h
     include/qevercloud/services/IUserStore.h
     include/qevercloud/services/NoteStoreServer.h
@@ -140,6 +143,7 @@ set(GENERATED_HEADERS
     include/qevercloud/types/Contact.h
     include/qevercloud/types/CreateOrUpdateNotebookSharesResult.h
     include/qevercloud/types/Data.h
+    include/qevercloud/types/Fwd.h
     include/qevercloud/types/Identity.h
     include/qevercloud/types/InvitationShareRelationship.h
     include/qevercloud/types/LazyMap.h
