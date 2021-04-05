@@ -21,6 +21,8 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached:
     public EDAMSystemException
 {
 public:
+    void raise() const override;
+    [[nodiscard]] EDAMSystemExceptionRateLimitReached * clone() const override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 };
 

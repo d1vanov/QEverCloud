@@ -24,6 +24,16 @@ NetworkException::NetworkException(
     m_type(type)
 {}
 
+void NetworkException::raise() const
+{
+    throw *this;
+}
+
+NetworkException * NetworkException::clone() const
+{
+    return new NetworkException(m_type);
+}
+
 NetworkException::~NetworkException() noexcept
 {}
 

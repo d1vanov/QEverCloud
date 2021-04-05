@@ -13,6 +13,8 @@
 
 #include "impl/EDAMSystemExceptionImpl.h"
 
+#include <memory>
+
 namespace qevercloud {
 
 EDAMSystemException::EDAMSystemException() :
@@ -91,6 +93,20 @@ void EDAMSystemException::print(QTextStream & strm) const
 const char * EDAMSystemException::what() const noexcept
 {
     return EvernoteException::what();
+}
+
+void EDAMSystemException::raise() const
+{
+    throw *this;
+}
+
+EDAMSystemException * EDAMSystemException::clone() const
+{
+    auto e = std::make_unique<EDAMSystemException>();
+    e->setErrorCode(d->m_errorCode);
+    e->setMessage(d->m_message);
+    e->setRateLimitDuration(d->m_rateLimitDuration);
+    return e.release();
 }
 
 EverCloudExceptionDataPtr EDAMSystemException::exceptionData() const

@@ -8,7 +8,23 @@
 
 #include <qevercloud/exceptions/EDAMSystemExceptionAuthExpired.h>
 
+#include <memory>
+
 namespace qevercloud {
+
+void EDAMSystemExceptionAuthExpired::raise() const
+{
+    throw *this;
+}
+
+EDAMSystemExceptionAuthExpired * EDAMSystemExceptionAuthExpired::clone() const
+{
+    auto e = std::make_unique<EDAMSystemExceptionAuthExpired>();
+    e->setErrorCode(errorCode());
+    e->setMessage(message());
+    e->setRateLimitDuration(rateLimitDuration());
+    return e.release();
+}
 
 EverCloudExceptionDataPtr EDAMSystemExceptionAuthExpired::exceptionData() const
 {

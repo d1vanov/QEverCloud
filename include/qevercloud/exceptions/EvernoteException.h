@@ -32,6 +32,10 @@ public:
     explicit EvernoteException(const std::string & error);
     explicit EvernoteException(const char * error);
 
+    void raise() const override;
+
+    [[nodiscard]] EvernoteException * clone() const override;
+
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 };
 

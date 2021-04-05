@@ -8,7 +8,32 @@
 
 #include <qevercloud/exceptions/EDAMSystemExceptionRateLimitReached.h>
 
+#include <memory>
+
 namespace qevercloud {
+
+void EDAMSystemExceptionRateLimitReached::raise() const
+{
+    throw *this;
+}
+
+EDAMSystemExceptionRateLimitReached * EDAMSystemExceptionRateLimitReached::clone() const
+{
+    auto e = std::make_unique<EDAMSystemExceptionRateLimitReached>();
+    e->setErrorCode(errorCode());
+    e->setMessage(message());
+    e->setRateLimitDuration(rateLimitDuration());
+    return e.release();
+}
+
+EverCloudExceptionDataPtr EDAMSystemExceptionRateLimitReached::exceptionData() const
+{
+    return std::make_shared<EDAMSystemExceptionRateLimitReachedData>(
+        QString::fromUtf8(what()),
+        errorCode(),
+        message(),
+        rateLimitDuration());
+}
 
 EDAMSystemExceptionRateLimitReachedData::EDAMSystemExceptionRateLimitReachedData(
         QString error, EDAMErrorCode errorCode,
@@ -24,15 +49,6 @@ void EDAMSystemExceptionRateLimitReachedData::throwException() const
     e.setMessage(message());
     e.setRateLimitDuration(rateLimitDuration());
     throw e;
-}
-
-EverCloudExceptionDataPtr EDAMSystemExceptionRateLimitReached::exceptionData() const
-{
-    return std::make_shared<EDAMSystemExceptionRateLimitReachedData>(
-        QString::fromUtf8(what()),
-        errorCode(),
-        message(),
-        rateLimitDuration());
 }
 
 } // namespace qevercloud

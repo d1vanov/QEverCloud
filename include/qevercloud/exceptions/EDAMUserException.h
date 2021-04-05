@@ -62,6 +62,8 @@ public:
     void print(QTextStream & strm) const override;
 
     [[nodiscard]] const char * what() const noexcept override;
+    void raise() const override;
+    [[nodiscard]] EDAMUserException * clone() const override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     Q_PROPERTY(EDAMErrorCode errorCode READ errorCode WRITE setErrorCode)

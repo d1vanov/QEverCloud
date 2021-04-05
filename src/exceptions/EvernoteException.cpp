@@ -27,6 +27,16 @@ EvernoteException::EvernoteException(const char * error) :
     EverCloudException(error)
 {}
 
+void EvernoteException::raise() const
+{
+    throw *this;
+}
+
+EvernoteException * EvernoteException::clone() const
+{
+    return new EvernoteException(QString::fromUtf8(what()));
+}
+
 EverCloudExceptionDataPtr EvernoteException::exceptionData() const
 {
     return std::make_shared<EverCloudExceptionData>(QString::fromUtf8(what()));

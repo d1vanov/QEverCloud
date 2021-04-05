@@ -29,6 +29,16 @@ ThriftException::ThriftException(ThriftException::Type type, QString message) :
 ThriftException::~ThriftException() noexcept
 {}
 
+void ThriftException::raise() const
+{
+    throw *this;
+}
+
+ThriftException * ThriftException::clone() const
+{
+    return new ThriftException(m_type);
+}
+
 QTextStream & operator<<(QTextStream & strm, const ThriftException::Type type)
 {
     switch(type)

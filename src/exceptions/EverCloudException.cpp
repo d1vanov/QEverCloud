@@ -35,6 +35,16 @@ const char * EverCloudException::what() const throw()
     return m_error.constData();
 }
 
+void EverCloudException::raise() const
+{
+    throw *this;
+}
+
+EverCloudException * EverCloudException::clone() const
+{
+    return new EverCloudException(QString::fromUtf8(m_error));
+}
+
 EverCloudExceptionDataPtr EverCloudException::exceptionData() const
 {
     return std::make_shared<EverCloudExceptionData>(

@@ -13,6 +13,8 @@
 
 #include "impl/EDAMNotFoundExceptionImpl.h"
 
+#include <memory>
+
 namespace qevercloud {
 
 EDAMNotFoundException::EDAMNotFoundException() :
@@ -76,6 +78,19 @@ void EDAMNotFoundException::print(QTextStream & strm) const
 const char * EDAMNotFoundException::what() const noexcept
 {
     return EvernoteException::what();
+}
+
+void EDAMNotFoundException::raise() const
+{
+    throw *this;
+}
+
+EDAMNotFoundException * EDAMNotFoundException::clone() const
+{
+    auto e = std::make_unique<EDAMNotFoundException>();
+    e->setIdentifier(d->m_identifier);
+    e->setKey(d->m_key);
+    return e.release();
 }
 
 EverCloudExceptionDataPtr EDAMNotFoundException::exceptionData() const

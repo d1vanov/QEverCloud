@@ -20,6 +20,8 @@ namespace qevercloud {
 class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemException
 {
 public:
+    void raise() const override;
+    [[nodiscard]] EDAMSystemExceptionAuthExpired * clone() const override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 };
 

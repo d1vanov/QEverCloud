@@ -36,6 +36,10 @@ public:
 
     [[nodiscard]] const char * what() const noexcept override;
 
+    void raise() const override;
+
+    [[nodiscard]] NetworkException * clone() const override;
+
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
 protected:

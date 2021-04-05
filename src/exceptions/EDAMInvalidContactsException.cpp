@@ -13,6 +13,8 @@
 
 #include "impl/EDAMInvalidContactsExceptionImpl.h"
 
+#include <memory>
+
 namespace qevercloud {
 
 EDAMInvalidContactsException::EDAMInvalidContactsException() :
@@ -96,6 +98,20 @@ void EDAMInvalidContactsException::print(QTextStream & strm) const
 const char * EDAMInvalidContactsException::what() const noexcept
 {
     return EvernoteException::what();
+}
+
+void EDAMInvalidContactsException::raise() const
+{
+    throw *this;
+}
+
+EDAMInvalidContactsException * EDAMInvalidContactsException::clone() const
+{
+    auto e = std::make_unique<EDAMInvalidContactsException>();
+    e->setContacts(d->m_contacts);
+    e->setParameter(d->m_parameter);
+    e->setReasons(d->m_reasons);
+    return e.release();
 }
 
 EverCloudExceptionDataPtr EDAMInvalidContactsException::exceptionData() const

@@ -13,6 +13,8 @@
 
 #include "impl/EDAMUserExceptionImpl.h"
 
+#include <memory>
+
 namespace qevercloud {
 
 EDAMUserException::EDAMUserException() :
@@ -76,6 +78,19 @@ void EDAMUserException::print(QTextStream & strm) const
 const char * EDAMUserException::what() const noexcept
 {
     return EvernoteException::what();
+}
+
+void EDAMUserException::raise() const
+{
+    throw *this;
+}
+
+EDAMUserException * EDAMUserException::clone() const
+{
+    auto e = std::make_unique<EDAMUserException>();
+    e->setErrorCode(d->m_errorCode);
+    e->setParameter(d->m_parameter);
+    return e.release();
 }
 
 EverCloudExceptionDataPtr EDAMUserException::exceptionData() const

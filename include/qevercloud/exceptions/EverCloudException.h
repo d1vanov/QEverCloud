@@ -11,10 +11,10 @@
 
 #include <qevercloud/Export.h>
 
+#include <QException>
 #include <QObject>
 #include <QString>
 
-#include <exception>
 #include <memory>
 
 namespace qevercloud {
@@ -24,7 +24,7 @@ class QEVERCLOUD_EXPORT EverCloudExceptionData;
 /**
  * All exceptions thrown by the library are of this class or its descendants.
  */
-class QEVERCLOUD_EXPORT EverCloudException: public std::exception
+class QEVERCLOUD_EXPORT EverCloudException: QException
 {
 protected:
     mutable QByteArray m_error;
@@ -38,6 +38,10 @@ public:
     ~EverCloudException() noexcept override;
 
     [[nodiscard]] const char * what() const noexcept override;
+
+    void raise() const override;
+
+    [[nodiscard]] EverCloudException * clone() const override;
 
     [[nodiscard]] virtual std::shared_ptr<EverCloudExceptionData> exceptionData() const;
 };

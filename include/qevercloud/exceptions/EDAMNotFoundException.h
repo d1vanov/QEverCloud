@@ -57,6 +57,8 @@ public:
     void print(QTextStream & strm) const override;
 
     [[nodiscard]] const char * what() const noexcept override;
+    void raise() const override;
+    [[nodiscard]] EDAMNotFoundException * clone() const override;
     [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     Q_PROPERTY(std::optional<QString> identifier READ identifier WRITE setIdentifier)
