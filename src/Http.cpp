@@ -388,7 +388,7 @@ QFuture<QVariant> sendRequest(
                         "http",
                         "Request with id " << requestId
                             << " finished with error: " << e.what());
-                    promise.setException(e);
+                    promise.setException(std::current_exception());
                 }
 
                 Q_ASSERT_X(false, "QEverCloud:HTTP", "Unreachable code");
