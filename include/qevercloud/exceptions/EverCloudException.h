@@ -24,7 +24,7 @@ class QEVERCLOUD_EXPORT EverCloudExceptionData;
 /**
  * All exceptions thrown by the library are of this class or its descendants.
  */
-class QEVERCLOUD_EXPORT EverCloudException: QException
+class QEVERCLOUD_EXPORT EverCloudException: public QException
 {
 protected:
     mutable QByteArray m_error;

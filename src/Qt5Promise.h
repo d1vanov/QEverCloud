@@ -12,7 +12,7 @@
 
 #include <type_traits>
 
-// Backport of QPromise to Qt5
+// Backport of QPromise from Qt6 to Qt5
 template<typename T>
 class QPromise
 {
@@ -42,13 +42,14 @@ public:
 
     ~QPromise()
     {
-        const int state = d.loadState();
         // If QFutureInterface has no state, there is nothing to be done
-        if (state == static_cast<int>(QFutureInterfaceBase::State::NoState))
+        if (d.queryState(QFutureInterfaceBase::State::NoState)) {
             return;
+        }
+
         // Otherwise, if computation is not finished at this point, cancel
         // potential waits
-        if (!(state & QFutureInterfaceBase::State::Finished)) {
+        if (!d.queryState(QFutureInterfaceBase::State::Finished)) {
             d.cancel();
             finish();  // required to finalize the state
         }
@@ -57,15 +58,13 @@ public:
     // Core QPromise APIs
     QFuture<T> future() const { return d.future(); }
     template<typename U, typename = std::enable_if_t<std::is_same_v<U, T> || std::is_convertible_v<U, T>>>
-    bool addResult(U &&result, int index = -1)
+    void addResult(U &&result, int index = -1)
     {
-        return d.reportResult(std::forward<U>(result), index);
+        d.reportResult(std::forward<U>(result), index);
     }
 
-#ifndef QT_NO_EXCEPTIONS
     void setException(const QException &e) { d.reportException(e); }
     void setException(std::exception_ptr e) { d.reportException(e); }
-#endif
 
     void start() { d.reportStarted(); }
     void finish() { d.reportFinished(); }
@@ -87,10 +86,6 @@ public:
         qSwap(this->d, other.d);
     }
 
-#if defined(Q_CLANG_QDOC)  // documentation-only simplified signatures
-    bool addResult(const T &result, int index = -1) { }
-    bool addResult(T &&result, int index = -1) { }
-#endif
 private:
     mutable QFutureInterface<T> d = QFutureInterface<T>();
 };

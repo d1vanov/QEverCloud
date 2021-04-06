@@ -9,12 +9,22 @@
 
 #include "Http.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include "Qt5Promise.h"
+#endif
+
 #include <qevercloud/NetworkProxy.h>
 #include <qevercloud/VersionInfo.h>
 #include <qevercloud/exceptions/NetworkException.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QEventLoop>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QPromise>
+#endif
+
+#include <QtGlobal>
 #include <QtNetwork>
 #include <QUrl>
 
@@ -200,6 +210,50 @@ void ReplyFetcherLauncher::start()
 
 ////////////////////////////////////////////////////////////////////////////////
 
+QNetworkRequest createEvernoteRequest(
+    QString url, QList<QNetworkCookie> cookies)
+{
+    QNetworkRequest request;
+    request.setUrl(url);
+    request.setHeader(
+        QNetworkRequest::ContentTypeHeader,
+        QStringLiteral("application/x-thrift"));
+
+    request.setHeader(
+        QNetworkRequest::UserAgentHeader,
+        QString::fromUtf8("QEverCloud %1.%2.%3")
+        .arg(qevercloudVersionMajor())
+        .arg(qevercloudVersionMinor())
+        .arg(qevercloudVersionPatch()));
+
+    request.setRawHeader("Accept", "application/x-thrift");
+
+    if (!cookies.isEmpty()) {
+        request.setHeader(QNetworkRequest::CookieHeader, QVariant::fromValue(cookies));
+    }
+
+    return request;
+}
+
+QByteArray askEvernote(
+    QString url, QByteArray postData, const qint64 timeoutMsec,
+    QList<QNetworkCookie> cookies)
+{
+    int httpStatusCode = 0;
+    QByteArray reply = simpleDownload(
+        createEvernoteRequest(url, std::move(cookies)),
+        timeoutMsec,
+        postData,
+        &httpStatusCode);
+
+    if (httpStatusCode != 200) {
+        throw EverCloudException(
+            QString::fromUtf8("HTTP Status Code = %1").arg(httpStatusCode));
+    }
+
+    return reply;
+}
+
 QByteArray simpleDownload(
     QNetworkRequest request, const qint64 timeoutMsec,
     QByteArray postData, int * pHttpStatusCode)
@@ -244,48 +298,120 @@ QByteArray simpleDownload(
     return receivedData;
 }
 
-QNetworkRequest createEvernoteRequest(
-    QString url, QList<QNetworkCookie> cookies)
+QFuture<QVariant> sendRequest(
+    QString url, QByteArray postData, IRequestContextPtr ctx,
+    std::function<QVariant(QByteArray)> readReplyFunction)
 {
-    QNetworkRequest request;
-    request.setUrl(url);
-    request.setHeader(
-        QNetworkRequest::ContentTypeHeader,
-        QStringLiteral("application/x-thrift"));
-
-    request.setHeader(
-        QNetworkRequest::UserAgentHeader,
-        QString::fromUtf8("QEverCloud %1.%2.%3")
-        .arg(qevercloudVersionMajor())
-        .arg(qevercloudVersionMinor())
-        .arg(qevercloudVersionPatch()));
-
-    request.setRawHeader("Accept", "application/x-thrift");
-
-    if (!cookies.isEmpty()) {
-        request.setHeader(QNetworkRequest::CookieHeader, QVariant::fromValue(cookies));
-    }
-
-    return request;
+    auto request = createEvernoteRequest(url, ctx->cookies());
+    return sendRequest(
+        std::move(request), std::move(postData), std::move(ctx),
+        std::move(readReplyFunction));
 }
 
-QByteArray askEvernote(
-    QString url, QByteArray postData, const qint64 timeoutMsec,
-    QList<QNetworkCookie> cookies)
+QFuture<QVariant> sendRequest(
+    QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
+    std::function<QVariant(QByteArray)> readReplyFunction)
 {
-    int httpStatusCode = 0;
-    QByteArray reply = simpleDownload(
-        createEvernoteRequest(url, std::move(cookies)),
-        timeoutMsec,
-        postData,
-        &httpStatusCode);
+    auto * replyFetcher = new ReplyFetcher;
+    auto * pNam = new QNetworkAccessManager(replyFetcher);
+    pNam->setProxy(evernoteNetworkProxy());
 
-    if (httpStatusCode != 200) {
-        throw EverCloudException(
-            QString::fromUtf8("HTTP Status Code = %1").arg(httpStatusCode));
-    }
+    QPromise<QVariant> promise;
+    promise.start();
 
-    return reply;
+    auto future = promise.future();
+
+    QObject::connect( // clazy:exclude=connect-3arg-lambda
+        replyFetcher,
+        &ReplyFetcher::replyFetched,
+        [replyFetcher, readReplyFunction = std::move(readReplyFunction),
+         promise = std::move(promise), requestId = ctx->requestId()]
+        (ReplyFetcher * pReplyFetcher) mutable
+        {
+            QEC_DEBUG(
+                "http",
+                "received reply for request with id " << requestId);
+
+            if (promise.isCanceled()) {
+                QEC_DEBUG("http", "reply is no longer relevant");
+                return;
+            }
+
+            EverCloudExceptionDataPtr error;
+            QVariant result;
+
+            try
+            {
+                if (pReplyFetcher->isError())
+                {
+                    error = std::make_shared<EverCloudExceptionData>(
+                        pReplyFetcher->errorText());
+                }
+                else if (pReplyFetcher->httpStatusCode() != 200)
+                {
+                    error = std::make_shared<EverCloudExceptionData>(
+                        QString::fromUtf8("HTTP Status Code = %1")
+                        .arg(pReplyFetcher->httpStatusCode()));
+                }
+                else
+                {
+                    result = readReplyFunction(pReplyFetcher->receivedData());
+                }
+            }
+            catch(const EverCloudException & e)
+            {
+                error = e.exceptionData();
+            }
+            catch(const std::exception & e)
+            {
+                error = std::make_shared<EverCloudExceptionData>(
+                    QString::fromUtf8("Exception of type \"%1\" with the message: %2")
+                    .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what())));
+            }
+            catch(...)
+            {
+                error = std::make_shared<EverCloudExceptionData>(
+                    QStringLiteral("Unknown exception"));
+            }
+
+            pReplyFetcher->deleteLater();
+
+            if (error)
+            {
+                try
+                {
+                    error->throwException();
+                }
+                catch (const EverCloudException & e)
+                {
+                    QEC_INFO(
+                        "http",
+                        "Request with id " << requestId
+                            << " finished with error: " << e.what());
+                    promise.setException(e);
+                }
+
+                Q_ASSERT_X(false, "QEverCloud:HTTP", "Unreachable code");
+            }
+            else
+            {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                promise.addResult(std::move(result));
+#else
+                promise.addResult(result);
+#endif
+            }
+
+            promise.finish();
+        });
+
+    replyFetcher->start(
+        pNam,
+        std::move(request),
+        ctx->requestTimeout(),
+        std::move(postData));
+
+    return future;
 }
 
 } // namespace qevercloud

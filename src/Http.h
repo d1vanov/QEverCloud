@@ -10,7 +10,10 @@
 #ifndef QEVERCLOUD_HTTP_H
 #define QEVERCLOUD_HTTP_H
 
+#include <qevercloud/RequestContext.h>
+
 #include <QByteArray>
+#include <QFuture>
 #include <QList>
 #include <QNetworkAccessManager>
 #include <QNetworkCookie>
@@ -23,6 +26,7 @@
 #include <QTimer>
 #include <QTypeInfo>
 
+#include <functional>
 #include <memory>
 
 /** @cond HIDDEN_SYMBOLS  */
@@ -47,32 +51,32 @@ public:
         QNetworkAccessManager * nam, QNetworkRequest request,
         qint64 timeoutMsec, QByteArray postData = QByteArray());
 
-    bool isError() const
+    [[nodiscard]] bool isError() const noexcept
     {
         return m_errorType != QNetworkReply::NoError;
     }
 
-    QNetworkReply::NetworkError errorType() const
+    [[nodiscard]] QNetworkReply::NetworkError errorType() const noexcept
     {
         return m_errorType;
     }
 
-    QString errorText() const
+    [[nodiscard]] QString errorText() const
     {
         return m_errorText;
     }
 
-    QByteArray receivedData() const
+    [[nodiscard]] QByteArray receivedData() const
     {
         return m_receivedData;
     }
 
-    int httpStatusCode() const
+    [[nodiscard]] int httpStatusCode() const noexcept
     {
         return m_httpStatusCode;
     }
 
-    QNetworkAccessManager * networkAccessManager()
+    [[nodiscard]] QNetworkAccessManager * networkAccessManager() noexcept
     {
         if (!m_pNam.isNull()) {
             return m_pNam.data();
@@ -123,19 +127,6 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QNetworkRequest createEvernoteRequest(
-    QString url, QList<QNetworkCookie> cookies);
-
-QByteArray askEvernote(
-    QString url, QByteArray postData, const qint64 timeoutMsec,
-    QList<QNetworkCookie> cookies = {});
-
-QByteArray simpleDownload(
-    QNetworkRequest request, const qint64 timeoutMsec,
-    QByteArray postData = {}, int * pHttpStatusCode = nullptr);
-
-////////////////////////////////////////////////////////////////////////////////
-
 /**
  * @brief The ReplyFetcherLauncher class simplifies ReplyFetcher starting
  */
@@ -158,6 +149,29 @@ private:
     qint64                  m_timeoutMsec = 0;
     QByteArray              m_postData;
 };
+
+////////////////////////////////////////////////////////////////////////////////
+
+[[nodiscard]] QNetworkRequest createEvernoteRequest(
+    QString url, QList<QNetworkCookie> cookies);
+
+[[nodiscard]] QByteArray askEvernote(
+    QString url, QByteArray postData, const qint64 timeoutMsec,
+    QList<QNetworkCookie> cookies = {});
+
+[[nodiscard]] QByteArray simpleDownload(
+    QNetworkRequest request, const qint64 timeoutMsec,
+    QByteArray postData = {}, int * pHttpStatusCode = nullptr);
+
+////////////////////////////////////////////////////////////////////////////////
+
+[[nodiscard]] QFuture<QVariant> sendRequest(
+    QString url, QByteArray postData, IRequestContextPtr ctx,
+    std::function<QVariant(QByteArray)> readReplyFunction = nullptr);
+
+[[nodiscard]] QFuture<QVariant> sendRequest(
+    QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
+    std::function<QVariant(QByteArray)> readReplyFunction = nullptr);
 
 } // namespace qevercloud
 
