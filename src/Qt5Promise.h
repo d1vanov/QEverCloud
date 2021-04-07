@@ -12,7 +12,7 @@
 
 #include <type_traits>
 
-// Backport of QPromise from Qt6 to Qt5
+// Partial backport of QPromise from Qt6 to Qt5
 template<typename T>
 class QPromise
 {
@@ -64,7 +64,6 @@ public:
     }
 
     void setException(const QException &e) { d.reportException(e); }
-    void setException(std::exception_ptr e) { d.reportException(e); }
 
     void start() { d.reportStarted(); }
     void finish() { d.reportFinished(); }

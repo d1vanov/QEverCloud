@@ -32,6 +32,7 @@
 #include <QUuid>
 
 #include <functional>
+#include <memory>
 
 /** @cond HIDDEN_SYMBOLS  */
 
@@ -52,7 +53,7 @@ public:
         ReadReplyFunction readReplyFunction = nullptr,
         QObject * parent = nullptr);
 
-    QFuture<QVariant> start();
+    [[nodiscard]] QFuture<QVariant> start();
 
 private Q_SLOTS:
     void onDownloadProgress(qint64 downloaded, qint64 total);

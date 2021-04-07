@@ -85,7 +85,7 @@ QFuture<QVariant> NetworkReplyFetcher::start()
         m_pReply.get(),
         qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error),
         this,
-        &ReplyFetcher::onError);
+        &NetworkReplyFetcher::onError);
 #endif
 
     QObject::connect(
@@ -258,7 +258,7 @@ void NetworkReplyFetcher::finalize()
         }
         catch (const EverCloudException & e)
         {
-            m_promise.setException(std::current_exception());
+            m_promise.setException(e);
         }
 
         Q_ASSERT_X(false, "QEverCloud:HTTP", "Unreachable code");

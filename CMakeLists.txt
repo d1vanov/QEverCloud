@@ -211,6 +211,7 @@ set(PRIVATE_HEADERS
     src/Http.h
     src/Impl.h
     src/NetworkCookieJar.h
+    src/NetworkReplyFetcher.h
     src/Thrift.h
     src/exceptions/impl/EDAMInvalidContactsExceptionImpl.h
     src/exceptions/impl/EDAMNotFoundExceptionImpl.h
@@ -303,6 +304,7 @@ set(SOURCES
     src/InkNoteImageDownloader.cpp
     src/Log.cpp
     src/NetworkProxy.cpp
+    src/NetworkReplyFetcher.cpp
     src/Printable.cpp
     src/RequestContext.cpp
     src/Thumbnail.cpp
