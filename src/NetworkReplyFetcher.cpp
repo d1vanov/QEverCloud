@@ -49,7 +49,7 @@ NetworkReplyFetcher::NetworkReplyFetcher(
         Qt::UniqueConnection);
 }
 
-QFuture<NetworkReplyFetcher::ResultType> NetworkReplyFetcher::start()
+QFuture<QVariant> NetworkReplyFetcher::start()
 {
     QEC_TRACE("http", "NetworkReplyFetcher started for URL " << m_request.url()
         << ", post data size: " << m_postData.size() << ", request id = "
@@ -270,9 +270,9 @@ void NetworkReplyFetcher::finalize()
     else
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-        m_promise.addResult(ResultType{std::move(result), m_ctx});
+        m_promise.addResult(std::move(result));
 #else
-        m_promise.addResult(ResultType{result, m_ctx});
+        m_promise.addResult(result);
 #endif
     }
 

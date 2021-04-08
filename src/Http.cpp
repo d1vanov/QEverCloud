@@ -300,7 +300,7 @@ QByteArray simpleDownload(
     return receivedData;
 }
 
-QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
+QFuture<QVariant> sendRequest(
     QString url, QByteArray postData, IRequestContextPtr ctx,
     std::function<QVariant(QByteArray)> readReplyFunction)
 {
@@ -310,7 +310,7 @@ QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
         std::move(readReplyFunction));
 }
 
-QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
+QFuture<QVariant> sendRequest(
     QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
     std::function<QVariant(QByteArray)> readReplyFunction)
 {

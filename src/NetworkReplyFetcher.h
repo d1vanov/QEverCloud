@@ -45,7 +45,6 @@ class Q_DECL_HIDDEN NetworkReplyFetcher final: public QObject
     Q_OBJECT
 public:
     using ReadReplyFunction = std::function<QVariant(QByteArray)>;
-    using ResultType = std::pair<QVariant, IRequestContextPtr>;
 
     explicit NetworkReplyFetcher(
         IRequestContextPtr ctx,
@@ -54,7 +53,7 @@ public:
         ReadReplyFunction readReplyFunction = nullptr,
         QObject * parent = nullptr);
 
-    [[nodiscard]] QFuture<ResultType> start();
+    [[nodiscard]] QFuture<QVariant> start();
 
 private Q_SLOTS:
     void onDownloadProgress(qint64 downloaded, qint64 total);
@@ -93,8 +92,8 @@ private:
     QByteArray  m_receivedData;
     int         m_httpStatusCode = 0;
 
-    QPromise<ResultType> m_promise;
-    QFutureWatcher<ResultType> m_futureWatcher;
+    QPromise<QVariant> m_promise;
+    QFutureWatcher<QVariant> m_futureWatcher;
     bool m_promiseProgressRangeSet = false;
 
     QTimer *    m_pTicker = nullptr;
