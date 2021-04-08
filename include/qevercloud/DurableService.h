@@ -8,11 +8,12 @@
 #ifndef QEVERCLOUD_DURABLE_SERVICE_H
 #define QEVERCLOUD_DURABLE_SERVICE_H
 
-#include <qevercloud/AsyncResult.h>
 #include <qevercloud/Export.h>
 #include <qevercloud/RequestContext.h>
+#include <qevercloud/exceptions/EverCloudException.h>
 
 #include <QDateTime>
+#include <QFuture>
 #include <QVariant>
 
 #include <functional>
@@ -25,7 +26,7 @@ namespace qevercloud {
 
 struct QEVERCLOUD_EXPORT IRetryPolicy
 {
-    virtual bool shouldRetry(
+    [[nodiscard]] virtual bool shouldRetry(
         const EverCloudExceptionDataPtr & exceptionData) = 0;
 };
 
@@ -40,7 +41,7 @@ class QEVERCLOUD_EXPORT IDurableService
 public:
     using SyncResult = std::pair<QVariant,EverCloudExceptionDataPtr>;
     using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
-    using AsyncServiceCall = std::function<AsyncResult*(IRequestContextPtr)>;
+    using AsyncServiceCall = std::function<QFuture<QVariant>(IRequestContextPtr)>;
 
     struct QEVERCLOUD_EXPORT SyncRequest
     {
@@ -58,8 +59,8 @@ public:
 
     struct QEVERCLOUD_EXPORT AsyncRequest
     {
-        const char *    m_name;
-        QString         m_description;
+        const char *        m_name;
+        QString             m_description;
         AsyncServiceCall    m_call;
 
         AsyncRequest(const char * name, QString description,
@@ -71,10 +72,10 @@ public:
     };
 
 public:
-    virtual SyncResult executeSyncRequest(
+    [[nodiscard]] virtual SyncResult executeSyncRequest(
         SyncRequest && syncRequest, IRequestContextPtr ctx) = 0;
 
-    virtual AsyncResult * executeAsyncRequest(
+    [[nodiscard]] virtual QFuture<QVariant> executeAsyncRequest(
         AsyncRequest && asyncRequest, IRequestContextPtr ctx) = 0;
 };
 
@@ -82,11 +83,11 @@ using IDurableServicePtr = std::shared_ptr<IDurableService>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-QEVERCLOUD_EXPORT IRetryPolicyPtr newRetryPolicy();
+[[nodiscard]] QEVERCLOUD_EXPORT IRetryPolicyPtr newRetryPolicy();
 
-QEVERCLOUD_EXPORT IRetryPolicyPtr nullRetryPolicy();
+[[nodiscard]] QEVERCLOUD_EXPORT IRetryPolicyPtr nullRetryPolicy();
 
-QEVERCLOUD_EXPORT IDurableServicePtr newDurableService(
+[[nodiscard]] QEVERCLOUD_EXPORT IDurableServicePtr newDurableService(
     IRetryPolicyPtr = {},
     IRequestContextPtr = {});
 

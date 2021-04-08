@@ -321,7 +321,7 @@ QFuture<QVariant> sendRequest(
         std::move(readReplyFunction));
 
     // pReplyFetcher will delete itself either when the request is
-    // completed or when the future returned from start() method is cancelled
+    // completed or when the future returned from start() method is canceled
     return pReplyFetcher->start();
 }
 
