@@ -14,6 +14,8 @@
 #include "Qt5Promise.h"
 #endif
 
+#include <qevercloud/RequestContext.h>
+
 #include <QFuture>
 #include <QFutureWatcher>
 #include <QNetworkAccessManager>
@@ -43,17 +45,16 @@ class Q_DECL_HIDDEN NetworkReplyFetcher final: public QObject
     Q_OBJECT
 public:
     using ReadReplyFunction = std::function<QVariant(QByteArray)>;
+    using ResultType = std::pair<QVariant, IRequestContextPtr>;
 
     explicit NetworkReplyFetcher(
-        QNetworkAccessManager * pNam,
-        QUuid requestId,
+        IRequestContextPtr ctx,
         QNetworkRequest request,
-        qint64 timeoutMsec,
         QByteArray postData = {}, // if non-empty, POST will be issued instead of GET
         ReadReplyFunction readReplyFunction = nullptr,
         QObject * parent = nullptr);
 
-    [[nodiscard]] QFuture<QVariant> start();
+    [[nodiscard]] QFuture<ResultType> start();
 
 private Q_SLOTS:
     void onDownloadProgress(qint64 downloaded, qint64 total);
@@ -79,13 +80,12 @@ private:
     using QNetworkReplyPtr = std::unique_ptr<QNetworkReply, QNetworkReplyDeleter>;
 
 private:
-    const QPointer<QNetworkAccessManager>   m_pNam;
-    const QUuid                 m_requestId;
+    const IRequestContextPtr    m_ctx;
     const QNetworkRequest       m_request;
-    const qint64                m_timeoutMsec;
     const QByteArray            m_postData;
     const ReadReplyFunction     m_readReplyFunction;
 
+    QNetworkAccessManager * m_pNam;
     QNetworkReplyPtr    m_pReply;
 
     QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
@@ -93,8 +93,8 @@ private:
     QByteArray  m_receivedData;
     int         m_httpStatusCode = 0;
 
-    QPromise<QVariant> m_promise;
-    QFutureWatcher<QVariant> m_futureWatcher;
+    QPromise<ResultType> m_promise;
+    QFutureWatcher<ResultType> m_futureWatcher;
     bool m_promiseProgressRangeSet = false;
 
     QTimer *    m_pTicker = nullptr;

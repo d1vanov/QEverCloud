@@ -13,6 +13,8 @@
 #include "Qt5Promise.h"
 #endif
 
+#include "NetworkReplyFetcher.h"
+
 #include <qevercloud/NetworkProxy.h>
 #include <qevercloud/VersionInfo.h>
 #include <qevercloud/exceptions/NetworkException.h>
@@ -298,7 +300,7 @@ QByteArray simpleDownload(
     return receivedData;
 }
 
-QFuture<QVariant> sendRequest(
+QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
     QString url, QByteArray postData, IRequestContextPtr ctx,
     std::function<QVariant(QByteArray)> readReplyFunction)
 {
@@ -308,110 +310,19 @@ QFuture<QVariant> sendRequest(
         std::move(readReplyFunction));
 }
 
-QFuture<QVariant> sendRequest(
+QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
     QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
     std::function<QVariant(QByteArray)> readReplyFunction)
 {
-    auto * replyFetcher = new ReplyFetcher;
-    auto * pNam = new QNetworkAccessManager(replyFetcher);
-    pNam->setProxy(evernoteNetworkProxy());
-
-    QPromise<QVariant> promise;
-    promise.start();
-
-    auto future = promise.future();
-
-    QObject::connect( // clazy:exclude=connect-3arg-lambda
-        replyFetcher,
-        &ReplyFetcher::replyFetched,
-        [replyFetcher, readReplyFunction = std::move(readReplyFunction),
-         promise = std::move(promise), requestId = ctx->requestId()]
-        (ReplyFetcher * pReplyFetcher) mutable
-        {
-            QEC_DEBUG(
-                "http",
-                "received reply for request with id " << requestId);
-
-            if (promise.isCanceled()) {
-                QEC_DEBUG("http", "reply is no longer relevant");
-                return;
-            }
-
-            EverCloudExceptionDataPtr error;
-            QVariant result;
-
-            try
-            {
-                if (pReplyFetcher->isError())
-                {
-                    error = std::make_shared<EverCloudExceptionData>(
-                        pReplyFetcher->errorText());
-                }
-                else if (pReplyFetcher->httpStatusCode() != 200)
-                {
-                    error = std::make_shared<EverCloudExceptionData>(
-                        QString::fromUtf8("HTTP Status Code = %1")
-                        .arg(pReplyFetcher->httpStatusCode()));
-                }
-                else
-                {
-                    result = readReplyFunction(pReplyFetcher->receivedData());
-                }
-            }
-            catch(const EverCloudException & e)
-            {
-                error = e.exceptionData();
-            }
-            catch(const std::exception & e)
-            {
-                error = std::make_shared<EverCloudExceptionData>(
-                    QString::fromUtf8("Exception of type \"%1\" with the message: %2")
-                    .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what())));
-            }
-            catch(...)
-            {
-                error = std::make_shared<EverCloudExceptionData>(
-                    QStringLiteral("Unknown exception"));
-            }
-
-            pReplyFetcher->deleteLater();
-
-            if (error)
-            {
-                try
-                {
-                    error->throwException();
-                }
-                catch (const EverCloudException & e)
-                {
-                    QEC_INFO(
-                        "http",
-                        "Request with id " << requestId
-                            << " finished with error: " << e.what());
-                    promise.setException(e);
-                }
-
-                Q_ASSERT_X(false, "QEverCloud:HTTP", "Unreachable code");
-            }
-            else
-            {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-                promise.addResult(std::move(result));
-#else
-                promise.addResult(result);
-#endif
-            }
-
-            promise.finish();
-        });
-
-    replyFetcher->start(
-        pNam,
+    auto * pReplyFetcher = new NetworkReplyFetcher(
+        std::move(ctx),
         std::move(request),
-        ctx->requestTimeout(),
-        std::move(postData));
+        std::move(postData),
+        std::move(readReplyFunction));
 
-    return future;
+    // pReplyFetcher will delete itself either when the request is
+    // completed or when the future returned from start() method is cancelled
+    return pReplyFetcher->start();
 }
 
 } // namespace qevercloud

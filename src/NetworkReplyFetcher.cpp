@@ -10,6 +10,8 @@
 #include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/utility/Log.h>
 
+#include <QtGlobal>
+
 #include <limits>
 
 namespace qevercloud {
@@ -27,18 +29,18 @@ namespace {
 } // namespace
 
 NetworkReplyFetcher::NetworkReplyFetcher(
-    QNetworkAccessManager * pNam, QUuid requestId, QNetworkRequest request,
-    qint64 timeoutMsec, QByteArray postData,
+    IRequestContextPtr ctx, QNetworkRequest request, QByteArray postData,
     ReadReplyFunction readReplyFunction, QObject * parent) :
     QObject(parent),
-    m_pNam{pNam},
-    m_requestId{std::move(requestId)},
+    m_ctx{std::move(ctx)},
     m_request{std::move(request)},
-    m_timeoutMsec{timeoutMsec},
     m_postData{std::move(postData)},
     m_readReplyFunction{std::move(readReplyFunction)},
+    m_pNam{new QNetworkAccessManager(this)},
     m_pTicker{new QTimer(this)}
 {
+    Q_ASSERT_X(m_ctx, "NetworkReplyFetcher", "Null request context passed to NetworkReplyFetcher");
+
     QObject::connect(
         m_pTicker,
         &QTimer::timeout,
@@ -47,11 +49,11 @@ NetworkReplyFetcher::NetworkReplyFetcher(
         Qt::UniqueConnection);
 }
 
-QFuture<QVariant> NetworkReplyFetcher::start()
+QFuture<NetworkReplyFetcher::ResultType> NetworkReplyFetcher::start()
 {
     QEC_TRACE("http", "NetworkReplyFetcher started for URL " << m_request.url()
         << ", post data size: " << m_postData.size() << ", request id = "
-        << m_requestId);
+        << m_ctx->requestId());
 
     m_httpStatusCode = 0;
     m_errorType = QNetworkReply::NoError;
@@ -119,7 +121,7 @@ void NetworkReplyFetcher::onDownloadProgress(qint64 downloaded, qint64 total)
         "http",
         "NetworkReplyFetcher::onDownloadProgress: downloaded = "
             << downloaded << ", total = " << total << ", request id = "
-            << m_requestId);
+            << m_ctx->requestId());
 
     if (!m_promiseProgressRangeSet)
     {
@@ -133,11 +135,12 @@ void NetworkReplyFetcher::onDownloadProgress(qint64 downloaded, qint64 total)
 
 void NetworkReplyFetcher::checkForTimeout()
 {
-    if (m_timeoutMsec < 0) {
+    const auto timeout = m_ctx->requestTimeout();
+    if (timeout < 0) {
         return;
     }
 
-    if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > m_timeoutMsec) {
+    if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > timeout) {
         setError(QNetworkReply::TimeoutError, QStringLiteral("Request timeout"));
     }
 }
@@ -146,7 +149,7 @@ void NetworkReplyFetcher::onFinished()
 {
     QEC_TRACE(
         "http",
-        "NetworkReplyFetcher finished: request id = " << m_requestId)
+        "NetworkReplyFetcher finished: request id = " << m_ctx->requestId())
 
     m_pTicker->stop();
 
@@ -168,7 +171,7 @@ void NetworkReplyFetcher::onError(QNetworkReply::NetworkError error)
         << error << ", description: " << m_pReply->errorString()
         << "; http status code: " << m_pReply->attribute(
             QNetworkRequest::HttpStatusCodeAttribute).toInt()
-        << ", request id = " << m_requestId);
+        << ", request id = " << m_ctx->requestId());
 
     setError(error, m_pReply->errorString());
 }
@@ -182,7 +185,7 @@ void NetworkReplyFetcher::onSslErrors(QList<QSslError> errors)
         errorText += error.errorString().append(QStringLiteral("\n"));
     }
 
-    QEC_WARNING("http", errorText << ", request id = " << m_requestId);
+    QEC_WARNING("http", errorText << ", request id = " << m_ctx->requestId());
     setError(QNetworkReply::SslHandshakeFailedError, errorText);
 }
 
@@ -190,7 +193,8 @@ void NetworkReplyFetcher::onFutureCanceled()
 {
     QEC_DEBUG(
         "http",
-        "NetworkReplyFetcher: future canceled. request id = " << m_requestId);
+        "NetworkReplyFetcher: future canceled. request id = "
+            << m_ctx->requestId());
 
     QObject::disconnect(m_pReply.get());
     m_pReply->abort();
@@ -266,9 +270,9 @@ void NetworkReplyFetcher::finalize()
     else
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-        m_promise.addResult(std::move(result));
+        m_promise.addResult(ResultType{std::move(result), m_ctx});
 #else
-        m_promise.addResult(result);
+        m_promise.addResult(ResultType{result, m_ctx});
 #endif
     }
 

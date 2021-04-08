@@ -165,11 +165,11 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-[[nodiscard]] QFuture<QVariant> sendRequest(
+[[nodiscard]] QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
     QString url, QByteArray postData, IRequestContextPtr ctx,
     std::function<QVariant(QByteArray)> readReplyFunction = nullptr);
 
-[[nodiscard]] QFuture<QVariant> sendRequest(
+[[nodiscard]] QFuture<std::pair<QVariant, IRequestContextPtr>> sendRequest(
     QNetworkRequest request, QByteArray postData, IRequestContextPtr ctx,
     std::function<QVariant(QByteArray)> readReplyFunction = nullptr);
 
