@@ -105,12 +105,6 @@ QFuture<QVariant> NetworkReplyFetcher::start()
     auto future = m_promise.future();
     m_futureWatcher.setFuture(future);
 
-    QObject::connect(
-        &m_futureWatcher,
-        &QFutureWatcher<QByteArray>::canceled,
-        this,
-        &NetworkReplyFetcher::onFutureCanceled);
-
     m_promise.start();
     return future;
 }
@@ -189,18 +183,6 @@ void NetworkReplyFetcher::onSslErrors(QList<QSslError> errors)
     setError(QNetworkReply::SslHandshakeFailedError, errorText);
 }
 
-void NetworkReplyFetcher::onFutureCanceled()
-{
-    QEC_DEBUG(
-        "http",
-        "NetworkReplyFetcher: future canceled. request id = "
-            << m_ctx->requestId());
-
-    QObject::disconnect(m_pReply.get());
-    m_pReply->abort();
-    deleteLater();
-}
-
 void NetworkReplyFetcher::setError(
     QNetworkReply::NetworkError errorType, QString errorText)
 {
@@ -264,8 +246,6 @@ void NetworkReplyFetcher::finalize()
         {
             m_promise.setException(e);
         }
-
-        Q_ASSERT_X(false, "QEverCloud:HTTP", "Unreachable code");
     }
     else
     {

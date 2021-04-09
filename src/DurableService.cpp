@@ -25,6 +25,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <functional>
 #include <memory>
 
 namespace qevercloud {
@@ -278,33 +279,27 @@ void DurableService::doExecuteAsyncRequest(
         << asyncRequest.m_description);
 
     resultPromise.start();
+    auto resultPromisePtr = std::make_shared<QPromise<QVariant>>(std::move(resultPromise));
 
     auto pWatcher = std::make_unique<QFutureWatcher<QVariant>>();
-    const auto resultCallback =
-        [this, ctx, asyncRequest, resultPromise = std::move(resultPromise),
-         pWatcher = pWatcher.get(), retryState = std::move(retryState)]
+
+    auto attemptFuture = asyncRequest.m_call(ctx);
+    std::function<void()> resultCallback =
+        [this, ctx, asyncRequest, resultPromisePtr,
+         pWatcher = pWatcher.get(), retryState]
         () mutable
         {
-            if (pWatcher->isCanceled())
-            {
-                return;
-            }
-
             std::shared_ptr<EverCloudException> exception;
             try
             {
                 auto result = pWatcher->result();
 
-                QEC_DEBUG("durable_service", "Successfully executed async "
-                    << asyncRequest.m_name << " request with id "
-                    << ctx->requestId());
-
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-                resultPromise.addResult(std::move(result));
+                resultPromisePtr->addResult(std::move(result));
 #else
-                resultPromise.addResult(result);
+                resultPromisePtr->addResult(result);
 #endif
-                resultPromise.finish();
+                resultPromisePtr->finish();
                 pWatcher->deleteLater();
                 return;
             }
@@ -318,15 +313,10 @@ void DurableService::doExecuteAsyncRequest(
                 "DurableService",
                 "Unexpectedly null pointer to EverCloudExceptionData");
 
-            QEC_WARNING("durable_service", "Sync request "
-                << asyncRequest.m_name << " with id " << ctx->requestId()
-                << " failed: " << exception->what()
-                << "; request details: " << asyncRequest.m_description);
-
             if (!m_retryPolicy->shouldRetry(exception->exceptionData())) {
                 QEC_WARNING("durable_service", "Error is not retriable");
-                resultPromise.setException(*exception);
-                resultPromise.finish();
+                resultPromisePtr->setException(*exception);
+                resultPromisePtr->finish();
                 pWatcher->deleteLater();
                 return;
             }
@@ -334,8 +324,8 @@ void DurableService::doExecuteAsyncRequest(
             --retryState.m_retryCount;
             if (!retryState.m_retryCount) {
                 QEC_WARNING("durable_service", "No retry attempts left");
-                resultPromise.setException(*exception);
-                resultPromise.finish();
+                resultPromisePtr->setException(*exception);
+                resultPromisePtr->finish();
                 pWatcher->deleteLater();
                 return;
             }
@@ -361,24 +351,34 @@ void DurableService::doExecuteAsyncRequest(
 
             doExecuteAsyncRequest(
                 std::move(asyncRequest), std::move(ctx),
-                std::move(retryState), std::move(resultPromise));
+                std::move(retryState), std::move(*resultPromisePtr));
+            resultPromisePtr.reset();
         };
 
-    auto attemptFuture = asyncRequest.m_call(ctx);
     pWatcher->setFuture(attemptFuture);
-    QObject::connect(
-        pWatcher.get(),
-        &QFutureWatcher<QVariant>::canceled,
-        pWatcher.get(),
-        &resultCallback,
-        Qt::QueuedConnection);
 
-    QObject::connect(
-        pWatcher.get(),
-        &QFutureWatcher<QVariant>::finished,
-        pWatcher.get(),
-        &resultCallback,
-        Qt::QueuedConnection);
+    if (attemptFuture.isCanceled() || attemptFuture.isFinished())
+    {
+        resultCallback();
+    }
+    else
+    {
+        QObject::connect(
+            pWatcher.get(),
+            &QFutureWatcher<QVariant>::finished,
+            pWatcher.get(),
+            resultCallback,
+            Qt::QueuedConnection);
+
+        QObject::connect(
+            pWatcher.get(),
+            &QFutureWatcher<QVariant>::canceled,
+            pWatcher.get(),
+            resultCallback,
+            Qt::QueuedConnection);
+    }
+
+    Q_UNUSED(pWatcher.release());
 }
 
 ////////////////////////////////////////////////////////////////////////////////

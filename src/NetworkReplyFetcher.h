@@ -61,7 +61,6 @@ private Q_SLOTS:
     void onFinished();
     void onError(QNetworkReply::NetworkError);
     void onSslErrors(QList<QSslError> errors);
-    void onFutureCanceled();
 
 private:
     void setError(QNetworkReply::NetworkError errorType, QString errorText);

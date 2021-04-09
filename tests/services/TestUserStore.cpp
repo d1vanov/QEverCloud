@@ -14,8 +14,10 @@
 #include "../ClearLocalIds.h"
 #include "../RandomDataGenerators.h"
 #include "../SocketHelpers.h"
+#include "QEventLoop"
 #include <qevercloud/services/IUserStore.h>
 #include <qevercloud/services/UserStoreServer.h>
+#include <QFutureWatcher>
 #include <QTcpServer>
 #include <QtTest/QtTest>
 
@@ -874,437 +876,6 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class UserStoreCheckVersionAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreCheckVersionAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    bool m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<bool>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreGetBootstrapInfoAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreGetBootstrapInfoAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    BootstrapInfo m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<BootstrapInfo>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreAuthenticateLongSessionAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreAuthenticateLongSessionAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    AuthenticationResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<AuthenticationResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    AuthenticationResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<AuthenticationResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreRevokeLongSessionAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreRevokeLongSessionAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreAuthenticateToBusinessAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreAuthenticateToBusinessAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    AuthenticationResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<AuthenticationResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreGetUserAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreGetUserAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    User m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<User>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreGetPublicUserInfoAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreGetPublicUserInfoAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    PublicUserInfo m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<PublicUserInfo>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreGetUserUrlsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreGetUserUrlsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    UserUrls m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<UserUrls>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreInviteToBusinessAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreInviteToBusinessAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreRemoveFromBusinessAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreRemoveFromBusinessAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreListBusinessUsersAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreListBusinessUsersAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<UserProfile> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<UserProfile>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreListBusinessInvitationsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreListBusinessInvitationsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<BusinessInvitation> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<BusinessInvitation>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class UserStoreGetAccountLimitsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit UserStoreGetAccountLimitsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    AccountLimits m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<AccountLimits>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
 void UserStoreTester::shouldExecuteCheckVersion()
 {
     QString clientName = generateRandomString();
@@ -1388,11 +959,13 @@ void UserStoreTester::shouldExecuteCheckVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool res = userStore->checkVersion(
         clientName,
         edamVersionMajor,
         edamVersionMinor,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -1481,6 +1054,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -1489,6 +1063,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersion()
             edamVersionMajor,
             edamVersionMinor,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -1583,30 +1158,23 @@ void UserStoreTester::shouldExecuteCheckVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->checkVersionAsync(
+
+    QFuture<QVariant> result = userStore->checkVersionAsync(
         clientName,
         edamVersionMajor,
         edamVersionMinor,
         ctx);
 
-    UserStoreCheckVersionAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreCheckVersionAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreCheckVersionAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<bool>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
@@ -1694,33 +1262,26 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->checkVersionAsync(
+        QFuture<QVariant> result = userStore->checkVersionAsync(
             clientName,
             edamVersionMajor,
             edamVersionMinor,
             ctx);
 
-        UserStoreCheckVersionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreCheckVersionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreCheckVersionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -1810,9 +1371,11 @@ void UserStoreTester::shouldExecuteGetBootstrapInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     BootstrapInfo res = userStore->getBootstrapInfo(
         locale,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -1895,12 +1458,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         BootstrapInfo res = userStore->getBootstrapInfo(
             locale,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -1989,28 +1554,21 @@ void UserStoreTester::shouldExecuteGetBootstrapInfoAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->getBootstrapInfoAsync(
+
+    QFuture<QVariant> result = userStore->getBootstrapInfoAsync(
         locale,
         ctx);
 
-    UserStoreGetBootstrapInfoAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreGetBootstrapInfoAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreGetBootstrapInfoAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<BootstrapInfo>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
@@ -2092,31 +1650,24 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getBootstrapInfoAsync(
+        QFuture<QVariant> result = userStore->getBootstrapInfoAsync(
             locale,
             ctx);
 
-        UserStoreGetBootstrapInfoAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetBootstrapInfoAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetBootstrapInfoAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -2224,6 +1775,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     AuthenticationResult res = userStore->authenticateLongSession(
         username,
         password,
@@ -2233,6 +1785,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
         deviceDescription,
         supportsTwoFactor,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -2333,6 +1886,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -2345,6 +1899,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
             deviceDescription,
             supportsTwoFactor,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -2454,6 +2009,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -2466,6 +2022,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSession(
             deviceDescription,
             supportsTwoFactor,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -2574,6 +2131,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -2586,6 +2144,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSession()
             deviceDescription,
             supportsTwoFactor,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -2692,7 +2251,8 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->authenticateLongSessionAsync(
+
+    QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
         username,
         password,
         consumerKey,
@@ -2702,24 +2262,16 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
         supportsTwoFactor,
         ctx);
 
-    UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsync()
@@ -2819,10 +2371,11 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->authenticateLongSessionAsync(
+        QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
             username,
             password,
             consumerKey,
@@ -2832,24 +2385,16 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
             supportsTwoFactor,
             ctx);
 
-        UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -2958,10 +2503,11 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->authenticateLongSessionAsync(
+        QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
             username,
             password,
             consumerKey,
@@ -2971,24 +2517,16 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
             supportsTwoFactor,
             ctx);
 
-        UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -3096,10 +2634,11 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->authenticateLongSessionAsync(
+        QFuture<QVariant> result = userStore->authenticateLongSessionAsync(
             username,
             password,
             consumerKey,
@@ -3109,24 +2648,16 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
             supportsTwoFactor,
             ctx);
 
-        UserStoreAuthenticateLongSessionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreAuthenticateLongSessionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreAuthenticateLongSessionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -3224,11 +2755,13 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     AuthenticationResult res = userStore->completeTwoFactorAuthentication(
         oneTimeCode,
         deviceIdentifier,
         deviceDescription,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -3319,6 +2852,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -3327,6 +2861,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             deviceIdentifier,
             deviceDescription,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -3426,6 +2961,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -3434,6 +2970,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             deviceIdentifier,
             deviceDescription,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -3532,6 +3069,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -3540,6 +3078,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             deviceIdentifier,
             deviceDescription,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -3636,30 +3175,23 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+
+    QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
         oneTimeCode,
         deviceIdentifier,
         deviceDescription,
         ctx);
 
-    UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -3749,33 +3281,26 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+        QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
             ctx);
 
-        UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -3874,33 +3399,26 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+        QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
             ctx);
 
-        UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -3998,33 +3516,26 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->completeTwoFactorAuthenticationAsync(
+        QFuture<QVariant> result = userStore->completeTwoFactorAuthenticationAsync(
             oneTimeCode,
             deviceIdentifier,
             deviceDescription,
             ctx);
 
-        UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreCompleteTwoFactorAuthenticationAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -4111,8 +3622,10 @@ void UserStoreTester::shouldExecuteRevokeLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     userStore->revokeLongSession(
         ctx);
+
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
@@ -4193,11 +3706,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->revokeLongSession(
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -4287,11 +3802,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->revokeLongSession(
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -4380,11 +3897,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSession()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->revokeLongSession(
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -4469,26 +3988,18 @@ void UserStoreTester::shouldExecuteRevokeLongSessionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->revokeLongSessionAsync(
+
+    QFuture<QVariant> result = userStore->revokeLongSessionAsync(
         ctx);
 
-    UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
@@ -4569,30 +4080,23 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->revokeLongSessionAsync(
+        QFuture<QVariant> result = userStore->revokeLongSessionAsync(
             ctx);
 
-        UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -4682,30 +4186,23 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->revokeLongSessionAsync(
+        QFuture<QVariant> result = userStore->revokeLongSessionAsync(
             ctx);
 
-        UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -4794,30 +4291,23 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->revokeLongSessionAsync(
+        QFuture<QVariant> result = userStore->revokeLongSessionAsync(
             ctx);
 
-        UserStoreRevokeLongSessionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRevokeLongSessionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRevokeLongSessionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -4906,8 +4396,10 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     AuthenticationResult res = userStore->authenticateToBusiness(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -4989,11 +4481,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = userStore->authenticateToBusiness(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -5084,11 +4578,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = userStore->authenticateToBusiness(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -5178,11 +4674,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = userStore->authenticateToBusiness(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -5270,27 +4768,20 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->authenticateToBusinessAsync(
+
+    QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
         ctx);
 
-    UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsync()
@@ -5371,30 +4862,23 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->authenticateToBusinessAsync(
+        QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
             ctx);
 
-        UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -5484,30 +4968,23 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->authenticateToBusinessAsync(
+        QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
             ctx);
 
-        UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -5596,30 +5073,23 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->authenticateToBusinessAsync(
+        QFuture<QVariant> result = userStore->authenticateToBusinessAsync(
             ctx);
 
-        UserStoreAuthenticateToBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreAuthenticateToBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreAuthenticateToBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -5708,8 +5178,10 @@ void UserStoreTester::shouldExecuteGetUser()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     User res = userStore->getUser(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -5791,11 +5263,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         User res = userStore->getUser(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -5886,11 +5360,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUser()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         User res = userStore->getUser(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -5980,11 +5456,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUser()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         User res = userStore->getUser(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -6072,27 +5550,20 @@ void UserStoreTester::shouldExecuteGetUserAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->getUserAsync(
+
+    QFuture<QVariant> result = userStore->getUserAsync(
         ctx);
 
-    UserStoreGetUserAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreGetUserAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreGetUserAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<User>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
@@ -6173,30 +5644,23 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getUserAsync(
+        QFuture<QVariant> result = userStore->getUserAsync(
             ctx);
 
-        UserStoreGetUserAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetUserAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetUserAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -6286,30 +5750,23 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getUserAsync(
+        QFuture<QVariant> result = userStore->getUserAsync(
             ctx);
 
-        UserStoreGetUserAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetUserAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetUserAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -6398,30 +5855,23 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getUserAsync(
+        QFuture<QVariant> result = userStore->getUserAsync(
             ctx);
 
-        UserStoreGetUserAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetUserAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetUserAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -6511,9 +5961,11 @@ void UserStoreTester::shouldExecuteGetPublicUserInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     PublicUserInfo res = userStore->getPublicUserInfo(
         username,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -6596,12 +6048,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         PublicUserInfo res = userStore->getPublicUserInfo(
             username,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -6693,12 +6147,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         PublicUserInfo res = userStore->getPublicUserInfo(
             username,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -6789,12 +6245,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         PublicUserInfo res = userStore->getPublicUserInfo(
             username,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -6885,12 +6343,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfo()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         PublicUserInfo res = userStore->getPublicUserInfo(
             username,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -6979,28 +6439,21 @@ void UserStoreTester::shouldExecuteGetPublicUserInfoAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->getPublicUserInfoAsync(
+
+    QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
         username,
         ctx);
 
-    UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<PublicUserInfo>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync()
@@ -7082,31 +6535,24 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getPublicUserInfoAsync(
+        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -7197,31 +6643,24 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getPublicUserInfoAsync(
+        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -7311,31 +6750,24 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getPublicUserInfoAsync(
+        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -7425,31 +6857,24 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getPublicUserInfoAsync(
+        QFuture<QVariant> result = userStore->getPublicUserInfoAsync(
             username,
             ctx);
 
-        UserStoreGetPublicUserInfoAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetPublicUserInfoAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -7538,8 +6963,10 @@ void UserStoreTester::shouldExecuteGetUserUrls()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     UserUrls res = userStore->getUserUrls(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -7621,11 +7048,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrls()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UserUrls res = userStore->getUserUrls(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -7716,11 +7145,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrls()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UserUrls res = userStore->getUserUrls(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -7810,11 +7241,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrls()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UserUrls res = userStore->getUserUrls(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -7902,27 +7335,20 @@ void UserStoreTester::shouldExecuteGetUserUrlsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->getUserUrlsAsync(
+
+    QFuture<QVariant> result = userStore->getUserUrlsAsync(
         ctx);
 
-    UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreGetUserUrlsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<UserUrls>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
@@ -8003,30 +7429,23 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getUserUrlsAsync(
+        QFuture<QVariant> result = userStore->getUserUrlsAsync(
             ctx);
 
-        UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetUserUrlsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -8116,30 +7535,23 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getUserUrlsAsync(
+        QFuture<QVariant> result = userStore->getUserUrlsAsync(
             ctx);
 
-        UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetUserUrlsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -8228,30 +7640,23 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getUserUrlsAsync(
+        QFuture<QVariant> result = userStore->getUserUrlsAsync(
             ctx);
 
-        UserStoreGetUserUrlsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetUserUrlsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetUserUrlsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -8341,9 +7746,11 @@ void UserStoreTester::shouldExecuteInviteToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     userStore->inviteToBusiness(
         emailAddress,
         ctx);
+
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
@@ -8427,12 +7834,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->inviteToBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -8525,12 +7934,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->inviteToBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -8622,12 +8033,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->inviteToBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -8715,27 +8128,19 @@ void UserStoreTester::shouldExecuteInviteToBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->inviteToBusinessAsync(
+
+    QFuture<QVariant> result = userStore->inviteToBusinessAsync(
         emailAddress,
         ctx);
 
-    UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreInviteToBusinessAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
@@ -8819,31 +8224,24 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->inviteToBusinessAsync(
+        QFuture<QVariant> result = userStore->inviteToBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreInviteToBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -8936,31 +8334,24 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->inviteToBusinessAsync(
+        QFuture<QVariant> result = userStore->inviteToBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreInviteToBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -9052,31 +8443,24 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->inviteToBusinessAsync(
+        QFuture<QVariant> result = userStore->inviteToBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreInviteToBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreInviteToBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreInviteToBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -9166,9 +8550,11 @@ void UserStoreTester::shouldExecuteRemoveFromBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     userStore->removeFromBusiness(
         emailAddress,
         ctx);
+
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
@@ -9252,12 +8638,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->removeFromBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -9350,12 +8738,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->removeFromBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -9447,12 +8837,14 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->removeFromBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -9544,12 +8936,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusiness()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         userStore->removeFromBusiness(
             emailAddress,
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -9637,27 +9031,19 @@ void UserStoreTester::shouldExecuteRemoveFromBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->removeFromBusinessAsync(
+
+    QFuture<QVariant> result = userStore->removeFromBusinessAsync(
         emailAddress,
         ctx);
 
-    UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
@@ -9741,31 +9127,24 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->removeFromBusinessAsync(
+        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -9858,31 +9237,24 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->removeFromBusinessAsync(
+        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -9974,31 +9346,24 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->removeFromBusinessAsync(
+        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -10090,31 +9455,24 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->removeFromBusinessAsync(
+        QFuture<QVariant> result = userStore->removeFromBusinessAsync(
             emailAddress,
             ctx);
 
-        UserStoreRemoveFromBusinessAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreRemoveFromBusinessAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -10207,10 +9565,12 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifier()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     userStore->updateBusinessUserIdentifier(
         oldEmailAddress,
         newEmailAddress,
         ctx);
+
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifier()
@@ -10297,6 +9657,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -10304,6 +9665,7 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             oldEmailAddress,
             newEmailAddress,
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -10399,6 +9761,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -10406,6 +9769,7 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             oldEmailAddress,
             newEmailAddress,
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -10500,6 +9864,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -10507,6 +9872,7 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             oldEmailAddress,
             newEmailAddress,
             ctx);
+
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -10601,6 +9967,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -10608,6 +9975,7 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             oldEmailAddress,
             newEmailAddress,
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -10698,28 +10066,20 @@ void UserStoreTester::shouldExecuteUpdateBusinessUserIdentifierAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+
+    QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
         oldEmailAddress,
         newEmailAddress,
         ctx);
 
-    UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifierAsync()
@@ -10806,32 +10166,25 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -10927,32 +10280,25 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -11047,32 +10393,25 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -11167,32 +10506,25 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->updateBusinessUserIdentifierAsync(
+        QFuture<QVariant> result = userStore->updateBusinessUserIdentifierAsync(
             oldEmailAddress,
             newEmailAddress,
             ctx);
 
-        UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreUpdateBusinessUserIdentifierAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -11284,8 +10616,10 @@ void UserStoreTester::shouldExecuteListBusinessUsers()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<UserProfile> res = userStore->listBusinessUsers(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -11367,11 +10701,13 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsers()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<UserProfile> res = userStore->listBusinessUsers(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -11462,11 +10798,13 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsers()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<UserProfile> res = userStore->listBusinessUsers(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -11556,11 +10894,13 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsers()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<UserProfile> res = userStore->listBusinessUsers(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -11651,27 +10991,20 @@ void UserStoreTester::shouldExecuteListBusinessUsersAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->listBusinessUsersAsync(
+
+    QFuture<QVariant> result = userStore->listBusinessUsersAsync(
         ctx);
 
-    UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreListBusinessUsersAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QList<UserProfile>>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
@@ -11752,30 +11085,23 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->listBusinessUsersAsync(
+        QFuture<QVariant> result = userStore->listBusinessUsersAsync(
             ctx);
 
-        UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreListBusinessUsersAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -11865,30 +11191,23 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->listBusinessUsersAsync(
+        QFuture<QVariant> result = userStore->listBusinessUsersAsync(
             ctx);
 
-        UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreListBusinessUsersAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -11977,30 +11296,23 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->listBusinessUsersAsync(
+        QFuture<QVariant> result = userStore->listBusinessUsersAsync(
             ctx);
 
-        UserStoreListBusinessUsersAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreListBusinessUsersAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreListBusinessUsersAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -12095,9 +11407,11 @@ void UserStoreTester::shouldExecuteListBusinessInvitations()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<BusinessInvitation> res = userStore->listBusinessInvitations(
         includeRequestedInvitations,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -12182,12 +11496,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitations()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<BusinessInvitation> res = userStore->listBusinessInvitations(
             includeRequestedInvitations,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -12281,12 +11597,14 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitations(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<BusinessInvitation> res = userStore->listBusinessInvitations(
             includeRequestedInvitations,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -12379,12 +11697,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitations()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<BusinessInvitation> res = userStore->listBusinessInvitations(
             includeRequestedInvitations,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -12478,28 +11798,21 @@ void UserStoreTester::shouldExecuteListBusinessInvitationsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->listBusinessInvitationsAsync(
+
+    QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
         includeRequestedInvitations,
         ctx);
 
-    UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QList<BusinessInvitation>>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsync()
@@ -12583,31 +11896,24 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->listBusinessInvitationsAsync(
+        QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
             includeRequestedInvitations,
             ctx);
 
-        UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -12700,31 +12006,24 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->listBusinessInvitationsAsync(
+        QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
             includeRequestedInvitations,
             ctx);
 
-        UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -12816,31 +12115,24 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->listBusinessInvitationsAsync(
+        QFuture<QVariant> result = userStore->listBusinessInvitationsAsync(
             includeRequestedInvitations,
             ctx);
 
-        UserStoreListBusinessInvitationsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreListBusinessInvitationsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreListBusinessInvitationsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -12930,9 +12222,11 @@ void UserStoreTester::shouldExecuteGetAccountLimits()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     AccountLimits res = userStore->getAccountLimits(
         serviceLevel,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -13015,12 +12309,14 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimits()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AccountLimits res = userStore->getAccountLimits(
             serviceLevel,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -13111,12 +12407,14 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimits()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AccountLimits res = userStore->getAccountLimits(
             serviceLevel,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -13205,28 +12503,21 @@ void UserStoreTester::shouldExecuteGetAccountLimitsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = userStore->getAccountLimitsAsync(
+
+    QFuture<QVariant> result = userStore->getAccountLimitsAsync(
         serviceLevel,
         ctx);
 
-    UserStoreGetAccountLimitsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &UserStoreGetAccountLimitsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &UserStoreGetAccountLimitsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<AccountLimits>(result.result()) == response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
@@ -13308,31 +12599,24 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getAccountLimitsAsync(
+        QFuture<QVariant> result = userStore->getAccountLimitsAsync(
             serviceLevel,
             ctx);
 
-        UserStoreGetAccountLimitsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetAccountLimitsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetAccountLimitsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -13422,31 +12706,24 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = userStore->getAccountLimitsAsync(
+        QFuture<QVariant> result = userStore->getAccountLimitsAsync(
             serviceLevel,
             ctx);
 
-        UserStoreGetAccountLimitsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &UserStoreGetAccountLimitsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &UserStoreGetAccountLimitsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {

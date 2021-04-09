@@ -8,7 +8,6 @@
 #ifndef QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
 #define QEVERCLOD_INK_NOTE_IMAGE_DOWNLOADER_H
 
-#include <qevercloud/AsyncResult.h>
 #include <qevercloud/Export.h>
 #include <qevercloud/Types.h>
 
@@ -107,16 +106,8 @@ public:
      * @brief Downloads the image for the ink note.
      *
      * Unlike other pieces of QEverCloud API, downloading of ink note images is
-     * currently synchronous only. The reason for that is that AsyncResult is
-     * bounded to a single QNetworkRequest object but downloading of the ink
-     * note image might take multiple requests for several ink note image's
-     * vertical stripes which are then merged together to form a single image.
-     * Downloading the entire ink note's image via a single request works
-     * sometimes but sometimes Evernote replies to such request with messed up
-     * data which cannot be loaded into a QImage. The reason for that behaviour
-     * is unknown at the moment, and, given the state of official documentation
-     * - missing - it is likely to stay so. if someone has an idea how to make
-     * it more reliable, please let me know.
+     * currently synchronous only due to some technical difficulties of
+     * implementing the asynchronous version.
      *
      * @param guid
      * The guid of the ink note's resource

@@ -89,7 +89,6 @@ if(BUILD_WITH_OAUTH_SUPPORT)
 endif()
 
 set(NON_GENERATED_HEADERS
-    include/qevercloud/AsyncResult.h
     include/qevercloud/DurableService.h
     include/qevercloud/EventLoopFinisher.h
     include/qevercloud/Export.h
@@ -207,7 +206,6 @@ set(GENERATED_HEADERS
     include/qevercloud/types/UserUrls.h)
 
 set(PRIVATE_HEADERS
-    src/AsyncResult_p.h
     src/Http.h
     src/Impl.h
     src/NetworkCookieJar.h
@@ -294,8 +292,6 @@ set(PRIVATE_HEADERS
     src/types/impl/UserUrlsImpl.h)
 
 set(SOURCES
-    src/AsyncResult.cpp
-    src/AsyncResult_p.cpp
     src/DurableService.cpp
     src/EventLoopFinisher.cpp
     src/Http.cpp

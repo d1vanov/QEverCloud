@@ -14,12 +14,13 @@
 
 #include <qevercloud/Export.h>
 
-#include <qevercloud/AsyncResult.h>
 #include <qevercloud/Constants.h>
 #include <qevercloud/DurableService.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/Types.h>
+#include <QFuture>
 #include <QObject>
+#include <QVariant>
 
 namespace qevercloud {
 
@@ -75,7 +76,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getSyncState @endlink */
-    virtual AsyncResult * getSyncStateAsync(
+    virtual QFuture<QVariant> getSyncStateAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -118,7 +119,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getFilteredSyncChunk @endlink */
-    virtual AsyncResult * getFilteredSyncChunkAsync(
+    virtual QFuture<QVariant> getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
@@ -170,7 +171,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getLinkedNotebookSyncState @endlink */
-    virtual AsyncResult * getLinkedNotebookSyncStateAsync(
+    virtual QFuture<QVariant> getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -246,7 +247,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getLinkedNotebookSyncChunk @endlink */
-    virtual AsyncResult * getLinkedNotebookSyncChunkAsync(
+    virtual QFuture<QVariant> getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
@@ -260,7 +261,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listNotebooks @endlink */
-    virtual AsyncResult * listNotebooksAsync(
+    virtual QFuture<QVariant> listNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -280,7 +281,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listAccessibleBusinessNotebooks @endlink */
-    virtual AsyncResult * listAccessibleBusinessNotebooksAsync(
+    virtual QFuture<QVariant> listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -307,7 +308,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNotebook @endlink */
-    virtual AsyncResult * getNotebookAsync(
+    virtual QFuture<QVariant> getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -319,7 +320,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getDefaultNotebook @endlink */
-    virtual AsyncResult * getDefaultNotebookAsync(
+    virtual QFuture<QVariant> getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -361,7 +362,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createNotebook @endlink */
-    virtual AsyncResult * createNotebookAsync(
+    virtual QFuture<QVariant> createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -409,7 +410,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateNotebook @endlink */
-    virtual AsyncResult * updateNotebookAsync(
+    virtual QFuture<QVariant> updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -443,7 +444,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeNotebook @endlink */
-    virtual AsyncResult * expungeNotebookAsync(
+    virtual QFuture<QVariant> expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -455,7 +456,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listTags @endlink */
-    virtual AsyncResult * listTagsAsync(
+    virtual QFuture<QVariant> listTagsAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -476,7 +477,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listTagsByNotebook @endlink */
-    virtual AsyncResult * listTagsByNotebookAsync(
+    virtual QFuture<QVariant> listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -503,7 +504,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getTag @endlink */
-    virtual AsyncResult * getTagAsync(
+    virtual QFuture<QVariant> getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -540,7 +541,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createTag @endlink */
-    virtual AsyncResult * createTagAsync(
+    virtual QFuture<QVariant> createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -580,7 +581,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateTag @endlink */
-    virtual AsyncResult * updateTagAsync(
+    virtual QFuture<QVariant> updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -615,7 +616,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link untagAll @endlink */
-    virtual AsyncResult * untagAllAsync(
+    virtual QFuture<QVariant> untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -649,7 +650,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeTag @endlink */
-    virtual AsyncResult * expungeTagAsync(
+    virtual QFuture<QVariant> expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -661,7 +662,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listSearches @endlink */
-    virtual AsyncResult * listSearchesAsync(
+    virtual QFuture<QVariant> listSearchesAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -686,7 +687,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getSearch @endlink */
-    virtual AsyncResult * getSearchAsync(
+    virtual QFuture<QVariant> getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -719,7 +720,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createSearch @endlink */
-    virtual AsyncResult * createSearchAsync(
+    virtual QFuture<QVariant> createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -755,7 +756,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateSearch @endlink */
-    virtual AsyncResult * updateSearchAsync(
+    virtual QFuture<QVariant> updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -789,7 +790,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeSearch @endlink */
-    virtual AsyncResult * expungeSearchAsync(
+    virtual QFuture<QVariant> expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -840,7 +841,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findNoteOffset @endlink */
-    virtual AsyncResult * findNoteOffsetAsync(
+    virtual QFuture<QVariant> findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
@@ -910,7 +911,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findNotesMetadata @endlink */
-    virtual AsyncResult * findNotesMetadataAsync(
+    virtual QFuture<QVariant> findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
@@ -954,7 +955,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findNoteCounts @endlink */
-    virtual AsyncResult * findNoteCountsAsync(
+    virtual QFuture<QVariant> findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) = 0;
@@ -996,7 +997,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteWithResultSpec @endlink */
-    virtual AsyncResult * getNoteWithResultSpecAsync(
+    virtual QFuture<QVariant> getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) = 0;
@@ -1017,7 +1018,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNote @endlink */
-    virtual AsyncResult * getNoteAsync(
+    virtual QFuture<QVariant> getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -1038,7 +1039,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteApplicationData @endlink */
-    virtual AsyncResult * getNoteApplicationDataAsync(
+    virtual QFuture<QVariant> getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1057,7 +1058,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteApplicationDataEntry @endlink */
-    virtual AsyncResult * getNoteApplicationDataEntryAsync(
+    virtual QFuture<QVariant> getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1073,7 +1074,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link setNoteApplicationDataEntry @endlink */
-    virtual AsyncResult * setNoteApplicationDataEntryAsync(
+    virtual QFuture<QVariant> setNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -1090,7 +1091,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link unsetNoteApplicationDataEntry @endlink */
-    virtual AsyncResult * unsetNoteApplicationDataEntryAsync(
+    virtual QFuture<QVariant> unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1120,7 +1121,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteContent @endlink */
-    virtual AsyncResult * getNoteContentAsync(
+    virtual QFuture<QVariant> getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1165,7 +1166,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteSearchText @endlink */
-    virtual AsyncResult * getNoteSearchTextAsync(
+    virtual QFuture<QVariant> getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
@@ -1200,7 +1201,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceSearchText @endlink */
-    virtual AsyncResult * getResourceSearchTextAsync(
+    virtual QFuture<QVariant> getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1227,7 +1228,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteTagNames @endlink */
-    virtual AsyncResult * getNoteTagNamesAsync(
+    virtual QFuture<QVariant> getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1299,7 +1300,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createNote @endlink */
-    virtual AsyncResult * createNoteAsync(
+    virtual QFuture<QVariant> createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1379,7 +1380,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateNote @endlink */
-    virtual AsyncResult * updateNoteAsync(
+    virtual QFuture<QVariant> updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1414,7 +1415,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link deleteNote @endlink */
-    virtual AsyncResult * deleteNoteAsync(
+    virtual QFuture<QVariant> deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1447,7 +1448,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeNote @endlink */
-    virtual AsyncResult * expungeNoteAsync(
+    virtual QFuture<QVariant> expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1499,7 +1500,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link copyNote @endlink */
-    virtual AsyncResult * copyNoteAsync(
+    virtual QFuture<QVariant> copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) = 0;
@@ -1531,7 +1532,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listNoteVersions @endlink */
-    virtual AsyncResult * listNoteVersionsAsync(
+    virtual QFuture<QVariant> listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1587,7 +1588,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNoteVersion @endlink */
-    virtual AsyncResult * getNoteVersionAsync(
+    virtual QFuture<QVariant> getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -1641,7 +1642,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResource @endlink */
-    virtual AsyncResult * getResourceAsync(
+    virtual QFuture<QVariant> getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -1662,7 +1663,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceApplicationData @endlink */
-    virtual AsyncResult * getResourceApplicationDataAsync(
+    virtual QFuture<QVariant> getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1681,7 +1682,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceApplicationDataEntry @endlink */
-    virtual AsyncResult * getResourceApplicationDataEntryAsync(
+    virtual QFuture<QVariant> getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1697,7 +1698,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link setResourceApplicationDataEntry @endlink */
-    virtual AsyncResult * setResourceApplicationDataEntryAsync(
+    virtual QFuture<QVariant> setResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -1713,7 +1714,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link unsetResourceApplicationDataEntry @endlink */
-    virtual AsyncResult * unsetResourceApplicationDataEntryAsync(
+    virtual QFuture<QVariant> unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) = 0;
@@ -1772,7 +1773,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateResource @endlink */
-    virtual AsyncResult * updateResourceAsync(
+    virtual QFuture<QVariant> updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1803,7 +1804,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceData @endlink */
-    virtual AsyncResult * getResourceDataAsync(
+    virtual QFuture<QVariant> getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1857,7 +1858,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceByHash @endlink */
-    virtual AsyncResult * getResourceByHashAsync(
+    virtual QFuture<QVariant> getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -1894,7 +1895,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceRecognition @endlink */
-    virtual AsyncResult * getResourceRecognitionAsync(
+    virtual QFuture<QVariant> getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1927,7 +1928,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceAlternateData @endlink */
-    virtual AsyncResult * getResourceAlternateDataAsync(
+    virtual QFuture<QVariant> getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -1956,7 +1957,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getResourceAttributes @endlink */
-    virtual AsyncResult * getResourceAttributesAsync(
+    virtual QFuture<QVariant> getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2000,7 +2001,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getPublicNotebook @endlink */
-    virtual AsyncResult * getPublicNotebookAsync(
+    virtual QFuture<QVariant> getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) = 0;
@@ -2088,7 +2089,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link shareNotebook @endlink */
-    virtual AsyncResult * shareNotebookAsync(
+    virtual QFuture<QVariant> shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) = 0;
@@ -2152,7 +2153,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createOrUpdateNotebookShares @endlink */
-    virtual AsyncResult * createOrUpdateNotebookSharesAsync(
+    virtual QFuture<QVariant> createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2164,7 +2165,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateSharedNotebook @endlink */
-    virtual AsyncResult * updateSharedNotebookAsync(
+    virtual QFuture<QVariant> updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2210,7 +2211,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link setNotebookRecipientSettings @endlink */
-    virtual AsyncResult * setNotebookRecipientSettingsAsync(
+    virtual QFuture<QVariant> setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) = 0;
@@ -2226,7 +2227,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listSharedNotebooks @endlink */
-    virtual AsyncResult * listSharedNotebooksAsync(
+    virtual QFuture<QVariant> listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -2271,7 +2272,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link createLinkedNotebook @endlink */
-    virtual AsyncResult * createLinkedNotebookAsync(
+    virtual QFuture<QVariant> createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2296,7 +2297,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateLinkedNotebook @endlink */
-    virtual AsyncResult * updateLinkedNotebookAsync(
+    virtual QFuture<QVariant> updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2307,7 +2308,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listLinkedNotebooks @endlink */
-    virtual AsyncResult * listLinkedNotebooksAsync(
+    virtual QFuture<QVariant> listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -2326,7 +2327,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link expungeLinkedNotebook @endlink */
-    virtual AsyncResult * expungeLinkedNotebookAsync(
+    virtual QFuture<QVariant> expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2385,7 +2386,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateToSharedNotebook @endlink */
-    virtual AsyncResult * authenticateToSharedNotebookAsync(
+    virtual QFuture<QVariant> authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2418,7 +2419,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getSharedNotebookByAuth @endlink */
-    virtual AsyncResult * getSharedNotebookByAuthAsync(
+    virtual QFuture<QVariant> getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -2475,7 +2476,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link emailNote @endlink */
-    virtual AsyncResult * emailNoteAsync(
+    virtual QFuture<QVariant> emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2507,7 +2508,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link shareNote @endlink */
-    virtual AsyncResult * shareNoteAsync(
+    virtual QFuture<QVariant> shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2538,7 +2539,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link stopSharingNote @endlink */
-    virtual AsyncResult * stopSharingNoteAsync(
+    virtual QFuture<QVariant> stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2590,7 +2591,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateToSharedNote @endlink */
-    virtual AsyncResult * authenticateToSharedNoteAsync(
+    virtual QFuture<QVariant> authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) = 0;
@@ -2650,7 +2651,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link findRelated @endlink */
-    virtual AsyncResult * findRelatedAsync(
+    virtual QFuture<QVariant> findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) = 0;
@@ -2687,7 +2688,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateNoteIfUsnMatches @endlink */
-    virtual AsyncResult * updateNoteIfUsnMatchesAsync(
+    virtual QFuture<QVariant> updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2712,7 +2713,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link manageNotebookShares @endlink */
-    virtual AsyncResult * manageNotebookSharesAsync(
+    virtual QFuture<QVariant> manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -2729,7 +2730,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getNotebookShares @endlink */
-    virtual AsyncResult * getNotebookSharesAsync(
+    virtual QFuture<QVariant> getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) = 0;
 

@@ -9,7 +9,6 @@
 #ifndef QEVERCLOUD_INFTHEADER_H
 #define QEVERCLOUD_INFTHEADER_H
 
-#include "AsyncResult.h"
 #include "DurableService.h"
 #include "EventLoopFinisher.h"
 #include "Export.h"

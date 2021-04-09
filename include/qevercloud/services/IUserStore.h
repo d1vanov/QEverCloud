@@ -14,12 +14,13 @@
 
 #include <qevercloud/Export.h>
 
-#include <qevercloud/AsyncResult.h>
 #include <qevercloud/Constants.h>
 #include <qevercloud/DurableService.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/Types.h>
+#include <QFuture>
 #include <QObject>
+#include <QVariant>
 
 namespace qevercloud {
 
@@ -90,7 +91,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link checkVersion @endlink */
-    virtual AsyncResult * checkVersionAsync(
+    virtual QFuture<QVariant> checkVersionAsync(
         QString clientName,
         qint16 edamVersionMajor = EDAM_VERSION_MAJOR,
         qint16 edamVersionMinor = EDAM_VERSION_MINOR,
@@ -113,7 +114,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getBootstrapInfo @endlink */
-    virtual AsyncResult * getBootstrapInfoAsync(
+    virtual QFuture<QVariant> getBootstrapInfoAsync(
         QString locale,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -214,7 +215,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateLongSession @endlink */
-    virtual AsyncResult * authenticateLongSessionAsync(
+    virtual QFuture<QVariant> authenticateLongSessionAsync(
         QString username,
         QString password,
         QString consumerKey,
@@ -269,7 +270,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link completeTwoFactorAuthentication @endlink */
-    virtual AsyncResult * completeTwoFactorAuthenticationAsync(
+    virtual QFuture<QVariant> completeTwoFactorAuthenticationAsync(
         QString oneTimeCode,
         QString deviceIdentifier,
         QString deviceDescription,
@@ -297,7 +298,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link revokeLongSession @endlink */
-    virtual AsyncResult * revokeLongSessionAsync(
+    virtual QFuture<QVariant> revokeLongSessionAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -337,7 +338,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link authenticateToBusiness @endlink */
-    virtual AsyncResult * authenticateToBusinessAsync(
+    virtual QFuture<QVariant> authenticateToBusinessAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -351,7 +352,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getUser @endlink */
-    virtual AsyncResult * getUserAsync(
+    virtual QFuture<QVariant> getUserAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -367,7 +368,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getPublicUserInfo @endlink */
-    virtual AsyncResult * getPublicUserInfoAsync(
+    virtual QFuture<QVariant> getPublicUserInfoAsync(
         QString username,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -384,7 +385,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getUserUrls @endlink */
-    virtual AsyncResult * getUserUrlsAsync(
+    virtual QFuture<QVariant> getUserUrlsAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -435,7 +436,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link inviteToBusiness @endlink */
-    virtual AsyncResult * inviteToBusinessAsync(
+    virtual QFuture<QVariant> inviteToBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -468,7 +469,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link removeFromBusiness @endlink */
-    virtual AsyncResult * removeFromBusinessAsync(
+    virtual QFuture<QVariant> removeFromBusinessAsync(
         QString emailAddress,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -520,7 +521,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link updateBusinessUserIdentifier @endlink */
-    virtual AsyncResult * updateBusinessUserIdentifierAsync(
+    virtual QFuture<QVariant> updateBusinessUserIdentifierAsync(
         QString oldEmailAddress,
         QString newEmailAddress,
         IRequestContextPtr ctx = {}) = 0;
@@ -547,7 +548,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listBusinessUsers @endlink */
-    virtual AsyncResult * listBusinessUsersAsync(
+    virtual QFuture<QVariant> listBusinessUsersAsync(
         IRequestContextPtr ctx = {}) = 0;
 
     /**
@@ -569,7 +570,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link listBusinessInvitations @endlink */
-    virtual AsyncResult * listBusinessInvitationsAsync(
+    virtual QFuture<QVariant> listBusinessInvitationsAsync(
         bool includeRequestedInvitations,
         IRequestContextPtr ctx = {}) = 0;
 
@@ -588,7 +589,7 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
     /** Asynchronous version of @link getAccountLimits @endlink */
-    virtual AsyncResult * getAccountLimitsAsync(
+    virtual QFuture<QVariant> getAccountLimitsAsync(
         ServiceLevel serviceLevel,
         IRequestContextPtr ctx = {}) = 0;
 

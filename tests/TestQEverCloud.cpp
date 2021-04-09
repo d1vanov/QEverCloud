@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
 
     initializeQEverCloud();
 
+    setLogger(newStdErrLogger(LogLevel::Error));
+
     int res = 0;
 #define RUN_TESTS(tester)                                                      \
     res = QTest::qExec(new tester);                                            \

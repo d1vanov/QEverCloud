@@ -11,6 +11,7 @@
 
 #include <qevercloud/services/INoteStore.h>
 #include "../Impl.h"
+#include "../Http.h"
 #include "../Types_io.h"
 #include <qevercloud/DurableService.h>
 #include <qevercloud/utility/Log.h>
@@ -70,7 +71,7 @@ public:
     SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getSyncStateAsync(
+    QFuture<QVariant> getSyncStateAsync(
         IRequestContextPtr ctx = {}) override;
 
     SyncChunk getFilteredSyncChunk(
@@ -79,7 +80,7 @@ public:
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getFilteredSyncChunkAsync(
+    QFuture<QVariant> getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
@@ -89,7 +90,7 @@ public:
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getLinkedNotebookSyncStateAsync(
+    QFuture<QVariant> getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -100,7 +101,7 @@ public:
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getLinkedNotebookSyncChunkAsync(
+    QFuture<QVariant> getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
@@ -110,34 +111,34 @@ public:
     QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listNotebooksAsync(
+    QFuture<QVariant> listNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listAccessibleBusinessNotebooksAsync(
+    QFuture<QVariant> listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNotebookAsync(
+    QFuture<QVariant> getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
     Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getDefaultNotebookAsync(
+    QFuture<QVariant> getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) override;
 
     Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createNotebookAsync(
+    QFuture<QVariant> createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -145,7 +146,7 @@ public:
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateNotebookAsync(
+    QFuture<QVariant> updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -153,21 +154,21 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeNotebookAsync(
+    QFuture<QVariant> expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
     QList<Tag> listTags(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listTagsAsync(
+    QFuture<QVariant> listTagsAsync(
         IRequestContextPtr ctx = {}) override;
 
     QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listTagsByNotebookAsync(
+    QFuture<QVariant> listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -175,7 +176,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getTagAsync(
+    QFuture<QVariant> getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -183,7 +184,7 @@ public:
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createTagAsync(
+    QFuture<QVariant> createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
@@ -191,7 +192,7 @@ public:
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateTagAsync(
+    QFuture<QVariant> updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
@@ -199,7 +200,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * untagAllAsync(
+    QFuture<QVariant> untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -207,21 +208,21 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeTagAsync(
+    QFuture<QVariant> expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
     QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listSearchesAsync(
+    QFuture<QVariant> listSearchesAsync(
         IRequestContextPtr ctx = {}) override;
 
     SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getSearchAsync(
+    QFuture<QVariant> getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -229,7 +230,7 @@ public:
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createSearchAsync(
+    QFuture<QVariant> createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
@@ -237,7 +238,7 @@ public:
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateSearchAsync(
+    QFuture<QVariant> updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
@@ -245,7 +246,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeSearchAsync(
+    QFuture<QVariant> expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -254,7 +255,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findNoteOffsetAsync(
+    QFuture<QVariant> findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
@@ -266,7 +267,7 @@ public:
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findNotesMetadataAsync(
+    QFuture<QVariant> findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
@@ -278,7 +279,7 @@ public:
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findNoteCountsAsync(
+    QFuture<QVariant> findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
@@ -288,7 +289,7 @@ public:
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteWithResultSpecAsync(
+    QFuture<QVariant> getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
@@ -301,7 +302,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteAsync(
+    QFuture<QVariant> getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -313,7 +314,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteApplicationDataAsync(
+    QFuture<QVariant> getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -322,7 +323,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteApplicationDataEntryAsync(
+    QFuture<QVariant> getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -333,7 +334,7 @@ public:
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * setNoteApplicationDataEntryAsync(
+    QFuture<QVariant> setNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -344,7 +345,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * unsetNoteApplicationDataEntryAsync(
+    QFuture<QVariant> unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -353,7 +354,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteContentAsync(
+    QFuture<QVariant> getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -363,7 +364,7 @@ public:
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteSearchTextAsync(
+    QFuture<QVariant> getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
@@ -373,7 +374,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceSearchTextAsync(
+    QFuture<QVariant> getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -381,7 +382,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteTagNamesAsync(
+    QFuture<QVariant> getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -389,7 +390,7 @@ public:
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createNoteAsync(
+    QFuture<QVariant> createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
@@ -397,7 +398,7 @@ public:
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateNoteAsync(
+    QFuture<QVariant> updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
@@ -405,7 +406,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * deleteNoteAsync(
+    QFuture<QVariant> deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -413,7 +414,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeNoteAsync(
+    QFuture<QVariant> expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -422,7 +423,7 @@ public:
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * copyNoteAsync(
+    QFuture<QVariant> copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
@@ -431,7 +432,7 @@ public:
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listNoteVersionsAsync(
+    QFuture<QVariant> listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -443,7 +444,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteVersionAsync(
+    QFuture<QVariant> getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -459,7 +460,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceAsync(
+    QFuture<QVariant> getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -471,7 +472,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceApplicationDataAsync(
+    QFuture<QVariant> getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -480,7 +481,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceApplicationDataEntryAsync(
+    QFuture<QVariant> getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -491,7 +492,7 @@ public:
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * setResourceApplicationDataEntryAsync(
+    QFuture<QVariant> setResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -502,7 +503,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * unsetResourceApplicationDataEntryAsync(
+    QFuture<QVariant> unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -511,7 +512,7 @@ public:
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateResourceAsync(
+    QFuture<QVariant> updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
@@ -519,7 +520,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceDataAsync(
+    QFuture<QVariant> getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -531,7 +532,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceByHashAsync(
+    QFuture<QVariant> getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -543,7 +544,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceRecognitionAsync(
+    QFuture<QVariant> getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -551,7 +552,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceAlternateDataAsync(
+    QFuture<QVariant> getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -559,7 +560,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceAttributesAsync(
+    QFuture<QVariant> getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -568,7 +569,7 @@ public:
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getPublicNotebookAsync(
+    QFuture<QVariant> getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
@@ -578,7 +579,7 @@ public:
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * shareNotebookAsync(
+    QFuture<QVariant> shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
@@ -587,7 +588,7 @@ public:
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createOrUpdateNotebookSharesAsync(
+    QFuture<QVariant> createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
@@ -595,7 +596,7 @@ public:
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateSharedNotebookAsync(
+    QFuture<QVariant> updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -604,7 +605,7 @@ public:
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * setNotebookRecipientSettingsAsync(
+    QFuture<QVariant> setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
@@ -612,14 +613,14 @@ public:
     QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listSharedNotebooksAsync(
+    QFuture<QVariant> listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createLinkedNotebookAsync(
+    QFuture<QVariant> createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -627,21 +628,21 @@ public:
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateLinkedNotebookAsync(
+    QFuture<QVariant> updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
     QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listLinkedNotebooksAsync(
+    QFuture<QVariant> listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeLinkedNotebookAsync(
+    QFuture<QVariant> expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -649,21 +650,21 @@ public:
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * authenticateToSharedNotebookAsync(
+    QFuture<QVariant> authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
     SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getSharedNotebookByAuthAsync(
+    QFuture<QVariant> getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) override;
 
     void emailNote(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * emailNoteAsync(
+    QFuture<QVariant> emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
@@ -671,7 +672,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * shareNoteAsync(
+    QFuture<QVariant> shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -679,7 +680,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * stopSharingNoteAsync(
+    QFuture<QVariant> stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -688,7 +689,7 @@ public:
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * authenticateToSharedNoteAsync(
+    QFuture<QVariant> authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
@@ -698,7 +699,7 @@ public:
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findRelatedAsync(
+    QFuture<QVariant> findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
@@ -707,7 +708,7 @@ public:
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateNoteIfUsnMatchesAsync(
+    QFuture<QVariant> updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
@@ -715,7 +716,7 @@ public:
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * manageNotebookSharesAsync(
+    QFuture<QVariant> manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
@@ -723,7 +724,7 @@ public:
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNotebookSharesAsync(
+    QFuture<QVariant> getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -886,7 +887,7 @@ SyncState NoteStore::getSyncState(
     return NoteStoreGetSyncStateReadReply(reply);
 }
 
-AsyncResult * NoteStore::getSyncStateAsync(
+QFuture<QVariant> NoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::getSyncStateAsync");
@@ -898,7 +899,7 @@ AsyncResult * NoteStore::getSyncStateAsync(
     QByteArray params = NoteStoreGetSyncStatePrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -1095,7 +1096,7 @@ SyncChunk NoteStore::getFilteredSyncChunk(
     return NoteStoreGetFilteredSyncChunkReadReply(reply);
 }
 
-AsyncResult * NoteStore::getFilteredSyncChunkAsync(
+QFuture<QVariant> NoteStore::getFilteredSyncChunkAsync(
     qint32 afterUSN,
     qint32 maxEntries,
     const SyncChunkFilter & filter,
@@ -1117,7 +1118,7 @@ AsyncResult * NoteStore::getFilteredSyncChunkAsync(
         maxEntries,
         filter);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -1301,7 +1302,7 @@ SyncState NoteStore::getLinkedNotebookSyncState(
     return NoteStoreGetLinkedNotebookSyncStateReadReply(reply);
 }
 
-AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
+QFuture<QVariant> NoteStore::getLinkedNotebookSyncStateAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -1317,7 +1318,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncStateAsync(
         ctx->authenticationToken(),
         linkedNotebook);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -1537,7 +1538,7 @@ SyncChunk NoteStore::getLinkedNotebookSyncChunk(
     return NoteStoreGetLinkedNotebookSyncChunkReadReply(reply);
 }
 
-AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
+QFuture<QVariant> NoteStore::getLinkedNotebookSyncChunkAsync(
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
@@ -1562,7 +1563,7 @@ AsyncResult * NoteStore::getLinkedNotebookSyncChunkAsync(
         maxEntries,
         fullSyncOnly);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -1736,7 +1737,7 @@ QList<Notebook> NoteStore::listNotebooks(
     return NoteStoreListNotebooksReadReply(reply);
 }
 
-AsyncResult * NoteStore::listNotebooksAsync(
+QFuture<QVariant> NoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listNotebooksAsync");
@@ -1748,7 +1749,7 @@ AsyncResult * NoteStore::listNotebooksAsync(
     QByteArray params = NoteStoreListNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -1922,7 +1923,7 @@ QList<Notebook> NoteStore::listAccessibleBusinessNotebooks(
     return NoteStoreListAccessibleBusinessNotebooksReadReply(reply);
 }
 
-AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
+QFuture<QVariant> NoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listAccessibleBusinessNotebooksAsync");
@@ -1934,7 +1935,7 @@ AsyncResult * NoteStore::listAccessibleBusinessNotebooksAsync(
     QByteArray params = NoteStoreListAccessibleBusinessNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -2118,7 +2119,7 @@ Notebook NoteStore::getNotebook(
     return NoteStoreGetNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNotebookAsync(
+QFuture<QVariant> NoteStore::getNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -2134,7 +2135,7 @@ AsyncResult * NoteStore::getNotebookAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -2294,7 +2295,7 @@ Notebook NoteStore::getDefaultNotebook(
     return NoteStoreGetDefaultNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::getDefaultNotebookAsync(
+QFuture<QVariant> NoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::getDefaultNotebookAsync");
@@ -2306,7 +2307,7 @@ AsyncResult * NoteStore::getDefaultNotebookAsync(
     QByteArray params = NoteStoreGetDefaultNotebookPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -2490,7 +2491,7 @@ Notebook NoteStore::createNotebook(
     return NoteStoreCreateNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::createNotebookAsync(
+QFuture<QVariant> NoteStore::createNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -2506,7 +2507,7 @@ AsyncResult * NoteStore::createNotebookAsync(
         ctx->authenticationToken(),
         notebook);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -2690,7 +2691,7 @@ qint32 NoteStore::updateNotebook(
     return NoteStoreUpdateNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateNotebookAsync(
+QFuture<QVariant> NoteStore::updateNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -2706,7 +2707,7 @@ AsyncResult * NoteStore::updateNotebookAsync(
         ctx->authenticationToken(),
         notebook);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -2890,7 +2891,7 @@ qint32 NoteStore::expungeNotebook(
     return NoteStoreExpungeNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::expungeNotebookAsync(
+QFuture<QVariant> NoteStore::expungeNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -2906,7 +2907,7 @@ AsyncResult * NoteStore::expungeNotebookAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -3080,7 +3081,7 @@ QList<Tag> NoteStore::listTags(
     return NoteStoreListTagsReadReply(reply);
 }
 
-AsyncResult * NoteStore::listTagsAsync(
+QFuture<QVariant> NoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listTagsAsync");
@@ -3092,7 +3093,7 @@ AsyncResult * NoteStore::listTagsAsync(
     QByteArray params = NoteStoreListTagsPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -3290,7 +3291,7 @@ QList<Tag> NoteStore::listTagsByNotebook(
     return NoteStoreListTagsByNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::listTagsByNotebookAsync(
+QFuture<QVariant> NoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -3306,7 +3307,7 @@ AsyncResult * NoteStore::listTagsByNotebookAsync(
         ctx->authenticationToken(),
         notebookGuid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -3490,7 +3491,7 @@ Tag NoteStore::getTag(
     return NoteStoreGetTagReadReply(reply);
 }
 
-AsyncResult * NoteStore::getTagAsync(
+QFuture<QVariant> NoteStore::getTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -3506,7 +3507,7 @@ AsyncResult * NoteStore::getTagAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -3690,7 +3691,7 @@ Tag NoteStore::createTag(
     return NoteStoreCreateTagReadReply(reply);
 }
 
-AsyncResult * NoteStore::createTagAsync(
+QFuture<QVariant> NoteStore::createTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -3706,7 +3707,7 @@ AsyncResult * NoteStore::createTagAsync(
         ctx->authenticationToken(),
         tag);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -3890,7 +3891,7 @@ qint32 NoteStore::updateTag(
     return NoteStoreUpdateTagReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateTagAsync(
+QFuture<QVariant> NoteStore::updateTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -3906,7 +3907,7 @@ AsyncResult * NoteStore::updateTagAsync(
         ctx->authenticationToken(),
         tag);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -4070,7 +4071,7 @@ void NoteStore::untagAll(
     NoteStoreUntagAllReadReply(reply);
 }
 
-AsyncResult * NoteStore::untagAllAsync(
+QFuture<QVariant> NoteStore::untagAllAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4086,7 +4087,7 @@ AsyncResult * NoteStore::untagAllAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -4270,7 +4271,7 @@ qint32 NoteStore::expungeTag(
     return NoteStoreExpungeTagReadReply(reply);
 }
 
-AsyncResult * NoteStore::expungeTagAsync(
+QFuture<QVariant> NoteStore::expungeTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4286,7 +4287,7 @@ AsyncResult * NoteStore::expungeTagAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -4460,7 +4461,7 @@ QList<SavedSearch> NoteStore::listSearches(
     return NoteStoreListSearchesReadReply(reply);
 }
 
-AsyncResult * NoteStore::listSearchesAsync(
+QFuture<QVariant> NoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listSearchesAsync");
@@ -4472,7 +4473,7 @@ AsyncResult * NoteStore::listSearchesAsync(
     QByteArray params = NoteStoreListSearchesPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -4656,7 +4657,7 @@ SavedSearch NoteStore::getSearch(
     return NoteStoreGetSearchReadReply(reply);
 }
 
-AsyncResult * NoteStore::getSearchAsync(
+QFuture<QVariant> NoteStore::getSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -4672,7 +4673,7 @@ AsyncResult * NoteStore::getSearchAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -4845,7 +4846,7 @@ SavedSearch NoteStore::createSearch(
     return NoteStoreCreateSearchReadReply(reply);
 }
 
-AsyncResult * NoteStore::createSearchAsync(
+QFuture<QVariant> NoteStore::createSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -4861,7 +4862,7 @@ AsyncResult * NoteStore::createSearchAsync(
         ctx->authenticationToken(),
         search);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -5045,7 +5046,7 @@ qint32 NoteStore::updateSearch(
     return NoteStoreUpdateSearchReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateSearchAsync(
+QFuture<QVariant> NoteStore::updateSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -5061,7 +5062,7 @@ AsyncResult * NoteStore::updateSearchAsync(
         ctx->authenticationToken(),
         search);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -5245,7 +5246,7 @@ qint32 NoteStore::expungeSearch(
     return NoteStoreExpungeSearchReadReply(reply);
 }
 
-AsyncResult * NoteStore::expungeSearchAsync(
+QFuture<QVariant> NoteStore::expungeSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -5261,7 +5262,7 @@ AsyncResult * NoteStore::expungeSearchAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -5457,7 +5458,7 @@ qint32 NoteStore::findNoteOffset(
     return NoteStoreFindNoteOffsetReadReply(reply);
 }
 
-AsyncResult * NoteStore::findNoteOffsetAsync(
+QFuture<QVariant> NoteStore::findNoteOffsetAsync(
     const NoteFilter & filter,
     Guid guid,
     IRequestContextPtr ctx)
@@ -5476,7 +5477,7 @@ AsyncResult * NoteStore::findNoteOffsetAsync(
         filter,
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -5696,7 +5697,7 @@ NotesMetadataList NoteStore::findNotesMetadata(
     return NoteStoreFindNotesMetadataReadReply(reply);
 }
 
-AsyncResult * NoteStore::findNotesMetadataAsync(
+QFuture<QVariant> NoteStore::findNotesMetadataAsync(
     const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
@@ -5721,7 +5722,7 @@ AsyncResult * NoteStore::findNotesMetadataAsync(
         maxNotes,
         resultSpec);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -5917,7 +5918,7 @@ NoteCollectionCounts NoteStore::findNoteCounts(
     return NoteStoreFindNoteCountsReadReply(reply);
 }
 
-AsyncResult * NoteStore::findNoteCountsAsync(
+QFuture<QVariant> NoteStore::findNoteCountsAsync(
     const NoteFilter & filter,
     bool withTrash,
     IRequestContextPtr ctx)
@@ -5936,7 +5937,7 @@ AsyncResult * NoteStore::findNoteCountsAsync(
         filter,
         withTrash);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -6132,7 +6133,7 @@ Note NoteStore::getNoteWithResultSpec(
     return NoteStoreGetNoteWithResultSpecReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteWithResultSpecAsync(
+QFuture<QVariant> NoteStore::getNoteWithResultSpecAsync(
     Guid guid,
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -6151,7 +6152,7 @@ AsyncResult * NoteStore::getNoteWithResultSpecAsync(
         guid,
         resultSpec);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -6383,7 +6384,7 @@ Note NoteStore::getNote(
     return NoteStoreGetNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteAsync(
+QFuture<QVariant> NoteStore::getNoteAsync(
     Guid guid,
     bool withContent,
     bool withResourcesData,
@@ -6411,7 +6412,7 @@ AsyncResult * NoteStore::getNoteAsync(
         withResourcesRecognition,
         withResourcesAlternateData);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -6595,7 +6596,7 @@ LazyMap NoteStore::getNoteApplicationData(
     return NoteStoreGetNoteApplicationDataReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteApplicationDataAsync(
+QFuture<QVariant> NoteStore::getNoteApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -6611,7 +6612,7 @@ AsyncResult * NoteStore::getNoteApplicationDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -6807,7 +6808,7 @@ QString NoteStore::getNoteApplicationDataEntry(
     return NoteStoreGetNoteApplicationDataEntryReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
+QFuture<QVariant> NoteStore::getNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -6826,7 +6827,7 @@ AsyncResult * NoteStore::getNoteApplicationDataEntryAsync(
         guid,
         key);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -7034,7 +7035,7 @@ qint32 NoteStore::setNoteApplicationDataEntry(
     return NoteStoreSetNoteApplicationDataEntryReadReply(reply);
 }
 
-AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
+QFuture<QVariant> NoteStore::setNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -7056,7 +7057,7 @@ AsyncResult * NoteStore::setNoteApplicationDataEntryAsync(
         key,
         value);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -7252,7 +7253,7 @@ qint32 NoteStore::unsetNoteApplicationDataEntry(
     return NoteStoreUnsetNoteApplicationDataEntryReadReply(reply);
 }
 
-AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
+QFuture<QVariant> NoteStore::unsetNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -7271,7 +7272,7 @@ AsyncResult * NoteStore::unsetNoteApplicationDataEntryAsync(
         guid,
         key);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -7455,7 +7456,7 @@ QString NoteStore::getNoteContent(
     return NoteStoreGetNoteContentReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteContentAsync(
+QFuture<QVariant> NoteStore::getNoteContentAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -7471,7 +7472,7 @@ AsyncResult * NoteStore::getNoteContentAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -7679,7 +7680,7 @@ QString NoteStore::getNoteSearchText(
     return NoteStoreGetNoteSearchTextReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteSearchTextAsync(
+QFuture<QVariant> NoteStore::getNoteSearchTextAsync(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
@@ -7701,7 +7702,7 @@ AsyncResult * NoteStore::getNoteSearchTextAsync(
         noteOnly,
         tokenizeForIndexing);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -7885,7 +7886,7 @@ QString NoteStore::getResourceSearchText(
     return NoteStoreGetResourceSearchTextReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceSearchTextAsync(
+QFuture<QVariant> NoteStore::getResourceSearchTextAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -7901,7 +7902,7 @@ AsyncResult * NoteStore::getResourceSearchTextAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -8099,7 +8100,7 @@ QStringList NoteStore::getNoteTagNames(
     return NoteStoreGetNoteTagNamesReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteTagNamesAsync(
+QFuture<QVariant> NoteStore::getNoteTagNamesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8115,7 +8116,7 @@ AsyncResult * NoteStore::getNoteTagNamesAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -8299,7 +8300,7 @@ Note NoteStore::createNote(
     return NoteStoreCreateNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::createNoteAsync(
+QFuture<QVariant> NoteStore::createNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -8315,7 +8316,7 @@ AsyncResult * NoteStore::createNoteAsync(
         ctx->authenticationToken(),
         note);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -8499,7 +8500,7 @@ Note NoteStore::updateNote(
     return NoteStoreUpdateNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateNoteAsync(
+QFuture<QVariant> NoteStore::updateNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -8515,7 +8516,7 @@ AsyncResult * NoteStore::updateNoteAsync(
         ctx->authenticationToken(),
         note);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -8699,7 +8700,7 @@ qint32 NoteStore::deleteNote(
     return NoteStoreDeleteNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::deleteNoteAsync(
+QFuture<QVariant> NoteStore::deleteNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8715,7 +8716,7 @@ AsyncResult * NoteStore::deleteNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -8899,7 +8900,7 @@ qint32 NoteStore::expungeNote(
     return NoteStoreExpungeNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::expungeNoteAsync(
+QFuture<QVariant> NoteStore::expungeNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -8915,7 +8916,7 @@ AsyncResult * NoteStore::expungeNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -9111,7 +9112,7 @@ Note NoteStore::copyNote(
     return NoteStoreCopyNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::copyNoteAsync(
+QFuture<QVariant> NoteStore::copyNoteAsync(
     Guid noteGuid,
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
@@ -9130,7 +9131,7 @@ AsyncResult * NoteStore::copyNoteAsync(
         noteGuid,
         toNotebookGuid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -9328,7 +9329,7 @@ QList<NoteVersionId> NoteStore::listNoteVersions(
     return NoteStoreListNoteVersionsReadReply(reply);
 }
 
-AsyncResult * NoteStore::listNoteVersionsAsync(
+QFuture<QVariant> NoteStore::listNoteVersionsAsync(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
@@ -9344,7 +9345,7 @@ AsyncResult * NoteStore::listNoteVersionsAsync(
         ctx->authenticationToken(),
         noteGuid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -9576,7 +9577,7 @@ Note NoteStore::getNoteVersion(
     return NoteStoreGetNoteVersionReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNoteVersionAsync(
+QFuture<QVariant> NoteStore::getNoteVersionAsync(
     Guid noteGuid,
     qint32 updateSequenceNum,
     bool withResourcesData,
@@ -9604,7 +9605,7 @@ AsyncResult * NoteStore::getNoteVersionAsync(
         withResourcesRecognition,
         withResourcesAlternateData);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -9836,7 +9837,7 @@ Resource NoteStore::getResource(
     return NoteStoreGetResourceReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceAsync(
+QFuture<QVariant> NoteStore::getResourceAsync(
     Guid guid,
     bool withData,
     bool withRecognition,
@@ -9864,7 +9865,7 @@ AsyncResult * NoteStore::getResourceAsync(
         withAttributes,
         withAlternateData);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -10048,7 +10049,7 @@ LazyMap NoteStore::getResourceApplicationData(
     return NoteStoreGetResourceApplicationDataReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceApplicationDataAsync(
+QFuture<QVariant> NoteStore::getResourceApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -10064,7 +10065,7 @@ AsyncResult * NoteStore::getResourceApplicationDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -10260,7 +10261,7 @@ QString NoteStore::getResourceApplicationDataEntry(
     return NoteStoreGetResourceApplicationDataEntryReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
+QFuture<QVariant> NoteStore::getResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -10279,7 +10280,7 @@ AsyncResult * NoteStore::getResourceApplicationDataEntryAsync(
         guid,
         key);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -10487,7 +10488,7 @@ qint32 NoteStore::setResourceApplicationDataEntry(
     return NoteStoreSetResourceApplicationDataEntryReadReply(reply);
 }
 
-AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
+QFuture<QVariant> NoteStore::setResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -10509,7 +10510,7 @@ AsyncResult * NoteStore::setResourceApplicationDataEntryAsync(
         key,
         value);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -10705,7 +10706,7 @@ qint32 NoteStore::unsetResourceApplicationDataEntry(
     return NoteStoreUnsetResourceApplicationDataEntryReadReply(reply);
 }
 
-AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
+QFuture<QVariant> NoteStore::unsetResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -10724,7 +10725,7 @@ AsyncResult * NoteStore::unsetResourceApplicationDataEntryAsync(
         guid,
         key);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -10908,7 +10909,7 @@ qint32 NoteStore::updateResource(
     return NoteStoreUpdateResourceReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateResourceAsync(
+QFuture<QVariant> NoteStore::updateResourceAsync(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
@@ -10924,7 +10925,7 @@ AsyncResult * NoteStore::updateResourceAsync(
         ctx->authenticationToken(),
         resource);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -11108,7 +11109,7 @@ QByteArray NoteStore::getResourceData(
     return NoteStoreGetResourceDataReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceDataAsync(
+QFuture<QVariant> NoteStore::getResourceDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11124,7 +11125,7 @@ AsyncResult * NoteStore::getResourceDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -11356,7 +11357,7 @@ Resource NoteStore::getResourceByHash(
     return NoteStoreGetResourceByHashReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceByHashAsync(
+QFuture<QVariant> NoteStore::getResourceByHashAsync(
     Guid noteGuid,
     QByteArray contentHash,
     bool withData,
@@ -11384,7 +11385,7 @@ AsyncResult * NoteStore::getResourceByHashAsync(
         withRecognition,
         withAlternateData);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -11568,7 +11569,7 @@ QByteArray NoteStore::getResourceRecognition(
     return NoteStoreGetResourceRecognitionReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceRecognitionAsync(
+QFuture<QVariant> NoteStore::getResourceRecognitionAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11584,7 +11585,7 @@ AsyncResult * NoteStore::getResourceRecognitionAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -11768,7 +11769,7 @@ QByteArray NoteStore::getResourceAlternateData(
     return NoteStoreGetResourceAlternateDataReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceAlternateDataAsync(
+QFuture<QVariant> NoteStore::getResourceAlternateDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11784,7 +11785,7 @@ AsyncResult * NoteStore::getResourceAlternateDataAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -11968,7 +11969,7 @@ ResourceAttributes NoteStore::getResourceAttributes(
     return NoteStoreGetResourceAttributesReadReply(reply);
 }
 
-AsyncResult * NoteStore::getResourceAttributesAsync(
+QFuture<QVariant> NoteStore::getResourceAttributesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -11984,7 +11985,7 @@ AsyncResult * NoteStore::getResourceAttributesAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -12159,7 +12160,7 @@ Notebook NoteStore::getPublicNotebook(
     return NoteStoreGetPublicNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::getPublicNotebookAsync(
+QFuture<QVariant> NoteStore::getPublicNotebookAsync(
     UserID userId,
     QString publicUri,
     IRequestContextPtr ctx)
@@ -12177,7 +12178,7 @@ AsyncResult * NoteStore::getPublicNotebookAsync(
         userId,
         publicUri);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -12373,7 +12374,7 @@ SharedNotebook NoteStore::shareNotebook(
     return NoteStoreShareNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::shareNotebookAsync(
+QFuture<QVariant> NoteStore::shareNotebookAsync(
     const SharedNotebook & sharedNotebook,
     QString message,
     IRequestContextPtr ctx)
@@ -12392,7 +12393,7 @@ AsyncResult * NoteStore::shareNotebookAsync(
         sharedNotebook,
         message);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -12587,7 +12588,7 @@ CreateOrUpdateNotebookSharesResult NoteStore::createOrUpdateNotebookShares(
     return NoteStoreCreateOrUpdateNotebookSharesReadReply(reply);
 }
 
-AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
+QFuture<QVariant> NoteStore::createOrUpdateNotebookSharesAsync(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
@@ -12603,7 +12604,7 @@ AsyncResult * NoteStore::createOrUpdateNotebookSharesAsync(
         ctx->authenticationToken(),
         shareTemplate);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -12787,7 +12788,7 @@ qint32 NoteStore::updateSharedNotebook(
     return NoteStoreUpdateSharedNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateSharedNotebookAsync(
+QFuture<QVariant> NoteStore::updateSharedNotebookAsync(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
@@ -12803,7 +12804,7 @@ AsyncResult * NoteStore::updateSharedNotebookAsync(
         ctx->authenticationToken(),
         sharedNotebook);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -12999,7 +13000,7 @@ Notebook NoteStore::setNotebookRecipientSettings(
     return NoteStoreSetNotebookRecipientSettingsReadReply(reply);
 }
 
-AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
+QFuture<QVariant> NoteStore::setNotebookRecipientSettingsAsync(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
@@ -13018,7 +13019,7 @@ AsyncResult * NoteStore::setNotebookRecipientSettingsAsync(
         notebookGuid,
         recipientSettings);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -13203,7 +13204,7 @@ QList<SharedNotebook> NoteStore::listSharedNotebooks(
     return NoteStoreListSharedNotebooksReadReply(reply);
 }
 
-AsyncResult * NoteStore::listSharedNotebooksAsync(
+QFuture<QVariant> NoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listSharedNotebooksAsync");
@@ -13215,7 +13216,7 @@ AsyncResult * NoteStore::listSharedNotebooksAsync(
     QByteArray params = NoteStoreListSharedNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -13399,7 +13400,7 @@ LinkedNotebook NoteStore::createLinkedNotebook(
     return NoteStoreCreateLinkedNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::createLinkedNotebookAsync(
+QFuture<QVariant> NoteStore::createLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -13415,7 +13416,7 @@ AsyncResult * NoteStore::createLinkedNotebookAsync(
         ctx->authenticationToken(),
         linkedNotebook);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -13599,7 +13600,7 @@ qint32 NoteStore::updateLinkedNotebook(
     return NoteStoreUpdateLinkedNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateLinkedNotebookAsync(
+QFuture<QVariant> NoteStore::updateLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -13615,7 +13616,7 @@ AsyncResult * NoteStore::updateLinkedNotebookAsync(
         ctx->authenticationToken(),
         linkedNotebook);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -13800,7 +13801,7 @@ QList<LinkedNotebook> NoteStore::listLinkedNotebooks(
     return NoteStoreListLinkedNotebooksReadReply(reply);
 }
 
-AsyncResult * NoteStore::listLinkedNotebooksAsync(
+QFuture<QVariant> NoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::listLinkedNotebooksAsync");
@@ -13812,7 +13813,7 @@ AsyncResult * NoteStore::listLinkedNotebooksAsync(
     QByteArray params = NoteStoreListLinkedNotebooksPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -13996,7 +13997,7 @@ qint32 NoteStore::expungeLinkedNotebook(
     return NoteStoreExpungeLinkedNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::expungeLinkedNotebookAsync(
+QFuture<QVariant> NoteStore::expungeLinkedNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -14012,7 +14013,7 @@ AsyncResult * NoteStore::expungeLinkedNotebookAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -14196,7 +14197,7 @@ AuthenticationResult NoteStore::authenticateToSharedNotebook(
     return NoteStoreAuthenticateToSharedNotebookReadReply(reply);
 }
 
-AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
+QFuture<QVariant> NoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
@@ -14212,7 +14213,7 @@ AsyncResult * NoteStore::authenticateToSharedNotebookAsync(
         shareKeyOrGlobalId,
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -14383,7 +14384,7 @@ SharedNotebook NoteStore::getSharedNotebookByAuth(
     return NoteStoreGetSharedNotebookByAuthReadReply(reply);
 }
 
-AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
+QFuture<QVariant> NoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
     QEC_DEBUG("note_store", "NoteStore::getSharedNotebookByAuthAsync");
@@ -14395,7 +14396,7 @@ AsyncResult * NoteStore::getSharedNotebookByAuthAsync(
     QByteArray params = NoteStoreGetSharedNotebookByAuthPrepareParams(
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -14559,7 +14560,7 @@ void NoteStore::emailNote(
     NoteStoreEmailNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::emailNoteAsync(
+QFuture<QVariant> NoteStore::emailNoteAsync(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -14575,7 +14576,7 @@ AsyncResult * NoteStore::emailNoteAsync(
         ctx->authenticationToken(),
         parameters);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -14759,7 +14760,7 @@ QString NoteStore::shareNote(
     return NoteStoreShareNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::shareNoteAsync(
+QFuture<QVariant> NoteStore::shareNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -14775,7 +14776,7 @@ AsyncResult * NoteStore::shareNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -14939,7 +14940,7 @@ void NoteStore::stopSharingNote(
     NoteStoreStopSharingNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::stopSharingNoteAsync(
+QFuture<QVariant> NoteStore::stopSharingNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -14955,7 +14956,7 @@ AsyncResult * NoteStore::stopSharingNoteAsync(
         ctx->authenticationToken(),
         guid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -15151,7 +15152,7 @@ AuthenticationResult NoteStore::authenticateToSharedNote(
     return NoteStoreAuthenticateToSharedNoteReadReply(reply);
 }
 
-AsyncResult * NoteStore::authenticateToSharedNoteAsync(
+QFuture<QVariant> NoteStore::authenticateToSharedNoteAsync(
     QString guid,
     QString noteKey,
     IRequestContextPtr ctx)
@@ -15170,7 +15171,7 @@ AsyncResult * NoteStore::authenticateToSharedNoteAsync(
         noteKey,
         ctx->authenticationToken());
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -15366,7 +15367,7 @@ RelatedResult NoteStore::findRelated(
     return NoteStoreFindRelatedReadReply(reply);
 }
 
-AsyncResult * NoteStore::findRelatedAsync(
+QFuture<QVariant> NoteStore::findRelatedAsync(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -15385,7 +15386,7 @@ AsyncResult * NoteStore::findRelatedAsync(
         query,
         resultSpec);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -15569,7 +15570,7 @@ UpdateNoteIfUsnMatchesResult NoteStore::updateNoteIfUsnMatches(
     return NoteStoreUpdateNoteIfUsnMatchesReadReply(reply);
 }
 
-AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
+QFuture<QVariant> NoteStore::updateNoteIfUsnMatchesAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -15585,7 +15586,7 @@ AsyncResult * NoteStore::updateNoteIfUsnMatchesAsync(
         ctx->authenticationToken(),
         note);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -15769,7 +15770,7 @@ ManageNotebookSharesResult NoteStore::manageNotebookShares(
     return NoteStoreManageNotebookSharesReadReply(reply);
 }
 
-AsyncResult * NoteStore::manageNotebookSharesAsync(
+QFuture<QVariant> NoteStore::manageNotebookSharesAsync(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -15785,7 +15786,7 @@ AsyncResult * NoteStore::manageNotebookSharesAsync(
         ctx->authenticationToken(),
         parameters);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -15969,7 +15970,7 @@ ShareRelationships NoteStore::getNotebookShares(
     return NoteStoreGetNotebookSharesReadReply(reply);
 }
 
-AsyncResult * NoteStore::getNotebookSharesAsync(
+QFuture<QVariant> NoteStore::getNotebookSharesAsync(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -15985,7 +15986,7 @@ AsyncResult * NoteStore::getNotebookSharesAsync(
         ctx->authenticationToken(),
         notebookGuid);
 
-    return new AsyncResult(
+    return sendRequest(
         m_url,
         params,
         ctx,
@@ -16045,7 +16046,7 @@ public:
     SyncState getSyncState(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getSyncStateAsync(
+    QFuture<QVariant> getSyncStateAsync(
         IRequestContextPtr ctx = {}) override;
 
     SyncChunk getFilteredSyncChunk(
@@ -16054,7 +16055,7 @@ public:
         const SyncChunkFilter & filter,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getFilteredSyncChunkAsync(
+    QFuture<QVariant> getFilteredSyncChunkAsync(
         qint32 afterUSN,
         qint32 maxEntries,
         const SyncChunkFilter & filter,
@@ -16064,7 +16065,7 @@ public:
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getLinkedNotebookSyncStateAsync(
+    QFuture<QVariant> getLinkedNotebookSyncStateAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -16075,7 +16076,7 @@ public:
         bool fullSyncOnly,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getLinkedNotebookSyncChunkAsync(
+    QFuture<QVariant> getLinkedNotebookSyncChunkAsync(
         const LinkedNotebook & linkedNotebook,
         qint32 afterUSN,
         qint32 maxEntries,
@@ -16085,34 +16086,34 @@ public:
     QList<Notebook> listNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listNotebooksAsync(
+    QFuture<QVariant> listNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     QList<Notebook> listAccessibleBusinessNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listAccessibleBusinessNotebooksAsync(
+    QFuture<QVariant> listAccessibleBusinessNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     Notebook getNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNotebookAsync(
+    QFuture<QVariant> getNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
     Notebook getDefaultNotebook(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getDefaultNotebookAsync(
+    QFuture<QVariant> getDefaultNotebookAsync(
         IRequestContextPtr ctx = {}) override;
 
     Notebook createNotebook(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createNotebookAsync(
+    QFuture<QVariant> createNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -16120,7 +16121,7 @@ public:
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateNotebookAsync(
+    QFuture<QVariant> updateNotebookAsync(
         const Notebook & notebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -16128,21 +16129,21 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeNotebookAsync(
+    QFuture<QVariant> expungeNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
     QList<Tag> listTags(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listTagsAsync(
+    QFuture<QVariant> listTagsAsync(
         IRequestContextPtr ctx = {}) override;
 
     QList<Tag> listTagsByNotebook(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listTagsByNotebookAsync(
+    QFuture<QVariant> listTagsByNotebookAsync(
         Guid notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16150,7 +16151,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getTagAsync(
+    QFuture<QVariant> getTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16158,7 +16159,7 @@ public:
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createTagAsync(
+    QFuture<QVariant> createTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
@@ -16166,7 +16167,7 @@ public:
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateTagAsync(
+    QFuture<QVariant> updateTagAsync(
         const Tag & tag,
         IRequestContextPtr ctx = {}) override;
 
@@ -16174,7 +16175,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * untagAllAsync(
+    QFuture<QVariant> untagAllAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16182,21 +16183,21 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeTagAsync(
+    QFuture<QVariant> expungeTagAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
     QList<SavedSearch> listSearches(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listSearchesAsync(
+    QFuture<QVariant> listSearchesAsync(
         IRequestContextPtr ctx = {}) override;
 
     SavedSearch getSearch(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getSearchAsync(
+    QFuture<QVariant> getSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16204,7 +16205,7 @@ public:
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createSearchAsync(
+    QFuture<QVariant> createSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
@@ -16212,7 +16213,7 @@ public:
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateSearchAsync(
+    QFuture<QVariant> updateSearchAsync(
         const SavedSearch & search,
         IRequestContextPtr ctx = {}) override;
 
@@ -16220,7 +16221,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeSearchAsync(
+    QFuture<QVariant> expungeSearchAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16229,7 +16230,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findNoteOffsetAsync(
+    QFuture<QVariant> findNoteOffsetAsync(
         const NoteFilter & filter,
         Guid guid,
         IRequestContextPtr ctx = {}) override;
@@ -16241,7 +16242,7 @@ public:
         const NotesMetadataResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findNotesMetadataAsync(
+    QFuture<QVariant> findNotesMetadataAsync(
         const NoteFilter & filter,
         qint32 offset,
         qint32 maxNotes,
@@ -16253,7 +16254,7 @@ public:
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findNoteCountsAsync(
+    QFuture<QVariant> findNoteCountsAsync(
         const NoteFilter & filter,
         bool withTrash,
         IRequestContextPtr ctx = {}) override;
@@ -16263,7 +16264,7 @@ public:
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteWithResultSpecAsync(
+    QFuture<QVariant> getNoteWithResultSpecAsync(
         Guid guid,
         const NoteResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
@@ -16276,7 +16277,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteAsync(
+    QFuture<QVariant> getNoteAsync(
         Guid guid,
         bool withContent,
         bool withResourcesData,
@@ -16288,7 +16289,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteApplicationDataAsync(
+    QFuture<QVariant> getNoteApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16297,7 +16298,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteApplicationDataEntryAsync(
+    QFuture<QVariant> getNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -16308,7 +16309,7 @@ public:
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * setNoteApplicationDataEntryAsync(
+    QFuture<QVariant> setNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -16319,7 +16320,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * unsetNoteApplicationDataEntryAsync(
+    QFuture<QVariant> unsetNoteApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -16328,7 +16329,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteContentAsync(
+    QFuture<QVariant> getNoteContentAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16338,7 +16339,7 @@ public:
         bool tokenizeForIndexing,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteSearchTextAsync(
+    QFuture<QVariant> getNoteSearchTextAsync(
         Guid guid,
         bool noteOnly,
         bool tokenizeForIndexing,
@@ -16348,7 +16349,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceSearchTextAsync(
+    QFuture<QVariant> getResourceSearchTextAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16356,7 +16357,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteTagNamesAsync(
+    QFuture<QVariant> getNoteTagNamesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16364,7 +16365,7 @@ public:
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createNoteAsync(
+    QFuture<QVariant> createNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
@@ -16372,7 +16373,7 @@ public:
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateNoteAsync(
+    QFuture<QVariant> updateNoteAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
@@ -16380,7 +16381,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * deleteNoteAsync(
+    QFuture<QVariant> deleteNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16388,7 +16389,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeNoteAsync(
+    QFuture<QVariant> expungeNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16397,7 +16398,7 @@ public:
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * copyNoteAsync(
+    QFuture<QVariant> copyNoteAsync(
         Guid noteGuid,
         Guid toNotebookGuid,
         IRequestContextPtr ctx = {}) override;
@@ -16406,7 +16407,7 @@ public:
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listNoteVersionsAsync(
+    QFuture<QVariant> listNoteVersionsAsync(
         Guid noteGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16418,7 +16419,7 @@ public:
         bool withResourcesAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNoteVersionAsync(
+    QFuture<QVariant> getNoteVersionAsync(
         Guid noteGuid,
         qint32 updateSequenceNum,
         bool withResourcesData,
@@ -16434,7 +16435,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceAsync(
+    QFuture<QVariant> getResourceAsync(
         Guid guid,
         bool withData,
         bool withRecognition,
@@ -16446,7 +16447,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceApplicationDataAsync(
+    QFuture<QVariant> getResourceApplicationDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16455,7 +16456,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceApplicationDataEntryAsync(
+    QFuture<QVariant> getResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -16466,7 +16467,7 @@ public:
         QString value,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * setResourceApplicationDataEntryAsync(
+    QFuture<QVariant> setResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         QString value,
@@ -16477,7 +16478,7 @@ public:
         QString key,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * unsetResourceApplicationDataEntryAsync(
+    QFuture<QVariant> unsetResourceApplicationDataEntryAsync(
         Guid guid,
         QString key,
         IRequestContextPtr ctx = {}) override;
@@ -16486,7 +16487,7 @@ public:
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateResourceAsync(
+    QFuture<QVariant> updateResourceAsync(
         const Resource & resource,
         IRequestContextPtr ctx = {}) override;
 
@@ -16494,7 +16495,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceDataAsync(
+    QFuture<QVariant> getResourceDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16506,7 +16507,7 @@ public:
         bool withAlternateData,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceByHashAsync(
+    QFuture<QVariant> getResourceByHashAsync(
         Guid noteGuid,
         QByteArray contentHash,
         bool withData,
@@ -16518,7 +16519,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceRecognitionAsync(
+    QFuture<QVariant> getResourceRecognitionAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16526,7 +16527,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceAlternateDataAsync(
+    QFuture<QVariant> getResourceAlternateDataAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16534,7 +16535,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getResourceAttributesAsync(
+    QFuture<QVariant> getResourceAttributesAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16543,7 +16544,7 @@ public:
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getPublicNotebookAsync(
+    QFuture<QVariant> getPublicNotebookAsync(
         UserID userId,
         QString publicUri,
         IRequestContextPtr ctx = {}) override;
@@ -16553,7 +16554,7 @@ public:
         QString message,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * shareNotebookAsync(
+    QFuture<QVariant> shareNotebookAsync(
         const SharedNotebook & sharedNotebook,
         QString message,
         IRequestContextPtr ctx = {}) override;
@@ -16562,7 +16563,7 @@ public:
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createOrUpdateNotebookSharesAsync(
+    QFuture<QVariant> createOrUpdateNotebookSharesAsync(
         const NotebookShareTemplate & shareTemplate,
         IRequestContextPtr ctx = {}) override;
 
@@ -16570,7 +16571,7 @@ public:
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateSharedNotebookAsync(
+    QFuture<QVariant> updateSharedNotebookAsync(
         const SharedNotebook & sharedNotebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -16579,7 +16580,7 @@ public:
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * setNotebookRecipientSettingsAsync(
+    QFuture<QVariant> setNotebookRecipientSettingsAsync(
         QString notebookGuid,
         const NotebookRecipientSettings & recipientSettings,
         IRequestContextPtr ctx = {}) override;
@@ -16587,14 +16588,14 @@ public:
     QList<SharedNotebook> listSharedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listSharedNotebooksAsync(
+    QFuture<QVariant> listSharedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     LinkedNotebook createLinkedNotebook(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * createLinkedNotebookAsync(
+    QFuture<QVariant> createLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
@@ -16602,21 +16603,21 @@ public:
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateLinkedNotebookAsync(
+    QFuture<QVariant> updateLinkedNotebookAsync(
         const LinkedNotebook & linkedNotebook,
         IRequestContextPtr ctx = {}) override;
 
     QList<LinkedNotebook> listLinkedNotebooks(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * listLinkedNotebooksAsync(
+    QFuture<QVariant> listLinkedNotebooksAsync(
         IRequestContextPtr ctx = {}) override;
 
     qint32 expungeLinkedNotebook(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * expungeLinkedNotebookAsync(
+    QFuture<QVariant> expungeLinkedNotebookAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16624,21 +16625,21 @@ public:
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * authenticateToSharedNotebookAsync(
+    QFuture<QVariant> authenticateToSharedNotebookAsync(
         QString shareKeyOrGlobalId,
         IRequestContextPtr ctx = {}) override;
 
     SharedNotebook getSharedNotebookByAuth(
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getSharedNotebookByAuthAsync(
+    QFuture<QVariant> getSharedNotebookByAuthAsync(
         IRequestContextPtr ctx = {}) override;
 
     void emailNote(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * emailNoteAsync(
+    QFuture<QVariant> emailNoteAsync(
         const NoteEmailParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
@@ -16646,7 +16647,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * shareNoteAsync(
+    QFuture<QVariant> shareNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16654,7 +16655,7 @@ public:
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * stopSharingNoteAsync(
+    QFuture<QVariant> stopSharingNoteAsync(
         Guid guid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16663,7 +16664,7 @@ public:
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * authenticateToSharedNoteAsync(
+    QFuture<QVariant> authenticateToSharedNoteAsync(
         QString guid,
         QString noteKey,
         IRequestContextPtr ctx = {}) override;
@@ -16673,7 +16674,7 @@ public:
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * findRelatedAsync(
+    QFuture<QVariant> findRelatedAsync(
         const RelatedQuery & query,
         const RelatedResultSpec & resultSpec,
         IRequestContextPtr ctx = {}) override;
@@ -16682,7 +16683,7 @@ public:
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * updateNoteIfUsnMatchesAsync(
+    QFuture<QVariant> updateNoteIfUsnMatchesAsync(
         const Note & note,
         IRequestContextPtr ctx = {}) override;
 
@@ -16690,7 +16691,7 @@ public:
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * manageNotebookSharesAsync(
+    QFuture<QVariant> manageNotebookSharesAsync(
         const ManageNotebookSharesParameters & parameters,
         IRequestContextPtr ctx = {}) override;
 
@@ -16698,7 +16699,7 @@ public:
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
-    AsyncResult * getNotebookSharesAsync(
+    QFuture<QVariant> getNotebookSharesAsync(
         QString notebookGuid,
         IRequestContextPtr ctx = {}) override;
 
@@ -16738,7 +16739,7 @@ SyncState DurableNoteStore::getSyncState(
     return result.first.value<SyncState>();
 }
 
-AsyncResult * DurableNoteStore::getSyncStateAsync(
+QFuture<QVariant> DurableNoteStore::getSyncStateAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -16806,7 +16807,7 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
     return result.first.value<SyncChunk>();
 }
 
-AsyncResult * DurableNoteStore::getFilteredSyncChunkAsync(
+QFuture<QVariant> DurableNoteStore::getFilteredSyncChunkAsync(
     qint32 afterUSN,
     qint32 maxEntries,
     const SyncChunkFilter & filter,
@@ -16882,7 +16883,7 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
     return result.first.value<SyncState>();
 }
 
-AsyncResult * DurableNoteStore::getLinkedNotebookSyncStateAsync(
+QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncStateAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -16961,7 +16962,7 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
     return result.first.value<SyncChunk>();
 }
 
-AsyncResult * DurableNoteStore::getLinkedNotebookSyncChunkAsync(
+QFuture<QVariant> DurableNoteStore::getLinkedNotebookSyncChunkAsync(
     const LinkedNotebook & linkedNotebook,
     qint32 afterUSN,
     qint32 maxEntries,
@@ -17032,7 +17033,7 @@ QList<Notebook> DurableNoteStore::listNotebooks(
     return result.first.value<QList<Notebook>>();
 }
 
-AsyncResult * DurableNoteStore::listNotebooksAsync(
+QFuture<QVariant> DurableNoteStore::listNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17086,7 +17087,7 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
     return result.first.value<QList<Notebook>>();
 }
 
-AsyncResult * DurableNoteStore::listAccessibleBusinessNotebooksAsync(
+QFuture<QVariant> DurableNoteStore::listAccessibleBusinessNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17148,7 +17149,7 @@ Notebook DurableNoteStore::getNotebook(
     return result.first.value<Notebook>();
 }
 
-AsyncResult * DurableNoteStore::getNotebookAsync(
+QFuture<QVariant> DurableNoteStore::getNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17210,7 +17211,7 @@ Notebook DurableNoteStore::getDefaultNotebook(
     return result.first.value<Notebook>();
 }
 
-AsyncResult * DurableNoteStore::getDefaultNotebookAsync(
+QFuture<QVariant> DurableNoteStore::getDefaultNotebookAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17272,7 +17273,7 @@ Notebook DurableNoteStore::createNotebook(
     return result.first.value<Notebook>();
 }
 
-AsyncResult * DurableNoteStore::createNotebookAsync(
+QFuture<QVariant> DurableNoteStore::createNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -17342,7 +17343,7 @@ qint32 DurableNoteStore::updateNotebook(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::updateNotebookAsync(
+QFuture<QVariant> DurableNoteStore::updateNotebookAsync(
     const Notebook & notebook,
     IRequestContextPtr ctx)
 {
@@ -17412,7 +17413,7 @@ qint32 DurableNoteStore::expungeNotebook(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::expungeNotebookAsync(
+QFuture<QVariant> DurableNoteStore::expungeNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17474,7 +17475,7 @@ QList<Tag> DurableNoteStore::listTags(
     return result.first.value<QList<Tag>>();
 }
 
-AsyncResult * DurableNoteStore::listTagsAsync(
+QFuture<QVariant> DurableNoteStore::listTagsAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -17536,7 +17537,7 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
     return result.first.value<QList<Tag>>();
 }
 
-AsyncResult * DurableNoteStore::listTagsByNotebookAsync(
+QFuture<QVariant> DurableNoteStore::listTagsByNotebookAsync(
     Guid notebookGuid,
     IRequestContextPtr ctx)
 {
@@ -17606,7 +17607,7 @@ Tag DurableNoteStore::getTag(
     return result.first.value<Tag>();
 }
 
-AsyncResult * DurableNoteStore::getTagAsync(
+QFuture<QVariant> DurableNoteStore::getTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17676,7 +17677,7 @@ Tag DurableNoteStore::createTag(
     return result.first.value<Tag>();
 }
 
-AsyncResult * DurableNoteStore::createTagAsync(
+QFuture<QVariant> DurableNoteStore::createTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -17746,7 +17747,7 @@ qint32 DurableNoteStore::updateTag(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::updateTagAsync(
+QFuture<QVariant> DurableNoteStore::updateTagAsync(
     const Tag & tag,
     IRequestContextPtr ctx)
 {
@@ -17816,7 +17817,7 @@ void DurableNoteStore::untagAll(
     return;
 }
 
-AsyncResult * DurableNoteStore::untagAllAsync(
+QFuture<QVariant> DurableNoteStore::untagAllAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17886,7 +17887,7 @@ qint32 DurableNoteStore::expungeTag(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::expungeTagAsync(
+QFuture<QVariant> DurableNoteStore::expungeTagAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -17948,7 +17949,7 @@ QList<SavedSearch> DurableNoteStore::listSearches(
     return result.first.value<QList<SavedSearch>>();
 }
 
-AsyncResult * DurableNoteStore::listSearchesAsync(
+QFuture<QVariant> DurableNoteStore::listSearchesAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -18010,7 +18011,7 @@ SavedSearch DurableNoteStore::getSearch(
     return result.first.value<SavedSearch>();
 }
 
-AsyncResult * DurableNoteStore::getSearchAsync(
+QFuture<QVariant> DurableNoteStore::getSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -18080,7 +18081,7 @@ SavedSearch DurableNoteStore::createSearch(
     return result.first.value<SavedSearch>();
 }
 
-AsyncResult * DurableNoteStore::createSearchAsync(
+QFuture<QVariant> DurableNoteStore::createSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -18150,7 +18151,7 @@ qint32 DurableNoteStore::updateSearch(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::updateSearchAsync(
+QFuture<QVariant> DurableNoteStore::updateSearchAsync(
     const SavedSearch & search,
     IRequestContextPtr ctx)
 {
@@ -18220,7 +18221,7 @@ qint32 DurableNoteStore::expungeSearch(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::expungeSearchAsync(
+QFuture<QVariant> DurableNoteStore::expungeSearchAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -18293,7 +18294,7 @@ qint32 DurableNoteStore::findNoteOffset(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::findNoteOffsetAsync(
+QFuture<QVariant> DurableNoteStore::findNoteOffsetAsync(
     const NoteFilter & filter,
     Guid guid,
     IRequestContextPtr ctx)
@@ -18375,7 +18376,7 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
     return result.first.value<NotesMetadataList>();
 }
 
-AsyncResult * DurableNoteStore::findNotesMetadataAsync(
+QFuture<QVariant> DurableNoteStore::findNotesMetadataAsync(
     const NoteFilter & filter,
     qint32 offset,
     qint32 maxNotes,
@@ -18457,7 +18458,7 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
     return result.first.value<NoteCollectionCounts>();
 }
 
-AsyncResult * DurableNoteStore::findNoteCountsAsync(
+QFuture<QVariant> DurableNoteStore::findNoteCountsAsync(
     const NoteFilter & filter,
     bool withTrash,
     IRequestContextPtr ctx)
@@ -18533,7 +18534,7 @@ Note DurableNoteStore::getNoteWithResultSpec(
     return result.first.value<Note>();
 }
 
-AsyncResult * DurableNoteStore::getNoteWithResultSpecAsync(
+QFuture<QVariant> DurableNoteStore::getNoteWithResultSpecAsync(
     Guid guid,
     const NoteResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -18618,7 +18619,7 @@ Note DurableNoteStore::getNote(
     return result.first.value<Note>();
 }
 
-AsyncResult * DurableNoteStore::getNoteAsync(
+QFuture<QVariant> DurableNoteStore::getNoteAsync(
     Guid guid,
     bool withContent,
     bool withResourcesData,
@@ -18700,7 +18701,7 @@ LazyMap DurableNoteStore::getNoteApplicationData(
     return result.first.value<LazyMap>();
 }
 
-AsyncResult * DurableNoteStore::getNoteApplicationDataAsync(
+QFuture<QVariant> DurableNoteStore::getNoteApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -18773,7 +18774,7 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
     return result.first.toString();
 }
 
-AsyncResult * DurableNoteStore::getNoteApplicationDataEntryAsync(
+QFuture<QVariant> DurableNoteStore::getNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -18852,7 +18853,7 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::setNoteApplicationDataEntryAsync(
+QFuture<QVariant> DurableNoteStore::setNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -18931,7 +18932,7 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::unsetNoteApplicationDataEntryAsync(
+QFuture<QVariant> DurableNoteStore::unsetNoteApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -19004,7 +19005,7 @@ QString DurableNoteStore::getNoteContent(
     return result.first.toString();
 }
 
-AsyncResult * DurableNoteStore::getNoteContentAsync(
+QFuture<QVariant> DurableNoteStore::getNoteContentAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19080,7 +19081,7 @@ QString DurableNoteStore::getNoteSearchText(
     return result.first.toString();
 }
 
-AsyncResult * DurableNoteStore::getNoteSearchTextAsync(
+QFuture<QVariant> DurableNoteStore::getNoteSearchTextAsync(
     Guid guid,
     bool noteOnly,
     bool tokenizeForIndexing,
@@ -19156,7 +19157,7 @@ QString DurableNoteStore::getResourceSearchText(
     return result.first.toString();
 }
 
-AsyncResult * DurableNoteStore::getResourceSearchTextAsync(
+QFuture<QVariant> DurableNoteStore::getResourceSearchTextAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19226,7 +19227,7 @@ QStringList DurableNoteStore::getNoteTagNames(
     return result.first.toStringList();
 }
 
-AsyncResult * DurableNoteStore::getNoteTagNamesAsync(
+QFuture<QVariant> DurableNoteStore::getNoteTagNamesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19296,7 +19297,7 @@ Note DurableNoteStore::createNote(
     return result.first.value<Note>();
 }
 
-AsyncResult * DurableNoteStore::createNoteAsync(
+QFuture<QVariant> DurableNoteStore::createNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -19366,7 +19367,7 @@ Note DurableNoteStore::updateNote(
     return result.first.value<Note>();
 }
 
-AsyncResult * DurableNoteStore::updateNoteAsync(
+QFuture<QVariant> DurableNoteStore::updateNoteAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -19436,7 +19437,7 @@ qint32 DurableNoteStore::deleteNote(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::deleteNoteAsync(
+QFuture<QVariant> DurableNoteStore::deleteNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19506,7 +19507,7 @@ qint32 DurableNoteStore::expungeNote(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::expungeNoteAsync(
+QFuture<QVariant> DurableNoteStore::expungeNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19579,7 +19580,7 @@ Note DurableNoteStore::copyNote(
     return result.first.value<Note>();
 }
 
-AsyncResult * DurableNoteStore::copyNoteAsync(
+QFuture<QVariant> DurableNoteStore::copyNoteAsync(
     Guid noteGuid,
     Guid toNotebookGuid,
     IRequestContextPtr ctx)
@@ -19652,7 +19653,7 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
     return result.first.value<QList<NoteVersionId>>();
 }
 
-AsyncResult * DurableNoteStore::listNoteVersionsAsync(
+QFuture<QVariant> DurableNoteStore::listNoteVersionsAsync(
     Guid noteGuid,
     IRequestContextPtr ctx)
 {
@@ -19734,7 +19735,7 @@ Note DurableNoteStore::getNoteVersion(
     return result.first.value<Note>();
 }
 
-AsyncResult * DurableNoteStore::getNoteVersionAsync(
+QFuture<QVariant> DurableNoteStore::getNoteVersionAsync(
     Guid noteGuid,
     qint32 updateSequenceNum,
     bool withResourcesData,
@@ -19828,7 +19829,7 @@ Resource DurableNoteStore::getResource(
     return result.first.value<Resource>();
 }
 
-AsyncResult * DurableNoteStore::getResourceAsync(
+QFuture<QVariant> DurableNoteStore::getResourceAsync(
     Guid guid,
     bool withData,
     bool withRecognition,
@@ -19910,7 +19911,7 @@ LazyMap DurableNoteStore::getResourceApplicationData(
     return result.first.value<LazyMap>();
 }
 
-AsyncResult * DurableNoteStore::getResourceApplicationDataAsync(
+QFuture<QVariant> DurableNoteStore::getResourceApplicationDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -19983,7 +19984,7 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
     return result.first.toString();
 }
 
-AsyncResult * DurableNoteStore::getResourceApplicationDataEntryAsync(
+QFuture<QVariant> DurableNoteStore::getResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -20062,7 +20063,7 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::setResourceApplicationDataEntryAsync(
+QFuture<QVariant> DurableNoteStore::setResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     QString value,
@@ -20141,7 +20142,7 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::unsetResourceApplicationDataEntryAsync(
+QFuture<QVariant> DurableNoteStore::unsetResourceApplicationDataEntryAsync(
     Guid guid,
     QString key,
     IRequestContextPtr ctx)
@@ -20214,7 +20215,7 @@ qint32 DurableNoteStore::updateResource(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::updateResourceAsync(
+QFuture<QVariant> DurableNoteStore::updateResourceAsync(
     const Resource & resource,
     IRequestContextPtr ctx)
 {
@@ -20284,7 +20285,7 @@ QByteArray DurableNoteStore::getResourceData(
     return result.first.toByteArray();
 }
 
-AsyncResult * DurableNoteStore::getResourceDataAsync(
+QFuture<QVariant> DurableNoteStore::getResourceDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20366,7 +20367,7 @@ Resource DurableNoteStore::getResourceByHash(
     return result.first.value<Resource>();
 }
 
-AsyncResult * DurableNoteStore::getResourceByHashAsync(
+QFuture<QVariant> DurableNoteStore::getResourceByHashAsync(
     Guid noteGuid,
     QByteArray contentHash,
     bool withData,
@@ -20448,7 +20449,7 @@ QByteArray DurableNoteStore::getResourceRecognition(
     return result.first.toByteArray();
 }
 
-AsyncResult * DurableNoteStore::getResourceRecognitionAsync(
+QFuture<QVariant> DurableNoteStore::getResourceRecognitionAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20518,7 +20519,7 @@ QByteArray DurableNoteStore::getResourceAlternateData(
     return result.first.toByteArray();
 }
 
-AsyncResult * DurableNoteStore::getResourceAlternateDataAsync(
+QFuture<QVariant> DurableNoteStore::getResourceAlternateDataAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20588,7 +20589,7 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
     return result.first.value<ResourceAttributes>();
 }
 
-AsyncResult * DurableNoteStore::getResourceAttributesAsync(
+QFuture<QVariant> DurableNoteStore::getResourceAttributesAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -20661,7 +20662,7 @@ Notebook DurableNoteStore::getPublicNotebook(
     return result.first.value<Notebook>();
 }
 
-AsyncResult * DurableNoteStore::getPublicNotebookAsync(
+QFuture<QVariant> DurableNoteStore::getPublicNotebookAsync(
     UserID userId,
     QString publicUri,
     IRequestContextPtr ctx)
@@ -20737,7 +20738,7 @@ SharedNotebook DurableNoteStore::shareNotebook(
     return result.first.value<SharedNotebook>();
 }
 
-AsyncResult * DurableNoteStore::shareNotebookAsync(
+QFuture<QVariant> DurableNoteStore::shareNotebookAsync(
     const SharedNotebook & sharedNotebook,
     QString message,
     IRequestContextPtr ctx)
@@ -20810,7 +20811,7 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
     return result.first.value<CreateOrUpdateNotebookSharesResult>();
 }
 
-AsyncResult * DurableNoteStore::createOrUpdateNotebookSharesAsync(
+QFuture<QVariant> DurableNoteStore::createOrUpdateNotebookSharesAsync(
     const NotebookShareTemplate & shareTemplate,
     IRequestContextPtr ctx)
 {
@@ -20880,7 +20881,7 @@ qint32 DurableNoteStore::updateSharedNotebook(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::updateSharedNotebookAsync(
+QFuture<QVariant> DurableNoteStore::updateSharedNotebookAsync(
     const SharedNotebook & sharedNotebook,
     IRequestContextPtr ctx)
 {
@@ -20953,7 +20954,7 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
     return result.first.value<Notebook>();
 }
 
-AsyncResult * DurableNoteStore::setNotebookRecipientSettingsAsync(
+QFuture<QVariant> DurableNoteStore::setNotebookRecipientSettingsAsync(
     QString notebookGuid,
     const NotebookRecipientSettings & recipientSettings,
     IRequestContextPtr ctx)
@@ -21018,7 +21019,7 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
     return result.first.value<QList<SharedNotebook>>();
 }
 
-AsyncResult * DurableNoteStore::listSharedNotebooksAsync(
+QFuture<QVariant> DurableNoteStore::listSharedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -21080,7 +21081,7 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
     return result.first.value<LinkedNotebook>();
 }
 
-AsyncResult * DurableNoteStore::createLinkedNotebookAsync(
+QFuture<QVariant> DurableNoteStore::createLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -21150,7 +21151,7 @@ qint32 DurableNoteStore::updateLinkedNotebook(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::updateLinkedNotebookAsync(
+QFuture<QVariant> DurableNoteStore::updateLinkedNotebookAsync(
     const LinkedNotebook & linkedNotebook,
     IRequestContextPtr ctx)
 {
@@ -21212,7 +21213,7 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
     return result.first.value<QList<LinkedNotebook>>();
 }
 
-AsyncResult * DurableNoteStore::listLinkedNotebooksAsync(
+QFuture<QVariant> DurableNoteStore::listLinkedNotebooksAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -21274,7 +21275,7 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
     return result.first.value<qint32>();
 }
 
-AsyncResult * DurableNoteStore::expungeLinkedNotebookAsync(
+QFuture<QVariant> DurableNoteStore::expungeLinkedNotebookAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -21344,7 +21345,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
     return result.first.value<AuthenticationResult>();
 }
 
-AsyncResult * DurableNoteStore::authenticateToSharedNotebookAsync(
+QFuture<QVariant> DurableNoteStore::authenticateToSharedNotebookAsync(
     QString shareKeyOrGlobalId,
     IRequestContextPtr ctx)
 {
@@ -21406,7 +21407,7 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
     return result.first.value<SharedNotebook>();
 }
 
-AsyncResult * DurableNoteStore::getSharedNotebookByAuthAsync(
+QFuture<QVariant> DurableNoteStore::getSharedNotebookByAuthAsync(
     IRequestContextPtr ctx)
 {
     if (!ctx) {
@@ -21468,7 +21469,7 @@ void DurableNoteStore::emailNote(
     return;
 }
 
-AsyncResult * DurableNoteStore::emailNoteAsync(
+QFuture<QVariant> DurableNoteStore::emailNoteAsync(
     const NoteEmailParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -21538,7 +21539,7 @@ QString DurableNoteStore::shareNote(
     return result.first.toString();
 }
 
-AsyncResult * DurableNoteStore::shareNoteAsync(
+QFuture<QVariant> DurableNoteStore::shareNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -21608,7 +21609,7 @@ void DurableNoteStore::stopSharingNote(
     return;
 }
 
-AsyncResult * DurableNoteStore::stopSharingNoteAsync(
+QFuture<QVariant> DurableNoteStore::stopSharingNoteAsync(
     Guid guid,
     IRequestContextPtr ctx)
 {
@@ -21681,7 +21682,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
     return result.first.value<AuthenticationResult>();
 }
 
-AsyncResult * DurableNoteStore::authenticateToSharedNoteAsync(
+QFuture<QVariant> DurableNoteStore::authenticateToSharedNoteAsync(
     QString guid,
     QString noteKey,
     IRequestContextPtr ctx)
@@ -21757,7 +21758,7 @@ RelatedResult DurableNoteStore::findRelated(
     return result.first.value<RelatedResult>();
 }
 
-AsyncResult * DurableNoteStore::findRelatedAsync(
+QFuture<QVariant> DurableNoteStore::findRelatedAsync(
     const RelatedQuery & query,
     const RelatedResultSpec & resultSpec,
     IRequestContextPtr ctx)
@@ -21830,7 +21831,7 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
     return result.first.value<UpdateNoteIfUsnMatchesResult>();
 }
 
-AsyncResult * DurableNoteStore::updateNoteIfUsnMatchesAsync(
+QFuture<QVariant> DurableNoteStore::updateNoteIfUsnMatchesAsync(
     const Note & note,
     IRequestContextPtr ctx)
 {
@@ -21900,7 +21901,7 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
     return result.first.value<ManageNotebookSharesResult>();
 }
 
-AsyncResult * DurableNoteStore::manageNotebookSharesAsync(
+QFuture<QVariant> DurableNoteStore::manageNotebookSharesAsync(
     const ManageNotebookSharesParameters & parameters,
     IRequestContextPtr ctx)
 {
@@ -21970,7 +21971,7 @@ ShareRelationships DurableNoteStore::getNotebookShares(
     return result.first.value<ShareRelationships>();
 }
 
-AsyncResult * DurableNoteStore::getNotebookSharesAsync(
+QFuture<QVariant> DurableNoteStore::getNotebookSharesAsync(
     QString notebookGuid,
     IRequestContextPtr ctx)
 {

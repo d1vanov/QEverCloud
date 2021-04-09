@@ -8,47 +8,26 @@
 
 #include "TestDurableService.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include "../src/Qt5Promise.h"
+#endif
+
 #include <qevercloud/DurableService.h>
 #include <qevercloud/EDAMErrorCode.h>
 #include <qevercloud/exceptions/NetworkException.h>
 #include <qevercloud/exceptions/EDAMUserException.h>
+#include <qevercloud/utility/Log.h>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QPromise>
+#endif
 
 #include <QEventLoop>
+#include <QFutureWatcher>
 #include <QNetworkReply>
 #include <QtTest/QtTest>
 
 namespace qevercloud {
-
-////////////////////////////////////////////////////////////////////////////////
-
-class ValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit ValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QVariant m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(ctx)
-        m_value = value;
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
 
 DurableServiceTester::DurableServiceTester(QObject * parent) :
     QObject(parent)
@@ -85,28 +64,32 @@ void DurableServiceTester::shouldExecuteAsyncServiceCall()
     QVariant value = QStringLiteral("value");
 
     IDurableService::AsyncRequest request("request", {},
-        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+        [&] (IRequestContextPtr ctx) -> QFuture<QVariant> {
             Q_ASSERT(ctx);
+            QPromise<QVariant> promise;
+            promise.start();
             serviceCallDetected = true;
-            return new AsyncResult(value, {}, ctx);
+            promise.addResult(value);
+            promise.finish();
+            auto future = promise.future();
+            return future;
         });
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    auto result = durableService->executeAsyncRequest(
         std::move(request),
         newRequestContext());
 
-    ValueFetcher valueFetcher;
-    QObject::connect(result, &AsyncResult::finished,
-                     &valueFetcher, &ValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
-    QObject::connect(&valueFetcher, &ValueFetcher::finished,
-                     &loop, &QEventLoop::quit);
+    QObject::connect(
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &QEventLoop::quit);
+
+    watcher.setFuture(result);
     loop.exec();
 
     QVERIFY(serviceCallDetected);
-    QVERIFY(valueFetcher.m_value == value);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(result.result() == value);
 }
 
 void DurableServiceTester::shouldRetrySyncServiceCalls()
@@ -171,43 +154,42 @@ void DurableServiceTester::shouldRetryAsyncServiceCalls()
     QVariant value = QStringLiteral("value");
 
     IDurableService::AsyncRequest request("request", {},
-        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+        [&] (IRequestContextPtr ctx) -> QFuture<QVariant> {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
+
+            QPromise<QVariant> promise;
+            auto future = promise.future();
+            promise.start();
 
             ++serviceCallCounter;
             if (serviceCallCounter < maxServiceCallCounter)
             {
-                EverCloudExceptionDataPtr data;
-                try {
-                    throw NetworkException(QNetworkReply::TimeoutError);
-                }
-                catch(const EverCloudException & e) {
-                    data = e.exceptionData();
-                }
-
-                return new AsyncResult(QVariant(), data, ctx);
+                promise.setException(NetworkException(QNetworkReply::TimeoutError));
+                promise.finish();
+                return future;
             }
 
-            return new AsyncResult(value, {}, ctx);
+            promise.addResult(value);
+            promise.finish();
+            return future;
         });
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    auto result = durableService->executeAsyncRequest(
         std::move(request),
         ctx);
 
-    ValueFetcher valueFetcher;
-    QObject::connect(result, &AsyncResult::finished,
-                     &valueFetcher, &ValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
-    QObject::connect(&valueFetcher, &ValueFetcher::finished,
-                     &loop, &QEventLoop::quit);
+    QObject::connect(
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+        &QEventLoop::quit);
+
+    watcher.setFuture(result);
     loop.exec();
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
-    QVERIFY(valueFetcher.m_value == value);
-    QVERIFY(!valueFetcher.m_exceptionData);
+    QVERIFY(result.result() == value);
 }
 
 void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
@@ -273,44 +255,31 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallMoreThanMaxTimes()
         maxServiceCallCounter);
 
     IDurableService::AsyncRequest request("request", {},
-        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+        [&] (IRequestContextPtr ctx) -> QFuture<QVariant> {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            EverCloudExceptionDataPtr data;
-            try {
-                throw NetworkException(QNetworkReply::TimeoutError);
-            }
-            catch(const EverCloudException & e) {
-                data = e.exceptionData();
-            }
 
-            return new AsyncResult(QVariant(), data, ctx);
+            QPromise<QVariant> promise;
+            auto future = promise.future();
+            promise.start();
+            promise.setException(NetworkException(QNetworkReply::TimeoutError));
+            promise.finish();
+            return future;
         });
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    auto result = durableService->executeAsyncRequest(
         std::move(request),
         ctx);
 
-    ValueFetcher valueFetcher;
-    QObject::connect(result, &AsyncResult::finished,
-                     &valueFetcher, &ValueFetcher::onFinished);
-
-    QEventLoop loop;
-    QObject::connect(&valueFetcher, &ValueFetcher::finished,
-                     &loop, &QEventLoop::quit);
-    loop.exec();
-
-    QVERIFY(serviceCallCounter == maxServiceCallCounter);
-    QVERIFY(!valueFetcher.m_value.isValid());
-    QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-
     bool exceptionCaught = false;
-    try {
-        valueFetcher.m_exceptionData->throwException();
+    try
+    {
+        result.waitForFinished();
     }
-    catch(const NetworkException & e) {
+    catch (const NetworkException & e)
+    {
         exceptionCaught = true;
         QVERIFY(e.type() == QNetworkReply::TimeoutError);
     }
@@ -382,44 +351,32 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
         maxServiceCallCounter);
 
     IDurableService::AsyncRequest request("request", {},
-        [&] (IRequestContextPtr ctx) -> AsyncResult* {
+        [&] (IRequestContextPtr ctx) -> QFuture<QVariant> {
             Q_ASSERT(ctx);
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            EverCloudExceptionDataPtr data;
-            try {
-                EDAMUserException e;
-                e.setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
-                throw e;
-            }
-            catch(const EverCloudException & e) {
-                data = e.exceptionData();
-            }
 
-            return new AsyncResult(QVariant(), data, ctx);
+            QPromise<QVariant> promise;
+            auto future = promise.future();
+            promise.start();
+
+            EDAMUserException e;
+            e.setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+            promise.setException(e);
+
+            promise.finish();
+            return future;
         });
 
-    AsyncResult * result = durableService->executeAsyncRequest(
+    auto result = durableService->executeAsyncRequest(
         std::move(request),
         ctx);
 
-    ValueFetcher valueFetcher;
-    QObject::connect(result, &AsyncResult::finished,
-                     &valueFetcher, &ValueFetcher::onFinished);
-
-    QEventLoop loop;
-    QObject::connect(&valueFetcher, &ValueFetcher::finished,
-                     &loop, &QEventLoop::quit);
-    loop.exec();
-
-    QVERIFY(serviceCallCounter == 1);
-    QVERIFY(!valueFetcher.m_value.isValid());
-    QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-
     bool exceptionCaught = false;
-    try {
-        valueFetcher.m_exceptionData->throwException();
+    try
+    {
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e) {
         exceptionCaught = true;
@@ -429,5 +386,3 @@ void DurableServiceTester::shouldNotRetryAsyncServiceCallInCaseOfUnretriableErro
 }
 
 } // namespace qevercloud
-
-#include <TestDurableService.moc>

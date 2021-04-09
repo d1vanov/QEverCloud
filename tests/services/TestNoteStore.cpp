@@ -14,8 +14,10 @@
 #include "../ClearLocalIds.h"
 #include "../RandomDataGenerators.h"
 #include "../SocketHelpers.h"
+#include "QEventLoop"
 #include <qevercloud/services/INoteStore.h>
 #include <qevercloud/services/NoteStoreServer.h>
+#include <QFutureWatcher>
 #include <QTcpServer>
 #include <QtTest/QtTest>
 
@@ -3970,2149 +3972,6 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 
-class NoteStoreGetSyncStateAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetSyncStateAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SyncState m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SyncState>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetFilteredSyncChunkAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetFilteredSyncChunkAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SyncChunk m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SyncChunk>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SyncState m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SyncState>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SyncChunk m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SyncChunk>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListNotebooksAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListNotebooksAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<Notebook> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<Notebook>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<Notebook> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<Notebook>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Notebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Notebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetDefaultNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetDefaultNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Notebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Notebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCreateNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCreateNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Notebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Notebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreExpungeNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreExpungeNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListTagsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListTagsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<Tag> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<Tag>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListTagsByNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListTagsByNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<Tag> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<Tag>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetTagAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetTagAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Tag m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Tag>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCreateTagAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCreateTagAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Tag m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Tag>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateTagAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateTagAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUntagAllAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUntagAllAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreExpungeTagAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreExpungeTagAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListSearchesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListSearchesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<SavedSearch> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<SavedSearch>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetSearchAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetSearchAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SavedSearch m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SavedSearch>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCreateSearchAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCreateSearchAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SavedSearch m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SavedSearch>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateSearchAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateSearchAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreExpungeSearchAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreExpungeSearchAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreFindNoteOffsetAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreFindNoteOffsetAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreFindNotesMetadataAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreFindNotesMetadataAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    NotesMetadataList m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<NotesMetadataList>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreFindNoteCountsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreFindNoteCountsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    NoteCollectionCounts m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<NoteCollectionCounts>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteWithResultSpecAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteWithResultSpecAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Note m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Note>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Note m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Note>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteApplicationDataAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteApplicationDataAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    LazyMap m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<LazyMap>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QString m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QString>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteContentAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteContentAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QString m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QString>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteSearchTextAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteSearchTextAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QString m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QString>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceSearchTextAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceSearchTextAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QString m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QString>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteTagNamesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteTagNamesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QStringList m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QStringList>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCreateNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCreateNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Note m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Note>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Note m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Note>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreDeleteNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreDeleteNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreExpungeNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreExpungeNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCopyNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCopyNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Note m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Note>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListNoteVersionsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListNoteVersionsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<NoteVersionId> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<NoteVersionId>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNoteVersionAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNoteVersionAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Note m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Note>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Resource m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Resource>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceApplicationDataAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceApplicationDataAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    LazyMap m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<LazyMap>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QString m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QString>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateResourceAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateResourceAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceDataAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceDataAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QByteArray m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QByteArray>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceByHashAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceByHashAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Resource m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Resource>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceRecognitionAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceRecognitionAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QByteArray m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QByteArray>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceAlternateDataAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceAlternateDataAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QByteArray m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QByteArray>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetResourceAttributesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetResourceAttributesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    ResourceAttributes m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<ResourceAttributes>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetPublicNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetPublicNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Notebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Notebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreShareNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreShareNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SharedNotebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SharedNotebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    CreateOrUpdateNotebookSharesResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<CreateOrUpdateNotebookSharesResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateSharedNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateSharedNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    Notebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<Notebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListSharedNotebooksAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListSharedNotebooksAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<SharedNotebook> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<SharedNotebook>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreCreateLinkedNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreCreateLinkedNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    LinkedNotebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<LinkedNotebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateLinkedNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateLinkedNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreListLinkedNotebooksAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreListLinkedNotebooksAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QList<LinkedNotebook> m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QList<LinkedNotebook>>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreExpungeLinkedNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreExpungeLinkedNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    qint32 m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<qint32>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    AuthenticationResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<AuthenticationResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetSharedNotebookByAuthAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetSharedNotebookByAuthAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    SharedNotebook m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<SharedNotebook>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreEmailNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreEmailNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreShareNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreShareNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    QString m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<QString>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreStopSharingNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreStopSharingNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        Q_UNUSED(value)
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreAuthenticateToSharedNoteAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreAuthenticateToSharedNoteAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    AuthenticationResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<AuthenticationResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreFindRelatedAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreFindRelatedAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    RelatedResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<RelatedResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    UpdateNoteIfUsnMatchesResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<UpdateNoteIfUsnMatchesResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreManageNotebookSharesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreManageNotebookSharesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    ManageNotebookSharesResult m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<ManageNotebookSharesResult>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-class NoteStoreGetNotebookSharesAsyncValueFetcher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit NoteStoreGetNotebookSharesAsyncValueFetcher(QObject * parent = nullptr) :
-        QObject(parent)
-    {}
-
-    ShareRelationships m_value;
-    EverCloudExceptionDataPtr m_exceptionData;
-
-Q_SIGNALS:
-    void finished();
-
-public Q_SLOTS:
-    void onFinished(
-        QVariant value,
-        EverCloudExceptionDataPtr data,
-        IRequestContextPtr ctx)
-    {
-        m_value = qvariant_cast<ShareRelationships>(value);
-        Q_UNUSED(ctx)
-        m_exceptionData = data;
-        Q_EMIT finished();
-    }
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
 void NoteStoreTester::shouldExecuteGetSyncState()
 {
     IRequestContextPtr ctx = newRequestContext(
@@ -6190,8 +4049,10 @@ void NoteStoreTester::shouldExecuteGetSyncState()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SyncState res = noteStore->getSyncState(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -6274,11 +4135,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncState()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getSyncState(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -6370,11 +4233,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncState()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getSyncState(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -6465,11 +4330,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncState()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getSyncState(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -6558,27 +4425,20 @@ void NoteStoreTester::shouldExecuteGetSyncStateAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getSyncStateAsync(
+
+    QFuture<QVariant> result = noteStore->getSyncStateAsync(
         ctx);
 
-    NoteStoreGetSyncStateAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetSyncStateAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetSyncStateAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<SyncState>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
@@ -6660,30 +4520,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSyncStateAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getSyncStateAsync(
             ctx);
 
-        NoteStoreGetSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -6774,30 +4627,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSyncStateAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getSyncStateAsync(
             ctx);
 
-        NoteStoreGetSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -6887,30 +4733,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSyncStateAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getSyncStateAsync(
             ctx);
 
-        NoteStoreGetSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -7009,11 +4848,13 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SyncChunk res = noteStore->getFilteredSyncChunk(
         afterUSN,
         maxEntries,
         filter,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -7105,6 +4946,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -7113,6 +4955,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
             maxEntries,
             filter,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -7213,6 +5056,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -7221,6 +5065,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunk()
             maxEntries,
             filter,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -7320,6 +5165,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -7328,6 +5174,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunk()
             maxEntries,
             filter,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -7425,30 +5272,23 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getFilteredSyncChunkAsync(
+
+    QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
         afterUSN,
         maxEntries,
         filter,
         ctx);
 
-    NoteStoreGetFilteredSyncChunkAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<SyncChunk>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync()
@@ -7539,33 +5379,26 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getFilteredSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
             afterUSN,
             maxEntries,
             filter,
             ctx);
 
-        NoteStoreGetFilteredSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -7665,33 +5498,26 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetFilteredSyncChunkAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getFilteredSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
             afterUSN,
             maxEntries,
             filter,
             ctx);
 
-        NoteStoreGetFilteredSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -7790,33 +5616,26 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetFilteredSyncChunkAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getFilteredSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getFilteredSyncChunkAsync(
             afterUSN,
             maxEntries,
             filter,
             ctx);
 
-        NoteStoreGetFilteredSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetFilteredSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -7909,9 +5728,11 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SyncState res = noteStore->getLinkedNotebookSyncState(
         linkedNotebook,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -7997,12 +5818,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getLinkedNotebookSyncState(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -8097,12 +5920,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getLinkedNotebookSyncState(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -8196,12 +6021,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getLinkedNotebookSyncState(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -8295,12 +6122,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SyncState res = noteStore->getLinkedNotebookSyncState(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -8392,28 +6221,21 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getLinkedNotebookSyncStateAsync(
+
+    QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
         linkedNotebook,
         ctx);
 
-    NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<SyncState>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncStateAsync()
@@ -8498,31 +6320,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -8616,31 +6431,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -8733,31 +6541,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -8850,31 +6651,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncStateAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncStateAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncStateAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -8976,12 +6770,14 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SyncChunk res = noteStore->getLinkedNotebookSyncChunk(
         linkedNotebook,
         afterUSN,
         maxEntries,
         fullSyncOnly,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -9076,6 +6872,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -9085,6 +6882,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             maxEntries,
             fullSyncOnly,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -9188,6 +6986,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -9197,6 +6996,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             maxEntries,
             fullSyncOnly,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -9299,6 +7099,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -9308,6 +7109,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             maxEntries,
             fullSyncOnly,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -9410,6 +7212,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -9419,6 +7222,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
             maxEntries,
             fullSyncOnly,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -9519,31 +7323,24 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getLinkedNotebookSyncChunkAsync(
+
+    QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
         linkedNotebook,
         afterUSN,
         maxEntries,
         fullSyncOnly,
         ctx);
 
-    NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<SyncChunk>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -9637,34 +7434,27 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -9767,34 +7557,27 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -9896,34 +7679,27 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -10025,34 +7801,27 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getLinkedNotebookSyncChunkAsync(
+        QFuture<QVariant> result = noteStore->getLinkedNotebookSyncChunkAsync(
             linkedNotebook,
             afterUSN,
             maxEntries,
             fullSyncOnly,
             ctx);
 
-        NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetLinkedNotebookSyncChunkAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -10145,8 +7914,10 @@ void NoteStoreTester::shouldExecuteListNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<Notebook> res = noteStore->listNotebooks(
         ctx);
+
     compareListValuesWithoutLocalIds(res, response);
 }
 
@@ -10229,11 +8000,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Notebook> res = noteStore->listNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -10325,11 +8098,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Notebook> res = noteStore->listNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -10420,11 +8195,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Notebook> res = noteStore->listNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -10516,27 +8293,20 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listNotebooksAsync(
+
+    QFuture<QVariant> result = noteStore->listNotebooksAsync(
         ctx);
 
-    NoteStoreListNotebooksAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListNotebooksAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListNotebooksAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareListValuesWithoutLocalIds(qvariant_cast<QList<Notebook>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
@@ -10618,30 +8388,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listNotebooksAsync(
             ctx);
 
-        NoteStoreListNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -10732,30 +8495,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listNotebooksAsync(
             ctx);
 
-        NoteStoreListNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -10845,30 +8601,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listNotebooksAsync(
             ctx);
 
-        NoteStoreListNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -10961,8 +8710,10 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
         ctx);
+
     compareListValuesWithoutLocalIds(res, response);
 }
 
@@ -11045,11 +8796,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -11141,11 +8894,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -11236,11 +8991,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -11332,27 +9089,20 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listAccessibleBusinessNotebooksAsync(
+
+    QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
         ctx);
 
-    NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareListValuesWithoutLocalIds(qvariant_cast<QList<Notebook>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooksAsync()
@@ -11434,30 +9184,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNote
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listAccessibleBusinessNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
             ctx);
 
-        NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -11548,30 +9291,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListAccessibleBusinessNo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listAccessibleBusinessNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
             ctx);
 
-        NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -11661,30 +9397,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListAccessibleBusinessNotebo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listAccessibleBusinessNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listAccessibleBusinessNotebooksAsync(
             ctx);
 
-        NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListAccessibleBusinessNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -11777,9 +9506,11 @@ void NoteStoreTester::shouldExecuteGetNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Notebook res = noteStore->getNotebook(
         guid,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -11865,12 +9596,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -11965,12 +9698,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -12064,12 +9799,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -12163,12 +9900,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -12260,28 +9999,21 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->getNotebookAsync(
         guid,
         ctx);
 
-    NoteStoreGetNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
@@ -12366,31 +10098,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookAsync(
+        QFuture<QVariant> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreGetNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -12484,31 +10209,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookAsync(
+        QFuture<QVariant> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreGetNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -12601,31 +10319,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookAsync(
+        QFuture<QVariant> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreGetNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -12718,31 +10429,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookAsync(
+        QFuture<QVariant> result = noteStore->getNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreGetNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -12832,8 +10536,10 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Notebook res = noteStore->getDefaultNotebook(
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -12916,11 +10622,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getDefaultNotebook(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -13012,11 +10720,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getDefaultNotebook(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -13107,11 +10817,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->getDefaultNotebook(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -13200,27 +10912,20 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getDefaultNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
         ctx);
 
-    NoteStoreGetDefaultNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetDefaultNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetDefaultNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
@@ -13302,30 +11007,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getDefaultNotebookAsync(
+        QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
             ctx);
 
-        NoteStoreGetDefaultNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetDefaultNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetDefaultNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -13416,30 +11114,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetDefaultNotebookAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getDefaultNotebookAsync(
+        QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
             ctx);
 
-        NoteStoreGetDefaultNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetDefaultNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetDefaultNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -13529,30 +11220,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetDefaultNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getDefaultNotebookAsync(
+        QFuture<QVariant> result = noteStore->getDefaultNotebookAsync(
             ctx);
 
-        NoteStoreGetDefaultNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetDefaultNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetDefaultNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -13645,9 +11329,11 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Notebook res = noteStore->createNotebook(
         notebook,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -13733,12 +11419,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->createNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -13833,12 +11521,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->createNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -13932,12 +11622,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->createNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -14031,12 +11723,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Notebook res = noteStore->createNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -14128,28 +11822,21 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->createNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->createNotebookAsync(
         notebook,
         ctx);
 
-    NoteStoreCreateNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCreateNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCreateNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
@@ -14234,31 +11921,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNotebookAsync(
+        QFuture<QVariant> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreCreateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -14352,31 +12032,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNotebookAsync(
+        QFuture<QVariant> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreCreateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -14469,31 +12142,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNotebookAsync(
+        QFuture<QVariant> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreCreateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -14586,31 +12252,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNotebookAsync(
+        QFuture<QVariant> result = noteStore->createNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreCreateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -14703,9 +12362,11 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->updateNotebook(
         notebook,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -14791,12 +12452,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -14891,12 +12554,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -14990,12 +12655,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -15089,12 +12756,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateNotebook(
             notebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -15186,28 +12855,21 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->updateNotebookAsync(
         notebook,
         ctx);
 
-    NoteStoreUpdateNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
@@ -15292,31 +12954,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreUpdateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -15410,31 +13065,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreUpdateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -15527,31 +13175,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreUpdateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -15644,31 +13285,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateNotebookAsync(
             notebook,
             ctx);
 
-        NoteStoreUpdateNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -15761,9 +13395,11 @@ void NoteStoreTester::shouldExecuteExpungeNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->expungeNotebook(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -15849,12 +13485,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -15949,12 +13587,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -16048,12 +13688,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -16147,12 +13789,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -16244,28 +13888,21 @@ void NoteStoreTester::shouldExecuteExpungeNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->expungeNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->expungeNotebookAsync(
         guid,
         ctx);
 
-    NoteStoreExpungeNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreExpungeNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreExpungeNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
@@ -16350,31 +13987,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -16468,31 +14098,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -16585,31 +14208,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -16702,31 +14318,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -16819,8 +14428,10 @@ void NoteStoreTester::shouldExecuteListTags()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<Tag> res = noteStore->listTags(
         ctx);
+
     compareListValuesWithoutLocalIds(res, response);
 }
 
@@ -16903,11 +14514,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTags(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -16999,11 +14612,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTags()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTags(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -17094,11 +14709,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTags()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTags(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -17190,27 +14807,20 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listTagsAsync(
+
+    QFuture<QVariant> result = noteStore->listTagsAsync(
         ctx);
 
-    NoteStoreListTagsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListTagsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListTagsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareListValuesWithoutLocalIds(qvariant_cast<QList<Tag>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
@@ -17292,30 +14902,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsAsync(
+        QFuture<QVariant> result = noteStore->listTagsAsync(
             ctx);
 
-        NoteStoreListTagsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -17406,30 +15009,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsAsync(
+        QFuture<QVariant> result = noteStore->listTagsAsync(
             ctx);
 
-        NoteStoreListTagsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -17519,30 +15115,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsAsync(
+        QFuture<QVariant> result = noteStore->listTagsAsync(
             ctx);
 
-        NoteStoreListTagsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -17638,9 +15227,11 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<Tag> res = noteStore->listTagsByNotebook(
         notebookGuid,
         ctx);
+
     compareListValuesWithoutLocalIds(res, response);
 }
 
@@ -17726,12 +15317,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTagsByNotebook(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -17826,12 +15419,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTagsByNotebook(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -17925,12 +15520,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTagsByNotebook(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -18024,12 +15621,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<Tag> res = noteStore->listTagsByNotebook(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -18124,28 +15723,21 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listTagsByNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
         notebookGuid,
         ctx);
 
-    NoteStoreListTagsByNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListTagsByNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListTagsByNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareListValuesWithoutLocalIds(qvariant_cast<QList<Tag>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
@@ -18230,31 +15822,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsByNotebookAsync(
+        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreListTagsByNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -18348,31 +15933,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListTagsByNotebookAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsByNotebookAsync(
+        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreListTagsByNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -18465,31 +16043,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListTagsByNotebookAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsByNotebookAsync(
+        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreListTagsByNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -18582,31 +16153,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListTagsByNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listTagsByNotebookAsync(
+        QFuture<QVariant> result = noteStore->listTagsByNotebookAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreListTagsByNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListTagsByNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -18699,9 +16263,11 @@ void NoteStoreTester::shouldExecuteGetTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Tag res = noteStore->getTag(
         guid,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -18787,12 +16353,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->getTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -18887,12 +16455,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->getTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -18986,12 +16556,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->getTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -19085,12 +16657,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->getTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -19182,28 +16756,21 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getTagAsync(
+
+    QFuture<QVariant> result = noteStore->getTagAsync(
         guid,
         ctx);
 
-    NoteStoreGetTagAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetTagAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetTagAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Tag>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
@@ -19288,31 +16855,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getTagAsync(
+        QFuture<QVariant> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        NoteStoreGetTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -19406,31 +16966,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getTagAsync(
+        QFuture<QVariant> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        NoteStoreGetTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -19523,31 +17076,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getTagAsync(
+        QFuture<QVariant> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        NoteStoreGetTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -19640,31 +17186,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getTagAsync(
+        QFuture<QVariant> result = noteStore->getTagAsync(
             guid,
             ctx);
 
-        NoteStoreGetTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -19757,9 +17296,11 @@ void NoteStoreTester::shouldExecuteCreateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Tag res = noteStore->createTag(
         tag,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -19845,12 +17386,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->createTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -19945,12 +17488,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->createTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -20044,12 +17589,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->createTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -20143,12 +17690,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Tag res = noteStore->createTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -20240,28 +17789,21 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->createTagAsync(
+
+    QFuture<QVariant> result = noteStore->createTagAsync(
         tag,
         ctx);
 
-    NoteStoreCreateTagAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCreateTagAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCreateTagAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Tag>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
@@ -20346,31 +17888,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createTagAsync(
+        QFuture<QVariant> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        NoteStoreCreateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -20464,31 +17999,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createTagAsync(
+        QFuture<QVariant> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        NoteStoreCreateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -20581,31 +18109,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createTagAsync(
+        QFuture<QVariant> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        NoteStoreCreateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -20698,31 +18219,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createTagAsync(
+        QFuture<QVariant> result = noteStore->createTagAsync(
             tag,
             ctx);
 
-        NoteStoreCreateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -20815,9 +18329,11 @@ void NoteStoreTester::shouldExecuteUpdateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->updateTag(
         tag,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -20903,12 +18419,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -21003,12 +18521,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -21102,12 +18622,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -21201,12 +18723,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateTag(
             tag,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -21298,28 +18822,21 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateTagAsync(
+
+    QFuture<QVariant> result = noteStore->updateTagAsync(
         tag,
         ctx);
 
-    NoteStoreUpdateTagAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateTagAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateTagAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
@@ -21404,31 +18921,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateTagAsync(
+        QFuture<QVariant> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        NoteStoreUpdateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -21522,31 +19032,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateTagAsync(
+        QFuture<QVariant> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        NoteStoreUpdateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -21639,31 +19142,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateTagAsync(
+        QFuture<QVariant> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        NoteStoreUpdateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -21756,31 +19252,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateTagAsync(
+        QFuture<QVariant> result = noteStore->updateTagAsync(
             tag,
             ctx);
 
-        NoteStoreUpdateTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -21871,9 +19360,11 @@ void NoteStoreTester::shouldExecuteUntagAll()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     noteStore->untagAll(
         guid,
         ctx);
+
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
@@ -21958,12 +19449,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAll()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->untagAll(
             guid,
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -22057,12 +19550,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAll()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->untagAll(
             guid,
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -22155,12 +19650,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAll()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->untagAll(
             guid,
             ctx);
+
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -22253,12 +19750,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAll()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->untagAll(
             guid,
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -22347,27 +19846,19 @@ void NoteStoreTester::shouldExecuteUntagAllAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->untagAllAsync(
+
+    QFuture<QVariant> result = noteStore->untagAllAsync(
         guid,
         ctx);
 
-    NoteStoreUntagAllAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUntagAllAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUntagAllAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
@@ -22452,31 +19943,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUntagAllAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->untagAllAsync(
+        QFuture<QVariant> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        NoteStoreUntagAllAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -22570,31 +20054,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUntagAllAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->untagAllAsync(
+        QFuture<QVariant> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        NoteStoreUntagAllAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -22687,31 +20164,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUntagAllAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->untagAllAsync(
+        QFuture<QVariant> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        NoteStoreUntagAllAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -22804,31 +20274,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUntagAllAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->untagAllAsync(
+        QFuture<QVariant> result = noteStore->untagAllAsync(
             guid,
             ctx);
 
-        NoteStoreUntagAllAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUntagAllAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -22921,9 +20384,11 @@ void NoteStoreTester::shouldExecuteExpungeTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->expungeTag(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -23009,12 +20474,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -23109,12 +20576,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -23208,12 +20677,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -23307,12 +20778,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTag()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeTag(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -23404,28 +20877,21 @@ void NoteStoreTester::shouldExecuteExpungeTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->expungeTagAsync(
+
+    QFuture<QVariant> result = noteStore->expungeTagAsync(
         guid,
         ctx);
 
-    NoteStoreExpungeTagAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreExpungeTagAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreExpungeTagAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
@@ -23510,31 +20976,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeTagAsync(
+        QFuture<QVariant> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -23628,31 +21087,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeTagAsync(
+        QFuture<QVariant> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -23745,31 +21197,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeTagAsync(
+        QFuture<QVariant> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -23862,31 +21307,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeTagAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeTagAsync(
+        QFuture<QVariant> result = noteStore->expungeTagAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeTagAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeTagAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -23979,8 +21417,10 @@ void NoteStoreTester::shouldExecuteListSearches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<SavedSearch> res = noteStore->listSearches(
         ctx);
+
     compareListValuesWithoutLocalIds(res, response);
 }
 
@@ -24063,11 +21503,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SavedSearch> res = noteStore->listSearches(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -24159,11 +21601,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SavedSearch> res = noteStore->listSearches(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -24254,11 +21698,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SavedSearch> res = noteStore->listSearches(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -24350,27 +21796,20 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listSearchesAsync(
+
+    QFuture<QVariant> result = noteStore->listSearchesAsync(
         ctx);
 
-    NoteStoreListSearchesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListSearchesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListSearchesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareListValuesWithoutLocalIds(qvariant_cast<QList<SavedSearch>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
@@ -24452,30 +21891,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSearchesAsync(
+        QFuture<QVariant> result = noteStore->listSearchesAsync(
             ctx);
 
-        NoteStoreListSearchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSearchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSearchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -24566,30 +21998,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSearchesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSearchesAsync(
+        QFuture<QVariant> result = noteStore->listSearchesAsync(
             ctx);
 
-        NoteStoreListSearchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSearchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSearchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -24679,30 +22104,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSearchesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSearchesAsync(
+        QFuture<QVariant> result = noteStore->listSearchesAsync(
             ctx);
 
-        NoteStoreListSearchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSearchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSearchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -24795,9 +22213,11 @@ void NoteStoreTester::shouldExecuteGetSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SavedSearch res = noteStore->getSearch(
         guid,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -24883,12 +22303,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->getSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -24983,12 +22405,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->getSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -25082,12 +22506,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->getSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -25181,12 +22607,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->getSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -25278,28 +22706,21 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getSearchAsync(
+
+    QFuture<QVariant> result = noteStore->getSearchAsync(
         guid,
         ctx);
 
-    NoteStoreGetSearchAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetSearchAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetSearchAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<SavedSearch>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
@@ -25384,31 +22805,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSearchAsync(
+        QFuture<QVariant> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        NoteStoreGetSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -25502,31 +22916,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSearchAsync(
+        QFuture<QVariant> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        NoteStoreGetSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -25619,31 +23026,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSearchAsync(
+        QFuture<QVariant> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        NoteStoreGetSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -25736,31 +23136,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSearchAsync(
+        QFuture<QVariant> result = noteStore->getSearchAsync(
             guid,
             ctx);
 
-        NoteStoreGetSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -25853,9 +23246,11 @@ void NoteStoreTester::shouldExecuteCreateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SavedSearch res = noteStore->createSearch(
         search,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -25941,12 +23336,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->createSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -26041,12 +23438,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->createSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -26140,12 +23539,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SavedSearch res = noteStore->createSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -26237,28 +23638,21 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->createSearchAsync(
+
+    QFuture<QVariant> result = noteStore->createSearchAsync(
         search,
         ctx);
 
-    NoteStoreCreateSearchAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCreateSearchAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCreateSearchAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<SavedSearch>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
@@ -26343,31 +23737,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createSearchAsync(
+        QFuture<QVariant> result = noteStore->createSearchAsync(
             search,
             ctx);
 
-        NoteStoreCreateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -26461,31 +23848,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createSearchAsync(
+        QFuture<QVariant> result = noteStore->createSearchAsync(
             search,
             ctx);
 
-        NoteStoreCreateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -26578,31 +23958,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createSearchAsync(
+        QFuture<QVariant> result = noteStore->createSearchAsync(
             search,
             ctx);
 
-        NoteStoreCreateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -26695,9 +24068,11 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->updateSearch(
         search,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -26783,12 +24158,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -26883,12 +24260,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -26982,12 +24361,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -27081,12 +24462,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSearch(
             search,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -27178,28 +24561,21 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateSearchAsync(
+
+    QFuture<QVariant> result = noteStore->updateSearchAsync(
         search,
         ctx);
 
-    NoteStoreUpdateSearchAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateSearchAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateSearchAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
@@ -27284,31 +24660,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSearchAsync(
+        QFuture<QVariant> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        NoteStoreUpdateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -27402,31 +24771,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSearchAsync(
+        QFuture<QVariant> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        NoteStoreUpdateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -27519,31 +24881,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSearchAsync(
+        QFuture<QVariant> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        NoteStoreUpdateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -27636,31 +24991,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSearchAsync(
+        QFuture<QVariant> result = noteStore->updateSearchAsync(
             search,
             ctx);
 
-        NoteStoreUpdateSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -27753,9 +25101,11 @@ void NoteStoreTester::shouldExecuteExpungeSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->expungeSearch(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -27841,12 +25191,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -27941,12 +25293,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -28040,12 +25394,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -28139,12 +25495,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearch()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeSearch(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -28236,28 +25594,21 @@ void NoteStoreTester::shouldExecuteExpungeSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->expungeSearchAsync(
+
+    QFuture<QVariant> result = noteStore->expungeSearchAsync(
         guid,
         ctx);
 
-    NoteStoreExpungeSearchAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreExpungeSearchAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreExpungeSearchAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
@@ -28342,31 +25693,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeSearchAsync(
+        QFuture<QVariant> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -28460,31 +25804,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeSearchAsync(
+        QFuture<QVariant> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -28577,31 +25914,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeSearchAsync(
+        QFuture<QVariant> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -28694,31 +26024,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeSearchAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeSearchAsync(
+        QFuture<QVariant> result = noteStore->expungeSearchAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeSearchAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeSearchAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -28814,10 +26137,12 @@ void NoteStoreTester::shouldExecuteFindNoteOffset()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->findNoteOffset(
         filter,
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -28906,6 +26231,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -28913,6 +26239,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffset()
             filter,
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -29010,6 +26337,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -29017,6 +26345,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffset()
             filter,
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -29113,6 +26442,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -29120,6 +26450,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffset()
             filter,
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -29216,6 +26547,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -29223,6 +26555,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffset()
             filter,
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -29317,29 +26650,22 @@ void NoteStoreTester::shouldExecuteFindNoteOffsetAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->findNoteOffsetAsync(
+
+    QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
         filter,
         guid,
         ctx);
 
-    NoteStoreFindNoteOffsetAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreFindNoteOffsetAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreFindNoteOffsetAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
@@ -29427,32 +26753,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteOffsetAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteOffsetAsync(
+        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        NoteStoreFindNoteOffsetAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -29549,32 +26868,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteOffsetAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteOffsetAsync(
+        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        NoteStoreFindNoteOffsetAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -29670,32 +26982,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteOffsetAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteOffsetAsync(
+        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        NoteStoreFindNoteOffsetAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -29791,32 +27096,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteOffsetAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteOffsetAsync(
+        QFuture<QVariant> result = noteStore->findNoteOffsetAsync(
             filter,
             guid,
             ctx);
 
-        NoteStoreFindNoteOffsetAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteOffsetAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -29918,12 +27216,14 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     NotesMetadataList res = noteStore->findNotesMetadata(
         filter,
         offset,
         maxNotes,
         resultSpec,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -30018,6 +27318,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -30027,6 +27328,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
             maxNotes,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -30130,6 +27432,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -30139,6 +27442,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadata()
             maxNotes,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -30241,6 +27545,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -30250,6 +27555,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadata()
             maxNotes,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -30352,6 +27658,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -30361,6 +27668,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadata()
             maxNotes,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -30461,31 +27769,24 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->findNotesMetadataAsync(
+
+    QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
         filter,
         offset,
         maxNotes,
         resultSpec,
         ctx);
 
-    NoteStoreFindNotesMetadataAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreFindNotesMetadataAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreFindNotesMetadataAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<NotesMetadataList>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
@@ -30579,34 +27880,27 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNotesMetadataAsync(
+        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        NoteStoreFindNotesMetadataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -30709,34 +28003,27 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNotesMetadataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNotesMetadataAsync(
+        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        NoteStoreFindNotesMetadataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -30838,34 +28125,27 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNotesMetadataAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNotesMetadataAsync(
+        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        NoteStoreFindNotesMetadataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -30967,34 +28247,27 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNotesMetadataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNotesMetadataAsync(
+        QFuture<QVariant> result = noteStore->findNotesMetadataAsync(
             filter,
             offset,
             maxNotes,
             resultSpec,
             ctx);
 
-        NoteStoreFindNotesMetadataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNotesMetadataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -31090,10 +28363,12 @@ void NoteStoreTester::shouldExecuteFindNoteCounts()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     NoteCollectionCounts res = noteStore->findNoteCounts(
         filter,
         withTrash,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -31182,6 +28457,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -31189,6 +28465,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCounts()
             filter,
             withTrash,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -31286,6 +28563,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -31293,6 +28571,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCounts()
             filter,
             withTrash,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -31389,6 +28668,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -31396,6 +28676,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCounts()
             filter,
             withTrash,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -31492,6 +28773,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -31499,6 +28781,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCounts()
             filter,
             withTrash,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -31593,29 +28876,22 @@ void NoteStoreTester::shouldExecuteFindNoteCountsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->findNoteCountsAsync(
+
+    QFuture<QVariant> result = noteStore->findNoteCountsAsync(
         filter,
         withTrash,
         ctx);
 
-    NoteStoreFindNoteCountsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreFindNoteCountsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreFindNoteCountsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<NoteCollectionCounts>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
@@ -31703,32 +28979,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNoteCountsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteCountsAsync(
+        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        NoteStoreFindNoteCountsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -31825,32 +29094,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindNoteCountsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteCountsAsync(
+        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        NoteStoreFindNoteCountsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -31946,32 +29208,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindNoteCountsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteCountsAsync(
+        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        NoteStoreFindNoteCountsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -32067,32 +29322,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindNoteCountsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findNoteCountsAsync(
+        QFuture<QVariant> result = noteStore->findNoteCountsAsync(
             filter,
             withTrash,
             ctx);
 
-        NoteStoreFindNoteCountsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindNoteCountsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -32188,10 +29436,12 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Note res = noteStore->getNoteWithResultSpec(
         guid,
         resultSpec,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -32280,6 +29530,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -32287,6 +29538,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
             guid,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -32384,6 +29636,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -32391,6 +29644,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpec()
             guid,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -32487,6 +29741,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -32494,6 +29749,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpec(
             guid,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -32590,6 +29846,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -32597,6 +29854,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpec()
             guid,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -32691,29 +29949,22 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteWithResultSpecAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
         guid,
         resultSpec,
         ctx);
 
-    NoteStoreGetNoteWithResultSpecAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync()
@@ -32801,32 +30052,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        NoteStoreGetNoteWithResultSpecAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -32923,32 +30167,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteWithResultSpecAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        NoteStoreGetNoteWithResultSpecAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -33044,32 +30281,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteWithResultSpecA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        NoteStoreGetNoteWithResultSpecAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -33165,32 +30395,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteWithResultSpecAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteWithResultSpecAsync(
+        QFuture<QVariant> result = noteStore->getNoteWithResultSpecAsync(
             guid,
             resultSpec,
             ctx);
 
-        NoteStoreGetNoteWithResultSpecAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteWithResultSpecAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -33295,6 +30518,7 @@ void NoteStoreTester::shouldExecuteGetNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Note res = noteStore->getNote(
         guid,
         withContent,
@@ -33302,6 +30526,7 @@ void NoteStoreTester::shouldExecuteGetNote()
         withResourcesRecognition,
         withResourcesAlternateData,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -33399,6 +30624,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -33409,6 +30635,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -33515,6 +30742,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -33525,6 +30753,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNote()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -33630,6 +30859,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -33640,6 +30870,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNote()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -33745,6 +30976,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -33755,6 +30987,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNote()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -33858,7 +31091,8 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteAsync(
         guid,
         withContent,
         withResourcesData,
@@ -33866,24 +31100,16 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
         withResourcesAlternateData,
         ctx);
 
-    NoteStoreGetNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
@@ -33980,10 +31206,11 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteAsync(
+        QFuture<QVariant> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -33991,24 +31218,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -34114,10 +31333,11 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteAsync(
+        QFuture<QVariant> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -34125,24 +31345,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -34247,10 +31459,11 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteAsync(
+        QFuture<QVariant> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -34258,24 +31471,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -34380,10 +31585,11 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteAsync(
+        QFuture<QVariant> result = noteStore->getNoteAsync(
             guid,
             withContent,
             withResourcesData,
@@ -34391,24 +31597,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -34501,9 +31699,11 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     LazyMap res = noteStore->getNoteApplicationData(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -34589,12 +31789,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getNoteApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -34689,12 +31891,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getNoteApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -34788,12 +31992,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getNoteApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -34887,12 +32093,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getNoteApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -34984,28 +32192,21 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteApplicationDataAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
         guid,
         ctx);
 
-    NoteStoreGetNoteApplicationDataAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteApplicationDataAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteApplicationDataAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<LazyMap>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsync()
@@ -35090,31 +32291,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -35208,31 +32402,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -35325,31 +32512,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -35442,31 +32622,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -35562,10 +32735,12 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntry()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QString res = noteStore->getNoteApplicationDataEntry(
         guid,
         key,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -35654,6 +32829,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -35661,6 +32837,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -35758,6 +32935,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -35765,6 +32943,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -35861,6 +33040,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -35868,6 +33048,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -35964,6 +33145,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -35971,6 +33153,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntry(
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -36065,29 +33248,22 @@ void NoteStoreTester::shouldExecuteGetNoteApplicationDataEntryAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteApplicationDataEntryAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QString>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntryAsync()
@@ -36175,32 +33351,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteApplicationDataEntr
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -36297,32 +33466,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -36418,32 +33580,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -36539,32 +33694,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteApplicationDataEntryA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -36663,11 +33811,13 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntry()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->setNoteApplicationDataEntry(
         guid,
         key,
         value,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -36759,6 +33909,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -36767,6 +33918,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -36867,6 +34019,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -36875,6 +34028,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -36974,6 +34128,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -36982,6 +34137,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -37081,6 +34237,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -37089,6 +34246,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntry(
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -37186,30 +34344,23 @@ void NoteStoreTester::shouldExecuteSetNoteApplicationDataEntryAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->setNoteApplicationDataEntryAsync(
+
+    QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
         guid,
         key,
         value,
         ctx);
 
-    NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntryAsync()
@@ -37300,33 +34451,26 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNoteApplicationDataEntr
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -37426,33 +34570,26 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNoteApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -37551,33 +34688,26 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -37676,33 +34806,26 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNoteApplicationDataEntryA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setNoteApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -37798,10 +34921,12 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntry()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->unsetNoteApplicationDataEntry(
         guid,
         key,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -37890,6 +35015,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -37897,6 +35023,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -37994,6 +35121,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -38001,6 +35129,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -38097,6 +35226,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -38104,6 +35234,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -38200,6 +35331,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -38207,6 +35339,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -38301,29 +35434,22 @@ void NoteStoreTester::shouldExecuteUnsetNoteApplicationDataEntryAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->unsetNoteApplicationDataEntryAsync(
+
+    QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEntryAsync()
@@ -38411,32 +35537,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetNoteApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -38533,32 +35652,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetNoteApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -38654,32 +35766,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetNoteApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -38775,32 +35880,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetNoteApplicationDataEntr
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetNoteApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetNoteApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetNoteApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -38893,9 +35991,11 @@ void NoteStoreTester::shouldExecuteGetNoteContent()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QString res = noteStore->getNoteContent(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -38981,12 +36081,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContent()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getNoteContent(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -39081,12 +36183,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContent()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getNoteContent(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -39180,12 +36284,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContent()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getNoteContent(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -39279,12 +36385,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContent()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getNoteContent(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -39376,28 +36484,21 @@ void NoteStoreTester::shouldExecuteGetNoteContentAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteContentAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteContentAsync(
         guid,
         ctx);
 
-    NoteStoreGetNoteContentAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteContentAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteContentAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QString>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
@@ -39482,31 +36583,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteContentAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteContentAsync(
+        QFuture<QVariant> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteContentAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -39600,31 +36694,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteContentAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteContentAsync(
+        QFuture<QVariant> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteContentAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -39717,31 +36804,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteContentAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteContentAsync(
+        QFuture<QVariant> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteContentAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -39834,31 +36914,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteContentAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteContentAsync(
+        QFuture<QVariant> result = noteStore->getNoteContentAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteContentAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteContentAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -39957,11 +37030,13 @@ void NoteStoreTester::shouldExecuteGetNoteSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QString res = noteStore->getNoteSearchText(
         guid,
         noteOnly,
         tokenizeForIndexing,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -40053,6 +37128,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -40061,6 +37137,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchText()
             noteOnly,
             tokenizeForIndexing,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -40161,6 +37238,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -40169,6 +37247,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchText()
             noteOnly,
             tokenizeForIndexing,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -40268,6 +37347,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -40276,6 +37356,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchText()
             noteOnly,
             tokenizeForIndexing,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -40375,6 +37456,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -40383,6 +37465,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchText()
             noteOnly,
             tokenizeForIndexing,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -40480,30 +37563,23 @@ void NoteStoreTester::shouldExecuteGetNoteSearchTextAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteSearchTextAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
         guid,
         noteOnly,
         tokenizeForIndexing,
         ctx);
 
-    NoteStoreGetNoteSearchTextAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteSearchTextAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteSearchTextAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QString>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
@@ -40594,33 +37670,26 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteSearchTextAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        NoteStoreGetNoteSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -40720,33 +37789,26 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteSearchTextAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        NoteStoreGetNoteSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -40845,33 +37907,26 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteSearchTextAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        NoteStoreGetNoteSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -40970,33 +38025,26 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteSearchTextAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getNoteSearchTextAsync(
             guid,
             noteOnly,
             tokenizeForIndexing,
             ctx);
 
-        NoteStoreGetNoteSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -41089,9 +38137,11 @@ void NoteStoreTester::shouldExecuteGetResourceSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QString res = noteStore->getResourceSearchText(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -41177,12 +38227,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getResourceSearchText(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -41277,12 +38329,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getResourceSearchText(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -41376,12 +38430,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchText(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getResourceSearchText(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -41475,12 +38531,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchText()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->getResourceSearchText(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -41572,28 +38630,21 @@ void NoteStoreTester::shouldExecuteGetResourceSearchTextAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceSearchTextAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
         guid,
         ctx);
 
-    NoteStoreGetResourceSearchTextAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceSearchTextAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceSearchTextAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QString>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync()
@@ -41678,31 +38729,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceSearchTextAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -41796,31 +38840,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceSearchTextAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -41913,31 +38950,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceSearchTextA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -42030,31 +39060,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceSearchTextAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceSearchTextAsync(
+        QFuture<QVariant> result = noteStore->getResourceSearchTextAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceSearchTextAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceSearchTextAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -42150,9 +39173,11 @@ void NoteStoreTester::shouldExecuteGetNoteTagNames()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QStringList res = noteStore->getNoteTagNames(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -42238,12 +39263,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNames()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QStringList res = noteStore->getNoteTagNames(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -42338,12 +39365,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNames()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QStringList res = noteStore->getNoteTagNames(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -42437,12 +39466,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNames()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QStringList res = noteStore->getNoteTagNames(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -42536,12 +39567,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNames()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QStringList res = noteStore->getNoteTagNames(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -42636,28 +39669,21 @@ void NoteStoreTester::shouldExecuteGetNoteTagNamesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteTagNamesAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
         guid,
         ctx);
 
-    NoteStoreGetNoteTagNamesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteTagNamesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteTagNamesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QStringList>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
@@ -42742,31 +39768,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteTagNamesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteTagNamesAsync(
+        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteTagNamesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -42860,31 +39879,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteTagNamesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteTagNamesAsync(
+        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteTagNamesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -42977,31 +39989,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteTagNamesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteTagNamesAsync(
+        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteTagNamesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -43094,31 +40099,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteTagNamesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteTagNamesAsync(
+        QFuture<QVariant> result = noteStore->getNoteTagNamesAsync(
             guid,
             ctx);
 
-        NoteStoreGetNoteTagNamesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteTagNamesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -43211,9 +40209,11 @@ void NoteStoreTester::shouldExecuteCreateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Note res = noteStore->createNote(
         note,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -43299,12 +40299,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->createNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -43399,12 +40401,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->createNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -43498,12 +40502,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->createNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -43597,12 +40603,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->createNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -43694,28 +40702,21 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->createNoteAsync(
+
+    QFuture<QVariant> result = noteStore->createNoteAsync(
         note,
         ctx);
 
-    NoteStoreCreateNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCreateNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCreateNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
@@ -43800,31 +40801,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNoteAsync(
+        QFuture<QVariant> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        NoteStoreCreateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -43918,31 +40912,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNoteAsync(
+        QFuture<QVariant> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        NoteStoreCreateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -44035,31 +41022,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNoteAsync(
+        QFuture<QVariant> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        NoteStoreCreateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -44152,31 +41132,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createNoteAsync(
+        QFuture<QVariant> result = noteStore->createNoteAsync(
             note,
             ctx);
 
-        NoteStoreCreateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -44269,9 +41242,11 @@ void NoteStoreTester::shouldExecuteUpdateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Note res = noteStore->updateNote(
         note,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -44357,12 +41332,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->updateNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -44457,12 +41434,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->updateNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -44556,12 +41535,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->updateNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -44655,12 +41636,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         Note res = noteStore->updateNote(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -44752,28 +41735,21 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateNoteAsync(
+
+    QFuture<QVariant> result = noteStore->updateNoteAsync(
         note,
         ctx);
 
-    NoteStoreUpdateNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
@@ -44858,31 +41834,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteAsync(
+        QFuture<QVariant> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -44976,31 +41945,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteAsync(
+        QFuture<QVariant> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -45093,31 +42055,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteAsync(
+        QFuture<QVariant> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -45210,31 +42165,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteAsync(
+        QFuture<QVariant> result = noteStore->updateNoteAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -45327,9 +42275,11 @@ void NoteStoreTester::shouldExecuteDeleteNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->deleteNote(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -45415,12 +42365,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->deleteNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -45515,12 +42467,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->deleteNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -45614,12 +42568,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->deleteNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -45713,12 +42669,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->deleteNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -45810,28 +42768,21 @@ void NoteStoreTester::shouldExecuteDeleteNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->deleteNoteAsync(
+
+    QFuture<QVariant> result = noteStore->deleteNoteAsync(
         guid,
         ctx);
 
-    NoteStoreDeleteNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreDeleteNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreDeleteNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
@@ -45916,31 +42867,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInDeleteNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->deleteNoteAsync(
+        QFuture<QVariant> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        NoteStoreDeleteNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -46034,31 +42978,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInDeleteNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->deleteNoteAsync(
+        QFuture<QVariant> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        NoteStoreDeleteNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -46151,31 +43088,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInDeleteNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->deleteNoteAsync(
+        QFuture<QVariant> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        NoteStoreDeleteNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -46268,31 +43198,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInDeleteNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->deleteNoteAsync(
+        QFuture<QVariant> result = noteStore->deleteNoteAsync(
             guid,
             ctx);
 
-        NoteStoreDeleteNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreDeleteNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -46385,9 +43308,11 @@ void NoteStoreTester::shouldExecuteExpungeNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->expungeNote(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -46473,12 +43398,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -46573,12 +43500,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -46672,12 +43601,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -46771,12 +43702,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -46868,28 +43801,21 @@ void NoteStoreTester::shouldExecuteExpungeNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->expungeNoteAsync(
+
+    QFuture<QVariant> result = noteStore->expungeNoteAsync(
         guid,
         ctx);
 
-    NoteStoreExpungeNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreExpungeNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreExpungeNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
@@ -46974,31 +43900,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNoteAsync(
+        QFuture<QVariant> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -47092,31 +44011,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNoteAsync(
+        QFuture<QVariant> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -47209,31 +44121,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNoteAsync(
+        QFuture<QVariant> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -47326,31 +44231,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeNoteAsync(
+        QFuture<QVariant> result = noteStore->expungeNoteAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -47446,10 +44344,12 @@ void NoteStoreTester::shouldExecuteCopyNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Note res = noteStore->copyNote(
         noteGuid,
         toNotebookGuid,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -47538,6 +44438,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -47545,6 +44446,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
             noteGuid,
             toNotebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -47642,6 +44544,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -47649,6 +44552,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNote()
             noteGuid,
             toNotebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -47745,6 +44649,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -47752,6 +44657,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNote()
             noteGuid,
             toNotebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -47848,6 +44754,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -47855,6 +44762,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNote()
             noteGuid,
             toNotebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -47949,29 +44857,22 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->copyNoteAsync(
+
+    QFuture<QVariant> result = noteStore->copyNoteAsync(
         noteGuid,
         toNotebookGuid,
         ctx);
 
-    NoteStoreCopyNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCopyNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCopyNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
@@ -48059,32 +44960,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->copyNoteAsync(
+        QFuture<QVariant> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        NoteStoreCopyNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -48181,32 +45075,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCopyNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->copyNoteAsync(
+        QFuture<QVariant> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        NoteStoreCopyNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -48302,32 +45189,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCopyNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->copyNoteAsync(
+        QFuture<QVariant> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        NoteStoreCopyNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -48423,32 +45303,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCopyNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->copyNoteAsync(
+        QFuture<QVariant> result = noteStore->copyNoteAsync(
             noteGuid,
             toNotebookGuid,
             ctx);
 
-        NoteStoreCopyNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCopyNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -48544,9 +45417,11 @@ void NoteStoreTester::shouldExecuteListNoteVersions()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<NoteVersionId> res = noteStore->listNoteVersions(
         noteGuid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -48632,12 +45507,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersions()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<NoteVersionId> res = noteStore->listNoteVersions(
             noteGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -48732,12 +45609,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersions()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<NoteVersionId> res = noteStore->listNoteVersions(
             noteGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -48831,12 +45710,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersions()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<NoteVersionId> res = noteStore->listNoteVersions(
             noteGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -48930,12 +45811,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersions()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<NoteVersionId> res = noteStore->listNoteVersions(
             noteGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -49030,28 +45913,21 @@ void NoteStoreTester::shouldExecuteListNoteVersionsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listNoteVersionsAsync(
+
+    QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
         noteGuid,
         ctx);
 
-    NoteStoreListNoteVersionsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListNoteVersionsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListNoteVersionsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QList<NoteVersionId>>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
@@ -49136,31 +46012,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNoteVersionsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNoteVersionsAsync(
+        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        NoteStoreListNoteVersionsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -49254,31 +46123,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListNoteVersionsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNoteVersionsAsync(
+        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        NoteStoreListNoteVersionsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -49371,31 +46233,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListNoteVersionsAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNoteVersionsAsync(
+        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        NoteStoreListNoteVersionsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -49488,31 +46343,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListNoteVersionsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listNoteVersionsAsync(
+        QFuture<QVariant> result = noteStore->listNoteVersionsAsync(
             noteGuid,
             ctx);
 
-        NoteStoreListNoteVersionsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListNoteVersionsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -49617,6 +46465,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Note res = noteStore->getNoteVersion(
         noteGuid,
         updateSequenceNum,
@@ -49624,6 +46473,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
         withResourcesRecognition,
         withResourcesAlternateData,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -49721,6 +46571,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -49731,6 +46582,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -49837,6 +46689,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -49847,6 +46700,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersion()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -49952,6 +46806,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -49962,6 +46817,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersion()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -50067,6 +46923,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -50077,6 +46934,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersion()
             withResourcesRecognition,
             withResourcesAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -50180,7 +47038,8 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNoteVersionAsync(
+
+    QFuture<QVariant> result = noteStore->getNoteVersionAsync(
         noteGuid,
         updateSequenceNum,
         withResourcesData,
@@ -50188,24 +47047,16 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
         withResourcesAlternateData,
         ctx);
 
-    NoteStoreGetNoteVersionAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNoteVersionAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNoteVersionAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
@@ -50302,10 +47153,11 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteVersionAsync(
+        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -50313,24 +47165,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteVersionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -50436,10 +47280,11 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteVersionAsync(
+        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -50447,24 +47292,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteVersionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -50569,10 +47406,11 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteVersionAsync(
+        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -50580,24 +47418,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteVersionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -50702,10 +47532,11 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNoteVersionAsync(
+        QFuture<QVariant> result = noteStore->getNoteVersionAsync(
             noteGuid,
             updateSequenceNum,
             withResourcesData,
@@ -50713,24 +47544,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNoteVersionAsync()
             withResourcesAlternateData,
             ctx);
 
-        NoteStoreGetNoteVersionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNoteVersionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -50835,6 +47658,7 @@ void NoteStoreTester::shouldExecuteGetResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Resource res = noteStore->getResource(
         guid,
         withData,
@@ -50842,6 +47666,7 @@ void NoteStoreTester::shouldExecuteGetResource()
         withAttributes,
         withAlternateData,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -50939,6 +47764,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -50949,6 +47775,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
             withAttributes,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -51055,6 +47882,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -51065,6 +47893,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResource()
             withAttributes,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -51170,6 +47999,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -51180,6 +48010,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResource()
             withAttributes,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -51285,6 +48116,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -51295,6 +48127,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResource()
             withAttributes,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -51398,7 +48231,8 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceAsync(
         guid,
         withData,
         withRecognition,
@@ -51406,24 +48240,16 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
         withAlternateData,
         ctx);
 
-    NoteStoreGetResourceAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Resource>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
@@ -51520,10 +48346,11 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAsync(
+        QFuture<QVariant> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -51531,24 +48358,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -51654,10 +48473,11 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAsync(
+        QFuture<QVariant> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -51665,24 +48485,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -51787,10 +48599,11 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAsync(
+        QFuture<QVariant> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -51798,24 +48611,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -51920,10 +48725,11 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAsync(
+        QFuture<QVariant> result = noteStore->getResourceAsync(
             guid,
             withData,
             withRecognition,
@@ -51931,24 +48737,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -52041,9 +48839,11 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     LazyMap res = noteStore->getResourceApplicationData(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -52129,12 +48929,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getResourceApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -52229,12 +49031,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getResourceApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -52328,12 +49132,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getResourceApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -52427,12 +49233,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LazyMap res = noteStore->getResourceApplicationData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -52524,28 +49332,21 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceApplicationDataAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
         guid,
         ctx);
 
-    NoteStoreGetResourceApplicationDataAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceApplicationDataAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceApplicationDataAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<LazyMap>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataAsync()
@@ -52630,31 +49431,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -52748,31 +49542,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -52865,31 +49652,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -52982,31 +49762,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceApplicationDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -53102,10 +49875,12 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntry()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QString res = noteStore->getResourceApplicationDataEntry(
         guid,
         key,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -53194,6 +49969,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -53201,6 +49977,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -53298,6 +50075,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -53305,6 +50083,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -53401,6 +50180,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -53408,6 +50188,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -53504,6 +50285,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -53511,6 +50293,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -53605,29 +50388,22 @@ void NoteStoreTester::shouldExecuteGetResourceApplicationDataEntryAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceApplicationDataEntryAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QString>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationDataEntryAsync()
@@ -53715,32 +50491,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -53837,32 +50606,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -53958,32 +50720,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -54079,32 +50834,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->getResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -54203,11 +50951,13 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntry()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->setResourceApplicationDataEntry(
         guid,
         key,
         value,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -54299,6 +51049,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -54307,6 +51058,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -54407,6 +51159,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -54415,6 +51168,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -54514,6 +51268,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -54522,6 +51277,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -54621,6 +51377,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -54629,6 +51386,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             key,
             value,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -54726,30 +51484,23 @@ void NoteStoreTester::shouldExecuteSetResourceApplicationDataEntryAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->setResourceApplicationDataEntryAsync(
+
+    QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
         guid,
         key,
         value,
         ctx);
 
-    NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationDataEntryAsync()
@@ -54840,33 +51591,26 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -54966,33 +51710,26 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -55091,33 +51828,26 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -55216,33 +51946,26 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetResourceApplicationDataEn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->setResourceApplicationDataEntryAsync(
             guid,
             key,
             value,
             ctx);
 
-        NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -55338,10 +52061,12 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntry()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->unsetResourceApplicationDataEntry(
         guid,
         key,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -55430,6 +52155,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -55437,6 +52163,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -55534,6 +52261,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -55541,6 +52269,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -55637,6 +52366,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -55644,6 +52374,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -55740,6 +52471,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -55747,6 +52479,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             guid,
             key,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -55841,29 +52574,22 @@ void NoteStoreTester::shouldExecuteUnsetResourceApplicationDataEntryAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->unsetResourceApplicationDataEntryAsync(
+
+    QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
         guid,
         key,
         ctx);
 
-    NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDataEntryAsync()
@@ -55951,32 +52677,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUnsetResourceApplicationDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -56073,32 +52792,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUnsetResourceApplication
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -56194,32 +52906,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUnsetResourceApplicati
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -56315,32 +53020,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUnsetResourceApplicationData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->unsetResourceApplicationDataEntryAsync(
+        QFuture<QVariant> result = noteStore->unsetResourceApplicationDataEntryAsync(
             guid,
             key,
             ctx);
 
-        NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUnsetResourceApplicationDataEntryAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -56433,9 +53131,11 @@ void NoteStoreTester::shouldExecuteUpdateResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->updateResource(
         resource,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -56521,12 +53221,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateResource(
             resource,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -56621,12 +53323,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateResource(
             resource,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -56720,12 +53424,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateResource(
             resource,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -56819,12 +53525,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateResource(
             resource,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -56916,28 +53624,21 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateResourceAsync(
+
+    QFuture<QVariant> result = noteStore->updateResourceAsync(
         resource,
         ctx);
 
-    NoteStoreUpdateResourceAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateResourceAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateResourceAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
@@ -57022,31 +53723,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateResourceAsync(
+        QFuture<QVariant> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        NoteStoreUpdateResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -57140,31 +53834,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateResourceAsync(
+        QFuture<QVariant> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        NoteStoreUpdateResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -57257,31 +53944,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateResourceAsync(
+        QFuture<QVariant> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        NoteStoreUpdateResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -57374,31 +54054,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateResourceAsync(
+        QFuture<QVariant> result = noteStore->updateResourceAsync(
             resource,
             ctx);
 
-        NoteStoreUpdateResourceAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateResourceAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -57491,9 +54164,11 @@ void NoteStoreTester::shouldExecuteGetResourceData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QByteArray res = noteStore->getResourceData(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -57579,12 +54254,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -57679,12 +54356,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -57778,12 +54457,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -57877,12 +54558,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -57974,28 +54657,21 @@ void NoteStoreTester::shouldExecuteGetResourceDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceDataAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceDataAsync(
         guid,
         ctx);
 
-    NoteStoreGetResourceDataAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceDataAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceDataAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QByteArray>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
@@ -58080,31 +54756,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -58198,31 +54867,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -58315,31 +54977,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -58432,31 +55087,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -58561,6 +55209,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Resource res = noteStore->getResourceByHash(
         noteGuid,
         contentHash,
@@ -58568,6 +55217,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
         withRecognition,
         withAlternateData,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -58665,6 +55315,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -58675,6 +55326,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
             withRecognition,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -58781,6 +55433,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -58791,6 +55444,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHash()
             withRecognition,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -58896,6 +55550,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -58906,6 +55561,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHash()
             withRecognition,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -59011,6 +55667,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -59021,6 +55678,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHash()
             withRecognition,
             withAlternateData,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -59124,7 +55782,8 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceByHashAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceByHashAsync(
         noteGuid,
         contentHash,
         withData,
@@ -59132,24 +55791,16 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
         withAlternateData,
         ctx);
 
-    NoteStoreGetResourceByHashAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceByHashAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceByHashAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Resource>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
@@ -59246,10 +55897,11 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceByHashAsync(
+        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -59257,24 +55909,16 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceByHashAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -59380,10 +56024,11 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceByHashAsync(
+        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -59391,24 +56036,16 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceByHashAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceByHashAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -59513,10 +56150,11 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceByHashAsync(
+        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -59524,24 +56162,16 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceByHashAsync
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceByHashAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -59646,10 +56276,11 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceByHashAsync(
+        QFuture<QVariant> result = noteStore->getResourceByHashAsync(
             noteGuid,
             contentHash,
             withData,
@@ -59657,24 +56288,16 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceByHashAsync()
             withAlternateData,
             ctx);
 
-        NoteStoreGetResourceByHashAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceByHashAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -59767,9 +56390,11 @@ void NoteStoreTester::shouldExecuteGetResourceRecognition()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QByteArray res = noteStore->getResourceRecognition(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -59855,12 +56480,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognition()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceRecognition(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -59955,12 +56582,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognition()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceRecognition(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -60054,12 +56683,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceRecognition(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -60153,12 +56784,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognition()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceRecognition(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -60250,28 +56883,21 @@ void NoteStoreTester::shouldExecuteGetResourceRecognitionAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceRecognitionAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
         guid,
         ctx);
 
-    NoteStoreGetResourceRecognitionAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceRecognitionAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceRecognitionAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QByteArray>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsync()
@@ -60356,31 +56982,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceRecognitionAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceRecognitionAsync(
+        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceRecognitionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -60474,31 +57093,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceRecognitionAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceRecognitionAsync(
+        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceRecognitionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -60591,31 +57203,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceRecognition
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceRecognitionAsync(
+        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceRecognitionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -60708,31 +57313,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceRecognitionAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceRecognitionAsync(
+        QFuture<QVariant> result = noteStore->getResourceRecognitionAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceRecognitionAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceRecognitionAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -60825,9 +57423,11 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QByteArray res = noteStore->getResourceAlternateData(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -60913,12 +57513,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceAlternateData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -61013,12 +57615,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceAlternateData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -61112,12 +57716,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceAlternateData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -61211,12 +57817,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateData()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QByteArray res = noteStore->getResourceAlternateData(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -61308,28 +57916,21 @@ void NoteStoreTester::shouldExecuteGetResourceAlternateDataAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceAlternateDataAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
         guid,
         ctx);
 
-    NoteStoreGetResourceAlternateDataAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceAlternateDataAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceAlternateDataAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QByteArray>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAsync()
@@ -61414,31 +58015,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAlternateDataAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAlternateDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -61532,31 +58126,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAlternateData
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAlternateDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -61649,31 +58236,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAlternateDa
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAlternateDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -61766,31 +58346,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAlternateDataAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAlternateDataAsync(
+        QFuture<QVariant> result = noteStore->getResourceAlternateDataAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAlternateDataAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAlternateDataAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -61883,9 +58456,11 @@ void NoteStoreTester::shouldExecuteGetResourceAttributes()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     ResourceAttributes res = noteStore->getResourceAttributes(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -61971,12 +58546,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributes()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ResourceAttributes res = noteStore->getResourceAttributes(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -62071,12 +58648,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributes()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ResourceAttributes res = noteStore->getResourceAttributes(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -62170,12 +58749,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributes(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ResourceAttributes res = noteStore->getResourceAttributes(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -62269,12 +58850,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributes()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ResourceAttributes res = noteStore->getResourceAttributes(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -62366,28 +58949,21 @@ void NoteStoreTester::shouldExecuteGetResourceAttributesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getResourceAttributesAsync(
+
+    QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
         guid,
         ctx);
 
-    NoteStoreGetResourceAttributesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetResourceAttributesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetResourceAttributesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<ResourceAttributes>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync()
@@ -62472,31 +59048,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAttributesAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAttributesAsync(
+        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAttributesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -62590,31 +59159,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetResourceAttributesAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAttributesAsync(
+        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAttributesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -62707,31 +59269,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetResourceAttributesA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAttributesAsync(
+        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAttributesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -62824,31 +59379,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetResourceAttributesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getResourceAttributesAsync(
+        QFuture<QVariant> result = noteStore->getResourceAttributesAsync(
             guid,
             ctx);
 
-        NoteStoreGetResourceAttributesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetResourceAttributesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -62942,10 +59490,12 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Notebook res = noteStore->getPublicNotebook(
         userId,
         publicUri,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -63033,6 +59583,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -63040,6 +59591,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
             userId,
             publicUri,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -63134,6 +59686,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -63141,6 +59694,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebook()
             userId,
             publicUri,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -63235,6 +59789,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -63242,6 +59797,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebook()
             userId,
             publicUri,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -63334,29 +59890,22 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getPublicNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
         userId,
         publicUri,
         ctx);
 
-    NoteStoreGetPublicNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetPublicNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetPublicNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
@@ -63443,32 +59992,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getPublicNotebookAsync(
+        QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
             userId,
             publicUri,
             ctx);
 
-        NoteStoreGetPublicNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetPublicNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetPublicNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -63562,32 +60104,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicNotebookAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getPublicNotebookAsync(
+        QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
             userId,
             publicUri,
             ctx);
 
-        NoteStoreGetPublicNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetPublicNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetPublicNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -63681,32 +60216,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetPublicNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getPublicNotebookAsync(
+        QFuture<QVariant> result = noteStore->getPublicNotebookAsync(
             userId,
             publicUri,
             ctx);
 
-        NoteStoreGetPublicNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetPublicNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetPublicNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -63802,10 +60330,12 @@ void NoteStoreTester::shouldExecuteShareNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SharedNotebook res = noteStore->shareNotebook(
         sharedNotebook,
         message,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -63894,6 +60424,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -63901,6 +60432,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
             sharedNotebook,
             message,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -63997,6 +60529,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -64004,6 +60537,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
             sharedNotebook,
             message,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -64101,6 +60635,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -64108,6 +60643,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
             sharedNotebook,
             message,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -64204,6 +60740,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -64211,6 +60748,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
             sharedNotebook,
             message,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -64305,29 +60843,22 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->shareNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->shareNotebookAsync(
         sharedNotebook,
         message,
         ctx);
 
-    NoteStoreShareNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreShareNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreShareNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<SharedNotebook>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
@@ -64415,32 +60946,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNotebookAsync(
+        QFuture<QVariant> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        NoteStoreShareNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -64536,32 +61060,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNotebookAsync(
+        QFuture<QVariant> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        NoteStoreShareNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -64658,32 +61175,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNotebookAsync(
+        QFuture<QVariant> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        NoteStoreShareNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -64779,32 +61289,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNotebookAsync(
+        QFuture<QVariant> result = noteStore->shareNotebookAsync(
             sharedNotebook,
             message,
             ctx);
 
-        NoteStoreShareNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -64897,9 +61400,11 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
         shareTemplate,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -64985,12 +61490,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
             shareTemplate,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -65084,12 +61591,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
             shareTemplate,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -65184,12 +61693,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
             shareTemplate,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -65289,12 +61800,14 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
             shareTemplate,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMInvalidContactsException & e)
@@ -65388,12 +61901,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         CreateOrUpdateNotebookSharesResult res = noteStore->createOrUpdateNotebookShares(
             shareTemplate,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -65485,28 +62000,21 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->createOrUpdateNotebookSharesAsync(
+
+    QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
         shareTemplate,
         ctx);
 
-    NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<CreateOrUpdateNotebookSharesResult>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -65591,31 +62099,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShar
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -65708,31 +62209,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateOrUpdateNotebook
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -65826,31 +62320,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateOrUpdateNotebookSh
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -65949,31 +62436,24 @@ void NoteStoreTester::shouldDeliverEDAMInvalidContactsExceptionInCreateOrUpdateN
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMInvalidContactsException & e)
     {
@@ -66066,31 +62546,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateOrUpdateNotebookShares
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createOrUpdateNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->createOrUpdateNotebookSharesAsync(
             shareTemplate,
             ctx);
 
-        NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateOrUpdateNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -66183,9 +62656,11 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->updateSharedNotebook(
         sharedNotebook,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -66271,12 +62746,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSharedNotebook(
             sharedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -66370,12 +62847,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSharedNotebook(
             sharedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -66470,12 +62949,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSharedNotebook(
             sharedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -66569,12 +63050,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateSharedNotebook(
             sharedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -66666,28 +63149,21 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateSharedNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
         sharedNotebook,
         ctx);
 
-    NoteStoreUpdateSharedNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateSharedNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateSharedNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync()
@@ -66772,31 +63248,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        NoteStoreUpdateSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -66889,31 +63358,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        NoteStoreUpdateSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -67007,31 +63469,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        NoteStoreUpdateSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -67124,31 +63579,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateSharedNotebookAsync(
             sharedNotebook,
             ctx);
 
-        NoteStoreUpdateSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -67244,10 +63692,12 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     Notebook res = noteStore->setNotebookRecipientSettings(
         notebookGuid,
         recipientSettings,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -67336,6 +63786,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -67343,6 +63794,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             notebookGuid,
             recipientSettings,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -67439,6 +63891,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -67446,6 +63899,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             notebookGuid,
             recipientSettings,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -67543,6 +63997,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -67550,6 +64005,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             notebookGuid,
             recipientSettings,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -67646,6 +64102,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -67653,6 +64110,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             notebookGuid,
             recipientSettings,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -67747,29 +64205,22 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->setNotebookRecipientSettingsAsync(
+
+    QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
         notebookGuid,
         recipientSettings,
         ctx);
 
-    NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettingsAsync()
@@ -67857,32 +64308,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettin
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -67978,32 +64422,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInSetNotebookRecipientSe
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -68100,32 +64537,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInSetNotebookRecipientSett
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -68221,32 +64651,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInSetNotebookRecipientSettings
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->setNotebookRecipientSettingsAsync(
+        QFuture<QVariant> result = noteStore->setNotebookRecipientSettingsAsync(
             notebookGuid,
             recipientSettings,
             ctx);
 
-        NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreSetNotebookRecipientSettingsAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -68339,8 +64762,10 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<SharedNotebook> res = noteStore->listSharedNotebooks(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -68423,11 +64848,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SharedNotebook> res = noteStore->listSharedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -68518,11 +64945,13 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SharedNotebook> res = noteStore->listSharedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -68614,11 +65043,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SharedNotebook> res = noteStore->listSharedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -68709,11 +65140,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<SharedNotebook> res = noteStore->listSharedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -68805,27 +65238,20 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listSharedNotebooksAsync(
+
+    QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
         ctx);
 
-    NoteStoreListSharedNotebooksAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListSharedNotebooksAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListSharedNotebooksAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QList<SharedNotebook>>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
@@ -68907,30 +65333,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSharedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        NoteStoreListSharedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -69020,30 +65439,23 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListSharedNotebooksAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSharedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        NoteStoreListSharedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -69134,30 +65546,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListSharedNotebooksAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSharedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        NoteStoreListSharedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -69247,30 +65652,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListSharedNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listSharedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listSharedNotebooksAsync(
             ctx);
 
-        NoteStoreListSharedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListSharedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -69363,9 +65761,11 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     LinkedNotebook res = noteStore->createLinkedNotebook(
         linkedNotebook,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -69451,12 +65851,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LinkedNotebook res = noteStore->createLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -69550,12 +65952,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LinkedNotebook res = noteStore->createLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -69650,12 +66054,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LinkedNotebook res = noteStore->createLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -69749,12 +66155,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         LinkedNotebook res = noteStore->createLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -69846,28 +66254,21 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->createLinkedNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
         linkedNotebook,
         ctx);
 
-    NoteStoreCreateLinkedNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreCreateLinkedNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreCreateLinkedNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<LinkedNotebook>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync()
@@ -69952,31 +66353,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreCreateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -70069,31 +66463,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreCreateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -70187,31 +66574,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreCreateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -70304,31 +66684,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->createLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->createLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreCreateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreCreateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -70421,9 +66794,11 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->updateLinkedNotebook(
         linkedNotebook,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -70509,12 +66884,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -70608,12 +66985,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -70708,12 +67087,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -70807,12 +67188,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->updateLinkedNotebook(
             linkedNotebook,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -70904,28 +67287,21 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateLinkedNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
         linkedNotebook,
         ctx);
 
-    NoteStoreUpdateLinkedNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync()
@@ -71010,31 +67386,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreUpdateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -71127,31 +67496,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreUpdateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -71245,31 +67607,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreUpdateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -71362,31 +67717,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->updateLinkedNotebookAsync(
             linkedNotebook,
             ctx);
 
-        NoteStoreUpdateLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -71479,8 +67827,10 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -71563,11 +67913,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -71658,11 +68010,13 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -71754,11 +68108,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -71849,11 +68205,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooks()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -71945,27 +68303,20 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->listLinkedNotebooksAsync(
+
+    QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
         ctx);
 
-    NoteStoreListLinkedNotebooksAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreListLinkedNotebooksAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreListLinkedNotebooksAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QList<LinkedNotebook>>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
@@ -72047,30 +68398,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        NoteStoreListLinkedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -72160,30 +68504,23 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInListLinkedNotebooksAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        NoteStoreListLinkedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -72274,30 +68611,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInListLinkedNotebooksAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        NoteStoreListLinkedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -72387,30 +68717,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInListLinkedNotebooksAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->listLinkedNotebooksAsync(
+        QFuture<QVariant> result = noteStore->listLinkedNotebooksAsync(
             ctx);
 
-        NoteStoreListLinkedNotebooksAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreListLinkedNotebooksAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -72503,9 +68826,11 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     qint32 res = noteStore->expungeLinkedNotebook(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -72591,12 +68916,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeLinkedNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -72690,12 +69017,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebook(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeLinkedNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -72790,12 +69119,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeLinkedNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -72889,12 +69220,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         qint32 res = noteStore->expungeLinkedNotebook(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -72986,28 +69319,21 @@ void NoteStoreTester::shouldExecuteExpungeLinkedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->expungeLinkedNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
         guid,
         ctx);
 
-    NoteStoreExpungeLinkedNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<qint32>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync()
@@ -73092,31 +69418,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInExpungeLinkedNotebookAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -73209,31 +69528,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInExpungeLinkedNotebookA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -73327,31 +69639,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInExpungeLinkedNotebookAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -73444,31 +69749,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInExpungeLinkedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->expungeLinkedNotebookAsync(
+        QFuture<QVariant> result = noteStore->expungeLinkedNotebookAsync(
             guid,
             ctx);
 
-        NoteStoreExpungeLinkedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreExpungeLinkedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -73561,9 +69859,11 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     AuthenticationResult res = noteStore->authenticateToSharedNotebook(
         shareKeyOrGlobalId,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -73649,12 +69949,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = noteStore->authenticateToSharedNotebook(
             shareKeyOrGlobalId,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -73748,12 +70050,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = noteStore->authenticateToSharedNotebook(
             shareKeyOrGlobalId,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -73848,12 +70152,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = noteStore->authenticateToSharedNotebook(
             shareKeyOrGlobalId,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -73947,12 +70253,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         AuthenticationResult res = noteStore->authenticateToSharedNotebook(
             shareKeyOrGlobalId,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -74044,28 +70352,21 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->authenticateToSharedNotebookAsync(
+
+    QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
         shareKeyOrGlobalId,
         ctx);
 
-    NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebookAsync()
@@ -74150,31 +70451,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -74267,31 +70561,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -74385,31 +70672,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -74502,31 +70782,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNotebook
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNotebookAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNotebookAsync(
             shareKeyOrGlobalId,
             ctx);
 
-        NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNotebookAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -74616,8 +70889,10 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     SharedNotebook res = noteStore->getSharedNotebookByAuth(
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -74700,11 +70975,13 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SharedNotebook res = noteStore->getSharedNotebookByAuth(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -74795,11 +71072,13 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SharedNotebook res = noteStore->getSharedNotebookByAuth(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -74891,11 +71170,13 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuth(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SharedNotebook res = noteStore->getSharedNotebookByAuth(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -74986,11 +71267,13 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuth()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         SharedNotebook res = noteStore->getSharedNotebookByAuth(
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -75079,27 +71362,20 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getSharedNotebookByAuthAsync(
+
+    QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
         ctx);
 
-    NoteStoreGetSharedNotebookByAuthAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<SharedNotebook>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsync()
@@ -75181,30 +71457,23 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsy
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        NoteStoreGetSharedNotebookByAuthAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -75294,30 +71563,23 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetSharedNotebookByAut
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        NoteStoreGetSharedNotebookByAuthAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -75408,30 +71670,23 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetSharedNotebookByAuthA
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        NoteStoreGetSharedNotebookByAuthAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -75521,30 +71776,23 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetSharedNotebookByAuthAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getSharedNotebookByAuthAsync(
+        QFuture<QVariant> result = noteStore->getSharedNotebookByAuthAsync(
             ctx);
 
-        NoteStoreGetSharedNotebookByAuthAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetSharedNotebookByAuthAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -75635,9 +71883,11 @@ void NoteStoreTester::shouldExecuteEmailNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     noteStore->emailNote(
         parameters,
         ctx);
+
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
@@ -75722,12 +71972,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->emailNote(
             parameters,
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -75820,12 +72072,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->emailNote(
             parameters,
             ctx);
+
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -75919,12 +72173,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->emailNote(
             parameters,
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -76017,12 +72273,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->emailNote(
             parameters,
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -76111,27 +72369,19 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->emailNoteAsync(
+
+    QFuture<QVariant> result = noteStore->emailNoteAsync(
         parameters,
         ctx);
 
-    NoteStoreEmailNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreEmailNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreEmailNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
@@ -76216,31 +72466,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->emailNoteAsync(
+        QFuture<QVariant> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        NoteStoreEmailNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -76333,31 +72576,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->emailNoteAsync(
+        QFuture<QVariant> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        NoteStoreEmailNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -76451,31 +72687,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->emailNoteAsync(
+        QFuture<QVariant> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        NoteStoreEmailNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -76568,31 +72797,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->emailNoteAsync(
+        QFuture<QVariant> result = noteStore->emailNoteAsync(
             parameters,
             ctx);
 
-        NoteStoreEmailNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreEmailNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -76685,9 +72907,11 @@ void NoteStoreTester::shouldExecuteShareNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     QString res = noteStore->shareNote(
         guid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -76773,12 +72997,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->shareNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -76872,12 +73098,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->shareNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -76972,12 +73200,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->shareNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -77071,12 +73301,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         QString res = noteStore->shareNote(
             guid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -77168,28 +73400,21 @@ void NoteStoreTester::shouldExecuteShareNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->shareNoteAsync(
+
+    QFuture<QVariant> result = noteStore->shareNoteAsync(
         guid,
         ctx);
 
-    NoteStoreShareNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreShareNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreShareNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<QString>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
@@ -77274,31 +73499,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNoteAsync(
+        QFuture<QVariant> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        NoteStoreShareNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -77391,31 +73609,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNoteAsync(
+        QFuture<QVariant> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        NoteStoreShareNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -77509,31 +73720,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNoteAsync(
+        QFuture<QVariant> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        NoteStoreShareNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -77626,31 +73830,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->shareNoteAsync(
+        QFuture<QVariant> result = noteStore->shareNoteAsync(
             guid,
             ctx);
 
-        NoteStoreShareNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreShareNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -77741,9 +73938,11 @@ void NoteStoreTester::shouldExecuteStopSharingNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     noteStore->stopSharingNote(
         guid,
         ctx);
+
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
@@ -77828,12 +74027,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->stopSharingNote(
             guid,
             ctx);
+
     }
     catch(const EDAMUserException & e)
     {
@@ -77926,12 +74127,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->stopSharingNote(
             guid,
             ctx);
+
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -78025,12 +74228,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->stopSharingNote(
             guid,
             ctx);
+
     }
     catch(const EDAMSystemException & e)
     {
@@ -78123,12 +74328,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         noteStore->stopSharingNote(
             guid,
             ctx);
+
     }
     catch(const ThriftException & e)
     {
@@ -78217,27 +74424,19 @@ void NoteStoreTester::shouldExecuteStopSharingNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->stopSharingNoteAsync(
+
+    QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
         guid,
         ctx);
 
-    NoteStoreStopSharingNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreStopSharingNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreStopSharingNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
-
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
@@ -78322,31 +74521,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInStopSharingNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->stopSharingNoteAsync(
+        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        NoteStoreStopSharingNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -78439,31 +74631,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInStopSharingNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->stopSharingNoteAsync(
+        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        NoteStoreStopSharingNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -78557,31 +74742,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInStopSharingNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->stopSharingNoteAsync(
+        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        NoteStoreStopSharingNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -78674,31 +74852,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInStopSharingNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->stopSharingNoteAsync(
+        QFuture<QVariant> result = noteStore->stopSharingNoteAsync(
             guid,
             ctx);
 
-        NoteStoreStopSharingNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreStopSharingNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -78794,10 +74965,12 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     AuthenticationResult res = noteStore->authenticateToSharedNote(
         guid,
         noteKey,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -78886,6 +75059,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -78893,6 +75067,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
             guid,
             noteKey,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -78989,6 +75164,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -78996,6 +75172,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             guid,
             noteKey,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -79093,6 +75270,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -79100,6 +75278,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             guid,
             noteKey,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -79196,6 +75375,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -79203,6 +75383,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNote()
             guid,
             noteKey,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -79297,29 +75478,22 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->authenticateToSharedNoteAsync(
+
+    QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
         guid,
         noteKey,
         ctx);
 
-    NoteStoreAuthenticateToSharedNoteAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAsync()
@@ -79407,32 +75581,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        NoteStoreAuthenticateToSharedNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -79528,32 +75695,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInAuthenticateToSharedNo
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        NoteStoreAuthenticateToSharedNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -79650,32 +75810,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToSharedNote
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        NoteStoreAuthenticateToSharedNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -79771,32 +75924,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInAuthenticateToSharedNoteAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->authenticateToSharedNoteAsync(
+        QFuture<QVariant> result = noteStore->authenticateToSharedNoteAsync(
             guid,
             noteKey,
             ctx);
 
-        NoteStoreAuthenticateToSharedNoteAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreAuthenticateToSharedNoteAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -79892,10 +76038,12 @@ void NoteStoreTester::shouldExecuteFindRelated()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     RelatedResult res = noteStore->findRelated(
         query,
         resultSpec,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -79984,6 +76132,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -79991,6 +76140,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
             query,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -80088,6 +76238,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -80095,6 +76246,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelated()
             query,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -80191,6 +76343,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -80198,6 +76351,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelated()
             query,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -80294,6 +76448,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
@@ -80301,6 +76456,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelated()
             query,
             resultSpec,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -80395,29 +76551,22 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->findRelatedAsync(
+
+    QFuture<QVariant> result = noteStore->findRelatedAsync(
         query,
         resultSpec,
         ctx);
 
-    NoteStoreFindRelatedAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreFindRelatedAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreFindRelatedAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<RelatedResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
@@ -80505,32 +76654,25 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findRelatedAsync(
+        QFuture<QVariant> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        NoteStoreFindRelatedAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -80627,32 +76769,25 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInFindRelatedAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findRelatedAsync(
+        QFuture<QVariant> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        NoteStoreFindRelatedAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -80748,32 +76883,25 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInFindRelatedAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findRelatedAsync(
+        QFuture<QVariant> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        NoteStoreFindRelatedAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -80869,32 +76997,25 @@ void NoteStoreTester::shouldDeliverThriftExceptionInFindRelatedAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->findRelatedAsync(
+        QFuture<QVariant> result = noteStore->findRelatedAsync(
             query,
             resultSpec,
             ctx);
 
-        NoteStoreFindRelatedAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreFindRelatedAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -80987,9 +77108,11 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     UpdateNoteIfUsnMatchesResult res = noteStore->updateNoteIfUsnMatches(
         note,
         ctx);
+
     compareValuesWithoutLocalIds(res, response);
 }
 
@@ -81075,12 +77198,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UpdateNoteIfUsnMatchesResult res = noteStore->updateNoteIfUsnMatches(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -81174,12 +77299,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UpdateNoteIfUsnMatchesResult res = noteStore->updateNoteIfUsnMatches(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -81274,12 +77401,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UpdateNoteIfUsnMatchesResult res = noteStore->updateNoteIfUsnMatches(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -81373,12 +77502,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         UpdateNoteIfUsnMatchesResult res = noteStore->updateNoteIfUsnMatches(
             note,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -81470,28 +77601,21 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->updateNoteIfUsnMatchesAsync(
+
+    QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
         note,
         ctx);
 
-    NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(valueFetcher.m_value, response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    compareValuesWithoutLocalIds(qvariant_cast<UpdateNoteIfUsnMatchesResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -81576,31 +77700,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -81693,31 +77810,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -81811,31 +77921,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -81928,31 +78031,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->updateNoteIfUsnMatchesAsync(
+        QFuture<QVariant> result = noteStore->updateNoteIfUsnMatchesAsync(
             note,
             ctx);
 
-        NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreUpdateNoteIfUsnMatchesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -82045,9 +78141,11 @@ void NoteStoreTester::shouldExecuteManageNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     ManageNotebookSharesResult res = noteStore->manageNotebookShares(
         parameters,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -82133,12 +78231,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ManageNotebookSharesResult res = noteStore->manageNotebookShares(
             parameters,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -82232,12 +78332,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ManageNotebookSharesResult res = noteStore->manageNotebookShares(
             parameters,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -82332,12 +78434,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ManageNotebookSharesResult res = noteStore->manageNotebookShares(
             parameters,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -82431,12 +78535,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ManageNotebookSharesResult res = noteStore->manageNotebookShares(
             parameters,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -82528,28 +78634,21 @@ void NoteStoreTester::shouldExecuteManageNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->manageNotebookSharesAsync(
+
+    QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
         parameters,
         ctx);
 
-    NoteStoreManageNotebookSharesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreManageNotebookSharesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreManageNotebookSharesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<ManageNotebookSharesResult>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync()
@@ -82634,31 +78733,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInManageNotebookSharesAsync(
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->manageNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        NoteStoreManageNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -82751,31 +78843,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInManageNotebookSharesAs
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->manageNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        NoteStoreManageNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -82869,31 +78954,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInManageNotebookSharesAsyn
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->manageNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        NoteStoreManageNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -82986,31 +79064,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInManageNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->manageNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->manageNotebookSharesAsync(
             parameters,
             ctx);
 
-        NoteStoreManageNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreManageNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {
@@ -83103,9 +79174,11 @@ void NoteStoreTester::shouldExecuteGetNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     ShareRelationships res = noteStore->getNotebookShares(
         notebookGuid,
         ctx);
+
     QVERIFY(res == response);
 }
 
@@ -83191,12 +79264,14 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ShareRelationships res = noteStore->getNotebookShares(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMUserException & e)
@@ -83290,12 +79365,14 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ShareRelationships res = noteStore->getNotebookShares(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMNotFoundException & e)
@@ -83390,12 +79467,14 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ShareRelationships res = noteStore->getNotebookShares(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const EDAMSystemException & e)
@@ -83489,12 +79568,14 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookShares()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
         ShareRelationships res = noteStore->getNotebookShares(
             notebookGuid,
             ctx);
+
         Q_UNUSED(res)
     }
     catch(const ThriftException & e)
@@ -83586,28 +79667,21 @@ void NoteStoreTester::shouldExecuteGetNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
-    AsyncResult * result = noteStore->getNotebookSharesAsync(
+
+    QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
         notebookGuid,
         ctx);
 
-    NoteStoreGetNotebookSharesAsyncValueFetcher valueFetcher;
-    QObject::connect(
-        result,
-        &AsyncResult::finished,
-        &valueFetcher,
-        &NoteStoreGetNotebookSharesAsyncValueFetcher::onFinished);
-
+    QFutureWatcher<QVariant> watcher;
     QEventLoop loop;
     QObject::connect(
-        &valueFetcher,
-        &NoteStoreGetNotebookSharesAsyncValueFetcher::finished,
-        &loop,
+        &watcher, &QFutureWatcher<QVariant>::finished, &loop,
         &QEventLoop::quit);
 
+    watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(valueFetcher.m_value == response);
-    QVERIFY(valueFetcher.m_exceptionData.get() == nullptr);
+    QVERIFY(qvariant_cast<ShareRelationships>(result.result()) == response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
@@ -83692,31 +79766,24 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreGetNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMUserException & e)
     {
@@ -83809,31 +79876,24 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetNotebookSharesAsync
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreGetNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMNotFoundException & e)
     {
@@ -83927,31 +79987,24 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreGetNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const EDAMSystemException & e)
     {
@@ -84044,31 +80097,24 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetNotebookSharesAsync()
             nullptr,
             nullptr,
             nullRetryPolicy()));
+
     bool caughtException = false;
     try
     {
-        AsyncResult * result = noteStore->getNotebookSharesAsync(
+        QFuture<QVariant> result = noteStore->getNotebookSharesAsync(
             notebookGuid,
             ctx);
 
-        NoteStoreGetNotebookSharesAsyncValueFetcher valueFetcher;
-        QObject::connect(
-            result,
-            &AsyncResult::finished,
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::onFinished);
-
+        QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-            &valueFetcher,
-            &NoteStoreGetNotebookSharesAsyncValueFetcher::finished,
-            &loop,
-            &QEventLoop::quit);
+                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+                &QEventLoop::quit);
 
+        watcher.setFuture(result);
         loop.exec();
 
-        QVERIFY(valueFetcher.m_exceptionData.get() != nullptr);
-        valueFetcher.m_exceptionData->throwException();
+        result.waitForFinished();
     }
     catch(const ThriftException & e)
     {

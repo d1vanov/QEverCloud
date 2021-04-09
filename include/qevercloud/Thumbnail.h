@@ -9,13 +9,14 @@
 #ifndef QEVERCLOUD_THUMBNAIL_H
 #define QEVERCLOUD_THUMBNAIL_H
 
-#include <qevercloud/AsyncResult.h>
 #include <qevercloud/Export.h>
 #include <qevercloud/Types.h>
 
 #include <QByteArray>
+#include <QFuture>
 #include <QNetworkAccessManager>
 #include <QString>
+#include <QVariant>
 
 #include <utility>
 
@@ -149,7 +150,7 @@ public:
         const qint64 timeoutMsec = 30000);
 
     /** Asynchronous version of @link download @endlink function*/
-    AsyncResult * downloadAsync(
+    QFuture<QVariant> downloadAsync(
         Guid guid, const bool isPublic = false, const bool isResourceGuid = false,
         const qint64 timeoutMsec = 30000);
 

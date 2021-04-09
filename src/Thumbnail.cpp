@@ -13,6 +13,10 @@
 #include <qevercloud/Thumbnail.h>
 #include <qevercloud/utility/Log.h>
 
+#include <QFutureWatcher>
+
+#include <memory>
+
 namespace qevercloud {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,7 +118,7 @@ QByteArray Thumbnail::download(
     return reply;
 }
 
-AsyncResult * Thumbnail::downloadAsync(
+QFuture<QVariant> Thumbnail::downloadAsync(
     Guid guid, const bool isPublic, const bool isResourceGuid,
     const qint64 timeoutMsec)
 {
@@ -124,32 +128,43 @@ AsyncResult * Thumbnail::downloadAsync(
 
     auto pair = createPostRequest(guid, isPublic, isResourceGuid);
     auto ctx = newRequestContext({}, timeoutMsec);
-    auto res = new AsyncResult(
-        pair.first,
-        pair.second,
+
+    auto future = sendRequest(
+        std::move(pair.first),
+        std::move(pair.second),
         ctx);
 
-    QObject::connect(
-        res,
-        &AsyncResult::finished,
-        [=] (QVariant value,
-             EverCloudExceptionDataPtr error,
-             IRequestContextPtr ctx)
-        {
-            Q_UNUSED(value)
-            Q_UNUSED(ctx)
+    auto pWatcher = std::make_unique<QFutureWatcher<QVariant>>();
 
-            if (!error) {
-                QEC_DEBUG("thumbnail", "Finished async download "
-                   << "for guid " << guid);
+    QObject::connect(
+        pWatcher.get(),
+        &QFutureWatcher<QVariant>::finished,
+        pWatcher.get(),
+        [guid, pWatcher = pWatcher.get()]
+        {
+            try
+            {
+                pWatcher->waitForFinished();
+            }
+            catch (const EverCloudException & e)
+            {
+                QEC_WARNING("thumbnail", "Async download for guid "
+                    << guid << " finished with error: "
+                    << e.exceptionData()->errorMessage);
+
+                pWatcher->deleteLater();
                 return;
             }
 
-            QEC_WARNING("thumbnail", "Async download for guid "
-               << guid << " finished with error: "
-               << error->errorMessage);
-        });
-    return res;
+            QEC_DEBUG("thumbnail", "Finished async download "
+                << "for guid " << guid);
+
+            pWatcher->deleteLater();
+        },
+        Qt::QueuedConnection);
+
+    Q_UNUSED(pWatcher.release());
+    return future;
 }
 
 std::pair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(
