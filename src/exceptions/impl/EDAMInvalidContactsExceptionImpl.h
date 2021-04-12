@@ -38,33 +38,6 @@ public:
     std::optional<QList<EDAMInvalidContactReason>> m_reasons;
 };
 
-class Q_DECL_HIDDEN EDAMInvalidContactsExceptionData::Impl final:
-    public QSharedData
-{
-public:
-    Impl() = default;
-    Impl(const EDAMInvalidContactsExceptionData::Impl & other) = default;
-    Impl(EDAMInvalidContactsExceptionData::Impl && other) noexcept = default;
-
-    explicit Impl(
-        QList<Contact> contacts,
-        std::optional<QString> parameter,
-        std::optional<QList<EDAMInvalidContactReason>> reasons) :
-        m_contacts(std::move(contacts)),
-        m_parameter(std::move(parameter)),
-        m_reasons(std::move(reasons))
-    {}
-
-    EDAMInvalidContactsExceptionData::Impl & operator=(const EDAMInvalidContactsExceptionData::Impl & other) = delete;
-    EDAMInvalidContactsExceptionData::Impl & operator=(EDAMInvalidContactsExceptionData::Impl && other) = delete;
-
-    ~Impl() noexcept = default;
-
-    QList<Contact> m_contacts;
-    std::optional<QString> m_parameter;
-    std::optional<QList<EDAMInvalidContactReason>> m_reasons;
-};
-
 } // namespace qevercloud
 
 #endif // QEVERCLOUD_GENERATED_EDAMINVALIDCONTACTSEXCEPTIONIMPL

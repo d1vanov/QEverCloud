@@ -53,16 +53,15 @@ quint64 exponentiallyIncreasedTimeoutMsec(
 
 struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
 {
-    [[nodiscard]] bool shouldRetry(
-        const EverCloudExceptionDataPtr & exceptionData) override
+    [[nodiscard]] bool shouldRetry(std::exception_ptr exc) override
     {
-        if (Q_UNLIKELY(!exceptionData)) {
+        if (Q_UNLIKELY(!exc)) {
             return true;
         }
 
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(exc);
         }
         catch(const NetworkException & e)
         {
@@ -122,10 +121,9 @@ struct Q_DECL_HIDDEN RetryPolicy: public IRetryPolicy
 
 struct Q_DECL_HIDDEN NullRetryPolicy: public IRetryPolicy
 {
-    [[nodiscard]] bool shouldRetry(
-        const EverCloudExceptionDataPtr & exceptionData) override
+    [[nodiscard]] bool shouldRetry(std::exception_ptr e) override
     {
-        Q_UNUSED(exceptionData)
+        Q_UNUSED(e)
         return false;
     }
 };
@@ -189,22 +187,20 @@ DurableService::SyncResult DurableService::executeSyncRequest(
         QEC_TRACE("durable_service", "Request details: "
             << syncRequest.m_description);
 
+        QString errorMessage;
         try {
             result = syncRequest.m_call(ctx);
         }
-        catch(const EverCloudException & e) {
-            result.second = e.exceptionData();
-        }
         catch(const std::exception & e) {
-            result.second = std::make_shared<EverCloudExceptionData>(
-                QString::fromLocal8Bit(e.what()));
+            errorMessage = QString::fromLocal8Bit(e.what());
+            result.second = std::current_exception();
             return result;
         }
 
         if (result.second)
         {
             QEC_WARNING("durable_service", "Sync request " << syncRequest.m_name
-                << " failed: " << result.second->errorMessage
+                << " failed: " << errorMessage
                 << "; request details: " << syncRequest.m_description);
 
             if (!m_retryPolicy->shouldRetry(result.second)) {
@@ -289,7 +285,7 @@ void DurableService::doExecuteAsyncRequest(
          pWatcher = pWatcher.get(), retryState]
         () mutable
         {
-            std::shared_ptr<EverCloudException> exception;
+            std::exception_ptr exception;
             try
             {
                 auto result = pWatcher->result();
@@ -303,19 +299,32 @@ void DurableService::doExecuteAsyncRequest(
                 pWatcher->deleteLater();
                 return;
             }
-            catch (const EverCloudException & e)
+            catch (const QException &)
             {
-                exception = std::shared_ptr<EverCloudException>(e.clone());
+                exception = std::current_exception();
             }
 
             Q_ASSERT_X(
                 exception,
                 "DurableService",
-                "Unexpectedly null pointer to EverCloudExceptionData");
+                "Unexpectedly null exception pointer");
 
-            if (!m_retryPolicy->shouldRetry(exception->exceptionData())) {
+            if (!m_retryPolicy->shouldRetry(exception)) {
                 QEC_WARNING("durable_service", "Error is not retriable");
-                resultPromisePtr->setException(*exception);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                resultPromisePtr->setException(exception);
+#else
+                try
+                {
+                    std::rethrow_exception(exception);
+                }
+                catch (const QException & e)
+                {
+                    resultPromisePtr->setException(e);
+                }
+#endif
+
                 resultPromisePtr->finish();
                 pWatcher->deleteLater();
                 return;
@@ -324,7 +333,20 @@ void DurableService::doExecuteAsyncRequest(
             --retryState.m_retryCount;
             if (!retryState.m_retryCount) {
                 QEC_WARNING("durable_service", "No retry attempts left");
-                resultPromisePtr->setException(*exception);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                resultPromisePtr->setException(exception);
+#else
+                try
+                {
+                    std::rethrow_exception(exception);
+                }
+                catch (const QException & e)
+                {
+                    resultPromisePtr->setException(e);
+                }
+#endif
+
                 resultPromisePtr->finish();
                 pWatcher->deleteLater();
                 return;
@@ -352,6 +374,7 @@ void DurableService::doExecuteAsyncRequest(
             doExecuteAsyncRequest(
                 std::move(asyncRequest), std::move(ctx),
                 std::move(retryState), std::move(*resultPromisePtr));
+
             resultPromisePtr.reset();
         };
 

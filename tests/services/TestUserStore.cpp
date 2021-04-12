@@ -127,7 +127,7 @@ public:
 Q_SIGNALS:
     void checkVersionRequestReady(
         bool value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCheckVersionRequestReceived(
@@ -146,13 +146,13 @@ public Q_SLOTS:
 
             Q_EMIT checkVersionRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT checkVersionRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -182,7 +182,7 @@ public:
 Q_SIGNALS:
     void getBootstrapInfoRequestReady(
         BootstrapInfo value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetBootstrapInfoRequestReceived(
@@ -197,13 +197,13 @@ public Q_SLOTS:
 
             Q_EMIT getBootstrapInfoRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getBootstrapInfoRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -239,7 +239,7 @@ public:
 Q_SIGNALS:
     void authenticateLongSessionRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onAuthenticateLongSessionRequestReceived(
@@ -266,13 +266,13 @@ public Q_SLOTS:
 
             Q_EMIT authenticateLongSessionRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT authenticateLongSessionRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -304,7 +304,7 @@ public:
 Q_SIGNALS:
     void completeTwoFactorAuthenticationRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCompleteTwoFactorAuthenticationRequestReceived(
@@ -323,13 +323,13 @@ public Q_SLOTS:
 
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT completeTwoFactorAuthenticationRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -357,7 +357,7 @@ public:
 
 Q_SIGNALS:
     void revokeLongSessionRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onRevokeLongSessionRequestReceived(
@@ -369,12 +369,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT revokeLongSessionRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT revokeLongSessionRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -403,7 +403,7 @@ public:
 Q_SIGNALS:
     void authenticateToBusinessRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onAuthenticateToBusinessRequestReceived(
@@ -416,13 +416,13 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToBusinessRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT authenticateToBusinessRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -451,7 +451,7 @@ public:
 Q_SIGNALS:
     void getUserRequestReady(
         User value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetUserRequestReceived(
@@ -464,13 +464,13 @@ public Q_SLOTS:
 
             Q_EMIT getUserRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getUserRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -500,7 +500,7 @@ public:
 Q_SIGNALS:
     void getPublicUserInfoRequestReady(
         PublicUserInfo value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetPublicUserInfoRequestReceived(
@@ -515,13 +515,13 @@ public Q_SLOTS:
 
             Q_EMIT getPublicUserInfoRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getPublicUserInfoRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -550,7 +550,7 @@ public:
 Q_SIGNALS:
     void getUserUrlsRequestReady(
         UserUrls value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetUserUrlsRequestReceived(
@@ -563,13 +563,13 @@ public Q_SLOTS:
 
             Q_EMIT getUserUrlsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getUserUrlsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -598,7 +598,7 @@ public:
 
 Q_SIGNALS:
     void inviteToBusinessRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onInviteToBusinessRequestReceived(
@@ -612,12 +612,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT inviteToBusinessRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT inviteToBusinessRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -646,7 +646,7 @@ public:
 
 Q_SIGNALS:
     void removeFromBusinessRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onRemoveFromBusinessRequestReceived(
@@ -660,12 +660,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT removeFromBusinessRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT removeFromBusinessRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -695,7 +695,7 @@ public:
 
 Q_SIGNALS:
     void updateBusinessUserIdentifierRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateBusinessUserIdentifierRequestReceived(
@@ -711,12 +711,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateBusinessUserIdentifierRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -745,7 +745,7 @@ public:
 Q_SIGNALS:
     void listBusinessUsersRequestReady(
         QList<UserProfile> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListBusinessUsersRequestReceived(
@@ -758,13 +758,13 @@ public Q_SLOTS:
 
             Q_EMIT listBusinessUsersRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listBusinessUsersRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -794,7 +794,7 @@ public:
 Q_SIGNALS:
     void listBusinessInvitationsRequestReady(
         QList<BusinessInvitation> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListBusinessInvitationsRequestReceived(
@@ -809,13 +809,13 @@ public Q_SLOTS:
 
             Q_EMIT listBusinessInvitationsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listBusinessInvitationsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -845,7 +845,7 @@ public:
 Q_SIGNALS:
     void getAccountLimitsRequestReady(
         AccountLimits value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetAccountLimitsRequestReceived(
@@ -860,13 +860,13 @@ public Q_SLOTS:
 
             Q_EMIT getAccountLimitsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getAccountLimitsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 

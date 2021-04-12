@@ -26,30 +26,4 @@ EDAMSystemExceptionAuthExpired * EDAMSystemExceptionAuthExpired::clone() const
     return e.release();
 }
 
-EverCloudExceptionDataPtr EDAMSystemExceptionAuthExpired::exceptionData() const
-{
-    return std::make_shared<EDAMSystemExceptionAuthExpiredData>(
-        QString::fromUtf8(what()),
-        errorCode(),
-        message(),
-        rateLimitDuration());
-}
-
-EDAMSystemExceptionAuthExpiredData::EDAMSystemExceptionAuthExpiredData(
-        QString error,
-        EDAMErrorCode errorCode,
-        std::optional<QString> message,
-        std::optional<qint32> rateLimitDuration) :
-    EDAMSystemExceptionData(error, errorCode, message, rateLimitDuration)
-{}
-
-void EDAMSystemExceptionAuthExpiredData::throwException() const
-{
-    EDAMSystemExceptionAuthExpired e;
-    e.setErrorCode(errorCode());
-    e.setMessage(message());
-    e.setRateLimitDuration(rateLimitDuration());
-    throw e;
-}
-
 } // namespace qevercloud

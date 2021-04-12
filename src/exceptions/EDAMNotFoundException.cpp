@@ -93,55 +93,6 @@ EDAMNotFoundException * EDAMNotFoundException::clone() const
     return e.release();
 }
 
-EverCloudExceptionDataPtr EDAMNotFoundException::exceptionData() const
-{
-    return std::make_shared<EDAMNotFoundExceptionData>(
-        QString::fromUtf8(what()),
-        identifier(),
-        key());
-}
-
-EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(
-    QString error,
-    std::optional<QString> identifier,
-    std::optional<QString> key):
-    EvernoteExceptionData(error),
-    d(new EDAMNotFoundExceptionData::Impl)
-{
-    d->m_identifier = std::move(identifier);
-    d->m_key = std::move(key);
-}
-
-const std::optional<QString> & EDAMNotFoundExceptionData::identifier() const noexcept
-{
-    return d->m_identifier;
-}
-
-void EDAMNotFoundExceptionData::setIdentifier(std::optional<QString> identifier)
-{
-    d->m_identifier = identifier;
-}
-
-const std::optional<QString> & EDAMNotFoundExceptionData::key() const noexcept
-{
-    return d->m_key;
-}
-
-void EDAMNotFoundExceptionData::setKey(std::optional<QString> key)
-{
-    d->m_key = key;
-}
-
-EDAMNotFoundExceptionData::~EDAMNotFoundExceptionData() noexcept {}
-
-void EDAMNotFoundExceptionData::throwException() const
-{
-    EDAMNotFoundException e;
-    e.setIdentifier(d->m_identifier);
-    e.setKey(d->m_key);
-    throw e;
-}
-
 bool operator==(const EDAMNotFoundException & lhs, const EDAMNotFoundException & rhs) noexcept
 {
     if (&lhs == &rhs) {

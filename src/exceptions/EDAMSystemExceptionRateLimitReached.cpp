@@ -26,29 +26,4 @@ EDAMSystemExceptionRateLimitReached * EDAMSystemExceptionRateLimitReached::clone
     return e.release();
 }
 
-EverCloudExceptionDataPtr EDAMSystemExceptionRateLimitReached::exceptionData() const
-{
-    return std::make_shared<EDAMSystemExceptionRateLimitReachedData>(
-        QString::fromUtf8(what()),
-        errorCode(),
-        message(),
-        rateLimitDuration());
-}
-
-EDAMSystemExceptionRateLimitReachedData::EDAMSystemExceptionRateLimitReachedData(
-        QString error, EDAMErrorCode errorCode,
-        std::optional<QString> message,
-        std::optional<qint32> rateLimitDuration) :
-    EDAMSystemExceptionData(error, errorCode, message, rateLimitDuration)
-{}
-
-void EDAMSystemExceptionRateLimitReachedData::throwException() const
-{
-    EDAMSystemExceptionRateLimitReached e;
-    e.setErrorCode(errorCode());
-    e.setMessage(message());
-    e.setRateLimitDuration(rateLimitDuration());
-    throw e;
-}
-
 } // namespace qevercloud

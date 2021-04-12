@@ -138,22 +138,4 @@ const char * NetworkException::what() const noexcept
     }
 }
 
-EverCloudExceptionDataPtr NetworkException::exceptionData() const
-{
-    return std::make_shared<NetworkExceptionData>(
-        QString::fromUtf8(what()), type());
-}
-
-NetworkExceptionData::NetworkExceptionData(
-        QString error,
-        QNetworkReply::NetworkError type) :
-    EverCloudExceptionData(error),
-    m_type(type)
-{}
-
-void NetworkExceptionData::throwException() const
-{
-    throw NetworkException(m_type, errorMessage);
-}
-
 } // namespace qevercloud

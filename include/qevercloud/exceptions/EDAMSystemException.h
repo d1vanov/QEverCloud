@@ -64,7 +64,6 @@ public:
     [[nodiscard]] const char * what() const noexcept override;
     void raise() const override;
     [[nodiscard]] EDAMSystemException * clone() const override;
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     Q_PROPERTY(EDAMErrorCode errorCode READ errorCode WRITE setErrorCode)
     Q_PROPERTY(std::optional<QString> message READ message WRITE setMessage)
@@ -77,40 +76,6 @@ private:
 
 [[nodiscard]] bool operator==(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept;
 [[nodiscard]] bool operator!=(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept;
-
-/**
- * Asynchronous API counterpart of EDAMSystemException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EDAMSystemExceptionData)
-public:
-    explicit EDAMSystemExceptionData(
-        QString error,
-        EDAMErrorCode errorCode,
-        std::optional<QString> message,
-        std::optional<qint32> rateLimitDuration);
-
-    ~EDAMSystemExceptionData() noexcept override;
-
-    [[nodiscard]] EDAMErrorCode errorCode() const noexcept;
-    void setErrorCode(EDAMErrorCode errorCode);
-
-    [[nodiscard]] const std::optional<QString> & message() const noexcept;
-    void setMessage(std::optional<QString> message);
-
-    [[nodiscard]] const std::optional<qint32> & rateLimitDuration() const noexcept;
-    [[nodiscard]] std::optional<qint32> & mutableRateLimitDuration();
-    void setRateLimitDuration(std::optional<qint32> rateLimitDuration);
-
-    virtual void throwException() const override;
-
-private:
-    class Impl;
-    QSharedDataPointer<Impl> d;
-};
 
 } // namespace qevercloud
 

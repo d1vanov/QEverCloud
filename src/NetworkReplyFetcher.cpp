@@ -7,7 +7,7 @@
 
 #include "NetworkReplyFetcher.h"
 
-#include <qevercloud/exceptions/EverCloudException.h>
+#include <qevercloud/exceptions/NetworkException.h>
 #include <qevercloud/utility/Log.h>
 
 #include <QtGlobal>
@@ -195,19 +195,18 @@ void NetworkReplyFetcher::setError(
 
 void NetworkReplyFetcher::finalize()
 {
-    EverCloudExceptionDataPtr error;
     QVariant result;
+    bool caughtException = false;
 
     try
     {
         if (m_errorType != QNetworkReply::NoError)
         {
-            error = std::make_shared<EverCloudExceptionData>(m_errorText);
+            throw NetworkException(m_errorType, m_errorText);
         }
         else if (m_httpStatusCode != 200)
         {
-            error = std::make_shared<EverCloudExceptionData>(
-                QString::fromUtf8("HTTP Status Code = %1")
+            throw EverCloudException(QString::fromUtf8("HTTP Status Code = %1")
                 .arg(m_httpStatusCode));
         }
         else
@@ -220,35 +219,21 @@ void NetworkReplyFetcher::finalize()
             }
         }
     }
-    catch(const EverCloudException & e)
-    {
-        error = e.exceptionData();
-    }
-    catch(const std::exception & e)
-    {
-        error = std::make_shared<EverCloudExceptionData>(
-            QString::fromUtf8("Exception of type \"%1\" with the message: %2")
-            .arg(QString::fromUtf8(typeid(e).name()), QString::fromUtf8(e.what())));
-    }
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     catch(...)
     {
-        error = std::make_shared<EverCloudExceptionData>(
-            QStringLiteral("Unknown exception"));
+        m_promise.setException(std::current_exception());
+        caughtException = true;
     }
+#else
+    catch(const QException & e)
+    {
+        m_promise.setException(e);
+        caughtException = true;
+    }
+#endif
 
-    if (error)
-    {
-        try
-        {
-            error->throwException();
-        }
-        catch (const EverCloudException & e)
-        {
-            m_promise.setException(e);
-        }
-    }
-    else
-    {
+    if (!caughtException) {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         m_promise.addResult(std::move(result));
 #else

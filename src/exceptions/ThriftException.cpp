@@ -127,24 +127,6 @@ const char * ThriftException::what() const noexcept
     }
 }
 
-EverCloudExceptionDataPtr ThriftException::exceptionData() const
-{
-    return std::make_shared<ThriftExceptionData>(
-        QString::fromUtf8(what()), type());
-}
-
-ThriftExceptionData::ThriftExceptionData(
-        QString error,
-        ThriftException::Type type) :
-    EverCloudExceptionData(error),
-    m_type(type)
-{}
-
-void ThriftExceptionData::throwException() const
-{
-    throw ThriftException(m_type, errorMessage);
-}
-
 ThriftException readThriftException(ThriftBinaryBufferReader & reader)
 {
     QString name;

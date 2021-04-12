@@ -18,6 +18,7 @@
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/Types.h>
 #include <QObject>
+#include <exception>
 #include <functional>
 
 namespace qevercloud {
@@ -598,296 +599,296 @@ public Q_SLOTS:
     // Slots for replies to requests
     void onGetSyncStateRequestReady(
         SyncState value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetFilteredSyncChunkRequestReady(
         SyncChunk value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetLinkedNotebookSyncStateRequestReady(
         SyncState value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetLinkedNotebookSyncChunkRequestReady(
         SyncChunk value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListNotebooksRequestReady(
         QList<Notebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListAccessibleBusinessNotebooksRequestReady(
         QList<Notebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetDefaultNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCreateNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onExpungeNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListTagsRequestReady(
         QList<Tag> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListTagsByNotebookRequestReady(
         QList<Tag> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetTagRequestReady(
         Tag value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCreateTagRequestReady(
         Tag value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateTagRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUntagAllRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onExpungeTagRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListSearchesRequestReady(
         QList<SavedSearch> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetSearchRequestReady(
         SavedSearch value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCreateSearchRequestReady(
         SavedSearch value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateSearchRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onExpungeSearchRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onFindNoteOffsetRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onFindNotesMetadataRequestReady(
         NotesMetadataList value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onFindNoteCountsRequestReady(
         NoteCollectionCounts value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteWithResultSpecRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteApplicationDataRequestReady(
         LazyMap value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteApplicationDataEntryRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onSetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUnsetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteContentRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteSearchTextRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceSearchTextRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteTagNamesRequestReady(
         QStringList value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCreateNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onDeleteNoteRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onExpungeNoteRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCopyNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListNoteVersionsRequestReady(
         QList<NoteVersionId> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNoteVersionRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceRequestReady(
         Resource value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceApplicationDataRequestReady(
         LazyMap value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceApplicationDataEntryRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onSetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUnsetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateResourceRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceDataRequestReady(
         QByteArray value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceByHashRequestReady(
         Resource value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceRecognitionRequestReady(
         QByteArray value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceAlternateDataRequestReady(
         QByteArray value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetResourceAttributesRequestReady(
         ResourceAttributes value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetPublicNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onShareNotebookRequestReady(
         SharedNotebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCreateOrUpdateNotebookSharesRequestReady(
         CreateOrUpdateNotebookSharesResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateSharedNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onSetNotebookRecipientSettingsRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListSharedNotebooksRequestReady(
         QList<SharedNotebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCreateLinkedNotebookRequestReady(
         LinkedNotebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateLinkedNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListLinkedNotebooksRequestReady(
         QList<LinkedNotebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onExpungeLinkedNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onAuthenticateToSharedNotebookRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetSharedNotebookByAuthRequestReady(
         SharedNotebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onEmailNoteRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onShareNoteRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onStopSharingNoteRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onAuthenticateToSharedNoteRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onFindRelatedRequestReady(
         RelatedResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateNoteIfUsnMatchesRequestReady(
         UpdateNoteIfUsnMatchesResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onManageNotebookSharesRequestReady(
         ManageNotebookSharesResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetNotebookSharesRequestReady(
         ShareRelationships value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 };
 

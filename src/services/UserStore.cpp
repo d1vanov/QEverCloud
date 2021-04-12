@@ -3187,7 +3187,7 @@ bool DurableUserStore::checkVersion(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toBool();
@@ -3263,7 +3263,7 @@ BootstrapInfo DurableUserStore::getBootstrapInfo(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<BootstrapInfo>();
@@ -3348,7 +3348,7 @@ AuthenticationResult DurableUserStore::authenticateLongSession(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<AuthenticationResult>();
@@ -3438,7 +3438,7 @@ AuthenticationResult DurableUserStore::completeTwoFactorAuthentication(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<AuthenticationResult>();
@@ -3505,7 +3505,7 @@ void DurableUserStore::revokeLongSession(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -3559,7 +3559,7 @@ AuthenticationResult DurableUserStore::authenticateToBusiness(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<AuthenticationResult>();
@@ -3613,7 +3613,7 @@ User DurableUserStore::getUser(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<User>();
@@ -3675,7 +3675,7 @@ PublicUserInfo DurableUserStore::getPublicUserInfo(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<PublicUserInfo>();
@@ -3737,7 +3737,7 @@ UserUrls DurableUserStore::getUserUrls(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<UserUrls>();
@@ -3799,7 +3799,7 @@ void DurableUserStore::inviteToBusiness(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -3869,7 +3869,7 @@ void DurableUserStore::removeFromBusiness(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -3942,7 +3942,7 @@ void DurableUserStore::updateBusinessUserIdentifier(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -4007,7 +4007,7 @@ QList<UserProfile> DurableUserStore::listBusinessUsers(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<UserProfile>>();
@@ -4069,7 +4069,7 @@ QList<BusinessInvitation> DurableUserStore::listBusinessInvitations(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<BusinessInvitation>>();
@@ -4139,7 +4139,7 @@ AccountLimits DurableUserStore::getAccountLimits(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<AccountLimits>();

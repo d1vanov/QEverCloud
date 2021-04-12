@@ -75,7 +75,6 @@ public:
     [[nodiscard]] const char * what() const noexcept override;
     void raise() const override;
     [[nodiscard]] EDAMInvalidContactsException * clone() const override;
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     Q_PROPERTY(QList<Contact> contacts READ contacts WRITE setContacts)
     Q_PROPERTY(std::optional<QString> parameter READ parameter WRITE setParameter)
@@ -88,41 +87,6 @@ private:
 
 [[nodiscard]] bool operator==(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept;
 [[nodiscard]] bool operator!=(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept;
-
-/**
- * Asynchronous API counterpart of EDAMInvalidContactsException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT EDAMInvalidContactsExceptionData: public EvernoteExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EDAMInvalidContactsExceptionData)
-public:
-    explicit EDAMInvalidContactsExceptionData(
-        QString error,
-        QList<Contact> contacts,
-        std::optional<QString> parameter,
-        std::optional<QList<EDAMInvalidContactReason>> reasons);
-
-    ~EDAMInvalidContactsExceptionData() noexcept override;
-
-    [[nodiscard]] const QList<Contact> & contacts() const noexcept;
-    [[nodiscard]] QList<Contact> & mutableContacts();
-    void setContacts(QList<Contact> contacts);
-
-    [[nodiscard]] const std::optional<QString> & parameter() const noexcept;
-    void setParameter(std::optional<QString> parameter);
-
-    [[nodiscard]] const std::optional<QList<EDAMInvalidContactReason>> & reasons() const noexcept;
-    [[nodiscard]] std::optional<QList<EDAMInvalidContactReason>> & mutableReasons();
-    void setReasons(std::optional<QList<EDAMInvalidContactReason>> reasons);
-
-    virtual void throwException() const override;
-
-private:
-    class Impl;
-    QSharedDataPointer<Impl> d;
-};
 
 } // namespace qevercloud
 

@@ -64,7 +64,6 @@ public:
     [[nodiscard]] const char * what() const noexcept override;
     void raise() const override;
     [[nodiscard]] EDAMUserException * clone() const override;
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     Q_PROPERTY(EDAMErrorCode errorCode READ errorCode WRITE setErrorCode)
     Q_PROPERTY(std::optional<QString> parameter READ parameter WRITE setParameter)
@@ -76,35 +75,6 @@ private:
 
 [[nodiscard]] bool operator==(const EDAMUserException & lhs, const EDAMUserException & rhs) noexcept;
 [[nodiscard]] bool operator!=(const EDAMUserException & lhs, const EDAMUserException & rhs) noexcept;
-
-/**
- * Asynchronous API counterpart of EDAMUserException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EDAMUserExceptionData)
-public:
-    explicit EDAMUserExceptionData(
-        QString error,
-        EDAMErrorCode errorCode,
-        std::optional<QString> parameter);
-
-    ~EDAMUserExceptionData() noexcept override;
-
-    [[nodiscard]] EDAMErrorCode errorCode() const noexcept;
-    void setErrorCode(EDAMErrorCode errorCode);
-
-    [[nodiscard]] const std::optional<QString> & parameter() const noexcept;
-    void setParameter(std::optional<QString> parameter);
-
-    virtual void throwException() const override;
-
-private:
-    class Impl;
-    QSharedDataPointer<Impl> d;
-};
 
 } // namespace qevercloud
 

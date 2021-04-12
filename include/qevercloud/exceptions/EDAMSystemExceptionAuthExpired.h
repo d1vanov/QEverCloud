@@ -22,24 +22,6 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemExcepti
 public:
     void raise() const override;
     [[nodiscard]] EDAMSystemExceptionAuthExpired * clone() const override;
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
-};
-
-/**
- * Asynchronous API counterpart of EDAMSystemExceptionAuthExpired.
- * See EverCloudExceptionData for more details.
- */
-class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpiredData:
-    public EDAMSystemExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EDAMSystemExceptionAuthExpiredData)
-public:
-    explicit EDAMSystemExceptionAuthExpiredData(
-        QString error, EDAMErrorCode errorCode, std::optional<QString> message,
-        std::optional<qint32> rateLimitDuration);
-
-    void throwException() const override;
 };
 
 } // namespace qevercloud

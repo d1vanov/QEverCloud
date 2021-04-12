@@ -16,6 +16,7 @@
 #include <QFuture>
 #include <QVariant>
 
+#include <exception>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -26,8 +27,7 @@ namespace qevercloud {
 
 struct QEVERCLOUD_EXPORT IRetryPolicy
 {
-    [[nodiscard]] virtual bool shouldRetry(
-        const EverCloudExceptionDataPtr & exceptionData) = 0;
+    [[nodiscard]] virtual bool shouldRetry(std::exception_ptr exc) = 0;
 };
 
 using IRetryPolicyPtr = std::shared_ptr<IRetryPolicy>;
@@ -39,7 +39,7 @@ class DurableServicePrivate;
 class QEVERCLOUD_EXPORT IDurableService
 {
 public:
-    using SyncResult = std::pair<QVariant,EverCloudExceptionDataPtr>;
+    using SyncResult = std::pair<QVariant,std::exception_ptr>;
     using SyncServiceCall = std::function<SyncResult(IRequestContextPtr)>;
     using AsyncServiceCall = std::function<QFuture<QVariant>(IRequestContextPtr)>;
 

@@ -27,6 +27,8 @@
 #include <QNetworkReply>
 #include <QtTest/QtTest>
 
+#include <exception>
+
 namespace qevercloud {
 
 DurableServiceTester::DurableServiceTester(QObject * parent) :
@@ -116,15 +118,15 @@ void DurableServiceTester::shouldRetrySyncServiceCalls()
             ++serviceCallCounter;
             if (serviceCallCounter < maxServiceCallCounter)
             {
-                EverCloudExceptionDataPtr data;
+                std::exception_ptr e;
                 try {
                     throw NetworkException(QNetworkReply::TimeoutError);
                 }
-                catch(const EverCloudException & e) {
-                    data = e.exceptionData();
+                catch(...) {
+                    e = std::current_exception();
                 }
 
-                return {{}, data};
+                return {{}, e};
             }
 
             return {value, {}};
@@ -212,26 +214,26 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallMoreThanMaxTimes()
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            EverCloudExceptionDataPtr data;
+            std::exception_ptr e;
             try {
                 throw NetworkException(QNetworkReply::TimeoutError);
             }
-            catch(const EverCloudException & e) {
-                data = e.exceptionData();
+            catch(...) {
+                e = std::current_exception();
             }
 
-            return {{}, data};
+            return {{}, e};
         });
 
     auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == maxServiceCallCounter);
     QVERIFY(!result.first.isValid());
-    QVERIFY(result.second.get() != nullptr);
+    QVERIFY(result.second);
 
     bool exceptionCaught = false;
     try {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
     catch(const NetworkException & e) {
         exceptionCaught = true;
@@ -306,28 +308,28 @@ void DurableServiceTester::shouldNotRetrySyncServiceCallInCaseOfUnretriableError
             Q_ASSERT(ctx->maxRequestRetryCount() == maxServiceCallCounter);
 
             ++serviceCallCounter;
-            EverCloudExceptionDataPtr data;
+            std::exception_ptr e;
             try {
-                EDAMUserException e;
-                e.setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
-                throw e;
+                EDAMUserException exc;
+                exc.setErrorCode(EDAMErrorCode::AUTH_EXPIRED);
+                throw exc;
             }
-            catch(const EverCloudException & e) {
-                data = e.exceptionData();
+            catch(...) {
+                e = std::current_exception();
             }
 
-            return {{}, data};
+            return {{}, e};
         });
 
     auto result = durableService->executeSyncRequest(std::move(request), ctx);
 
     QVERIFY(serviceCallCounter == 1);
     QVERIFY(!result.first.isValid());
-    QVERIFY(result.second.get() != nullptr);
+    QVERIFY(result.second);
 
     bool exceptionCaught = false;
     try {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
     catch(const EDAMUserException & e) {
         exceptionCaught = true;

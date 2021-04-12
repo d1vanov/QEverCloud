@@ -54,26 +54,8 @@ public:
 
     [[nodiscard]] ThriftException * clone() const override;
 
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
-
 protected:
     Type m_type;
-};
-
-/**
- * Asynchronous API counterpart of ThriftException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT ThriftExceptionData: public EverCloudExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(ThriftExceptionData)
-public:
-    explicit ThriftExceptionData(QString error, ThriftException::Type type);
-    void throwException() const override;
-
-protected:
-    ThriftException::Type m_type;
 };
 
 } // namespace qevercloud

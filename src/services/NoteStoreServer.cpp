@@ -5871,16 +5871,16 @@ void NoteStoreServer::onRequest(QByteArray data)
 
 void NoteStoreServer::onGetSyncStateRequestReady(
     SyncState value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -5909,11 +5909,11 @@ void NoteStoreServer::onGetSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSyncState"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -5982,16 +5982,16 @@ void NoteStoreServer::onGetSyncStateRequestReady(
 
 void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     SyncChunk value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6020,11 +6020,11 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getFilteredSyncChunk"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6093,16 +6093,16 @@ void NoteStoreServer::onGetFilteredSyncChunkRequestReady(
 
 void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     SyncState value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6131,11 +6131,11 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncState"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6222,16 +6222,16 @@ void NoteStoreServer::onGetLinkedNotebookSyncStateRequestReady(
 
 void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     SyncChunk value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6260,11 +6260,11 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getLinkedNotebookSyncChunk"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6351,16 +6351,16 @@ void NoteStoreServer::onGetLinkedNotebookSyncChunkRequestReady(
 
 void NoteStoreServer::onListNotebooksRequestReady(
     QList<Notebook> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6389,11 +6389,11 @@ void NoteStoreServer::onListNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNotebooks"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6466,16 +6466,16 @@ void NoteStoreServer::onListNotebooksRequestReady(
 
 void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     QList<Notebook> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6504,11 +6504,11 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listAccessibleBusinessNotebooks"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6581,16 +6581,16 @@ void NoteStoreServer::onListAccessibleBusinessNotebooksRequestReady(
 
 void NoteStoreServer::onGetNotebookRequestReady(
     Notebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6619,11 +6619,11 @@ void NoteStoreServer::onGetNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6710,16 +6710,16 @@ void NoteStoreServer::onGetNotebookRequestReady(
 
 void NoteStoreServer::onGetDefaultNotebookRequestReady(
     Notebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6748,11 +6748,11 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getDefaultNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6821,16 +6821,16 @@ void NoteStoreServer::onGetDefaultNotebookRequestReady(
 
 void NoteStoreServer::onCreateNotebookRequestReady(
     Notebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6859,11 +6859,11 @@ void NoteStoreServer::onCreateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -6950,16 +6950,16 @@ void NoteStoreServer::onCreateNotebookRequestReady(
 
 void NoteStoreServer::onUpdateNotebookRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -6988,11 +6988,11 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7079,16 +7079,16 @@ void NoteStoreServer::onUpdateNotebookRequestReady(
 
 void NoteStoreServer::onExpungeNotebookRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7117,11 +7117,11 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7208,16 +7208,16 @@ void NoteStoreServer::onExpungeNotebookRequestReady(
 
 void NoteStoreServer::onListTagsRequestReady(
     QList<Tag> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7246,11 +7246,11 @@ void NoteStoreServer::onListTagsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTags"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7323,16 +7323,16 @@ void NoteStoreServer::onListTagsRequestReady(
 
 void NoteStoreServer::onListTagsByNotebookRequestReady(
     QList<Tag> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7361,11 +7361,11 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listTagsByNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7456,16 +7456,16 @@ void NoteStoreServer::onListTagsByNotebookRequestReady(
 
 void NoteStoreServer::onGetTagRequestReady(
     Tag value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7494,11 +7494,11 @@ void NoteStoreServer::onGetTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getTag"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7585,16 +7585,16 @@ void NoteStoreServer::onGetTagRequestReady(
 
 void NoteStoreServer::onCreateTagRequestReady(
     Tag value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7623,11 +7623,11 @@ void NoteStoreServer::onCreateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createTag"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7714,16 +7714,16 @@ void NoteStoreServer::onCreateTagRequestReady(
 
 void NoteStoreServer::onUpdateTagRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7752,11 +7752,11 @@ void NoteStoreServer::onUpdateTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateTag"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7842,16 +7842,16 @@ void NoteStoreServer::onUpdateTagRequestReady(
 }
 
 void NoteStoreServer::onUntagAllRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -7880,11 +7880,11 @@ void NoteStoreServer::onUntagAllRequestReady(
     writer.writeStructBegin(
         QStringLiteral("untagAll"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -7970,16 +7970,16 @@ void NoteStoreServer::onUntagAllRequestReady(
 
 void NoteStoreServer::onExpungeTagRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8008,11 +8008,11 @@ void NoteStoreServer::onExpungeTagRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeTag"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8099,16 +8099,16 @@ void NoteStoreServer::onExpungeTagRequestReady(
 
 void NoteStoreServer::onListSearchesRequestReady(
     QList<SavedSearch> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8137,11 +8137,11 @@ void NoteStoreServer::onListSearchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSearches"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8214,16 +8214,16 @@ void NoteStoreServer::onListSearchesRequestReady(
 
 void NoteStoreServer::onGetSearchRequestReady(
     SavedSearch value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8252,11 +8252,11 @@ void NoteStoreServer::onGetSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSearch"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8343,16 +8343,16 @@ void NoteStoreServer::onGetSearchRequestReady(
 
 void NoteStoreServer::onCreateSearchRequestReady(
     SavedSearch value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8381,11 +8381,11 @@ void NoteStoreServer::onCreateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createSearch"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8454,16 +8454,16 @@ void NoteStoreServer::onCreateSearchRequestReady(
 
 void NoteStoreServer::onUpdateSearchRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8492,11 +8492,11 @@ void NoteStoreServer::onUpdateSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSearch"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8583,16 +8583,16 @@ void NoteStoreServer::onUpdateSearchRequestReady(
 
 void NoteStoreServer::onExpungeSearchRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8621,11 +8621,11 @@ void NoteStoreServer::onExpungeSearchRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeSearch"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8712,16 +8712,16 @@ void NoteStoreServer::onExpungeSearchRequestReady(
 
 void NoteStoreServer::onFindNoteOffsetRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8750,11 +8750,11 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteOffset"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8841,16 +8841,16 @@ void NoteStoreServer::onFindNoteOffsetRequestReady(
 
 void NoteStoreServer::onFindNotesMetadataRequestReady(
     NotesMetadataList value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -8879,11 +8879,11 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNotesMetadata"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -8970,16 +8970,16 @@ void NoteStoreServer::onFindNotesMetadataRequestReady(
 
 void NoteStoreServer::onFindNoteCountsRequestReady(
     NoteCollectionCounts value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9008,11 +9008,11 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findNoteCounts"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9099,16 +9099,16 @@ void NoteStoreServer::onFindNoteCountsRequestReady(
 
 void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     Note value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9137,11 +9137,11 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteWithResultSpec"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9228,16 +9228,16 @@ void NoteStoreServer::onGetNoteWithResultSpecRequestReady(
 
 void NoteStoreServer::onGetNoteRequestReady(
     Note value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9266,11 +9266,11 @@ void NoteStoreServer::onGetNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9357,16 +9357,16 @@ void NoteStoreServer::onGetNoteRequestReady(
 
 void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     LazyMap value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9395,11 +9395,11 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationData"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9486,16 +9486,16 @@ void NoteStoreServer::onGetNoteApplicationDataRequestReady(
 
 void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     QString value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9524,11 +9524,11 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteApplicationDataEntry"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9615,16 +9615,16 @@ void NoteStoreServer::onGetNoteApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9653,11 +9653,11 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setNoteApplicationDataEntry"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9744,16 +9744,16 @@ void NoteStoreServer::onSetNoteApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9782,11 +9782,11 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetNoteApplicationDataEntry"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -9873,16 +9873,16 @@ void NoteStoreServer::onUnsetNoteApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onGetNoteContentRequestReady(
     QString value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -9911,11 +9911,11 @@ void NoteStoreServer::onGetNoteContentRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteContent"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10002,16 +10002,16 @@ void NoteStoreServer::onGetNoteContentRequestReady(
 
 void NoteStoreServer::onGetNoteSearchTextRequestReady(
     QString value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10040,11 +10040,11 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteSearchText"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10131,16 +10131,16 @@ void NoteStoreServer::onGetNoteSearchTextRequestReady(
 
 void NoteStoreServer::onGetResourceSearchTextRequestReady(
     QString value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10169,11 +10169,11 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceSearchText"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10260,16 +10260,16 @@ void NoteStoreServer::onGetResourceSearchTextRequestReady(
 
 void NoteStoreServer::onGetNoteTagNamesRequestReady(
     QStringList value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10298,11 +10298,11 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteTagNames"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10393,16 +10393,16 @@ void NoteStoreServer::onGetNoteTagNamesRequestReady(
 
 void NoteStoreServer::onCreateNoteRequestReady(
     Note value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10431,11 +10431,11 @@ void NoteStoreServer::onCreateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10522,16 +10522,16 @@ void NoteStoreServer::onCreateNoteRequestReady(
 
 void NoteStoreServer::onUpdateNoteRequestReady(
     Note value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10560,11 +10560,11 @@ void NoteStoreServer::onUpdateNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10651,16 +10651,16 @@ void NoteStoreServer::onUpdateNoteRequestReady(
 
 void NoteStoreServer::onDeleteNoteRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10689,11 +10689,11 @@ void NoteStoreServer::onDeleteNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("deleteNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10780,16 +10780,16 @@ void NoteStoreServer::onDeleteNoteRequestReady(
 
 void NoteStoreServer::onExpungeNoteRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10818,11 +10818,11 @@ void NoteStoreServer::onExpungeNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -10909,16 +10909,16 @@ void NoteStoreServer::onExpungeNoteRequestReady(
 
 void NoteStoreServer::onCopyNoteRequestReady(
     Note value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -10947,11 +10947,11 @@ void NoteStoreServer::onCopyNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("copyNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11038,16 +11038,16 @@ void NoteStoreServer::onCopyNoteRequestReady(
 
 void NoteStoreServer::onListNoteVersionsRequestReady(
     QList<NoteVersionId> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11076,11 +11076,11 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listNoteVersions"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11171,16 +11171,16 @@ void NoteStoreServer::onListNoteVersionsRequestReady(
 
 void NoteStoreServer::onGetNoteVersionRequestReady(
     Note value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11209,11 +11209,11 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNoteVersion"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11300,16 +11300,16 @@ void NoteStoreServer::onGetNoteVersionRequestReady(
 
 void NoteStoreServer::onGetResourceRequestReady(
     Resource value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11338,11 +11338,11 @@ void NoteStoreServer::onGetResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResource"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11429,16 +11429,16 @@ void NoteStoreServer::onGetResourceRequestReady(
 
 void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     LazyMap value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11467,11 +11467,11 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationData"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11558,16 +11558,16 @@ void NoteStoreServer::onGetResourceApplicationDataRequestReady(
 
 void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     QString value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11596,11 +11596,11 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceApplicationDataEntry"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11687,16 +11687,16 @@ void NoteStoreServer::onGetResourceApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11725,11 +11725,11 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setResourceApplicationDataEntry"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11816,16 +11816,16 @@ void NoteStoreServer::onSetResourceApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11854,11 +11854,11 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
     writer.writeStructBegin(
         QStringLiteral("unsetResourceApplicationDataEntry"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -11945,16 +11945,16 @@ void NoteStoreServer::onUnsetResourceApplicationDataEntryRequestReady(
 
 void NoteStoreServer::onUpdateResourceRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -11983,11 +11983,11 @@ void NoteStoreServer::onUpdateResourceRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateResource"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12074,16 +12074,16 @@ void NoteStoreServer::onUpdateResourceRequestReady(
 
 void NoteStoreServer::onGetResourceDataRequestReady(
     QByteArray value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12112,11 +12112,11 @@ void NoteStoreServer::onGetResourceDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceData"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12203,16 +12203,16 @@ void NoteStoreServer::onGetResourceDataRequestReady(
 
 void NoteStoreServer::onGetResourceByHashRequestReady(
     Resource value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12241,11 +12241,11 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceByHash"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12332,16 +12332,16 @@ void NoteStoreServer::onGetResourceByHashRequestReady(
 
 void NoteStoreServer::onGetResourceRecognitionRequestReady(
     QByteArray value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12370,11 +12370,11 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceRecognition"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12461,16 +12461,16 @@ void NoteStoreServer::onGetResourceRecognitionRequestReady(
 
 void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     QByteArray value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12499,11 +12499,11 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAlternateData"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12590,16 +12590,16 @@ void NoteStoreServer::onGetResourceAlternateDataRequestReady(
 
 void NoteStoreServer::onGetResourceAttributesRequestReady(
     ResourceAttributes value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12628,11 +12628,11 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getResourceAttributes"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12719,16 +12719,16 @@ void NoteStoreServer::onGetResourceAttributesRequestReady(
 
 void NoteStoreServer::onGetPublicNotebookRequestReady(
     Notebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12757,11 +12757,11 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getPublicNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMSystemException & e)
         {
@@ -12830,16 +12830,16 @@ void NoteStoreServer::onGetPublicNotebookRequestReady(
 
 void NoteStoreServer::onShareNotebookRequestReady(
     SharedNotebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12868,11 +12868,11 @@ void NoteStoreServer::onShareNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -12959,16 +12959,16 @@ void NoteStoreServer::onShareNotebookRequestReady(
 
 void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     CreateOrUpdateNotebookSharesResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -12997,11 +12997,11 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createOrUpdateNotebookShares"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13106,16 +13106,16 @@ void NoteStoreServer::onCreateOrUpdateNotebookSharesRequestReady(
 
 void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13144,11 +13144,11 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateSharedNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13235,16 +13235,16 @@ void NoteStoreServer::onUpdateSharedNotebookRequestReady(
 
 void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     Notebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13273,11 +13273,11 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("setNotebookRecipientSettings"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13364,16 +13364,16 @@ void NoteStoreServer::onSetNotebookRecipientSettingsRequestReady(
 
 void NoteStoreServer::onListSharedNotebooksRequestReady(
     QList<SharedNotebook> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13402,11 +13402,11 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listSharedNotebooks"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13497,16 +13497,16 @@ void NoteStoreServer::onListSharedNotebooksRequestReady(
 
 void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     LinkedNotebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13535,11 +13535,11 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("createLinkedNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13626,16 +13626,16 @@ void NoteStoreServer::onCreateLinkedNotebookRequestReady(
 
 void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13664,11 +13664,11 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateLinkedNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13755,16 +13755,16 @@ void NoteStoreServer::onUpdateLinkedNotebookRequestReady(
 
 void NoteStoreServer::onListLinkedNotebooksRequestReady(
     QList<LinkedNotebook> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13793,11 +13793,11 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listLinkedNotebooks"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -13888,16 +13888,16 @@ void NoteStoreServer::onListLinkedNotebooksRequestReady(
 
 void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     qint32 value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -13926,11 +13926,11 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("expungeLinkedNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14017,16 +14017,16 @@ void NoteStoreServer::onExpungeLinkedNotebookRequestReady(
 
 void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     AuthenticationResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14055,11 +14055,11 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNotebook"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14146,16 +14146,16 @@ void NoteStoreServer::onAuthenticateToSharedNotebookRequestReady(
 
 void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     SharedNotebook value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14184,11 +14184,11 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getSharedNotebookByAuth"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14274,16 +14274,16 @@ void NoteStoreServer::onGetSharedNotebookByAuthRequestReady(
 }
 
 void NoteStoreServer::onEmailNoteRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14312,11 +14312,11 @@ void NoteStoreServer::onEmailNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("emailNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14402,16 +14402,16 @@ void NoteStoreServer::onEmailNoteRequestReady(
 
 void NoteStoreServer::onShareNoteRequestReady(
     QString value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14440,11 +14440,11 @@ void NoteStoreServer::onShareNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("shareNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14530,16 +14530,16 @@ void NoteStoreServer::onShareNoteRequestReady(
 }
 
 void NoteStoreServer::onStopSharingNoteRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14568,11 +14568,11 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("stopSharingNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14658,16 +14658,16 @@ void NoteStoreServer::onStopSharingNoteRequestReady(
 
 void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     AuthenticationResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14696,11 +14696,11 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToSharedNote"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14787,16 +14787,16 @@ void NoteStoreServer::onAuthenticateToSharedNoteRequestReady(
 
 void NoteStoreServer::onFindRelatedRequestReady(
     RelatedResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14825,11 +14825,11 @@ void NoteStoreServer::onFindRelatedRequestReady(
     writer.writeStructBegin(
         QStringLiteral("findRelated"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -14916,16 +14916,16 @@ void NoteStoreServer::onFindRelatedRequestReady(
 
 void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     UpdateNoteIfUsnMatchesResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -14954,11 +14954,11 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateNoteIfUsnMatches"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -15045,16 +15045,16 @@ void NoteStoreServer::onUpdateNoteIfUsnMatchesRequestReady(
 
 void NoteStoreServer::onManageNotebookSharesRequestReady(
     ManageNotebookSharesResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -15083,11 +15083,11 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("manageNotebookShares"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -15174,16 +15174,16 @@ void NoteStoreServer::onManageNotebookSharesRequestReady(
 
 void NoteStoreServer::onGetNotebookSharesRequestReady(
     ShareRelationships value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -15212,11 +15212,11 @@ void NoteStoreServer::onGetNotebookSharesRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getNotebookShares"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {

@@ -18,6 +18,7 @@
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/Types.h>
 #include <QObject>
+#include <exception>
 #include <functional>
 
 namespace qevercloud {
@@ -157,59 +158,59 @@ public Q_SLOTS:
     // Slots for replies to requests
     void onCheckVersionRequestReady(
         bool value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetBootstrapInfoRequestReady(
         BootstrapInfo value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onAuthenticateLongSessionRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onCompleteTwoFactorAuthenticationRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onRevokeLongSessionRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onAuthenticateToBusinessRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetUserRequestReady(
         User value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetPublicUserInfoRequestReady(
         PublicUserInfo value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetUserUrlsRequestReady(
         UserUrls value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onInviteToBusinessRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onRemoveFromBusinessRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onUpdateBusinessUserIdentifierRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListBusinessUsersRequestReady(
         QList<UserProfile> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onListBusinessInvitationsRequestReady(
         QList<BusinessInvitation> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
     void onGetAccountLimitsRequestReady(
         AccountLimits value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 };
 

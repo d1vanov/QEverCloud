@@ -15,9 +15,6 @@
 #include <QObject>
 #include <QString>
 
-#include <exception>
-#include <memory>
-
 namespace qevercloud {
 
 /**
@@ -35,23 +32,7 @@ public:
     void raise() const override;
 
     [[nodiscard]] EvernoteException * clone() const override;
-
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 };
-
-/**
- * Asynchronous API conterpart of EvernoteException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT EvernoteExceptionData: public EverCloudExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EvernoteExceptionData)
-public:
-    explicit EvernoteExceptionData(QString error);
-    void throwException() const override;
-};
-
 
 } // namespace qevercloud
 

@@ -40,26 +40,6 @@ public:
 
     [[nodiscard]] NetworkException * clone() const override;
 
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
-
-protected:
-    QNetworkReply::NetworkError m_type;
-};
-
-/**
- * Asynchronous API counterpart of NetworkException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT NetworkExceptionData: public EverCloudExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(NetworkExceptionData)
-public:
-    explicit NetworkExceptionData(
-        QString error, QNetworkReply::NetworkError type);
-
-    void throwException() const override;
-
 protected:
     QNetworkReply::NetworkError m_type;
 };

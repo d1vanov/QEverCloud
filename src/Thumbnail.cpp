@@ -150,7 +150,7 @@ QFuture<QVariant> Thumbnail::downloadAsync(
             {
                 QEC_WARNING("thumbnail", "Async download for guid "
                     << guid << " finished with error: "
-                    << e.exceptionData()->errorMessage);
+                    << e.what());
 
                 pWatcher->deleteLater();
                 return;

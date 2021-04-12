@@ -15,11 +15,7 @@
 #include <QObject>
 #include <QString>
 
-#include <memory>
-
 namespace qevercloud {
-
-class QEVERCLOUD_EXPORT EverCloudExceptionData;
 
 /**
  * All exceptions thrown by the library are of this class or its descendants.
@@ -42,34 +38,7 @@ public:
     void raise() const override;
 
     [[nodiscard]] EverCloudException * clone() const override;
-
-    [[nodiscard]] virtual std::shared_ptr<EverCloudExceptionData> exceptionData() const;
 };
-
-/**
- * @brief EverCloudException counterpart for asynchronous API.
-*/
-class QEVERCLOUD_EXPORT EverCloudExceptionData: public QObject
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EverCloudExceptionData)
-public:
-    /**
-     * Contains an error message. It's the std::exception::what() counterpart.
-     */
-    QString errorMessage;
-
-    explicit EverCloudExceptionData(QString error);
-
-    /**
-     * If you want to throw an exception that corresponds to a received
-     * EverCloudExceptionData descendant than call this function. Do not use
-     * `throw` statement, it's not polymorphic.
-     */
-    virtual void throwException() const;
-};
-
-using EverCloudExceptionDataPtr = std::shared_ptr<EverCloudExceptionData>;
 
 } // namespace qevercloud
 

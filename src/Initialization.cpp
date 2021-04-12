@@ -15,7 +15,6 @@ namespace {
 
 void registerMetatypes()
 {
-    qRegisterMetaType<EverCloudExceptionDataPtr>("EverCloudExceptionDataPtr");
     qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
 }
 

@@ -23,26 +23,6 @@ class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached:
 public:
     void raise() const override;
     [[nodiscard]] EDAMSystemExceptionRateLimitReached * clone() const override;
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Asynchronous API counterpart of EDAMSystemExceptionRateLimitReached.
- * See EverCloudExceptionData for more details.
- */
-class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReachedData:
-    public EDAMSystemExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EDAMSystemExceptionRateLimitReachedData)
-public:
-    explicit EDAMSystemExceptionRateLimitReachedData(
-        QString error, EDAMErrorCode errorCode, std::optional<QString> message,
-        std::optional<qint32> rateLimitDuration);
-
-    void throwException() const override;
 };
 
 } // namespace qevercloud

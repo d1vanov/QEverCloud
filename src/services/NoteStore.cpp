@@ -16733,7 +16733,7 @@ SyncState DurableNoteStore::getSyncState(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SyncState>();
@@ -16801,7 +16801,7 @@ SyncChunk DurableNoteStore::getFilteredSyncChunk(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SyncChunk>();
@@ -16877,7 +16877,7 @@ SyncState DurableNoteStore::getLinkedNotebookSyncState(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SyncState>();
@@ -16956,7 +16956,7 @@ SyncChunk DurableNoteStore::getLinkedNotebookSyncChunk(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SyncChunk>();
@@ -17027,7 +17027,7 @@ QList<Notebook> DurableNoteStore::listNotebooks(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<Notebook>>();
@@ -17081,7 +17081,7 @@ QList<Notebook> DurableNoteStore::listAccessibleBusinessNotebooks(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<Notebook>>();
@@ -17143,7 +17143,7 @@ Notebook DurableNoteStore::getNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Notebook>();
@@ -17205,7 +17205,7 @@ Notebook DurableNoteStore::getDefaultNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Notebook>();
@@ -17267,7 +17267,7 @@ Notebook DurableNoteStore::createNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Notebook>();
@@ -17337,7 +17337,7 @@ qint32 DurableNoteStore::updateNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -17407,7 +17407,7 @@ qint32 DurableNoteStore::expungeNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -17469,7 +17469,7 @@ QList<Tag> DurableNoteStore::listTags(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<Tag>>();
@@ -17531,7 +17531,7 @@ QList<Tag> DurableNoteStore::listTagsByNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<Tag>>();
@@ -17601,7 +17601,7 @@ Tag DurableNoteStore::getTag(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Tag>();
@@ -17671,7 +17671,7 @@ Tag DurableNoteStore::createTag(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Tag>();
@@ -17741,7 +17741,7 @@ qint32 DurableNoteStore::updateTag(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -17811,7 +17811,7 @@ void DurableNoteStore::untagAll(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -17881,7 +17881,7 @@ qint32 DurableNoteStore::expungeTag(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -17943,7 +17943,7 @@ QList<SavedSearch> DurableNoteStore::listSearches(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<SavedSearch>>();
@@ -18005,7 +18005,7 @@ SavedSearch DurableNoteStore::getSearch(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SavedSearch>();
@@ -18075,7 +18075,7 @@ SavedSearch DurableNoteStore::createSearch(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SavedSearch>();
@@ -18145,7 +18145,7 @@ qint32 DurableNoteStore::updateSearch(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -18215,7 +18215,7 @@ qint32 DurableNoteStore::expungeSearch(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -18288,7 +18288,7 @@ qint32 DurableNoteStore::findNoteOffset(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -18370,7 +18370,7 @@ NotesMetadataList DurableNoteStore::findNotesMetadata(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<NotesMetadataList>();
@@ -18452,7 +18452,7 @@ NoteCollectionCounts DurableNoteStore::findNoteCounts(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<NoteCollectionCounts>();
@@ -18528,7 +18528,7 @@ Note DurableNoteStore::getNoteWithResultSpec(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Note>();
@@ -18613,7 +18613,7 @@ Note DurableNoteStore::getNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Note>();
@@ -18695,7 +18695,7 @@ LazyMap DurableNoteStore::getNoteApplicationData(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<LazyMap>();
@@ -18768,7 +18768,7 @@ QString DurableNoteStore::getNoteApplicationDataEntry(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toString();
@@ -18847,7 +18847,7 @@ qint32 DurableNoteStore::setNoteApplicationDataEntry(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -18926,7 +18926,7 @@ qint32 DurableNoteStore::unsetNoteApplicationDataEntry(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -18999,7 +18999,7 @@ QString DurableNoteStore::getNoteContent(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toString();
@@ -19075,7 +19075,7 @@ QString DurableNoteStore::getNoteSearchText(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toString();
@@ -19151,7 +19151,7 @@ QString DurableNoteStore::getResourceSearchText(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toString();
@@ -19221,7 +19221,7 @@ QStringList DurableNoteStore::getNoteTagNames(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toStringList();
@@ -19291,7 +19291,7 @@ Note DurableNoteStore::createNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Note>();
@@ -19361,7 +19361,7 @@ Note DurableNoteStore::updateNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Note>();
@@ -19431,7 +19431,7 @@ qint32 DurableNoteStore::deleteNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -19501,7 +19501,7 @@ qint32 DurableNoteStore::expungeNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -19574,7 +19574,7 @@ Note DurableNoteStore::copyNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Note>();
@@ -19647,7 +19647,7 @@ QList<NoteVersionId> DurableNoteStore::listNoteVersions(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<NoteVersionId>>();
@@ -19729,7 +19729,7 @@ Note DurableNoteStore::getNoteVersion(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Note>();
@@ -19823,7 +19823,7 @@ Resource DurableNoteStore::getResource(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Resource>();
@@ -19905,7 +19905,7 @@ LazyMap DurableNoteStore::getResourceApplicationData(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<LazyMap>();
@@ -19978,7 +19978,7 @@ QString DurableNoteStore::getResourceApplicationDataEntry(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toString();
@@ -20057,7 +20057,7 @@ qint32 DurableNoteStore::setResourceApplicationDataEntry(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -20136,7 +20136,7 @@ qint32 DurableNoteStore::unsetResourceApplicationDataEntry(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -20209,7 +20209,7 @@ qint32 DurableNoteStore::updateResource(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -20279,7 +20279,7 @@ QByteArray DurableNoteStore::getResourceData(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toByteArray();
@@ -20361,7 +20361,7 @@ Resource DurableNoteStore::getResourceByHash(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Resource>();
@@ -20443,7 +20443,7 @@ QByteArray DurableNoteStore::getResourceRecognition(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toByteArray();
@@ -20513,7 +20513,7 @@ QByteArray DurableNoteStore::getResourceAlternateData(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toByteArray();
@@ -20583,7 +20583,7 @@ ResourceAttributes DurableNoteStore::getResourceAttributes(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<ResourceAttributes>();
@@ -20656,7 +20656,7 @@ Notebook DurableNoteStore::getPublicNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Notebook>();
@@ -20732,7 +20732,7 @@ SharedNotebook DurableNoteStore::shareNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SharedNotebook>();
@@ -20805,7 +20805,7 @@ CreateOrUpdateNotebookSharesResult DurableNoteStore::createOrUpdateNotebookShare
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<CreateOrUpdateNotebookSharesResult>();
@@ -20875,7 +20875,7 @@ qint32 DurableNoteStore::updateSharedNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -20948,7 +20948,7 @@ Notebook DurableNoteStore::setNotebookRecipientSettings(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<Notebook>();
@@ -21013,7 +21013,7 @@ QList<SharedNotebook> DurableNoteStore::listSharedNotebooks(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<SharedNotebook>>();
@@ -21075,7 +21075,7 @@ LinkedNotebook DurableNoteStore::createLinkedNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<LinkedNotebook>();
@@ -21145,7 +21145,7 @@ qint32 DurableNoteStore::updateLinkedNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -21207,7 +21207,7 @@ QList<LinkedNotebook> DurableNoteStore::listLinkedNotebooks(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<QList<LinkedNotebook>>();
@@ -21269,7 +21269,7 @@ qint32 DurableNoteStore::expungeLinkedNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<qint32>();
@@ -21339,7 +21339,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNotebook(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<AuthenticationResult>();
@@ -21401,7 +21401,7 @@ SharedNotebook DurableNoteStore::getSharedNotebookByAuth(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<SharedNotebook>();
@@ -21463,7 +21463,7 @@ void DurableNoteStore::emailNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -21533,7 +21533,7 @@ QString DurableNoteStore::shareNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.toString();
@@ -21603,7 +21603,7 @@ void DurableNoteStore::stopSharingNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return;
@@ -21676,7 +21676,7 @@ AuthenticationResult DurableNoteStore::authenticateToSharedNote(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<AuthenticationResult>();
@@ -21752,7 +21752,7 @@ RelatedResult DurableNoteStore::findRelated(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<RelatedResult>();
@@ -21825,7 +21825,7 @@ UpdateNoteIfUsnMatchesResult DurableNoteStore::updateNoteIfUsnMatches(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<UpdateNoteIfUsnMatchesResult>();
@@ -21895,7 +21895,7 @@ ManageNotebookSharesResult DurableNoteStore::manageNotebookShares(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<ManageNotebookSharesResult>();
@@ -21965,7 +21965,7 @@ ShareRelationships DurableNoteStore::getNotebookShares(
         std::move(request), ctx);
 
     if (result.second) {
-        result.second->throwException();
+        std::rethrow_exception(result.second);
     }
 
     return result.first.value<ShareRelationships>();

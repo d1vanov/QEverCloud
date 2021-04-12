@@ -1155,16 +1155,16 @@ void UserStoreServer::onRequest(QByteArray data)
 
 void UserStoreServer::onCheckVersionRequestReady(
     bool value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1212,16 +1212,16 @@ void UserStoreServer::onCheckVersionRequestReady(
 
 void UserStoreServer::onGetBootstrapInfoRequestReady(
     BootstrapInfo value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1269,16 +1269,16 @@ void UserStoreServer::onGetBootstrapInfoRequestReady(
 
 void UserStoreServer::onAuthenticateLongSessionRequestReady(
     AuthenticationResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1307,11 +1307,11 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateLongSession"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -1380,16 +1380,16 @@ void UserStoreServer::onAuthenticateLongSessionRequestReady(
 
 void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     AuthenticationResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1418,11 +1418,11 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
     writer.writeStructBegin(
         QStringLiteral("completeTwoFactorAuthentication"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -1490,16 +1490,16 @@ void UserStoreServer::onCompleteTwoFactorAuthenticationRequestReady(
 }
 
 void UserStoreServer::onRevokeLongSessionRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1528,11 +1528,11 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
     writer.writeStructBegin(
         QStringLiteral("revokeLongSession"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -1600,16 +1600,16 @@ void UserStoreServer::onRevokeLongSessionRequestReady(
 
 void UserStoreServer::onAuthenticateToBusinessRequestReady(
     AuthenticationResult value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1638,11 +1638,11 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("authenticateToBusiness"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -1711,16 +1711,16 @@ void UserStoreServer::onAuthenticateToBusinessRequestReady(
 
 void UserStoreServer::onGetUserRequestReady(
     User value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1749,11 +1749,11 @@ void UserStoreServer::onGetUserRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getUser"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -1822,16 +1822,16 @@ void UserStoreServer::onGetUserRequestReady(
 
 void UserStoreServer::onGetPublicUserInfoRequestReady(
     PublicUserInfo value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1860,11 +1860,11 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getPublicUserInfo"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMNotFoundException & e)
         {
@@ -1951,16 +1951,16 @@ void UserStoreServer::onGetPublicUserInfoRequestReady(
 
 void UserStoreServer::onGetUserUrlsRequestReady(
     UserUrls value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -1989,11 +1989,11 @@ void UserStoreServer::onGetUserUrlsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getUserUrls"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -2061,16 +2061,16 @@ void UserStoreServer::onGetUserUrlsRequestReady(
 }
 
 void UserStoreServer::onInviteToBusinessRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -2099,11 +2099,11 @@ void UserStoreServer::onInviteToBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("inviteToBusiness"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -2170,16 +2170,16 @@ void UserStoreServer::onInviteToBusinessRequestReady(
 }
 
 void UserStoreServer::onRemoveFromBusinessRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -2208,11 +2208,11 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
     writer.writeStructBegin(
         QStringLiteral("removeFromBusiness"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -2297,16 +2297,16 @@ void UserStoreServer::onRemoveFromBusinessRequestReady(
 }
 
 void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -2335,11 +2335,11 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
     writer.writeStructBegin(
         QStringLiteral("updateBusinessUserIdentifier"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -2425,16 +2425,16 @@ void UserStoreServer::onUpdateBusinessUserIdentifierRequestReady(
 
 void UserStoreServer::onListBusinessUsersRequestReady(
     QList<UserProfile> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -2463,11 +2463,11 @@ void UserStoreServer::onListBusinessUsersRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listBusinessUsers"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -2540,16 +2540,16 @@ void UserStoreServer::onListBusinessUsersRequestReady(
 
 void UserStoreServer::onListBusinessInvitationsRequestReady(
     QList<BusinessInvitation> value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -2578,11 +2578,11 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("listBusinessInvitations"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {
@@ -2655,16 +2655,16 @@ void UserStoreServer::onListBusinessInvitationsRequestReady(
 
 void UserStoreServer::onGetAccountLimitsRequestReady(
     AccountLimits value,
-    EverCloudExceptionDataPtr exceptionData)
+    std::exception_ptr e)
 {
     ThriftBinaryBufferWriter writer;
     qint32 cseqid = 0;
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const ThriftException & exception)
         {
@@ -2693,11 +2693,11 @@ void UserStoreServer::onGetAccountLimitsRequestReady(
     writer.writeStructBegin(
         QStringLiteral("getAccountLimits"));
 
-    if (exceptionData)
+    if (e)
     {
         try
         {
-            exceptionData->throwException();
+            std::rethrow_exception(e);
         }
         catch(const EDAMUserException & e)
         {

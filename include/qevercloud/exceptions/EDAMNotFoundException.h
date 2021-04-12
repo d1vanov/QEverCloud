@@ -59,7 +59,6 @@ public:
     [[nodiscard]] const char * what() const noexcept override;
     void raise() const override;
     [[nodiscard]] EDAMNotFoundException * clone() const override;
-    [[nodiscard]] EverCloudExceptionDataPtr exceptionData() const override;
 
     Q_PROPERTY(std::optional<QString> identifier READ identifier WRITE setIdentifier)
     Q_PROPERTY(std::optional<QString> key READ key WRITE setKey)
@@ -71,35 +70,6 @@ private:
 
 [[nodiscard]] bool operator==(const EDAMNotFoundException & lhs, const EDAMNotFoundException & rhs) noexcept;
 [[nodiscard]] bool operator!=(const EDAMNotFoundException & lhs, const EDAMNotFoundException & rhs) noexcept;
-
-/**
- * Asynchronous API counterpart of EDAMNotFoundException. See EverCloudExceptionData
- * for more details.
- */
-class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData
-{
-    Q_OBJECT
-    Q_DISABLE_COPY(EDAMNotFoundExceptionData)
-public:
-    explicit EDAMNotFoundExceptionData(
-        QString error,
-        std::optional<QString> identifier,
-        std::optional<QString> key);
-
-    ~EDAMNotFoundExceptionData() noexcept override;
-
-    [[nodiscard]] const std::optional<QString> & identifier() const noexcept;
-    void setIdentifier(std::optional<QString> identifier);
-
-    [[nodiscard]] const std::optional<QString> & key() const noexcept;
-    void setKey(std::optional<QString> key);
-
-    virtual void throwException() const override;
-
-private:
-    class Impl;
-    QSharedDataPointer<Impl> d;
-};
 
 } // namespace qevercloud
 

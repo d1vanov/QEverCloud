@@ -93,55 +93,6 @@ EDAMUserException * EDAMUserException::clone() const
     return e.release();
 }
 
-EverCloudExceptionDataPtr EDAMUserException::exceptionData() const
-{
-    return std::make_shared<EDAMUserExceptionData>(
-        QString::fromUtf8(what()),
-        errorCode(),
-        parameter());
-}
-
-EDAMUserExceptionData::EDAMUserExceptionData(
-    QString error,
-    EDAMErrorCode errorCode,
-    std::optional<QString> parameter):
-    EvernoteExceptionData(error),
-    d(new EDAMUserExceptionData::Impl)
-{
-    d->m_errorCode = std::move(errorCode);
-    d->m_parameter = std::move(parameter);
-}
-
-EDAMErrorCode EDAMUserExceptionData::errorCode() const noexcept
-{
-    return d->m_errorCode;
-}
-
-void EDAMUserExceptionData::setErrorCode(EDAMErrorCode errorCode)
-{
-    d->m_errorCode = errorCode;
-}
-
-const std::optional<QString> & EDAMUserExceptionData::parameter() const noexcept
-{
-    return d->m_parameter;
-}
-
-void EDAMUserExceptionData::setParameter(std::optional<QString> parameter)
-{
-    d->m_parameter = parameter;
-}
-
-EDAMUserExceptionData::~EDAMUserExceptionData() noexcept {}
-
-void EDAMUserExceptionData::throwException() const
-{
-    EDAMUserException e;
-    e.setErrorCode(d->m_errorCode);
-    e.setParameter(d->m_parameter);
-    throw e;
-}
-
 bool operator==(const EDAMUserException & lhs, const EDAMUserException & rhs) noexcept
 {
     if (&lhs == &rhs) {

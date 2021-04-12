@@ -124,7 +124,7 @@ public:
 Q_SIGNALS:
     void getSyncStateRequestReady(
         SyncState value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetSyncStateRequestReceived(
@@ -137,13 +137,13 @@ public Q_SLOTS:
 
             Q_EMIT getSyncStateRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getSyncStateRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -175,7 +175,7 @@ public:
 Q_SIGNALS:
     void getFilteredSyncChunkRequestReady(
         SyncChunk value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetFilteredSyncChunkRequestReceived(
@@ -194,13 +194,13 @@ public Q_SLOTS:
 
             Q_EMIT getFilteredSyncChunkRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getFilteredSyncChunkRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -230,7 +230,7 @@ public:
 Q_SIGNALS:
     void getLinkedNotebookSyncStateRequestReady(
         SyncState value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetLinkedNotebookSyncStateRequestReceived(
@@ -245,13 +245,13 @@ public Q_SLOTS:
 
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getLinkedNotebookSyncStateRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -284,7 +284,7 @@ public:
 Q_SIGNALS:
     void getLinkedNotebookSyncChunkRequestReady(
         SyncChunk value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetLinkedNotebookSyncChunkRequestReceived(
@@ -305,13 +305,13 @@ public Q_SLOTS:
 
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getLinkedNotebookSyncChunkRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -340,7 +340,7 @@ public:
 Q_SIGNALS:
     void listNotebooksRequestReady(
         QList<Notebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListNotebooksRequestReceived(
@@ -353,13 +353,13 @@ public Q_SLOTS:
 
             Q_EMIT listNotebooksRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listNotebooksRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -388,7 +388,7 @@ public:
 Q_SIGNALS:
     void listAccessibleBusinessNotebooksRequestReady(
         QList<Notebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListAccessibleBusinessNotebooksRequestReceived(
@@ -401,13 +401,13 @@ public Q_SLOTS:
 
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listAccessibleBusinessNotebooksRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -437,7 +437,7 @@ public:
 Q_SIGNALS:
     void getNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNotebookRequestReceived(
@@ -452,13 +452,13 @@ public Q_SLOTS:
 
             Q_EMIT getNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -487,7 +487,7 @@ public:
 Q_SIGNALS:
     void getDefaultNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetDefaultNotebookRequestReceived(
@@ -500,13 +500,13 @@ public Q_SLOTS:
 
             Q_EMIT getDefaultNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getDefaultNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -536,7 +536,7 @@ public:
 Q_SIGNALS:
     void createNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCreateNotebookRequestReceived(
@@ -551,13 +551,13 @@ public Q_SLOTS:
 
             Q_EMIT createNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT createNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -587,7 +587,7 @@ public:
 Q_SIGNALS:
     void updateNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateNotebookRequestReceived(
@@ -602,13 +602,13 @@ public Q_SLOTS:
 
             Q_EMIT updateNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -638,7 +638,7 @@ public:
 Q_SIGNALS:
     void expungeNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onExpungeNotebookRequestReceived(
@@ -653,13 +653,13 @@ public Q_SLOTS:
 
             Q_EMIT expungeNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT expungeNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -688,7 +688,7 @@ public:
 Q_SIGNALS:
     void listTagsRequestReady(
         QList<Tag> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListTagsRequestReceived(
@@ -701,13 +701,13 @@ public Q_SLOTS:
 
             Q_EMIT listTagsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listTagsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -737,7 +737,7 @@ public:
 Q_SIGNALS:
     void listTagsByNotebookRequestReady(
         QList<Tag> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListTagsByNotebookRequestReceived(
@@ -752,13 +752,13 @@ public Q_SLOTS:
 
             Q_EMIT listTagsByNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listTagsByNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -788,7 +788,7 @@ public:
 Q_SIGNALS:
     void getTagRequestReady(
         Tag value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetTagRequestReceived(
@@ -803,13 +803,13 @@ public Q_SLOTS:
 
             Q_EMIT getTagRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getTagRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -839,7 +839,7 @@ public:
 Q_SIGNALS:
     void createTagRequestReady(
         Tag value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCreateTagRequestReceived(
@@ -854,13 +854,13 @@ public Q_SLOTS:
 
             Q_EMIT createTagRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT createTagRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -890,7 +890,7 @@ public:
 Q_SIGNALS:
     void updateTagRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateTagRequestReceived(
@@ -905,13 +905,13 @@ public Q_SLOTS:
 
             Q_EMIT updateTagRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateTagRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -940,7 +940,7 @@ public:
 
 Q_SIGNALS:
     void untagAllRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUntagAllRequestReceived(
@@ -954,12 +954,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT untagAllRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT untagAllRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -989,7 +989,7 @@ public:
 Q_SIGNALS:
     void expungeTagRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onExpungeTagRequestReceived(
@@ -1004,13 +1004,13 @@ public Q_SLOTS:
 
             Q_EMIT expungeTagRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT expungeTagRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1039,7 +1039,7 @@ public:
 Q_SIGNALS:
     void listSearchesRequestReady(
         QList<SavedSearch> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListSearchesRequestReceived(
@@ -1052,13 +1052,13 @@ public Q_SLOTS:
 
             Q_EMIT listSearchesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listSearchesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1088,7 +1088,7 @@ public:
 Q_SIGNALS:
     void getSearchRequestReady(
         SavedSearch value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetSearchRequestReceived(
@@ -1103,13 +1103,13 @@ public Q_SLOTS:
 
             Q_EMIT getSearchRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getSearchRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1139,7 +1139,7 @@ public:
 Q_SIGNALS:
     void createSearchRequestReady(
         SavedSearch value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCreateSearchRequestReceived(
@@ -1154,13 +1154,13 @@ public Q_SLOTS:
 
             Q_EMIT createSearchRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT createSearchRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1190,7 +1190,7 @@ public:
 Q_SIGNALS:
     void updateSearchRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateSearchRequestReceived(
@@ -1205,13 +1205,13 @@ public Q_SLOTS:
 
             Q_EMIT updateSearchRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateSearchRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1241,7 +1241,7 @@ public:
 Q_SIGNALS:
     void expungeSearchRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onExpungeSearchRequestReceived(
@@ -1256,13 +1256,13 @@ public Q_SLOTS:
 
             Q_EMIT expungeSearchRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT expungeSearchRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1293,7 +1293,7 @@ public:
 Q_SIGNALS:
     void findNoteOffsetRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onFindNoteOffsetRequestReceived(
@@ -1310,13 +1310,13 @@ public Q_SLOTS:
 
             Q_EMIT findNoteOffsetRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT findNoteOffsetRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1349,7 +1349,7 @@ public:
 Q_SIGNALS:
     void findNotesMetadataRequestReady(
         NotesMetadataList value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onFindNotesMetadataRequestReceived(
@@ -1370,13 +1370,13 @@ public Q_SLOTS:
 
             Q_EMIT findNotesMetadataRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT findNotesMetadataRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1407,7 +1407,7 @@ public:
 Q_SIGNALS:
     void findNoteCountsRequestReady(
         NoteCollectionCounts value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onFindNoteCountsRequestReceived(
@@ -1424,13 +1424,13 @@ public Q_SLOTS:
 
             Q_EMIT findNoteCountsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT findNoteCountsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1461,7 +1461,7 @@ public:
 Q_SIGNALS:
     void getNoteWithResultSpecRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteWithResultSpecRequestReceived(
@@ -1478,13 +1478,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteWithResultSpecRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteWithResultSpecRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1518,7 +1518,7 @@ public:
 Q_SIGNALS:
     void getNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteRequestReceived(
@@ -1541,13 +1541,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1577,7 +1577,7 @@ public:
 Q_SIGNALS:
     void getNoteApplicationDataRequestReady(
         LazyMap value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteApplicationDataRequestReceived(
@@ -1592,13 +1592,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteApplicationDataRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteApplicationDataRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1629,7 +1629,7 @@ public:
 Q_SIGNALS:
     void getNoteApplicationDataEntryRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteApplicationDataEntryRequestReceived(
@@ -1646,13 +1646,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteApplicationDataEntryRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteApplicationDataEntryRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1684,7 +1684,7 @@ public:
 Q_SIGNALS:
     void setNoteApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onSetNoteApplicationDataEntryRequestReceived(
@@ -1703,13 +1703,13 @@ public Q_SLOTS:
 
             Q_EMIT setNoteApplicationDataEntryRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT setNoteApplicationDataEntryRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1740,7 +1740,7 @@ public:
 Q_SIGNALS:
     void unsetNoteApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUnsetNoteApplicationDataEntryRequestReceived(
@@ -1757,13 +1757,13 @@ public Q_SLOTS:
 
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT unsetNoteApplicationDataEntryRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1793,7 +1793,7 @@ public:
 Q_SIGNALS:
     void getNoteContentRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteContentRequestReceived(
@@ -1808,13 +1808,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteContentRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteContentRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1846,7 +1846,7 @@ public:
 Q_SIGNALS:
     void getNoteSearchTextRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteSearchTextRequestReceived(
@@ -1865,13 +1865,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteSearchTextRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteSearchTextRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1901,7 +1901,7 @@ public:
 Q_SIGNALS:
     void getResourceSearchTextRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceSearchTextRequestReceived(
@@ -1916,13 +1916,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceSearchTextRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceSearchTextRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -1952,7 +1952,7 @@ public:
 Q_SIGNALS:
     void getNoteTagNamesRequestReady(
         QStringList value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteTagNamesRequestReceived(
@@ -1967,13 +1967,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteTagNamesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteTagNamesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2003,7 +2003,7 @@ public:
 Q_SIGNALS:
     void createNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCreateNoteRequestReceived(
@@ -2018,13 +2018,13 @@ public Q_SLOTS:
 
             Q_EMIT createNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT createNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2054,7 +2054,7 @@ public:
 Q_SIGNALS:
     void updateNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateNoteRequestReceived(
@@ -2069,13 +2069,13 @@ public Q_SLOTS:
 
             Q_EMIT updateNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2105,7 +2105,7 @@ public:
 Q_SIGNALS:
     void deleteNoteRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onDeleteNoteRequestReceived(
@@ -2120,13 +2120,13 @@ public Q_SLOTS:
 
             Q_EMIT deleteNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT deleteNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2156,7 +2156,7 @@ public:
 Q_SIGNALS:
     void expungeNoteRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onExpungeNoteRequestReceived(
@@ -2171,13 +2171,13 @@ public Q_SLOTS:
 
             Q_EMIT expungeNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT expungeNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2208,7 +2208,7 @@ public:
 Q_SIGNALS:
     void copyNoteRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCopyNoteRequestReceived(
@@ -2225,13 +2225,13 @@ public Q_SLOTS:
 
             Q_EMIT copyNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT copyNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2261,7 +2261,7 @@ public:
 Q_SIGNALS:
     void listNoteVersionsRequestReady(
         QList<NoteVersionId> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListNoteVersionsRequestReceived(
@@ -2276,13 +2276,13 @@ public Q_SLOTS:
 
             Q_EMIT listNoteVersionsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listNoteVersionsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2316,7 +2316,7 @@ public:
 Q_SIGNALS:
     void getNoteVersionRequestReady(
         Note value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNoteVersionRequestReceived(
@@ -2339,13 +2339,13 @@ public Q_SLOTS:
 
             Q_EMIT getNoteVersionRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNoteVersionRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2379,7 +2379,7 @@ public:
 Q_SIGNALS:
     void getResourceRequestReady(
         Resource value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceRequestReceived(
@@ -2402,13 +2402,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2438,7 +2438,7 @@ public:
 Q_SIGNALS:
     void getResourceApplicationDataRequestReady(
         LazyMap value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceApplicationDataRequestReceived(
@@ -2453,13 +2453,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceApplicationDataRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceApplicationDataRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2490,7 +2490,7 @@ public:
 Q_SIGNALS:
     void getResourceApplicationDataEntryRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceApplicationDataEntryRequestReceived(
@@ -2507,13 +2507,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceApplicationDataEntryRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceApplicationDataEntryRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2545,7 +2545,7 @@ public:
 Q_SIGNALS:
     void setResourceApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onSetResourceApplicationDataEntryRequestReceived(
@@ -2564,13 +2564,13 @@ public Q_SLOTS:
 
             Q_EMIT setResourceApplicationDataEntryRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT setResourceApplicationDataEntryRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2601,7 +2601,7 @@ public:
 Q_SIGNALS:
     void unsetResourceApplicationDataEntryRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUnsetResourceApplicationDataEntryRequestReceived(
@@ -2618,13 +2618,13 @@ public Q_SLOTS:
 
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT unsetResourceApplicationDataEntryRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2654,7 +2654,7 @@ public:
 Q_SIGNALS:
     void updateResourceRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateResourceRequestReceived(
@@ -2669,13 +2669,13 @@ public Q_SLOTS:
 
             Q_EMIT updateResourceRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateResourceRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2705,7 +2705,7 @@ public:
 Q_SIGNALS:
     void getResourceDataRequestReady(
         QByteArray value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceDataRequestReceived(
@@ -2720,13 +2720,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceDataRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceDataRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2760,7 +2760,7 @@ public:
 Q_SIGNALS:
     void getResourceByHashRequestReady(
         Resource value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceByHashRequestReceived(
@@ -2783,13 +2783,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceByHashRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceByHashRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2819,7 +2819,7 @@ public:
 Q_SIGNALS:
     void getResourceRecognitionRequestReady(
         QByteArray value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceRecognitionRequestReceived(
@@ -2834,13 +2834,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceRecognitionRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceRecognitionRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2870,7 +2870,7 @@ public:
 Q_SIGNALS:
     void getResourceAlternateDataRequestReady(
         QByteArray value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceAlternateDataRequestReceived(
@@ -2885,13 +2885,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceAlternateDataRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceAlternateDataRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2921,7 +2921,7 @@ public:
 Q_SIGNALS:
     void getResourceAttributesRequestReady(
         ResourceAttributes value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetResourceAttributesRequestReceived(
@@ -2936,13 +2936,13 @@ public Q_SLOTS:
 
             Q_EMIT getResourceAttributesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getResourceAttributesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -2973,7 +2973,7 @@ public:
 Q_SIGNALS:
     void getPublicNotebookRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetPublicNotebookRequestReceived(
@@ -2990,13 +2990,13 @@ public Q_SLOTS:
 
             Q_EMIT getPublicNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getPublicNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3027,7 +3027,7 @@ public:
 Q_SIGNALS:
     void shareNotebookRequestReady(
         SharedNotebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onShareNotebookRequestReceived(
@@ -3044,13 +3044,13 @@ public Q_SLOTS:
 
             Q_EMIT shareNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT shareNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3080,7 +3080,7 @@ public:
 Q_SIGNALS:
     void createOrUpdateNotebookSharesRequestReady(
         CreateOrUpdateNotebookSharesResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCreateOrUpdateNotebookSharesRequestReceived(
@@ -3095,13 +3095,13 @@ public Q_SLOTS:
 
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT createOrUpdateNotebookSharesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3131,7 +3131,7 @@ public:
 Q_SIGNALS:
     void updateSharedNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateSharedNotebookRequestReceived(
@@ -3146,13 +3146,13 @@ public Q_SLOTS:
 
             Q_EMIT updateSharedNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateSharedNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3183,7 +3183,7 @@ public:
 Q_SIGNALS:
     void setNotebookRecipientSettingsRequestReady(
         Notebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onSetNotebookRecipientSettingsRequestReceived(
@@ -3200,13 +3200,13 @@ public Q_SLOTS:
 
             Q_EMIT setNotebookRecipientSettingsRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT setNotebookRecipientSettingsRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3235,7 +3235,7 @@ public:
 Q_SIGNALS:
     void listSharedNotebooksRequestReady(
         QList<SharedNotebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListSharedNotebooksRequestReceived(
@@ -3248,13 +3248,13 @@ public Q_SLOTS:
 
             Q_EMIT listSharedNotebooksRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listSharedNotebooksRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3284,7 +3284,7 @@ public:
 Q_SIGNALS:
     void createLinkedNotebookRequestReady(
         LinkedNotebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onCreateLinkedNotebookRequestReceived(
@@ -3299,13 +3299,13 @@ public Q_SLOTS:
 
             Q_EMIT createLinkedNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT createLinkedNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3335,7 +3335,7 @@ public:
 Q_SIGNALS:
     void updateLinkedNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateLinkedNotebookRequestReceived(
@@ -3350,13 +3350,13 @@ public Q_SLOTS:
 
             Q_EMIT updateLinkedNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateLinkedNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3385,7 +3385,7 @@ public:
 Q_SIGNALS:
     void listLinkedNotebooksRequestReady(
         QList<LinkedNotebook> value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onListLinkedNotebooksRequestReceived(
@@ -3398,13 +3398,13 @@ public Q_SLOTS:
 
             Q_EMIT listLinkedNotebooksRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT listLinkedNotebooksRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3434,7 +3434,7 @@ public:
 Q_SIGNALS:
     void expungeLinkedNotebookRequestReady(
         qint32 value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onExpungeLinkedNotebookRequestReceived(
@@ -3449,13 +3449,13 @@ public Q_SLOTS:
 
             Q_EMIT expungeLinkedNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT expungeLinkedNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3485,7 +3485,7 @@ public:
 Q_SIGNALS:
     void authenticateToSharedNotebookRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onAuthenticateToSharedNotebookRequestReceived(
@@ -3500,13 +3500,13 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToSharedNotebookRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT authenticateToSharedNotebookRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3535,7 +3535,7 @@ public:
 Q_SIGNALS:
     void getSharedNotebookByAuthRequestReady(
         SharedNotebook value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetSharedNotebookByAuthRequestReceived(
@@ -3548,13 +3548,13 @@ public Q_SLOTS:
 
             Q_EMIT getSharedNotebookByAuthRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getSharedNotebookByAuthRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3583,7 +3583,7 @@ public:
 
 Q_SIGNALS:
     void emailNoteRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onEmailNoteRequestReceived(
@@ -3597,12 +3597,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT emailNoteRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT emailNoteRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3632,7 +3632,7 @@ public:
 Q_SIGNALS:
     void shareNoteRequestReady(
         QString value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onShareNoteRequestReceived(
@@ -3647,13 +3647,13 @@ public Q_SLOTS:
 
             Q_EMIT shareNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT shareNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3682,7 +3682,7 @@ public:
 
 Q_SIGNALS:
     void stopSharingNoteRequestReady(
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onStopSharingNoteRequestReceived(
@@ -3696,12 +3696,12 @@ public Q_SLOTS:
                 ctx);
 
             Q_EMIT stopSharingNoteRequestReady(
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT stopSharingNoteRequestReady(
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3732,7 +3732,7 @@ public:
 Q_SIGNALS:
     void authenticateToSharedNoteRequestReady(
         AuthenticationResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onAuthenticateToSharedNoteRequestReceived(
@@ -3749,13 +3749,13 @@ public Q_SLOTS:
 
             Q_EMIT authenticateToSharedNoteRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT authenticateToSharedNoteRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3786,7 +3786,7 @@ public:
 Q_SIGNALS:
     void findRelatedRequestReady(
         RelatedResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onFindRelatedRequestReceived(
@@ -3803,13 +3803,13 @@ public Q_SLOTS:
 
             Q_EMIT findRelatedRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT findRelatedRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3839,7 +3839,7 @@ public:
 Q_SIGNALS:
     void updateNoteIfUsnMatchesRequestReady(
         UpdateNoteIfUsnMatchesResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onUpdateNoteIfUsnMatchesRequestReceived(
@@ -3854,13 +3854,13 @@ public Q_SLOTS:
 
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT updateNoteIfUsnMatchesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3890,7 +3890,7 @@ public:
 Q_SIGNALS:
     void manageNotebookSharesRequestReady(
         ManageNotebookSharesResult value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onManageNotebookSharesRequestReceived(
@@ -3905,13 +3905,13 @@ public Q_SLOTS:
 
             Q_EMIT manageNotebookSharesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT manageNotebookSharesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 
@@ -3941,7 +3941,7 @@ public:
 Q_SIGNALS:
     void getNotebookSharesRequestReady(
         ShareRelationships value,
-        EverCloudExceptionDataPtr exceptionData);
+        std::exception_ptr e);
 
 public Q_SLOTS:
     void onGetNotebookSharesRequestReceived(
@@ -3956,13 +3956,13 @@ public Q_SLOTS:
 
             Q_EMIT getNotebookSharesRequestReady(
                 v,
-                EverCloudExceptionDataPtr());
+                std::exception_ptr{});
         }
-        catch(const EverCloudException & e)
+        catch(const std::exception &)
         {
             Q_EMIT getNotebookSharesRequestReady(
                 {},
-                e.exceptionData());
+                std::current_exception());
         }
     }
 

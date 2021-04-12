@@ -45,19 +45,4 @@ EverCloudException * EverCloudException::clone() const
     return new EverCloudException(QString::fromUtf8(m_error));
 }
 
-EverCloudExceptionDataPtr EverCloudException::exceptionData() const
-{
-    return std::make_shared<EverCloudExceptionData>(
-        QString::fromUtf8(what()));
-}
-
-EverCloudExceptionData::EverCloudExceptionData(QString error) :
-    errorMessage(error)
-{}
-
-void EverCloudExceptionData::throwException() const
-{
-    throw EverCloudException(errorMessage);
-}
-
 } // namespace qevercloud

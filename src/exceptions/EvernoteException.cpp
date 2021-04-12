@@ -37,18 +37,4 @@ EvernoteException * EvernoteException::clone() const
     return new EvernoteException(QString::fromUtf8(what()));
 }
 
-EverCloudExceptionDataPtr EvernoteException::exceptionData() const
-{
-    return std::make_shared<EverCloudExceptionData>(QString::fromUtf8(what()));
-}
-
-EvernoteExceptionData::EvernoteExceptionData(QString error) :
-    EverCloudExceptionData(error)
-{}
-
-void EvernoteExceptionData::throwException() const
-{
-    throw EvernoteException(errorMessage);
-}
-
 } // namespace qevercloud
