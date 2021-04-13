@@ -40,6 +40,8 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
 include(QEverCloudCompilerSettings)
 
@@ -91,7 +93,6 @@ endif()
 set(NON_GENERATED_HEADERS
     include/qevercloud/DurableService.h
     include/qevercloud/EventLoopFinisher.h
-    include/qevercloud/Export.h
     include/qevercloud/Initialization.h
     include/qevercloud/InkNoteImageDownloader.h
     include/qevercloud/NetworkProxy.h
@@ -599,11 +600,25 @@ endif()
 
 add_library(QEverCloud::${LIBNAME} ALIAS ${LIBNAME})
 
+include(GenerateExportHeader)
+
+generate_export_header(
+  ${LIBNAME}
+  BASE_NAME QEverCloud
+  EXPORT_MACRO_NAME QEVERCLOUD_EXPORT
+  EXPORT_FILE_NAME qevercloud/Export.h
+  STATIC_DEFINE BUILDING_QEVERCLOUD_STATIC_LIBRARY)
+
 if(BUILD_SHARED_LIBS)
   message(STATUS "Building QEverCloud shared library")
-  target_compile_definitions(${LIBNAME} PRIVATE "-DBUILDING_QEVERCLOUD_SHARED_LIBRARY")
+  if(BUILD_WITH_QT6)
+    target_compile_definitions(${LIBNAME} PRIVATE "-Dqt6qevercloud_EXPORTS")
+  else()
+    target_compile_definitions(${LIBNAME} PRIVATE "-Dqt5qevercloud_EXPORTS")
+  endif()
 else()
   message(STATUS "Building QEverCloud static library")
+  target_compile_definitions(${LIBNAME} PRIVATE "-DBUILDING_QEVERCLOUD_STATIC_LIBRARY")
 endif()
 
 add_sanitizers(${LIBNAME})
@@ -733,6 +748,7 @@ install(DIRECTORY include/qevercloud/
 
 install(FILES ${PROJECT_BINARY_DIR}/qevercloud/LibraryType.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 install(FILES ${PROJECT_BINARY_DIR}/qevercloud/VersionInfo.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
+install(FILES ${PROJECT_BINARY_DIR}/qevercloud/Export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/qevercloud")
 
 if(BUILD_SHARED_LIBS)
   install(EXPORT QEverCloudExport NAMESPACE QEverCloud:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-qt${QEVERCLOUD_QT_VERSION})

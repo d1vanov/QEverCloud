@@ -113,8 +113,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept;
-[[nodiscard]] bool operator!=(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept;
 
 } // namespace qevercloud
 

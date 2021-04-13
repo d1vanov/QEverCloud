@@ -83,8 +83,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const LazyMap & lhs, const LazyMap & rhs) noexcept;
-[[nodiscard]] bool operator!=(const LazyMap & lhs, const LazyMap & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const LazyMap & lhs, const LazyMap & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const LazyMap & lhs, const LazyMap & rhs) noexcept;
 
 } // namespace qevercloud
 

@@ -11,7 +11,6 @@
 
 #include "DurableService.h"
 #include "EventLoopFinisher.h"
-#include "Export.h"
 #include "Initialization.h"
 #include "InkNoteImageDownloader.h"
 #include "NetworkProxy.h"
@@ -26,6 +25,7 @@
 #include "utility/Printable.h"
 #include "utility/ToRange.h"
 
+#include <qevercloud/Export.h>
 #include <qevercloud/VersionInfo.h>
 
 #endif // QEVERCLOUD_INFTHEADER_H

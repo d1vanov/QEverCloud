@@ -144,8 +144,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const AccountLimits & lhs, const AccountLimits & rhs) noexcept;
-[[nodiscard]] bool operator!=(const AccountLimits & lhs, const AccountLimits & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const AccountLimits & lhs, const AccountLimits & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const AccountLimits & lhs, const AccountLimits & rhs) noexcept;
 
 } // namespace qevercloud
 

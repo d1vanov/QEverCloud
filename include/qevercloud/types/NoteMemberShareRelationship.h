@@ -98,8 +98,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept;
-[[nodiscard]] bool operator!=(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept;
 
 } // namespace qevercloud
 

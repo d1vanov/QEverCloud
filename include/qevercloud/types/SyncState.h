@@ -126,8 +126,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const SyncState & lhs, const SyncState & rhs) noexcept;
-[[nodiscard]] bool operator!=(const SyncState & lhs, const SyncState & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const SyncState & lhs, const SyncState & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const SyncState & lhs, const SyncState & rhs) noexcept;
 
 } // namespace qevercloud
 

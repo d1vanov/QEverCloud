@@ -107,8 +107,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept;
-[[nodiscard]] bool operator!=(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept;
 
 } // namespace qevercloud
 

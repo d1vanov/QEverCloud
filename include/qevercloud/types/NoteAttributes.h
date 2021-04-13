@@ -330,8 +330,8 @@ private:
     QSharedDataPointer<Impl> d;
 };
 
-[[nodiscard]] bool operator==(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept;
-[[nodiscard]] bool operator!=(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator==(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept;
+[[nodiscard]] QEVERCLOUD_EXPORT bool operator!=(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept;
 
 } // namespace qevercloud
 
