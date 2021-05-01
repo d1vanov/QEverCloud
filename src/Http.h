@@ -49,7 +49,7 @@ public:
     // if !postData.isNull() then POST will be issued instead of GET
     void start(
         QNetworkAccessManager * nam, QNetworkRequest request,
-        qint64 timeoutMsec, QByteArray postData = QByteArray());
+        qint64 timeoutMsec, QByteArray postData = {});
 
     [[nodiscard]] bool isError() const noexcept
     {
@@ -81,9 +81,8 @@ public:
         if (!m_pNam.isNull()) {
             return m_pNam.data();
         }
-        else {
-            return nullptr;
-        }
+
+        return nullptr;
     }
 
 Q_SIGNALS:
@@ -112,7 +111,6 @@ private:
 
 private:
     QPointer<QNetworkAccessManager>     m_pNam;
-
     QNetworkReplyPtr    m_pReply;
 
     QNetworkReply::NetworkError m_errorType = QNetworkReply::NoError;
@@ -123,31 +121,6 @@ private:
     QTimer *    m_pTicker = nullptr;
     qint64      m_lastNetworkTime = 0;
     qint64      m_timeoutMsec = 0;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * @brief The ReplyFetcherLauncher class simplifies ReplyFetcher starting
- */
-class ReplyFetcherLauncher: public QObject
-{
-    Q_OBJECT
-public:
-    explicit ReplyFetcherLauncher(
-        ReplyFetcher * pFetcher, QNetworkAccessManager * pNam,
-        const QNetworkRequest & request, const qint64 timeoutMsec,
-        const QByteArray & postData);
-
-public Q_SLOTS:
-    void start();
-
-private:
-    ReplyFetcher *          m_pFetcher = nullptr;
-    QNetworkAccessManager * m_pNam = nullptr;
-    QNetworkRequest         m_request;
-    qint64                  m_timeoutMsec = 0;
-    QByteArray              m_postData;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

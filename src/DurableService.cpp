@@ -277,12 +277,11 @@ void DurableService::doExecuteAsyncRequest(
     resultPromise.start();
     auto resultPromisePtr = std::make_shared<QPromise<QVariant>>(std::move(resultPromise));
 
-    auto pWatcher = std::make_unique<QFutureWatcher<QVariant>>();
+    auto pWatcher = std::make_shared<QFutureWatcher<QVariant>>();
 
     auto attemptFuture = asyncRequest.m_call(ctx);
     std::function<void()> resultCallback =
-        [this, ctx, asyncRequest, resultPromisePtr,
-         pWatcher = pWatcher.get(), retryState]
+        [this, ctx, asyncRequest, resultPromisePtr, pWatcher, retryState]
         () mutable
         {
             std::exception_ptr exception;
@@ -296,7 +295,6 @@ void DurableService::doExecuteAsyncRequest(
                 resultPromisePtr->addResult(result);
 #endif
                 resultPromisePtr->finish();
-                pWatcher->deleteLater();
                 return;
             }
             catch (const QException &)
@@ -326,7 +324,6 @@ void DurableService::doExecuteAsyncRequest(
 #endif
 
                 resultPromisePtr->finish();
-                pWatcher->deleteLater();
                 return;
             }
 
@@ -348,7 +345,6 @@ void DurableService::doExecuteAsyncRequest(
 #endif
 
                 resultPromisePtr->finish();
-                pWatcher->deleteLater();
                 return;
             }
 
@@ -400,8 +396,6 @@ void DurableService::doExecuteAsyncRequest(
             resultCallback,
             Qt::QueuedConnection);
     }
-
-    Q_UNUSED(pWatcher.release());
 }
 
 ////////////////////////////////////////////////////////////////////////////////

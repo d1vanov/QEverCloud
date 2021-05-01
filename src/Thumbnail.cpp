@@ -134,13 +134,13 @@ QFuture<QVariant> Thumbnail::downloadAsync(
         std::move(pair.second),
         ctx);
 
-    auto pWatcher = std::make_unique<QFutureWatcher<QVariant>>();
+    auto pWatcher = std::make_shared<QFutureWatcher<QVariant>>();
 
     QObject::connect(
         pWatcher.get(),
         &QFutureWatcher<QVariant>::finished,
         pWatcher.get(),
-        [guid, pWatcher = pWatcher.get()]
+        [guid, pWatcher]
         {
             try
             {
@@ -151,19 +151,14 @@ QFuture<QVariant> Thumbnail::downloadAsync(
                 QEC_WARNING("thumbnail", "Async download for guid "
                     << guid << " finished with error: "
                     << e.what());
-
-                pWatcher->deleteLater();
                 return;
             }
 
             QEC_DEBUG("thumbnail", "Finished async download "
                 << "for guid " << guid);
-
-            pWatcher->deleteLater();
         },
         Qt::QueuedConnection);
 
-    Q_UNUSED(pWatcher.release());
     return future;
 }
 

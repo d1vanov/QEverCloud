@@ -191,27 +191,6 @@ void ReplyFetcher::setError(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-ReplyFetcherLauncher::ReplyFetcherLauncher(
-        ReplyFetcher * fetcher,
-        QNetworkAccessManager * nam,
-        const QNetworkRequest & request,
-        const qint64 timeoutMsec,
-        const QByteArray & postData) :
-    QObject(nam),
-    m_pFetcher(fetcher),
-    m_pNam(nam),
-    m_request(request),
-    m_timeoutMsec(timeoutMsec),
-    m_postData(postData)
-{}
-
-void ReplyFetcherLauncher::start()
-{
-    m_pFetcher->start(m_pNam, m_request, m_timeoutMsec, m_postData);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 QNetworkRequest createEvernoteRequest(
     QString url, QList<QNetworkCookie> cookies)
 {
@@ -260,29 +239,29 @@ QByteArray simpleDownload(
     QNetworkRequest request, const qint64 timeoutMsec,
     QByteArray postData, int * pHttpStatusCode)
 {
-    auto * pFetcher = new ReplyFetcher;
+    auto pFetcher = std::make_unique<ReplyFetcher>();
 
-    auto * pNam = new QNetworkAccessManager(pFetcher);
+    auto * pNam = new QNetworkAccessManager(pFetcher.get());
     pNam->setProxy(evernoteNetworkProxy());
 
     QEventLoop loop;
     QObject::connect(
-        pFetcher,
+        pFetcher.get(),
         SIGNAL(replyFetched(ReplyFetcher*)),
         &loop,
         SLOT(quit()));
 
-    auto * fetcherLauncher = new ReplyFetcherLauncher(
-        pFetcher,
-        pNam,
-        request,
-        timeoutMsec,
-        postData);
+    QTimer::singleShot(
+        0,
+        pFetcher.get(),
+        [pFetcher = pFetcher.get(), pNam,
+         request = std::move(request), timeoutMsec,
+         postData = std::move(postData)]
+        {
+            pFetcher->start(pNam, request, timeoutMsec, postData);
+        });
 
-    QTimer::singleShot(0, fetcherLauncher, SLOT(start()));
     loop.exec(QEventLoop::ExcludeUserInputEvents);
-
-    fetcherLauncher->deleteLater();
 
     if (pHttpStatusCode) {
         *pHttpStatusCode = pFetcher->httpStatusCode();
@@ -291,12 +270,10 @@ QByteArray simpleDownload(
     if (pFetcher->isError()) {
         auto errorType = pFetcher->errorType();
         QString errorText = pFetcher->errorText();
-        pFetcher->deleteLater();
         throw NetworkException(errorType, errorText);
     }
 
     QByteArray receivedData = pFetcher->receivedData();
-    pFetcher->deleteLater();
     return receivedData;
 }
 
