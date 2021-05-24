@@ -12,6 +12,8 @@
 #ifndef QEVERCLOUD_GENERATED_TYPES_FWD_H
 #define QEVERCLOUD_GENERATED_TYPES_FWD_H
 
+namespace qevercloud {
+
 class AccountLimits;
 class Accounting;
 class AuthenticationResult;
@@ -86,5 +88,8 @@ class UserAttributes;
 class UserIdentity;
 class UserProfile;
 class UserUrls;
+
+} // namespace qevercloud
+
 
 #endif // QEVERCLOUD_GENERATED_TYPES_FWD_H

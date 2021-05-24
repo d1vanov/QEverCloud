@@ -12,6 +12,8 @@
 #ifndef QEVERCLOUD_GENERATED_EXCEPTIONS_FWD_H
 #define QEVERCLOUD_GENERATED_EXCEPTIONS_FWD_H
 
+namespace qevercloud {
+
 class EDAMInvalidContactsException;
 class EDAMNotFoundException;
 class EDAMSystemException;
@@ -22,5 +24,8 @@ class EverCloudException;
 class EvernoteException;
 class NetworkException;
 class ThriftException;
+
+} // namespace qevercloud
+
 
 #endif // QEVERCLOUD_GENERATED_EXCEPTIONS_FWD_H
