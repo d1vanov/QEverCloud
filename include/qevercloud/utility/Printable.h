@@ -13,6 +13,8 @@
 #include <QDebug>
 #include <QTextStream>
 
+#include <iosfwd>
+
 namespace qevercloud {
 
 class QEVERCLOUD_EXPORT Printable
@@ -30,6 +32,9 @@ public:
 
     friend QEVERCLOUD_EXPORT QDebug & operator <<(
         QDebug & dbg, const Printable & printable);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const Printable & printable);
 };
 
 } // namespace qevercloud

@@ -9,6 +9,8 @@
 
 #include <QIODevice>
 
+#include <ostream>
+
 namespace qevercloud {
 
 QString Printable::toString() const
@@ -33,6 +35,16 @@ QDebug & operator<<(QDebug & dbg, const Printable & printable)
 
     dbg << str;
     return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Printable & printable)
+{
+    QString str;
+    QTextStream textStrm(&str);
+    printable.print(textStrm);
+
+    strm << str.toStdString();
+    return strm;
 }
 
 } // namespace qevercloud
