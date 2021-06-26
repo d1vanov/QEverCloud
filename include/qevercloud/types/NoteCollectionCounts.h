@@ -69,6 +69,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteCollectionCounts & noteCollectionCounts);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteCollectionCounts & noteCollectionCounts);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteCollectionCounts & noteCollectionCounts);
+
     using TagCounts = QMap<Guid, qint32>;
 
     Q_PROPERTY(std::optional<TagCounts> notebookCounts READ notebookCounts WRITE setNotebookCounts)

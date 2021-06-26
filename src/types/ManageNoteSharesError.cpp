@@ -112,6 +112,24 @@ void ManageNoteSharesError::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ManageNoteSharesError & manageNoteSharesError)
+{
+    strm << static_cast<const Printable&>(manageNoteSharesError);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ManageNoteSharesError & manageNoteSharesError)
+{
+    dbg << static_cast<const Printable&>(manageNoteSharesError);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ManageNoteSharesError & manageNoteSharesError)
+{
+    strm << static_cast<const Printable&>(manageNoteSharesError);
+    return strm;
+}
+
 bool operator==(const ManageNoteSharesError & lhs, const ManageNoteSharesError & rhs) noexcept
 {
     if (&lhs == &rhs) {

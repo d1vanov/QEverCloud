@@ -242,6 +242,24 @@ void BootstrapSettings::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const BootstrapSettings & bootstrapSettings)
+{
+    strm << static_cast<const Printable&>(bootstrapSettings);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const BootstrapSettings & bootstrapSettings)
+{
+    dbg << static_cast<const Printable&>(bootstrapSettings);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const BootstrapSettings & bootstrapSettings)
+{
+    strm << static_cast<const Printable&>(bootstrapSettings);
+    return strm;
+}
+
 bool operator==(const BootstrapSettings & lhs, const BootstrapSettings & rhs) noexcept
 {
     if (&lhs == &rhs) {

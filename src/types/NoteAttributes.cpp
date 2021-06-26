@@ -347,6 +347,24 @@ void NoteAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteAttributes & noteAttributes)
+{
+    strm << static_cast<const Printable&>(noteAttributes);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteAttributes & noteAttributes)
+{
+    dbg << static_cast<const Printable&>(noteAttributes);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteAttributes & noteAttributes)
+{
+    strm << static_cast<const Printable&>(noteAttributes);
+    return strm;
+}
+
 bool operator==(const NoteAttributes & lhs, const NoteAttributes & rhs) noexcept
 {
     if (&lhs == &rhs) {

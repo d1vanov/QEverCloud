@@ -109,6 +109,24 @@ EDAMSystemException * EDAMSystemException::clone() const
     return e.release();
 }
 
+QTextStream & operator<<(QTextStream & strm, const EDAMSystemException & eDAMSystemException)
+{
+    strm << static_cast<const Printable&>(eDAMSystemException);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const EDAMSystemException & eDAMSystemException)
+{
+    dbg << static_cast<const Printable&>(eDAMSystemException);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const EDAMSystemException & eDAMSystemException)
+{
+    strm << static_cast<const Printable&>(eDAMSystemException);
+    return strm;
+}
+
 bool operator==(const EDAMSystemException & lhs, const EDAMSystemException & rhs) noexcept
 {
     if (&lhs == &rhs) {

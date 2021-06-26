@@ -107,6 +107,24 @@ void InvitationShareRelationship::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const InvitationShareRelationship & invitationShareRelationship)
+{
+    strm << static_cast<const Printable&>(invitationShareRelationship);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const InvitationShareRelationship & invitationShareRelationship)
+{
+    dbg << static_cast<const Printable&>(invitationShareRelationship);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const InvitationShareRelationship & invitationShareRelationship)
+{
+    strm << static_cast<const Printable&>(invitationShareRelationship);
+    return strm;
+}
+
 bool operator==(const InvitationShareRelationship & lhs, const InvitationShareRelationship & rhs) noexcept
 {
     if (&lhs == &rhs) {

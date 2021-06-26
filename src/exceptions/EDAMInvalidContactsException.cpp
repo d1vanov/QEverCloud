@@ -114,6 +114,24 @@ EDAMInvalidContactsException * EDAMInvalidContactsException::clone() const
     return e.release();
 }
 
+QTextStream & operator<<(QTextStream & strm, const EDAMInvalidContactsException & eDAMInvalidContactsException)
+{
+    strm << static_cast<const Printable&>(eDAMInvalidContactsException);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const EDAMInvalidContactsException & eDAMInvalidContactsException)
+{
+    dbg << static_cast<const Printable&>(eDAMInvalidContactsException);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const EDAMInvalidContactsException & eDAMInvalidContactsException)
+{
+    strm << static_cast<const Printable&>(eDAMInvalidContactsException);
+    return strm;
+}
+
 bool operator==(const EDAMInvalidContactsException & lhs, const EDAMInvalidContactsException & rhs) noexcept
 {
     if (&lhs == &rhs) {

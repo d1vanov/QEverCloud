@@ -67,6 +67,24 @@ void CanMoveToContainerRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const CanMoveToContainerRestrictions & canMoveToContainerRestrictions)
+{
+    strm << static_cast<const Printable&>(canMoveToContainerRestrictions);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const CanMoveToContainerRestrictions & canMoveToContainerRestrictions)
+{
+    dbg << static_cast<const Printable&>(canMoveToContainerRestrictions);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const CanMoveToContainerRestrictions & canMoveToContainerRestrictions)
+{
+    strm << static_cast<const Printable&>(canMoveToContainerRestrictions);
+    return strm;
+}
+
 bool operator==(const CanMoveToContainerRestrictions & lhs, const CanMoveToContainerRestrictions & rhs) noexcept
 {
     if (&lhs == &rhs) {

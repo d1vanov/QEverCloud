@@ -78,6 +78,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const PublicUserInfo & publicUserInfo);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const PublicUserInfo & publicUserInfo);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const PublicUserInfo & publicUserInfo);
+
     Q_PROPERTY(UserID userId READ userId WRITE setUserId)
     Q_PROPERTY(std::optional<ServiceLevel> serviceLevel READ serviceLevel WRITE setServiceLevel)
     Q_PROPERTY(std::optional<QString> username READ username WRITE setUsername)

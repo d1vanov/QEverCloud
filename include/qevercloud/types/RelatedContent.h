@@ -154,6 +154,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const RelatedContent & relatedContent);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const RelatedContent & relatedContent);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const RelatedContent & relatedContent);
+
     Q_PROPERTY(std::optional<QString> contentId READ contentId WRITE setContentId)
     Q_PROPERTY(std::optional<QString> title READ title WRITE setTitle)
     Q_PROPERTY(std::optional<QString> url READ url WRITE setUrl)

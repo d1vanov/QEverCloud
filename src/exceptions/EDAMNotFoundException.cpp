@@ -93,6 +93,24 @@ EDAMNotFoundException * EDAMNotFoundException::clone() const
     return e.release();
 }
 
+QTextStream & operator<<(QTextStream & strm, const EDAMNotFoundException & eDAMNotFoundException)
+{
+    strm << static_cast<const Printable&>(eDAMNotFoundException);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const EDAMNotFoundException & eDAMNotFoundException)
+{
+    dbg << static_cast<const Printable&>(eDAMNotFoundException);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const EDAMNotFoundException & eDAMNotFoundException)
+{
+    strm << static_cast<const Printable&>(eDAMNotFoundException);
+    return strm;
+}
+
 bool operator==(const EDAMNotFoundException & lhs, const EDAMNotFoundException & rhs) noexcept
 {
     if (&lhs == &rhs) {

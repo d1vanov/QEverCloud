@@ -82,6 +82,24 @@ void LazyMap::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const LazyMap & lazyMap)
+{
+    strm << static_cast<const Printable&>(lazyMap);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const LazyMap & lazyMap)
+{
+    dbg << static_cast<const Printable&>(lazyMap);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const LazyMap & lazyMap)
+{
+    strm << static_cast<const Printable&>(lazyMap);
+    return strm;
+}
+
 bool operator==(const LazyMap & lhs, const LazyMap & rhs) noexcept
 {
     if (&lhs == &rhs) {

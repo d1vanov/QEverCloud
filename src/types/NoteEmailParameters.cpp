@@ -127,6 +127,24 @@ void NoteEmailParameters::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteEmailParameters & noteEmailParameters)
+{
+    strm << static_cast<const Printable&>(noteEmailParameters);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteEmailParameters & noteEmailParameters)
+{
+    dbg << static_cast<const Printable&>(noteEmailParameters);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteEmailParameters & noteEmailParameters)
+{
+    strm << static_cast<const Printable&>(noteEmailParameters);
+    return strm;
+}
+
 bool operator==(const NoteEmailParameters & lhs, const NoteEmailParameters & rhs) noexcept
 {
     if (&lhs == &rhs) {

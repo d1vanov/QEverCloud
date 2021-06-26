@@ -122,6 +122,24 @@ void ManageNoteSharesParameters::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ManageNoteSharesParameters & manageNoteSharesParameters)
+{
+    strm << static_cast<const Printable&>(manageNoteSharesParameters);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ManageNoteSharesParameters & manageNoteSharesParameters)
+{
+    dbg << static_cast<const Printable&>(manageNoteSharesParameters);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ManageNoteSharesParameters & manageNoteSharesParameters)
+{
+    strm << static_cast<const Printable&>(manageNoteSharesParameters);
+    return strm;
+}
+
 bool operator==(const ManageNoteSharesParameters & lhs, const ManageNoteSharesParameters & rhs) noexcept
 {
     if (&lhs == &rhs) {

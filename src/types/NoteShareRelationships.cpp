@@ -97,6 +97,24 @@ void NoteShareRelationships::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteShareRelationships & noteShareRelationships)
+{
+    strm << static_cast<const Printable&>(noteShareRelationships);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteShareRelationships & noteShareRelationships)
+{
+    dbg << static_cast<const Printable&>(noteShareRelationships);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteShareRelationships & noteShareRelationships)
+{
+    strm << static_cast<const Printable&>(noteShareRelationships);
+    return strm;
+}
+
 bool operator==(const NoteShareRelationships & lhs, const NoteShareRelationships & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -77,6 +77,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const ManageNotebookSharesError & manageNotebookSharesError);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const ManageNotebookSharesError & manageNotebookSharesError);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const ManageNotebookSharesError & manageNotebookSharesError);
+
     Q_PROPERTY(std::optional<UserIdentity> userIdentity READ userIdentity WRITE setUserIdentity)
     Q_PROPERTY(std::optional<EDAMUserException> userException READ userException WRITE setUserException)
     Q_PROPERTY(std::optional<EDAMNotFoundException> notFoundException READ notFoundException WRITE setNotFoundException)

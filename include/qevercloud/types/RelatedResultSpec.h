@@ -129,6 +129,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const RelatedResultSpec & relatedResultSpec);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const RelatedResultSpec & relatedResultSpec);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const RelatedResultSpec & relatedResultSpec);
+
     Q_PROPERTY(std::optional<qint32> maxNotes READ maxNotes WRITE setMaxNotes)
     Q_PROPERTY(std::optional<qint32> maxNotebooks READ maxNotebooks WRITE setMaxNotebooks)
     Q_PROPERTY(std::optional<qint32> maxTags READ maxTags WRITE setMaxTags)

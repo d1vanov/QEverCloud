@@ -217,6 +217,24 @@ void AccountLimits::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const AccountLimits & accountLimits)
+{
+    strm << static_cast<const Printable&>(accountLimits);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const AccountLimits & accountLimits)
+{
+    dbg << static_cast<const Printable&>(accountLimits);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const AccountLimits & accountLimits)
+{
+    strm << static_cast<const Printable&>(accountLimits);
+    return strm;
+}
+
 bool operator==(const AccountLimits & lhs, const AccountLimits & rhs) noexcept
 {
     if (&lhs == &rhs) {

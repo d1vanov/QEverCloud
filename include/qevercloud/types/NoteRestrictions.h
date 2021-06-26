@@ -107,6 +107,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteRestrictions & noteRestrictions);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteRestrictions & noteRestrictions);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteRestrictions & noteRestrictions);
+
     Q_PROPERTY(std::optional<bool> noUpdateTitle READ noUpdateTitle WRITE setNoUpdateTitle)
     Q_PROPERTY(std::optional<bool> noUpdateContent READ noUpdateContent WRITE setNoUpdateContent)
     Q_PROPERTY(std::optional<bool> noEmail READ noEmail WRITE setNoEmail)

@@ -207,6 +207,24 @@ void ResourceAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ResourceAttributes & resourceAttributes)
+{
+    strm << static_cast<const Printable&>(resourceAttributes);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ResourceAttributes & resourceAttributes)
+{
+    dbg << static_cast<const Printable&>(resourceAttributes);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ResourceAttributes & resourceAttributes)
+{
+    strm << static_cast<const Printable&>(resourceAttributes);
+    return strm;
+}
+
 bool operator==(const ResourceAttributes & lhs, const ResourceAttributes & rhs) noexcept
 {
     if (&lhs == &rhs) {

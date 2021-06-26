@@ -287,6 +287,24 @@ void SyncChunkFilter::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SyncChunkFilter & syncChunkFilter)
+{
+    strm << static_cast<const Printable&>(syncChunkFilter);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SyncChunkFilter & syncChunkFilter)
+{
+    dbg << static_cast<const Printable&>(syncChunkFilter);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SyncChunkFilter & syncChunkFilter)
+{
+    strm << static_cast<const Printable&>(syncChunkFilter);
+    return strm;
+}
+
 bool operator==(const SyncChunkFilter & lhs, const SyncChunkFilter & rhs) noexcept
 {
     if (&lhs == &rhs) {

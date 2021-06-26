@@ -487,6 +487,24 @@ void NotebookRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NotebookRestrictions & notebookRestrictions)
+{
+    strm << static_cast<const Printable&>(notebookRestrictions);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NotebookRestrictions & notebookRestrictions)
+{
+    dbg << static_cast<const Printable&>(notebookRestrictions);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NotebookRestrictions & notebookRestrictions)
+{
+    strm << static_cast<const Printable&>(notebookRestrictions);
+    return strm;
+}
+
 bool operator==(const NotebookRestrictions & lhs, const NotebookRestrictions & rhs) noexcept
 {
     if (&lhs == &rhs) {

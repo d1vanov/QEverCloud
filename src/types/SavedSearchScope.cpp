@@ -97,6 +97,24 @@ void SavedSearchScope::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SavedSearchScope & savedSearchScope)
+{
+    strm << static_cast<const Printable&>(savedSearchScope);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SavedSearchScope & savedSearchScope)
+{
+    dbg << static_cast<const Printable&>(savedSearchScope);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SavedSearchScope & savedSearchScope)
+{
+    strm << static_cast<const Printable&>(savedSearchScope);
+    return strm;
+}
+
 bool operator==(const SavedSearchScope & lhs, const SavedSearchScope & rhs) noexcept
 {
     if (&lhs == &rhs) {

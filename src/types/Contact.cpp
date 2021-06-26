@@ -137,6 +137,24 @@ void Contact::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const Contact & contact)
+{
+    strm << static_cast<const Printable&>(contact);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Contact & contact)
+{
+    dbg << static_cast<const Printable&>(contact);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Contact & contact)
+{
+    strm << static_cast<const Printable&>(contact);
+    return strm;
+}
+
 bool operator==(const Contact & lhs, const Contact & rhs) noexcept
 {
     if (&lhs == &rhs) {

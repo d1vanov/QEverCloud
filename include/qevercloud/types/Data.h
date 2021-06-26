@@ -72,6 +72,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const Data & data);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const Data & data);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const Data & data);
+
     Q_PROPERTY(std::optional<QByteArray> bodyHash READ bodyHash WRITE setBodyHash)
     Q_PROPERTY(std::optional<qint32> size READ size WRITE setSize)
     Q_PROPERTY(std::optional<QByteArray> body READ body WRITE setBody)

@@ -52,6 +52,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const ManageNoteSharesResult & manageNoteSharesResult);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const ManageNoteSharesResult & manageNoteSharesResult);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const ManageNoteSharesResult & manageNoteSharesResult);
+
     Q_PROPERTY(std::optional<QList<ManageNoteSharesError>> errors READ errors WRITE setErrors)
 
 private:

@@ -242,6 +242,24 @@ void RelatedContent::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const RelatedContent & relatedContent)
+{
+    strm << static_cast<const Printable&>(relatedContent);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const RelatedContent & relatedContent)
+{
+    dbg << static_cast<const Printable&>(relatedContent);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const RelatedContent & relatedContent)
+{
+    strm << static_cast<const Printable&>(relatedContent);
+    return strm;
+}
+
 bool operator==(const RelatedContent & lhs, const RelatedContent & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -122,6 +122,24 @@ void NoteMemberShareRelationship::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteMemberShareRelationship & noteMemberShareRelationship)
+{
+    strm << static_cast<const Printable&>(noteMemberShareRelationship);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteMemberShareRelationship & noteMemberShareRelationship)
+{
+    dbg << static_cast<const Printable&>(noteMemberShareRelationship);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteMemberShareRelationship & noteMemberShareRelationship)
+{
+    strm << static_cast<const Printable&>(noteMemberShareRelationship);
+    return strm;
+}
+
 bool operator==(const NoteMemberShareRelationship & lhs, const NoteMemberShareRelationship & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -139,6 +139,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BootstrapSettings & bootstrapSettings);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BootstrapSettings & bootstrapSettings);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BootstrapSettings & bootstrapSettings);
+
     Q_PROPERTY(QString serviceHost READ serviceHost WRITE setServiceHost)
     Q_PROPERTY(QString marketingUrl READ marketingUrl WRITE setMarketingUrl)
     Q_PROPERTY(QString supportUrl READ supportUrl WRITE setSupportUrl)

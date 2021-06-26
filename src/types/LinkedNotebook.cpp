@@ -222,6 +222,24 @@ void LinkedNotebook::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const LinkedNotebook & linkedNotebook)
+{
+    strm << static_cast<const Printable&>(linkedNotebook);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const LinkedNotebook & linkedNotebook)
+{
+    dbg << static_cast<const Printable&>(linkedNotebook);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const LinkedNotebook & linkedNotebook)
+{
+    strm << static_cast<const Printable&>(linkedNotebook);
+    return strm;
+}
+
 bool operator==(const LinkedNotebook & lhs, const LinkedNotebook & rhs) noexcept
 {
     if (&lhs == &rhs) {

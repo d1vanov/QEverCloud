@@ -83,6 +83,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteVersionId & noteVersionId);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteVersionId & noteVersionId);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteVersionId & noteVersionId);
+
     Q_PROPERTY(qint32 updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
     Q_PROPERTY(Timestamp updated READ updated WRITE setUpdated)
     Q_PROPERTY(Timestamp saved READ saved WRITE setSaved)

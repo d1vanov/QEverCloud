@@ -100,6 +100,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const RelatedQuery & relatedQuery);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const RelatedQuery & relatedQuery);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const RelatedQuery & relatedQuery);
+
     Q_PROPERTY(std::optional<QString> noteGuid READ noteGuid WRITE setNoteGuid)
     Q_PROPERTY(std::optional<QString> plainText READ plainText WRITE setPlainText)
     Q_PROPERTY(std::optional<NoteFilter> filter READ filter WRITE setFilter)

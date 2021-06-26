@@ -127,6 +127,24 @@ void BusinessUserAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const BusinessUserAttributes & businessUserAttributes)
+{
+    strm << static_cast<const Printable&>(businessUserAttributes);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const BusinessUserAttributes & businessUserAttributes)
+{
+    dbg << static_cast<const Printable&>(businessUserAttributes);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const BusinessUserAttributes & businessUserAttributes)
+{
+    strm << static_cast<const Printable&>(businessUserAttributes);
+    return strm;
+}
+
 bool operator==(const BusinessUserAttributes & lhs, const BusinessUserAttributes & rhs) noexcept
 {
     if (&lhs == &rhs) {

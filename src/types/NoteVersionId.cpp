@@ -107,6 +107,24 @@ void NoteVersionId::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteVersionId & noteVersionId)
+{
+    strm << static_cast<const Printable&>(noteVersionId);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteVersionId & noteVersionId)
+{
+    dbg << static_cast<const Printable&>(noteVersionId);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteVersionId & noteVersionId)
+{
+    strm << static_cast<const Printable&>(noteVersionId);
+    return strm;
+}
+
 bool operator==(const NoteVersionId & lhs, const NoteVersionId & rhs) noexcept
 {
     if (&lhs == &rhs) {

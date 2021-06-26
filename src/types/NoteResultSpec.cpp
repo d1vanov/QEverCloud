@@ -172,6 +172,24 @@ void NoteResultSpec::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteResultSpec & noteResultSpec)
+{
+    strm << static_cast<const Printable&>(noteResultSpec);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteResultSpec & noteResultSpec)
+{
+    dbg << static_cast<const Printable&>(noteResultSpec);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteResultSpec & noteResultSpec)
+{
+    strm << static_cast<const Printable&>(noteResultSpec);
+    return strm;
+}
+
 bool operator==(const NoteResultSpec & lhs, const NoteResultSpec & rhs) noexcept
 {
     if (&lhs == &rhs) {

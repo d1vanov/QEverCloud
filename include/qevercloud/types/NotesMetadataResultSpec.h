@@ -94,6 +94,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NotesMetadataResultSpec & notesMetadataResultSpec);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NotesMetadataResultSpec & notesMetadataResultSpec);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NotesMetadataResultSpec & notesMetadataResultSpec);
+
     Q_PROPERTY(std::optional<bool> includeTitle READ includeTitle WRITE setIncludeTitle)
     Q_PROPERTY(std::optional<bool> includeContentLength READ includeContentLength WRITE setIncludeContentLength)
     Q_PROPERTY(std::optional<bool> includeCreated READ includeCreated WRITE setIncludeCreated)

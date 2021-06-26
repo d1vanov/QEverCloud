@@ -78,6 +78,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const SharedNoteTemplate & sharedNoteTemplate);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const SharedNoteTemplate & sharedNoteTemplate);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const SharedNoteTemplate & sharedNoteTemplate);
+
     Q_PROPERTY(std::optional<Guid> noteGuid READ noteGuid WRITE setNoteGuid)
     Q_PROPERTY(std::optional<MessageThreadID> recipientThreadId READ recipientThreadId WRITE setRecipientThreadId)
     Q_PROPERTY(std::optional<QList<Contact>> recipientContacts READ recipientContacts WRITE setRecipientContacts)

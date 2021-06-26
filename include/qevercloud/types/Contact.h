@@ -99,6 +99,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const Contact & contact);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const Contact & contact);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const Contact & contact);
+
     Q_PROPERTY(std::optional<QString> name READ name WRITE setName)
     Q_PROPERTY(std::optional<QString> id READ id WRITE setId)
     Q_PROPERTY(std::optional<ContactType> type READ type WRITE setType)

@@ -112,6 +112,24 @@ void NotebookShareTemplate::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NotebookShareTemplate & notebookShareTemplate)
+{
+    strm << static_cast<const Printable&>(notebookShareTemplate);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NotebookShareTemplate & notebookShareTemplate)
+{
+    dbg << static_cast<const Printable&>(notebookShareTemplate);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NotebookShareTemplate & notebookShareTemplate)
+{
+    strm << static_cast<const Printable&>(notebookShareTemplate);
+    return strm;
+}
+
 bool operator==(const NotebookShareTemplate & lhs, const NotebookShareTemplate & rhs) noexcept
 {
     if (&lhs == &rhs) {

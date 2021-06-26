@@ -362,6 +362,24 @@ void Accounting::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const Accounting & accounting)
+{
+    strm << static_cast<const Printable&>(accounting);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Accounting & accounting)
+{
+    dbg << static_cast<const Printable&>(accounting);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Accounting & accounting)
+{
+    strm << static_cast<const Printable&>(accounting);
+    return strm;
+}
+
 bool operator==(const Accounting & lhs, const Accounting & rhs) noexcept
 {
     if (&lhs == &rhs) {

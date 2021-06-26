@@ -173,6 +173,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const LinkedNotebook & linkedNotebook);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const LinkedNotebook & linkedNotebook);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const LinkedNotebook & linkedNotebook);
+
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)

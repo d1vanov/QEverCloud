@@ -187,6 +187,24 @@ void SavedSearch::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SavedSearch & savedSearch)
+{
+    strm << static_cast<const Printable&>(savedSearch);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SavedSearch & savedSearch)
+{
+    dbg << static_cast<const Printable&>(savedSearch);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SavedSearch & savedSearch)
+{
+    strm << static_cast<const Printable&>(savedSearch);
+    return strm;
+}
+
 bool operator==(const SavedSearch & lhs, const SavedSearch & rhs) noexcept
 {
     if (&lhs == &rhs) {

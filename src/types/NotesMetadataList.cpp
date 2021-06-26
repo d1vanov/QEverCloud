@@ -152,6 +152,24 @@ void NotesMetadataList::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NotesMetadataList & notesMetadataList)
+{
+    strm << static_cast<const Printable&>(notesMetadataList);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NotesMetadataList & notesMetadataList)
+{
+    dbg << static_cast<const Printable&>(notesMetadataList);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NotesMetadataList & notesMetadataList)
+{
+    strm << static_cast<const Printable&>(notesMetadataList);
+    return strm;
+}
+
 bool operator==(const NotesMetadataList & lhs, const NotesMetadataList & rhs) noexcept
 {
     if (&lhs == &rhs) {

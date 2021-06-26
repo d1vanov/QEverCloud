@@ -182,6 +182,24 @@ void UserProfile::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const UserProfile & userProfile)
+{
+    strm << static_cast<const Printable&>(userProfile);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const UserProfile & userProfile)
+{
+    dbg << static_cast<const Printable&>(userProfile);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const UserProfile & userProfile)
+{
+    strm << static_cast<const Printable&>(userProfile);
+    return strm;
+}
+
 bool operator==(const UserProfile & lhs, const UserProfile & rhs) noexcept
 {
     if (&lhs == &rhs) {

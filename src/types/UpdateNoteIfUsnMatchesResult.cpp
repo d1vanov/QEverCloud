@@ -82,6 +82,24 @@ void UpdateNoteIfUsnMatchesResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const UpdateNoteIfUsnMatchesResult & updateNoteIfUsnMatchesResult)
+{
+    strm << static_cast<const Printable&>(updateNoteIfUsnMatchesResult);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const UpdateNoteIfUsnMatchesResult & updateNoteIfUsnMatchesResult)
+{
+    dbg << static_cast<const Printable&>(updateNoteIfUsnMatchesResult);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const UpdateNoteIfUsnMatchesResult & updateNoteIfUsnMatchesResult)
+{
+    strm << static_cast<const Printable&>(updateNoteIfUsnMatchesResult);
+    return strm;
+}
+
 bool operator==(const UpdateNoteIfUsnMatchesResult & lhs, const UpdateNoteIfUsnMatchesResult & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -78,6 +78,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteInvitationShareRelationship & noteInvitationShareRelationship);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteInvitationShareRelationship & noteInvitationShareRelationship);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteInvitationShareRelationship & noteInvitationShareRelationship);
+
     Q_PROPERTY(std::optional<QString> displayName READ displayName WRITE setDisplayName)
     Q_PROPERTY(std::optional<IdentityID> recipientIdentityId READ recipientIdentityId WRITE setRecipientIdentityId)
     Q_PROPERTY(std::optional<SharedNotePrivilegeLevel> privilege READ privilege WRITE setPrivilege)

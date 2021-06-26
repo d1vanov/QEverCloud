@@ -97,6 +97,24 @@ void ManageNotebookSharesError::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ManageNotebookSharesError & manageNotebookSharesError)
+{
+    strm << static_cast<const Printable&>(manageNotebookSharesError);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ManageNotebookSharesError & manageNotebookSharesError)
+{
+    dbg << static_cast<const Printable&>(manageNotebookSharesError);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ManageNotebookSharesError & manageNotebookSharesError)
+{
+    strm << static_cast<const Printable&>(manageNotebookSharesError);
+    return strm;
+}
+
 bool operator==(const ManageNotebookSharesError & lhs, const ManageNotebookSharesError & rhs) noexcept
 {
     if (&lhs == &rhs) {

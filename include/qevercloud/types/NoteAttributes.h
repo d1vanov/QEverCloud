@@ -300,6 +300,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteAttributes & noteAttributes);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteAttributes & noteAttributes);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteAttributes & noteAttributes);
+
     using Classifications = QMap<QString, QString>;
 
     Q_PROPERTY(std::optional<Timestamp> subjectDate READ subjectDate WRITE setSubjectDate)

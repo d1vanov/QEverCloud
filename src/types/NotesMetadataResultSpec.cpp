@@ -217,6 +217,24 @@ void NotesMetadataResultSpec::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NotesMetadataResultSpec & notesMetadataResultSpec)
+{
+    strm << static_cast<const Printable&>(notesMetadataResultSpec);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NotesMetadataResultSpec & notesMetadataResultSpec)
+{
+    dbg << static_cast<const Printable&>(notesMetadataResultSpec);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NotesMetadataResultSpec & notesMetadataResultSpec)
+{
+    strm << static_cast<const Printable&>(notesMetadataResultSpec);
+    return strm;
+}
+
 bool operator==(const NotesMetadataResultSpec & lhs, const NotesMetadataResultSpec & rhs) noexcept
 {
     if (&lhs == &rhs) {

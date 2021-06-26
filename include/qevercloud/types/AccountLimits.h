@@ -127,6 +127,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const AccountLimits & accountLimits);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const AccountLimits & accountLimits);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const AccountLimits & accountLimits);
+
     Q_PROPERTY(std::optional<qint32> userMailLimitDaily READ userMailLimitDaily WRITE setUserMailLimitDaily)
     Q_PROPERTY(std::optional<qint64> noteSizeMax READ noteSizeMax WRITE setNoteSizeMax)
     Q_PROPERTY(std::optional<qint64> resourceSizeMax READ resourceSizeMax WRITE setResourceSizeMax)

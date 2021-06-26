@@ -167,6 +167,24 @@ void Identity::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const Identity & identity)
+{
+    strm << static_cast<const Printable&>(identity);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Identity & identity)
+{
+    dbg << static_cast<const Printable&>(identity);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Identity & identity)
+{
+    strm << static_cast<const Printable&>(identity);
+    return strm;
+}
+
 bool operator==(const Identity & lhs, const Identity & rhs) noexcept
 {
     if (&lhs == &rhs) {

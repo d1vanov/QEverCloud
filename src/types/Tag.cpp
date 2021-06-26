@@ -182,6 +182,24 @@ void Tag::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const Tag & tag)
+{
+    strm << static_cast<const Printable&>(tag);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Tag & tag)
+{
+    dbg << static_cast<const Printable&>(tag);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Tag & tag)
+{
+    strm << static_cast<const Printable&>(tag);
+    return strm;
+}
+
 bool operator==(const Tag & lhs, const Tag & rhs) noexcept
 {
     if (&lhs == &rhs) {

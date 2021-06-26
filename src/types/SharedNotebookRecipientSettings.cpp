@@ -82,6 +82,24 @@ void SharedNotebookRecipientSettings::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SharedNotebookRecipientSettings & sharedNotebookRecipientSettings)
+{
+    strm << static_cast<const Printable&>(sharedNotebookRecipientSettings);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SharedNotebookRecipientSettings & sharedNotebookRecipientSettings)
+{
+    dbg << static_cast<const Printable&>(sharedNotebookRecipientSettings);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SharedNotebookRecipientSettings & sharedNotebookRecipientSettings)
+{
+    strm << static_cast<const Printable&>(sharedNotebookRecipientSettings);
+    return strm;
+}
+
 bool operator==(const SharedNotebookRecipientSettings & lhs, const SharedNotebookRecipientSettings & rhs) noexcept
 {
     if (&lhs == &rhs) {

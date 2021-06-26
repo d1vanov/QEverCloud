@@ -112,6 +112,24 @@ void ShareRelationshipRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ShareRelationshipRestrictions & shareRelationshipRestrictions)
+{
+    strm << static_cast<const Printable&>(shareRelationshipRestrictions);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ShareRelationshipRestrictions & shareRelationshipRestrictions)
+{
+    dbg << static_cast<const Printable&>(shareRelationshipRestrictions);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ShareRelationshipRestrictions & shareRelationshipRestrictions)
+{
+    strm << static_cast<const Printable&>(shareRelationshipRestrictions);
+    return strm;
+}
+
 bool operator==(const ShareRelationshipRestrictions & lhs, const ShareRelationshipRestrictions & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -67,6 +67,24 @@ void ManageNotebookSharesResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ManageNotebookSharesResult & manageNotebookSharesResult)
+{
+    strm << static_cast<const Printable&>(manageNotebookSharesResult);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ManageNotebookSharesResult & manageNotebookSharesResult)
+{
+    dbg << static_cast<const Printable&>(manageNotebookSharesResult);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ManageNotebookSharesResult & manageNotebookSharesResult)
+{
+    strm << static_cast<const Printable&>(manageNotebookSharesResult);
+    return strm;
+}
+
 bool operator==(const ManageNotebookSharesResult & lhs, const ManageNotebookSharesResult & rhs) noexcept
 {
     if (&lhs == &rhs) {

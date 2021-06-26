@@ -44,6 +44,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const CanMoveToContainerRestrictions & canMoveToContainerRestrictions);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const CanMoveToContainerRestrictions & canMoveToContainerRestrictions);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const CanMoveToContainerRestrictions & canMoveToContainerRestrictions);
+
     Q_PROPERTY(std::optional<CanMoveToContainerStatus> canMoveToContainer READ canMoveToContainer WRITE setCanMoveToContainer)
 
 private:

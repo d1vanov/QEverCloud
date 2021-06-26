@@ -73,6 +73,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const LazyMap & lazyMap);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const LazyMap & lazyMap);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const LazyMap & lazyMap);
+
     using FullMap = QMap<QString, QString>;
 
     Q_PROPERTY(std::optional<QSet<QString>> keysOnly READ keysOnly WRITE setKeysOnly)

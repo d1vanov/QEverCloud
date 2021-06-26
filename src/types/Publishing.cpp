@@ -102,6 +102,24 @@ void Publishing::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const Publishing & publishing)
+{
+    strm << static_cast<const Printable&>(publishing);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Publishing & publishing)
+{
+    dbg << static_cast<const Printable&>(publishing);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Publishing & publishing)
+{
+    strm << static_cast<const Printable&>(publishing);
+    return strm;
+}
+
 bool operator==(const Publishing & lhs, const Publishing & rhs) noexcept
 {
     if (&lhs == &rhs) {

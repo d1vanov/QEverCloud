@@ -61,6 +61,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const EDAMUserException & eDAMUserException);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const EDAMUserException & eDAMUserException);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const EDAMUserException & eDAMUserException);
+
     [[nodiscard]] const char * what() const noexcept override;
     void raise() const override;
     [[nodiscard]] EDAMUserException * clone() const override;

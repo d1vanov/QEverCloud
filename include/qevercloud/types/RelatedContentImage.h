@@ -77,6 +77,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const RelatedContentImage & relatedContentImage);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const RelatedContentImage & relatedContentImage);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const RelatedContentImage & relatedContentImage);
+
     Q_PROPERTY(std::optional<QString> url READ url WRITE setUrl)
     Q_PROPERTY(std::optional<qint32> width READ width WRITE setWidth)
     Q_PROPERTY(std::optional<qint32> height READ height WRITE setHeight)

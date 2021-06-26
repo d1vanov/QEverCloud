@@ -99,6 +99,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BusinessInvitation & businessInvitation);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BusinessInvitation & businessInvitation);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BusinessInvitation & businessInvitation);
+
     Q_PROPERTY(std::optional<qint32> businessId READ businessId WRITE setBusinessId)
     Q_PROPERTY(std::optional<QString> email READ email WRITE setEmail)
     Q_PROPERTY(std::optional<BusinessUserRole> role READ role WRITE setRole)

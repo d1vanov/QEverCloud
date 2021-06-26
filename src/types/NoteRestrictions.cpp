@@ -127,6 +127,24 @@ void NoteRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteRestrictions & noteRestrictions)
+{
+    strm << static_cast<const Printable&>(noteRestrictions);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteRestrictions & noteRestrictions)
+{
+    dbg << static_cast<const Printable&>(noteRestrictions);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteRestrictions & noteRestrictions)
+{
+    strm << static_cast<const Printable&>(noteRestrictions);
+    return strm;
+}
+
 bool operator==(const NoteRestrictions & lhs, const NoteRestrictions & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -172,6 +172,24 @@ void AuthenticationResult::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const AuthenticationResult & authenticationResult)
+{
+    strm << static_cast<const Printable&>(authenticationResult);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const AuthenticationResult & authenticationResult)
+{
+    dbg << static_cast<const Printable&>(authenticationResult);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const AuthenticationResult & authenticationResult)
+{
+    strm << static_cast<const Printable&>(authenticationResult);
+    return strm;
+}
+
 bool operator==(const AuthenticationResult & lhs, const AuthenticationResult & rhs) noexcept
 {
     if (&lhs == &rhs) {

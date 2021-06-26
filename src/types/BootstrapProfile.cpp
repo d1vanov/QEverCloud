@@ -77,6 +77,24 @@ void BootstrapProfile::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const BootstrapProfile & bootstrapProfile)
+{
+    strm << static_cast<const Printable&>(bootstrapProfile);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const BootstrapProfile & bootstrapProfile)
+{
+    dbg << static_cast<const Printable&>(bootstrapProfile);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const BootstrapProfile & bootstrapProfile)
+{
+    strm << static_cast<const Printable&>(bootstrapProfile);
+    return strm;
+}
+
 bool operator==(const BootstrapProfile & lhs, const BootstrapProfile & rhs) noexcept
 {
     if (&lhs == &rhs) {

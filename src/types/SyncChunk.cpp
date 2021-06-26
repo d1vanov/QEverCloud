@@ -252,6 +252,24 @@ void SyncChunk::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SyncChunk & syncChunk)
+{
+    strm << static_cast<const Printable&>(syncChunk);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SyncChunk & syncChunk)
+{
+    dbg << static_cast<const Printable&>(syncChunk);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SyncChunk & syncChunk)
+{
+    strm << static_cast<const Printable&>(syncChunk);
+    return strm;
+}
+
 bool operator==(const SyncChunk & lhs, const SyncChunk & rhs) noexcept
 {
     if (&lhs == &rhs) {

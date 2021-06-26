@@ -122,6 +122,24 @@ void RelatedContentImage::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const RelatedContentImage & relatedContentImage)
+{
+    strm << static_cast<const Printable&>(relatedContentImage);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const RelatedContentImage & relatedContentImage)
+{
+    dbg << static_cast<const Printable&>(relatedContentImage);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const RelatedContentImage & relatedContentImage)
+{
+    strm << static_cast<const Printable&>(relatedContentImage);
+    return strm;
+}
+
 bool operator==(const RelatedContentImage & lhs, const RelatedContentImage & rhs) noexcept
 {
     if (&lhs == &rhs) {

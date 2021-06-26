@@ -97,6 +97,24 @@ void ShareRelationships::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const ShareRelationships & shareRelationships)
+{
+    strm << static_cast<const Printable&>(shareRelationships);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const ShareRelationships & shareRelationships)
+{
+    dbg << static_cast<const Printable&>(shareRelationships);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const ShareRelationships & shareRelationships)
+{
+    strm << static_cast<const Printable&>(shareRelationships);
+    return strm;
+}
+
 bool operator==(const ShareRelationships & lhs, const ShareRelationships & rhs) noexcept
 {
     if (&lhs == &rhs) {

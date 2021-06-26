@@ -127,6 +127,24 @@ void SyncState::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SyncState & syncState)
+{
+    strm << static_cast<const Printable&>(syncState);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SyncState & syncState)
+{
+    dbg << static_cast<const Printable&>(syncState);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SyncState & syncState)
+{
+    strm << static_cast<const Printable&>(syncState);
+    return strm;
+}
+
 bool operator==(const SyncState & lhs, const SyncState & rhs) noexcept
 {
     if (&lhs == &rhs) {

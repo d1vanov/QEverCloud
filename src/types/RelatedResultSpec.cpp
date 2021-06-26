@@ -187,6 +187,24 @@ void RelatedResultSpec::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const RelatedResultSpec & relatedResultSpec)
+{
+    strm << static_cast<const Printable&>(relatedResultSpec);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const RelatedResultSpec & relatedResultSpec)
+{
+    dbg << static_cast<const Printable&>(relatedResultSpec);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const RelatedResultSpec & relatedResultSpec)
+{
+    strm << static_cast<const Printable&>(relatedResultSpec);
+    return strm;
+}
+
 bool operator==(const RelatedResultSpec & lhs, const RelatedResultSpec & rhs) noexcept
 {
     if (&lhs == &rhs) {

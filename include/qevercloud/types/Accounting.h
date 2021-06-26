@@ -210,6 +210,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const Accounting & accounting);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const Accounting & accounting);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const Accounting & accounting);
+
     Q_PROPERTY(std::optional<Timestamp> uploadLimitEnd READ uploadLimitEnd WRITE setUploadLimitEnd)
     Q_PROPERTY(std::optional<qint64> uploadLimitNextMonth READ uploadLimitNextMonth WRITE setUploadLimitNextMonth)
     Q_PROPERTY(std::optional<PremiumOrderStatus> premiumServiceStatus READ premiumServiceStatus WRITE setPremiumServiceStatus)

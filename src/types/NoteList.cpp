@@ -152,6 +152,24 @@ void NoteList::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteList & noteList)
+{
+    strm << static_cast<const Printable&>(noteList);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteList & noteList)
+{
+    dbg << static_cast<const Printable&>(noteList);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteList & noteList)
+{
+    strm << static_cast<const Printable&>(noteList);
+    return strm;
+}
+
 bool operator==(const NoteList & lhs, const NoteList & rhs) noexcept
 {
     if (&lhs == &rhs) {

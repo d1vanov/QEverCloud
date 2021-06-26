@@ -87,6 +87,24 @@ void Data::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const Data & data)
+{
+    strm << static_cast<const Printable&>(data);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const Data & data)
+{
+    dbg << static_cast<const Printable&>(data);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const Data & data)
+{
+    strm << static_cast<const Printable&>(data);
+    return strm;
+}
+
 bool operator==(const Data & lhs, const Data & rhs) noexcept
 {
     if (&lhs == &rhs) {

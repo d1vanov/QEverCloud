@@ -150,6 +150,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const SavedSearch & savedSearch);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const SavedSearch & savedSearch);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const SavedSearch & savedSearch);
+
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)

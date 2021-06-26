@@ -112,6 +112,24 @@ void UserUrls::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const UserUrls & userUrls)
+{
+    strm << static_cast<const Printable&>(userUrls);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const UserUrls & userUrls)
+{
+    dbg << static_cast<const Printable&>(userUrls);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const UserUrls & userUrls)
+{
+    strm << static_cast<const Printable&>(userUrls);
+    return strm;
+}
+
 bool operator==(const UserUrls & lhs, const UserUrls & rhs) noexcept
 {
     if (&lhs == &rhs) {

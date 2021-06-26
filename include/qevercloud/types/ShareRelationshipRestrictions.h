@@ -53,6 +53,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const ShareRelationshipRestrictions & shareRelationshipRestrictions);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const ShareRelationshipRestrictions & shareRelationshipRestrictions);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const ShareRelationshipRestrictions & shareRelationshipRestrictions);
+
     Q_PROPERTY(std::optional<bool> noSetReadOnly READ noSetReadOnly WRITE setNoSetReadOnly)
     Q_PROPERTY(std::optional<bool> noSetReadPlusActivity READ noSetReadPlusActivity WRITE setNoSetReadPlusActivity)
     Q_PROPERTY(std::optional<bool> noSetModify READ noSetModify WRITE setNoSetModify)

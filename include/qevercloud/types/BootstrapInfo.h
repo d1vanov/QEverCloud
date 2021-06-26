@@ -49,6 +49,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BootstrapInfo & bootstrapInfo);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BootstrapInfo & bootstrapInfo);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BootstrapInfo & bootstrapInfo);
+
     Q_PROPERTY(QList<BootstrapProfile> profiles READ profiles WRITE setProfiles)
 
 private:

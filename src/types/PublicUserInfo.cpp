@@ -107,6 +107,24 @@ void PublicUserInfo::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const PublicUserInfo & publicUserInfo)
+{
+    strm << static_cast<const Printable&>(publicUserInfo);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const PublicUserInfo & publicUserInfo)
+{
+    dbg << static_cast<const Printable&>(publicUserInfo);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const PublicUserInfo & publicUserInfo)
+{
+    strm << static_cast<const Printable&>(publicUserInfo);
+    return strm;
+}
+
 bool operator==(const PublicUserInfo & lhs, const PublicUserInfo & rhs) noexcept
 {
     if (&lhs == &rhs) {

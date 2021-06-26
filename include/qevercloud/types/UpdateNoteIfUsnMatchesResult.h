@@ -62,6 +62,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const UpdateNoteIfUsnMatchesResult & updateNoteIfUsnMatchesResult);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const UpdateNoteIfUsnMatchesResult & updateNoteIfUsnMatchesResult);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const UpdateNoteIfUsnMatchesResult & updateNoteIfUsnMatchesResult);
+
     Q_PROPERTY(std::optional<Note> note READ note WRITE setNote)
     Q_PROPERTY(std::optional<bool> updated READ updated WRITE setUpdated)
 

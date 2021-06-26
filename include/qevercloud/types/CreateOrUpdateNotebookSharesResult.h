@@ -60,6 +60,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const CreateOrUpdateNotebookSharesResult & createOrUpdateNotebookSharesResult);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const CreateOrUpdateNotebookSharesResult & createOrUpdateNotebookSharesResult);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const CreateOrUpdateNotebookSharesResult & createOrUpdateNotebookSharesResult);
+
     Q_PROPERTY(std::optional<qint32> updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
     Q_PROPERTY(std::optional<QList<SharedNotebook>> matchingShares READ matchingShares WRITE setMatchingShares)
 

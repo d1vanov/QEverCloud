@@ -67,6 +67,24 @@ void BootstrapInfo::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const BootstrapInfo & bootstrapInfo)
+{
+    strm << static_cast<const Printable&>(bootstrapInfo);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const BootstrapInfo & bootstrapInfo)
+{
+    dbg << static_cast<const Printable&>(bootstrapInfo);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const BootstrapInfo & bootstrapInfo)
+{
+    strm << static_cast<const Printable&>(bootstrapInfo);
+    return strm;
+}
+
 bool operator==(const BootstrapInfo & lhs, const BootstrapInfo & rhs) noexcept
 {
     if (&lhs == &rhs) {

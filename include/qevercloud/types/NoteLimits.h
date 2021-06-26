@@ -65,6 +65,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteLimits & noteLimits);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteLimits & noteLimits);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteLimits & noteLimits);
+
     Q_PROPERTY(std::optional<qint32> noteResourceCountMax READ noteResourceCountMax WRITE setNoteResourceCountMax)
     Q_PROPERTY(std::optional<qint64> uploadLimit READ uploadLimit WRITE setUploadLimit)
     Q_PROPERTY(std::optional<qint64> resourceSizeMax READ resourceSizeMax WRITE setResourceSizeMax)

@@ -93,6 +93,24 @@ EDAMUserException * EDAMUserException::clone() const
     return e.release();
 }
 
+QTextStream & operator<<(QTextStream & strm, const EDAMUserException & eDAMUserException)
+{
+    strm << static_cast<const Printable&>(eDAMUserException);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const EDAMUserException & eDAMUserException)
+{
+    dbg << static_cast<const Printable&>(eDAMUserException);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const EDAMUserException & eDAMUserException)
+{
+    strm << static_cast<const Printable&>(eDAMUserException);
+    return strm;
+}
+
 bool operator==(const EDAMUserException & lhs, const EDAMUserException & rhs) noexcept
 {
     if (&lhs == &rhs) {

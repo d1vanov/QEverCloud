@@ -217,6 +217,24 @@ void NoteFilter::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteFilter & noteFilter)
+{
+    strm << static_cast<const Printable&>(noteFilter);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteFilter & noteFilter)
+{
+    dbg << static_cast<const Printable&>(noteFilter);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteFilter & noteFilter)
+{
+    strm << static_cast<const Printable&>(noteFilter);
+    return strm;
+}
+
 bool operator==(const NoteFilter & lhs, const NoteFilter & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -122,6 +122,24 @@ void NotebookRecipientSettings::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NotebookRecipientSettings & notebookRecipientSettings)
+{
+    strm << static_cast<const Printable&>(notebookRecipientSettings);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NotebookRecipientSettings & notebookRecipientSettings)
+{
+    dbg << static_cast<const Printable&>(notebookRecipientSettings);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NotebookRecipientSettings & notebookRecipientSettings)
+{
+    strm << static_cast<const Printable&>(notebookRecipientSettings);
+    return strm;
+}
+
 bool operator==(const NotebookRecipientSettings & lhs, const NotebookRecipientSettings & rhs) noexcept
 {
     if (&lhs == &rhs) {

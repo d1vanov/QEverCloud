@@ -330,6 +330,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const UserAttributes & userAttributes);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const UserAttributes & userAttributes);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const UserAttributes & userAttributes);
+
     Q_PROPERTY(std::optional<QString> defaultLocationName READ defaultLocationName WRITE setDefaultLocationName)
     Q_PROPERTY(std::optional<double> defaultLatitude READ defaultLatitude WRITE setDefaultLatitude)
     Q_PROPERTY(std::optional<double> defaultLongitude READ defaultLongitude WRITE setDefaultLongitude)

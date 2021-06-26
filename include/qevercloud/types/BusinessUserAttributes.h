@@ -86,6 +86,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BusinessUserAttributes & businessUserAttributes);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BusinessUserAttributes & businessUserAttributes);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BusinessUserAttributes & businessUserAttributes);
+
     Q_PROPERTY(std::optional<QString> title READ title WRITE setTitle)
     Q_PROPERTY(std::optional<QString> location READ location WRITE setLocation)
     Q_PROPERTY(std::optional<QString> department READ department WRITE setDepartment)

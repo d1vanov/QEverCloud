@@ -80,6 +80,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BusinessUserInfo & businessUserInfo);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BusinessUserInfo & businessUserInfo);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BusinessUserInfo & businessUserInfo);
+
     Q_PROPERTY(std::optional<qint32> businessId READ businessId WRITE setBusinessId)
     Q_PROPERTY(std::optional<QString> businessName READ businessName WRITE setBusinessName)
     Q_PROPERTY(std::optional<BusinessUserRole> role READ role WRITE setRole)

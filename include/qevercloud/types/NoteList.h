@@ -112,6 +112,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteList & noteList);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteList & noteList);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteList & noteList);
+
     Q_PROPERTY(qint32 startIndex READ startIndex WRITE setStartIndex)
     Q_PROPERTY(qint32 totalNotes READ totalNotes WRITE setTotalNotes)
     Q_PROPERTY(QList<Note> notes READ notes WRITE setNotes)

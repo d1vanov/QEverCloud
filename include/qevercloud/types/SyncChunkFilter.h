@@ -190,6 +190,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const SyncChunkFilter & syncChunkFilter);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const SyncChunkFilter & syncChunkFilter);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const SyncChunkFilter & syncChunkFilter);
+
     Q_PROPERTY(std::optional<bool> includeNotes READ includeNotes WRITE setIncludeNotes)
     Q_PROPERTY(std::optional<bool> includeNoteResources READ includeNoteResources WRITE setIncludeNoteResources)
     Q_PROPERTY(std::optional<bool> includeNoteAttributes READ includeNoteAttributes WRITE setIncludeNoteAttributes)

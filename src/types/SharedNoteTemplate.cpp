@@ -112,6 +112,24 @@ void SharedNoteTemplate::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const SharedNoteTemplate & sharedNoteTemplate)
+{
+    strm << static_cast<const Printable&>(sharedNoteTemplate);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const SharedNoteTemplate & sharedNoteTemplate)
+{
+    dbg << static_cast<const Printable&>(sharedNoteTemplate);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const SharedNoteTemplate & sharedNoteTemplate)
+{
+    strm << static_cast<const Printable&>(sharedNoteTemplate);
+    return strm;
+}
+
 bool operator==(const SharedNoteTemplate & lhs, const SharedNoteTemplate & rhs) noexcept
 {
     if (&lhs == &rhs) {

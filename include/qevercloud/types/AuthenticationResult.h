@@ -126,6 +126,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const AuthenticationResult & authenticationResult);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const AuthenticationResult & authenticationResult);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const AuthenticationResult & authenticationResult);
+
     Q_PROPERTY(Timestamp currentTime READ currentTime WRITE setCurrentTime)
     Q_PROPERTY(QString authenticationToken READ authenticationToken WRITE setAuthenticationToken)
     Q_PROPERTY(Timestamp expiration READ expiration WRITE setExpiration)

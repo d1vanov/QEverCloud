@@ -106,6 +106,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteResultSpec & noteResultSpec);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteResultSpec & noteResultSpec);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteResultSpec & noteResultSpec);
+
     Q_PROPERTY(std::optional<bool> includeContent READ includeContent WRITE setIncludeContent)
     Q_PROPERTY(std::optional<bool> includeResourcesData READ includeResourcesData WRITE setIncludeResourcesData)
     Q_PROPERTY(std::optional<bool> includeResourcesRecognition READ includeResourcesRecognition WRITE setIncludeResourcesRecognition)

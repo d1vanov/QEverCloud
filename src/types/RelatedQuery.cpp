@@ -117,6 +117,24 @@ void RelatedQuery::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const RelatedQuery & relatedQuery)
+{
+    strm << static_cast<const Printable&>(relatedQuery);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const RelatedQuery & relatedQuery)
+{
+    dbg << static_cast<const Printable&>(relatedQuery);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const RelatedQuery & relatedQuery)
+{
+    strm << static_cast<const Printable&>(relatedQuery);
+    return strm;
+}
+
 bool operator==(const RelatedQuery & lhs, const RelatedQuery & rhs) noexcept
 {
     if (&lhs == &rhs) {

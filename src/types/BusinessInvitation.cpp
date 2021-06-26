@@ -167,6 +167,24 @@ void BusinessInvitation::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const BusinessInvitation & businessInvitation)
+{
+    strm << static_cast<const Printable&>(businessInvitation);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const BusinessInvitation & businessInvitation)
+{
+    dbg << static_cast<const Printable&>(businessInvitation);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const BusinessInvitation & businessInvitation)
+{
+    strm << static_cast<const Printable&>(businessInvitation);
+    return strm;
+}
+
 bool operator==(const BusinessInvitation & lhs, const BusinessInvitation & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -77,6 +77,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const UserIdentity & userIdentity);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const UserIdentity & userIdentity);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const UserIdentity & userIdentity);
+
     Q_PROPERTY(std::optional<UserIdentityType> type READ type WRITE setType)
     Q_PROPERTY(std::optional<QString> stringIdentifier READ stringIdentifier WRITE setStringIdentifier)
     Q_PROPERTY(std::optional<qint64> longIdentifier READ longIdentifier WRITE setLongIdentifier)

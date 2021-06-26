@@ -94,6 +94,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NotebookRecipientSettings & notebookRecipientSettings);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NotebookRecipientSettings & notebookRecipientSettings);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NotebookRecipientSettings & notebookRecipientSettings);
+
     Q_PROPERTY(std::optional<bool> reminderNotifyEmail READ reminderNotifyEmail WRITE setReminderNotifyEmail)
     Q_PROPERTY(std::optional<bool> reminderNotifyInApp READ reminderNotifyInApp WRITE setReminderNotifyInApp)
     Q_PROPERTY(std::optional<bool> inMyList READ inMyList WRITE setInMyList)

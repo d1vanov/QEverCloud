@@ -97,6 +97,24 @@ void NoteShareRelationshipRestrictions::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteShareRelationshipRestrictions & noteShareRelationshipRestrictions)
+{
+    strm << static_cast<const Printable&>(noteShareRelationshipRestrictions);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteShareRelationshipRestrictions & noteShareRelationshipRestrictions)
+{
+    dbg << static_cast<const Printable&>(noteShareRelationshipRestrictions);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteShareRelationshipRestrictions & noteShareRelationshipRestrictions)
+{
+    strm << static_cast<const Printable&>(noteShareRelationshipRestrictions);
+    return strm;
+}
+
 bool operator==(const NoteShareRelationshipRestrictions & lhs, const NoteShareRelationshipRestrictions & rhs) noexcept
 {
     if (&lhs == &rhs) {

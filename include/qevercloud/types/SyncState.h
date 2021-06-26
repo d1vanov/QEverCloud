@@ -114,6 +114,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const SyncState & syncState);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const SyncState & syncState);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const SyncState & syncState);
+
     Q_PROPERTY(Timestamp currentTime READ currentTime WRITE setCurrentTime)
     Q_PROPERTY(Timestamp fullSyncBefore READ fullSyncBefore WRITE setFullSyncBefore)
     Q_PROPERTY(qint32 updateCount READ updateCount WRITE setUpdateCount)

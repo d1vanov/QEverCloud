@@ -97,6 +97,24 @@ void NoteCollectionCounts::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteCollectionCounts & noteCollectionCounts)
+{
+    strm << static_cast<const Printable&>(noteCollectionCounts);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteCollectionCounts & noteCollectionCounts)
+{
+    dbg << static_cast<const Printable&>(noteCollectionCounts);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteCollectionCounts & noteCollectionCounts)
+{
+    strm << static_cast<const Printable&>(noteCollectionCounts);
+    return strm;
+}
+
 bool operator==(const NoteCollectionCounts & lhs, const NoteCollectionCounts & rhs) noexcept
 {
     if (&lhs == &rhs) {

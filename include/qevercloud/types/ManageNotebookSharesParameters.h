@@ -104,6 +104,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const ManageNotebookSharesParameters & manageNotebookSharesParameters);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const ManageNotebookSharesParameters & manageNotebookSharesParameters);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const ManageNotebookSharesParameters & manageNotebookSharesParameters);
+
     Q_PROPERTY(std::optional<QString> notebookGuid READ notebookGuid WRITE setNotebookGuid)
     Q_PROPERTY(std::optional<QString> inviteMessage READ inviteMessage WRITE setInviteMessage)
     Q_PROPERTY(std::optional<QList<MemberShareRelationship>> membershipsToUpdate READ membershipsToUpdate WRITE setMembershipsToUpdate)

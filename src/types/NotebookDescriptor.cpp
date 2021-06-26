@@ -172,6 +172,24 @@ void NotebookDescriptor::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NotebookDescriptor & notebookDescriptor)
+{
+    strm << static_cast<const Printable&>(notebookDescriptor);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NotebookDescriptor & notebookDescriptor)
+{
+    dbg << static_cast<const Printable&>(notebookDescriptor);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NotebookDescriptor & notebookDescriptor)
+{
+    strm << static_cast<const Printable&>(notebookDescriptor);
+    return strm;
+}
+
 bool operator==(const NotebookDescriptor & lhs, const NotebookDescriptor & rhs) noexcept
 {
     if (&lhs == &rhs) {

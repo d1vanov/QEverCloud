@@ -517,6 +517,24 @@ void UserAttributes::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const UserAttributes & userAttributes)
+{
+    strm << static_cast<const Printable&>(userAttributes);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const UserAttributes & userAttributes)
+{
+    dbg << static_cast<const Printable&>(userAttributes);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const UserAttributes & userAttributes)
+{
+    strm << static_cast<const Printable&>(userAttributes);
+    return strm;
+}
+
 bool operator==(const UserAttributes & lhs, const UserAttributes & rhs) noexcept
 {
     if (&lhs == &rhs) {

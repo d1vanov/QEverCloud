@@ -65,6 +65,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const SavedSearchScope & savedSearchScope);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const SavedSearchScope & savedSearchScope);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const SavedSearchScope & savedSearchScope);
+
     Q_PROPERTY(std::optional<bool> includeAccount READ includeAccount WRITE setIncludeAccount)
     Q_PROPERTY(std::optional<bool> includePersonalLinkedNotebooks READ includePersonalLinkedNotebooks WRITE setIncludePersonalLinkedNotebooks)
     Q_PROPERTY(std::optional<bool> includeBusinessLinkedNotebooks READ includeBusinessLinkedNotebooks WRITE setIncludeBusinessLinkedNotebooks)

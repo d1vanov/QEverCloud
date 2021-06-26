@@ -272,6 +272,24 @@ void NoteMetadata::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteMetadata & noteMetadata)
+{
+    strm << static_cast<const Printable&>(noteMetadata);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteMetadata & noteMetadata)
+{
+    dbg << static_cast<const Printable&>(noteMetadata);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteMetadata & noteMetadata)
+{
+    strm << static_cast<const Printable&>(noteMetadata);
+    return strm;
+}
+
 bool operator==(const NoteMetadata & lhs, const NoteMetadata & rhs) noexcept
 {
     if (&lhs == &rhs) {

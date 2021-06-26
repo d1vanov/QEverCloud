@@ -72,6 +72,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const EDAMInvalidContactsException & eDAMInvalidContactsException);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const EDAMInvalidContactsException & eDAMInvalidContactsException);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const EDAMInvalidContactsException & eDAMInvalidContactsException);
+
     [[nodiscard]] const char * what() const noexcept override;
     void raise() const override;
     [[nodiscard]] EDAMInvalidContactsException * clone() const override;

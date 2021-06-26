@@ -143,6 +143,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const ResourceAttributes & resourceAttributes);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const ResourceAttributes & resourceAttributes);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const ResourceAttributes & resourceAttributes);
+
     Q_PROPERTY(std::optional<QString> sourceURL READ sourceURL WRITE setSourceURL)
     Q_PROPERTY(std::optional<Timestamp> timestamp READ timestamp WRITE setTimestamp)
     Q_PROPERTY(std::optional<double> latitude READ latitude WRITE setLatitude)

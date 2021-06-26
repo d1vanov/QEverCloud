@@ -156,6 +156,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const NoteFilter & noteFilter);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const NoteFilter & noteFilter);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const NoteFilter & noteFilter);
+
     Q_PROPERTY(std::optional<qint32> order READ order WRITE setOrder)
     Q_PROPERTY(std::optional<bool> ascending READ ascending WRITE setAscending)
     Q_PROPERTY(std::optional<QString> words READ words WRITE setWords)

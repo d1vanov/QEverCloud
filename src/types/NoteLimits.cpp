@@ -127,6 +127,24 @@ void NoteLimits::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const NoteLimits & noteLimits)
+{
+    strm << static_cast<const Printable&>(noteLimits);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const NoteLimits & noteLimits)
+{
+    dbg << static_cast<const Printable&>(noteLimits);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const NoteLimits & noteLimits)
+{
+    strm << static_cast<const Printable&>(noteLimits);
+    return strm;
+}
+
 bool operator==(const NoteLimits & lhs, const NoteLimits & rhs) noexcept
 {
     if (&lhs == &rhs) {

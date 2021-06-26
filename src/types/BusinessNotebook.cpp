@@ -92,6 +92,24 @@ void BusinessNotebook::print(QTextStream & strm) const
     d->print(strm);
 }
 
+QTextStream & operator<<(QTextStream & strm, const BusinessNotebook & businessNotebook)
+{
+    strm << static_cast<const Printable&>(businessNotebook);
+    return strm;
+}
+
+QDebug & operator<<(QDebug & dbg, const BusinessNotebook & businessNotebook)
+{
+    dbg << static_cast<const Printable&>(businessNotebook);
+    return dbg;
+}
+
+std::ostream & operator<<(std::ostream & strm, const BusinessNotebook & businessNotebook)
+{
+    strm << static_cast<const Printable&>(businessNotebook);
+    return strm;
+}
+
 bool operator==(const BusinessNotebook & lhs, const BusinessNotebook & rhs) noexcept
 {
     if (&lhs == &rhs) {

@@ -71,6 +71,15 @@ public:
 
     void print(QTextStream & strm) const override;
 
+    friend QEVERCLOUD_EXPORT QTextStream & operator<<(
+        QTextStream & strm, const BusinessNotebook & businessNotebook);
+
+    friend QEVERCLOUD_EXPORT QDebug & operator<<(
+        QDebug & dbg, const BusinessNotebook & businessNotebook);
+
+    friend QEVERCLOUD_EXPORT std::ostream & operator<<(
+        std::ostream & strm, const BusinessNotebook & businessNotebook);
+
     Q_PROPERTY(std::optional<QString> notebookDescription READ notebookDescription WRITE setNotebookDescription)
     Q_PROPERTY(std::optional<SharedNotebookPrivilegeLevel> privilege READ privilege WRITE setPrivilege)
     Q_PROPERTY(std::optional<bool> recommended READ recommended WRITE setRecommended)
