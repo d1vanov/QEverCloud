@@ -23,7 +23,7 @@ void Data::Impl::print(QTextStream & strm) const
 
     if (m_bodyHash) {
         strm << "    bodyHash = "
-            << *m_bodyHash << "\n";
+            << m_bodyHash->toHex() << "\n";
     }
     else {
         strm << "    bodyHash is not set\n";
@@ -38,8 +38,13 @@ void Data::Impl::print(QTextStream & strm) const
     }
 
     if (m_body) {
-        strm << "    body = "
-            << *m_body << "\n";
+        strm << "    body = ";
+        if (m_body->size() <= 1024) {
+            strm << m_body->toHex() << "\n";
+        }
+        else {
+            strm << "<binary data, " << m_body->size() << " bytes>" << "\n";
+        }
     }
     else {
         strm << "    body is not set\n";
