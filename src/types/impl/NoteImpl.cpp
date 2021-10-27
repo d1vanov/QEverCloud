@@ -63,7 +63,7 @@ void Note::Impl::print(QTextStream & strm) const
 
     if (m_contentHash) {
         strm << "    contentHash = "
-            << *m_contentHash << "\n";
+            << m_contentHash->toHex() << "\n";
     }
     else {
         strm << "    contentHash is not set\n";
