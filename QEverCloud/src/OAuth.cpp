@@ -23,6 +23,7 @@
 #include <QUuid>
 
 #if QEVERCLOUD_USE_QT_WEB_ENGINE
+#include <QWebEngineProfile>
 #include <QWebEngineView>
 #include <QWebEngineHistory>
 #else
@@ -144,6 +145,8 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #else
     m_pCookieJar = new NetworkCookieJar(this);
     m_pCookieJar->loadStore();
+    page()->profile()->defaultProfile()->setHttpAcceptLanguage(
+        QStringLiteral("en"));
 #endif
 }
 
