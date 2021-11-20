@@ -148,8 +148,9 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
     m_pCookieJar->loadStore();
 
     auto uiLanguages = QLocale::system().uiLanguages();
-    if (uiLanguages.isEmpty()) {
-        uiLanguages << QStringLiteral("en");
+    const QString en = QStringLiteral("en");
+    if (!uiLanguages.contains(en)) {
+        uiLanguages << en;
     }
 
     page()->profile()->defaultProfile()->setHttpAcceptLanguage(
