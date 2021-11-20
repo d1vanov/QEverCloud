@@ -16,6 +16,7 @@
 #include <Log.h>
 #include <OAuth.h>
 
+#include <QLocale>
 #include <QNetworkCookie>
 #include <QNetworkCookieJar>
 #include <QNetworkReply>
@@ -145,8 +146,14 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
 #else
     m_pCookieJar = new NetworkCookieJar(this);
     m_pCookieJar->loadStore();
+
+    auto uiLanguages = QLocale::system().uiLanguages();
+    if (uiLanguages.isEmpty()) {
+        uiLanguages << QStringLiteral("en");
+    }
+
     page()->profile()->defaultProfile()->setHttpAcceptLanguage(
-        QStringLiteral("en"));
+        uiLanguages.join(QStringLiteral(", ")));
 #endif
 }
 
