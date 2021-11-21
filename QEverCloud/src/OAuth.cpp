@@ -28,6 +28,7 @@
 #include <QWebEngineView>
 #include <QWebEngineHistory>
 #else
+#include <QNetworkRequest>
 #include <QWebView>
 #include <QWebSettings>
 #include <QWebHistory>
@@ -75,6 +76,17 @@ typedef quint64 (*NonceGenerator)();
 NonceGenerator nonceGenerator_ = random64;
 
 NonceGenerator nonceGenerator() {return nonceGenerator_;}
+
+QString httpAcceptLanguage()
+{
+    auto uiLanguages = QLocale::system().uiLanguages();
+    const QString en = QStringLiteral("en");
+    if (!uiLanguages.contains(en)) {
+        uiLanguages << en;
+    }
+
+    return uiLanguages.join(QStringLiteral(", "));
+}
 
 } // namespace
 
@@ -147,14 +159,8 @@ EvernoteOAuthWebViewPrivate::EvernoteOAuthWebViewPrivate(QWidget * parent)
     m_pCookieJar = new NetworkCookieJar(this);
     m_pCookieJar->loadStore();
 
-    auto uiLanguages = QLocale::system().uiLanguages();
-    const QString en = QStringLiteral("en");
-    if (!uiLanguages.contains(en)) {
-        uiLanguages << en;
-    }
-
     page()->profile()->defaultProfile()->setHttpAcceptLanguage(
-        uiLanguages.join(QStringLiteral(", ")));
+        httpAcceptLanguage());
 #endif
 }
 
@@ -190,7 +196,17 @@ void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
                          this, &EvernoteOAuthWebViewPrivate::onUrlChanged);
         QUrl loginUrl(QString::fromUtf8("https://%1//OAuth.action?%2")
                       .arg(m_host, token));
+
+#if QEVERCLOUD_USE_QT_WEB_ENGINE
         setUrl(loginUrl);
+#else
+        QNetworkRequest request;
+        request.setUrl(loginUrl);
+        request.setRawHeader(
+            QByteArray("Accept-Language"), httpAcceptLanguage().toUtf8());
+
+        load(request);
+#endif
     }
 
     replyFetcher->deleteLater();
