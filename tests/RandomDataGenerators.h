@@ -42,153 +42,161 @@ bool generateRandomBool();
 
 ////////////////////////////////////////////////////////////////////////////////
 
-SyncState generateRandomSyncState();
+[[nodiscard]] SyncState generateRandomSyncState();
 
-SyncChunk generateRandomSyncChunk();
+[[nodiscard]] SyncChunk generateRandomSyncChunk();
 
-SyncChunkFilter generateRandomSyncChunkFilter();
+[[nodiscard]] SyncChunkFilter generateRandomSyncChunkFilter();
 
-NoteFilter generateRandomNoteFilter();
+[[nodiscard]] NoteFilter generateRandomNoteFilter();
 
-NoteList generateRandomNoteList();
+[[nodiscard]] NoteList generateRandomNoteList();
 
-NoteMetadata generateRandomNoteMetadata();
+[[nodiscard]] NoteMetadata generateRandomNoteMetadata();
 
-NotesMetadataList generateRandomNotesMetadataList();
+[[nodiscard]] NotesMetadataList generateRandomNotesMetadataList();
 
-NotesMetadataResultSpec generateRandomNotesMetadataResultSpec();
+[[nodiscard]] NotesMetadataResultSpec generateRandomNotesMetadataResultSpec();
 
-NoteCollectionCounts generateRandomNoteCollectionCounts();
+[[nodiscard]] NoteCollectionCounts generateRandomNoteCollectionCounts();
 
-NoteResultSpec generateRandomNoteResultSpec();
+[[nodiscard]] NoteResultSpec generateRandomNoteResultSpec();
 
-NoteEmailParameters generateRandomNoteEmailParameters();
+[[nodiscard]] NoteEmailParameters generateRandomNoteEmailParameters();
 
-NoteVersionId generateRandomNoteVersionId();
+[[nodiscard]] NoteVersionId generateRandomNoteVersionId();
 
-RelatedQuery generateRandomRelatedQuery();
+[[nodiscard]] RelatedQuery generateRandomRelatedQuery();
 
-RelatedResult generateRandomRelatedResult();
+[[nodiscard]] RelatedResult generateRandomRelatedResult();
 
-RelatedResultSpec generateRandomRelatedResultSpec();
+[[nodiscard]] RelatedResultSpec generateRandomRelatedResultSpec();
 
-UpdateNoteIfUsnMatchesResult generateRandomUpdateNoteIfUsnMatchesResult();
+[[nodiscard]] UpdateNoteIfUsnMatchesResult generateRandomUpdateNoteIfUsnMatchesResult();
 
-ShareRelationshipRestrictions generateRandomShareRelationshipRestrictions();
+[[nodiscard]] ShareRelationshipRestrictions generateRandomShareRelationshipRestrictions();
 
-InvitationShareRelationship generateRandomInvitationShareRelationship();
+[[nodiscard]] InvitationShareRelationship generateRandomInvitationShareRelationship();
 
-MemberShareRelationship generateRandomMemberShareRelationship();
+[[nodiscard]] MemberShareRelationship generateRandomMemberShareRelationship();
 
-ShareRelationships generateRandomShareRelationships();
+[[nodiscard]] ShareRelationships generateRandomShareRelationships();
 
-ManageNotebookSharesParameters generateRandomManageNotebookSharesParameters();
+[[nodiscard]] ManageNotebookSharesParameters generateRandomManageNotebookSharesParameters();
 
-ManageNotebookSharesError generateRandomManageNotebookSharesError();
+[[nodiscard]] ManageNotebookSharesError generateRandomManageNotebookSharesError();
 
-ManageNotebookSharesResult generateRandomManageNotebookSharesResult();
+[[nodiscard]] ManageNotebookSharesResult generateRandomManageNotebookSharesResult();
 
-SharedNoteTemplate generateRandomSharedNoteTemplate();
+[[nodiscard]] SharedNoteTemplate generateRandomSharedNoteTemplate();
 
-NotebookShareTemplate generateRandomNotebookShareTemplate();
+[[nodiscard]] NotebookShareTemplate generateRandomNotebookShareTemplate();
 
-CreateOrUpdateNotebookSharesResult generateRandomCreateOrUpdateNotebookSharesResult();
+[[nodiscard]] CreateOrUpdateNotebookSharesResult generateRandomCreateOrUpdateNotebookSharesResult();
 
-NoteShareRelationshipRestrictions generateRandomNoteShareRelationshipRestrictions();
+[[nodiscard]] NoteShareRelationshipRestrictions generateRandomNoteShareRelationshipRestrictions();
 
-NoteMemberShareRelationship generateRandomNoteMemberShareRelationship();
+[[nodiscard]] NoteMemberShareRelationship generateRandomNoteMemberShareRelationship();
 
-NoteInvitationShareRelationship generateRandomNoteInvitationShareRelationship();
+[[nodiscard]] NoteInvitationShareRelationship generateRandomNoteInvitationShareRelationship();
 
-NoteShareRelationships generateRandomNoteShareRelationships();
+[[nodiscard]] NoteShareRelationships generateRandomNoteShareRelationships();
 
-ManageNoteSharesParameters generateRandomManageNoteSharesParameters();
+[[nodiscard]] ManageNoteSharesParameters generateRandomManageNoteSharesParameters();
 
-ManageNoteSharesError generateRandomManageNoteSharesError();
+[[nodiscard]] ManageNoteSharesError generateRandomManageNoteSharesError();
 
-ManageNoteSharesResult generateRandomManageNoteSharesResult();
+[[nodiscard]] ManageNoteSharesResult generateRandomManageNoteSharesResult();
 
-Data generateRandomData();
+[[nodiscard]] Data generateRandomData();
 
-UserAttributes generateRandomUserAttributes();
+[[nodiscard]] UserAttributes generateRandomUserAttributes();
 
-BusinessUserAttributes generateRandomBusinessUserAttributes();
+[[nodiscard]] BusinessUserAttributes generateRandomBusinessUserAttributes();
 
-Accounting generateRandomAccounting();
+[[nodiscard]] Accounting generateRandomAccounting();
 
-BusinessUserInfo generateRandomBusinessUserInfo();
+[[nodiscard]] BusinessUserInfo generateRandomBusinessUserInfo();
 
-AccountLimits generateRandomAccountLimits();
+[[nodiscard]] AccountLimits generateRandomAccountLimits();
 
-User generateRandomUser();
+[[nodiscard]] User generateRandomUser();
 
-Contact generateRandomContact();
+[[nodiscard]] Contact generateRandomContact();
 
-Identity generateRandomIdentity();
+[[nodiscard]] Identity generateRandomIdentity();
 
-Tag generateRandomTag();
+[[nodiscard]] Tag generateRandomTag();
 
-LazyMap generateRandomLazyMap();
+[[nodiscard]] LazyMap generateRandomLazyMap();
 
-ResourceAttributes generateRandomResourceAttributes();
+[[nodiscard]] ResourceAttributes generateRandomResourceAttributes();
 
-Resource generateRandomResource();
+[[nodiscard]] Resource generateRandomResource();
 
-NoteAttributes generateRandomNoteAttributes();
+[[nodiscard]] NoteAttributes generateRandomNoteAttributes();
 
-SharedNote generateRandomSharedNote();
+[[nodiscard]] SharedNote generateRandomSharedNote();
 
-NoteRestrictions generateRandomNoteRestrictions();
+[[nodiscard]] NoteRestrictions generateRandomNoteRestrictions();
 
-NoteLimits generateRandomNoteLimits();
+[[nodiscard]] NoteLimits generateRandomNoteLimits();
 
-Note generateRandomNote();
+[[nodiscard]] Note generateRandomNote();
 
-Publishing generateRandomPublishing();
+[[nodiscard]] Publishing generateRandomPublishing();
 
-BusinessNotebook generateRandomBusinessNotebook();
+[[nodiscard]] BusinessNotebook generateRandomBusinessNotebook();
 
-SavedSearchScope generateRandomSavedSearchScope();
+[[nodiscard]] SavedSearchScope generateRandomSavedSearchScope();
 
-SavedSearch generateRandomSavedSearch();
+[[nodiscard]] SavedSearch generateRandomSavedSearch();
 
-SharedNotebookRecipientSettings generateRandomSharedNotebookRecipientSettings();
+[[nodiscard]] SharedNotebookRecipientSettings generateRandomSharedNotebookRecipientSettings();
 
-NotebookRecipientSettings generateRandomNotebookRecipientSettings();
+[[nodiscard]] NotebookRecipientSettings generateRandomNotebookRecipientSettings();
 
-SharedNotebook generateRandomSharedNotebook();
+[[nodiscard]] SharedNotebook generateRandomSharedNotebook();
 
-CanMoveToContainerRestrictions generateRandomCanMoveToContainerRestrictions();
+[[nodiscard]] CanMoveToContainerRestrictions generateRandomCanMoveToContainerRestrictions();
 
-NotebookRestrictions generateRandomNotebookRestrictions();
+[[nodiscard]] NotebookRestrictions generateRandomNotebookRestrictions();
 
-Notebook generateRandomNotebook();
+[[nodiscard]] Notebook generateRandomNotebook();
 
-LinkedNotebook generateRandomLinkedNotebook();
+[[nodiscard]] LinkedNotebook generateRandomLinkedNotebook();
 
-NotebookDescriptor generateRandomNotebookDescriptor();
+[[nodiscard]] NotebookDescriptor generateRandomNotebookDescriptor();
 
-UserProfile generateRandomUserProfile();
+[[nodiscard]] UserProfile generateRandomUserProfile();
 
-RelatedContentImage generateRandomRelatedContentImage();
+[[nodiscard]] RelatedContentImage generateRandomRelatedContentImage();
 
-RelatedContent generateRandomRelatedContent();
+[[nodiscard]] RelatedContent generateRandomRelatedContent();
 
-BusinessInvitation generateRandomBusinessInvitation();
+[[nodiscard]] BusinessInvitation generateRandomBusinessInvitation();
 
-UserIdentity generateRandomUserIdentity();
+[[nodiscard]] UserIdentity generateRandomUserIdentity();
 
-PublicUserInfo generateRandomPublicUserInfo();
+[[nodiscard]] PublicUserInfo generateRandomPublicUserInfo();
 
-UserUrls generateRandomUserUrls();
+[[nodiscard]] UserUrls generateRandomUserUrls();
 
-AuthenticationResult generateRandomAuthenticationResult();
+[[nodiscard]] AuthenticationResult generateRandomAuthenticationResult();
 
-BootstrapSettings generateRandomBootstrapSettings();
+[[nodiscard]] BootstrapSettings generateRandomBootstrapSettings();
 
-BootstrapProfile generateRandomBootstrapProfile();
+[[nodiscard]] BootstrapProfile generateRandomBootstrapProfile();
 
-BootstrapInfo generateRandomBootstrapInfo();
+[[nodiscard]] BootstrapInfo generateRandomBootstrapInfo();
+
+[[nodiscard]] EDAMUserException generateRandomEDAMUserException();
+
+[[nodiscard]] EDAMSystemException generateRandomEDAMSystemException();
+
+[[nodiscard]] EDAMNotFoundException generateRandomEDAMNotFoundException();
+
+[[nodiscard]] EDAMInvalidContactsException generateRandomEDAMInvalidContactsException();
 
 } // namespace qevercloud
 

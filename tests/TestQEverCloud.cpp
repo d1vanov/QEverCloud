@@ -7,6 +7,7 @@
  */
 
 #include "TestDurableService.h"
+#include "TestTypeBuilders.h"
 #include "services/TestNoteStore.h"
 #include "services/TestUserStore.h"
 
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
 // RUN_TESTS
 
     RUN_TESTS(DurableServiceTester)
+    RUN_TESTS(TypeBuildersTester)
     RUN_TESTS(NoteStoreTester)
     RUN_TESTS(UserStoreTester)
 

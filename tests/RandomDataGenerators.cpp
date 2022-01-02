@@ -1327,4 +1327,43 @@ BootstrapInfo generateRandomBootstrapInfo()
     return result;
 }
 
+EDAMUserException generateRandomEDAMUserException()
+{
+    EDAMUserException result;
+    result.setErrorCode(EDAMErrorCode::TAKEN_DOWN);
+    result.setParameter(generateRandomString());
+    return result;
+}
+
+EDAMSystemException generateRandomEDAMSystemException()
+{
+    EDAMSystemException result;
+    result.setErrorCode(EDAMErrorCode::QUOTA_REACHED);
+    result.setMessage(generateRandomString());
+    result.setRateLimitDuration(generateRandomInt32());
+    return result;
+}
+
+EDAMNotFoundException generateRandomEDAMNotFoundException()
+{
+    EDAMNotFoundException result;
+    result.setIdentifier(generateRandomString());
+    result.setKey(generateRandomString());
+    return result;
+}
+
+EDAMInvalidContactsException generateRandomEDAMInvalidContactsException()
+{
+    EDAMInvalidContactsException result;
+    result.mutableContacts().push_back(generateRandomContact());
+    result.mutableContacts().push_back(generateRandomContact());
+    result.mutableContacts().push_back(generateRandomContact());
+    result.setParameter(generateRandomString());
+    result.setReasons(QList<EDAMInvalidContactReason>());
+    result.mutableReasons()->push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+    result.mutableReasons()->push_back(EDAMInvalidContactReason::NO_CONNECTION);
+    result.mutableReasons()->push_back(EDAMInvalidContactReason::BAD_ADDRESS);
+    return result;
+}
+
 } // namespace qevercloud
