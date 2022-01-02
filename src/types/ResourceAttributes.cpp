@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2022 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -17,7 +17,7 @@ namespace qevercloud {
 
 ResourceAttributes::ResourceAttributes() :
     d(new ResourceAttributes::Impl)
- {}
+{}
 
 ResourceAttributes::ResourceAttributes(const ResourceAttributes & other) :
     d(other.d)

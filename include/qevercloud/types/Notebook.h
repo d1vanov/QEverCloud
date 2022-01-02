@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2022 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -260,7 +260,7 @@ public:
      * this notebook belongs to user's own content i.e. doesn't
      * come from any linked notebook, this field would be empty
      */
-    [[nodiscard]] const std::optional<QString> & linkedNotebookGuid() const;
+    [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const;
 
     /**
      * Set guid of linked notebook to which this notebook belongs
@@ -298,7 +298,7 @@ public:
     Q_PROPERTY(std::optional<User> contact READ contact WRITE setContact)
     Q_PROPERTY(std::optional<NotebookRestrictions> restrictions READ restrictions WRITE setRestrictions)
     Q_PROPERTY(std::optional<NotebookRecipientSettings> recipientSettings READ recipientSettings WRITE setRecipientSettings)
-    Q_PROPERTY(std::optional<QString> linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
+    Q_PROPERTY(std::optional<Guid> linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
 
 private:
     class Impl;

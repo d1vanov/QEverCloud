@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2022 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -17,7 +17,7 @@ namespace qevercloud {
 
 Notebook::Notebook() :
     d(new Notebook::Impl)
- {}
+{}
 
 Notebook::Notebook(const Notebook & other) :
     d(other.d)
@@ -47,12 +47,12 @@ Notebook & Notebook::operator=(Notebook && other) noexcept
     return *this;
 }
 
-const std::optional<QString> & Notebook::linkedNotebookGuid() const
+const std::optional<Guid> & Notebook::linkedNotebookGuid() const
 {
     return d->m_linkedNotebookGuid;
 }
 
-void Notebook::setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid)
+void Notebook::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
 {
     d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
 }

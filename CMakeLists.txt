@@ -123,6 +123,12 @@ set(GENERATED_HEADERS
     include/qevercloud/exceptions/EDAMSystemException.h
     include/qevercloud/exceptions/EDAMUserException.h
     include/qevercloud/exceptions/Fwd.h
+    include/qevercloud/exceptions/builders/All.h
+    include/qevercloud/exceptions/builders/EDAMInvalidContactsExceptionBuilder.h
+    include/qevercloud/exceptions/builders/EDAMNotFoundExceptionBuilder.h
+    include/qevercloud/exceptions/builders/EDAMSystemExceptionBuilder.h
+    include/qevercloud/exceptions/builders/EDAMUserExceptionBuilder.h
+    include/qevercloud/exceptions/builders/Fwd.h
     include/qevercloud/services/Fwd.h
     include/qevercloud/services/INoteStore.h
     include/qevercloud/services/IUserStore.h
@@ -204,7 +210,83 @@ set(GENERATED_HEADERS
     include/qevercloud/types/UserAttributes.h
     include/qevercloud/types/UserIdentity.h
     include/qevercloud/types/UserProfile.h
-    include/qevercloud/types/UserUrls.h)
+    include/qevercloud/types/UserUrls.h
+    include/qevercloud/types/builders/AccountingBuilder.h
+    include/qevercloud/types/builders/AccountLimitsBuilder.h
+    include/qevercloud/types/builders/All.h
+    include/qevercloud/types/builders/AuthenticationResultBuilder.h
+    include/qevercloud/types/builders/BootstrapInfoBuilder.h
+    include/qevercloud/types/builders/BootstrapProfileBuilder.h
+    include/qevercloud/types/builders/BootstrapSettingsBuilder.h
+    include/qevercloud/types/builders/BusinessInvitationBuilder.h
+    include/qevercloud/types/builders/BusinessNotebookBuilder.h
+    include/qevercloud/types/builders/BusinessUserAttributesBuilder.h
+    include/qevercloud/types/builders/BusinessUserInfoBuilder.h
+    include/qevercloud/types/builders/CanMoveToContainerRestrictionsBuilder.h
+    include/qevercloud/types/builders/ContactBuilder.h
+    include/qevercloud/types/builders/CreateOrUpdateNotebookSharesResultBuilder.h
+    include/qevercloud/types/builders/DataBuilder.h
+    include/qevercloud/types/builders/Fwd.h
+    include/qevercloud/types/builders/IdentityBuilder.h
+    include/qevercloud/types/builders/InvitationShareRelationshipBuilder.h
+    include/qevercloud/types/builders/LazyMapBuilder.h
+    include/qevercloud/types/builders/LinkedNotebookBuilder.h
+    include/qevercloud/types/builders/ManageNotebookSharesErrorBuilder.h
+    include/qevercloud/types/builders/ManageNotebookSharesParametersBuilder.h
+    include/qevercloud/types/builders/ManageNotebookSharesResultBuilder.h
+    include/qevercloud/types/builders/ManageNoteSharesErrorBuilder.h
+    include/qevercloud/types/builders/ManageNoteSharesParametersBuilder.h
+    include/qevercloud/types/builders/ManageNoteSharesResultBuilder.h
+    include/qevercloud/types/builders/MemberShareRelationshipBuilder.h
+    include/qevercloud/types/builders/NoteAttributesBuilder.h
+    include/qevercloud/types/builders/NotebookBuilder.h
+    include/qevercloud/types/builders/NotebookDescriptorBuilder.h
+    include/qevercloud/types/builders/NotebookRecipientSettingsBuilder.h
+    include/qevercloud/types/builders/NotebookRestrictionsBuilder.h
+    include/qevercloud/types/builders/NotebookShareTemplateBuilder.h
+    include/qevercloud/types/builders/NoteBuilder.h
+    include/qevercloud/types/builders/NoteCollectionCountsBuilder.h
+    include/qevercloud/types/builders/NoteEmailParametersBuilder.h
+    include/qevercloud/types/builders/NoteFilterBuilder.h
+    include/qevercloud/types/builders/NoteInvitationShareRelationshipBuilder.h
+    include/qevercloud/types/builders/NoteLimitsBuilder.h
+    include/qevercloud/types/builders/NoteListBuilder.h
+    include/qevercloud/types/builders/NoteMemberShareRelationshipBuilder.h
+    include/qevercloud/types/builders/NoteMetadataBuilder.h
+    include/qevercloud/types/builders/NoteRestrictionsBuilder.h
+    include/qevercloud/types/builders/NoteResultSpecBuilder.h
+    include/qevercloud/types/builders/NoteShareRelationshipRestrictionsBuilder.h
+    include/qevercloud/types/builders/NoteShareRelationshipsBuilder.h
+    include/qevercloud/types/builders/NotesMetadataListBuilder.h
+    include/qevercloud/types/builders/NotesMetadataResultSpecBuilder.h
+    include/qevercloud/types/builders/NoteVersionIdBuilder.h
+    include/qevercloud/types/builders/PublicUserInfoBuilder.h
+    include/qevercloud/types/builders/PublishingBuilder.h
+    include/qevercloud/types/builders/RelatedContentBuilder.h
+    include/qevercloud/types/builders/RelatedContentImageBuilder.h
+    include/qevercloud/types/builders/RelatedQueryBuilder.h
+    include/qevercloud/types/builders/RelatedResultBuilder.h
+    include/qevercloud/types/builders/RelatedResultSpecBuilder.h
+    include/qevercloud/types/builders/ResourceAttributesBuilder.h
+    include/qevercloud/types/builders/ResourceBuilder.h
+    include/qevercloud/types/builders/SavedSearchBuilder.h
+    include/qevercloud/types/builders/SavedSearchScopeBuilder.h
+    include/qevercloud/types/builders/SharedNotebookBuilder.h
+    include/qevercloud/types/builders/SharedNotebookRecipientSettingsBuilder.h
+    include/qevercloud/types/builders/SharedNoteBuilder.h
+    include/qevercloud/types/builders/SharedNoteTemplateBuilder.h
+    include/qevercloud/types/builders/ShareRelationshipRestrictionsBuilder.h
+    include/qevercloud/types/builders/ShareRelationshipsBuilder.h
+    include/qevercloud/types/builders/SyncChunkBuilder.h
+    include/qevercloud/types/builders/SyncChunkFilterBuilder.h
+    include/qevercloud/types/builders/SyncStateBuilder.h
+    include/qevercloud/types/builders/TagBuilder.h
+    include/qevercloud/types/builders/UpdateNoteIfUsnMatchesResultBuilder.h
+    include/qevercloud/types/builders/UserAttributesBuilder.h
+    include/qevercloud/types/builders/UserBuilder.h
+    include/qevercloud/types/builders/UserIdentityBuilder.h
+    include/qevercloud/types/builders/UserProfileBuilder.h
+    include/qevercloud/types/builders/UserUrlsBuilder.h)
 
 set(PRIVATE_HEADERS
     src/Http.h
@@ -212,11 +294,89 @@ set(PRIVATE_HEADERS
     src/NetworkCookieJar.h
     src/NetworkReplyFetcher.h
     src/Thrift.h
+    src/exceptions/builders/EDAMInvalidContactsExceptionBuilder.cpp
+    src/exceptions/builders/EDAMNotFoundExceptionBuilder.cpp
+    src/exceptions/builders/EDAMSystemExceptionBuilder.cpp
+    src/exceptions/builders/EDAMUserExceptionBuilder.cpp
     src/exceptions/impl/EDAMInvalidContactsExceptionImpl.h
     src/exceptions/impl/EDAMNotFoundExceptionImpl.h
     src/exceptions/impl/EDAMSystemExceptionImpl.h
     src/exceptions/impl/EDAMUserExceptionImpl.h
     src/types/Types_io.h
+    src/types/builders/AccountingBuilder.cpp
+    src/types/builders/AccountLimitsBuilder.cpp
+    src/types/builders/AuthenticationResultBuilder.cpp
+    src/types/builders/BootstrapInfoBuilder.cpp
+    src/types/builders/BootstrapProfileBuilder.cpp
+    src/types/builders/BootstrapSettingsBuilder.cpp
+    src/types/builders/BusinessInvitationBuilder.cpp
+    src/types/builders/BusinessNotebookBuilder.cpp
+    src/types/builders/BusinessUserAttributesBuilder.cpp
+    src/types/builders/BusinessUserInfoBuilder.cpp
+    src/types/builders/CanMoveToContainerRestrictionsBuilder.cpp
+    src/types/builders/ContactBuilder.cpp
+    src/types/builders/CreateOrUpdateNotebookSharesResultBuilder.cpp
+    src/types/builders/DataBuilder.cpp
+    src/types/builders/IdentityBuilder.cpp
+    src/types/builders/InvitationShareRelationshipBuilder.cpp
+    src/types/builders/LazyMapBuilder.cpp
+    src/types/builders/LinkedNotebookBuilder.cpp
+    src/types/builders/ManageNotebookSharesErrorBuilder.cpp
+    src/types/builders/ManageNotebookSharesParametersBuilder.cpp
+    src/types/builders/ManageNotebookSharesResultBuilder.cpp
+    src/types/builders/ManageNoteSharesErrorBuilder.cpp
+    src/types/builders/ManageNoteSharesParametersBuilder.cpp
+    src/types/builders/ManageNoteSharesResultBuilder.cpp
+    src/types/builders/MemberShareRelationshipBuilder.cpp
+    src/types/builders/NoteAttributesBuilder.cpp
+    src/types/builders/NotebookBuilder.cpp
+    src/types/builders/NotebookDescriptorBuilder.cpp
+    src/types/builders/NotebookRecipientSettingsBuilder.cpp
+    src/types/builders/NotebookRestrictionsBuilder.cpp
+    src/types/builders/NotebookShareTemplateBuilder.cpp
+    src/types/builders/NoteBuilder.cpp
+    src/types/builders/NoteCollectionCountsBuilder.cpp
+    src/types/builders/NoteEmailParametersBuilder.cpp
+    src/types/builders/NoteFilterBuilder.cpp
+    src/types/builders/NoteInvitationShareRelationshipBuilder.cpp
+    src/types/builders/NoteLimitsBuilder.cpp
+    src/types/builders/NoteListBuilder.cpp
+    src/types/builders/NoteMemberShareRelationshipBuilder.cpp
+    src/types/builders/NoteMetadataBuilder.cpp
+    src/types/builders/NoteRestrictionsBuilder.cpp
+    src/types/builders/NoteResultSpecBuilder.cpp
+    src/types/builders/NoteShareRelationshipRestrictionsBuilder.cpp
+    src/types/builders/NoteShareRelationshipsBuilder.cpp
+    src/types/builders/NotesMetadataListBuilder.cpp
+    src/types/builders/NotesMetadataResultSpecBuilder.cpp
+    src/types/builders/NoteVersionIdBuilder.cpp
+    src/types/builders/PublicUserInfoBuilder.cpp
+    src/types/builders/PublishingBuilder.cpp
+    src/types/builders/RelatedContentBuilder.cpp
+    src/types/builders/RelatedContentImageBuilder.cpp
+    src/types/builders/RelatedQueryBuilder.cpp
+    src/types/builders/RelatedResultBuilder.cpp
+    src/types/builders/RelatedResultSpecBuilder.cpp
+    src/types/builders/ResourceAttributesBuilder.cpp
+    src/types/builders/ResourceBuilder.cpp
+    src/types/builders/SavedSearchBuilder.cpp
+    src/types/builders/SavedSearchScopeBuilder.cpp
+    src/types/builders/SharedNotebookBuilder.cpp
+    src/types/builders/SharedNotebookRecipientSettingsBuilder.cpp
+    src/types/builders/SharedNoteBuilder.cpp
+    src/types/builders/SharedNoteTemplateBuilder.cpp
+    src/types/builders/ShareRelationshipRestrictionsBuilder.cpp
+    src/types/builders/ShareRelationshipsBuilder.cpp
+    src/types/builders/SyncChunkBuilder.cpp
+    src/types/builders/SyncChunkFilterBuilder.cpp
+    src/types/builders/SyncStateBuilder.cpp
+    src/types/builders/TagBuilder.cpp
+    src/types/builders/UpdateNoteIfUsnMatchesResultBuilder.cpp
+    src/types/builders/UserAttributesBuilder.cpp
+    src/types/builders/UserBuilder.cpp
+    src/types/builders/UserIdentityBuilder.cpp
+    src/types/builders/UserProfileBuilder.cpp
+    src/types/builders/UserUrlsBuilder.cpp
     src/types/impl/AccountingImpl.h
     src/types/impl/AccountLimitsImpl.h
     src/types/impl/AuthenticationResultImpl.h

@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2022 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -65,8 +65,8 @@ public:
     virtual QString noteStoreUrl() const = 0;
     virtual void setNoteStoreUrl(QString url) = 0;
 
-    virtual const std::optional<QString> & linkedNotebookGuid() const = 0;
-    virtual void setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid) = 0;
+    virtual const std::optional<Guid> & linkedNotebookGuid() const = 0;
+    virtual void setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid) = 0;
 
     /**
        * Asks the NoteStore to provide information about the status of the user
@@ -2742,7 +2742,7 @@ using INoteStorePtr = std::shared_ptr<INoteStore>;
 
 QEVERCLOUD_EXPORT INoteStore * newNoteStore(
     QString noteStoreUrl = {},
-    std::optional<QString> linkedNotebookGuid = {},
+    std::optional<Guid> linkedNotebookGuid = {},
     IRequestContextPtr ctx = {},
     QObject * parent = nullptr,
     IRetryPolicyPtr retryPolicy = {});

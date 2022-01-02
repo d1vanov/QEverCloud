@@ -1,6 +1,6 @@
 /**
  * Original work: Copyright (c) 2014 Sergey Skoblikov
- * Modified work: Copyright (c) 2015-2021 Dmitry Ivanov
+ * Modified work: Copyright (c) 2015-2022 Dmitry Ivanov
  *
  * This file is a part of QEverCloud project and is distributed under the terms
  * of MIT license:
@@ -29,7 +29,7 @@ class Q_DECL_HIDDEN NoteStore: public INoteStore
 public:
     explicit NoteStore(
             QString noteStoreUrl = {},
-            std::optional<QString> linkedNotebookGuid = {},
+            std::optional<Guid> linkedNotebookGuid = {},
             IRequestContextPtr ctx = {},
             QObject * parent = nullptr) :
         INoteStore(parent),
@@ -58,12 +58,12 @@ public:
         return m_url;
     }
 
-    const std::optional<QString> & linkedNotebookGuid() const override
+    const std::optional<Guid> & linkedNotebookGuid() const override
     {
         return m_linkedNotebookGuid;
     }
 
-    void setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid) override
+    void setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid) override
     {
         m_linkedNotebookGuid = std::move(linkedNotebookGuid);
     }
@@ -730,7 +730,7 @@ public:
 
 private:
     QString m_url;
-    std::optional<QString> m_linkedNotebookGuid;
+    std::optional<Guid> m_linkedNotebookGuid;
     IRequestContextPtr m_ctx;
 };
 
@@ -16033,12 +16033,12 @@ public:
         return m_service->noteStoreUrl();
     }
 
-    const std::optional<QString> & linkedNotebookGuid() const override
+    const std::optional<Guid> & linkedNotebookGuid() const override
     {
         return m_service->linkedNotebookGuid();
     }
 
-    void setLinkedNotebookGuid(std::optional<QString> linkedNotebookGuid) override
+    void setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid) override
     {
         m_service->setLinkedNotebookGuid(std::move(linkedNotebookGuid));
     }
@@ -22007,7 +22007,7 @@ QFuture<QVariant> DurableNoteStore::getNotebookSharesAsync(
 
 INoteStore * newNoteStore(
     QString noteStoreUrl,
-    std::optional<QString> linkedNotebookGuid,
+    std::optional<Guid> linkedNotebookGuid,
     IRequestContextPtr ctx,
     QObject * parent,
     IRetryPolicyPtr retryPolicy)
