@@ -109,6 +109,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ManageNoteSharesError)
-
 #endif // QEVERCLOUD_GENERATED_MANAGENOTESHARESERROR

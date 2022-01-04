@@ -132,6 +132,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NoteRestrictions)
-
 #endif // QEVERCLOUD_GENERATED_NOTERESTRICTIONS

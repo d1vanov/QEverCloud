@@ -8,21 +8,14 @@
 #include <qevercloud/exceptions/EverCloudException.h>
 #include <qevercloud/Initialization.h>
 #include <qevercloud/RequestContext.h>
+#include <qevercloud/types/Metatypes.h>
 
 namespace qevercloud {
-
-namespace {
-
-void registerMetatypes()
-{
-    qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
-}
-
-} // namespace
 
 void initializeQEverCloud()
 {
     registerMetatypes();
+    qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
 }
 
 } // namespace qevercloud

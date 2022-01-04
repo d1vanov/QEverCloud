@@ -325,6 +325,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NotebookRestrictions)
-
 #endif // QEVERCLOUD_GENERATED_NOTEBOOKRESTRICTIONS

@@ -121,6 +121,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NoteEmailParameters)
-
 #endif // QEVERCLOUD_GENERATED_NOTEEMAILPARAMETERS

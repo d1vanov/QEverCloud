@@ -87,6 +87,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::EDAMUserException)
-
 #endif // QEVERCLOUD_GENERATED_EDAMUSEREXCEPTION

@@ -127,6 +127,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::BusinessInvitation)
-
 #endif // QEVERCLOUD_GENERATED_BUSINESSINVITATION

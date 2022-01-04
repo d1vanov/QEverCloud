@@ -94,6 +94,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::BusinessNotebook)
-
 #endif // QEVERCLOUD_GENERATED_BUSINESSNOTEBOOK

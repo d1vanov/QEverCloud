@@ -100,6 +100,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ShareRelationships)
-
 #endif // QEVERCLOUD_GENERATED_SHARERELATIONSHIPS

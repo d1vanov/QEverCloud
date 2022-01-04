@@ -77,6 +77,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ShareRelationshipRestrictions)
-
 #endif // QEVERCLOUD_GENERATED_SHARERELATIONSHIPRESTRICTIONS

@@ -126,6 +126,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::RelatedQuery)
-
 #endif // QEVERCLOUD_GENERATED_RELATEDQUERY

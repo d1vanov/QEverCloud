@@ -168,6 +168,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SharedNote)
-
 #endif // QEVERCLOUD_GENERATED_SHAREDNOTE

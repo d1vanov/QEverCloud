@@ -127,6 +127,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::MemberShareRelationship)
-
 #endif // QEVERCLOUD_GENERATED_MEMBERSHARERELATIONSHIP

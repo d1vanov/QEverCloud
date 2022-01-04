@@ -97,6 +97,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::LazyMap)
-
 #endif // QEVERCLOUD_GENERATED_LAZYMAP

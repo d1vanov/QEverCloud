@@ -193,6 +193,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::Tag)
-
 #endif // QEVERCLOUD_GENERATED_TAG

@@ -180,6 +180,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SavedSearch)
-
 #endif // QEVERCLOUD_GENERATED_SAVEDSEARCH

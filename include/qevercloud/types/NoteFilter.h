@@ -189,6 +189,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NoteFilter)
-
 #endif // QEVERCLOUD_GENERATED_NOTEFILTER

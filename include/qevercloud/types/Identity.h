@@ -144,6 +144,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::Identity)
-
 #endif // QEVERCLOUD_GENERATED_IDENTITY

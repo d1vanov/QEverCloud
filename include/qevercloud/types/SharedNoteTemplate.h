@@ -102,6 +102,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SharedNoteTemplate)
-
 #endif // QEVERCLOUD_GENERATED_SHAREDNOTETEMPLATE

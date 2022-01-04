@@ -140,6 +140,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SyncState)
-
 #endif // QEVERCLOUD_GENERATED_SYNCSTATE

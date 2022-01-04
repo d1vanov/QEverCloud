@@ -82,6 +82,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::EDAMNotFoundException)
-
 #endif // QEVERCLOUD_GENERATED_EDAMNOTFOUNDEXCEPTION

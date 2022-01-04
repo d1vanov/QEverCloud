@@ -113,6 +113,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::BusinessUserAttributes)
-
 #endif // QEVERCLOUD_GENERATED_BUSINESSUSERATTRIBUTES

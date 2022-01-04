@@ -94,6 +94,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NoteCollectionCounts)
-
 #endif // QEVERCLOUD_GENERATED_NOTECOLLECTIONCOUNTS

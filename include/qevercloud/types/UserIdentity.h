@@ -100,6 +100,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::UserIdentity)
-
 #endif // QEVERCLOUD_GENERATED_USERIDENTITY

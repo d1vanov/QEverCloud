@@ -93,6 +93,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SharedNotebookRecipientSettings)
-
 #endif // QEVERCLOUD_GENERATED_SHAREDNOTEBOOKRECIPIENTSETTINGS

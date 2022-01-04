@@ -105,6 +105,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::BusinessUserInfo)
-
 #endif // QEVERCLOUD_GENERATED_BUSINESSUSERINFO

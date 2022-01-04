@@ -275,6 +275,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::User)
-
 #endif // QEVERCLOUD_GENERATED_USER

@@ -84,6 +84,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::UpdateNoteIfUsnMatchesResult)
-
 #endif // QEVERCLOUD_GENERATED_UPDATENOTEIFUSNMATCHESRESULT

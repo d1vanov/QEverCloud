@@ -1107,6 +1107,8 @@ QEVERCLOUD_EXPORT QDebug & operator<<(
 
 } // namespace qevercloud
 
+// NOTE: explicit metatype declarations are not needed if QEVERCLOUD_USES_Q_NAMESPACE is defined
+// NOTE: but since it is not necessarily defined, explicit metatype declarations are here
 Q_DECLARE_METATYPE(qevercloud::EDAMErrorCode)
 Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactReason)
 Q_DECLARE_METATYPE(qevercloud::ShareRelationshipPrivilegeLevel)

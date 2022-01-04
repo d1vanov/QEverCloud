@@ -175,6 +175,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ResourceAttributes)
-
 #endif // QEVERCLOUD_GENERATED_RESOURCEATTRIBUTES

@@ -82,6 +82,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::CreateOrUpdateNotebookSharesResult)
-
 #endif // QEVERCLOUD_GENERATED_CREATEORUPDATENOTEBOOKSHARESRESULT

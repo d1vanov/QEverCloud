@@ -95,6 +95,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::Data)
-
 #endif // QEVERCLOUD_GENERATED_DATA

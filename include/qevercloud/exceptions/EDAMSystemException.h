@@ -88,6 +88,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::EDAMSystemException)
-
 #endif // QEVERCLOUD_GENERATED_EDAMSYSTEMEXCEPTION

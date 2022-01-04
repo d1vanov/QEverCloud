@@ -102,6 +102,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::RelatedContentImage)
-
 #endif // QEVERCLOUD_GENERATED_RELATEDCONTENTIMAGE

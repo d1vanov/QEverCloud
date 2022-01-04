@@ -144,6 +144,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NotesMetadataList)
-
 #endif // QEVERCLOUD_GENERATED_NOTESMETADATALIST

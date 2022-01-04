@@ -156,6 +156,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::AuthenticationResult)
-
 #endif // QEVERCLOUD_GENERATED_AUTHENTICATIONRESULT

@@ -158,6 +158,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::RelatedResultSpec)
-
 #endif // QEVERCLOUD_GENERATED_RELATEDRESULTSPEC

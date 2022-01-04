@@ -209,6 +209,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SyncChunk)
-
 #endif // QEVERCLOUD_GENERATED_SYNCCHUNK

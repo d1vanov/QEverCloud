@@ -261,6 +261,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SharedNotebook)
-
 #endif // QEVERCLOUD_GENERATED_SHAREDNOTEBOOK

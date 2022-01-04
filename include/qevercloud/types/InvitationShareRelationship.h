@@ -106,6 +106,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::InvitationShareRelationship)
-
 #endif // QEVERCLOUD_GENERATED_INVITATIONSHARERELATIONSHIP

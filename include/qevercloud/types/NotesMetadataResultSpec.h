@@ -125,6 +125,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NotesMetadataResultSpec)
-
 #endif // QEVERCLOUD_GENERATED_NOTESMETADATARESULTSPEC

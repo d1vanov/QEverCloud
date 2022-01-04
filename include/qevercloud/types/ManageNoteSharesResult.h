@@ -73,6 +73,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ManageNoteSharesResult)
-
 #endif // QEVERCLOUD_GENERATED_MANAGENOTESHARESRESULT

@@ -119,6 +119,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NotebookRecipientSettings)
-
 #endif // QEVERCLOUD_GENERATED_NOTEBOOKRECIPIENTSETTINGS

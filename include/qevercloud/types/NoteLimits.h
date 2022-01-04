@@ -90,6 +90,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NoteLimits)
-
 #endif // QEVERCLOUD_GENERATED_NOTELIMITS

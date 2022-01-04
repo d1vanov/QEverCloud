@@ -117,6 +117,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ManageNoteSharesParameters)
-
 #endif // QEVERCLOUD_GENERATED_MANAGENOTESHARESPARAMETERS

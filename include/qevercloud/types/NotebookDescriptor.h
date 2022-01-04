@@ -153,6 +153,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NotebookDescriptor)
-
 #endif // QEVERCLOUD_GENERATED_NOTEBOOKDESCRIPTOR

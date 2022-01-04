@@ -207,6 +207,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::LinkedNotebook)
-
 #endif // QEVERCLOUD_GENERATED_LINKEDNOTEBOOK

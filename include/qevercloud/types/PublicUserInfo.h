@@ -103,6 +103,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::PublicUserInfo)
-
 #endif // QEVERCLOUD_GENERATED_PUBLICUSERINFO

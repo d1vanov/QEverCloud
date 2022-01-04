@@ -385,6 +385,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::UserAttributes)
-
 #endif // QEVERCLOUD_GENERATED_USERATTRIBUTES

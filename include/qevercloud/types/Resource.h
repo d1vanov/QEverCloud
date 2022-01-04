@@ -248,6 +248,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::Resource)
-
 #endif // QEVERCLOUD_GENERATED_RESOURCE

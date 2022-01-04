@@ -158,6 +158,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::AccountLimits)
-
 #endif // QEVERCLOUD_GENERATED_ACCOUNTLIMITS

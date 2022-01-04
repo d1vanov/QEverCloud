@@ -344,6 +344,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::NoteAttributes)
-
 #endif // QEVERCLOUD_GENERATED_NOTEATTRIBUTES

@@ -173,6 +173,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::BootstrapSettings)
-
 #endif // QEVERCLOUD_GENERATED_BOOTSTRAPSETTINGS

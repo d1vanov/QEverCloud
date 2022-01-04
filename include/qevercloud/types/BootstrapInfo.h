@@ -70,6 +70,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::BootstrapInfo)
-
 #endif // QEVERCLOUD_GENERATED_BOOTSTRAPINFO

@@ -161,6 +161,7 @@ set(GENERATED_HEADERS
     include/qevercloud/types/ManageNoteSharesParameters.h
     include/qevercloud/types/ManageNoteSharesResult.h
     include/qevercloud/types/MemberShareRelationship.h
+    include/qevercloud/types/Metatypes.h
     include/qevercloud/types/Note.h
     include/qevercloud/types/NoteAttributes.h
     include/qevercloud/types/Notebook.h
@@ -511,6 +512,7 @@ set(SOURCES
     src/types/ManageNoteSharesParameters.cpp
     src/types/ManageNoteSharesResult.cpp
     src/types/MemberShareRelationship.cpp
+    src/types/Metatypes.cpp
     src/types/Note.cpp
     src/types/NoteAttributes.cpp
     src/types/Notebook.cpp

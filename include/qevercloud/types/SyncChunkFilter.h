@@ -226,6 +226,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::SyncChunkFilter)
-
 #endif // QEVERCLOUD_GENERATED_SYNCCHUNKFILTER

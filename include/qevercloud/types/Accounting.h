@@ -253,6 +253,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::Accounting)
-
 #endif // QEVERCLOUD_GENERATED_ACCOUNTING

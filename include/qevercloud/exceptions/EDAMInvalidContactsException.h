@@ -99,6 +99,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::EDAMInvalidContactsException)
-
 #endif // QEVERCLOUD_GENERATED_EDAMINVALIDCONTACTSEXCEPTION

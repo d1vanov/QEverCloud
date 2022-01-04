@@ -100,6 +100,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::ManageNotebookSharesError)
-
 #endif // QEVERCLOUD_GENERATED_MANAGENOTEBOOKSHARESERROR

@@ -120,6 +120,4 @@ private:
 
 } // namespace qevercloud
 
-Q_DECLARE_METATYPE(qevercloud::UserUrls)
-
 #endif // QEVERCLOUD_GENERATED_USERURLS
