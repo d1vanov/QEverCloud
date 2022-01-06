@@ -12,6 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_METATYPES
 #define QEVERCLOUD_GENERATED_METATYPES
 
+#include <qevercloud/exceptions/All.h>
 #include <qevercloud/types/All.h>
 #include <QMetaType>
 
