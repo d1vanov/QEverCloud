@@ -27,10 +27,15 @@
 #include <cmath>
 #include <functional>
 #include <memory>
+#include <mutex>
 
 namespace qevercloud {
 
 namespace {
+
+////////////////////////////////////////////////////////////////////////////////
+
+std::once_flag gRegisterIRequestContextPtrMetaType;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -165,6 +170,13 @@ DurableService::DurableService(IRetryPolicyPtr retryPolicy,
     if (!m_ctx) {
         m_ctx = newRequestContext();
     }
+
+    std::call_once(
+        gRegisterIRequestContextPtrMetaType,
+        []
+        {
+            qRegisterMetaType<IRequestContextPtr>("IRequestContextPtr");
+        });
 }
 
 DurableService::SyncResult DurableService::executeSyncRequest(

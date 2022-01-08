@@ -18,6 +18,11 @@
 
 namespace qevercloud {
 
+/**
+ * This function calls qRegisterMetatype for fields of QEverCloud
+ * types and exceptions so that they can be used in queued signal-slot connections.
+ * Call this function if you need it.
+ */
 QEVERCLOUD_EXPORT void registerMetatypes();
 
 } // namespace qevercloud

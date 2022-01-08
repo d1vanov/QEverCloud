@@ -93,7 +93,6 @@ endif()
 set(NON_GENERATED_HEADERS
     include/qevercloud/DurableService.h
     include/qevercloud/EventLoopFinisher.h
-    include/qevercloud/Initialization.h
     include/qevercloud/InkNoteImageDownloader.h
     include/qevercloud/NetworkProxy.h
     include/qevercloud/RequestContext.h
@@ -458,7 +457,6 @@ set(SOURCES
     src/EventLoopFinisher.cpp
     src/Http.cpp
     src/Impl.cpp
-    src/Initialization.cpp
     src/InkNoteImageDownloader.cpp
     src/Log.cpp
     src/NetworkProxy.cpp

@@ -16,6 +16,11 @@ namespace qevercloud {
 
 void registerMetatypes()
 {
+    qRegisterMetaType<EDAMInvalidContactsException>("qevercloud::EDAMInvalidContactsException");
+    qRegisterMetaType<EDAMNotFoundException>("qevercloud::EDAMNotFoundException");
+    qRegisterMetaType<EDAMSystemException>("qevercloud::EDAMSystemException");
+    qRegisterMetaType<EDAMUserException>("qevercloud::EDAMUserException");
+
     qRegisterMetaType<AccountLimits>("qevercloud::AccountLimits");
     qRegisterMetaType<Accounting>("qevercloud::Accounting");
     qRegisterMetaType<AuthenticationResult>("qevercloud::AuthenticationResult");
@@ -30,10 +35,6 @@ void registerMetatypes()
     qRegisterMetaType<Contact>("qevercloud::Contact");
     qRegisterMetaType<CreateOrUpdateNotebookSharesResult>("qevercloud::CreateOrUpdateNotebookSharesResult");
     qRegisterMetaType<Data>("qevercloud::Data");
-    qRegisterMetaType<EDAMInvalidContactsException>("qevercloud::EDAMInvalidContactsException");
-    qRegisterMetaType<EDAMNotFoundException>("qevercloud::EDAMNotFoundException");
-    qRegisterMetaType<EDAMSystemException>("qevercloud::EDAMSystemException");
-    qRegisterMetaType<EDAMUserException>("qevercloud::EDAMUserException");
     qRegisterMetaType<Identity>("qevercloud::Identity");
     qRegisterMetaType<InvitationShareRelationship>("qevercloud::InvitationShareRelationship");
     qRegisterMetaType<LazyMap>("qevercloud::LazyMap");
@@ -94,6 +95,14 @@ void registerMetatypes()
     qRegisterMetaType<UserIdentity>("qevercloud::UserIdentity");
     qRegisterMetaType<UserProfile>("qevercloud::UserProfile");
     qRegisterMetaType<UserUrls>("qevercloud::UserUrls");
+
+    qRegisterMetaType<InvalidationSequenceNumber>("qevercloud::InvalidationSequenceNumber");
+    qRegisterMetaType<IdentityID>("qevercloud::IdentityID");
+    qRegisterMetaType<UserID>("qevercloud::UserID");
+    qRegisterMetaType<Guid>("qevercloud::Guid");
+    qRegisterMetaType<Timestamp>("qevercloud::Timestamp");
+    qRegisterMetaType<MessageEventID>("qevercloud::MessageEventID");
+    qRegisterMetaType<MessageThreadID>("qevercloud::MessageThreadID");
 
     qRegisterMetaType<std::optional<AccountLimits>>("std::optional<qevercloud::AccountLimits>");
     qRegisterMetaType<std::optional<Accounting>>("std::optional<qevercloud::Accounting>");
@@ -171,14 +180,6 @@ void registerMetatypes()
     qRegisterMetaType<std::optional<qint16>>("std::optional<qint16>");
     qRegisterMetaType<std::optional<qint32>>("std::optional<qint32>");
     qRegisterMetaType<std::optional<qint64>>("std::optional<qint64>");
-
-    qRegisterMetaType<InvalidationSequenceNumber>("qevercloud::InvalidationSequenceNumber");
-    qRegisterMetaType<IdentityID>("qevercloud::IdentityID");
-    qRegisterMetaType<UserID>("qevercloud::UserID");
-    qRegisterMetaType<Guid>("qevercloud::Guid");
-    qRegisterMetaType<Timestamp>("qevercloud::Timestamp");
-    qRegisterMetaType<MessageEventID>("qevercloud::MessageEventID");
-    qRegisterMetaType<MessageThreadID>("qevercloud::MessageThreadID");
 }
 
 } // namespace qevercloud

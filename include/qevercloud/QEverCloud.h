@@ -11,7 +11,6 @@
 
 #include "DurableService.h"
 #include "EventLoopFinisher.h"
-#include "Initialization.h"
 #include "InkNoteImageDownloader.h"
 #include "NetworkProxy.h"
 #include "RequestContext.h"
@@ -20,6 +19,7 @@
 #include "Constants.h"
 #include "exceptions/All.h"
 #include "types/All.h"
+#include "types/Metatypes.h"
 #include "services/All.h"
 #include "utility/Log.h"
 #include "utility/Printable.h"

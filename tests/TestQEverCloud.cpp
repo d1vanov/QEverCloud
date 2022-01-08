@@ -27,8 +27,6 @@ int main(int argc, char *argv[])
 
     QCoreApplication app(argc, argv);
 
-    initializeQEverCloud();
-
     setLogger(newStdErrLogger(LogLevel::Error));
 
     int res = 0;
