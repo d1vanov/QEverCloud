@@ -1275,8 +1275,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInCheckVersionAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -1661,8 +1661,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetBootstrapInfoAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -2388,8 +2388,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsy
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -2520,8 +2520,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateLongSessionA
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -2651,8 +2651,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateLongSessionAsync
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -3294,8 +3294,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentic
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -3412,8 +3412,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInCompleteTwoFactorAuthent
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -3529,8 +3529,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInCompleteTwoFactorAuthenticat
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -4090,8 +4090,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRevokeLongSessionAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -4196,8 +4196,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRevokeLongSessionAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -4301,8 +4301,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInRevokeLongSessionAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -4872,8 +4872,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsyn
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -4978,8 +4978,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInAuthenticateToBusinessAs
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -5083,8 +5083,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInAuthenticateToBusinessAsync(
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -5654,8 +5654,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -5760,8 +5760,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -5865,8 +5865,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -6546,8 +6546,8 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInGetPublicUserInfoAsync
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -6654,8 +6654,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicUserInfoAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -6761,8 +6761,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetPublicUserInfoAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -6868,8 +6868,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetPublicUserInfoAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -7439,8 +7439,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserUrlsAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -7545,8 +7545,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInGetUserUrlsAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -7650,8 +7650,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetUserUrlsAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -8235,8 +8235,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInInviteToBusinessAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -8345,8 +8345,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInInviteToBusinessAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -8454,8 +8454,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInInviteToBusinessAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -9138,8 +9138,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInRemoveFromBusinessAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -9248,8 +9248,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInRemoveFromBusinessAsync(
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -9357,8 +9357,8 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInRemoveFromBusinessAsyn
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -9466,8 +9466,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInRemoveFromBusinessAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -10178,8 +10178,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInUpdateBusinessUserIdentifi
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -10292,8 +10292,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInUpdateBusinessUserIdenti
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -10405,8 +10405,8 @@ void UserStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateBusinessUserIden
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -10518,8 +10518,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInUpdateBusinessUserIdentifier
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -11095,8 +11095,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessUsersAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -11201,8 +11201,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessUsersAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -11306,8 +11306,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessUsersAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -11907,8 +11907,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInListBusinessInvitationsAsy
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -12017,8 +12017,8 @@ void UserStoreTester::shouldDeliverEDAMSystemExceptionInListBusinessInvitationsA
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -12126,8 +12126,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInListBusinessInvitationsAsync
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -12610,8 +12610,8 @@ void UserStoreTester::shouldDeliverEDAMUserExceptionInGetAccountLimitsAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
@@ -12717,8 +12717,8 @@ void UserStoreTester::shouldDeliverThriftExceptionInGetAccountLimitsAsync()
         QFutureWatcher<QVariant> watcher;
         QEventLoop loop;
         QObject::connect(
-                &watcher, &QFutureWatcher<QVariant>::finished, &loop,
-                &QEventLoop::quit);
+            &watcher, &QFutureWatcher<QVariant>::finished, &loop,
+            &QEventLoop::quit);
 
         watcher.setFuture(result);
         loop.exec();
