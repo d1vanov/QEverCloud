@@ -19,6 +19,10 @@ class Q_DECL_HIDDEN SharedNotebookBuilder::Impl final:
     public QSharedData
 {
 public:
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
     std::optional<qint64> m_id;
     std::optional<UserID> m_userId;
     std::optional<Guid> m_notebookGuid;
@@ -35,10 +39,6 @@ public:
     std::optional<QString> m_recipientUsername;
     std::optional<UserID> m_recipientUserId;
     std::optional<Timestamp> m_serviceAssigned;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
 };
 
 SharedNotebookBuilder::SharedNotebookBuilder() :
@@ -57,6 +57,30 @@ SharedNotebookBuilder & SharedNotebookBuilder::operator=(SharedNotebookBuilder &
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+SharedNotebookBuilder & SharedNotebookBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+SharedNotebookBuilder & SharedNotebookBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+SharedNotebookBuilder & SharedNotebookBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+SharedNotebookBuilder & SharedNotebookBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
     return *this;
 }
 
@@ -156,34 +180,14 @@ SharedNotebookBuilder & SharedNotebookBuilder::setServiceAssigned(std::optional<
     return *this;
 }
 
-SharedNotebookBuilder & SharedNotebookBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-SharedNotebookBuilder & SharedNotebookBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-SharedNotebookBuilder & SharedNotebookBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-SharedNotebookBuilder &SharedNotebookBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
 SharedNotebook SharedNotebookBuilder::build()
 {
     SharedNotebook result;
 
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
     result.setId(std::move(d->m_id));
     result.setUserId(std::move(d->m_userId));
     result.setNotebookGuid(std::move(d->m_notebookGuid));
@@ -200,11 +204,11 @@ SharedNotebook SharedNotebookBuilder::build()
     result.setRecipientUsername(std::move(d->m_recipientUsername));
     result.setRecipientUserId(std::move(d->m_recipientUserId));
     result.setServiceAssigned(std::move(d->m_serviceAssigned));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
 
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
     d->m_id = {};
     d->m_userId = {};
     d->m_notebookGuid = {};
@@ -221,10 +225,6 @@ SharedNotebook SharedNotebookBuilder::build()
     d->m_recipientUsername = {};
     d->m_recipientUserId = {};
     d->m_serviceAssigned = {};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
 
     return result;
 }

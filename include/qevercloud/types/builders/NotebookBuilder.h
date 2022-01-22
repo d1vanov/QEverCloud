@@ -43,6 +43,12 @@ public:
 
     NotebookBuilder & operator=(NotebookBuilder && other) noexcept;
 
+    NotebookBuilder & setLocalId(QString localId);
+    NotebookBuilder & setLocallyModified(bool isLocallyModified);
+    NotebookBuilder & setLocalOnly(bool isLocalOnly);
+    NotebookBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    NotebookBuilder & setLocalData(QHash<QString, QVariant> localData);
+    NotebookBuilder & setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid);
     NotebookBuilder & setGuid(std::optional<Guid> guid);
     NotebookBuilder & setName(std::optional<QString> name);
     NotebookBuilder & setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
@@ -58,12 +64,6 @@ public:
     NotebookBuilder & setContact(std::optional<User> contact);
     NotebookBuilder & setRestrictions(std::optional<NotebookRestrictions> restrictions);
     NotebookBuilder & setRecipientSettings(std::optional<NotebookRecipientSettings> recipientSettings);
-    NotebookBuilder & setLocalId(QString localId);
-    NotebookBuilder & setLocallyModified(bool locallyModified);
-    NotebookBuilder & setLocalOnly(bool localOnly);
-    NotebookBuilder & setLocallyFavorited(bool favorited);
-    NotebookBuilder & setLocalData(QHash<QString, QVariant> localData);
-    NotebookBuilder & setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid);
 
     [[nodiscard]] Notebook build();
 

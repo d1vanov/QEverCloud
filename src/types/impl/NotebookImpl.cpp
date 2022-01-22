@@ -29,11 +29,32 @@ Notebook::Impl::Impl()
 void Notebook::Impl::print(QTextStream & strm) const
 {
     strm << "Notebook: {\n";
-        strm << "    linkedNotebookGuid = " << m_linkedNotebookGuid.value_or(QStringLiteral("<not set>")) << "\n";
-        strm << "    localId = " << m_localId << "\n";
-        strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
-        strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
-        strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";
+    strm << "    localId = "
+        << m_localId << "\n";
+    strm << "    isLocallyModified = "
+        << (m_isLocallyModified ? "true" : "false") << "\n";
+    strm << "    isLocalOnly = "
+        << (m_isLocalOnly ? "true" : "false") << "\n";
+    strm << "    isLocallyFavorited = "
+        << (m_isLocallyFavorited ? "true" : "false") << "\n";
+    strm << "    localData = "
+        << "QHash<QString, QVariant> {";
+    for(const auto & it: toRange(m_localData)) {
+        strm << "    [" << it.key() << "] = ";
+        QString debugStr;
+        QDebug dbg{&debugStr};
+        dbg << it.value();
+        strm << debugStr << "\n";
+    }
+    strm << "    }\n";
+
+    if (m_linkedNotebookGuid) {
+        strm << "    linkedNotebookGuid = "
+            << *m_linkedNotebookGuid << "\n";
+    }
+    else {
+        strm << "    linkedNotebookGuid is not set\n";
+    }
 
     if (m_guid) {
         strm << "    guid = "
@@ -61,7 +82,7 @@ void Notebook::Impl::print(QTextStream & strm) const
 
     if (m_defaultNotebook) {
         strm << "    defaultNotebook = "
-            << *m_defaultNotebook << "\n";
+            << (*m_defaultNotebook ? "true" : "false") << "\n";
     }
     else {
         strm << "    defaultNotebook is not set\n";
@@ -93,7 +114,7 @@ void Notebook::Impl::print(QTextStream & strm) const
 
     if (m_published) {
         strm << "    published = "
-            << *m_published << "\n";
+            << (*m_published ? "true" : "false") << "\n";
     }
     else {
         strm << "    published is not set\n";

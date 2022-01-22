@@ -19,6 +19,11 @@ class Q_DECL_HIDDEN NoteMetadataBuilder::Impl final:
     public QSharedData
 {
 public:
+    QString m_localId;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
     Guid m_guid;
     std::optional<QString> m_title;
     std::optional<qint32> m_contentLength;
@@ -31,11 +36,6 @@ public:
     std::optional<NoteAttributes> m_attributes;
     std::optional<QString> m_largestResourceMime;
     std::optional<qint32> m_largestResourceSize;
-    QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
 };
 
 NoteMetadataBuilder::NoteMetadataBuilder() :
@@ -54,6 +54,36 @@ NoteMetadataBuilder & NoteMetadataBuilder::operator=(NoteMetadataBuilder && othe
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+NoteMetadataBuilder & NoteMetadataBuilder::setLocalId(QString localId)
+{
+    d->m_localId = std::move(localId);
+    return *this;
+}
+
+NoteMetadataBuilder & NoteMetadataBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+NoteMetadataBuilder & NoteMetadataBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+NoteMetadataBuilder & NoteMetadataBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+NoteMetadataBuilder & NoteMetadataBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
     return *this;
 }
 
@@ -129,40 +159,15 @@ NoteMetadataBuilder & NoteMetadataBuilder::setLargestResourceSize(std::optional<
     return *this;
 }
 
-NoteMetadataBuilder & NoteMetadataBuilder::setLocalId(QString localId)
-{
-    d->m_localId = std::move(localId);
-    return *this;
-}
-
-NoteMetadataBuilder & NoteMetadataBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-NoteMetadataBuilder & NoteMetadataBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-NoteMetadataBuilder & NoteMetadataBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-NoteMetadataBuilder &NoteMetadataBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
 NoteMetadata NoteMetadataBuilder::build()
 {
     NoteMetadata result;
 
+    result.setLocalId(std::move(d->m_localId));
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
     result.setGuid(std::move(d->m_guid));
     result.setTitle(std::move(d->m_title));
     result.setContentLength(std::move(d->m_contentLength));
@@ -175,12 +180,12 @@ NoteMetadata NoteMetadataBuilder::build()
     result.setAttributes(std::move(d->m_attributes));
     result.setLargestResourceMime(std::move(d->m_largestResourceMime));
     result.setLargestResourceSize(std::move(d->m_largestResourceSize));
-    result.setLocalId(std::move(d->m_localId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
 
+    d->m_localId = QString{};
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
     d->m_guid = Guid{};
     d->m_title = {};
     d->m_contentLength = {};
@@ -193,11 +198,6 @@ NoteMetadata NoteMetadataBuilder::build()
     d->m_attributes = {};
     d->m_largestResourceMime = {};
     d->m_largestResourceSize = {};
-    d->m_localId = QString{};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
 
     return result;
 }

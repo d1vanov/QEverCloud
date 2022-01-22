@@ -19,6 +19,14 @@ class Q_DECL_HIDDEN NoteBuilder::Impl final:
     public QSharedData
 {
 public:
+    QString m_localId;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
+    QString m_notebookLocalId;
+    QStringList m_tagLocalIds;
+    QByteArray m_thumbnailData;
     std::optional<Guid> m_guid;
     std::optional<QString> m_title;
     std::optional<QString> m_content;
@@ -37,14 +45,6 @@ public:
     std::optional<QList<SharedNote>> m_sharedNotes;
     std::optional<NoteRestrictions> m_restrictions;
     std::optional<NoteLimits> m_limits;
-    QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
-    QString m_notebookLocalId;
-    QStringList m_tagLocalIds;
-    QByteArray m_thumbnailData;
 };
 
 NoteBuilder::NoteBuilder() :
@@ -63,6 +63,54 @@ NoteBuilder & NoteBuilder::operator=(NoteBuilder && other) noexcept
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setLocalId(QString localId)
+{
+    d->m_localId = std::move(localId);
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setNotebookLocalId(QString notebookLocalId)
+{
+    d->m_notebookLocalId = std::move(notebookLocalId);
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setTagLocalIds(QStringList tagLocalIds)
+{
+    d->m_tagLocalIds = std::move(tagLocalIds);
+    return *this;
+}
+
+NoteBuilder & NoteBuilder::setThumbnailData(QByteArray thumbnailData)
+{
+    d->m_thumbnailData = std::move(thumbnailData);
     return *this;
 }
 
@@ -174,58 +222,18 @@ NoteBuilder & NoteBuilder::setLimits(std::optional<NoteLimits> limits)
     return *this;
 }
 
-NoteBuilder & NoteBuilder::setLocalId(QString localId)
-{
-    d->m_localId = std::move(localId);
-    return *this;
-}
-
-NoteBuilder & NoteBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-NoteBuilder & NoteBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-NoteBuilder & NoteBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-NoteBuilder &NoteBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
-NoteBuilder & NoteBuilder::setNotebookLocalId(QString notebookLocalId)
-{
-    d->m_notebookLocalId = std::move(notebookLocalId);    return *this;
-
-}
-
-NoteBuilder & NoteBuilder::setTagLocalIds(QStringList tagLocalIds)
-{
-    d->m_tagLocalIds = std::move(tagLocalIds);
-    return *this;
-}
-
-NoteBuilder & NoteBuilder::setThumbnailData(QByteArray thumbnailData)
-{
-    d->m_thumbnailData = std::move(thumbnailData);
-    return *this;
-}
-
 Note NoteBuilder::build()
 {
     Note result;
 
+    result.setLocalId(std::move(d->m_localId));
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
+    result.setNotebookLocalId(std::move(d->m_notebookLocalId));
+    result.setTagLocalIds(std::move(d->m_tagLocalIds));
+    result.setThumbnailData(std::move(d->m_thumbnailData));
     result.setGuid(std::move(d->m_guid));
     result.setTitle(std::move(d->m_title));
     result.setContent(std::move(d->m_content));
@@ -244,15 +252,15 @@ Note NoteBuilder::build()
     result.setSharedNotes(std::move(d->m_sharedNotes));
     result.setRestrictions(std::move(d->m_restrictions));
     result.setLimits(std::move(d->m_limits));
-    result.setLocalId(std::move(d->m_localId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
-    result.setNotebookLocalId(std::move(d->m_notebookLocalId));
-    result.setTagLocalIds(std::move(d->m_tagLocalIds));
-    result.setThumbnailData(std::move(d->m_thumbnailData));
 
+    d->m_localId = QString{};
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
+    d->m_notebookLocalId = QString{};
+    d->m_tagLocalIds = QStringList{};
+    d->m_thumbnailData = {};
     d->m_guid = {};
     d->m_title = {};
     d->m_content = {};
@@ -271,14 +279,6 @@ Note NoteBuilder::build()
     d->m_sharedNotes = {};
     d->m_restrictions = {};
     d->m_limits = {};
-    d->m_localId = QString{};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
-    d->m_notebookLocalId = QString{};
-    d->m_tagLocalIds = QStringList{};
-    d->m_thumbnailData = {};
 
     return result;
 }

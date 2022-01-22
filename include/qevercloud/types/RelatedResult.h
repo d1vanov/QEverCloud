@@ -109,29 +109,29 @@ public:
      * "NoteStore.findRelated" calls (via "RelatedQuery") to re-use previous
      * responses that were cached on the client-side, instead of actually performing
      * another search.
-     * 
+     *
      * If set to an empty string, this indicates that the server could not determine
      * a specific key for this response, but the client should nevertheless remove
      * any previously cached result for this request.
-     * 
+     *
      * If unset/null, it is up to the client whether to re-use cached results or to
      * use the server's response.
-     * 
+     *
      * If set to the exact non-empty cache key that was specified in
      * "RelatedQuery.cacheKey", this indicates that the server decided that cached results
      * could be reused.
-     * 
+     *
      * Depending on the cache key specified in the query, the "RelatedResult" may only be
      * partially filled. For each set field, the client should replace the corresponding
      * part in the previously cached result with the new partial result.
-     * 
+     *
      * For example, for a specific query that has both "RelatedResultSpec.maxNotes" and
      * "RelatedResultSpec.maxRelatedContent" set to positive values, the server may decide
      * that the previously requested and cached <em>Related Content</em> are unchanged,
      * but new results for <em>Related Notes</em> are available. The
      * response will have a new cache key and have "RelatedResult.notes" set, but have
      * "RelatedResult.relatedContent" unset (not just empty, but really unset).
-     * 
+     *
      * In this situation, the client should replace any cached notes with the newly
      * returned "RelatedResult.notes", but it can re-use the previously cached entries for
      * "RelatedResult.relatedContent". List fields that are set, but empty indicate that
@@ -143,7 +143,7 @@ public:
     /**
      * If set, clients should reuse this response for any situations where the same input
      * parameters are applicable for up to this many seconds after receiving this result.
-     * 
+     *
      * After this time has passed, the client may request a new result from the service,
      * but it should supply the stored cacheKey to the service when checking for an
      * update.

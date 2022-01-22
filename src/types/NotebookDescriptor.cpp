@@ -52,39 +52,39 @@ const QString & NotebookDescriptor::localId() const noexcept
     return d->m_localId;
 }
 
-void NotebookDescriptor::setLocalId(QString id)
+void NotebookDescriptor::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool NotebookDescriptor::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void NotebookDescriptor::setLocallyModified(const bool modified)
+void NotebookDescriptor::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool NotebookDescriptor::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void NotebookDescriptor::setLocalOnly(const bool localOnly)
+void NotebookDescriptor::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool NotebookDescriptor::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void NotebookDescriptor::setLocallyFavorited(const bool favorited)
+void NotebookDescriptor::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & NotebookDescriptor::localData() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & NotebookDescriptor::mutableLocalData()
 
 void NotebookDescriptor::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
 }
 
 const std::optional<Guid> & NotebookDescriptor::guid() const noexcept
@@ -201,6 +201,7 @@ bool operator==(const NotebookDescriptor & lhs, const NotebookDescriptor & rhs) 
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.guid() == rhs.guid() &&
         lhs.notebookDisplayName() == rhs.notebookDisplayName() &&
         lhs.contactName() == rhs.contactName() &&

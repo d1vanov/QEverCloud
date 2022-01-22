@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN SharedNote::Impl final:
     public Printable
 {
 public:
-    Impl();
+    Impl() = default;
     Impl(const SharedNote::Impl & other) = default;
     Impl(SharedNote::Impl && other) noexcept = default;
 
@@ -35,12 +35,11 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    std::optional<Guid> m_noteGuid;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
     QHash<QString, QVariant> m_localData;
-
+    Guid m_noteGuid;
     std::optional<UserID> m_sharerUserID;
     std::optional<Identity> m_recipientIdentity;
     std::optional<SharedNotePrivilegeLevel> m_privilege;

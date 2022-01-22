@@ -128,6 +128,84 @@ set(GENERATED_HEADERS
     include/qevercloud/exceptions/builders/EDAMSystemExceptionBuilder.h
     include/qevercloud/exceptions/builders/EDAMUserExceptionBuilder.h
     include/qevercloud/exceptions/builders/Fwd.h
+    include/qevercloud/serialization/json/Accounting.h
+    include/qevercloud/serialization/json/AccountLimits.h
+    include/qevercloud/serialization/json/AuthenticationResult.h
+    include/qevercloud/serialization/json/BootstrapInfo.h
+    include/qevercloud/serialization/json/BootstrapProfile.h
+    include/qevercloud/serialization/json/BootstrapSettings.h
+    include/qevercloud/serialization/json/BusinessInvitation.h
+    include/qevercloud/serialization/json/BusinessNotebook.h
+    include/qevercloud/serialization/json/BusinessUserAttributes.h
+    include/qevercloud/serialization/json/BusinessUserInfo.h
+    include/qevercloud/serialization/json/CanMoveToContainerRestrictions.h
+    include/qevercloud/serialization/json/Contact.h
+    include/qevercloud/serialization/json/CreateOrUpdateNotebookSharesResult.h
+    include/qevercloud/serialization/json/Data.h
+    include/qevercloud/serialization/json/EDAMInvalidContactsException.h
+    include/qevercloud/serialization/json/EDAMNotFoundException.h
+    include/qevercloud/serialization/json/EDAMSystemException.h
+    include/qevercloud/serialization/json/EDAMUserException.h
+    include/qevercloud/serialization/json/Identity.h
+    include/qevercloud/serialization/json/InvitationShareRelationship.h
+    include/qevercloud/serialization/json/LazyMap.h
+    include/qevercloud/serialization/json/LinkedNotebook.h
+    include/qevercloud/serialization/json/ManageNotebookSharesError.h
+    include/qevercloud/serialization/json/ManageNotebookSharesParameters.h
+    include/qevercloud/serialization/json/ManageNotebookSharesResult.h
+    include/qevercloud/serialization/json/ManageNoteSharesError.h
+    include/qevercloud/serialization/json/ManageNoteSharesParameters.h
+    include/qevercloud/serialization/json/ManageNoteSharesResult.h
+    include/qevercloud/serialization/json/MemberShareRelationship.h
+    include/qevercloud/serialization/json/Note.h
+    include/qevercloud/serialization/json/NoteAttributes.h
+    include/qevercloud/serialization/json/Notebook.h
+    include/qevercloud/serialization/json/NotebookDescriptor.h
+    include/qevercloud/serialization/json/NotebookRecipientSettings.h
+    include/qevercloud/serialization/json/NotebookRestrictions.h
+    include/qevercloud/serialization/json/NotebookShareTemplate.h
+    include/qevercloud/serialization/json/NoteCollectionCounts.h
+    include/qevercloud/serialization/json/NoteEmailParameters.h
+    include/qevercloud/serialization/json/NoteFilter.h
+    include/qevercloud/serialization/json/NoteInvitationShareRelationship.h
+    include/qevercloud/serialization/json/NoteLimits.h
+    include/qevercloud/serialization/json/NoteList.h
+    include/qevercloud/serialization/json/NoteMemberShareRelationship.h
+    include/qevercloud/serialization/json/NoteMetadata.h
+    include/qevercloud/serialization/json/NoteRestrictions.h
+    include/qevercloud/serialization/json/NoteResultSpec.h
+    include/qevercloud/serialization/json/NoteShareRelationshipRestrictions.h
+    include/qevercloud/serialization/json/NoteShareRelationships.h
+    include/qevercloud/serialization/json/NotesMetadataList.h
+    include/qevercloud/serialization/json/NotesMetadataResultSpec.h
+    include/qevercloud/serialization/json/NoteVersionId.h
+    include/qevercloud/serialization/json/PublicUserInfo.h
+    include/qevercloud/serialization/json/Publishing.h
+    include/qevercloud/serialization/json/RelatedContent.h
+    include/qevercloud/serialization/json/RelatedContentImage.h
+    include/qevercloud/serialization/json/RelatedQuery.h
+    include/qevercloud/serialization/json/RelatedResult.h
+    include/qevercloud/serialization/json/RelatedResultSpec.h
+    include/qevercloud/serialization/json/Resource.h
+    include/qevercloud/serialization/json/ResourceAttributes.h
+    include/qevercloud/serialization/json/SavedSearch.h
+    include/qevercloud/serialization/json/SavedSearchScope.h
+    include/qevercloud/serialization/json/SharedNote.h
+    include/qevercloud/serialization/json/SharedNotebook.h
+    include/qevercloud/serialization/json/SharedNotebookRecipientSettings.h
+    include/qevercloud/serialization/json/SharedNoteTemplate.h
+    include/qevercloud/serialization/json/ShareRelationshipRestrictions.h
+    include/qevercloud/serialization/json/ShareRelationships.h
+    include/qevercloud/serialization/json/SyncChunk.h
+    include/qevercloud/serialization/json/SyncChunkFilter.h
+    include/qevercloud/serialization/json/SyncState.h
+    include/qevercloud/serialization/json/Tag.h
+    include/qevercloud/serialization/json/UpdateNoteIfUsnMatchesResult.h
+    include/qevercloud/serialization/json/User.h
+    include/qevercloud/serialization/json/UserAttributes.h
+    include/qevercloud/serialization/json/UserIdentity.h
+    include/qevercloud/serialization/json/UserProfile.h
+    include/qevercloud/serialization/json/UserUrls.h
     include/qevercloud/services/Fwd.h
     include/qevercloud/services/INoteStore.h
     include/qevercloud/services/IUserStore.h
@@ -481,6 +559,84 @@ set(SOURCES
     src/exceptions/impl/EDAMNotFoundExceptionImpl.cpp
     src/exceptions/impl/EDAMSystemExceptionImpl.cpp
     src/exceptions/impl/EDAMUserExceptionImpl.cpp
+    src/serialization/json/Accounting.cpp
+    src/serialization/json/AccountLimits.cpp
+    src/serialization/json/AuthenticationResult.cpp
+    src/serialization/json/BootstrapInfo.cpp
+    src/serialization/json/BootstrapProfile.cpp
+    src/serialization/json/BootstrapSettings.cpp
+    src/serialization/json/BusinessInvitation.cpp
+    src/serialization/json/BusinessNotebook.cpp
+    src/serialization/json/BusinessUserAttributes.cpp
+    src/serialization/json/BusinessUserInfo.cpp
+    src/serialization/json/CanMoveToContainerRestrictions.cpp
+    src/serialization/json/Contact.cpp
+    src/serialization/json/CreateOrUpdateNotebookSharesResult.cpp
+    src/serialization/json/Data.cpp
+    src/serialization/json/EDAMInvalidContactsException.cpp
+    src/serialization/json/EDAMNotFoundException.cpp
+    src/serialization/json/EDAMSystemException.cpp
+    src/serialization/json/EDAMUserException.cpp
+    src/serialization/json/Identity.cpp
+    src/serialization/json/InvitationShareRelationship.cpp
+    src/serialization/json/LazyMap.cpp
+    src/serialization/json/LinkedNotebook.cpp
+    src/serialization/json/ManageNotebookSharesError.cpp
+    src/serialization/json/ManageNotebookSharesParameters.cpp
+    src/serialization/json/ManageNotebookSharesResult.cpp
+    src/serialization/json/ManageNoteSharesError.cpp
+    src/serialization/json/ManageNoteSharesParameters.cpp
+    src/serialization/json/ManageNoteSharesResult.cpp
+    src/serialization/json/MemberShareRelationship.cpp
+    src/serialization/json/Note.cpp
+    src/serialization/json/NoteAttributes.cpp
+    src/serialization/json/Notebook.cpp
+    src/serialization/json/NotebookDescriptor.cpp
+    src/serialization/json/NotebookRecipientSettings.cpp
+    src/serialization/json/NotebookRestrictions.cpp
+    src/serialization/json/NotebookShareTemplate.cpp
+    src/serialization/json/NoteCollectionCounts.cpp
+    src/serialization/json/NoteEmailParameters.cpp
+    src/serialization/json/NoteFilter.cpp
+    src/serialization/json/NoteInvitationShareRelationship.cpp
+    src/serialization/json/NoteLimits.cpp
+    src/serialization/json/NoteList.cpp
+    src/serialization/json/NoteMemberShareRelationship.cpp
+    src/serialization/json/NoteMetadata.cpp
+    src/serialization/json/NoteRestrictions.cpp
+    src/serialization/json/NoteResultSpec.cpp
+    src/serialization/json/NoteShareRelationshipRestrictions.cpp
+    src/serialization/json/NoteShareRelationships.cpp
+    src/serialization/json/NotesMetadataList.cpp
+    src/serialization/json/NotesMetadataResultSpec.cpp
+    src/serialization/json/NoteVersionId.cpp
+    src/serialization/json/PublicUserInfo.cpp
+    src/serialization/json/Publishing.cpp
+    src/serialization/json/RelatedContent.cpp
+    src/serialization/json/RelatedContentImage.cpp
+    src/serialization/json/RelatedQuery.cpp
+    src/serialization/json/RelatedResult.cpp
+    src/serialization/json/RelatedResultSpec.cpp
+    src/serialization/json/Resource.cpp
+    src/serialization/json/ResourceAttributes.cpp
+    src/serialization/json/SavedSearch.cpp
+    src/serialization/json/SavedSearchScope.cpp
+    src/serialization/json/SharedNote.cpp
+    src/serialization/json/SharedNotebook.cpp
+    src/serialization/json/SharedNotebookRecipientSettings.cpp
+    src/serialization/json/SharedNoteTemplate.cpp
+    src/serialization/json/ShareRelationshipRestrictions.cpp
+    src/serialization/json/ShareRelationships.cpp
+    src/serialization/json/SyncChunk.cpp
+    src/serialization/json/SyncChunkFilter.cpp
+    src/serialization/json/SyncState.cpp
+    src/serialization/json/Tag.cpp
+    src/serialization/json/UpdateNoteIfUsnMatchesResult.cpp
+    src/serialization/json/User.cpp
+    src/serialization/json/UserAttributes.cpp
+    src/serialization/json/UserIdentity.cpp
+    src/serialization/json/UserProfile.cpp
+    src/serialization/json/UserUrls.cpp
     src/services/NoteStore.cpp
     src/services/NoteStoreServer.cpp
     src/services/UserStore.cpp
@@ -839,7 +995,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/SocketHelpers.h
       tests/TestDurableService.h
       tests/TestTypeBuilders.h
-      tests/ClearLocalIds.h
+      tests/ClearLocalFields.h
       tests/RandomDataGenerators.h
       tests/services/TestNoteStore.h
       tests/services/TestUserStore.h)
@@ -849,7 +1005,7 @@ if((BUILD_WITH_QT6 AND Qt6Test_FOUND) OR (NOT BUILD_WITH_QT6 AND Qt5Test_FOUND))
       tests/TestDurableService.cpp
       tests/TestQEverCloud.cpp
       tests/TestTypeBuilders.cpp
-      tests/ClearLocalIds.cpp
+      tests/ClearLocalFields.cpp
       tests/RandomDataGenerators.cpp
       tests/services/TestNoteStore.cpp
       tests/services/TestUserStore.cpp)

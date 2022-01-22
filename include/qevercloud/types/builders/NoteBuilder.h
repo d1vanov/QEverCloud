@@ -43,6 +43,14 @@ public:
 
     NoteBuilder & operator=(NoteBuilder && other) noexcept;
 
+    NoteBuilder & setLocalId(QString localId);
+    NoteBuilder & setLocallyModified(bool isLocallyModified);
+    NoteBuilder & setLocalOnly(bool isLocalOnly);
+    NoteBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    NoteBuilder & setLocalData(QHash<QString, QVariant> localData);
+    NoteBuilder & setNotebookLocalId(QString notebookLocalId);
+    NoteBuilder & setTagLocalIds(QStringList tagLocalIds);
+    NoteBuilder & setThumbnailData(QByteArray thumbnailData);
     NoteBuilder & setGuid(std::optional<Guid> guid);
     NoteBuilder & setTitle(std::optional<QString> title);
     NoteBuilder & setContent(std::optional<QString> content);
@@ -61,14 +69,6 @@ public:
     NoteBuilder & setSharedNotes(std::optional<QList<SharedNote>> sharedNotes);
     NoteBuilder & setRestrictions(std::optional<NoteRestrictions> restrictions);
     NoteBuilder & setLimits(std::optional<NoteLimits> limits);
-    NoteBuilder & setLocalId(QString localId);
-    NoteBuilder & setLocallyModified(bool locallyModified);
-    NoteBuilder & setLocalOnly(bool localOnly);
-    NoteBuilder & setLocallyFavorited(bool favorited);
-    NoteBuilder & setLocalData(QHash<QString, QVariant> localData);
-    NoteBuilder & setNotebookLocalId(QString notebookLocalId);
-    NoteBuilder & setTagLocalIds(QStringList tagLocalIds);
-    NoteBuilder & setThumbnailData(QByteArray thumbnailData);
 
     [[nodiscard]] Note build();
 

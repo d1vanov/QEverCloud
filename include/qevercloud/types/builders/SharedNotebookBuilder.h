@@ -37,6 +37,10 @@ public:
 
     SharedNotebookBuilder & operator=(SharedNotebookBuilder && other) noexcept;
 
+    SharedNotebookBuilder & setLocallyModified(bool isLocallyModified);
+    SharedNotebookBuilder & setLocalOnly(bool isLocalOnly);
+    SharedNotebookBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    SharedNotebookBuilder & setLocalData(QHash<QString, QVariant> localData);
     SharedNotebookBuilder & setId(std::optional<qint64> id);
     SharedNotebookBuilder & setUserId(std::optional<UserID> userId);
     SharedNotebookBuilder & setNotebookGuid(std::optional<Guid> notebookGuid);
@@ -53,10 +57,6 @@ public:
     SharedNotebookBuilder & setRecipientUsername(std::optional<QString> recipientUsername);
     SharedNotebookBuilder & setRecipientUserId(std::optional<UserID> recipientUserId);
     SharedNotebookBuilder & setServiceAssigned(std::optional<Timestamp> serviceAssigned);
-    SharedNotebookBuilder & setLocallyModified(bool locallyModified);
-    SharedNotebookBuilder & setLocalOnly(bool localOnly);
-    SharedNotebookBuilder & setLocallyFavorited(bool favorited);
-    SharedNotebookBuilder & setLocalData(QHash<QString, QVariant> localData);
 
     [[nodiscard]] SharedNotebook build();
 

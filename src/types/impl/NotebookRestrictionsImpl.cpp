@@ -23,7 +23,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noReadNotes) {
         strm << "    noReadNotes = "
-            << *m_noReadNotes << "\n";
+            << (*m_noReadNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    noReadNotes is not set\n";
@@ -31,7 +31,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noCreateNotes) {
         strm << "    noCreateNotes = "
-            << *m_noCreateNotes << "\n";
+            << (*m_noCreateNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    noCreateNotes is not set\n";
@@ -39,7 +39,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noUpdateNotes) {
         strm << "    noUpdateNotes = "
-            << *m_noUpdateNotes << "\n";
+            << (*m_noUpdateNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    noUpdateNotes is not set\n";
@@ -47,7 +47,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noExpungeNotes) {
         strm << "    noExpungeNotes = "
-            << *m_noExpungeNotes << "\n";
+            << (*m_noExpungeNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    noExpungeNotes is not set\n";
@@ -55,7 +55,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noShareNotes) {
         strm << "    noShareNotes = "
-            << *m_noShareNotes << "\n";
+            << (*m_noShareNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    noShareNotes is not set\n";
@@ -63,7 +63,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noEmailNotes) {
         strm << "    noEmailNotes = "
-            << *m_noEmailNotes << "\n";
+            << (*m_noEmailNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    noEmailNotes is not set\n";
@@ -71,7 +71,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSendMessageToRecipients) {
         strm << "    noSendMessageToRecipients = "
-            << *m_noSendMessageToRecipients << "\n";
+            << (*m_noSendMessageToRecipients ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSendMessageToRecipients is not set\n";
@@ -79,7 +79,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noUpdateNotebook) {
         strm << "    noUpdateNotebook = "
-            << *m_noUpdateNotebook << "\n";
+            << (*m_noUpdateNotebook ? "true" : "false") << "\n";
     }
     else {
         strm << "    noUpdateNotebook is not set\n";
@@ -87,7 +87,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noExpungeNotebook) {
         strm << "    noExpungeNotebook = "
-            << *m_noExpungeNotebook << "\n";
+            << (*m_noExpungeNotebook ? "true" : "false") << "\n";
     }
     else {
         strm << "    noExpungeNotebook is not set\n";
@@ -95,7 +95,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetDefaultNotebook) {
         strm << "    noSetDefaultNotebook = "
-            << *m_noSetDefaultNotebook << "\n";
+            << (*m_noSetDefaultNotebook ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetDefaultNotebook is not set\n";
@@ -103,7 +103,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetNotebookStack) {
         strm << "    noSetNotebookStack = "
-            << *m_noSetNotebookStack << "\n";
+            << (*m_noSetNotebookStack ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetNotebookStack is not set\n";
@@ -111,7 +111,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noPublishToPublic) {
         strm << "    noPublishToPublic = "
-            << *m_noPublishToPublic << "\n";
+            << (*m_noPublishToPublic ? "true" : "false") << "\n";
     }
     else {
         strm << "    noPublishToPublic is not set\n";
@@ -119,7 +119,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noPublishToBusinessLibrary) {
         strm << "    noPublishToBusinessLibrary = "
-            << *m_noPublishToBusinessLibrary << "\n";
+            << (*m_noPublishToBusinessLibrary ? "true" : "false") << "\n";
     }
     else {
         strm << "    noPublishToBusinessLibrary is not set\n";
@@ -127,7 +127,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noCreateTags) {
         strm << "    noCreateTags = "
-            << *m_noCreateTags << "\n";
+            << (*m_noCreateTags ? "true" : "false") << "\n";
     }
     else {
         strm << "    noCreateTags is not set\n";
@@ -135,7 +135,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noUpdateTags) {
         strm << "    noUpdateTags = "
-            << *m_noUpdateTags << "\n";
+            << (*m_noUpdateTags ? "true" : "false") << "\n";
     }
     else {
         strm << "    noUpdateTags is not set\n";
@@ -143,7 +143,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noExpungeTags) {
         strm << "    noExpungeTags = "
-            << *m_noExpungeTags << "\n";
+            << (*m_noExpungeTags ? "true" : "false") << "\n";
     }
     else {
         strm << "    noExpungeTags is not set\n";
@@ -151,7 +151,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetParentTag) {
         strm << "    noSetParentTag = "
-            << *m_noSetParentTag << "\n";
+            << (*m_noSetParentTag ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetParentTag is not set\n";
@@ -159,7 +159,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noCreateSharedNotebooks) {
         strm << "    noCreateSharedNotebooks = "
-            << *m_noCreateSharedNotebooks << "\n";
+            << (*m_noCreateSharedNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    noCreateSharedNotebooks is not set\n";
@@ -183,7 +183,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noShareNotesWithBusiness) {
         strm << "    noShareNotesWithBusiness = "
-            << *m_noShareNotesWithBusiness << "\n";
+            << (*m_noShareNotesWithBusiness ? "true" : "false") << "\n";
     }
     else {
         strm << "    noShareNotesWithBusiness is not set\n";
@@ -191,7 +191,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noRenameNotebook) {
         strm << "    noRenameNotebook = "
-            << *m_noRenameNotebook << "\n";
+            << (*m_noRenameNotebook ? "true" : "false") << "\n";
     }
     else {
         strm << "    noRenameNotebook is not set\n";
@@ -199,7 +199,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetInMyList) {
         strm << "    noSetInMyList = "
-            << *m_noSetInMyList << "\n";
+            << (*m_noSetInMyList ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetInMyList is not set\n";
@@ -207,7 +207,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noChangeContact) {
         strm << "    noChangeContact = "
-            << *m_noChangeContact << "\n";
+            << (*m_noChangeContact ? "true" : "false") << "\n";
     }
     else {
         strm << "    noChangeContact is not set\n";
@@ -223,7 +223,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetReminderNotifyEmail) {
         strm << "    noSetReminderNotifyEmail = "
-            << *m_noSetReminderNotifyEmail << "\n";
+            << (*m_noSetReminderNotifyEmail ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetReminderNotifyEmail is not set\n";
@@ -231,7 +231,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetReminderNotifyInApp) {
         strm << "    noSetReminderNotifyInApp = "
-            << *m_noSetReminderNotifyInApp << "\n";
+            << (*m_noSetReminderNotifyInApp ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetReminderNotifyInApp is not set\n";
@@ -239,7 +239,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetRecipientSettingsStack) {
         strm << "    noSetRecipientSettingsStack = "
-            << *m_noSetRecipientSettingsStack << "\n";
+            << (*m_noSetRecipientSettingsStack ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetRecipientSettingsStack is not set\n";
@@ -247,7 +247,7 @@ void NotebookRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noCanMoveNote) {
         strm << "    noCanMoveNote = "
-            << *m_noCanMoveNote << "\n";
+            << (*m_noCanMoveNote ? "true" : "false") << "\n";
     }
     else {
         strm << "    noCanMoveNote is not set\n";

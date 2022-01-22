@@ -29,10 +29,24 @@ NotebookDescriptor::Impl::Impl()
 void NotebookDescriptor::Impl::print(QTextStream & strm) const
 {
     strm << "NotebookDescriptor: {\n";
-        strm << "    localId = " << m_localId << "\n";
-        strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
-        strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
-        strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";
+    strm << "    localId = "
+        << m_localId << "\n";
+    strm << "    isLocallyModified = "
+        << (m_isLocallyModified ? "true" : "false") << "\n";
+    strm << "    isLocalOnly = "
+        << (m_isLocalOnly ? "true" : "false") << "\n";
+    strm << "    isLocallyFavorited = "
+        << (m_isLocallyFavorited ? "true" : "false") << "\n";
+    strm << "    localData = "
+        << "QHash<QString, QVariant> {";
+    for(const auto & it: toRange(m_localData)) {
+        strm << "    [" << it.key() << "] = ";
+        QString debugStr;
+        QDebug dbg{&debugStr};
+        dbg << it.value();
+        strm << debugStr << "\n";
+    }
+    strm << "    }\n";
 
     if (m_guid) {
         strm << "    guid = "
@@ -60,7 +74,7 @@ void NotebookDescriptor::Impl::print(QTextStream & strm) const
 
     if (m_hasSharedNotebook) {
         strm << "    hasSharedNotebook = "
-            << *m_hasSharedNotebook << "\n";
+            << (*m_hasSharedNotebook ? "true" : "false") << "\n";
     }
     else {
         strm << "    hasSharedNotebook is not set\n";

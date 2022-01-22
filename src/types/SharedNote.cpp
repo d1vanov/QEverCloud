@@ -47,44 +47,34 @@ SharedNote & SharedNote::operator=(SharedNote && other) noexcept
     return *this;
 }
 
-const std::optional<Guid> & SharedNote::noteGuid() const noexcept
-{
-    return d->m_noteGuid;
-}
-
-void SharedNote::setNoteGuid(std::optional<Guid> noteGuid)
-{
-    d->m_noteGuid = std::move(noteGuid);
-}
-
 bool SharedNote::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void SharedNote::setLocallyModified(const bool modified)
+void SharedNote::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool SharedNote::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void SharedNote::setLocalOnly(const bool localOnly)
+void SharedNote::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool SharedNote::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void SharedNote::setLocallyFavorited(const bool favorited)
+void SharedNote::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & SharedNote::localData() const noexcept
@@ -99,7 +89,22 @@ QHash<QString, QVariant> & SharedNote::mutableLocalData()
 
 void SharedNote::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
+}
+
+const Guid & SharedNote::noteGuid() const noexcept
+{
+    return d->m_noteGuid;
+}
+
+Guid & SharedNote::mutableNoteGuid()
+{
+    return d->m_noteGuid;
+}
+
+void SharedNote::setNoteGuid(Guid noteGuid)
+{
+    d->m_noteGuid = noteGuid;
 }
 
 const std::optional<UserID> & SharedNote::sharerUserID() const noexcept
@@ -225,6 +230,7 @@ bool operator==(const SharedNote & lhs, const SharedNote & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.noteGuid() == rhs.noteGuid() &&
         lhs.sharerUserID() == rhs.sharerUserID() &&
         lhs.recipientIdentity() == rhs.recipientIdentity() &&

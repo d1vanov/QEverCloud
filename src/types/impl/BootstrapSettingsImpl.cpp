@@ -31,7 +31,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableFacebookSharing) {
         strm << "    enableFacebookSharing = "
-            << *m_enableFacebookSharing << "\n";
+            << (*m_enableFacebookSharing ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableFacebookSharing is not set\n";
@@ -39,7 +39,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableGiftSubscriptions) {
         strm << "    enableGiftSubscriptions = "
-            << *m_enableGiftSubscriptions << "\n";
+            << (*m_enableGiftSubscriptions ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableGiftSubscriptions is not set\n";
@@ -47,7 +47,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableSupportTickets) {
         strm << "    enableSupportTickets = "
-            << *m_enableSupportTickets << "\n";
+            << (*m_enableSupportTickets ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableSupportTickets is not set\n";
@@ -55,7 +55,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableSharedNotebooks) {
         strm << "    enableSharedNotebooks = "
-            << *m_enableSharedNotebooks << "\n";
+            << (*m_enableSharedNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableSharedNotebooks is not set\n";
@@ -63,7 +63,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableSingleNoteSharing) {
         strm << "    enableSingleNoteSharing = "
-            << *m_enableSingleNoteSharing << "\n";
+            << (*m_enableSingleNoteSharing ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableSingleNoteSharing is not set\n";
@@ -71,7 +71,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableSponsoredAccounts) {
         strm << "    enableSponsoredAccounts = "
-            << *m_enableSponsoredAccounts << "\n";
+            << (*m_enableSponsoredAccounts ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableSponsoredAccounts is not set\n";
@@ -79,7 +79,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableTwitterSharing) {
         strm << "    enableTwitterSharing = "
-            << *m_enableTwitterSharing << "\n";
+            << (*m_enableTwitterSharing ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableTwitterSharing is not set\n";
@@ -87,7 +87,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableLinkedInSharing) {
         strm << "    enableLinkedInSharing = "
-            << *m_enableLinkedInSharing << "\n";
+            << (*m_enableLinkedInSharing ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableLinkedInSharing is not set\n";
@@ -95,7 +95,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enablePublicNotebooks) {
         strm << "    enablePublicNotebooks = "
-            << *m_enablePublicNotebooks << "\n";
+            << (*m_enablePublicNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    enablePublicNotebooks is not set\n";
@@ -103,7 +103,7 @@ void BootstrapSettings::Impl::print(QTextStream & strm) const
 
     if (m_enableGoogle) {
         strm << "    enableGoogle = "
-            << *m_enableGoogle << "\n";
+            << (*m_enableGoogle ? "true" : "false") << "\n";
     }
     else {
         strm << "    enableGoogle is not set\n";

@@ -14,20 +14,28 @@
 #include "../../Impl.h"
 
 #include <QTextStream>
-#include <QUuid>
 
 namespace qevercloud {
-
-User::Impl::Impl()
-{
-}
 
 void User::Impl::print(QTextStream & strm) const
 {
     strm << "User: {\n";
-        strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
-        strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
-        strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";
+    strm << "    isLocallyModified = "
+        << (m_isLocallyModified ? "true" : "false") << "\n";
+    strm << "    isLocalOnly = "
+        << (m_isLocalOnly ? "true" : "false") << "\n";
+    strm << "    isLocallyFavorited = "
+        << (m_isLocallyFavorited ? "true" : "false") << "\n";
+    strm << "    localData = "
+        << "QHash<QString, QVariant> {";
+    for(const auto & it: toRange(m_localData)) {
+        strm << "    [" << it.key() << "] = ";
+        QString debugStr;
+        QDebug dbg{&debugStr};
+        dbg << it.value();
+        strm << debugStr << "\n";
+    }
+    strm << "    }\n";
 
     if (m_id) {
         strm << "    id = "
@@ -111,7 +119,7 @@ void User::Impl::print(QTextStream & strm) const
 
     if (m_active) {
         strm << "    active = "
-            << *m_active << "\n";
+            << (*m_active ? "true" : "false") << "\n";
     }
     else {
         strm << "    active is not set\n";

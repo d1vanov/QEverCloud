@@ -47,54 +47,44 @@ Resource & Resource::operator=(Resource && other) noexcept
     return *this;
 }
 
-QString Resource::noteLocalId() const
-{
-    return d->m_noteLocalId;
-}
-
-void Resource::setNoteLocalId(QString noteLocalId)
-{
-    d->m_noteLocalId = std::move(noteLocalId);
-}
-
 const QString & Resource::localId() const noexcept
 {
     return d->m_localId;
 }
 
-void Resource::setLocalId(QString id)
+void Resource::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool Resource::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void Resource::setLocallyModified(const bool modified)
+void Resource::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool Resource::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void Resource::setLocalOnly(const bool localOnly)
+void Resource::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool Resource::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void Resource::setLocallyFavorited(const bool favorited)
+void Resource::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & Resource::localData() const noexcept
@@ -109,7 +99,17 @@ QHash<QString, QVariant> & Resource::mutableLocalData()
 
 void Resource::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
+}
+
+const QString & Resource::noteLocalId() const noexcept
+{
+    return d->m_noteLocalId;
+}
+
+void Resource::setNoteLocalId(QString noteLocalId)
+{
+    d->m_noteLocalId = noteLocalId;
 }
 
 const std::optional<Guid> & Resource::guid() const noexcept
@@ -321,6 +321,7 @@ bool operator==(const Resource & lhs, const Resource & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.noteLocalId() == rhs.noteLocalId() &&
         lhs.guid() == rhs.guid() &&
         lhs.noteGuid() == rhs.noteGuid() &&

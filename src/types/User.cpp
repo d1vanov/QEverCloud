@@ -49,32 +49,32 @@ User & User::operator=(User && other) noexcept
 
 bool User::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void User::setLocallyModified(const bool modified)
+void User::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool User::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void User::setLocalOnly(const bool localOnly)
+void User::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool User::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void User::setLocallyFavorited(const bool favorited)
+void User::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & User::localData() const noexcept
@@ -89,7 +89,7 @@ QHash<QString, QVariant> & User::mutableLocalData()
 
 void User::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
 }
 
 const std::optional<UserID> & User::id() const noexcept
@@ -365,6 +365,7 @@ bool operator==(const User & lhs, const User & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.id() == rhs.id() &&
         lhs.username() == rhs.username() &&
         lhs.email() == rhs.email() &&

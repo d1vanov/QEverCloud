@@ -40,6 +40,10 @@ public:
 
     UserBuilder & operator=(UserBuilder && other) noexcept;
 
+    UserBuilder & setLocallyModified(bool isLocallyModified);
+    UserBuilder & setLocalOnly(bool isLocalOnly);
+    UserBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    UserBuilder & setLocalData(QHash<QString, QVariant> localData);
     UserBuilder & setId(std::optional<UserID> id);
     UserBuilder & setUsername(std::optional<QString> username);
     UserBuilder & setEmail(std::optional<QString> email);
@@ -58,10 +62,6 @@ public:
     UserBuilder & setPhotoUrl(std::optional<QString> photoUrl);
     UserBuilder & setPhotoLastUpdated(std::optional<Timestamp> photoLastUpdated);
     UserBuilder & setAccountLimits(std::optional<AccountLimits> accountLimits);
-    UserBuilder & setLocallyModified(bool locallyModified);
-    UserBuilder & setLocalOnly(bool localOnly);
-    UserBuilder & setLocallyFavorited(bool favorited);
-    UserBuilder & setLocalData(QHash<QString, QVariant> localData);
 
     [[nodiscard]] User build();
 

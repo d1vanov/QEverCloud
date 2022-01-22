@@ -36,17 +36,17 @@ public:
 
     TagBuilder & operator=(TagBuilder && other) noexcept;
 
+    TagBuilder & setLocalId(QString localId);
+    TagBuilder & setLocallyModified(bool isLocallyModified);
+    TagBuilder & setLocalOnly(bool isLocalOnly);
+    TagBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    TagBuilder & setLocalData(QHash<QString, QVariant> localData);
+    TagBuilder & setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid);
+    TagBuilder & setParentTagLocalId(QString parentTagLocalId);
     TagBuilder & setGuid(std::optional<Guid> guid);
     TagBuilder & setName(std::optional<QString> name);
     TagBuilder & setParentGuid(std::optional<Guid> parentGuid);
     TagBuilder & setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
-    TagBuilder & setLocalId(QString localId);
-    TagBuilder & setLocallyModified(bool locallyModified);
-    TagBuilder & setLocalOnly(bool localOnly);
-    TagBuilder & setLocallyFavorited(bool favorited);
-    TagBuilder & setLocalData(QHash<QString, QVariant> localData);
-    TagBuilder & setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid);
-    TagBuilder & setParentTagLocalId(QString parentTagLocalId);
 
     [[nodiscard]] Tag build();
 

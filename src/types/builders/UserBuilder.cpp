@@ -19,6 +19,10 @@ class Q_DECL_HIDDEN UserBuilder::Impl final:
     public QSharedData
 {
 public:
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
     std::optional<UserID> m_id;
     std::optional<QString> m_username;
     std::optional<QString> m_email;
@@ -37,10 +41,6 @@ public:
     std::optional<QString> m_photoUrl;
     std::optional<Timestamp> m_photoLastUpdated;
     std::optional<AccountLimits> m_accountLimits;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
 };
 
 UserBuilder::UserBuilder() :
@@ -59,6 +59,30 @@ UserBuilder & UserBuilder::operator=(UserBuilder && other) noexcept
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+UserBuilder & UserBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+UserBuilder & UserBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+UserBuilder & UserBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+UserBuilder & UserBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
     return *this;
 }
 
@@ -170,34 +194,14 @@ UserBuilder & UserBuilder::setAccountLimits(std::optional<AccountLimits> account
     return *this;
 }
 
-UserBuilder & UserBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-UserBuilder & UserBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-UserBuilder & UserBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-UserBuilder &UserBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
 User UserBuilder::build()
 {
     User result;
 
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
     result.setId(std::move(d->m_id));
     result.setUsername(std::move(d->m_username));
     result.setEmail(std::move(d->m_email));
@@ -216,11 +220,11 @@ User UserBuilder::build()
     result.setPhotoUrl(std::move(d->m_photoUrl));
     result.setPhotoLastUpdated(std::move(d->m_photoLastUpdated));
     result.setAccountLimits(std::move(d->m_accountLimits));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
 
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
     d->m_id = {};
     d->m_username = {};
     d->m_email = {};
@@ -239,10 +243,6 @@ User UserBuilder::build()
     d->m_photoUrl = {};
     d->m_photoLastUpdated = {};
     d->m_accountLimits = {};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
 
     return result;
 }

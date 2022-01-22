@@ -23,7 +23,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeContent) {
         strm << "    includeContent = "
-            << *m_includeContent << "\n";
+            << (*m_includeContent ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeContent is not set\n";
@@ -31,7 +31,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeResourcesData) {
         strm << "    includeResourcesData = "
-            << *m_includeResourcesData << "\n";
+            << (*m_includeResourcesData ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeResourcesData is not set\n";
@@ -39,7 +39,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeResourcesRecognition) {
         strm << "    includeResourcesRecognition = "
-            << *m_includeResourcesRecognition << "\n";
+            << (*m_includeResourcesRecognition ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeResourcesRecognition is not set\n";
@@ -47,7 +47,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeResourcesAlternateData) {
         strm << "    includeResourcesAlternateData = "
-            << *m_includeResourcesAlternateData << "\n";
+            << (*m_includeResourcesAlternateData ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeResourcesAlternateData is not set\n";
@@ -55,7 +55,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeSharedNotes) {
         strm << "    includeSharedNotes = "
-            << *m_includeSharedNotes << "\n";
+            << (*m_includeSharedNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeSharedNotes is not set\n";
@@ -63,7 +63,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeNoteAppDataValues) {
         strm << "    includeNoteAppDataValues = "
-            << *m_includeNoteAppDataValues << "\n";
+            << (*m_includeNoteAppDataValues ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNoteAppDataValues is not set\n";
@@ -71,7 +71,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeResourceAppDataValues) {
         strm << "    includeResourceAppDataValues = "
-            << *m_includeResourceAppDataValues << "\n";
+            << (*m_includeResourceAppDataValues ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeResourceAppDataValues is not set\n";
@@ -79,7 +79,7 @@ void NoteResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeAccountLimits) {
         strm << "    includeAccountLimits = "
-            << *m_includeAccountLimits << "\n";
+            << (*m_includeAccountLimits ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeAccountLimits is not set\n";

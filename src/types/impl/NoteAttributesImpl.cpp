@@ -179,7 +179,7 @@ void NoteAttributes::Impl::print(QTextStream & strm) const
 
     if (m_sharedWithBusiness) {
         strm << "    sharedWithBusiness = "
-            << *m_sharedWithBusiness << "\n";
+            << (*m_sharedWithBusiness ? "true" : "false") << "\n";
     }
     else {
         strm << "    sharedWithBusiness is not set\n";

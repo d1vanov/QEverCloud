@@ -47,7 +47,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_preactivation) {
         strm << "    preactivation = "
-            << *m_preactivation << "\n";
+            << (*m_preactivation ? "true" : "false") << "\n";
     }
     else {
         strm << "    preactivation is not set\n";
@@ -183,7 +183,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_clipFullPage) {
         strm << "    clipFullPage = "
-            << *m_clipFullPage << "\n";
+            << (*m_clipFullPage ? "true" : "false") << "\n";
     }
     else {
         strm << "    clipFullPage is not set\n";
@@ -231,7 +231,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_educationalDiscount) {
         strm << "    educationalDiscount = "
-            << *m_educationalDiscount << "\n";
+            << (*m_educationalDiscount ? "true" : "false") << "\n";
     }
     else {
         strm << "    educationalDiscount is not set\n";
@@ -247,7 +247,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_hideSponsorBilling) {
         strm << "    hideSponsorBilling = "
-            << *m_hideSponsorBilling << "\n";
+            << (*m_hideSponsorBilling ? "true" : "false") << "\n";
     }
     else {
         strm << "    hideSponsorBilling is not set\n";
@@ -255,7 +255,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_useEmailAutoFiling) {
         strm << "    useEmailAutoFiling = "
-            << *m_useEmailAutoFiling << "\n";
+            << (*m_useEmailAutoFiling ? "true" : "false") << "\n";
     }
     else {
         strm << "    useEmailAutoFiling is not set\n";
@@ -287,7 +287,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_salesforcePushEnabled) {
         strm << "    salesforcePushEnabled = "
-            << *m_salesforcePushEnabled << "\n";
+            << (*m_salesforcePushEnabled ? "true" : "false") << "\n";
     }
     else {
         strm << "    salesforcePushEnabled is not set\n";
@@ -295,7 +295,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_shouldLogClientEvent) {
         strm << "    shouldLogClientEvent = "
-            << *m_shouldLogClientEvent << "\n";
+            << (*m_shouldLogClientEvent ? "true" : "false") << "\n";
     }
     else {
         strm << "    shouldLogClientEvent is not set\n";
@@ -303,7 +303,7 @@ void UserAttributes::Impl::print(QTextStream & strm) const
 
     if (m_optOutMachineLearning) {
         strm << "    optOutMachineLearning = "
-            << *m_optOutMachineLearning << "\n";
+            << (*m_optOutMachineLearning ? "true" : "false") << "\n";
     }
     else {
         strm << "    optOutMachineLearning is not set\n";

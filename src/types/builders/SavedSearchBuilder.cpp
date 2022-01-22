@@ -19,17 +19,17 @@ class Q_DECL_HIDDEN SavedSearchBuilder::Impl final:
     public QSharedData
 {
 public:
+    QString m_localId;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
     std::optional<Guid> m_guid;
     std::optional<QString> m_name;
     std::optional<QString> m_query;
     std::optional<QueryFormat> m_format;
     std::optional<qint32> m_updateSequenceNum;
     std::optional<SavedSearchScope> m_scope;
-    QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
 };
 
 SavedSearchBuilder::SavedSearchBuilder() :
@@ -48,6 +48,36 @@ SavedSearchBuilder & SavedSearchBuilder::operator=(SavedSearchBuilder && other) 
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+SavedSearchBuilder & SavedSearchBuilder::setLocalId(QString localId)
+{
+    d->m_localId = std::move(localId);
+    return *this;
+}
+
+SavedSearchBuilder & SavedSearchBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+SavedSearchBuilder & SavedSearchBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+SavedSearchBuilder & SavedSearchBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+SavedSearchBuilder & SavedSearchBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
     return *this;
 }
 
@@ -87,63 +117,33 @@ SavedSearchBuilder & SavedSearchBuilder::setScope(std::optional<SavedSearchScope
     return *this;
 }
 
-SavedSearchBuilder & SavedSearchBuilder::setLocalId(QString localId)
-{
-    d->m_localId = std::move(localId);
-    return *this;
-}
-
-SavedSearchBuilder & SavedSearchBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-SavedSearchBuilder & SavedSearchBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-SavedSearchBuilder & SavedSearchBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-SavedSearchBuilder &SavedSearchBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
 SavedSearch SavedSearchBuilder::build()
 {
     SavedSearch result;
 
+    result.setLocalId(std::move(d->m_localId));
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
     result.setGuid(std::move(d->m_guid));
     result.setName(std::move(d->m_name));
     result.setQuery(std::move(d->m_query));
     result.setFormat(std::move(d->m_format));
     result.setUpdateSequenceNum(std::move(d->m_updateSequenceNum));
     result.setScope(std::move(d->m_scope));
-    result.setLocalId(std::move(d->m_localId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
 
+    d->m_localId = QString{};
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
     d->m_guid = {};
     d->m_name = {};
     d->m_query = {};
     d->m_format = {};
     d->m_updateSequenceNum = {};
     d->m_scope = {};
-    d->m_localId = QString{};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
 
     return result;
 }

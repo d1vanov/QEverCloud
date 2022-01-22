@@ -23,7 +23,7 @@ void NoteShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetReadNote) {
         strm << "    noSetReadNote = "
-            << *m_noSetReadNote << "\n";
+            << (*m_noSetReadNote ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetReadNote is not set\n";
@@ -31,7 +31,7 @@ void NoteShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetModifyNote) {
         strm << "    noSetModifyNote = "
-            << *m_noSetModifyNote << "\n";
+            << (*m_noSetModifyNote ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetModifyNote is not set\n";
@@ -39,7 +39,7 @@ void NoteShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetFullAccess) {
         strm << "    noSetFullAccess = "
-            << *m_noSetFullAccess << "\n";
+            << (*m_noSetFullAccess ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetFullAccess is not set\n";

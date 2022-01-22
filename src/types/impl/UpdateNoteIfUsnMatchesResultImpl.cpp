@@ -31,7 +31,7 @@ void UpdateNoteIfUsnMatchesResult::Impl::print(QTextStream & strm) const
 
     if (m_updated) {
         strm << "    updated = "
-            << *m_updated << "\n";
+            << (*m_updated ? "true" : "false") << "\n";
     }
     else {
         strm << "    updated is not set\n";

@@ -252,6 +252,13 @@ NoteList generateRandomNoteList()
 NoteMetadata generateRandomNoteMetadata()
 {
     NoteMetadata result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
     result.setGuid(generateRandomString());
     result.setTitle(generateRandomString());
     result.setContentLength(generateRandomInt32());
@@ -786,6 +793,12 @@ AccountLimits generateRandomAccountLimits()
 User generateRandomUser()
 {
     User result;
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
     result.setId(generateRandomInt32());
     result.setUsername(generateRandomString());
     result.setEmail(generateRandomString());
@@ -837,6 +850,15 @@ Identity generateRandomIdentity()
 Tag generateRandomTag()
 {
     Tag result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.setLinkedNotebookGuid(generateRandomString());
+    result.setParentTagLocalId(generateRandomString());
     result.setGuid(generateRandomString());
     result.setName(generateRandomString());
     result.setParentGuid(generateRandomString());
@@ -879,6 +901,14 @@ ResourceAttributes generateRandomResourceAttributes()
 Resource generateRandomResource()
 {
     Resource result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.setNoteLocalId(generateRandomString());
     result.setGuid(generateRandomString());
     result.setNoteGuid(generateRandomString());
     result.setData(generateRandomData());
@@ -928,6 +958,13 @@ NoteAttributes generateRandomNoteAttributes()
 SharedNote generateRandomSharedNote()
 {
     SharedNote result;
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.setNoteGuid(generateRandomString());
     result.setSharerUserID(generateRandomInt32());
     result.setRecipientIdentity(generateRandomIdentity());
     result.setPrivilege(SharedNotePrivilegeLevel::FULL_ACCESS);
@@ -962,6 +999,18 @@ NoteLimits generateRandomNoteLimits()
 Note generateRandomNote()
 {
     Note result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.setNotebookLocalId(generateRandomString());
+    result.mutableTagLocalIds().push_back(generateRandomString());
+    result.mutableTagLocalIds().push_back(generateRandomString());
+    result.mutableTagLocalIds().push_back(generateRandomString());
+    result.setThumbnailData(generateRandomString().toUtf8());
     result.setGuid(generateRandomString());
     result.setTitle(generateRandomString());
     result.setContent(generateRandomString());
@@ -1026,6 +1075,13 @@ SavedSearchScope generateRandomSavedSearchScope()
 SavedSearch generateRandomSavedSearch()
 {
     SavedSearch result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
     result.setGuid(generateRandomString());
     result.setName(generateRandomString());
     result.setQuery(generateRandomString());
@@ -1057,6 +1113,12 @@ NotebookRecipientSettings generateRandomNotebookRecipientSettings()
 SharedNotebook generateRandomSharedNotebook()
 {
     SharedNotebook result;
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
     result.setId(generateRandomInt64());
     result.setUserId(generateRandomInt32());
     result.setNotebookGuid(generateRandomString());
@@ -1121,6 +1183,14 @@ NotebookRestrictions generateRandomNotebookRestrictions()
 Notebook generateRandomNotebook()
 {
     Notebook result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.setLinkedNotebookGuid(generateRandomString());
     result.setGuid(generateRandomString());
     result.setName(generateRandomString());
     result.setUpdateSequenceNum(generateRandomInt32());
@@ -1148,6 +1218,12 @@ Notebook generateRandomNotebook()
 LinkedNotebook generateRandomLinkedNotebook()
 {
     LinkedNotebook result;
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
     result.setShareName(generateRandomString());
     result.setUsername(generateRandomString());
     result.setShardId(generateRandomString());
@@ -1165,6 +1241,13 @@ LinkedNotebook generateRandomLinkedNotebook()
 NotebookDescriptor generateRandomNotebookDescriptor()
 {
     NotebookDescriptor result;
+    result.setLocalId(generateRandomString());
+    result.setLocallyModified(generateRandomBool());
+    result.setLocalOnly(generateRandomBool());
+    result.setLocallyFavorited(generateRandomBool());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
+    result.mutableLocalData().insert(generateRandomString(), generateRandomString());
     result.setGuid(generateRandomString());
     result.setNotebookDisplayName(generateRandomString());
     result.setContactName(generateRandomString());

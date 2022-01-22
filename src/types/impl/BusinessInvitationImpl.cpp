@@ -63,7 +63,7 @@ void BusinessInvitation::Impl::print(QTextStream & strm) const
 
     if (m_fromWorkChat) {
         strm << "    fromWorkChat = "
-            << *m_fromWorkChat << "\n";
+            << (*m_fromWorkChat ? "true" : "false") << "\n";
     }
     else {
         strm << "    fromWorkChat is not set\n";

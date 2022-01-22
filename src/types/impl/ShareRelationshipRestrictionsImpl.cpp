@@ -23,7 +23,7 @@ void ShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetReadOnly) {
         strm << "    noSetReadOnly = "
-            << *m_noSetReadOnly << "\n";
+            << (*m_noSetReadOnly ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetReadOnly is not set\n";
@@ -31,7 +31,7 @@ void ShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetReadPlusActivity) {
         strm << "    noSetReadPlusActivity = "
-            << *m_noSetReadPlusActivity << "\n";
+            << (*m_noSetReadPlusActivity ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetReadPlusActivity is not set\n";
@@ -39,7 +39,7 @@ void ShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetModify) {
         strm << "    noSetModify = "
-            << *m_noSetModify << "\n";
+            << (*m_noSetModify ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetModify is not set\n";
@@ -47,7 +47,7 @@ void ShareRelationshipRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSetFullAccess) {
         strm << "    noSetFullAccess = "
-            << *m_noSetFullAccess << "\n";
+            << (*m_noSetFullAccess ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSetFullAccess is not set\n";

@@ -262,7 +262,7 @@ public:
      * When this flag is set on a business note, any user in that business
      * may view the note if they request it by GUID. This field is read-only by
      * clients. The server will ignore all values set by clients into this field.
-     * 
+     *
      * To share a note with the business, use NoteStore.shareNoteWithBusiness and
      * to stop sharing a note with the business, use NoteStore.stopSharingNoteWithBusiness.
      */
@@ -286,12 +286,12 @@ public:
      * If set, this specifies that the note's title was automatically generated
      * and indicates the likelihood that the generated title is useful for display to
      * the user. If not set, the note's title was manually entered by the user.
-     * 
+     *
      * Clients MUST set this attribute to one of the following values when the
      * corresponding note's title was not manually entered by the user:
      * EDAM_NOTE_TITLE_QUALITY_UNTITLED, EDAM_NOTE_TITLE_QUALITY_LOW,
      * EDAM_NOTE_TITLE_QUALITY_MEDIUM or EDAM_NOTE_TITLE_QUALITY_HIGH.
-     * 
+     *
      * When a user edits a note's title, clients MUST unset this value.
      */
     [[nodiscard]] const std::optional<qint32> & noteTitleQuality() const noexcept;

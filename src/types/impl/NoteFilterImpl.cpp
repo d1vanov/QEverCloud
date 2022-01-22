@@ -31,7 +31,7 @@ void NoteFilter::Impl::print(QTextStream & strm) const
 
     if (m_ascending) {
         strm << "    ascending = "
-            << *m_ascending << "\n";
+            << (*m_ascending ? "true" : "false") << "\n";
     }
     else {
         strm << "    ascending is not set\n";
@@ -75,7 +75,7 @@ void NoteFilter::Impl::print(QTextStream & strm) const
 
     if (m_inactive) {
         strm << "    inactive = "
-            << *m_inactive << "\n";
+            << (*m_inactive ? "true" : "false") << "\n";
     }
     else {
         strm << "    inactive is not set\n";
@@ -91,7 +91,7 @@ void NoteFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeAllReadableNotebooks) {
         strm << "    includeAllReadableNotebooks = "
-            << *m_includeAllReadableNotebooks << "\n";
+            << (*m_includeAllReadableNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeAllReadableNotebooks is not set\n";
@@ -99,7 +99,7 @@ void NoteFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeAllReadableWorkspaces) {
         strm << "    includeAllReadableWorkspaces = "
-            << *m_includeAllReadableWorkspaces << "\n";
+            << (*m_includeAllReadableWorkspaces ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeAllReadableWorkspaces is not set\n";

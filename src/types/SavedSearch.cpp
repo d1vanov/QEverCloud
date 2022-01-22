@@ -52,39 +52,39 @@ const QString & SavedSearch::localId() const noexcept
     return d->m_localId;
 }
 
-void SavedSearch::setLocalId(QString id)
+void SavedSearch::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool SavedSearch::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void SavedSearch::setLocallyModified(const bool modified)
+void SavedSearch::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool SavedSearch::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void SavedSearch::setLocalOnly(const bool localOnly)
+void SavedSearch::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool SavedSearch::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void SavedSearch::setLocallyFavorited(const bool favorited)
+void SavedSearch::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & SavedSearch::localData() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & SavedSearch::mutableLocalData()
 
 void SavedSearch::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
 }
 
 const std::optional<Guid> & SavedSearch::guid() const noexcept
@@ -216,6 +216,7 @@ bool operator==(const SavedSearch & lhs, const SavedSearch & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.guid() == rhs.guid() &&
         lhs.name() == rhs.name() &&
         lhs.query() == rhs.query() &&

@@ -23,7 +23,7 @@ void SavedSearchScope::Impl::print(QTextStream & strm) const
 
     if (m_includeAccount) {
         strm << "    includeAccount = "
-            << *m_includeAccount << "\n";
+            << (*m_includeAccount ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeAccount is not set\n";
@@ -31,7 +31,7 @@ void SavedSearchScope::Impl::print(QTextStream & strm) const
 
     if (m_includePersonalLinkedNotebooks) {
         strm << "    includePersonalLinkedNotebooks = "
-            << *m_includePersonalLinkedNotebooks << "\n";
+            << (*m_includePersonalLinkedNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    includePersonalLinkedNotebooks is not set\n";
@@ -39,7 +39,7 @@ void SavedSearchScope::Impl::print(QTextStream & strm) const
 
     if (m_includeBusinessLinkedNotebooks) {
         strm << "    includeBusinessLinkedNotebooks = "
-            << *m_includeBusinessLinkedNotebooks << "\n";
+            << (*m_includeBusinessLinkedNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeBusinessLinkedNotebooks is not set\n";

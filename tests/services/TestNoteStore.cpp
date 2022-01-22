@@ -11,7 +11,7 @@
 
 #include "TestNoteStore.h"
 #include "../../src/Impl.h"
-#include "../ClearLocalIds.h"
+#include "../ClearLocalFields.h"
 #include "../RandomDataGenerators.h"
 #include "../SocketHelpers.h"
 #include "QEventLoop"
@@ -30,66 +30,66 @@ namespace {
 ////////////////////////////////////////////////////////////////////////////////
 
 template <class T>
-void compareValuesWithoutLocalIds(const T & lhs, const T & rhs)
+void compareValuesWithoutLocalFields(const T & lhs, const T & rhs)
 {
     T lhsCopy = lhs;
-    clearLocalIds(lhsCopy);
+    clearLocalFields(lhsCopy);
 
     T rhsCopy = rhs;
-    clearLocalIds(rhsCopy);
+    clearLocalFields(rhsCopy);
 
     Q_ASSERT(lhsCopy == rhsCopy);
 }
 
 template <class T>
-void compareListValuesWithoutLocalIds(const QList<T> & lhs, const QList<T> & rhs)
+void compareListValuesWithoutLocalFields(const QList<T> & lhs, const QList<T> & rhs)
 {
     Q_ASSERT(lhs.size() == rhs.size());
 
     QList<T> lhsCopy = lhs;
     for (auto & v: lhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     QList<T> rhsCopy = rhs;
     for (auto & v: rhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     Q_ASSERT(lhsCopy == rhsCopy);
 }
 
 template <class T>
-void compareSetValuesWithoutLocalIds(const QSet<T> & lhs, const QSet<T> & rhs)
+void compareSetValuesWithoutLocalFields(const QSet<T> & lhs, const QSet<T> & rhs)
 {
     Q_ASSERT(lhs.size() == rhs.size());
 
     QSet<T> lhsCopy = lhs;
     for (auto & v: lhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     QSet<T> rhsCopy = rhs;
     for (auto & v: rhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     Q_ASSERT(lhsCopy == rhsCopy);
 }
 
 template <class K, class V>
-void compareMapValuesWithoutLocalIds(const QMap<K, V> & lhs, const QMap<K, V> & rhs)
+void compareMapValuesWithoutLocalFields(const QMap<K, V> & lhs, const QMap<K, V> & rhs)
 {
     Q_ASSERT(lhs.size() == rhs.size());
 
     QMap<K, V> lhsCopy = lhs;
     for (auto it = lhsCopy.begin(); it != lhsCopy.end(); ++it) {
-        clearLocalIds(it.value());
+        clearLocalFields(it.value());
     }
 
     QMap<K, V> rhsCopy = rhs;
     for (auto it = rhsCopy.begin(); it != rhsCopy.end(); ++it) {
-        clearLocalIds(it.value());
+        clearLocalFields(it.value());
     }
 
     Q_ASSERT(lhsCopy == rhsCopy);
@@ -4855,7 +4855,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunk()
         filter,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunk()
@@ -5288,7 +5288,7 @@ void NoteStoreTester::shouldExecuteGetFilteredSyncChunkAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<SyncChunk>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<SyncChunk>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetFilteredSyncChunkAsync()
@@ -5661,7 +5661,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncState()
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             return response;
         });
 
@@ -5751,7 +5751,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw userException;
         });
 
@@ -5853,7 +5853,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw systemException;
         });
 
@@ -5954,7 +5954,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw notFoundException;
         });
 
@@ -6055,7 +6055,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncState()
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw thriftException;
         });
 
@@ -6154,7 +6154,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncStateAsync()
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             return response;
         });
 
@@ -6253,7 +6253,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncState
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw userException;
         });
 
@@ -6364,7 +6364,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncSta
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw systemException;
         });
 
@@ -6474,7 +6474,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncS
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw notFoundException;
         });
 
@@ -6584,7 +6584,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncStateAs
              IRequestContextPtr ctxParam) -> SyncState
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw thriftException;
         });
 
@@ -6700,7 +6700,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -6778,7 +6778,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunk()
         fullSyncOnly,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk()
@@ -6802,7 +6802,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -6916,7 +6916,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7029,7 +7029,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7142,7 +7142,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunk()
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7253,7 +7253,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7340,7 +7340,7 @@ void NoteStoreTester::shouldExecuteGetLinkedNotebookSyncChunkAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<SyncChunk>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<SyncChunk>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunkAsync()
@@ -7364,7 +7364,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetLinkedNotebookSyncChunk
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7487,7 +7487,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetLinkedNotebookSyncChu
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7609,7 +7609,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInGetLinkedNotebookSyncC
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7731,7 +7731,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInGetLinkedNotebookSyncChunkAs
              IRequestContextPtr ctxParam) -> SyncChunk
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             Q_ASSERT(afterUSN == afterUSNParam);
             Q_ASSERT(maxEntries == maxEntriesParam);
             Q_ASSERT(fullSyncOnly == fullSyncOnlyParam);
@@ -7918,7 +7918,7 @@ void NoteStoreTester::shouldExecuteListNotebooks()
     QList<Notebook> res = noteStore->listNotebooks(
         ctx);
 
-    compareListValuesWithoutLocalIds(res, response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooks()
@@ -8306,7 +8306,7 @@ void NoteStoreTester::shouldExecuteListNotebooksAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(qvariant_cast<QList<Notebook>>(result.result()), response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<Notebook>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListNotebooksAsync()
@@ -8714,7 +8714,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooks()
     QList<Notebook> res = noteStore->listAccessibleBusinessNotebooks(
         ctx);
 
-    compareListValuesWithoutLocalIds(res, response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooks()
@@ -9102,7 +9102,7 @@ void NoteStoreTester::shouldExecuteListAccessibleBusinessNotebooksAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(qvariant_cast<QList<Notebook>>(result.result()), response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<Notebook>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListAccessibleBusinessNotebooksAsync()
@@ -9511,7 +9511,7 @@ void NoteStoreTester::shouldExecuteGetNotebook()
         guid,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebook()
@@ -10013,7 +10013,7 @@ void NoteStoreTester::shouldExecuteGetNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNotebookAsync()
@@ -10540,7 +10540,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebook()
     Notebook res = noteStore->getDefaultNotebook(
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebook()
@@ -10925,7 +10925,7 @@ void NoteStoreTester::shouldExecuteGetDefaultNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetDefaultNotebookAsync()
@@ -11262,7 +11262,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             return response;
         });
 
@@ -11334,7 +11334,7 @@ void NoteStoreTester::shouldExecuteCreateNotebook()
         notebook,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
@@ -11352,7 +11352,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebook()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw userException;
         });
 
@@ -11454,7 +11454,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebook()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw systemException;
         });
 
@@ -11555,7 +11555,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebook()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw notFoundException;
         });
 
@@ -11656,7 +11656,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebook()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw thriftException;
         });
 
@@ -11755,7 +11755,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             return response;
         });
 
@@ -11836,7 +11836,7 @@ void NoteStoreTester::shouldExecuteCreateNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
@@ -11854,7 +11854,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNotebookAsync()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw userException;
         });
 
@@ -11965,7 +11965,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNotebookAsync()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw systemException;
         });
 
@@ -12075,7 +12075,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNotebookAsync()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw notFoundException;
         });
 
@@ -12185,7 +12185,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNotebookAsync()
              IRequestContextPtr ctxParam) -> Notebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw thriftException;
         });
 
@@ -12295,7 +12295,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             return response;
         });
 
@@ -12385,7 +12385,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw userException;
         });
 
@@ -12487,7 +12487,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw systemException;
         });
 
@@ -12588,7 +12588,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw notFoundException;
         });
 
@@ -12689,7 +12689,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw thriftException;
         });
 
@@ -12788,7 +12788,7 @@ void NoteStoreTester::shouldExecuteUpdateNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             return response;
         });
 
@@ -12887,7 +12887,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw userException;
         });
 
@@ -12998,7 +12998,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw systemException;
         });
 
@@ -13108,7 +13108,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw notFoundException;
         });
 
@@ -13218,7 +13218,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(notebookParam, notebook);
+            compareValuesWithoutLocalFields(notebookParam, notebook);
             throw thriftException;
         });
 
@@ -14432,7 +14432,7 @@ void NoteStoreTester::shouldExecuteListTags()
     QList<Tag> res = noteStore->listTags(
         ctx);
 
-    compareListValuesWithoutLocalIds(res, response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTags()
@@ -14820,7 +14820,7 @@ void NoteStoreTester::shouldExecuteListTagsAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(qvariant_cast<QList<Tag>>(result.result()), response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<Tag>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsAsync()
@@ -15232,7 +15232,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebook()
         notebookGuid,
         ctx);
 
-    compareListValuesWithoutLocalIds(res, response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebook()
@@ -15737,7 +15737,7 @@ void NoteStoreTester::shouldExecuteListTagsByNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(qvariant_cast<QList<Tag>>(result.result()), response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<Tag>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListTagsByNotebookAsync()
@@ -16268,7 +16268,7 @@ void NoteStoreTester::shouldExecuteGetTag()
         guid,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTag()
@@ -16770,7 +16770,7 @@ void NoteStoreTester::shouldExecuteGetTagAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Tag>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Tag>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetTagAsync()
@@ -17229,7 +17229,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             return response;
         });
 
@@ -17301,7 +17301,7 @@ void NoteStoreTester::shouldExecuteCreateTag()
         tag,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
@@ -17319,7 +17319,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTag()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw userException;
         });
 
@@ -17421,7 +17421,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTag()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw systemException;
         });
 
@@ -17522,7 +17522,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTag()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw notFoundException;
         });
 
@@ -17623,7 +17623,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTag()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw thriftException;
         });
 
@@ -17722,7 +17722,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             return response;
         });
 
@@ -17803,7 +17803,7 @@ void NoteStoreTester::shouldExecuteCreateTagAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Tag>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Tag>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
@@ -17821,7 +17821,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateTagAsync()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw userException;
         });
 
@@ -17932,7 +17932,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateTagAsync()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw systemException;
         });
 
@@ -18042,7 +18042,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateTagAsync()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw notFoundException;
         });
 
@@ -18152,7 +18152,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateTagAsync()
              IRequestContextPtr ctxParam) -> Tag
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw thriftException;
         });
 
@@ -18262,7 +18262,7 @@ void NoteStoreTester::shouldExecuteUpdateTag()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             return response;
         });
 
@@ -18352,7 +18352,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTag()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw userException;
         });
 
@@ -18454,7 +18454,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTag()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw systemException;
         });
 
@@ -18555,7 +18555,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTag()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw notFoundException;
         });
 
@@ -18656,7 +18656,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTag()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw thriftException;
         });
 
@@ -18755,7 +18755,7 @@ void NoteStoreTester::shouldExecuteUpdateTagAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             return response;
         });
 
@@ -18854,7 +18854,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateTagAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw userException;
         });
 
@@ -18965,7 +18965,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateTagAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw systemException;
         });
 
@@ -19075,7 +19075,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateTagAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw notFoundException;
         });
 
@@ -19185,7 +19185,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateTagAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(tagParam, tag);
+            compareValuesWithoutLocalFields(tagParam, tag);
             throw thriftException;
         });
 
@@ -21421,7 +21421,7 @@ void NoteStoreTester::shouldExecuteListSearches()
     QList<SavedSearch> res = noteStore->listSearches(
         ctx);
 
-    compareListValuesWithoutLocalIds(res, response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearches()
@@ -21809,7 +21809,7 @@ void NoteStoreTester::shouldExecuteListSearchesAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareListValuesWithoutLocalIds(qvariant_cast<QList<SavedSearch>>(result.result()), response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<SavedSearch>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSearchesAsync()
@@ -22218,7 +22218,7 @@ void NoteStoreTester::shouldExecuteGetSearch()
         guid,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearch()
@@ -22720,7 +22720,7 @@ void NoteStoreTester::shouldExecuteGetSearchAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<SavedSearch>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<SavedSearch>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSearchAsync()
@@ -23179,7 +23179,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             return response;
         });
 
@@ -23251,7 +23251,7 @@ void NoteStoreTester::shouldExecuteCreateSearch()
         search,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
@@ -23269,7 +23269,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearch()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw userException;
         });
 
@@ -23371,7 +23371,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearch()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw systemException;
         });
 
@@ -23472,7 +23472,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearch()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw thriftException;
         });
 
@@ -23571,7 +23571,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             return response;
         });
 
@@ -23652,7 +23652,7 @@ void NoteStoreTester::shouldExecuteCreateSearchAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<SavedSearch>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<SavedSearch>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
@@ -23670,7 +23670,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateSearchAsync()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw userException;
         });
 
@@ -23781,7 +23781,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateSearchAsync()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw systemException;
         });
 
@@ -23891,7 +23891,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateSearchAsync()
              IRequestContextPtr ctxParam) -> SavedSearch
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw thriftException;
         });
 
@@ -24001,7 +24001,7 @@ void NoteStoreTester::shouldExecuteUpdateSearch()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             return response;
         });
 
@@ -24091,7 +24091,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearch()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw userException;
         });
 
@@ -24193,7 +24193,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearch()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw systemException;
         });
 
@@ -24294,7 +24294,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearch()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw notFoundException;
         });
 
@@ -24395,7 +24395,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearch()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw thriftException;
         });
 
@@ -24494,7 +24494,7 @@ void NoteStoreTester::shouldExecuteUpdateSearchAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             return response;
         });
 
@@ -24593,7 +24593,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSearchAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw userException;
         });
 
@@ -24704,7 +24704,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSearchAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw systemException;
         });
 
@@ -24814,7 +24814,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSearchAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw notFoundException;
         });
 
@@ -24924,7 +24924,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSearchAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(searchParam, search);
+            compareValuesWithoutLocalFields(searchParam, search);
             throw thriftException;
         });
 
@@ -27224,7 +27224,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadata()
         resultSpec,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadata()
@@ -27786,7 +27786,7 @@ void NoteStoreTester::shouldExecuteFindNotesMetadataAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<NotesMetadataList>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<NotesMetadataList>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindNotesMetadataAsync()
@@ -29442,7 +29442,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpec()
         resultSpec,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpec()
@@ -29964,7 +29964,7 @@ void NoteStoreTester::shouldExecuteGetNoteWithResultSpecAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteWithResultSpecAsync()
@@ -30527,7 +30527,7 @@ void NoteStoreTester::shouldExecuteGetNote()
         withResourcesAlternateData,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNote()
@@ -31109,7 +31109,7 @@ void NoteStoreTester::shouldExecuteGetNoteAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteAsync()
@@ -40142,7 +40142,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             return response;
         });
 
@@ -40214,7 +40214,7 @@ void NoteStoreTester::shouldExecuteCreateNote()
         note,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
@@ -40232,7 +40232,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw userException;
         });
 
@@ -40334,7 +40334,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw systemException;
         });
 
@@ -40435,7 +40435,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw notFoundException;
         });
 
@@ -40536,7 +40536,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw thriftException;
         });
 
@@ -40635,7 +40635,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             return response;
         });
 
@@ -40716,7 +40716,7 @@ void NoteStoreTester::shouldExecuteCreateNoteAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
@@ -40734,7 +40734,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw userException;
         });
 
@@ -40845,7 +40845,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw systemException;
         });
 
@@ -40955,7 +40955,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw notFoundException;
         });
 
@@ -41065,7 +41065,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw thriftException;
         });
 
@@ -41175,7 +41175,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             return response;
         });
 
@@ -41247,7 +41247,7 @@ void NoteStoreTester::shouldExecuteUpdateNote()
         note,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
@@ -41265,7 +41265,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw userException;
         });
 
@@ -41367,7 +41367,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw systemException;
         });
 
@@ -41468,7 +41468,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw notFoundException;
         });
 
@@ -41569,7 +41569,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNote()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw thriftException;
         });
 
@@ -41668,7 +41668,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             return response;
         });
 
@@ -41749,7 +41749,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
@@ -41767,7 +41767,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw userException;
         });
 
@@ -41878,7 +41878,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw systemException;
         });
 
@@ -41988,7 +41988,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw notFoundException;
         });
 
@@ -42098,7 +42098,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteAsync()
              IRequestContextPtr ctxParam) -> Note
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw thriftException;
         });
 
@@ -44350,7 +44350,7 @@ void NoteStoreTester::shouldExecuteCopyNote()
         toNotebookGuid,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNote()
@@ -44872,7 +44872,7 @@ void NoteStoreTester::shouldExecuteCopyNoteAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCopyNoteAsync()
@@ -46474,7 +46474,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersion()
         withResourcesAlternateData,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersion()
@@ -47056,7 +47056,7 @@ void NoteStoreTester::shouldExecuteGetNoteVersionAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Note>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Note>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetNoteVersionAsync()
@@ -47667,7 +47667,7 @@ void NoteStoreTester::shouldExecuteGetResource()
         withAlternateData,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResource()
@@ -48249,7 +48249,7 @@ void NoteStoreTester::shouldExecuteGetResourceAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Resource>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Resource>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceAsync()
@@ -53064,7 +53064,7 @@ void NoteStoreTester::shouldExecuteUpdateResource()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             return response;
         });
 
@@ -53154,7 +53154,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResource()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw userException;
         });
 
@@ -53256,7 +53256,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResource()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw systemException;
         });
 
@@ -53357,7 +53357,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResource()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw notFoundException;
         });
 
@@ -53458,7 +53458,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResource()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw thriftException;
         });
 
@@ -53557,7 +53557,7 @@ void NoteStoreTester::shouldExecuteUpdateResourceAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             return response;
         });
 
@@ -53656,7 +53656,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateResourceAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw userException;
         });
 
@@ -53767,7 +53767,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateResourceAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw systemException;
         });
 
@@ -53877,7 +53877,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateResourceAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw notFoundException;
         });
 
@@ -53987,7 +53987,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateResourceAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(resourceParam, resource);
+            compareValuesWithoutLocalFields(resourceParam, resource);
             throw thriftException;
         });
 
@@ -55218,7 +55218,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHash()
         withAlternateData,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHash()
@@ -55800,7 +55800,7 @@ void NoteStoreTester::shouldExecuteGetResourceByHashAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Resource>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Resource>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetResourceByHashAsync()
@@ -59496,7 +59496,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebook()
         publicUri,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebook()
@@ -59905,7 +59905,7 @@ void NoteStoreTester::shouldExecuteGetPublicNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMSystemExceptionInGetPublicNotebookAsync()
@@ -60262,7 +60262,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             return response;
         });
@@ -60336,7 +60336,7 @@ void NoteStoreTester::shouldExecuteShareNotebook()
         message,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
@@ -60356,7 +60356,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebook()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw userException;
         });
@@ -60461,7 +60461,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebook()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw notFoundException;
         });
@@ -60567,7 +60567,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebook()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw systemException;
         });
@@ -60672,7 +60672,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebook()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw thriftException;
         });
@@ -60775,7 +60775,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             return response;
         });
@@ -60858,7 +60858,7 @@ void NoteStoreTester::shouldExecuteShareNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<SharedNotebook>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<SharedNotebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
@@ -60878,7 +60878,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInShareNotebookAsync()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw userException;
         });
@@ -60992,7 +60992,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInShareNotebookAsync()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw notFoundException;
         });
@@ -61107,7 +61107,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInShareNotebookAsync()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw systemException;
         });
@@ -61221,7 +61221,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInShareNotebookAsync()
              IRequestContextPtr ctxParam) -> SharedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             Q_ASSERT(message == messageParam);
             throw thriftException;
         });
@@ -61405,7 +61405,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookShares()
         shareTemplate,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookShares()
@@ -62014,7 +62014,7 @@ void NoteStoreTester::shouldExecuteCreateOrUpdateNotebookSharesAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<CreateOrUpdateNotebookSharesResult>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<CreateOrUpdateNotebookSharesResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateOrUpdateNotebookSharesAsync()
@@ -62589,7 +62589,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             return response;
         });
 
@@ -62679,7 +62679,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw userException;
         });
 
@@ -62780,7 +62780,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw notFoundException;
         });
 
@@ -62882,7 +62882,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw systemException;
         });
 
@@ -62983,7 +62983,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw thriftException;
         });
 
@@ -63082,7 +63082,7 @@ void NoteStoreTester::shouldExecuteUpdateSharedNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             return response;
         });
 
@@ -63181,7 +63181,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateSharedNotebookAsync(
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw userException;
         });
 
@@ -63291,7 +63291,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateSharedNotebookAs
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw notFoundException;
         });
 
@@ -63402,7 +63402,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateSharedNotebookAsyn
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw systemException;
         });
 
@@ -63512,7 +63512,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateSharedNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(sharedNotebook == sharedNotebookParam);
+            compareValuesWithoutLocalFields(sharedNotebookParam, sharedNotebook);
             throw thriftException;
         });
 
@@ -63698,7 +63698,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettings()
         recipientSettings,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettings()
@@ -64220,7 +64220,7 @@ void NoteStoreTester::shouldExecuteSetNotebookRecipientSettingsAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<Notebook>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<Notebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInSetNotebookRecipientSettingsAsync()
@@ -64766,7 +64766,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooks()
     QList<SharedNotebook> res = noteStore->listSharedNotebooks(
         ctx);
 
-    QVERIFY(res == response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooks()
@@ -65251,7 +65251,7 @@ void NoteStoreTester::shouldExecuteListSharedNotebooksAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QList<SharedNotebook>>(result.result()) == response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<SharedNotebook>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListSharedNotebooksAsync()
@@ -65694,7 +65694,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             return response;
         });
 
@@ -65766,7 +65766,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebook()
         linkedNotebook,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
@@ -65784,7 +65784,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebook()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw userException;
         });
 
@@ -65885,7 +65885,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebook()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw notFoundException;
         });
 
@@ -65987,7 +65987,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebook()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw systemException;
         });
 
@@ -66088,7 +66088,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebook()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw thriftException;
         });
 
@@ -66187,7 +66187,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             return response;
         });
 
@@ -66268,7 +66268,7 @@ void NoteStoreTester::shouldExecuteCreateLinkedNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<LinkedNotebook>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<LinkedNotebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync()
@@ -66286,7 +66286,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInCreateLinkedNotebookAsync(
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw userException;
         });
 
@@ -66396,7 +66396,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInCreateLinkedNotebookAs
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw notFoundException;
         });
 
@@ -66507,7 +66507,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInCreateLinkedNotebookAsyn
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw systemException;
         });
 
@@ -66617,7 +66617,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInCreateLinkedNotebookAsync()
              IRequestContextPtr ctxParam) -> LinkedNotebook
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw thriftException;
         });
 
@@ -66727,7 +66727,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             return response;
         });
 
@@ -66817,7 +66817,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw userException;
         });
 
@@ -66918,7 +66918,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw notFoundException;
         });
 
@@ -67020,7 +67020,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw systemException;
         });
 
@@ -67121,7 +67121,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebook()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw thriftException;
         });
 
@@ -67220,7 +67220,7 @@ void NoteStoreTester::shouldExecuteUpdateLinkedNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             return response;
         });
 
@@ -67319,7 +67319,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateLinkedNotebookAsync(
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw userException;
         });
 
@@ -67429,7 +67429,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateLinkedNotebookAs
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw notFoundException;
         });
 
@@ -67540,7 +67540,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateLinkedNotebookAsyn
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw systemException;
         });
 
@@ -67650,7 +67650,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateLinkedNotebookAsync()
              IRequestContextPtr ctxParam) -> qint32
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            Q_ASSERT(linkedNotebook == linkedNotebookParam);
+            compareValuesWithoutLocalFields(linkedNotebookParam, linkedNotebook);
             throw thriftException;
         });
 
@@ -67831,7 +67831,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooks()
     QList<LinkedNotebook> res = noteStore->listLinkedNotebooks(
         ctx);
 
-    QVERIFY(res == response);
+    compareListValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooks()
@@ -68316,7 +68316,7 @@ void NoteStoreTester::shouldExecuteListLinkedNotebooksAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<QList<LinkedNotebook>>(result.result()) == response);
+    compareListValuesWithoutLocalFields(qvariant_cast<QList<LinkedNotebook>>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInListLinkedNotebooksAsync()
@@ -69864,7 +69864,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebook()
         shareKeyOrGlobalId,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebook()
@@ -70366,7 +70366,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNotebookAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNotebookAsync()
@@ -70893,7 +70893,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuth()
     SharedNotebook res = noteStore->getSharedNotebookByAuth(
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuth()
@@ -71375,7 +71375,7 @@ void NoteStoreTester::shouldExecuteGetSharedNotebookByAuthAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<SharedNotebook>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<SharedNotebook>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInGetSharedNotebookByAuthAsync()
@@ -71816,7 +71816,7 @@ void NoteStoreTester::shouldExecuteEmailNote()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             return;
         });
 
@@ -71905,7 +71905,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNote()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw userException;
         });
 
@@ -72005,7 +72005,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNote()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw notFoundException;
         });
 
@@ -72106,7 +72106,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNote()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw systemException;
         });
 
@@ -72206,7 +72206,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNote()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw thriftException;
         });
 
@@ -72302,7 +72302,7 @@ void NoteStoreTester::shouldExecuteEmailNoteAsync()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             return;
         });
 
@@ -72399,7 +72399,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInEmailNoteAsync()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw userException;
         });
 
@@ -72509,7 +72509,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInEmailNoteAsync()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw notFoundException;
         });
 
@@ -72620,7 +72620,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInEmailNoteAsync()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw systemException;
         });
 
@@ -72730,7 +72730,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInEmailNoteAsync()
              IRequestContextPtr ctxParam) -> void
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(parametersParam, parameters);
+            compareValuesWithoutLocalFields(parametersParam, parameters);
             throw thriftException;
         });
 
@@ -74971,7 +74971,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNote()
         noteKey,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNote()
@@ -75493,7 +75493,7 @@ void NoteStoreTester::shouldExecuteAuthenticateToSharedNoteAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToSharedNoteAsync()
@@ -76044,7 +76044,7 @@ void NoteStoreTester::shouldExecuteFindRelated()
         resultSpec,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelated()
@@ -76566,7 +76566,7 @@ void NoteStoreTester::shouldExecuteFindRelatedAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<RelatedResult>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<RelatedResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInFindRelatedAsync()
@@ -77041,7 +77041,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             return response;
         });
 
@@ -77113,7 +77113,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatches()
         note,
         ctx);
 
-    compareValuesWithoutLocalIds(res, response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
@@ -77131,7 +77131,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatches()
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw userException;
         });
 
@@ -77232,7 +77232,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw notFoundException;
         });
 
@@ -77334,7 +77334,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatches()
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw systemException;
         });
 
@@ -77435,7 +77435,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatches()
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw thriftException;
         });
 
@@ -77534,7 +77534,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             return response;
         });
 
@@ -77615,7 +77615,7 @@ void NoteStoreTester::shouldExecuteUpdateNoteIfUsnMatchesAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    compareValuesWithoutLocalIds(qvariant_cast<UpdateNoteIfUsnMatchesResult>(result.result()), response);
+    compareValuesWithoutLocalFields(qvariant_cast<UpdateNoteIfUsnMatchesResult>(result.result()), response);
 }
 
 void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsync()
@@ -77633,7 +77633,7 @@ void NoteStoreTester::shouldDeliverEDAMUserExceptionInUpdateNoteIfUsnMatchesAsyn
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw userException;
         });
 
@@ -77743,7 +77743,7 @@ void NoteStoreTester::shouldDeliverEDAMNotFoundExceptionInUpdateNoteIfUsnMatches
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw notFoundException;
         });
 
@@ -77854,7 +77854,7 @@ void NoteStoreTester::shouldDeliverEDAMSystemExceptionInUpdateNoteIfUsnMatchesAs
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw systemException;
         });
 
@@ -77964,7 +77964,7 @@ void NoteStoreTester::shouldDeliverThriftExceptionInUpdateNoteIfUsnMatchesAsync(
              IRequestContextPtr ctxParam) -> UpdateNoteIfUsnMatchesResult
         {
             Q_ASSERT(ctx->authenticationToken() == ctxParam->authenticationToken());
-            compareValuesWithoutLocalIds(noteParam, note);
+            compareValuesWithoutLocalFields(noteParam, note);
             throw thriftException;
         });
 

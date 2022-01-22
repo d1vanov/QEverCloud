@@ -36,11 +36,10 @@ public:
     void print(QTextStream & strm) const override;
 
     QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
     QHash<QString, QVariant> m_localData;
-
     std::optional<Guid> m_guid;
     std::optional<QString> m_notebookDisplayName;
     std::optional<QString> m_contactName;

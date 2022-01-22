@@ -47,64 +47,44 @@ Tag & Tag::operator=(Tag && other) noexcept
     return *this;
 }
 
-const std::optional<Guid> & Tag::linkedNotebookGuid() const
-{
-    return d->m_linkedNotebookGuid;
-}
-
-void Tag::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
-{
-    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
-}
-
-QString Tag::parentTagLocalId() const
-{
-    return d->m_parentTagLocalId;
-}
-
-void Tag::setParentTagLocalId(QString parentTagLocalId)
-{
-    d->m_parentTagLocalId = std::move(parentTagLocalId);
-}
-
 const QString & Tag::localId() const noexcept
 {
     return d->m_localId;
 }
 
-void Tag::setLocalId(QString id)
+void Tag::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool Tag::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void Tag::setLocallyModified(const bool modified)
+void Tag::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool Tag::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void Tag::setLocalOnly(const bool localOnly)
+void Tag::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool Tag::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void Tag::setLocallyFavorited(const bool favorited)
+void Tag::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & Tag::localData() const noexcept
@@ -119,7 +99,32 @@ QHash<QString, QVariant> & Tag::mutableLocalData()
 
 void Tag::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
+}
+
+const std::optional<Guid> & Tag::linkedNotebookGuid() const noexcept
+{
+    return d->m_linkedNotebookGuid;
+}
+
+std::optional<Guid> & Tag::mutableLinkedNotebookGuid()
+{
+    return d->m_linkedNotebookGuid;
+}
+
+void Tag::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
+{
+    d->m_linkedNotebookGuid = linkedNotebookGuid;
+}
+
+const QString & Tag::parentTagLocalId() const noexcept
+{
+    return d->m_parentTagLocalId;
+}
+
+void Tag::setParentTagLocalId(QString parentTagLocalId)
+{
+    d->m_parentTagLocalId = parentTagLocalId;
 }
 
 const std::optional<Guid> & Tag::guid() const noexcept
@@ -211,6 +216,7 @@ bool operator==(const Tag & lhs, const Tag & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.linkedNotebookGuid() == rhs.linkedNotebookGuid() &&
         lhs.parentTagLocalId() == rhs.parentTagLocalId() &&
         lhs.guid() == rhs.guid() &&

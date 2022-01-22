@@ -36,16 +36,16 @@ public:
 
     NotebookDescriptorBuilder & operator=(NotebookDescriptorBuilder && other) noexcept;
 
+    NotebookDescriptorBuilder & setLocalId(QString localId);
+    NotebookDescriptorBuilder & setLocallyModified(bool isLocallyModified);
+    NotebookDescriptorBuilder & setLocalOnly(bool isLocalOnly);
+    NotebookDescriptorBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    NotebookDescriptorBuilder & setLocalData(QHash<QString, QVariant> localData);
     NotebookDescriptorBuilder & setGuid(std::optional<Guid> guid);
     NotebookDescriptorBuilder & setNotebookDisplayName(std::optional<QString> notebookDisplayName);
     NotebookDescriptorBuilder & setContactName(std::optional<QString> contactName);
     NotebookDescriptorBuilder & setHasSharedNotebook(std::optional<bool> hasSharedNotebook);
     NotebookDescriptorBuilder & setJoinedUserCount(std::optional<qint32> joinedUserCount);
-    NotebookDescriptorBuilder & setLocalId(QString localId);
-    NotebookDescriptorBuilder & setLocallyModified(bool locallyModified);
-    NotebookDescriptorBuilder & setLocalOnly(bool localOnly);
-    NotebookDescriptorBuilder & setLocallyFavorited(bool favorited);
-    NotebookDescriptorBuilder & setLocalData(QHash<QString, QVariant> localData);
 
     [[nodiscard]] NotebookDescriptor build();
 

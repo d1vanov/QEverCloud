@@ -89,10 +89,10 @@ public:
      * necessary to perform a new findRelated call at all. Cache Keys are opaque strings
      * which are returned by the server as part of "RelatedResult" in response
      * to a "NoteStore.findRelated" query. Cache Keys are inherently query specific.
-     * 
+     *
      * If set to an empty string, this indicates that the server should generate a cache
      * key in the response as part of "RelatedResult".
-     * 
+     *
      * If not set, the server will not attempt to generate a cache key at all.
      */
     [[nodiscard]] const std::optional<QString> & cacheKey() const noexcept;

@@ -19,6 +19,10 @@ class Q_DECL_HIDDEN LinkedNotebookBuilder::Impl final:
     public QSharedData
 {
 public:
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
     std::optional<QString> m_shareName;
     std::optional<QString> m_username;
     std::optional<QString> m_shardId;
@@ -30,10 +34,6 @@ public:
     std::optional<QString> m_webApiUrlPrefix;
     std::optional<QString> m_stack;
     std::optional<qint32> m_businessId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
 };
 
 LinkedNotebookBuilder::LinkedNotebookBuilder() :
@@ -52,6 +52,30 @@ LinkedNotebookBuilder & LinkedNotebookBuilder::operator=(LinkedNotebookBuilder &
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+LinkedNotebookBuilder & LinkedNotebookBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+LinkedNotebookBuilder & LinkedNotebookBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+LinkedNotebookBuilder & LinkedNotebookBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+LinkedNotebookBuilder & LinkedNotebookBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
     return *this;
 }
 
@@ -121,34 +145,14 @@ LinkedNotebookBuilder & LinkedNotebookBuilder::setBusinessId(std::optional<qint3
     return *this;
 }
 
-LinkedNotebookBuilder & LinkedNotebookBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-LinkedNotebookBuilder & LinkedNotebookBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-LinkedNotebookBuilder & LinkedNotebookBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-LinkedNotebookBuilder &LinkedNotebookBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
 LinkedNotebook LinkedNotebookBuilder::build()
 {
     LinkedNotebook result;
 
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
     result.setShareName(std::move(d->m_shareName));
     result.setUsername(std::move(d->m_username));
     result.setShardId(std::move(d->m_shardId));
@@ -160,11 +164,11 @@ LinkedNotebook LinkedNotebookBuilder::build()
     result.setWebApiUrlPrefix(std::move(d->m_webApiUrlPrefix));
     result.setStack(std::move(d->m_stack));
     result.setBusinessId(std::move(d->m_businessId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
 
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
     d->m_shareName = {};
     d->m_username = {};
     d->m_shardId = {};
@@ -176,10 +180,6 @@ LinkedNotebook LinkedNotebookBuilder::build()
     d->m_webApiUrlPrefix = {};
     d->m_stack = {};
     d->m_businessId = {};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
 
     return result;
 }

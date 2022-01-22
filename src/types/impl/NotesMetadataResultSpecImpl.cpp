@@ -23,7 +23,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeTitle) {
         strm << "    includeTitle = "
-            << *m_includeTitle << "\n";
+            << (*m_includeTitle ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeTitle is not set\n";
@@ -31,7 +31,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeContentLength) {
         strm << "    includeContentLength = "
-            << *m_includeContentLength << "\n";
+            << (*m_includeContentLength ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeContentLength is not set\n";
@@ -39,7 +39,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeCreated) {
         strm << "    includeCreated = "
-            << *m_includeCreated << "\n";
+            << (*m_includeCreated ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeCreated is not set\n";
@@ -47,7 +47,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeUpdated) {
         strm << "    includeUpdated = "
-            << *m_includeUpdated << "\n";
+            << (*m_includeUpdated ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeUpdated is not set\n";
@@ -55,7 +55,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeDeleted) {
         strm << "    includeDeleted = "
-            << *m_includeDeleted << "\n";
+            << (*m_includeDeleted ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeDeleted is not set\n";
@@ -63,7 +63,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeUpdateSequenceNum) {
         strm << "    includeUpdateSequenceNum = "
-            << *m_includeUpdateSequenceNum << "\n";
+            << (*m_includeUpdateSequenceNum ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeUpdateSequenceNum is not set\n";
@@ -71,7 +71,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeNotebookGuid) {
         strm << "    includeNotebookGuid = "
-            << *m_includeNotebookGuid << "\n";
+            << (*m_includeNotebookGuid ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNotebookGuid is not set\n";
@@ -79,7 +79,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeTagGuids) {
         strm << "    includeTagGuids = "
-            << *m_includeTagGuids << "\n";
+            << (*m_includeTagGuids ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeTagGuids is not set\n";
@@ -87,7 +87,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeAttributes) {
         strm << "    includeAttributes = "
-            << *m_includeAttributes << "\n";
+            << (*m_includeAttributes ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeAttributes is not set\n";
@@ -95,7 +95,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeLargestResourceMime) {
         strm << "    includeLargestResourceMime = "
-            << *m_includeLargestResourceMime << "\n";
+            << (*m_includeLargestResourceMime ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeLargestResourceMime is not set\n";
@@ -103,7 +103,7 @@ void NotesMetadataResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeLargestResourceSize) {
         strm << "    includeLargestResourceSize = "
-            << *m_includeLargestResourceSize << "\n";
+            << (*m_includeLargestResourceSize ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeLargestResourceSize is not set\n";

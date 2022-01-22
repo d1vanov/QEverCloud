@@ -19,6 +19,12 @@ class Q_DECL_HIDDEN NotebookBuilder::Impl final:
     public QSharedData
 {
 public:
+    QString m_localId;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
+    std::optional<Guid> m_linkedNotebookGuid;
     std::optional<Guid> m_guid;
     std::optional<QString> m_name;
     std::optional<qint32> m_updateSequenceNum;
@@ -34,13 +40,6 @@ public:
     std::optional<User> m_contact;
     std::optional<NotebookRestrictions> m_restrictions;
     std::optional<NotebookRecipientSettings> m_recipientSettings;
-    QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
-    std::optional<Guid> m_linkedNotebookGuid;
-
 };
 
 NotebookBuilder::NotebookBuilder() :
@@ -59,6 +58,42 @@ NotebookBuilder & NotebookBuilder::operator=(NotebookBuilder && other) noexcept
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+NotebookBuilder & NotebookBuilder::setLocalId(QString localId)
+{
+    d->m_localId = std::move(localId);
+    return *this;
+}
+
+NotebookBuilder & NotebookBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+NotebookBuilder & NotebookBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+NotebookBuilder & NotebookBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+NotebookBuilder & NotebookBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
+    return *this;
+}
+
+NotebookBuilder & NotebookBuilder::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
+{
+    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
     return *this;
 }
 
@@ -152,46 +187,16 @@ NotebookBuilder & NotebookBuilder::setRecipientSettings(std::optional<NotebookRe
     return *this;
 }
 
-NotebookBuilder & NotebookBuilder::setLocalId(QString localId)
-{
-    d->m_localId = std::move(localId);
-    return *this;
-}
-
-NotebookBuilder & NotebookBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-NotebookBuilder & NotebookBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-NotebookBuilder & NotebookBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-NotebookBuilder &NotebookBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
-NotebookBuilder &NotebookBuilder::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
-{
-    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
-    return *this;
-}
-
 Notebook NotebookBuilder::build()
 {
     Notebook result;
 
+    result.setLocalId(std::move(d->m_localId));
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
+    result.setLinkedNotebookGuid(std::move(d->m_linkedNotebookGuid));
     result.setGuid(std::move(d->m_guid));
     result.setName(std::move(d->m_name));
     result.setUpdateSequenceNum(std::move(d->m_updateSequenceNum));
@@ -207,13 +212,13 @@ Notebook NotebookBuilder::build()
     result.setContact(std::move(d->m_contact));
     result.setRestrictions(std::move(d->m_restrictions));
     result.setRecipientSettings(std::move(d->m_recipientSettings));
-    result.setLocalId(std::move(d->m_localId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
-    result.setLinkedNotebookGuid(std::move(d->m_linkedNotebookGuid));
 
+    d->m_localId = QString{};
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
+    d->m_linkedNotebookGuid = {};
     d->m_guid = {};
     d->m_name = {};
     d->m_updateSequenceNum = {};
@@ -229,12 +234,6 @@ Notebook NotebookBuilder::build()
     d->m_contact = {};
     d->m_restrictions = {};
     d->m_recipientSettings = {};
-    d->m_localId = QString{};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
-    d->m_linkedNotebookGuid = Guid{};
 
     return result;
 }

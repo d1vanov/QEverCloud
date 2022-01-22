@@ -47,79 +47,44 @@ Note & Note::operator=(Note && other) noexcept
     return *this;
 }
 
-QString Note::notebookLocalId() const
-{
-    return d->m_notebookLocalId;
-}
-
-void Note::setNotebookLocalId(QString notebookLocalId)
-{
-    d->m_notebookLocalId = std::move(notebookLocalId);
-}
-
-const QStringList & Note::tagLocalIds() const noexcept
-{
-    return d->m_tagLocalIds;
-}
-
-QStringList & Note::mutableTagLocalIds()
-{
-    return d->m_tagLocalIds;
-}
-
-void Note::setTagLocalIds(QStringList tagLocalIds)
-{
-    d->m_tagLocalIds = std::move(tagLocalIds);
-}
-
-QByteArray Note::thumbnailData() const
-{
-    return d->m_thumbnailData;
-}
-
-void Note::setThumbnailData(QByteArray thumbnailData)
-{
-    d->m_thumbnailData = std::move(thumbnailData);
-}
-
 const QString & Note::localId() const noexcept
 {
     return d->m_localId;
 }
 
-void Note::setLocalId(QString id)
+void Note::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool Note::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void Note::setLocallyModified(const bool modified)
+void Note::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool Note::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void Note::setLocalOnly(const bool localOnly)
+void Note::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool Note::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void Note::setLocallyFavorited(const bool favorited)
+void Note::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & Note::localData() const noexcept
@@ -134,7 +99,42 @@ QHash<QString, QVariant> & Note::mutableLocalData()
 
 void Note::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
+}
+
+const QString & Note::notebookLocalId() const noexcept
+{
+    return d->m_notebookLocalId;
+}
+
+void Note::setNotebookLocalId(QString notebookLocalId)
+{
+    d->m_notebookLocalId = notebookLocalId;
+}
+
+const QStringList & Note::tagLocalIds() const noexcept
+{
+    return d->m_tagLocalIds;
+}
+
+QStringList & Note::mutableTagLocalIds()
+{
+    return d->m_tagLocalIds;
+}
+
+void Note::setTagLocalIds(QStringList tagLocalIds)
+{
+    d->m_tagLocalIds = tagLocalIds;
+}
+
+const QByteArray & Note::thumbnailData() const noexcept
+{
+    return d->m_thumbnailData;
+}
+
+void Note::setThumbnailData(QByteArray thumbnailData)
+{
+    d->m_thumbnailData = thumbnailData;
 }
 
 const std::optional<Guid> & Note::guid() const noexcept
@@ -421,6 +421,7 @@ bool operator==(const Note & lhs, const Note & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.notebookLocalId() == rhs.notebookLocalId() &&
         lhs.tagLocalIds() == rhs.tagLocalIds() &&
         lhs.thumbnailData() == rhs.thumbnailData() &&

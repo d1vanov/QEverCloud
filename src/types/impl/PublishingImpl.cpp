@@ -39,7 +39,7 @@ void Publishing::Impl::print(QTextStream & strm) const
 
     if (m_ascending) {
         strm << "    ascending = "
-            << *m_ascending << "\n";
+            << (*m_ascending ? "true" : "false") << "\n";
     }
     else {
         strm << "    ascending is not set\n";

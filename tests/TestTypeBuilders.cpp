@@ -265,6 +265,15 @@ void TypeBuildersTester::shouldBuildNoteList()
 void TypeBuildersTester::shouldBuildNoteMetadata()
 {
     NoteMetadata value;
+    value.setLocalId(generateRandomString());
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
     value.setGuid(generateRandomString());
     value.setTitle(generateRandomString());
     value.setContentLength(generateRandomInt32());
@@ -278,16 +287,12 @@ void TypeBuildersTester::shouldBuildNoteMetadata()
     value.setLargestResourceMime(generateRandomString());
     value.setLargestResourceSize(generateRandomInt32());
 
-    value.setLocalId(generateRandomString());
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
-
     NoteMetadataBuilder builder;
+    builder.setLocalId(value.localId());
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
     builder.setGuid(value.guid());
     builder.setTitle(value.title());
     builder.setContentLength(value.contentLength());
@@ -300,11 +305,6 @@ void TypeBuildersTester::shouldBuildNoteMetadata()
     builder.setAttributes(value.attributes());
     builder.setLargestResourceMime(value.largestResourceMime());
     builder.setLargestResourceSize(value.largestResourceSize());
-    builder.setLocalId(value.localId());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1075,6 +1075,14 @@ void TypeBuildersTester::shouldBuildAccountLimits()
 void TypeBuildersTester::shouldBuildUser()
 {
     User value;
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
     value.setId(generateRandomInt32());
     value.setUsername(generateRandomString());
     value.setEmail(generateRandomString());
@@ -1094,15 +1102,11 @@ void TypeBuildersTester::shouldBuildUser()
     value.setPhotoLastUpdated(generateRandomInt64());
     value.setAccountLimits(generateRandomAccountLimits());
 
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
-
     UserBuilder builder;
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
     builder.setId(value.id());
     builder.setUsername(value.username());
     builder.setEmail(value.email());
@@ -1121,10 +1125,6 @@ void TypeBuildersTester::shouldBuildUser()
     builder.setPhotoUrl(value.photoUrl());
     builder.setPhotoLastUpdated(value.photoLastUpdated());
     builder.setAccountLimits(value.accountLimits());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1183,34 +1183,34 @@ void TypeBuildersTester::shouldBuildIdentity()
 void TypeBuildersTester::shouldBuildTag()
 {
     Tag value;
-    value.setGuid(generateRandomString());
-    value.setName(generateRandomString());
-    value.setParentGuid(generateRandomString());
-    value.setUpdateSequenceNum(generateRandomInt32());
-    value.setLinkedNotebookGuid(generateRandomString());
-    value.setParentTagLocalId(generateRandomString());
-
     value.setLocalId(generateRandomString());
     value.setLocallyModified(generateRandomBool());
     value.setLocalOnly(generateRandomBool());
     value.setLocallyFavorited(generateRandomBool());
 
     QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
+    localData[generateRandomString()] = generateRandomString();
     value.setLocalData(std::move(localData));
 
+    value.setLinkedNotebookGuid(generateRandomString());
+    value.setParentTagLocalId(generateRandomString());
+    value.setGuid(generateRandomString());
+    value.setName(generateRandomString());
+    value.setParentGuid(generateRandomString());
+    value.setUpdateSequenceNum(generateRandomInt32());
+
     TagBuilder builder;
-    builder.setGuid(value.guid());
-    builder.setName(value.name());
-    builder.setParentGuid(value.parentGuid());
-    builder.setUpdateSequenceNum(value.updateSequenceNum());
-    builder.setLinkedNotebookGuid(value.linkedNotebookGuid());
-    builder.setParentTagLocalId(value.parentTagLocalId());
     builder.setLocalId(value.localId());
     builder.setLocallyModified(value.isLocallyModified());
     builder.setLocalOnly(value.isLocalOnly());
     builder.setLocallyFavorited(value.isLocallyFavorited());
     builder.setLocalData(value.localData());
+    builder.setLinkedNotebookGuid(value.linkedNotebookGuid());
+    builder.setParentTagLocalId(value.parentTagLocalId());
+    builder.setGuid(value.guid());
+    builder.setName(value.name());
+    builder.setParentGuid(value.parentGuid());
+    builder.setUpdateSequenceNum(value.updateSequenceNum());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1271,6 +1271,16 @@ void TypeBuildersTester::shouldBuildResourceAttributes()
 void TypeBuildersTester::shouldBuildResource()
 {
     Resource value;
+    value.setLocalId(generateRandomString());
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
+    value.setNoteLocalId(generateRandomString());
     value.setGuid(generateRandomString());
     value.setNoteGuid(generateRandomString());
     value.setData(generateRandomData());
@@ -1283,18 +1293,14 @@ void TypeBuildersTester::shouldBuildResource()
     value.setAttributes(generateRandomResourceAttributes());
     value.setUpdateSequenceNum(generateRandomInt32());
     value.setAlternateData(generateRandomData());
-    value.setNoteLocalId(generateRandomString());
-
-    value.setLocalId(generateRandomString());
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
 
     ResourceBuilder builder;
+    builder.setLocalId(value.localId());
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
+    builder.setNoteLocalId(value.noteLocalId());
     builder.setGuid(value.guid());
     builder.setNoteGuid(value.noteGuid());
     builder.setData(value.data());
@@ -1307,12 +1313,6 @@ void TypeBuildersTester::shouldBuildResource()
     builder.setAttributes(value.attributes());
     builder.setUpdateSequenceNum(value.updateSequenceNum());
     builder.setAlternateData(value.alternateData());
-    builder.setNoteLocalId(value.noteLocalId());
-    builder.setLocalId(value.localId());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1379,34 +1379,34 @@ void TypeBuildersTester::shouldBuildNoteAttributes()
 void TypeBuildersTester::shouldBuildSharedNote()
 {
     SharedNote value;
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
+    value.setNoteGuid(generateRandomString());
     value.setSharerUserID(generateRandomInt32());
     value.setRecipientIdentity(generateRandomIdentity());
     value.setPrivilege(SharedNotePrivilegeLevel::READ_NOTE);
     value.setServiceCreated(generateRandomInt64());
     value.setServiceUpdated(generateRandomInt64());
     value.setServiceAssigned(generateRandomInt64());
-    value.setNoteGuid(generateRandomString());
-
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
 
     SharedNoteBuilder builder;
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
+    builder.setNoteGuid(value.noteGuid());
     builder.setSharerUserID(value.sharerUserID());
     builder.setRecipientIdentity(value.recipientIdentity());
     builder.setPrivilege(value.privilege());
     builder.setServiceCreated(value.serviceCreated());
     builder.setServiceUpdated(value.serviceUpdated());
     builder.setServiceAssigned(value.serviceAssigned());
-    builder.setNoteGuid(value.noteGuid());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1455,6 +1455,18 @@ void TypeBuildersTester::shouldBuildNoteLimits()
 void TypeBuildersTester::shouldBuildNote()
 {
     Note value;
+    value.setLocalId(generateRandomString());
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
+    value.setNotebookLocalId(generateRandomString());
+    value.setTagLocalIds(QList<QString>{} << generateRandomString());
+    value.setThumbnailData(generateRandomString().toUtf8());
     value.setGuid(generateRandomString());
     value.setTitle(generateRandomString());
     value.setContent(generateRandomString());
@@ -1473,20 +1485,16 @@ void TypeBuildersTester::shouldBuildNote()
     value.setSharedNotes(QList<SharedNote>{} << generateRandomSharedNote());
     value.setRestrictions(generateRandomNoteRestrictions());
     value.setLimits(generateRandomNoteLimits());
-    value.setNotebookLocalId(generateRandomString());
-    value.setTagLocalIds(QStringList{} << generateRandomString());
-    value.setThumbnailData(generateRandomString().toUtf8());
-
-    value.setLocalId(generateRandomString());
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
 
     NoteBuilder builder;
+    builder.setLocalId(value.localId());
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
+    builder.setNotebookLocalId(value.notebookLocalId());
+    builder.setTagLocalIds(value.tagLocalIds());
+    builder.setThumbnailData(value.thumbnailData());
     builder.setGuid(value.guid());
     builder.setTitle(value.title());
     builder.setContent(value.content());
@@ -1505,14 +1513,6 @@ void TypeBuildersTester::shouldBuildNote()
     builder.setSharedNotes(value.sharedNotes());
     builder.setRestrictions(value.restrictions());
     builder.setLimits(value.limits());
-    builder.setNotebookLocalId(value.notebookLocalId());
-    builder.setTagLocalIds(value.tagLocalIds());
-    builder.setThumbnailData(value.thumbnailData());
-    builder.setLocalId(value.localId());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1571,6 +1571,15 @@ void TypeBuildersTester::shouldBuildSavedSearchScope()
 void TypeBuildersTester::shouldBuildSavedSearch()
 {
     SavedSearch value;
+    value.setLocalId(generateRandomString());
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
     value.setGuid(generateRandomString());
     value.setName(generateRandomString());
     value.setQuery(generateRandomString());
@@ -1578,27 +1587,18 @@ void TypeBuildersTester::shouldBuildSavedSearch()
     value.setUpdateSequenceNum(generateRandomInt32());
     value.setScope(generateRandomSavedSearchScope());
 
-    value.setLocalId(generateRandomString());
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
-
     SavedSearchBuilder builder;
+    builder.setLocalId(value.localId());
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
     builder.setGuid(value.guid());
     builder.setName(value.name());
     builder.setQuery(value.query());
     builder.setFormat(value.format());
     builder.setUpdateSequenceNum(value.updateSequenceNum());
     builder.setScope(value.scope());
-    builder.setLocalId(value.localId());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1641,6 +1641,14 @@ void TypeBuildersTester::shouldBuildNotebookRecipientSettings()
 void TypeBuildersTester::shouldBuildSharedNotebook()
 {
     SharedNotebook value;
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
     value.setId(generateRandomInt64());
     value.setUserId(generateRandomInt32());
     value.setNotebookGuid(generateRandomString());
@@ -1658,15 +1666,11 @@ void TypeBuildersTester::shouldBuildSharedNotebook()
     value.setRecipientUserId(generateRandomInt32());
     value.setServiceAssigned(generateRandomInt64());
 
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
-
     SharedNotebookBuilder builder;
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
     builder.setId(value.id());
     builder.setUserId(value.userId());
     builder.setNotebookGuid(value.notebookGuid());
@@ -1683,10 +1687,6 @@ void TypeBuildersTester::shouldBuildSharedNotebook()
     builder.setRecipientUsername(value.recipientUsername());
     builder.setRecipientUserId(value.recipientUserId());
     builder.setServiceAssigned(value.serviceAssigned());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1775,6 +1775,16 @@ void TypeBuildersTester::shouldBuildNotebookRestrictions()
 void TypeBuildersTester::shouldBuildNotebook()
 {
     Notebook value;
+    value.setLocalId(generateRandomString());
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
+    value.setLinkedNotebookGuid(generateRandomString());
     value.setGuid(generateRandomString());
     value.setName(generateRandomString());
     value.setUpdateSequenceNum(generateRandomInt32());
@@ -1790,18 +1800,14 @@ void TypeBuildersTester::shouldBuildNotebook()
     value.setContact(generateRandomUser());
     value.setRestrictions(generateRandomNotebookRestrictions());
     value.setRecipientSettings(generateRandomNotebookRecipientSettings());
-    value.setLinkedNotebookGuid(generateRandomString());
-
-    value.setLocalId(generateRandomString());
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
 
     NotebookBuilder builder;
+    builder.setLocalId(value.localId());
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
+    builder.setLinkedNotebookGuid(value.linkedNotebookGuid());
     builder.setGuid(value.guid());
     builder.setName(value.name());
     builder.setUpdateSequenceNum(value.updateSequenceNum());
@@ -1817,12 +1823,6 @@ void TypeBuildersTester::shouldBuildNotebook()
     builder.setContact(value.contact());
     builder.setRestrictions(value.restrictions());
     builder.setRecipientSettings(value.recipientSettings());
-    builder.setLinkedNotebookGuid(value.linkedNotebookGuid());
-    builder.setLocalId(value.localId());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1831,6 +1831,14 @@ void TypeBuildersTester::shouldBuildNotebook()
 void TypeBuildersTester::shouldBuildLinkedNotebook()
 {
     LinkedNotebook value;
+    value.setLocallyModified(generateRandomBool());
+    value.setLocalOnly(generateRandomBool());
+    value.setLocallyFavorited(generateRandomBool());
+
+    QHash<QString, QVariant> localData;
+    localData[generateRandomString()] = generateRandomString();
+    value.setLocalData(std::move(localData));
+
     value.setShareName(generateRandomString());
     value.setUsername(generateRandomString());
     value.setShardId(generateRandomString());
@@ -1843,15 +1851,11 @@ void TypeBuildersTester::shouldBuildLinkedNotebook()
     value.setStack(generateRandomString());
     value.setBusinessId(generateRandomInt32());
 
-    value.setLocallyModified(generateRandomBool());
-    value.setLocalOnly(generateRandomBool());
-    value.setLocallyFavorited(generateRandomBool());
-
-    QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
-    value.setLocalData(std::move(localData));
-
     LinkedNotebookBuilder builder;
+    builder.setLocallyModified(value.isLocallyModified());
+    builder.setLocalOnly(value.isLocalOnly());
+    builder.setLocallyFavorited(value.isLocallyFavorited());
+    builder.setLocalData(value.localData());
     builder.setShareName(value.shareName());
     builder.setUsername(value.username());
     builder.setShardId(value.shardId());
@@ -1863,10 +1867,6 @@ void TypeBuildersTester::shouldBuildLinkedNotebook()
     builder.setWebApiUrlPrefix(value.webApiUrlPrefix());
     builder.setStack(value.stack());
     builder.setBusinessId(value.businessId());
-    builder.setLocallyModified(value.isLocallyModified());
-    builder.setLocalOnly(value.isLocalOnly());
-    builder.setLocallyFavorited(value.isLocallyFavorited());
-    builder.setLocalData(value.localData());
 
     auto built = builder.build();
     QVERIFY(built == value);
@@ -1875,32 +1875,32 @@ void TypeBuildersTester::shouldBuildLinkedNotebook()
 void TypeBuildersTester::shouldBuildNotebookDescriptor()
 {
     NotebookDescriptor value;
-    value.setGuid(generateRandomString());
-    value.setNotebookDisplayName(generateRandomString());
-    value.setContactName(generateRandomString());
-    value.setHasSharedNotebook(generateRandomBool());
-    value.setJoinedUserCount(generateRandomInt32());
-
     value.setLocalId(generateRandomString());
     value.setLocallyModified(generateRandomBool());
     value.setLocalOnly(generateRandomBool());
     value.setLocallyFavorited(generateRandomBool());
 
     QHash<QString, QVariant> localData;
-    localData[generateRandomString()] = generateRandomInt64();
+    localData[generateRandomString()] = generateRandomString();
     value.setLocalData(std::move(localData));
 
+    value.setGuid(generateRandomString());
+    value.setNotebookDisplayName(generateRandomString());
+    value.setContactName(generateRandomString());
+    value.setHasSharedNotebook(generateRandomBool());
+    value.setJoinedUserCount(generateRandomInt32());
+
     NotebookDescriptorBuilder builder;
-    builder.setGuid(value.guid());
-    builder.setNotebookDisplayName(value.notebookDisplayName());
-    builder.setContactName(value.contactName());
-    builder.setHasSharedNotebook(value.hasSharedNotebook());
-    builder.setJoinedUserCount(value.joinedUserCount());
     builder.setLocalId(value.localId());
     builder.setLocallyModified(value.isLocallyModified());
     builder.setLocalOnly(value.isLocalOnly());
     builder.setLocallyFavorited(value.isLocallyFavorited());
     builder.setLocalData(value.localData());
+    builder.setGuid(value.guid());
+    builder.setNotebookDisplayName(value.notebookDisplayName());
+    builder.setContactName(value.contactName());
+    builder.setHasSharedNotebook(value.hasSharedNotebook());
+    builder.setJoinedUserCount(value.joinedUserCount());
 
     auto built = builder.build();
     QVERIFY(built == value);

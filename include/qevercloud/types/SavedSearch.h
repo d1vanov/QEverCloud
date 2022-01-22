@@ -50,7 +50,7 @@ public:
      * construction for convenience but can be overridden manually
      */
     [[nodiscard]] const QString & localId() const noexcept;
-    void setLocalId(QString id);
+    void setLocalId(QString localId);
 
     /**
      * @brief locallyModified flag can be used to keep track which
@@ -58,7 +58,7 @@ public:
      * with Evernote service
      */
     [[nodiscard]] bool isLocallyModified() const noexcept;
-    void setLocallyModified(bool modified = true);
+    void setLocallyModified(bool isLocallyModified = true);
 
     /**
      * @brief localOnly flag can be used to keep track which
@@ -66,7 +66,7 @@ public:
      * with Evernote service
      */
     [[nodiscard]] bool isLocalOnly() const noexcept;
-    void setLocalOnly(bool localOnly = true);
+    void setLocalOnly(bool isLocalOnly = true);
 
     /**
      * @brief locallyFavorited property can be used to keep track which
@@ -75,7 +75,7 @@ public:
      * a property between different clients
      */
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
-    void setLocallyFavorited(bool favorited = true);
+    void setLocallyFavorited(bool isLocallyFavorited = true);
 
     /**
      * @brief localData property can be used to store any additional
@@ -159,10 +159,13 @@ public:
     friend QEVERCLOUD_EXPORT std::ostream & operator<<(
         std::ostream & strm, const SavedSearch & savedSearch);
 
+    using LocalData = QHash<QString, QVariant>;
+
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)
+    Q_PROPERTY(LocalData localData READ localData WRITE setLocalData)
     Q_PROPERTY(std::optional<Guid> guid READ guid WRITE setGuid)
     Q_PROPERTY(std::optional<QString> name READ name WRITE setName)
     Q_PROPERTY(std::optional<QString> query READ query WRITE setQuery)

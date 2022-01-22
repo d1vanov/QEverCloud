@@ -38,6 +38,11 @@ public:
 
     NoteMetadataBuilder & operator=(NoteMetadataBuilder && other) noexcept;
 
+    NoteMetadataBuilder & setLocalId(QString localId);
+    NoteMetadataBuilder & setLocallyModified(bool isLocallyModified);
+    NoteMetadataBuilder & setLocalOnly(bool isLocalOnly);
+    NoteMetadataBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    NoteMetadataBuilder & setLocalData(QHash<QString, QVariant> localData);
     NoteMetadataBuilder & setGuid(Guid guid);
     NoteMetadataBuilder & setTitle(std::optional<QString> title);
     NoteMetadataBuilder & setContentLength(std::optional<qint32> contentLength);
@@ -50,11 +55,6 @@ public:
     NoteMetadataBuilder & setAttributes(std::optional<NoteAttributes> attributes);
     NoteMetadataBuilder & setLargestResourceMime(std::optional<QString> largestResourceMime);
     NoteMetadataBuilder & setLargestResourceSize(std::optional<qint32> largestResourceSize);
-    NoteMetadataBuilder & setLocalId(QString localId);
-    NoteMetadataBuilder & setLocallyModified(bool locallyModified);
-    NoteMetadataBuilder & setLocalOnly(bool localOnly);
-    NoteMetadataBuilder & setLocallyFavorited(bool favorited);
-    NoteMetadataBuilder & setLocalData(QHash<QString, QVariant> localData);
 
     [[nodiscard]] NoteMetadata build();
 

@@ -37,17 +37,17 @@ public:
 
     SavedSearchBuilder & operator=(SavedSearchBuilder && other) noexcept;
 
+    SavedSearchBuilder & setLocalId(QString localId);
+    SavedSearchBuilder & setLocallyModified(bool isLocallyModified);
+    SavedSearchBuilder & setLocalOnly(bool isLocalOnly);
+    SavedSearchBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    SavedSearchBuilder & setLocalData(QHash<QString, QVariant> localData);
     SavedSearchBuilder & setGuid(std::optional<Guid> guid);
     SavedSearchBuilder & setName(std::optional<QString> name);
     SavedSearchBuilder & setQuery(std::optional<QString> query);
     SavedSearchBuilder & setFormat(std::optional<QueryFormat> format);
     SavedSearchBuilder & setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
     SavedSearchBuilder & setScope(std::optional<SavedSearchScope> scope);
-    SavedSearchBuilder & setLocalId(QString localId);
-    SavedSearchBuilder & setLocallyModified(bool locallyModified);
-    SavedSearchBuilder & setLocalOnly(bool localOnly);
-    SavedSearchBuilder & setLocallyFavorited(bool favorited);
-    SavedSearchBuilder & setLocalData(QHash<QString, QVariant> localData);
 
     [[nodiscard]] SavedSearch build();
 

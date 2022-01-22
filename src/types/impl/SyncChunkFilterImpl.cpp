@@ -23,7 +23,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeNotes) {
         strm << "    includeNotes = "
-            << *m_includeNotes << "\n";
+            << (*m_includeNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNotes is not set\n";
@@ -31,7 +31,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeNoteResources) {
         strm << "    includeNoteResources = "
-            << *m_includeNoteResources << "\n";
+            << (*m_includeNoteResources ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNoteResources is not set\n";
@@ -39,7 +39,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeNoteAttributes) {
         strm << "    includeNoteAttributes = "
-            << *m_includeNoteAttributes << "\n";
+            << (*m_includeNoteAttributes ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNoteAttributes is not set\n";
@@ -47,7 +47,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeNotebooks) {
         strm << "    includeNotebooks = "
-            << *m_includeNotebooks << "\n";
+            << (*m_includeNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNotebooks is not set\n";
@@ -55,7 +55,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeTags) {
         strm << "    includeTags = "
-            << *m_includeTags << "\n";
+            << (*m_includeTags ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeTags is not set\n";
@@ -63,7 +63,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeSearches) {
         strm << "    includeSearches = "
-            << *m_includeSearches << "\n";
+            << (*m_includeSearches ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeSearches is not set\n";
@@ -71,7 +71,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeResources) {
         strm << "    includeResources = "
-            << *m_includeResources << "\n";
+            << (*m_includeResources ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeResources is not set\n";
@@ -79,7 +79,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeLinkedNotebooks) {
         strm << "    includeLinkedNotebooks = "
-            << *m_includeLinkedNotebooks << "\n";
+            << (*m_includeLinkedNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeLinkedNotebooks is not set\n";
@@ -87,7 +87,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeExpunged) {
         strm << "    includeExpunged = "
-            << *m_includeExpunged << "\n";
+            << (*m_includeExpunged ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeExpunged is not set\n";
@@ -95,7 +95,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeNoteApplicationDataFullMap) {
         strm << "    includeNoteApplicationDataFullMap = "
-            << *m_includeNoteApplicationDataFullMap << "\n";
+            << (*m_includeNoteApplicationDataFullMap ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNoteApplicationDataFullMap is not set\n";
@@ -103,7 +103,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeResourceApplicationDataFullMap) {
         strm << "    includeResourceApplicationDataFullMap = "
-            << *m_includeResourceApplicationDataFullMap << "\n";
+            << (*m_includeResourceApplicationDataFullMap ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeResourceApplicationDataFullMap is not set\n";
@@ -111,7 +111,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeNoteResourceApplicationDataFullMap) {
         strm << "    includeNoteResourceApplicationDataFullMap = "
-            << *m_includeNoteResourceApplicationDataFullMap << "\n";
+            << (*m_includeNoteResourceApplicationDataFullMap ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeNoteResourceApplicationDataFullMap is not set\n";
@@ -119,7 +119,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_includeSharedNotes) {
         strm << "    includeSharedNotes = "
-            << *m_includeSharedNotes << "\n";
+            << (*m_includeSharedNotes ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeSharedNotes is not set\n";
@@ -127,7 +127,7 @@ void SyncChunkFilter::Impl::print(QTextStream & strm) const
 
     if (m_omitSharedNotebooks) {
         strm << "    omitSharedNotebooks = "
-            << *m_omitSharedNotebooks << "\n";
+            << (*m_omitSharedNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    omitSharedNotebooks is not set\n";

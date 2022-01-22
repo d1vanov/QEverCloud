@@ -61,7 +61,7 @@ void AuthenticationResult::Impl::print(QTextStream & strm) const
 
     if (m_secondFactorRequired) {
         strm << "    secondFactorRequired = "
-            << *m_secondFactorRequired << "\n";
+            << (*m_secondFactorRequired ? "true" : "false") << "\n";
     }
     else {
         strm << "    secondFactorRequired is not set\n";

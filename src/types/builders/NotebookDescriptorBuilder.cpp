@@ -19,16 +19,16 @@ class Q_DECL_HIDDEN NotebookDescriptorBuilder::Impl final:
     public QSharedData
 {
 public:
+    QString m_localId;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
     std::optional<Guid> m_guid;
     std::optional<QString> m_notebookDisplayName;
     std::optional<QString> m_contactName;
     std::optional<bool> m_hasSharedNotebook;
     std::optional<qint32> m_joinedUserCount;
-    QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
 };
 
 NotebookDescriptorBuilder::NotebookDescriptorBuilder() :
@@ -47,6 +47,36 @@ NotebookDescriptorBuilder & NotebookDescriptorBuilder::operator=(NotebookDescrip
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocalId(QString localId)
+{
+    d->m_localId = std::move(localId);
+    return *this;
+}
+
+NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
     return *this;
 }
 
@@ -80,61 +110,31 @@ NotebookDescriptorBuilder & NotebookDescriptorBuilder::setJoinedUserCount(std::o
     return *this;
 }
 
-NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocalId(QString localId)
-{
-    d->m_localId = std::move(localId);
-    return *this;
-}
-
-NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-NotebookDescriptorBuilder & NotebookDescriptorBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-NotebookDescriptorBuilder &NotebookDescriptorBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
 NotebookDescriptor NotebookDescriptorBuilder::build()
 {
     NotebookDescriptor result;
 
+    result.setLocalId(std::move(d->m_localId));
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
     result.setGuid(std::move(d->m_guid));
     result.setNotebookDisplayName(std::move(d->m_notebookDisplayName));
     result.setContactName(std::move(d->m_contactName));
     result.setHasSharedNotebook(std::move(d->m_hasSharedNotebook));
     result.setJoinedUserCount(std::move(d->m_joinedUserCount));
-    result.setLocalId(std::move(d->m_localId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
 
+    d->m_localId = QString{};
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
     d->m_guid = {};
     d->m_notebookDisplayName = {};
     d->m_contactName = {};
     d->m_hasSharedNotebook = {};
     d->m_joinedUserCount = {};
-    d->m_localId = QString{};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
 
     return result;
 }

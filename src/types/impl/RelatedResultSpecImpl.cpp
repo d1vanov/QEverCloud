@@ -47,7 +47,7 @@ void RelatedResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_writableNotebooksOnly) {
         strm << "    writableNotebooksOnly = "
-            << *m_writableNotebooksOnly << "\n";
+            << (*m_writableNotebooksOnly ? "true" : "false") << "\n";
     }
     else {
         strm << "    writableNotebooksOnly is not set\n";
@@ -55,7 +55,7 @@ void RelatedResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeContainingNotebooks) {
         strm << "    includeContainingNotebooks = "
-            << *m_includeContainingNotebooks << "\n";
+            << (*m_includeContainingNotebooks ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeContainingNotebooks is not set\n";
@@ -63,7 +63,7 @@ void RelatedResultSpec::Impl::print(QTextStream & strm) const
 
     if (m_includeDebugInfo) {
         strm << "    includeDebugInfo = "
-            << *m_includeDebugInfo << "\n";
+            << (*m_includeDebugInfo ? "true" : "false") << "\n";
     }
     else {
         strm << "    includeDebugInfo is not set\n";

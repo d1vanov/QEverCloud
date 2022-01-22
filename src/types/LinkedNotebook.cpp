@@ -49,32 +49,32 @@ LinkedNotebook & LinkedNotebook::operator=(LinkedNotebook && other) noexcept
 
 bool LinkedNotebook::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void LinkedNotebook::setLocallyModified(const bool modified)
+void LinkedNotebook::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool LinkedNotebook::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void LinkedNotebook::setLocalOnly(const bool localOnly)
+void LinkedNotebook::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool LinkedNotebook::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void LinkedNotebook::setLocallyFavorited(const bool favorited)
+void LinkedNotebook::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & LinkedNotebook::localData() const noexcept
@@ -89,7 +89,7 @@ QHash<QString, QVariant> & LinkedNotebook::mutableLocalData()
 
 void LinkedNotebook::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
 }
 
 const std::optional<QString> & LinkedNotebook::shareName() const noexcept
@@ -250,6 +250,7 @@ bool operator==(const LinkedNotebook & lhs, const LinkedNotebook & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.shareName() == rhs.shareName() &&
         lhs.username() == rhs.username() &&
         lhs.shardId() == rhs.shardId() &&

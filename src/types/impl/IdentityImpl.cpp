@@ -41,7 +41,7 @@ void Identity::Impl::print(QTextStream & strm) const
 
     if (m_deactivated) {
         strm << "    deactivated = "
-            << *m_deactivated << "\n";
+            << (*m_deactivated ? "true" : "false") << "\n";
     }
     else {
         strm << "    deactivated is not set\n";
@@ -49,7 +49,7 @@ void Identity::Impl::print(QTextStream & strm) const
 
     if (m_sameBusiness) {
         strm << "    sameBusiness = "
-            << *m_sameBusiness << "\n";
+            << (*m_sameBusiness ? "true" : "false") << "\n";
     }
     else {
         strm << "    sameBusiness is not set\n";
@@ -57,7 +57,7 @@ void Identity::Impl::print(QTextStream & strm) const
 
     if (m_blocked) {
         strm << "    blocked = "
-            << *m_blocked << "\n";
+            << (*m_blocked ? "true" : "false") << "\n";
     }
     else {
         strm << "    blocked is not set\n";
@@ -65,7 +65,7 @@ void Identity::Impl::print(QTextStream & strm) const
 
     if (m_userConnected) {
         strm << "    userConnected = "
-            << *m_userConnected << "\n";
+            << (*m_userConnected ? "true" : "false") << "\n";
     }
     else {
         strm << "    userConnected is not set\n";

@@ -23,7 +23,7 @@ void SharedNotebookRecipientSettings::Impl::print(QTextStream & strm) const
 
     if (m_reminderNotifyEmail) {
         strm << "    reminderNotifyEmail = "
-            << *m_reminderNotifyEmail << "\n";
+            << (*m_reminderNotifyEmail ? "true" : "false") << "\n";
     }
     else {
         strm << "    reminderNotifyEmail is not set\n";
@@ -31,7 +31,7 @@ void SharedNotebookRecipientSettings::Impl::print(QTextStream & strm) const
 
     if (m_reminderNotifyInApp) {
         strm << "    reminderNotifyInApp = "
-            << *m_reminderNotifyInApp << "\n";
+            << (*m_reminderNotifyInApp ? "true" : "false") << "\n";
     }
     else {
         strm << "    reminderNotifyInApp is not set\n";

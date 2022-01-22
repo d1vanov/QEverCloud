@@ -14,20 +14,28 @@
 #include "../../Impl.h"
 
 #include <QTextStream>
-#include <QUuid>
 
 namespace qevercloud {
-
-LinkedNotebook::Impl::Impl()
-{
-}
 
 void LinkedNotebook::Impl::print(QTextStream & strm) const
 {
     strm << "LinkedNotebook: {\n";
-        strm << "    locallyModified = " << (m_locallyModified ? "true" : "false") << "\n";
-        strm << "    localOnly = " << (m_localOnly ? "true" : "false") << "\n";
-        strm << "    locallyFavorited = " << (m_locallyFavorited ? "true" : "false") << "\n";
+    strm << "    isLocallyModified = "
+        << (m_isLocallyModified ? "true" : "false") << "\n";
+    strm << "    isLocalOnly = "
+        << (m_isLocalOnly ? "true" : "false") << "\n";
+    strm << "    isLocallyFavorited = "
+        << (m_isLocallyFavorited ? "true" : "false") << "\n";
+    strm << "    localData = "
+        << "QHash<QString, QVariant> {";
+    for(const auto & it: toRange(m_localData)) {
+        strm << "    [" << it.key() << "] = ";
+        QString debugStr;
+        QDebug dbg{&debugStr};
+        dbg << it.value();
+        strm << debugStr << "\n";
+    }
+    strm << "    }\n";
 
     if (m_shareName) {
         strm << "    shareName = "

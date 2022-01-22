@@ -50,7 +50,7 @@ public:
      * construction for convenience but can be overridden manually
      */
     [[nodiscard]] const QString & localId() const noexcept;
-    void setLocalId(QString id);
+    void setLocalId(QString localId);
 
     /**
      * @brief locallyModified flag can be used to keep track which
@@ -58,7 +58,7 @@ public:
      * with Evernote service
      */
     [[nodiscard]] bool isLocallyModified() const noexcept;
-    void setLocallyModified(bool modified = true);
+    void setLocallyModified(bool isLocallyModified = true);
 
     /**
      * @brief localOnly flag can be used to keep track which
@@ -66,7 +66,7 @@ public:
      * with Evernote service
      */
     [[nodiscard]] bool isLocalOnly() const noexcept;
-    void setLocalOnly(bool localOnly = true);
+    void setLocalOnly(bool isLocalOnly = true);
 
     /**
      * @brief locallyFavorited property can be used to keep track which
@@ -75,7 +75,7 @@ public:
      * a property between different clients
      */
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
-    void setLocallyFavorited(bool favorited = true);
+    void setLocallyFavorited(bool isLocallyFavorited = true);
 
     /**
      * @brief localData property can be used to store any additional
@@ -85,6 +85,22 @@ public:
     [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
     [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
     void setLocalData(QHash<QString, QVariant> localData);
+
+    /**
+     * Guid of linked notebook which this notebook comes from. If
+     * this notebook belongs to user's own content i.e. doesn't
+     * come from any linked notebook, this field would be nullopt
+     */
+    [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const noexcept;
+    [[nodiscard]] std::optional<Guid> & mutableLinkedNotebookGuid();
+    void setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid);
+
+    /**
+     * Local id of a tag which is this tag's parent. Empty if this tag
+     * has no parent
+     */
+    [[nodiscard]] const QString & parentTagLocalId() const noexcept;
+    void setParentTagLocalId(QString parentTagLocalId);
 
     /**
      * The unique identifier of this tag. Will be set by the service,
@@ -132,35 +148,6 @@ public:
     [[nodiscard]] std::optional<qint32> & mutableUpdateSequenceNum();
     void setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
 
-    /**
-     * Methods below correspond to fields which are NOT set by QEverCloud itself.
-     * They exist for convenience of client code and are intended to be called
-     * and used by QEverCloud's client code if/when appropriate
-     */
-
-    /**
-     * Guid of linked notebook which this tag comes from. If
-     * this tag belongs to user's own content i.e. doesn't
-     * come from any linked notebook, this field would be empty
-     */
-    [[nodiscard]] const std::optional<Guid> & linkedNotebookGuid() const;
-
-    /**
-     * Set guid of linked notebook to which this tag belongs
-     * or empty string if this tag belongs to user's own content
-     */
-    void setLinkedNotebookGuid(std::optional<QString> guid);
-
-    /**
-     * Local id of a tag which is this tag's parent
-     */
-[[nodiscard]] QString parentTagLocalId() const;
-
-    /**
-     * Set local id of a parent tag to this tag
- */
-void setParentTagLocalId(QString parentTagLocalId);
-
     void print(QTextStream & strm) const override;
 
     friend QEVERCLOUD_EXPORT QTextStream & operator<<(
@@ -172,16 +159,19 @@ void setParentTagLocalId(QString parentTagLocalId);
     friend QEVERCLOUD_EXPORT std::ostream & operator<<(
         std::ostream & strm, const Tag & tag);
 
+    using LocalData = QHash<QString, QVariant>;
+
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)
+    Q_PROPERTY(LocalData localData READ localData WRITE setLocalData)
+    Q_PROPERTY(std::optional<Guid> linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
+    Q_PROPERTY(QString parentTagLocalId READ parentTagLocalId WRITE setParentTagLocalId)
     Q_PROPERTY(std::optional<Guid> guid READ guid WRITE setGuid)
     Q_PROPERTY(std::optional<QString> name READ name WRITE setName)
     Q_PROPERTY(std::optional<Guid> parentGuid READ parentGuid WRITE setParentGuid)
     Q_PROPERTY(std::optional<qint32> updateSequenceNum READ updateSequenceNum WRITE setUpdateSequenceNum)
-    Q_PROPERTY(std::optional<Guid> linkedNotebookGuid READ linkedNotebookGuid WRITE setLinkedNotebookGuid)
-    Q_PROPERTY(QString parentTagLocalId READ parentTagLocalId WRITE setParentTagLocalId)
 
 private:
     class Impl;

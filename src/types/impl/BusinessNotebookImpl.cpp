@@ -39,7 +39,7 @@ void BusinessNotebook::Impl::print(QTextStream & strm) const
 
     if (m_recommended) {
         strm << "    recommended = "
-            << *m_recommended << "\n";
+            << (*m_recommended ? "true" : "false") << "\n";
     }
     else {
         strm << "    recommended is not set\n";

@@ -11,7 +11,7 @@
 
 #include "TestUserStore.h"
 #include "../../src/Impl.h"
-#include "../ClearLocalIds.h"
+#include "../ClearLocalFields.h"
 #include "../RandomDataGenerators.h"
 #include "../SocketHelpers.h"
 #include "QEventLoop"
@@ -30,66 +30,66 @@ namespace {
 ////////////////////////////////////////////////////////////////////////////////
 
 template <class T>
-void compareValuesWithoutLocalIds(const T & lhs, const T & rhs)
+void compareValuesWithoutLocalFields(const T & lhs, const T & rhs)
 {
     T lhsCopy = lhs;
-    clearLocalIds(lhsCopy);
+    clearLocalFields(lhsCopy);
 
     T rhsCopy = rhs;
-    clearLocalIds(rhsCopy);
+    clearLocalFields(rhsCopy);
 
     Q_ASSERT(lhsCopy == rhsCopy);
 }
 
 template <class T>
-void compareListValuesWithoutLocalIds(const QList<T> & lhs, const QList<T> & rhs)
+void compareListValuesWithoutLocalFields(const QList<T> & lhs, const QList<T> & rhs)
 {
     Q_ASSERT(lhs.size() == rhs.size());
 
     QList<T> lhsCopy = lhs;
     for (auto & v: lhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     QList<T> rhsCopy = rhs;
     for (auto & v: rhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     Q_ASSERT(lhsCopy == rhsCopy);
 }
 
 template <class T>
-void compareSetValuesWithoutLocalIds(const QSet<T> & lhs, const QSet<T> & rhs)
+void compareSetValuesWithoutLocalFields(const QSet<T> & lhs, const QSet<T> & rhs)
 {
     Q_ASSERT(lhs.size() == rhs.size());
 
     QSet<T> lhsCopy = lhs;
     for (auto & v: lhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     QSet<T> rhsCopy = rhs;
     for (auto & v: rhsCopy) {
-        clearLocalIds(v);
+        clearLocalFields(v);
     }
 
     Q_ASSERT(lhsCopy == rhsCopy);
 }
 
 template <class K, class V>
-void compareMapValuesWithoutLocalIds(const QMap<K, V> & lhs, const QMap<K, V> & rhs)
+void compareMapValuesWithoutLocalFields(const QMap<K, V> & lhs, const QMap<K, V> & rhs)
 {
     Q_ASSERT(lhs.size() == rhs.size());
 
     QMap<K, V> lhsCopy = lhs;
     for (auto it = lhsCopy.begin(); it != lhsCopy.end(); ++it) {
-        clearLocalIds(it.value());
+        clearLocalFields(it.value());
     }
 
     QMap<K, V> rhsCopy = rhs;
     for (auto it = rhsCopy.begin(); it != rhsCopy.end(); ++it) {
-        clearLocalIds(it.value());
+        clearLocalFields(it.value());
     }
 
     Q_ASSERT(lhsCopy == rhsCopy);
@@ -1786,7 +1786,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSession()
         supportsTwoFactor,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSession()
@@ -2271,7 +2271,7 @@ void UserStoreTester::shouldExecuteAuthenticateLongSessionAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateLongSessionAsync()
@@ -2762,7 +2762,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthentication()
         deviceDescription,
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthentication()
@@ -3191,7 +3191,7 @@ void UserStoreTester::shouldExecuteCompleteTwoFactorAuthenticationAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInCompleteTwoFactorAuthenticationAsync()
@@ -4400,7 +4400,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusiness()
     AuthenticationResult res = userStore->authenticateToBusiness(
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusiness()
@@ -4781,7 +4781,7 @@ void UserStoreTester::shouldExecuteAuthenticateToBusinessAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<AuthenticationResult>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<AuthenticationResult>(result.result()), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInAuthenticateToBusinessAsync()
@@ -5182,7 +5182,7 @@ void UserStoreTester::shouldExecuteGetUser()
     User res = userStore->getUser(
         ctx);
 
-    QVERIFY(res == response);
+    compareValuesWithoutLocalFields(res, response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUser()
@@ -5563,7 +5563,7 @@ void UserStoreTester::shouldExecuteGetUserAsync()
     watcher.setFuture(result);
     loop.exec();
 
-    QVERIFY(qvariant_cast<User>(result.result()) == response);
+    compareValuesWithoutLocalFields(qvariant_cast<User>(result.result()), response);
 }
 
 void UserStoreTester::shouldDeliverEDAMUserExceptionInGetUserAsync()

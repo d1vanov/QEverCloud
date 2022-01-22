@@ -79,7 +79,7 @@ void ResourceAttributes::Impl::print(QTextStream & strm) const
 
     if (m_clientWillIndex) {
         strm << "    clientWillIndex = "
-            << *m_clientWillIndex << "\n";
+            << (*m_clientWillIndex ? "true" : "false") << "\n";
     }
     else {
         strm << "    clientWillIndex is not set\n";
@@ -103,7 +103,7 @@ void ResourceAttributes::Impl::print(QTextStream & strm) const
 
     if (m_attachment) {
         strm << "    attachment = "
-            << *m_attachment << "\n";
+            << (*m_attachment ? "true" : "false") << "\n";
     }
     else {
         strm << "    attachment is not set\n";

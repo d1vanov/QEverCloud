@@ -47,54 +47,44 @@ Notebook & Notebook::operator=(Notebook && other) noexcept
     return *this;
 }
 
-const std::optional<Guid> & Notebook::linkedNotebookGuid() const
-{
-    return d->m_linkedNotebookGuid;
-}
-
-void Notebook::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
-{
-    d->m_linkedNotebookGuid = std::move(linkedNotebookGuid);
-}
-
 const QString & Notebook::localId() const noexcept
 {
     return d->m_localId;
 }
 
-void Notebook::setLocalId(QString id)
+void Notebook::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool Notebook::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void Notebook::setLocallyModified(const bool modified)
+void Notebook::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool Notebook::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void Notebook::setLocalOnly(const bool localOnly)
+void Notebook::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool Notebook::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void Notebook::setLocallyFavorited(const bool favorited)
+void Notebook::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & Notebook::localData() const noexcept
@@ -109,7 +99,22 @@ QHash<QString, QVariant> & Notebook::mutableLocalData()
 
 void Notebook::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
+}
+
+const std::optional<Guid> & Notebook::linkedNotebookGuid() const noexcept
+{
+    return d->m_linkedNotebookGuid;
+}
+
+std::optional<Guid> & Notebook::mutableLinkedNotebookGuid()
+{
+    return d->m_linkedNotebookGuid;
+}
+
+void Notebook::setLinkedNotebookGuid(std::optional<Guid> linkedNotebookGuid)
+{
+    d->m_linkedNotebookGuid = linkedNotebookGuid;
 }
 
 const std::optional<Guid> & Notebook::guid() const noexcept
@@ -361,6 +366,7 @@ bool operator==(const Notebook & lhs, const Notebook & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.linkedNotebookGuid() == rhs.linkedNotebookGuid() &&
         lhs.guid() == rhs.guid() &&
         lhs.name() == rhs.name() &&

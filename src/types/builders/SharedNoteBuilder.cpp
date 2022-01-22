@@ -19,17 +19,17 @@ class Q_DECL_HIDDEN SharedNoteBuilder::Impl final:
     public QSharedData
 {
 public:
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
+    Guid m_noteGuid;
     std::optional<UserID> m_sharerUserID;
     std::optional<Identity> m_recipientIdentity;
     std::optional<SharedNotePrivilegeLevel> m_privilege;
     std::optional<Timestamp> m_serviceCreated;
     std::optional<Timestamp> m_serviceUpdated;
     std::optional<Timestamp> m_serviceAssigned;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
-    std::optional<Guid> m_noteGuid;
 };
 
 SharedNoteBuilder::SharedNoteBuilder() :
@@ -48,6 +48,36 @@ SharedNoteBuilder & SharedNoteBuilder::operator=(SharedNoteBuilder && other) noe
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+SharedNoteBuilder & SharedNoteBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+SharedNoteBuilder & SharedNoteBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+SharedNoteBuilder & SharedNoteBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+SharedNoteBuilder & SharedNoteBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
+    return *this;
+}
+
+SharedNoteBuilder & SharedNoteBuilder::setNoteGuid(Guid noteGuid)
+{
+    d->m_noteGuid = std::move(noteGuid);
     return *this;
 }
 
@@ -87,63 +117,33 @@ SharedNoteBuilder & SharedNoteBuilder::setServiceAssigned(std::optional<Timestam
     return *this;
 }
 
-SharedNoteBuilder & SharedNoteBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-SharedNoteBuilder & SharedNoteBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-SharedNoteBuilder & SharedNoteBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-SharedNoteBuilder &SharedNoteBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
-SharedNoteBuilder & SharedNoteBuilder::setNoteGuid(std::optional<Guid> noteGuid)
-{
-    d->m_noteGuid = std::move(noteGuid);
-    return *this;
-}
-
 SharedNote SharedNoteBuilder::build()
 {
     SharedNote result;
 
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
+    result.setNoteGuid(std::move(d->m_noteGuid));
     result.setSharerUserID(std::move(d->m_sharerUserID));
     result.setRecipientIdentity(std::move(d->m_recipientIdentity));
     result.setPrivilege(std::move(d->m_privilege));
     result.setServiceCreated(std::move(d->m_serviceCreated));
     result.setServiceUpdated(std::move(d->m_serviceUpdated));
     result.setServiceAssigned(std::move(d->m_serviceAssigned));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
-    result.setNoteGuid(std::move(d->m_noteGuid));
 
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
+    d->m_noteGuid = Guid{};
     d->m_sharerUserID = {};
     d->m_recipientIdentity = {};
     d->m_privilege = {};
     d->m_serviceCreated = {};
     d->m_serviceUpdated = {};
     d->m_serviceAssigned = {};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
-    d->m_noteGuid = Guid{};
 
     return result;
 }

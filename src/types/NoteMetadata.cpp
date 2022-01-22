@@ -52,39 +52,39 @@ const QString & NoteMetadata::localId() const noexcept
     return d->m_localId;
 }
 
-void NoteMetadata::setLocalId(QString id)
+void NoteMetadata::setLocalId(QString localId)
 {
-    d->m_localId = std::move(id);
+    d->m_localId = localId;
 }
 
 bool NoteMetadata::isLocallyModified() const noexcept
 {
-    return d->m_locallyModified;
+    return d->m_isLocallyModified;
 }
 
-void NoteMetadata::setLocallyModified(const bool modified)
+void NoteMetadata::setLocallyModified(bool isLocallyModified)
 {
-    d->m_locallyModified = modified;
+    d->m_isLocallyModified = isLocallyModified;
 }
 
 bool NoteMetadata::isLocalOnly() const noexcept
 {
-    return d->m_localOnly;
+    return d->m_isLocalOnly;
 }
 
-void NoteMetadata::setLocalOnly(const bool localOnly)
+void NoteMetadata::setLocalOnly(bool isLocalOnly)
 {
-    d->m_localOnly = localOnly;
+    d->m_isLocalOnly = isLocalOnly;
 }
 
 bool NoteMetadata::isLocallyFavorited() const noexcept
 {
-    return d->m_locallyFavorited;
+    return d->m_isLocallyFavorited;
 }
 
-void NoteMetadata::setLocallyFavorited(const bool favorited)
+void NoteMetadata::setLocallyFavorited(bool isLocallyFavorited)
 {
-    d->m_locallyFavorited = favorited;
+    d->m_isLocallyFavorited = isLocallyFavorited;
 }
 
 const QHash<QString, QVariant> & NoteMetadata::localData() const noexcept
@@ -99,7 +99,7 @@ QHash<QString, QVariant> & NoteMetadata::mutableLocalData()
 
 void NoteMetadata::setLocalData(QHash<QString, QVariant> localData)
 {
-    d->m_localData = std::move(localData);
+    d->m_localData = localData;
 }
 
 const Guid & NoteMetadata::guid() const noexcept
@@ -301,6 +301,7 @@ bool operator==(const NoteMetadata & lhs, const NoteMetadata & rhs) noexcept
         lhs.isLocallyModified() == rhs.isLocallyModified() &&
         lhs.isLocalOnly() == rhs.isLocalOnly() &&
         lhs.isLocallyFavorited() == rhs.isLocallyFavorited() &&
+        lhs.localData() == rhs.localData() &&
         lhs.guid() == rhs.guid() &&
         lhs.title() == rhs.title() &&
         lhs.contentLength() == rhs.contentLength() &&

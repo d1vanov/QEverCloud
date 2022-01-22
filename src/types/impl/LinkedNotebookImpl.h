@@ -24,7 +24,7 @@ class Q_DECL_HIDDEN LinkedNotebook::Impl final:
     public Printable
 {
 public:
-    Impl();
+    Impl() = default;
     Impl(const LinkedNotebook::Impl & other) = default;
     Impl(LinkedNotebook::Impl && other) noexcept = default;
 
@@ -35,11 +35,10 @@ public:
 
     void print(QTextStream & strm) const override;
 
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
     QHash<QString, QVariant> m_localData;
-
     std::optional<QString> m_shareName;
     std::optional<QString> m_username;
     std::optional<QString> m_shardId;

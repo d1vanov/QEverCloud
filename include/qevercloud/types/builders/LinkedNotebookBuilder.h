@@ -36,6 +36,10 @@ public:
 
     LinkedNotebookBuilder & operator=(LinkedNotebookBuilder && other) noexcept;
 
+    LinkedNotebookBuilder & setLocallyModified(bool isLocallyModified);
+    LinkedNotebookBuilder & setLocalOnly(bool isLocalOnly);
+    LinkedNotebookBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    LinkedNotebookBuilder & setLocalData(QHash<QString, QVariant> localData);
     LinkedNotebookBuilder & setShareName(std::optional<QString> shareName);
     LinkedNotebookBuilder & setUsername(std::optional<QString> username);
     LinkedNotebookBuilder & setShardId(std::optional<QString> shardId);
@@ -47,10 +51,6 @@ public:
     LinkedNotebookBuilder & setWebApiUrlPrefix(std::optional<QString> webApiUrlPrefix);
     LinkedNotebookBuilder & setStack(std::optional<QString> stack);
     LinkedNotebookBuilder & setBusinessId(std::optional<qint32> businessId);
-    LinkedNotebookBuilder & setLocallyModified(bool locallyModified);
-    LinkedNotebookBuilder & setLocalOnly(bool localOnly);
-    LinkedNotebookBuilder & setLocallyFavorited(bool favorited);
-    LinkedNotebookBuilder & setLocalData(QHash<QString, QVariant> localData);
 
     [[nodiscard]] LinkedNotebook build();
 

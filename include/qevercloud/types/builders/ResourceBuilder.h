@@ -38,6 +38,12 @@ public:
 
     ResourceBuilder & operator=(ResourceBuilder && other) noexcept;
 
+    ResourceBuilder & setLocalId(QString localId);
+    ResourceBuilder & setLocallyModified(bool isLocallyModified);
+    ResourceBuilder & setLocalOnly(bool isLocalOnly);
+    ResourceBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    ResourceBuilder & setLocalData(QHash<QString, QVariant> localData);
+    ResourceBuilder & setNoteLocalId(QString noteLocalId);
     ResourceBuilder & setGuid(std::optional<Guid> guid);
     ResourceBuilder & setNoteGuid(std::optional<Guid> noteGuid);
     ResourceBuilder & setData(std::optional<Data> data);
@@ -50,12 +56,6 @@ public:
     ResourceBuilder & setAttributes(std::optional<ResourceAttributes> attributes);
     ResourceBuilder & setUpdateSequenceNum(std::optional<qint32> updateSequenceNum);
     ResourceBuilder & setAlternateData(std::optional<Data> alternateData);
-    ResourceBuilder & setLocalId(QString localId);
-    ResourceBuilder & setLocallyModified(bool locallyModified);
-    ResourceBuilder & setLocalOnly(bool localOnly);
-    ResourceBuilder & setLocallyFavorited(bool favorited);
-    ResourceBuilder & setLocalData(QHash<QString, QVariant> localData);
-    ResourceBuilder & setNoteLocalId(QString noteLocalId);
 
     [[nodiscard]] Resource build();
 

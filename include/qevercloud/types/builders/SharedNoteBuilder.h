@@ -37,17 +37,17 @@ public:
 
     SharedNoteBuilder & operator=(SharedNoteBuilder && other) noexcept;
 
+    SharedNoteBuilder & setLocallyModified(bool isLocallyModified);
+    SharedNoteBuilder & setLocalOnly(bool isLocalOnly);
+    SharedNoteBuilder & setLocallyFavorited(bool isLocallyFavorited);
+    SharedNoteBuilder & setLocalData(QHash<QString, QVariant> localData);
+    SharedNoteBuilder & setNoteGuid(Guid noteGuid);
     SharedNoteBuilder & setSharerUserID(std::optional<UserID> sharerUserID);
     SharedNoteBuilder & setRecipientIdentity(std::optional<Identity> recipientIdentity);
     SharedNoteBuilder & setPrivilege(std::optional<SharedNotePrivilegeLevel> privilege);
     SharedNoteBuilder & setServiceCreated(std::optional<Timestamp> serviceCreated);
     SharedNoteBuilder & setServiceUpdated(std::optional<Timestamp> serviceUpdated);
     SharedNoteBuilder & setServiceAssigned(std::optional<Timestamp> serviceAssigned);
-    SharedNoteBuilder & setLocallyModified(bool locallyModified);
-    SharedNoteBuilder & setLocalOnly(bool localOnly);
-    SharedNoteBuilder & setLocallyFavorited(bool favorited);
-    SharedNoteBuilder & setLocalData(QHash<QString, QVariant> localData);
-    SharedNoteBuilder & setNoteGuid(std::optional<Guid> noteGuid);
 
     [[nodiscard]] SharedNote build();
 

@@ -57,7 +57,7 @@ public:
      * construction for convenience but can be overridden manually
      */
     [[nodiscard]] const QString & localId() const noexcept;
-    void setLocalId(QString id);
+    void setLocalId(QString localId);
 
     /**
      * @brief locallyModified flag can be used to keep track which
@@ -65,7 +65,7 @@ public:
      * with Evernote service
      */
     [[nodiscard]] bool isLocallyModified() const noexcept;
-    void setLocallyModified(bool modified = true);
+    void setLocallyModified(bool isLocallyModified = true);
 
     /**
      * @brief localOnly flag can be used to keep track which
@@ -73,7 +73,7 @@ public:
      * with Evernote service
      */
     [[nodiscard]] bool isLocalOnly() const noexcept;
-    void setLocalOnly(bool localOnly = true);
+    void setLocalOnly(bool isLocalOnly = true);
 
     /**
      * @brief locallyFavorited property can be used to keep track which
@@ -82,7 +82,7 @@ public:
      * a property between different clients
      */
     [[nodiscard]] bool isLocallyFavorited() const noexcept;
-    void setLocallyFavorited(bool favorited = true);
+    void setLocallyFavorited(bool isLocallyFavorited = true);
 
     /**
      * @brief localData property can be used to store any additional
@@ -92,6 +92,25 @@ public:
     [[nodiscard]] const QHash<QString, QVariant> & localData() const noexcept;
     [[nodiscard]] QHash<QString, QVariant> & mutableLocalData();
     void setLocalData(QHash<QString, QVariant> localData);
+
+    /**
+     * Local id of a notebook to which this note belongs
+     */
+    [[nodiscard]] const QString & notebookLocalId() const noexcept;
+    void setNotebookLocalId(QString notebookLocalId);
+
+    /**
+     * Local ids of this note's tags
+     */
+    [[nodiscard]] const QStringList & tagLocalIds() const noexcept;
+    [[nodiscard]] QStringList & mutableTagLocalIds();
+    void setTagLocalIds(QStringList tagLocalIds);
+
+    /**
+     * Thumbnail image data correspondng to the note
+     */
+    [[nodiscard]] const QByteArray & thumbnailData() const noexcept;
+    void setThumbnailData(QByteArray thumbnailData);
 
     /**
      * The unique identifier of this note. Will be set by the
@@ -276,35 +295,6 @@ public:
     [[nodiscard]] std::optional<NoteLimits> & mutableLimits();
     void setLimits(std::optional<NoteLimits> limits);
 
-    /**
-     * Methods below correspond to fields which are NOT set by QEverCloud itself.
-     * They exist for convenience of client code and are intended to be called
-     * and used by QEverCloud's client code if/when appropriate
-     */
-
-    /**
-     * Local id of a notebook to which this note belongs
-     */
-    [[nodiscard]] QString notebookLocalId() const;
-
-    /**
-     * Set local id of a notebook to which this note belongs
-     */
-    void setNotebookLocalId(QString notebookLocalId);
-
-    /**
-     * Local ids of this note's tags
-     */
-    [[nodiscard]] const QStringList & tagLocalIds() const noexcept;
-    [[nodiscard]] QStringList & mutableTagLocalIds();
-    void setTagLocalIds(QStringList tagLocalIds);
-
-    /**
-     * Thumbnail image data correspondng to the note
-     */
-    [[nodiscard]] QByteArray thumbnailData() const;
-    void setThumbnailData(QByteArray data);
-
     void print(QTextStream & strm) const override;
 
     friend QEVERCLOUD_EXPORT QTextStream & operator<<(
@@ -316,10 +306,16 @@ public:
     friend QEVERCLOUD_EXPORT std::ostream & operator<<(
         std::ostream & strm, const Note & note);
 
+    using LocalData = QHash<QString, QVariant>;
+
     Q_PROPERTY(QString localId READ localId WRITE setLocalId)
     Q_PROPERTY(bool locallyModified READ isLocallyModified WRITE setLocallyModified)
     Q_PROPERTY(bool localOnly READ isLocalOnly WRITE setLocalOnly)
     Q_PROPERTY(bool favorited READ isLocallyFavorited WRITE setLocallyFavorited)
+    Q_PROPERTY(LocalData localData READ localData WRITE setLocalData)
+    Q_PROPERTY(QString notebookLocalId READ notebookLocalId WRITE setNotebookLocalId)
+    Q_PROPERTY(QStringList tagLocalIds READ tagLocalIds WRITE setTagLocalIds)
+    Q_PROPERTY(QByteArray thumbnailData READ thumbnailData WRITE setThumbnailData)
     Q_PROPERTY(std::optional<Guid> guid READ guid WRITE setGuid)
     Q_PROPERTY(std::optional<QString> title READ title WRITE setTitle)
     Q_PROPERTY(std::optional<QString> content READ content WRITE setContent)
@@ -338,9 +334,6 @@ public:
     Q_PROPERTY(std::optional<QList<SharedNote>> sharedNotes READ sharedNotes WRITE setSharedNotes)
     Q_PROPERTY(std::optional<NoteRestrictions> restrictions READ restrictions WRITE setRestrictions)
     Q_PROPERTY(std::optional<NoteLimits> limits READ limits WRITE setLimits)
-    Q_PROPERTY(QString notebookLocalId READ notebookLocalId WRITE setNotebookLocalId)
-    Q_PROPERTY(QStringList tagLocalIds READ tagLocalIds WRITE setTagLocalIds)
-    Q_PROPERTY(QByteArray thumbnailData READ thumbnailData WRITE setThumbnailData)
 
 private:
     class Impl;

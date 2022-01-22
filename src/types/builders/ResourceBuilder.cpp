@@ -19,6 +19,12 @@ class Q_DECL_HIDDEN ResourceBuilder::Impl final:
     public QSharedData
 {
 public:
+    QString m_localId;
+    bool m_isLocallyModified = false;
+    bool m_isLocalOnly = false;
+    bool m_isLocallyFavorited = false;
+    QHash<QString, QVariant> m_localData;
+    QString m_noteLocalId;
     std::optional<Guid> m_guid;
     std::optional<Guid> m_noteGuid;
     std::optional<Data> m_data;
@@ -31,12 +37,6 @@ public:
     std::optional<ResourceAttributes> m_attributes;
     std::optional<qint32> m_updateSequenceNum;
     std::optional<Data> m_alternateData;
-    QString m_localId;
-    bool m_locallyModified = false;
-    bool m_localOnly = false;
-    bool m_locallyFavorited = false;
-    QHash<QString, QVariant> m_localData;
-    QString m_noteLocalId;
 };
 
 ResourceBuilder::ResourceBuilder() :
@@ -55,6 +55,42 @@ ResourceBuilder & ResourceBuilder::operator=(ResourceBuilder && other) noexcept
         d = std::move(other.d);
     }
 
+    return *this;
+}
+
+ResourceBuilder & ResourceBuilder::setLocalId(QString localId)
+{
+    d->m_localId = std::move(localId);
+    return *this;
+}
+
+ResourceBuilder & ResourceBuilder::setLocallyModified(bool isLocallyModified)
+{
+    d->m_isLocallyModified = isLocallyModified;
+    return *this;
+}
+
+ResourceBuilder & ResourceBuilder::setLocalOnly(bool isLocalOnly)
+{
+    d->m_isLocalOnly = isLocalOnly;
+    return *this;
+}
+
+ResourceBuilder & ResourceBuilder::setLocallyFavorited(bool isLocallyFavorited)
+{
+    d->m_isLocallyFavorited = isLocallyFavorited;
+    return *this;
+}
+
+ResourceBuilder & ResourceBuilder::setLocalData(QHash<QString, QVariant> localData)
+{
+    d->m_localData = std::move(localData);
+    return *this;
+}
+
+ResourceBuilder & ResourceBuilder::setNoteLocalId(QString noteLocalId)
+{
+    d->m_noteLocalId = std::move(noteLocalId);
     return *this;
 }
 
@@ -130,46 +166,16 @@ ResourceBuilder & ResourceBuilder::setAlternateData(std::optional<Data> alternat
     return *this;
 }
 
-ResourceBuilder & ResourceBuilder::setLocalId(QString localId)
-{
-    d->m_localId = std::move(localId);
-    return *this;
-}
-
-ResourceBuilder & ResourceBuilder::setLocallyModified(bool locallyModified)
-{
-    d->m_locallyModified = locallyModified;
-    return *this;
-}
-
-ResourceBuilder & ResourceBuilder::setLocalOnly(bool localOnly)
-{
-    d->m_localOnly = localOnly;
-    return *this;
-}
-
-ResourceBuilder & ResourceBuilder::setLocallyFavorited(bool favorited)
-{
-    d->m_locallyFavorited = favorited;
-    return *this;
-}
-
-ResourceBuilder &ResourceBuilder::setLocalData(QHash<QString, QVariant> localData)
-{
-    d->m_localData = std::move(localData);
-    return *this;
-}
-
-ResourceBuilder & ResourceBuilder::setNoteLocalId(QString noteLocalId)
-{
-    d->m_noteLocalId = std::move(noteLocalId);
-    return *this;
-}
-
 Resource ResourceBuilder::build()
 {
     Resource result;
 
+    result.setLocalId(std::move(d->m_localId));
+    result.setLocallyModified(d->m_isLocallyModified);
+    result.setLocalOnly(d->m_isLocalOnly);
+    result.setLocallyFavorited(d->m_isLocallyFavorited);
+    result.setLocalData(std::move(d->m_localData));
+    result.setNoteLocalId(std::move(d->m_noteLocalId));
     result.setGuid(std::move(d->m_guid));
     result.setNoteGuid(std::move(d->m_noteGuid));
     result.setData(std::move(d->m_data));
@@ -182,13 +188,13 @@ Resource ResourceBuilder::build()
     result.setAttributes(std::move(d->m_attributes));
     result.setUpdateSequenceNum(std::move(d->m_updateSequenceNum));
     result.setAlternateData(std::move(d->m_alternateData));
-    result.setLocalId(std::move(d->m_localId));
-    result.setLocallyModified(d->m_locallyModified);
-    result.setLocalOnly(d->m_localOnly);
-    result.setLocallyFavorited(d->m_locallyFavorited);
-    result.setLocalData(std::move(d->m_localData));
-    result.setNoteLocalId(std::move(d->m_noteLocalId));
 
+    d->m_localId = QString{};
+    d->m_isLocallyModified = false;
+    d->m_isLocalOnly = false;
+    d->m_isLocallyFavorited = false;
+    d->m_localData = {};
+    d->m_noteLocalId = QString{};
     d->m_guid = {};
     d->m_noteGuid = {};
     d->m_data = {};
@@ -201,12 +207,6 @@ Resource ResourceBuilder::build()
     d->m_attributes = {};
     d->m_updateSequenceNum = {};
     d->m_alternateData = {};
-    d->m_localId = QString{};
-    d->m_locallyModified = false;
-    d->m_localOnly = false;
-    d->m_locallyFavorited = false;
-    d->m_localData = {};
-    d->m_noteLocalId = QString{};
 
     return result;
 }

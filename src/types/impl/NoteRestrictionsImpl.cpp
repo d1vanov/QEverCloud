@@ -23,7 +23,7 @@ void NoteRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noUpdateTitle) {
         strm << "    noUpdateTitle = "
-            << *m_noUpdateTitle << "\n";
+            << (*m_noUpdateTitle ? "true" : "false") << "\n";
     }
     else {
         strm << "    noUpdateTitle is not set\n";
@@ -31,7 +31,7 @@ void NoteRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noUpdateContent) {
         strm << "    noUpdateContent = "
-            << *m_noUpdateContent << "\n";
+            << (*m_noUpdateContent ? "true" : "false") << "\n";
     }
     else {
         strm << "    noUpdateContent is not set\n";
@@ -39,7 +39,7 @@ void NoteRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noEmail) {
         strm << "    noEmail = "
-            << *m_noEmail << "\n";
+            << (*m_noEmail ? "true" : "false") << "\n";
     }
     else {
         strm << "    noEmail is not set\n";
@@ -47,7 +47,7 @@ void NoteRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noShare) {
         strm << "    noShare = "
-            << *m_noShare << "\n";
+            << (*m_noShare ? "true" : "false") << "\n";
     }
     else {
         strm << "    noShare is not set\n";
@@ -55,7 +55,7 @@ void NoteRestrictions::Impl::print(QTextStream & strm) const
 
     if (m_noSharePublicly) {
         strm << "    noSharePublicly = "
-            << *m_noSharePublicly << "\n";
+            << (*m_noSharePublicly ? "true" : "false") << "\n";
     }
     else {
         strm << "    noSharePublicly is not set\n";
