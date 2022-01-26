@@ -64,7 +64,7 @@ QJsonObject serializeToJson(const Contact & value)
     }
 
     if (value.photoLastUpdated()) {
-        object[QStringLiteral("photoLastUpdated")] = *value.photoLastUpdated();
+        object[QStringLiteral("photoLastUpdated")] = QString::number(*value.photoLastUpdated());
     }
 
     if (value.messagingPermit()) {
@@ -72,7 +72,7 @@ QJsonObject serializeToJson(const Contact & value)
     }
 
     if (value.messagingPermitExpires()) {
-        object[QStringLiteral("messagingPermitExpires")] = *value.messagingPermitExpires();
+        object[QStringLiteral("messagingPermitExpires")] = QString::number(*value.messagingPermitExpires());
     }
 
     return object;
@@ -104,22 +104,24 @@ bool deserializeFromJson(const QJsonObject & object, Contact & value)
 
     if (object.contains(QStringLiteral("type"))) {
         const auto v = object[QStringLiteral("type")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastContactTypeToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setType(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastContactTypeToEnum(i);
+            if (e) {
+                value.setType(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -136,16 +138,15 @@ bool deserializeFromJson(const QJsonObject & object, Contact & value)
 
     if (object.contains(QStringLiteral("photoLastUpdated"))) {
         const auto v = object[QStringLiteral("photoLastUpdated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setPhotoLastUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setPhotoLastUpdated(i);
         }
         else {
             return false;
@@ -165,16 +166,15 @@ bool deserializeFromJson(const QJsonObject & object, Contact & value)
 
     if (object.contains(QStringLiteral("messagingPermitExpires"))) {
         const auto v = object[QStringLiteral("messagingPermitExpires")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setMessagingPermitExpires(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setMessagingPermitExpires(i);
         }
         else {
             return false;

@@ -26,19 +26,19 @@ QJsonObject serializeToJson(const NoteLimits & value)
     }
 
     if (value.uploadLimit()) {
-        object[QStringLiteral("uploadLimit")] = *value.uploadLimit();
+        object[QStringLiteral("uploadLimit")] = QString::number(*value.uploadLimit());
     }
 
     if (value.resourceSizeMax()) {
-        object[QStringLiteral("resourceSizeMax")] = *value.resourceSizeMax();
+        object[QStringLiteral("resourceSizeMax")] = QString::number(*value.resourceSizeMax());
     }
 
     if (value.noteSizeMax()) {
-        object[QStringLiteral("noteSizeMax")] = *value.noteSizeMax();
+        object[QStringLiteral("noteSizeMax")] = QString::number(*value.noteSizeMax());
     }
 
     if (value.uploaded()) {
-        object[QStringLiteral("uploaded")] = *value.uploaded();
+        object[QStringLiteral("uploaded")] = QString::number(*value.uploaded());
     }
 
     return object;
@@ -66,16 +66,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteLimits & value)
 
     if (object.contains(QStringLiteral("uploadLimit"))) {
         const auto v = object[QStringLiteral("uploadLimit")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUploadLimit(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUploadLimit(i);
         }
         else {
             return false;
@@ -84,16 +83,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteLimits & value)
 
     if (object.contains(QStringLiteral("resourceSizeMax"))) {
         const auto v = object[QStringLiteral("resourceSizeMax")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setResourceSizeMax(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setResourceSizeMax(i);
         }
         else {
             return false;
@@ -102,16 +100,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteLimits & value)
 
     if (object.contains(QStringLiteral("noteSizeMax"))) {
         const auto v = object[QStringLiteral("noteSizeMax")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setNoteSizeMax(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setNoteSizeMax(i);
         }
         else {
             return false;
@@ -120,16 +117,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteLimits & value)
 
     if (object.contains(QStringLiteral("uploaded"))) {
         const auto v = object[QStringLiteral("uploaded")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUploaded(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUploaded(i);
         }
         else {
             return false;

@@ -344,43 +344,47 @@ bool deserializeFromJson(const QJsonObject & object, NotebookRestrictions & valu
 
     if (object.contains(QStringLiteral("updateWhichSharedNotebookRestrictions"))) {
         const auto v = object[QStringLiteral("updateWhichSharedNotebookRestrictions")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastSharedNotebookInstanceRestrictionsToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setUpdateWhichSharedNotebookRestrictions(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastSharedNotebookInstanceRestrictionsToEnum(i);
+            if (e) {
+                value.setUpdateWhichSharedNotebookRestrictions(*e);
             }
             else {
                 return false;
             }
         }
+        else {
+            return false;
+        }
     }
 
     if (object.contains(QStringLiteral("expungeWhichSharedNotebookRestrictions"))) {
         const auto v = object[QStringLiteral("expungeWhichSharedNotebookRestrictions")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastSharedNotebookInstanceRestrictionsToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setExpungeWhichSharedNotebookRestrictions(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastSharedNotebookInstanceRestrictionsToEnum(i);
+            if (e) {
+                value.setExpungeWhichSharedNotebookRestrictions(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

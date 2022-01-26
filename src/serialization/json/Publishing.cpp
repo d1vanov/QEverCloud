@@ -79,22 +79,24 @@ bool deserializeFromJson(const QJsonObject & object, Publishing & value)
 
     if (object.contains(QStringLiteral("order"))) {
         const auto v = object[QStringLiteral("order")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastNoteSortOrderToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setOrder(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastNoteSortOrderToEnum(i);
+            if (e) {
+                value.setOrder(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

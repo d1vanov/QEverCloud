@@ -50,7 +50,7 @@ QJsonObject serializeToJson(const UserIdentity & value)
     }
 
     if (value.longIdentifier()) {
-        object[QStringLiteral("longIdentifier")] = *value.longIdentifier();
+        object[QStringLiteral("longIdentifier")] = QString::number(*value.longIdentifier());
     }
 
     return object;
@@ -60,22 +60,24 @@ bool deserializeFromJson(const QJsonObject & object, UserIdentity & value)
 {
     if (object.contains(QStringLiteral("type"))) {
         const auto v = object[QStringLiteral("type")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastUserIdentityTypeToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setType(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastUserIdentityTypeToEnum(i);
+            if (e) {
+                value.setType(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -92,16 +94,15 @@ bool deserializeFromJson(const QJsonObject & object, UserIdentity & value)
 
     if (object.contains(QStringLiteral("longIdentifier"))) {
         const auto v = object[QStringLiteral("longIdentifier")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setLongIdentifier(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setLongIdentifier(i);
         }
         else {
             return false;

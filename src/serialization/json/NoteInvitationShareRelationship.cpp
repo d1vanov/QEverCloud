@@ -46,7 +46,7 @@ QJsonObject serializeToJson(const NoteInvitationShareRelationship & value)
     }
 
     if (value.recipientIdentityId()) {
-        object[QStringLiteral("recipientIdentityId")] = *value.recipientIdentityId();
+        object[QStringLiteral("recipientIdentityId")] = QString::number(*value.recipientIdentityId());
     }
 
     if (value.privilege()) {
@@ -75,16 +75,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteInvitationShareRelation
 
     if (object.contains(QStringLiteral("recipientIdentityId"))) {
         const auto v = object[QStringLiteral("recipientIdentityId")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setRecipientIdentityId(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setRecipientIdentityId(i);
         }
         else {
             return false;
@@ -93,22 +92,24 @@ bool deserializeFromJson(const QJsonObject & object, NoteInvitationShareRelation
 
     if (object.contains(QStringLiteral("privilege"))) {
         const auto v = object[QStringLiteral("privilege")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastSharedNotePrivilegeLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setPrivilege(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastSharedNotePrivilegeLevelToEnum(i);
+            if (e) {
+                value.setPrivilege(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

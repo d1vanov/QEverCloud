@@ -77,22 +77,24 @@ bool deserializeFromJson(const QJsonObject & object, BusinessNotebook & value)
 
     if (object.contains(QStringLiteral("privilege"))) {
         const auto v = object[QStringLiteral("privilege")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastSharedNotebookPrivilegeLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setPrivilege(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastSharedNotebookPrivilegeLevelToEnum(i);
+            if (e) {
+                value.setPrivilege(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

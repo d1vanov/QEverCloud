@@ -52,22 +52,24 @@ bool deserializeFromJson(const QJsonObject & object, CanMoveToContainerRestricti
 {
     if (object.contains(QStringLiteral("canMoveToContainer"))) {
         const auto v = object[QStringLiteral("canMoveToContainer")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastCanMoveToContainerStatusToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setCanMoveToContainer(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastCanMoveToContainerStatusToEnum(i);
+            if (e) {
+                value.setCanMoveToContainer(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

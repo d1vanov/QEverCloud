@@ -109,22 +109,24 @@ bool deserializeFromJson(const QJsonObject & object, NotebookRecipientSettings &
 
     if (object.contains(QStringLiteral("recipientStatus"))) {
         const auto v = object[QStringLiteral("recipientStatus")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastRecipientStatusToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setRecipientStatus(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastRecipientStatusToEnum(i);
+            if (e) {
+                value.setRecipientStatus(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

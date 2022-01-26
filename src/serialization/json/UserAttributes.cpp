@@ -86,7 +86,7 @@ QJsonObject serializeToJson(const UserAttributes & value)
     }
 
     if (value.dateAgreedToTermsOfService()) {
-        object[QStringLiteral("dateAgreedToTermsOfService")] = *value.dateAgreedToTermsOfService();
+        object[QStringLiteral("dateAgreedToTermsOfService")] = QString::number(*value.dateAgreedToTermsOfService());
     }
 
     if (value.maxReferrals()) {
@@ -102,7 +102,7 @@ QJsonObject serializeToJson(const UserAttributes & value)
     }
 
     if (value.sentEmailDate()) {
-        object[QStringLiteral("sentEmailDate")] = *value.sentEmailDate();
+        object[QStringLiteral("sentEmailDate")] = QString::number(*value.sentEmailDate());
     }
 
     if (value.sentEmailCount()) {
@@ -114,11 +114,11 @@ QJsonObject serializeToJson(const UserAttributes & value)
     }
 
     if (value.emailOptOutDate()) {
-        object[QStringLiteral("emailOptOutDate")] = *value.emailOptOutDate();
+        object[QStringLiteral("emailOptOutDate")] = QString::number(*value.emailOptOutDate());
     }
 
     if (value.partnerEmailOptInDate()) {
-        object[QStringLiteral("partnerEmailOptInDate")] = *value.partnerEmailOptInDate();
+        object[QStringLiteral("partnerEmailOptInDate")] = QString::number(*value.partnerEmailOptInDate());
     }
 
     if (value.preferredLanguage()) {
@@ -174,11 +174,11 @@ QJsonObject serializeToJson(const UserAttributes & value)
     }
 
     if (value.emailAddressLastConfirmed()) {
-        object[QStringLiteral("emailAddressLastConfirmed")] = *value.emailAddressLastConfirmed();
+        object[QStringLiteral("emailAddressLastConfirmed")] = QString::number(*value.emailAddressLastConfirmed());
     }
 
     if (value.passwordUpdated()) {
-        object[QStringLiteral("passwordUpdated")] = *value.passwordUpdated();
+        object[QStringLiteral("passwordUpdated")] = QString::number(*value.passwordUpdated());
     }
 
     if (value.salesforcePushEnabled()) {
@@ -307,16 +307,15 @@ bool deserializeFromJson(const QJsonObject & object, UserAttributes & value)
 
     if (object.contains(QStringLiteral("dateAgreedToTermsOfService"))) {
         const auto v = object[QStringLiteral("dateAgreedToTermsOfService")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setDateAgreedToTermsOfService(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setDateAgreedToTermsOfService(i);
         }
         else {
             return false;
@@ -372,16 +371,15 @@ bool deserializeFromJson(const QJsonObject & object, UserAttributes & value)
 
     if (object.contains(QStringLiteral("sentEmailDate"))) {
         const auto v = object[QStringLiteral("sentEmailDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setSentEmailDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setSentEmailDate(i);
         }
         else {
             return false;
@@ -426,16 +424,15 @@ bool deserializeFromJson(const QJsonObject & object, UserAttributes & value)
 
     if (object.contains(QStringLiteral("emailOptOutDate"))) {
         const auto v = object[QStringLiteral("emailOptOutDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setEmailOptOutDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setEmailOptOutDate(i);
         }
         else {
             return false;
@@ -444,16 +441,15 @@ bool deserializeFromJson(const QJsonObject & object, UserAttributes & value)
 
     if (object.contains(QStringLiteral("partnerEmailOptInDate"))) {
         const auto v = object[QStringLiteral("partnerEmailOptInDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setPartnerEmailOptInDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setPartnerEmailOptInDate(i);
         }
         else {
             return false;
@@ -590,33 +586,17 @@ bool deserializeFromJson(const QJsonObject & object, UserAttributes & value)
 
     if (object.contains(QStringLiteral("reminderEmailConfig"))) {
         const auto v = object[QStringLiteral("reminderEmailConfig")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastReminderEmailConfigToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setReminderEmailConfig(*e);
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
-        }
-    }
 
-    if (object.contains(QStringLiteral("emailAddressLastConfirmed"))) {
-        const auto v = object[QStringLiteral("emailAddressLastConfirmed")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setEmailAddressLastConfirmed(static_cast<qint64>(d));
+            const auto e = safeCastReminderEmailConfigToEnum(i);
+            if (e) {
+                value.setReminderEmailConfig(*e);
             }
             else {
                 return false;
@@ -627,18 +607,34 @@ bool deserializeFromJson(const QJsonObject & object, UserAttributes & value)
         }
     }
 
-    if (object.contains(QStringLiteral("passwordUpdated"))) {
-        const auto v = object[QStringLiteral("passwordUpdated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setPasswordUpdated(static_cast<qint64>(d));
-            }
-            else {
+    if (object.contains(QStringLiteral("emailAddressLastConfirmed"))) {
+        const auto v = object[QStringLiteral("emailAddressLastConfirmed")];
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setEmailAddressLastConfirmed(i);
+        }
+        else {
+            return false;
+        }
+    }
+
+    if (object.contains(QStringLiteral("passwordUpdated"))) {
+        const auto v = object[QStringLiteral("passwordUpdated")];
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            value.setPasswordUpdated(i);
         }
         else {
             return false;

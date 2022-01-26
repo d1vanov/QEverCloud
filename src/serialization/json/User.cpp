@@ -113,15 +113,15 @@ QJsonObject serializeToJson(const User & value)
     }
 
     if (value.created()) {
-        object[QStringLiteral("created")] = *value.created();
+        object[QStringLiteral("created")] = QString::number(*value.created());
     }
 
     if (value.updated()) {
-        object[QStringLiteral("updated")] = *value.updated();
+        object[QStringLiteral("updated")] = QString::number(*value.updated());
     }
 
     if (value.deleted()) {
-        object[QStringLiteral("deleted")] = *value.deleted();
+        object[QStringLiteral("deleted")] = QString::number(*value.deleted());
     }
 
     if (value.active()) {
@@ -149,7 +149,7 @@ QJsonObject serializeToJson(const User & value)
     }
 
     if (value.photoLastUpdated()) {
-        object[QStringLiteral("photoLastUpdated")] = *value.photoLastUpdated();
+        object[QStringLiteral("photoLastUpdated")] = QString::number(*value.photoLastUpdated());
     }
 
     if (value.accountLimits()) {
@@ -271,58 +271,61 @@ bool deserializeFromJson(const QJsonObject & object, User & value)
 
     if (object.contains(QStringLiteral("privilege"))) {
         const auto v = object[QStringLiteral("privilege")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastPrivilegeLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setPrivilege(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastPrivilegeLevelToEnum(i);
+            if (e) {
+                value.setPrivilege(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
     if (object.contains(QStringLiteral("serviceLevel"))) {
         const auto v = object[QStringLiteral("serviceLevel")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastServiceLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setServiceLevel(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastServiceLevelToEnum(i);
+            if (e) {
+                value.setServiceLevel(*e);
             }
             else {
                 return false;
             }
         }
+        else {
+            return false;
+        }
     }
 
     if (object.contains(QStringLiteral("created"))) {
         const auto v = object[QStringLiteral("created")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setCreated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setCreated(i);
         }
         else {
             return false;
@@ -331,16 +334,15 @@ bool deserializeFromJson(const QJsonObject & object, User & value)
 
     if (object.contains(QStringLiteral("updated"))) {
         const auto v = object[QStringLiteral("updated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUpdated(i);
         }
         else {
             return false;
@@ -349,16 +351,15 @@ bool deserializeFromJson(const QJsonObject & object, User & value)
 
     if (object.contains(QStringLiteral("deleted"))) {
         const auto v = object[QStringLiteral("deleted")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setDeleted(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setDeleted(i);
         }
         else {
             return false;
@@ -450,16 +451,15 @@ bool deserializeFromJson(const QJsonObject & object, User & value)
 
     if (object.contains(QStringLiteral("photoLastUpdated"))) {
         const auto v = object[QStringLiteral("photoLastUpdated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setPhotoLastUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setPhotoLastUpdated(i);
         }
         else {
             return false;

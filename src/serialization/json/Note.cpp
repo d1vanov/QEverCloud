@@ -75,15 +75,15 @@ QJsonObject serializeToJson(const Note & value)
     }
 
     if (value.created()) {
-        object[QStringLiteral("created")] = *value.created();
+        object[QStringLiteral("created")] = QString::number(*value.created());
     }
 
     if (value.updated()) {
-        object[QStringLiteral("updated")] = *value.updated();
+        object[QStringLiteral("updated")] = QString::number(*value.updated());
     }
 
     if (value.deleted()) {
-        object[QStringLiteral("deleted")] = *value.deleted();
+        object[QStringLiteral("deleted")] = QString::number(*value.deleted());
     }
 
     if (value.active()) {
@@ -323,16 +323,15 @@ bool deserializeFromJson(const QJsonObject & object, Note & value)
 
     if (object.contains(QStringLiteral("created"))) {
         const auto v = object[QStringLiteral("created")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setCreated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setCreated(i);
         }
         else {
             return false;
@@ -341,16 +340,15 @@ bool deserializeFromJson(const QJsonObject & object, Note & value)
 
     if (object.contains(QStringLiteral("updated"))) {
         const auto v = object[QStringLiteral("updated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUpdated(i);
         }
         else {
             return false;
@@ -359,16 +357,15 @@ bool deserializeFromJson(const QJsonObject & object, Note & value)
 
     if (object.contains(QStringLiteral("deleted"))) {
         const auto v = object[QStringLiteral("deleted")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setDeleted(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setDeleted(i);
         }
         else {
             return false;

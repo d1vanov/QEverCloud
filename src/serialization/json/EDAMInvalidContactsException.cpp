@@ -117,22 +117,24 @@ bool deserializeFromJson(const QJsonObject & object, EDAMInvalidContactsExceptio
             const auto a = v.toArray();
             QList<EDAMInvalidContactReason> values;
             for (const auto & item: qAsConst(a)) {
-                if (item.isDouble()) {
-                    const auto d = item.toDouble();
-                    if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                        (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-                    {
-                        const auto e = safeCastEDAMInvalidContactReasonToEnum(static_cast<qint64>(d));
-                        if (e) {
-                            values.push_back(*e);
-                        }
-                        else {
-                            return false;
-                        }
+                if (item.isString()) {
+                    const auto s = item.toString();
+                    bool conversionResult = false;
+                    qint64 i = s.toLongLong(&conversionResult);
+                    if (!conversionResult) {
+                        return false;
+                    }
+
+                    const auto e = safeCastEDAMInvalidContactReasonToEnum(i);
+                    if (e) {
+                        values.push_back(*e);
                     }
                     else {
                         return false;
                     }
+                }
+                else {
+                    return false;
                 }
             }
             value.setReasons(std::move(values));

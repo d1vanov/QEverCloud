@@ -80,11 +80,11 @@ QJsonObject serializeToJson(const BusinessInvitation & value)
     }
 
     if (value.created()) {
-        object[QStringLiteral("created")] = *value.created();
+        object[QStringLiteral("created")] = QString::number(*value.created());
     }
 
     if (value.mostRecentReminder()) {
-        object[QStringLiteral("mostRecentReminder")] = *value.mostRecentReminder();
+        object[QStringLiteral("mostRecentReminder")] = QString::number(*value.mostRecentReminder());
     }
 
     return object;
@@ -123,43 +123,47 @@ bool deserializeFromJson(const QJsonObject & object, BusinessInvitation & value)
 
     if (object.contains(QStringLiteral("role"))) {
         const auto v = object[QStringLiteral("role")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastBusinessUserRoleToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setRole(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastBusinessUserRoleToEnum(i);
+            if (e) {
+                value.setRole(*e);
             }
             else {
                 return false;
             }
         }
+        else {
+            return false;
+        }
     }
 
     if (object.contains(QStringLiteral("status"))) {
         const auto v = object[QStringLiteral("status")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastBusinessInvitationStatusToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setStatus(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastBusinessInvitationStatusToEnum(i);
+            if (e) {
+                value.setStatus(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -193,16 +197,15 @@ bool deserializeFromJson(const QJsonObject & object, BusinessInvitation & value)
 
     if (object.contains(QStringLiteral("created"))) {
         const auto v = object[QStringLiteral("created")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setCreated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setCreated(i);
         }
         else {
             return false;
@@ -211,16 +214,15 @@ bool deserializeFromJson(const QJsonObject & object, BusinessInvitation & value)
 
     if (object.contains(QStringLiteral("mostRecentReminder"))) {
         const auto v = object[QStringLiteral("mostRecentReminder")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setMostRecentReminder(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setMostRecentReminder(i);
         }
         else {
             return false;

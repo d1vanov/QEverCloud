@@ -25,9 +25,9 @@ QJsonObject serializeToJson(const AuthenticationResult & value)
 {
     QJsonObject object;
 
-    object[QStringLiteral("currentTime")] = value.currentTime();
+    object[QStringLiteral("currentTime")] = QString::number(value.currentTime());
     object[QStringLiteral("authenticationToken")] = value.authenticationToken();
-    object[QStringLiteral("expiration")] = value.expiration();
+    object[QStringLiteral("expiration")] = QString::number(value.expiration());
     if (value.user()) {
         object[QStringLiteral("user")] = serializeToJson(*value.user());
     }
@@ -63,16 +63,15 @@ bool deserializeFromJson(const QJsonObject & object, AuthenticationResult & valu
 {
     if (object.contains(QStringLiteral("currentTime"))) {
         const auto v = object[QStringLiteral("currentTime")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setCurrentTime(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setCurrentTime(i);
         }
         else {
             return false;
@@ -92,16 +91,15 @@ bool deserializeFromJson(const QJsonObject & object, AuthenticationResult & valu
 
     if (object.contains(QStringLiteral("expiration"))) {
         const auto v = object[QStringLiteral("expiration")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setExpiration(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setExpiration(i);
         }
         else {
             return false;

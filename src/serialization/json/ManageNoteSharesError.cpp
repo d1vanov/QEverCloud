@@ -25,7 +25,7 @@ QJsonObject serializeToJson(const ManageNoteSharesError & value)
     QJsonObject object;
 
     if (value.identityID()) {
-        object[QStringLiteral("identityID")] = *value.identityID();
+        object[QStringLiteral("identityID")] = QString::number(*value.identityID());
     }
 
     if (value.userID()) {
@@ -47,16 +47,15 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesError & val
 {
     if (object.contains(QStringLiteral("identityID"))) {
         const auto v = object[QStringLiteral("identityID")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setIdentityID(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setIdentityID(i);
         }
         else {
             return false;

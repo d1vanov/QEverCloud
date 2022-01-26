@@ -66,7 +66,7 @@ QJsonObject serializeToJson(const ManageNoteSharesParameters & value)
         QJsonArray array;
         for (const auto & v: qAsConst(*value.invitationsToUnshare()))
         {
-            array << v;
+            array << QString::number(v);
         }
 
         object[QStringLiteral("invitationsToUnshare")] = array;
@@ -176,16 +176,15 @@ bool deserializeFromJson(const QJsonObject & object, ManageNoteSharesParameters 
             const auto a = v.toArray();
             QList<IdentityID> values;
             for (const auto & item: qAsConst(a)) {
-                if (item.isDouble()) {
-                    const auto d = item.toDouble();
-                    if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                        (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-                    {
-                        values.push_back(static_cast<qint64>(d));
-                    }
-                    else {
+                if (item.isString()) {
+                    const auto s = item.toString();
+                    bool conversionResult = false;
+                    qint64 i = s.toLongLong(&conversionResult);
+                    if (!conversionResult) {
                         return false;
                     }
+
+                    values.push_back(i);
                 }
                 else {
                     return false;

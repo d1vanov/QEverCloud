@@ -64,7 +64,7 @@ QJsonObject serializeToJson(const SharedNotebook & value)
     }
 
     if (value.id()) {
-        object[QStringLiteral("id")] = *value.id();
+        object[QStringLiteral("id")] = QString::number(*value.id());
     }
 
     if (value.userId()) {
@@ -80,7 +80,7 @@ QJsonObject serializeToJson(const SharedNotebook & value)
     }
 
     if (value.recipientIdentityId()) {
-        object[QStringLiteral("recipientIdentityId")] = *value.recipientIdentityId();
+        object[QStringLiteral("recipientIdentityId")] = QString::number(*value.recipientIdentityId());
     }
 
     if (value.notebookModifiable()) {
@@ -88,11 +88,11 @@ QJsonObject serializeToJson(const SharedNotebook & value)
     }
 
     if (value.serviceCreated()) {
-        object[QStringLiteral("serviceCreated")] = *value.serviceCreated();
+        object[QStringLiteral("serviceCreated")] = QString::number(*value.serviceCreated());
     }
 
     if (value.serviceUpdated()) {
-        object[QStringLiteral("serviceUpdated")] = *value.serviceUpdated();
+        object[QStringLiteral("serviceUpdated")] = QString::number(*value.serviceUpdated());
     }
 
     if (value.globalId()) {
@@ -124,7 +124,7 @@ QJsonObject serializeToJson(const SharedNotebook & value)
     }
 
     if (value.serviceAssigned()) {
-        object[QStringLiteral("serviceAssigned")] = *value.serviceAssigned();
+        object[QStringLiteral("serviceAssigned")] = QString::number(*value.serviceAssigned());
     }
 
     return object;
@@ -180,16 +180,15 @@ bool deserializeFromJson(const QJsonObject & object, SharedNotebook & value)
 
     if (object.contains(QStringLiteral("id"))) {
         const auto v = object[QStringLiteral("id")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setId(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setId(i);
         }
         else {
             return false;
@@ -238,16 +237,15 @@ bool deserializeFromJson(const QJsonObject & object, SharedNotebook & value)
 
     if (object.contains(QStringLiteral("recipientIdentityId"))) {
         const auto v = object[QStringLiteral("recipientIdentityId")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setRecipientIdentityId(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setRecipientIdentityId(i);
         }
         else {
             return false;
@@ -266,16 +264,15 @@ bool deserializeFromJson(const QJsonObject & object, SharedNotebook & value)
 
     if (object.contains(QStringLiteral("serviceCreated"))) {
         const auto v = object[QStringLiteral("serviceCreated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setServiceCreated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setServiceCreated(i);
         }
         else {
             return false;
@@ -284,16 +281,15 @@ bool deserializeFromJson(const QJsonObject & object, SharedNotebook & value)
 
     if (object.contains(QStringLiteral("serviceUpdated"))) {
         const auto v = object[QStringLiteral("serviceUpdated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setServiceUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setServiceUpdated(i);
         }
         else {
             return false;
@@ -324,22 +320,24 @@ bool deserializeFromJson(const QJsonObject & object, SharedNotebook & value)
 
     if (object.contains(QStringLiteral("privilege"))) {
         const auto v = object[QStringLiteral("privilege")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastSharedNotebookPrivilegeLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setPrivilege(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastSharedNotebookPrivilegeLevelToEnum(i);
+            if (e) {
+                value.setPrivilege(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -409,16 +407,15 @@ bool deserializeFromJson(const QJsonObject & object, SharedNotebook & value)
 
     if (object.contains(QStringLiteral("serviceAssigned"))) {
         const auto v = object[QStringLiteral("serviceAssigned")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setServiceAssigned(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setServiceAssigned(i);
         }
         else {
             return false;

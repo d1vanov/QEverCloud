@@ -46,7 +46,7 @@ QJsonObject serializeToJson(const BusinessUserAttributes & value)
     }
 
     if (value.companyStartDate()) {
-        object[QStringLiteral("companyStartDate")] = *value.companyStartDate();
+        object[QStringLiteral("companyStartDate")] = QString::number(*value.companyStartDate());
     }
 
     return object;
@@ -122,16 +122,15 @@ bool deserializeFromJson(const QJsonObject & object, BusinessUserAttributes & va
 
     if (object.contains(QStringLiteral("companyStartDate"))) {
         const auto v = object[QStringLiteral("companyStartDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setCompanyStartDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setCompanyStartDate(i);
         }
         else {
             return false;

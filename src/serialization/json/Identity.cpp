@@ -23,7 +23,7 @@ QJsonObject serializeToJson(const Identity & value)
 {
     QJsonObject object;
 
-    object[QStringLiteral("id")] = value.id();
+    object[QStringLiteral("id")] = QString::number(value.id());
     if (value.contact()) {
         object[QStringLiteral("contact")] = serializeToJson(*value.contact());
     }
@@ -49,7 +49,7 @@ QJsonObject serializeToJson(const Identity & value)
     }
 
     if (value.eventId()) {
-        object[QStringLiteral("eventId")] = *value.eventId();
+        object[QStringLiteral("eventId")] = QString::number(*value.eventId());
     }
 
     return object;
@@ -59,16 +59,15 @@ bool deserializeFromJson(const QJsonObject & object, Identity & value)
 {
     if (object.contains(QStringLiteral("id"))) {
         const auto v = object[QStringLiteral("id")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setId(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setId(i);
         }
         else {
             return false;
@@ -152,16 +151,15 @@ bool deserializeFromJson(const QJsonObject & object, Identity & value)
 
     if (object.contains(QStringLiteral("eventId"))) {
         const auto v = object[QStringLiteral("eventId")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setEventId(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setEventId(i);
         }
         else {
             return false;

@@ -62,11 +62,11 @@ QJsonObject serializeToJson(const Accounting & value)
     QJsonObject object;
 
     if (value.uploadLimitEnd()) {
-        object[QStringLiteral("uploadLimitEnd")] = *value.uploadLimitEnd();
+        object[QStringLiteral("uploadLimitEnd")] = QString::number(*value.uploadLimitEnd());
     }
 
     if (value.uploadLimitNextMonth()) {
-        object[QStringLiteral("uploadLimitNextMonth")] = *value.uploadLimitNextMonth();
+        object[QStringLiteral("uploadLimitNextMonth")] = QString::number(*value.uploadLimitNextMonth());
     }
 
     if (value.premiumServiceStatus()) {
@@ -82,7 +82,7 @@ QJsonObject serializeToJson(const Accounting & value)
     }
 
     if (value.premiumServiceStart()) {
-        object[QStringLiteral("premiumServiceStart")] = *value.premiumServiceStart();
+        object[QStringLiteral("premiumServiceStart")] = QString::number(*value.premiumServiceStart());
     }
 
     if (value.premiumServiceSKU()) {
@@ -90,11 +90,11 @@ QJsonObject serializeToJson(const Accounting & value)
     }
 
     if (value.lastSuccessfulCharge()) {
-        object[QStringLiteral("lastSuccessfulCharge")] = *value.lastSuccessfulCharge();
+        object[QStringLiteral("lastSuccessfulCharge")] = QString::number(*value.lastSuccessfulCharge());
     }
 
     if (value.lastFailedCharge()) {
-        object[QStringLiteral("lastFailedCharge")] = *value.lastFailedCharge();
+        object[QStringLiteral("lastFailedCharge")] = QString::number(*value.lastFailedCharge());
     }
 
     if (value.lastFailedChargeReason()) {
@@ -102,15 +102,15 @@ QJsonObject serializeToJson(const Accounting & value)
     }
 
     if (value.nextPaymentDue()) {
-        object[QStringLiteral("nextPaymentDue")] = *value.nextPaymentDue();
+        object[QStringLiteral("nextPaymentDue")] = QString::number(*value.nextPaymentDue());
     }
 
     if (value.premiumLockUntil()) {
-        object[QStringLiteral("premiumLockUntil")] = *value.premiumLockUntil();
+        object[QStringLiteral("premiumLockUntil")] = QString::number(*value.premiumLockUntil());
     }
 
     if (value.updated()) {
-        object[QStringLiteral("updated")] = *value.updated();
+        object[QStringLiteral("updated")] = QString::number(*value.updated());
     }
 
     if (value.premiumSubscriptionNumber()) {
@@ -118,7 +118,7 @@ QJsonObject serializeToJson(const Accounting & value)
     }
 
     if (value.lastRequestedCharge()) {
-        object[QStringLiteral("lastRequestedCharge")] = *value.lastRequestedCharge();
+        object[QStringLiteral("lastRequestedCharge")] = QString::number(*value.lastRequestedCharge());
     }
 
     if (value.currency()) {
@@ -146,7 +146,7 @@ QJsonObject serializeToJson(const Accounting & value)
     }
 
     if (value.nextChargeDate()) {
-        object[QStringLiteral("nextChargeDate")] = *value.nextChargeDate();
+        object[QStringLiteral("nextChargeDate")] = QString::number(*value.nextChargeDate());
     }
 
     if (value.availablePoints()) {
@@ -160,16 +160,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 {
     if (object.contains(QStringLiteral("uploadLimitEnd"))) {
         const auto v = object[QStringLiteral("uploadLimitEnd")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUploadLimitEnd(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUploadLimitEnd(i);
         }
         else {
             return false;
@@ -178,16 +177,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("uploadLimitNextMonth"))) {
         const auto v = object[QStringLiteral("uploadLimitNextMonth")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUploadLimitNextMonth(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUploadLimitNextMonth(i);
         }
         else {
             return false;
@@ -196,22 +194,24 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("premiumServiceStatus"))) {
         const auto v = object[QStringLiteral("premiumServiceStatus")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastPremiumOrderStatusToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setPremiumServiceStatus(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastPremiumOrderStatusToEnum(i);
+            if (e) {
+                value.setPremiumServiceStatus(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -239,16 +239,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("premiumServiceStart"))) {
         const auto v = object[QStringLiteral("premiumServiceStart")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setPremiumServiceStart(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setPremiumServiceStart(i);
         }
         else {
             return false;
@@ -268,16 +267,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("lastSuccessfulCharge"))) {
         const auto v = object[QStringLiteral("lastSuccessfulCharge")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setLastSuccessfulCharge(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setLastSuccessfulCharge(i);
         }
         else {
             return false;
@@ -286,16 +284,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("lastFailedCharge"))) {
         const auto v = object[QStringLiteral("lastFailedCharge")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setLastFailedCharge(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setLastFailedCharge(i);
         }
         else {
             return false;
@@ -315,16 +312,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("nextPaymentDue"))) {
         const auto v = object[QStringLiteral("nextPaymentDue")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setNextPaymentDue(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setNextPaymentDue(i);
         }
         else {
             return false;
@@ -333,16 +329,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("premiumLockUntil"))) {
         const auto v = object[QStringLiteral("premiumLockUntil")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setPremiumLockUntil(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setPremiumLockUntil(i);
         }
         else {
             return false;
@@ -351,16 +346,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("updated"))) {
         const auto v = object[QStringLiteral("updated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setUpdated(i);
         }
         else {
             return false;
@@ -380,16 +374,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("lastRequestedCharge"))) {
         const auto v = object[QStringLiteral("lastRequestedCharge")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setLastRequestedCharge(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setLastRequestedCharge(i);
         }
         else {
             return false;
@@ -456,22 +449,24 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("businessRole"))) {
         const auto v = object[QStringLiteral("businessRole")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastBusinessUserRoleToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setBusinessRole(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastBusinessUserRoleToEnum(i);
+            if (e) {
+                value.setBusinessRole(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -495,16 +490,15 @@ bool deserializeFromJson(const QJsonObject & object, Accounting & value)
 
     if (object.contains(QStringLiteral("nextChargeDate"))) {
         const auto v = object[QStringLiteral("nextChargeDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setNextChargeDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setNextChargeDate(i);
         }
         else {
             return false;

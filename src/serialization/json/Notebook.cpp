@@ -64,11 +64,11 @@ QJsonObject serializeToJson(const Notebook & value)
     }
 
     if (value.serviceCreated()) {
-        object[QStringLiteral("serviceCreated")] = *value.serviceCreated();
+        object[QStringLiteral("serviceCreated")] = QString::number(*value.serviceCreated());
     }
 
     if (value.serviceUpdated()) {
-        object[QStringLiteral("serviceUpdated")] = *value.serviceUpdated();
+        object[QStringLiteral("serviceUpdated")] = QString::number(*value.serviceUpdated());
     }
 
     if (value.publishing()) {
@@ -88,7 +88,7 @@ QJsonObject serializeToJson(const Notebook & value)
         QJsonArray array;
         for (const auto & v: qAsConst(*value.sharedNotebookIds()))
         {
-            array << v;
+            array << QString::number(v);
         }
 
         object[QStringLiteral("sharedNotebookIds")] = array;
@@ -246,16 +246,15 @@ bool deserializeFromJson(const QJsonObject & object, Notebook & value)
 
     if (object.contains(QStringLiteral("serviceCreated"))) {
         const auto v = object[QStringLiteral("serviceCreated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setServiceCreated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setServiceCreated(i);
         }
         else {
             return false;
@@ -264,16 +263,15 @@ bool deserializeFromJson(const QJsonObject & object, Notebook & value)
 
     if (object.contains(QStringLiteral("serviceUpdated"))) {
         const auto v = object[QStringLiteral("serviceUpdated")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setServiceUpdated(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setServiceUpdated(i);
         }
         else {
             return false;
@@ -324,16 +322,15 @@ bool deserializeFromJson(const QJsonObject & object, Notebook & value)
             const auto a = v.toArray();
             QList<qint64> values;
             for (const auto & item: qAsConst(a)) {
-                if (item.isDouble()) {
-                    const auto d = item.toDouble();
-                    if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                        (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-                    {
-                        values.push_back(static_cast<qint64>(d));
-                    }
-                    else {
+                if (item.isString()) {
+                    const auto s = item.toString();
+                    bool conversionResult = false;
+                    qint64 i = s.toLongLong(&conversionResult);
+                    if (!conversionResult) {
                         return false;
                     }
+
+                    values.push_back(i);
                 }
                 else {
                     return false;

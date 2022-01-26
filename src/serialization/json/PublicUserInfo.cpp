@@ -85,22 +85,24 @@ bool deserializeFromJson(const QJsonObject & object, PublicUserInfo & value)
 
     if (object.contains(QStringLiteral("serviceLevel"))) {
         const auto v = object[QStringLiteral("serviceLevel")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastServiceLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setServiceLevel(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastServiceLevelToEnum(i);
+            if (e) {
+                value.setServiceLevel(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

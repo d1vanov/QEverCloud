@@ -105,43 +105,47 @@ bool deserializeFromJson(const QJsonObject & object, MemberShareRelationship & v
 
     if (object.contains(QStringLiteral("bestPrivilege"))) {
         const auto v = object[QStringLiteral("bestPrivilege")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastShareRelationshipPrivilegeLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setBestPrivilege(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastShareRelationshipPrivilegeLevelToEnum(i);
+            if (e) {
+                value.setBestPrivilege(*e);
             }
             else {
                 return false;
             }
         }
+        else {
+            return false;
+        }
     }
 
     if (object.contains(QStringLiteral("individualPrivilege"))) {
         const auto v = object[QStringLiteral("individualPrivilege")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                const auto e = safeCastShareRelationshipPrivilegeLevelToEnum(static_cast<qint64>(d));
-                if (e) {
-                    value.setIndividualPrivilege(*e);
-                }
-                else {
-                    return false;
-                }
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
+                return false;
+            }
+
+            const auto e = safeCastShareRelationshipPrivilegeLevelToEnum(i);
+            if (e) {
+                value.setIndividualPrivilege(*e);
             }
             else {
                 return false;
             }
+        }
+        else {
+            return false;
         }
     }
 

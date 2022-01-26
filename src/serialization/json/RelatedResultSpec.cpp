@@ -217,22 +217,24 @@ bool deserializeFromJson(const QJsonObject & object, RelatedResultSpec & value)
             const auto a = v.toArray();
             QSet<RelatedContentType> values;
             for (const auto & item: qAsConst(a)) {
-                if (item.isDouble()) {
-                    const auto d = item.toDouble();
-                    if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                        (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-                    {
-                        const auto e = safeCastRelatedContentTypeToEnum(static_cast<qint64>(d));
-                        if (e) {
-                            values.insert(*e);
-                        }
-                        else {
-                            return false;
-                        }
+                if (item.isString()) {
+                    const auto s = item.toString();
+                    bool conversionResult = false;
+                    qint64 i = s.toLongLong(&conversionResult);
+                    if (!conversionResult) {
+                        return false;
+                    }
+
+                    const auto e = safeCastRelatedContentTypeToEnum(i);
+                    if (e) {
+                        values.insert(*e);
                     }
                     else {
                         return false;
                     }
+                }
+                else {
+                    return false;
                 }
             }
             value.setRelatedContentTypes(std::move(values));

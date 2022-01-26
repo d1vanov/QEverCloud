@@ -26,7 +26,7 @@ QJsonObject serializeToJson(const NoteAttributes & value)
     QJsonObject object;
 
     if (value.subjectDate()) {
-        object[QStringLiteral("subjectDate")] = *value.subjectDate();
+        object[QStringLiteral("subjectDate")] = QString::number(*value.subjectDate());
     }
 
     if (value.latitude()) {
@@ -58,19 +58,19 @@ QJsonObject serializeToJson(const NoteAttributes & value)
     }
 
     if (value.shareDate()) {
-        object[QStringLiteral("shareDate")] = *value.shareDate();
+        object[QStringLiteral("shareDate")] = QString::number(*value.shareDate());
     }
 
     if (value.reminderOrder()) {
-        object[QStringLiteral("reminderOrder")] = *value.reminderOrder();
+        object[QStringLiteral("reminderOrder")] = QString::number(*value.reminderOrder());
     }
 
     if (value.reminderDoneTime()) {
-        object[QStringLiteral("reminderDoneTime")] = *value.reminderDoneTime();
+        object[QStringLiteral("reminderDoneTime")] = QString::number(*value.reminderDoneTime());
     }
 
     if (value.reminderTime()) {
-        object[QStringLiteral("reminderTime")] = *value.reminderTime();
+        object[QStringLiteral("reminderTime")] = QString::number(*value.reminderTime());
     }
 
     if (value.placeName()) {
@@ -126,16 +126,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteAttributes & value)
 {
     if (object.contains(QStringLiteral("subjectDate"))) {
         const auto v = object[QStringLiteral("subjectDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setSubjectDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setSubjectDate(i);
         }
         else {
             return false;
@@ -221,16 +220,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteAttributes & value)
 
     if (object.contains(QStringLiteral("shareDate"))) {
         const auto v = object[QStringLiteral("shareDate")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setShareDate(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setShareDate(i);
         }
         else {
             return false;
@@ -239,16 +237,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteAttributes & value)
 
     if (object.contains(QStringLiteral("reminderOrder"))) {
         const auto v = object[QStringLiteral("reminderOrder")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setReminderOrder(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setReminderOrder(i);
         }
         else {
             return false;
@@ -257,16 +254,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteAttributes & value)
 
     if (object.contains(QStringLiteral("reminderDoneTime"))) {
         const auto v = object[QStringLiteral("reminderDoneTime")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setReminderDoneTime(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setReminderDoneTime(i);
         }
         else {
             return false;
@@ -275,16 +271,15 @@ bool deserializeFromJson(const QJsonObject & object, NoteAttributes & value)
 
     if (object.contains(QStringLiteral("reminderTime"))) {
         const auto v = object[QStringLiteral("reminderTime")];
-        if (v.isDouble()) {
-            const auto d = v.toDouble();
-            if ((d >= static_cast<double>(std::numeric_limits<qint64>::min())) &&
-                (d <= static_cast<double>(std::numeric_limits<qint64>::max())))
-            {
-                value.setReminderTime(static_cast<qint64>(d));
-            }
-            else {
+        if (v.isString()) {
+            const auto s = v.toString();
+            bool conversionResult = false;
+            qint64 i = s.toLongLong(&conversionResult);
+            if (!conversionResult) {
                 return false;
             }
+
+            value.setReminderTime(i);
         }
         else {
             return false;
