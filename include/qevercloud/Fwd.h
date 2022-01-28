@@ -16,4 +16,13 @@
 #include "services/Fwd.h"
 #include "types/Fwd.h"
 
+#include <memory>
+
+namespace qevercloud {
+
+class IRequestContext;
+using IRequestContextPtr = std::shared_ptr<IRequestContext>;
+
+} // namespace qevercloud
+
 #endif // QEVERCLOUD_GENERATED_FWD

@@ -9,6 +9,7 @@
 #define QEVERCLOUD_REQUEST_CONTEXT_H
 
 #include <qevercloud/Export.h>
+#include <qevercloud/Fwd.h>
 
 #include <QDebug>
 #include <QList>
@@ -77,8 +78,6 @@ public:
     friend QEVERCLOUD_EXPORT QDebug & operator<<(
         QDebug & dbg, const IRequestContext & ctx);
 };
-
-using IRequestContextPtr = std::shared_ptr<IRequestContext>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
