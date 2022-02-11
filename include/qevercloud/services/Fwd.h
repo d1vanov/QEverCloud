@@ -9,12 +9,22 @@
  * This file was generated from Evernote Thrift API
  */
 
+#include <memory>
+
 #ifndef QEVERCLOUD_GENERATED_SERVICES_FWD
 #define QEVERCLOUD_GENERATED_SERVICES_FWD
 
+namespace qevercloud {
+
 class INoteStore;
+using INoteStorePtr = std::shared_ptr<INoteStore>;
+
 class IUserStore;
+using IUserStorePtr = std::shared_ptr<IUserStore>;
+
 class NoteStoreServer;
 class UserStoreServer;
+
+} // namespace qevercloud
 
 #endif // QEVERCLOUD_GENERATED_SERVICES_FWD

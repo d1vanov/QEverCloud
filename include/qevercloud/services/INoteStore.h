@@ -18,6 +18,7 @@
 #include <qevercloud/DurableService.h>
 #include <qevercloud/RequestContext.h>
 #include <qevercloud/Types.h>
+#include <qevercloud/services/Fwd.h>
 #include <QFuture>
 #include <QObject>
 #include <QVariant>
@@ -2735,8 +2736,6 @@ public:
         IRequestContextPtr ctx = {}) = 0;
 
 };
-
-using INoteStorePtr = std::shared_ptr<INoteStore>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
